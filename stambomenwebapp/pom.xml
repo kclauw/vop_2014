@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.team12</groupId>
-    <artifactId>stambomenwebapp</artifactId>
+    <artifactId>StamBomenWebApp</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>stambomenwebapp</name>
+    <name>StambomenWebApp</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
