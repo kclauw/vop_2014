@@ -16,19 +16,18 @@ public class UserDao implements IDao<User>
 {  
     private List<User> users;
     private Connection con;
-    private DbConnection db;
-    private final String getAllUsers = "SELECT * FROM Users";
-    private final String saveUser = "INSERT ?, ?, ? INTO Users";
- 
+    private final String getAllUsers = "SELECT id, username, password FROM User";
+    private final String saveUser = "INSERT INTO User (id, username, password) VALUES (?, ?, ?)";
+    
     public UserDao()
     {
-        db = new DbConnection();
+        users = new ArrayList<User>();
     }
     
     @Override
     public User Get(User id) 
     {
-       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -36,17 +35,19 @@ public class UserDao implements IDao<User>
     {
         try 
         {
-            con = db.getConnection();
+            con = DatabaseUtils.getConnection(DatabaseUtils.driver, DatabaseUtils.url, DatabaseUtils.username, DatabaseUtils.password);
             PreparedStatement prep = con.prepareStatement(saveUser);
             prep.setInt(1, value.getId());
             prep.setString(2, value.getUsername());
             prep.setString(3, value.getPasssword());
-            prep.executeQuery();
+            prep.executeUpdate();
             
             con.close();
         } 
         catch (SQLException ex) 
         {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -66,15 +67,12 @@ public class UserDao implements IDao<User>
     @Override
     public Collection<User> GetAll() 
     {
-        List<User> users = null;
-        
         try 
         {
-           con = db.getConnection();
-           users = new ArrayList<User>();
+           con = DatabaseUtils.getConnection(DatabaseUtils.driver, DatabaseUtils.url, DatabaseUtils.username, DatabaseUtils.password);
            Statement stat = con.createStatement();
            ResultSet res = stat.executeQuery(getAllUsers);
-           
+          
            while(res.next())
            {
                int id = res.getInt("id");
@@ -85,9 +83,12 @@ public class UserDao implements IDao<User>
            }
            
            con.close();
-           
         } 
         catch (SQLException ex) 
+        {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (Exception ex) 
         {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
