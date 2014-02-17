@@ -7,6 +7,7 @@
 package service;
 
 import domain.User;
+import domain.UserController;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.Consumes;
@@ -16,6 +17,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Proof of Concept klasse ter verduidelijking;
@@ -25,18 +28,16 @@ import javax.ws.rs.core.Response;
 @Path("/user")
 public class UserService 
 {
-    public List<User> users = new ArrayList<User>();
+    private UserController uc = new UserController();
     
     @GET
     @Path("/get")
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getUsernames()
-    {
-       /*Test voor te zien of dit werkt*/
-        User axl = new User(0,"Axl", "lol");
-        User lowie = new User(1, "Lowie", "lol");
-        users.add(axl); users.add(lowie);
-        return users;
+    {       /*Test voor te zien of dit werkt*/
+        Logger logger = LoggerFactory.getLogger(getClass());
+        logger.info("[GET][USERSERVICE]");
+        return uc.getUsers();
     }
     
     @POST
@@ -45,7 +46,7 @@ public class UserService
     public Response addUser(User user)
     {
         String result = "User added:" + user.toString();
-        users.add(user);
+        uc.addUser(user);
         return Response.status(Response.Status.OK).entity(result).build();
     }
     
