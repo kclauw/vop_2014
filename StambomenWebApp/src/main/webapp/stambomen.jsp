@@ -12,12 +12,11 @@
         <title>Stambomen</title>
     </head>
     <body>
-        <h1>Stambomen</h1>
+        <h1>Stamboom toevoegen</h1>
         <form>
-<input type="text" name="Voornaam" text="Voornaam"><br>
-<input type="text" name="Achternaam" text="Achternaam"><br>
-<input type="date" name="Geboortedatum" text="Geboortedatum"><br>
-<input type="text" name="Geboorteplaats" text="Geboorteplaats"><br>
-</form>
+            <input type="text" name="txtStamboomNaam" placeholder="Stamboomnaam"><br>
+            <button type="btnToevoegenStamboom">Toevoegen</button>
+
+        </form>
     </body>
 </html>
