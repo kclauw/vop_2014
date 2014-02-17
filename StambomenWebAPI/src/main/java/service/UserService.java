@@ -2,8 +2,8 @@ package service;
 
 import domain.User;
 import domain.UserController;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -11,7 +11,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -29,7 +28,7 @@ public class UserService
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getUsernames()
     {       /*Test voor te zien of dit werkt*/
-        Logger logger = LoggerFactory.getLogger(getClass());
+        org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
         logger.info("[GET][USERSERVICE]");
         return uc.getUsers();
     }
