@@ -1,11 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package util;
 
+/**
+ * String validation utility.
+ * Checks wheter a string complies with a preset.
+ * All methods return a boolean.
+ */
 public class StringValidation 
 {
     public static boolean emptyString(String s)

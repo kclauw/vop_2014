@@ -3,6 +3,7 @@ package persistence;
 import java.util.Collection;
 /**
  *This is a generic interface for all db entities.
+ * Offering the most common sql operation; select, update, insert.
  */
 public interface IDao<T>
  {
