@@ -1,20 +1,26 @@
 package domain;
 
+import exception.EmptyPasswordException;
+import exception.EmptyUsernameException;
+import exception.InvalidPasswordException;
+import exception.InvalidUsernameException;
+import util.StringValidation;
+
 
 public class User 
 {
     private int id;
     private String username;
-    private String passsword;
+    private String password;
 
     public User() 
     {
     }
     
-    public User(int id, String username, String passsword) 
+    public User(int id, String username, String password) 
     {
         setUsername(username);
-        setPasssword(passsword);
+        setPasssword(password);
         setId(id);
     }
     
@@ -35,16 +41,28 @@ public class User
 
     private void setUsername(String username) 
     {
+        if(StringValidation.emptyString(username))
+        {throw new EmptyUsernameException();}
+
+        if(StringValidation.alphaNumericString(username))
+        {throw new InvalidUsernameException();}
+        
         this.username = username;
     }
 
-    public String getPasssword() 
+    public String getPassword() 
     {
-        return passsword;
+        return password;
     }
 
-    private void setPasssword(String passsword) 
+    private void setPasssword(String password) 
     {
-        this.passsword = passsword;
+        if(StringValidation.emptyString(password))
+        { throw new EmptyPasswordException();}
+        
+        if(StringValidation.alphaNumericString(password))
+        { throw new InvalidPasswordException();}
+        
+        this.password = password;
     }
 }

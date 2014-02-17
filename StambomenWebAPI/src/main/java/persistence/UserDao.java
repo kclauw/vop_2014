@@ -18,6 +18,7 @@ public class UserDao implements IDao<User>
     private Connection con;
     private final String getAllUsers = "SELECT id, username, password FROM User";
     private final String saveUser = "INSERT INTO User (id, username, password) VALUES (?, ?, ?)";
+    private final String getUser = "Select id, username, password FROM User WHERE username = ?";
     
     public UserDao()
     {
@@ -39,7 +40,7 @@ public class UserDao implements IDao<User>
             PreparedStatement prep = con.prepareStatement(saveUser);
             prep.setInt(1, value.getId());
             prep.setString(2, value.getUsername());
-            prep.setString(3, value.getPasssword());
+            prep.setString(3, value.getPassword());
             prep.executeUpdate();
             
             con.close();
@@ -87,13 +88,45 @@ public class UserDao implements IDao<User>
         catch (SQLException ex) 
         {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         } 
-        catch (Exception ex) 
+        
+        return users;
+    }
+
+    public User Get(String username) 
+    {
+        User user = null;
+        
+        try 
+        {
+           con = DatabaseUtils.getConnection(DatabaseUtils.driver, DatabaseUtils.url, DatabaseUtils.username, DatabaseUtils.password);
+           PreparedStatement prep = con.prepareStatement(getUser);
+           prep.setString(1, username);
+           ResultSet res = prep.executeQuery();
+           
+           if(res.next())
+           {
+               int id = res.getInt("id");
+               String ur = res.getString("username");
+               String password = res.getString("password");
+               user = new User(id, ur, password);
+           }
+           
+           con.close();
+        }
+        catch(SQLException ex)
+        {
+            
+        }
+        catch (Exception ex)
         {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return users;
+        return user;
+        
     }
     
 }
