@@ -16,12 +16,13 @@ public class UserDao implements IDao<User>
 {  
     private List<User> users;
     private Connection con;
+    private DbConnection db;
     private final String getAllUsers = "SELECT * FROM Users";
     private final String saveUser = "INSERT ?, ?, ? INTO Users";
  
     public UserDao()
     {
-        Connection con = new DbConnection().getConnection();
+        db = new DbConnection();
     }
     
     @Override
@@ -35,11 +36,14 @@ public class UserDao implements IDao<User>
     {
         try 
         {
+            con = db.getConnection();
             PreparedStatement prep = con.prepareStatement(saveUser);
             prep.setInt(1, value.getId());
             prep.setString(2, value.getUsername());
             prep.setString(3, value.getPasssword());
             prep.executeQuery();
+            
+            con.close();
         } 
         catch (SQLException ex) 
         {
@@ -66,6 +70,7 @@ public class UserDao implements IDao<User>
         
         try 
         {
+           con = db.getConnection();
            users = new ArrayList<User>();
            Statement stat = con.createStatement();
            ResultSet res = stat.executeQuery(getAllUsers);
@@ -78,6 +83,8 @@ public class UserDao implements IDao<User>
                User user = new User(id, username, password);
                users.add(user);
            }
+           
+           con.close();
            
         } 
         catch (SQLException ex) 
