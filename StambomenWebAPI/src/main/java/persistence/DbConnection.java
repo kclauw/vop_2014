@@ -12,6 +12,9 @@ import java.util.logging.Logger;
 public class DbConnection 
 {
     private Connection connection;
+    private final String connectionString = "jdbc:mysql://db.vop.tiwi.be:443/team12_staging?zeroDateTimeBehavior=convertToNull";
+    private final String username = "team12";
+    private final String wachtwoord = "RKAxujnJ";
     
     public DbConnection()
     {
@@ -20,8 +23,7 @@ public class DbConnection
             // This will load the MySQL driver, each DB has its own driver
             Class.forName("com.mysql.jdbc.Driver");
             // Setup the connection with the DB
-            connection = DriverManager.getConnection("jdbc:mysql://db.vop.tiwi.be:443/team12_staging?"
-                            + "user=team12&password=RKAxujnJ");
+            connection = DriverManager.getConnection(connectionString, username, wachtwoord);
         }
         catch (ClassNotFoundException ex) 
         {
