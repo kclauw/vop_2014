@@ -14,7 +14,7 @@ public class StringValidation
     
     public static boolean alphaNumericString(String s)
     {
-        return (!s.matches("[a-zA-Z0-9_]"));        
+        return (s.matches("[a-zA-Z0-9_]"));        
     }
     
     
