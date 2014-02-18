@@ -29,16 +29,20 @@ public class AccountOptionsControl extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblUsername = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnShowFriendlist = new javax.swing.JButton();
+        btnLogOut = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder("Account"));
         setMinimumSize(new java.awt.Dimension(0, 0));
         setLayout(new java.awt.GridBagLayout());
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Account"));
+        jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setText("Welcome, ");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -47,7 +51,7 @@ public class AccountOptionsControl extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        add(jLabel1, gridBagConstraints);
+        jPanel2.add(jLabel1, gridBagConstraints);
 
         lblUsername.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblUsername.setText("lrhuyghe");
@@ -57,16 +61,18 @@ public class AccountOptionsControl extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        add(lblUsername, gridBagConstraints);
+        jPanel2.add(lblUsername, gridBagConstraints);
 
         jPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
         jPanel1.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
 
-        jButton1.setText("View friendlist");
-        jPanel1.add(jButton1);
+        btnShowFriendlist.setText("Show friendlist");
+        btnShowFriendlist.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jPanel1.add(btnShowFriendlist);
 
-        jButton2.setText("Log out");
-        jPanel1.add(jButton2);
+        btnLogOut.setText("Log out");
+        btnLogOut.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jPanel1.add(btnLogOut);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -75,7 +81,7 @@ public class AccountOptionsControl extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        add(jPanel1, gridBagConstraints);
+        jPanel2.add(jPanel1, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -83,16 +89,32 @@ public class AccountOptionsControl extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
-        add(filler1, gridBagConstraints);
+        jPanel2.add(filler1, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+        add(jPanel2, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        add(filler2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogOut;
+    private javax.swing.JButton btnShowFriendlist;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.Box.Filler filler2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblUsername;
     // End of variables declaration//GEN-END:variables
 }
