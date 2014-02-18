@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui.controls;
 
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
-/**
- *
- * @author Lowie
- */
 public class CustomFormField extends javax.swing.JPanel {
 
     private Border defaultBorder;
@@ -110,7 +101,7 @@ public class CustomFormField extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldActionPerformed
-        // TODO add your handling code here:
+         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldActionPerformed
 
 
