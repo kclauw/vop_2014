@@ -35,7 +35,6 @@ public class Login extends javax.swing.JFrame {
         txtPassword = new gui.controls.CustomTextField();
         btnLogin = new javax.swing.JButton();
         lblError = new javax.swing.JLabel();
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(200, 0), new java.awt.Dimension(200, 0), new java.awt.Dimension(200, 32767));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 200), new java.awt.Dimension(0, 200), new java.awt.Dimension(32767, 200));
         jPanel2 = new javax.swing.JPanel();
         btnRegister = new javax.swing.JButton();
@@ -91,15 +90,9 @@ public class Login extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.weighty = 0.1;
-        jPanel1.add(filler3, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
         jPanel1.add(filler2, gridBagConstraints);
 
         getContentPane().add(jPanel1);
@@ -168,7 +161,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btnRegister;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
-    private javax.swing.Box.Filler filler3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblError;
