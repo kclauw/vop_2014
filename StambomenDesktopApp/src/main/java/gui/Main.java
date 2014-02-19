@@ -62,11 +62,11 @@ public class Main extends javax.swing.JPanel implements ILogoutListener, IViewFr
         pnlMain.setLayout(pnlMainLayout);
         pnlMainLayout.setHorizontalGroup(
             pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 664, Short.MAX_VALUE)
+            .addGap(0, 642, Short.MAX_VALUE)
         );
         pnlMainLayout.setVerticalGroup(
             pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 378, Short.MAX_VALUE)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -76,6 +76,7 @@ public class Main extends javax.swing.JPanel implements ILogoutListener, IViewFr
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(11, 11, 11, 11);
         add(pnlMain, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
