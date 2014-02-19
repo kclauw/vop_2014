@@ -53,7 +53,7 @@ public class AccountOptionsControl extends javax.swing.JPanel {
      
     protected void fireLogoutEvent()
     {
-        if (logoutListeners != null && logoutListeners.isEmpty())
+        if (logoutListeners != null)
         {
             for (ILogoutListener listener : logoutListeners) {
                 listener.Logout();
@@ -62,7 +62,7 @@ public class AccountOptionsControl extends javax.swing.JPanel {
     }
     protected void fireFriendlistEvent()
     {
-        if (friendlistListeners != null && friendlistListeners.isEmpty())
+        if (friendlistListeners != null)
         {
             for (IViewFriendlistListener listener : friendlistListeners) {
                 listener.ViewFriendlist();
