@@ -1,11 +1,13 @@
 package persistence;
 
 import domain.User;
+import domain.Tree;
 import java.util.List;
 
 public class PersistenceController 
 {
     private UserDao userDao;
+    private TreeDao treeDao;
     
     public PersistenceController()
     {
@@ -27,5 +29,8 @@ public class PersistenceController
         return userDao.Get(username);
     }
     
-    
+      public void addTree(Tree tree) 
+    {
+        treeDao.Save(tree);
+    }  
 }
