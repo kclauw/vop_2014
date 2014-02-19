@@ -14,11 +14,19 @@ import java.util.List;
  *
  * @author Lowie
  */
-public class FamiliyTreeListItem extends javax.swing.JPanel {
+public class FamilyTreeListItem extends javax.swing.JPanel {
 
     private List<IOpenFamilyTreeListener> openFamilyTreeListeners;
     private int privacy = 0;
 
+    public String getFamilyTreeName() {
+        return lblName.getText();
+    }
+    
+    public void setFamilyTreeName(String name) {
+        lblName.setText(name);
+    }
+    
     public int getPrivacy() {
         return privacy;
     }
@@ -43,9 +51,17 @@ public class FamiliyTreeListItem extends javax.swing.JPanel {
     
     /**
      * Creates new form FamiliyTreeListItem
+     * @param name
+     * @param privacy
      */
-    public FamiliyTreeListItem() {
+    public FamilyTreeListItem() {
         initComponents();
+    };
+    public FamilyTreeListItem(String name, int privacy) {
+        this();
+        
+        setFamilyTreeName(name);
+        setPrivacy(privacy);
     }
     
     public void addFriendlistEventListener(IOpenFamilyTreeListener listener)
@@ -81,11 +97,13 @@ public class FamiliyTreeListItem extends javax.swing.JPanel {
         lblPrivacy = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        setMinimumSize(new java.awt.Dimension(250, 33));
-        setPreferredSize(new java.awt.Dimension(300, 33));
+        setMaximumSize(new java.awt.Dimension(2147483647, 33));
+        setMinimumSize(new java.awt.Dimension(150, 33));
+        setPreferredSize(new java.awt.Dimension(200, 33));
+        setRequestFocusEnabled(false);
         setLayout(new java.awt.GridBagLayout());
 
-        btnOpen.setText("Open");
+        btnOpen.setLabel("O");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
