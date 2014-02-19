@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
 /**
@@ -11,7 +10,8 @@ package domain;
  * @author Jelle
  */
 public class Tree {
-     private int id;
+
+    private int id;
     private int owner;
     private int privacy;
 
