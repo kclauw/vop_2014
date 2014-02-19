@@ -17,7 +17,7 @@ public class UserDao implements IDao<User>
     private List<User> users;
     private Connection con;
     private final String getAllUsers = "SELECT id, username, password FROM User";
-    private final String saveUser = "INSERT INTO User (id, username, password) VALUES (?, ?, ?)";
+    private final String saveUser = "INSERT INTO User (id, username, password) VALUES (?, ?)";
     private final String getUser = "Select id, username, password FROM User WHERE username = ?";
     
     public UserDao()
@@ -38,9 +38,9 @@ public class UserDao implements IDao<User>
         {
             con = DatabaseUtils.getConnection(DatabaseUtils.driver, DatabaseUtils.url, DatabaseUtils.username, DatabaseUtils.password);
             PreparedStatement prep = con.prepareStatement(saveUser);
-            prep.setInt(1, value.getId());
-            prep.setString(2, value.getUsername());
-            prep.setString(3, value.getPassword());
+      //      prep.setInt(1, value.getId());
+            prep.setString(1, value.getUsername());
+            prep.setString(2, value.getPassword());
             prep.executeUpdate();
             
             con.close();
