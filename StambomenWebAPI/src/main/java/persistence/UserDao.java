@@ -18,7 +18,7 @@ public class UserDao implements IDao<User>
     private List<User> users;
     private Connection con;
     private final String getAllUsers = "SELECT id, username, password FROM User";
-    private final String saveUser = "INSERT INTO User (id, username, password) VALUES (?, ?)";
+    private final String saveUser = "INSERT INTO User (username, password) VALUES (?, ?)";
     private final String getUser = "Select id, username, password FROM User WHERE username = ?";
 
     public UserDao()

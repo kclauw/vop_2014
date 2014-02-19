@@ -2,6 +2,7 @@ package service;
 
 import domain.User;
 import domain.controller.UserController;
+import exception.UserAlreadyExistsException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -35,9 +36,16 @@ public class UserService
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addUser(User user)
     {
-        String result = "User added:" + user.toString();
-        uc.addUser(user);
-        return Response.status(Response.Status.OK).entity(result).build();
+        try
+        {
+            String result = "User added:" + user.toString();
+            uc.addUser(user);
+            return Response.status(Response.Status.OK).entity(result).build();
+        }
+        catch (UserAlreadyExistsException ex)
+        {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
     }
 
     /*
