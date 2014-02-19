@@ -1,7 +1,8 @@
+
 package service;
 
 import domain.User;
-import domain.UserController;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -10,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -17,19 +19,22 @@ import org.slf4j.LoggerFactory;
  * De objecten zullen uiteindelijk via de persistence uit de db moeten komen
  * @author Axl
  */
-@Path("/user")
-public class UserService 
+@Path("/test")
+public class ServiceTest 
 {
-    private UserController uc = new UserController();
+    public List<User> users = new ArrayList<User>();
     
     @GET
     @Path("/get")
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getUsernames()
     {       /*Test voor te zien of dit werkt*/
-        org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
+       Logger logger = LoggerFactory.getLogger(getClass());
+        User axl = new User(0,"Axl", "tismaarnetest");
+        User lowie = new User(1, "Lowie", "paashaas");
+        users.add(axl); users.add(lowie);
         logger.info("[GET][USERSERVICE]");
-        return uc.getUsers();
+        return users;
     }
     
     @POST
@@ -38,7 +43,7 @@ public class UserService
     public Response addUser(User user)
     {
         String result = "User added:" + user.toString();
-        uc.addUser(user);
+        users.add(user);
         return Response.status(Response.Status.OK).entity(result).build();
     }
     
@@ -51,4 +56,5 @@ public class UserService
     Accept: application/json 
     Content-Type: application/json
     */
+
 }

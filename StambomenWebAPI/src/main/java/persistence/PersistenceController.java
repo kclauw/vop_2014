@@ -22,5 +22,10 @@ public class PersistenceController
         return (List<User>) userDao.GetAll();
     }
     
+    public User getUser(String username)
+    {
+        return userDao.Get(username);
+    }
+    
     
 }
