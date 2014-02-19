@@ -9,8 +9,11 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import dto.UserDTO;
 
-public class ClientUserService {
-
+/**
+ * Contains the concrete implementations for the request to the WebAPI.
+ */
+public class ClientUserService 
+{
     private final String url = "http://localhost:8084/StambomenWebAPI/rest/";
 
     public void makeUser(UserDTO userDTO) 

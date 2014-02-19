@@ -10,5 +10,6 @@
         <module>../StambomenDesktopApp</module>
         <module>../StambomenWebAPI</module>
         <module>../StambomenWebApp</module>
+        <module>../StambomenClient</module>
     </modules>
 </project>
