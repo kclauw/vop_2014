@@ -7,6 +7,7 @@ public class GuiController
 
     private LoginController loginController;
     private RegisterController registerController;
+    private TreeController treeController;
 
     public GuiController()
     {
@@ -14,10 +15,11 @@ public class GuiController
         loginController.show();
     }
 
-    public void init()
+    private void init()
     {
         loginController = new LoginController(this);
         registerController = new RegisterController(this);
+        treeController = new TreeController(this);
     }
 
     public void goTo(Frames frame)
