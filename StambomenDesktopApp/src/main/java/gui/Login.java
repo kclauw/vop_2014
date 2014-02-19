@@ -1,22 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gui;
 
-/**
- *
- * @author Lowie
- */
-public class Login extends javax.swing.JFrame {
+import gui.controller.LoginController;
 
-    /**
-     * Creates new form Login
-     */
-    public Login() {
+public class Login extends javax.swing.JFrame
+{
+
+    private LoginController login;
+
+    public Login()
+    {
         initComponents();
+    }
+
+    public void setLoginController(LoginController login)
+    {
+        this.login = login;
     }
 
     /**
@@ -26,7 +24,8 @@ public class Login extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 200), new java.awt.Dimension(0, 200), new java.awt.Dimension(32767, 200));
@@ -98,6 +97,13 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
 
         btnRegister.setText("Register");
+        btnRegister.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnRegisterActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -121,6 +127,10 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnRegisterActionPerformed
+    {//GEN-HEADEREND:event_btnRegisterActionPerformed
+        login.goTo(Frames.REGISTER);
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
