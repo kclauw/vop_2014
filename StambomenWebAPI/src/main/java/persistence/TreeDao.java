@@ -2,7 +2,11 @@ package persistence;
 
 import domain.Tree;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TreeDao implements IDao<Tree> {
 
@@ -14,7 +18,23 @@ public class TreeDao implements IDao<Tree> {
     }
 
     public void Save(Tree value) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try 
+        {
+            con = DatabaseUtils.getConnection(DatabaseUtils.driver, DatabaseUtils.url, DatabaseUtils.username, DatabaseUtils.password);
+            PreparedStatement prep = con.prepareStatement(saveTree);
+     
+            prep.setInt(1, value.getOwner());
+            prep.setInt(2, value.getPrivacy());
+            prep.executeUpdate();
+            
+            con.close();
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void Update(Tree value) {
