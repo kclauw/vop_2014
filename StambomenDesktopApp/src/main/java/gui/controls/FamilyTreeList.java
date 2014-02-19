@@ -6,13 +6,14 @@
 
 package gui.controls;
 
+import gui.controls.listeners.IOpenFamilyTreeListener;
 import java.util.List;
 
 /**
  *
  * @author Lowie
  */
-public class FamilyTreeList extends javax.swing.JPanel {
+public class FamilyTreeList extends javax.swing.JPanel implements IOpenFamilyTreeListener {
 
     private List<FamilyTreeListItem> allFamilyTrees;
     private List<FamilyTreeListItem> recentFamilyTrees;
@@ -25,6 +26,10 @@ public class FamilyTreeList extends javax.swing.JPanel {
         initComponents();
     }
 
+    public void OpenFamilyTree() {
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,4 +152,5 @@ public class FamilyTreeList extends javax.swing.JPanel {
     private javax.swing.JPanel pnlRecentFamilyTrees;
     private javax.swing.JPanel pnlSharedFamilyTrees;
     // End of variables declaration//GEN-END:variables
+
 }
