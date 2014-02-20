@@ -22,6 +22,9 @@ public class TreeService
     {
         org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
         logger.info("[GET][TREESERVICE]");
-        return tc.getTree(treeId);
+        System.out.println("GET - TreeServices" + treeId);
+        Tree t = tc.getTree(treeId);
+        System.out.println(t);
+        return t;
     }
 }

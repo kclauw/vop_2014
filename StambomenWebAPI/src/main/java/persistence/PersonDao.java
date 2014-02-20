@@ -72,7 +72,6 @@ public class PersonDao implements IDao<Person>
 
             while (res.next())
             {
-                Person person;
                 //personID birthplace firstname lastname gender birthdate deathdate
                 int personId = res.getInt("personID");
                 String birthPlace = res.getString("birthplace");
@@ -86,6 +85,8 @@ public class PersonDao implements IDao<Person>
                 int parentId = res.getInt("parent");
                 Person father = null;
                 Person mother = null;
+
+                System.out.println("Added a person" + firstName);
 
                 if (!(parentId == 0))
                 {
@@ -109,7 +110,7 @@ public class PersonDao implements IDao<Person>
                 Gender g = Gender.getGender(gender);
                 Place p = pc.getPlace(placeId);
 
-                person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
+                Person person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
 
                 persons.add(person);
             }

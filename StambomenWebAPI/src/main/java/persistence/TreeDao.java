@@ -34,9 +34,10 @@ public class TreeDao implements IDao<Tree>
     @Override
     public Tree Get(int id)
     {
+        Tree tree = null;
         try
         {
-            Tree aid = null;
+
             con = DatabaseUtils.getConnection();
             Statement stat = con.createStatement();
             ResultSet res = stat.executeQuery(GETTREE);
@@ -50,18 +51,20 @@ public class TreeDao implements IDao<Tree>
                 Privacy priv = Privacy.getPrivacy(privacy);
                 User user = per.getUser(ownerID);
                 List<Person> pers = per.getPersons(id);
+                System.out.println(pers);
 
-                Tree t = new Tree(id, user, priv, name, pers);
+                tree = new Tree(id, user, priv, name, pers);
             }
             // tree object, mapping van objecten en personen :( persoondao mss maken
-            return aid;
+
+            con.close();
         }
         catch (Exception ex)
         {
             Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return null;
+        return tree;
     }
 
     public void Save(Tree tree)
