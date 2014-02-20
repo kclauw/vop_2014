@@ -16,4 +16,14 @@ public enum Privacy
       return this.privacyId;
   }
   
+  public static Privacy getPrivacy(int privacyId)
+  {
+      for(Privacy v: Privacy.values())
+      {
+          if(v.getPrivacyId() == privacyId)
+              return v;
+      }
+      return null;
+  }
+  
 }

@@ -8,9 +8,13 @@ public class PersistenceController {
 
     private UserDao userDao;
     private TreeDao treeDao;
+    private PersonDao personDao;
 
-    public PersistenceController() {
+    public PersistenceController() 
+    {
         userDao = new UserDao();
+        treeDao = new TreeDao(this);
+        personDao = new PersonDao();
     }
 
     public void addUser(User user) {
@@ -23,6 +27,11 @@ public class PersistenceController {
 
     public User getUser(String username) {
         return userDao.Get(username);
+    }
+    
+    public User getUser(int id)
+    {
+        return userDao.Get(id);
     }
 
     public void getTree(int id) {

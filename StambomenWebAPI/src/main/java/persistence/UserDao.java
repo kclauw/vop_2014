@@ -14,16 +14,13 @@ import java.util.logging.Logger;
 
 public class UserDao implements IDao<User>
 {
-
-    private List<User> users;
     private Connection con;
-    private final String getAllUsers = "SELECT id, username, password FROM User";
-    private final String saveUser = "INSERT INTO User (username, password) VALUES (?, ?)";
-    private final String getUser = "Select id, username, password FROM User WHERE username = ?";
+    private final String GETALLUSER = "SELECT id, username, password FROM User";
+    private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
+    private final String GETUSER = "Select id, username, password FROM User WHERE username = ?";
 
     public UserDao()
     {
-        users = new ArrayList<User>();
     }
 
     @Override
@@ -38,7 +35,7 @@ public class UserDao implements IDao<User>
         try
         {
             con = DatabaseUtils.getConnection();
-            PreparedStatement prep = con.prepareStatement(saveUser);
+            PreparedStatement prep = con.prepareStatement(SAVEUSER);
             prep.setString(1, value.getUsername());
             prep.setString(2, value.getPassword());
             prep.executeUpdate();
@@ -70,11 +67,12 @@ public class UserDao implements IDao<User>
     @Override
     public Collection<User> GetAll()
     {
+        List<User> users = null;
         try
         {
             con = DatabaseUtils.getConnection();
             Statement stat = con.createStatement();
-            ResultSet res = stat.executeQuery(getAllUsers);
+            ResultSet res = stat.executeQuery(GETALLUSER);
 
             while (res.next())
             {
@@ -106,7 +104,7 @@ public class UserDao implements IDao<User>
         try
         {
             con = DatabaseUtils.getConnection();
-            PreparedStatement prep = con.prepareStatement(getUser);
+            PreparedStatement prep = con.prepareStatement(GETUSER);
             prep.setString(1, username);
             ResultSet res = prep.executeQuery();
 

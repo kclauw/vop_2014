@@ -1,30 +1,31 @@
 package persistence;
 
+import domain.Privacy;
 import domain.Tree;
+import domain.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TreeDao implements IDao<Tree>
 {
-    private List<Tree> trees;
     private Connection con;
-    private final String saveTree = "INSERT INTO Tree (owner, privacy,name) VALUES (?, ?,?)";
-    private final String getTree = "select b.username, a.name, a.privacy,d.firstname, d.lastname from Tree a\n" +
+    private final String SAVETREE = "INSERT INTO Tree (owner, privacy,name) VALUES (?,?,?)";
+ /*   private final String getTree = "select b.username, a.name, a.privacy,d.firstname, d.lastname from Tree a\n" +
         "inner join User b on b.id=a.owner\n" +
         "inner join  PersonTree c on c.tree = a.id \n" +
-        "inner join Person d on c.person = d.persoonID";
+        "inner join Person d on c.person = d.persoonID";*/
+    private final String GETTREE = "SELECT treeID, name, ownerID, privacy FROM Tree";
+    private PersistenceController per;
     
-    public TreeDao()
+    public TreeDao(PersistenceController per)
     {
-        trees = new ArrayList<Tree>();
+        this.per = per;
     }
     
     @Override
@@ -34,7 +35,20 @@ public class TreeDao implements IDao<Tree>
             Tree aid = null;
             con = DatabaseUtils.getConnection();
             Statement stat = con.createStatement();
-            ResultSet res = stat.executeQuery(getTree);
+            ResultSet res = stat.executeQuery(GETTREE);
+ 
+            if (res.next())
+            {
+                String name = res.getString("name");
+                int ownerID = res.getInt("ownerID");
+                int privacy = res.getInt("privacy");
+                
+                Privacy priv = Privacy.getPrivacy(privacy);
+                User user = per.getUser(ownerID);
+                
+                
+                Tree t = new Tree(id, user, priv, name);
+            }
             // tree object, mapping van objecten en personen :( persoondao mss maken
             return aid;
         } catch (Exception ex) {
@@ -49,7 +63,7 @@ public class TreeDao implements IDao<Tree>
         try
         {
             con = DatabaseUtils.getConnection();
-            PreparedStatement prep = con.prepareStatement(saveTree);
+            PreparedStatement prep = con.prepareStatement(SAVETREE);
 
             //TODO add vars for prepared statement
          
