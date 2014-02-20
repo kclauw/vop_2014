@@ -26,8 +26,8 @@ public class TreeDao implements IDao<Tree>
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(saveTree);
 
-            prep.setInt(1, tree.getOwner());
-            prep.setInt(2, tree.getPrivacy());
+            //TODO add vars for prepared statement
+            
             prep.executeUpdate();
 
             con.close();
