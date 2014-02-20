@@ -12,7 +12,7 @@ public class TreeDao implements IDao<Tree>
 {
 
     private Connection con;
-    private final String saveTree = "INSERT INTO Tree (owner, privacy) VALUES (?, ?)";
+    private final String saveTree = "INSERT INTO Tree (owner, privacy,name) VALUES (?, ?,?)";
 
     public Tree Get(Tree value)
     {
@@ -28,6 +28,7 @@ public class TreeDao implements IDao<Tree>
 
             prep.setInt(1, value.getOwner());
             prep.setInt(2, value.getPrivacy());
+            prep.setString(3, value.getName());
             prep.executeUpdate();
 
             con.close();
