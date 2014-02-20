@@ -14,13 +14,13 @@ public class PlaceDao implements IDao<Place>
 {
 
     private Connection con;
-    private final String GETPLACEBYID = "SELECT placeID, zipcode, c.coordinatesID,"
-            + "p.countryID,c.latitude, c.longitude, coun.name as countryname,"
-            + " pla.placenameID, pla.name as placename FROM Place as p"
-            + "LEFT JOIN Coordinates c on c.coordinatesID = p.coordinatesID"
-            + "JOIN Country coun on coun.countryID = p.countryID"
-            + "JOIN Placename pla on pla.placenameID = p.placenameID"
-            + "WHERE p.place = ?";
+    private final String GETPLACEBYID = "SELECT placeID, zipcode, c.coordinatesID, "
+            + " p.countryID,c.latitude, c.longitude, coun.name as countryname, "
+            + " pla.placenameID, pla.name as placename FROM Place as p "
+            + " LEFT JOIN Coordinates c on c.coordinatesID = p.coordinatesID "
+            + " JOIN Country coun on coun.countryID = p.countryID "
+            + " JOIN Placename pla on pla.placenameID = p.placenameID "
+            + " WHERE p.place = ?";
 
     public PlaceDao()
     {
