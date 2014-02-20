@@ -5,6 +5,7 @@ import java.util.Date;
 public class Person
 {
 
+    private int personId;
     private String firstName;
     private String surName;
     private Gender gender;
@@ -14,7 +15,7 @@ public class Person
     private Person father;
     private Person mother;
 
-    public Person(String firstName, String surName, Gender gender, Date birthDate, Date deathDate, Place place, Person father, Person mother)
+    public Person(int personId, String firstName, String surName, Gender gender, Date birthDate, Date deathDate, Place place, Person father, Person mother)
     {
         this.firstName = firstName;
         this.surName = surName;
@@ -24,6 +25,17 @@ public class Person
         this.place = place;
         this.father = father;
         this.mother = mother;
+        this.personId = personId;
+    }
+
+    public int getPersonId()
+    {
+        return personId;
+    }
+
+    public void setPersonId(int personId)
+    {
+        this.personId = personId;
     }
 
     public String getFirstName()

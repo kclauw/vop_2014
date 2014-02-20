@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response;
  * Proof of Concept klasse ter verduidelijking; De objecten zullen uiteindelijk
  * via de persistence uit de db moeten komen
  *
- * @author Axl
  */
 @Path("/user")
 public class UserService

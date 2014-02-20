@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
@@ -14,10 +13,12 @@ import java.util.logging.Logger;
 
 public class UserDao implements IDao<User>
 {
+
     private Connection con;
-    private final String GETALLUSER = "SELECT id, username, password FROM User";
+    private final String GETALLUSER = "SELECT userID, username, password FROM User";
     private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
-    private final String GETUSER = "Select id, username, password FROM User WHERE username = ?";
+    private final String GETUSER = "Select userID, username, password FROM User WHERE username = ?";
+    private final String GETUSERBYID = "Select userID, username, password FROM User WHERE userID = ?";
 
     public UserDao()
     {
@@ -26,7 +27,35 @@ public class UserDao implements IDao<User>
     @Override
     public User Get(int id)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        User user = null;
+
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            PreparedStatement prep = con.prepareStatement(GETUSERBYID);
+            prep.setInt(1, id);
+            ResultSet res = prep.executeQuery();
+
+            if (res.next())
+            {
+                int uid = res.getInt("userID");
+                String ur = res.getString("username");
+                String password = res.getString("password");
+                user = new User(id, ur, password);
+            }
+
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return user;
     }
 
     @Override
@@ -76,7 +105,7 @@ public class UserDao implements IDao<User>
 
             while (res.next())
             {
-                int id = res.getInt("id");
+                int id = res.getInt("userID");
                 String username = res.getString("username");
                 String password = res.getString("password");
                 User user = new User(id, username, password);
@@ -110,7 +139,7 @@ public class UserDao implements IDao<User>
 
             if (res.next())
             {
-                int id = res.getInt("id");
+                int id = res.getInt("userID");
                 String ur = res.getString("username");
                 String password = res.getString("password");
                 user = new User(id, ur, password);

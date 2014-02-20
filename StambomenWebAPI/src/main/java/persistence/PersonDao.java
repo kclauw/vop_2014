@@ -15,9 +15,13 @@ public class PersonDao implements IDao<Person>
 {
 
     private Connection con;
-    private final String GETPERSONSBYTREEID = "SELECT d.* FROM Tree a "
-            + "JOIN PersonTree c ON c.treeID = a.treeID "
-            + "JOIN Person d on c.personID = d.personID where a.treeID = ?";
+    private final String GETPERSONSBYTREEID = "SELECT d.*, pr.* FROM Tree t"
+            + "JOIN PersonTree c ON c.treeID = t.treeID"
+            + "JOIN Person d on c.personID = d.personID"
+            + "LEFT OUTER JOIN ParentRelation pr on pr.child = d.personID"
+            + "where t.treeID = ?"
+            + "ORDER BY pr.parent ASC";
+
     private PersistenceController pc;
 
     public PersonDao(PersistenceController pc)
@@ -79,10 +83,33 @@ public class PersonDao implements IDao<Person>
                 Date deathDate = res.getDate("deathdate");
                 int placeId = res.getInt("FKBirthplace");
 
+                int parentId = res.getInt("parent");
+                Person father = null;
+                Person mother = null;
+
+                if (!(parentId == 0))
+                {
+                    for (Person per : persons)
+                    {
+                        if (per.getPersonId() == parentId)
+                        {
+                            if (per.getGender() == Gender.MALE)
+                            {
+                                father = per;
+                            }
+                            else
+                            {
+                                mother = per;
+                            }
+                        }
+
+                    }
+                }
+
                 Gender g = Gender.getGender(gender);
                 Place p = pc.getPlace(placeId);
 
-                person = new Person(firstName, lastName, g, birthDate, deathDate, p, null, null);
+                person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
 
                 persons.add(person);
             }

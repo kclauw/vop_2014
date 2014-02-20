@@ -51,7 +51,6 @@ public class TreeDao implements IDao<Tree>
                 User user = per.getUser(ownerID);
                 List<Person> pers = per.getPersons(id);
 
-                //TODO Set relations of persons
                 Tree t = new Tree(id, user, priv, name, pers);
             }
             // tree object, mapping van objecten en personen :( persoondao mss maken
