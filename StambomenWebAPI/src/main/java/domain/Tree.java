@@ -1,4 +1,3 @@
-
 package domain;
 
 
@@ -14,11 +13,20 @@ public class Tree
     {
     }
 
-    public Tree(int id, User user, Privacy privacy) 
-    {
+    public Tree(int id, User owner, Privacy privacy, String name) {
         this.id = id;
-        this.owner = user;
+        this.owner = owner;
         this.privacy = privacy;
+        this.name = name;
+    }
+    
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getId() {
@@ -44,16 +52,4 @@ public class Tree
     public void setPrivacy(Privacy privacy) {
         this.privacy = privacy;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    
-
-
 }
