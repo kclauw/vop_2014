@@ -7,7 +7,7 @@ import java.util.Collection;
  */
 public interface IDao<T>
  {
-    public T Get(T id);
+    public T Get(int id);
     public void Save(T value);
     public void Update(T value);
     public void Delete(T value);

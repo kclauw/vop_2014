@@ -14,20 +14,20 @@ public class TreeDao implements IDao<Tree>
     private Connection con;
     private final String saveTree = "INSERT INTO Tree (owner, privacy) VALUES (?, ?)";
 
-    public Tree Get(Tree value)
+    public Tree Get(int id)
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void Save(Tree value)
+    public void Save(Tree tree)
     {
         try
         {
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(saveTree);
 
-            prep.setInt(1, value.getOwner());
-            prep.setInt(2, value.getPrivacy());
+            prep.setInt(1, tree.getOwner());
+            prep.setInt(2, tree.getPrivacy());
             prep.executeUpdate();
 
             con.close();

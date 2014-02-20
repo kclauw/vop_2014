@@ -2,16 +2,19 @@
 package domain;
 
 
-public class Tree {
+public class Tree
+{
 
     private int id;
     private int owner;
     private int privacy;
 
-    public Tree() {
+    public Tree() 
+    {
     }
 
-    public Tree(int id, int owner, int privacy) {
+    public Tree(int id, int owner, int privacy) 
+    {
         this.id = id;
         this.owner = owner;
         this.privacy = privacy;

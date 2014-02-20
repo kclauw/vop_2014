@@ -27,7 +27,7 @@ public class UserDao implements IDao<User>
     }
 
     @Override
-    public User Get(User id)
+    public User Get(int id)
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
