@@ -1,20 +1,28 @@
-
 package domain;
-
 
 public class Tree {
 
     private int id;
     private int owner;
     private int privacy;
+    private String name;
 
     public Tree() {
     }
 
-    public Tree(int id, int owner, int privacy) {
+    public Tree(int id, String name, int owner, int privacy) {
         this.id = id;
+        this.name = name;
         this.owner = owner;
         this.privacy = privacy;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getId() {
