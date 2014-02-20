@@ -2,7 +2,7 @@ package gui.controller;
 
 import gui.Frames;
 
-public interface FrameController
+public interface IFrameController
 {
 
     public void show();

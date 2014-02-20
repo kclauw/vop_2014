@@ -7,7 +7,7 @@ import gui.Register;
 import javax.swing.JOptionPane;
 import service.ClientUserController;
 
-public class RegisterController implements FrameController
+public class RegisterController implements IFrameController
 {
     
     private Register registerFrame;

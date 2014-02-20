@@ -2,7 +2,7 @@ package gui.controller;
 
 import gui.Frames;
 
-public class TreeController implements FrameController
+public class TreeController implements IFrameController
 {
 
     private GuiController gui;

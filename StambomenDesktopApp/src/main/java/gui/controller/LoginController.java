@@ -4,7 +4,7 @@ import gui.FrameFactory;
 import gui.Frames;
 import gui.Login;
 
-public class LoginController implements FrameController
+public class LoginController implements IFrameController
 {
     
     private Login loginFrame;
