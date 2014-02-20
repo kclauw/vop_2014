@@ -63,6 +63,7 @@ public class PersonDao implements IDao<Person>
                 int gender = res.getInt("gender");
                 Date birthDate  = res.getDate("birthdate");
                 Date deathDate = res.getDate("deathdate");
+                int placeId = res.getInt("FKBirthplace");
                 
                 Gender g = Gender.getGender(gender);
                 
