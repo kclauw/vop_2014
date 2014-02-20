@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.List;
+
 public class Tree
 {
 
@@ -7,6 +9,7 @@ public class Tree
     private User owner;
     private Privacy privacy;
     private String name;
+    private List<Person> persons;
 
     public Tree() 
     {
