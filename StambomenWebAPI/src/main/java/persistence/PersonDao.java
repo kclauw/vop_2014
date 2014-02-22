@@ -17,12 +17,14 @@ public class PersonDao implements IDao<Person>
 {
 
     private Connection con;
-    private final String GETPERSONSBYTREEID = "SELECT d.*, pr.* FROM Tree t "
-            + " JOIN PersonTree c ON c.treeID = t.treeID "
-            + " JOIN Person d on c.personID = d.personID "
-            + " LEFT OUTER JOIN ParentRelation pr on pr.child = d.personID "
-            + " where t.treeID = ? "
-            + " ORDER BY pr.parent ASC ";
+    private final String GETPERSONSBYTREEID = "SELECT d.*, pr.parent as parent1, pr2.parent as parent2 FROM Tree t "+
+"		JOIN PersonTree c ON c.treeID = t.treeID " +
+"               JOIN Person d on c.personID = d.personID " +
+"               LEFT OUTER JOIN ParentRelation pr on pr.child = d.personID " +
+"		LEFT OUTER JOIN ParentRelation pr2 on pr2.child = d.personID and pr.parent != pr2.parent" +
+"               where t.treeID = ? " +
+"	    GROUP BY d.personID " +
+"            ORDER BY pr.parent ASC";
 
     private PersistenceController pc;
 
@@ -88,7 +90,8 @@ public class PersonDao implements IDao<Person>
                 Date birthDate = res.getDate("birthdate");
                 Date deathDate = res.getDate("deathdate");
                 int placeId = res.getInt("birthplace");
-                int parentId = res.getInt("parent");
+                int parentId1 = res.getInt("parent1");
+                int parentId2 = res.getInt("parent2");
                 int child = res.getInt("child");
                 
                 Person father = null;
@@ -100,13 +103,20 @@ public class PersonDao implements IDao<Person>
                 Person person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
                 personMap.put(personId, person);
                 
-                if(parentId != 0)
+                if(parentId1 != 0 || parentId2 != 0)
                 {
-                    Person parent = personMap.get(parentId);
-                    if(parent.getGender()==Gender.FEMALE)
-                        person.setMother(parent);
+                    Person parent = personMap.get(parentId1);
+                    Person parent2 = personMap.get(parentId2);
+                    if(parent != null && parent.getGender() == Gender.FEMALE)
+                        mother = parent;
                     else
-                        person.setFather(parent);
+                        father = parent2;
+                    
+                    if(parent2 != null && parent2.getGender() == Gender.MALE)
+                        father = parent2;
+                    else
+                        mother = parent2;
+                    
                 }
                 
                 persons.add(person);
