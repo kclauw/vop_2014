@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,7 +22,7 @@ public class TreeDao implements IDao<Tree>
      "inner join User b on b.id=a.owner\n" +
      "inner join  PersonTree c on c.tree = a.id \n" +
      "inner join Person d on c.person = d.persoonID";*/
-    private final String GETTREE = "SELECT treeID, name, ownerID, privacy FROM Tree";
+    private final String GETTREE = "SELECT treeID, name, ownerID, privacy FROM Tree WHERE treeID = ?";
     private final String GETTREEBYUSERID = "SELECT treeID, name, ownerID, privacy FROM Tree WHERE ownerID = ?";
     private PersistenceController per;
 
@@ -33,14 +32,15 @@ public class TreeDao implements IDao<Tree>
     }
 
     @Override
-    public Tree Get(int id)
+    public Tree get(int id)
     {
         Tree tree = null;
         try
         {
             con = DatabaseUtils.getConnection();
-            Statement stat = con.createStatement();
-            ResultSet res = stat.executeQuery(GETTREE);
+            PreparedStatement prep = con.prepareStatement(GETTREE);
+            prep.setInt(1, id);
+            ResultSet res = prep.executeQuery();
 
             if (res.next())
             {
@@ -58,7 +58,7 @@ public class TreeDao implements IDao<Tree>
         return tree;
     }
 
-    public List<Tree> get(int userid)
+    public List<Tree> getAll(int userid)
     {
         List<Tree> trees = null;
         try
@@ -86,7 +86,7 @@ public class TreeDao implements IDao<Tree>
         return trees;
     }
 
-    public void Save(Tree tree)
+    public void save(Tree tree)
     {
         try
         {
@@ -110,19 +110,19 @@ public class TreeDao implements IDao<Tree>
     }
 
     @Override
-    public void Update(Tree value)
+    public void update(Tree value)
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void Delete(Tree value)
+    public void delete(Tree value)
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Collection<Tree> GetAll()
+    public Collection<Tree> getAll()
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }

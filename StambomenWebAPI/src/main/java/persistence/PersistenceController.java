@@ -24,37 +24,37 @@ public class PersistenceController
 
     public void addUser(User user)
     {
-        userDao.Save(user);
+        userDao.save(user);
     }
 
     public List<User> getUsers()
     {
-        return (List<User>) userDao.GetAll();
+        return (List<User>) userDao.getAll();
     }
 
     public User getUser(String username)
     {
-        return userDao.Get(username);
+        return userDao.get(username);
     }
 
     public User getUser(int id)
     {
-        return userDao.Get(id);
+        return userDao.get(id);
     }
 
     public Tree getTree(int id)
     {
-        return treeDao.Get(id);
+        return treeDao.get(id);
     }
 
     public void addTree(Tree tree)
     {
-        treeDao.Save(tree);
+        treeDao.save(tree);
     }
 
     public Place getPlace(int placeId)
     {
-        return placeDao.Get(placeId);
+        return placeDao.get(placeId);
     }
 
     public List<Person> getPersons(int treeId)

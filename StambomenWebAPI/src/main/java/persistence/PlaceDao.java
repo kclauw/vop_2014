@@ -27,7 +27,7 @@ public class PlaceDao implements IDao<Place>
     }
 
     @Override
-    public Place Get(int placeId)
+    public Place get(int placeId)
     {
         Place place = null;
 
@@ -71,25 +71,25 @@ public class PlaceDao implements IDao<Place>
     }
 
     @Override
-    public void Save(Place value)
+    public void save(Place value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void Update(Place value)
+    public void update(Place value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void Delete(Place value)
+    public void delete(Place value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Collection<Place> GetAll()
+    public Collection<Place> getAll()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

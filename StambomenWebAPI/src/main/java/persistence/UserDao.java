@@ -25,7 +25,7 @@ public class UserDao implements IDao<User>
     }
 
     @Override
-    public User Get(int id)
+    public User get(int id)
     {
         User user = null;
 
@@ -56,7 +56,7 @@ public class UserDao implements IDao<User>
     }
 
     @Override
-    public void Save(User value)
+    public void save(User value)
     {
         try
         {
@@ -79,19 +79,19 @@ public class UserDao implements IDao<User>
     }
 
     @Override
-    public void Update(User value)
+    public void update(User value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void Delete(User value)
+    public void delete(User value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Collection<User> GetAll()
+    public Collection<User> getAll()
     {
         List<User> users = null;
         try
@@ -120,7 +120,7 @@ public class UserDao implements IDao<User>
         return users;
     }
 
-    public User Get(String username)
+    public User get(String username)
     {
         User user = null;
 
