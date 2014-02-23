@@ -11,7 +11,7 @@ public enum Privacy
       this.privacyId = privacyId;
   }
   
-  int getPrivacyId()
+  public int getPrivacyId()
   {
       return this.privacyId;
   }

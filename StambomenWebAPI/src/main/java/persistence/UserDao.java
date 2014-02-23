@@ -38,10 +38,7 @@ public class UserDao implements IDao<User>
 
             if (res.next())
             {
-                int uid = res.getInt("userID");
-                String ur = res.getString("username");
-                String password = res.getString("password");
-                user = new User(id, ur, password);
+                user = map(res);
             }
 
             con.close();
@@ -105,10 +102,7 @@ public class UserDao implements IDao<User>
 
             while (res.next())
             {
-                int id = res.getInt("userID");
-                String username = res.getString("username");
-                String password = res.getString("password");
-                User user = new User(id, username, password);
+                User user = map(res);
                 users.add(user);
             }
 
@@ -139,10 +133,7 @@ public class UserDao implements IDao<User>
 
             if (res.next())
             {
-                int id = res.getInt("userID");
-                String ur = res.getString("username");
-                String password = res.getString("password");
-                user = new User(id, ur, password);
+                user = map(res);
             }
 
             con.close();
@@ -158,6 +149,26 @@ public class UserDao implements IDao<User>
 
         return user;
 
+    }
+
+    @Override
+    public User map(ResultSet res)
+    {
+        User user = null;
+
+        try
+        {
+            int uid = res.getInt("userID");
+            String ur = res.getString("username");
+            String password = res.getString("password");
+            user = new User(uid, ur, password);
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return user;
     }
 
 }

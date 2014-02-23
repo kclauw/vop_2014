@@ -24,6 +24,7 @@ public class TreeDao implements IDao<Tree>
      "inner join  PersonTree c on c.tree = a.id \n" +
      "inner join Person d on c.person = d.persoonID";*/
     private final String GETTREE = "SELECT treeID, name, ownerID, privacy FROM Tree";
+    private final String GETTREEBYUSERID = "SELECT treeID, name, ownerID, privacy FROM Tree WHERE ownerID = ?";
     private PersistenceController per;
 
     public TreeDao(PersistenceController per)
@@ -37,24 +38,13 @@ public class TreeDao implements IDao<Tree>
         Tree tree = null;
         try
         {
-
             con = DatabaseUtils.getConnection();
             Statement stat = con.createStatement();
             ResultSet res = stat.executeQuery(GETTREE);
 
             if (res.next())
             {
-                String name = res.getString("name");
-                int ownerID = res.getInt("ownerID");
-                int privacy = res.getInt("privacy");
-
-                Privacy priv = Privacy.getPrivacy(privacy);   
-          
-                User user = per.getUser(ownerID);
-                List<Person> pers = per.getPersons(id);
-                System.out.println(pers);
-
-                tree = new Tree(id, user, priv, name, pers);
+                tree = map(res);
             }
             // tree object, mapping van objecten en personen :( persoondao mss maken
 
@@ -68,14 +58,43 @@ public class TreeDao implements IDao<Tree>
         return tree;
     }
 
+    public List<Tree> get(int userid)
+    {
+        List<Tree> trees = null;
+        try
+        {
+
+            con = DatabaseUtils.getConnection();
+            PreparedStatement prep = con.prepareStatement(GETTREEBYUSERID);
+            prep.setInt(1, userid);
+            ResultSet res = prep.executeQuery();
+
+            while (res.next())
+            {
+                Tree tree = map(res);
+                trees.add(tree);
+            }
+            // tree object, mapping van objecten en personen :( persoondao mss maken
+
+            con.close();
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return trees;
+    }
+
     public void Save(Tree tree)
     {
         try
         {
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(SAVETREE);
-
-            //TODO add vars for prepared statement
+            prep.setInt(1, tree.getOwner().getId());
+            prep.setInt(2, tree.getPrivacy().getPrivacyId());
+            prep.setString(3, tree.getName());
             prep.executeUpdate();
 
             con.close();
@@ -106,5 +125,31 @@ public class TreeDao implements IDao<Tree>
     public Collection<Tree> GetAll()
     {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Tree map(ResultSet res)
+    {
+        Tree tree = null;
+
+        try
+        {
+            int id = res.getInt("treeID");
+            String name = res.getString("name");
+            int ownerID = res.getInt("ownerID");
+            int privacy = res.getInt("privacy");
+
+            Privacy priv = Privacy.getPrivacy(privacy);
+            User user = per.getUser(ownerID);
+            List<Person> pers = per.getPersons(id);
+            System.out.println(pers);
+
+            tree = new Tree(id, user, priv, name, pers);
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return tree;
     }
 }
