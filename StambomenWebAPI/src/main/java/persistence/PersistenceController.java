@@ -5,6 +5,7 @@ import domain.Place;
 import domain.Tree;
 import domain.User;
 import java.util.List;
+import java.util.Map;
 
 public class PersistenceController
 {
@@ -65,6 +66,11 @@ public class PersistenceController
     public List<Tree> getTrees(int userId)
     {
         return treeDao.getAll(userId);
+    }
+
+    public Map<String, Integer> getFriends(int userID)
+    {
+        return userDao.GetFriends(userID);
     }
 
 }
