@@ -10,8 +10,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserDao implements IDao<User> {
 
@@ -41,9 +41,11 @@ public class UserDao implements IDao<User> {
 
             con.close();
         } catch (SQLException ex) {
-
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[SQLException][USERDAO][Get]Sql exception: " + ex.getMessage());
         } catch (Exception ex) {
-            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[Exception][USERDAO][Get]Exception: "+ ex.getMessage());
         }
 
         return user;
@@ -60,9 +62,11 @@ public class UserDao implements IDao<User> {
 
             con.close();
         } catch (SQLException ex) {
-            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[SQLException][USERDAO][Save]Sql exception: " + ex.getMessage());
         } catch (Exception ex) {
-            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[Exception][USERDAO][Save]Exception: " + ex.getMessage());
         }
     }
 
@@ -91,9 +95,11 @@ public class UserDao implements IDao<User> {
 
             con.close();
         } catch (SQLException ex) {
-            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[SQLException][USERDAO][Save]Sql exception: " + ex.getMessage());
         } catch (Exception ex) {
-            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[SQLException][USERDAO][Save]Sql exception: " + ex.getMessage());
         }
 
         return users;
@@ -118,7 +124,8 @@ public class UserDao implements IDao<User> {
         } catch (SQLException ex) {
 
         } catch (Exception ex) {
-            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[GET][USERSERVICE]");
         }
 
         return friends;
@@ -141,7 +148,8 @@ public class UserDao implements IDao<User> {
         } catch (SQLException ex) {
 
         } catch (Exception ex) {
-            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[GET][USERSERVICE]");
         }
 
         return user;
@@ -158,7 +166,8 @@ public class UserDao implements IDao<User> {
             String password = res.getString("password");
             user = new User(uid, ur, password);
         } catch (SQLException ex) {
-            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[GET][USERSERVICE]");
         }
 
         return user;
