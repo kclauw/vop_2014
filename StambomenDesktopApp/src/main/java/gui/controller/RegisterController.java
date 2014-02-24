@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import service.ClientUserController;
 
-public class RegisterController implements FrameController
+public class RegisterController implements IFrameController
 {
     
     private Register registerPanel;

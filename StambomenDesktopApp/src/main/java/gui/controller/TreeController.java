@@ -3,7 +3,7 @@ package gui.controller;
 import gui.Panels;
 import javax.swing.JPanel;
 
-public class TreeController implements FrameController
+public class TreeController implements IFrameController
 {
 
     private GuiController gui;

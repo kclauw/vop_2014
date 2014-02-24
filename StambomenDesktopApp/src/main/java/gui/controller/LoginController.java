@@ -5,7 +5,7 @@ import gui.Panels;
 import gui.Login;
 import javax.swing.JPanel;
 
-public class LoginController implements FrameController
+public class LoginController implements IFrameController
 {
     
     private Login loginPanel;
