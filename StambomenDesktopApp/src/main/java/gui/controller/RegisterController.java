@@ -1,16 +1,17 @@
 package gui.controller;
 
 import dto.UserDTO;
-import gui.FrameFactory;
-import gui.Frames;
+import gui.PanelFactory;
+import gui.Panels;
 import gui.Register;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import service.ClientUserController;
 
 public class RegisterController implements IFrameController
 {
     
-    private Register registerFrame;
+    private Register registerPanel;
     private ClientUserController uc;
     private GuiController gui;
     
@@ -28,27 +29,28 @@ public class RegisterController implements IFrameController
             String succes = uc.makeUser(user);
             if (succes == null)
             {
-                JOptionPane.showConfirmDialog(registerFrame, "Account registered succesfully");
-                goTo(Frames.LOGIN);
+                JOptionPane.showConfirmDialog(registerPanel, "Account registered succesfully");
+                goTo(Panels.LOGIN);
             }
             else
             {
-                registerFrame.setError(succes);
+                registerPanel.setError(succes);
             }
         }
         else
         {
-            registerFrame.setError("The passwords do not match!");
+            registerPanel.setError("The passwords do not match!");
         }
     }
     
-    public void show()
+    public JPanel show()
     {
-        registerFrame = (Register) FrameFactory.makeFrame(Frames.REGISTER);
-        registerFrame.setRegisterController(this);
+        registerPanel = (Register) PanelFactory.makePanel(Panels.REGISTER);
+        registerPanel.setRegisterController(this);
+        return registerPanel;
     }
     
-    public void goTo(Frames frame)
+    public void goTo(Panels frame)
     {
         gui.goTo(frame);
     }

@@ -1,6 +1,8 @@
 package domain;
 
+import exception.InvalidParentException;
 import java.util.Date;
+import util.StringValidation;
 
 public class Person
 {
@@ -17,15 +19,15 @@ public class Person
 
     public Person(int personId, String firstName, String surName, Gender gender, Date birthDate, Date deathDate, Place place, Person father, Person mother)
     {
-        this.firstName = firstName;
-        this.surName = surName;
-        this.gender = gender;
-        this.birthDate = birthDate;
-        this.deathDate = deathDate;
-        this.place = place;
-        this.father = father;
-        this.mother = mother;
-        this.personId = personId;
+        setFirstName(firstName);
+        setSurName(surName);
+        setGender(gender);
+        setBirthDate(birthDate);
+        setDeathDate(deathDate);
+        setPlace(place);
+        setFather(father);
+        setMother(mother);
+        setPersonId(personId);
     }
 
     public int getPersonId()
@@ -33,7 +35,7 @@ public class Person
         return personId;
     }
 
-    public void setPersonId(int personId)
+    private void setPersonId(int personId)
     {
         this.personId = personId;
     }
@@ -43,8 +45,13 @@ public class Person
         return firstName;
     }
 
-    public void setFirstName(String firstName)
+    private void setFirstName(String firstName)
     {
+        if (StringValidation.emptyString(firstName))
+        {
+            throw new IllegalArgumentException("Firstname is empty.");
+        }
+
         this.firstName = firstName;
     }
 
@@ -53,8 +60,13 @@ public class Person
         return surName;
     }
 
-    public void setSurName(String surName)
+    private void setSurName(String surName)
     {
+        if (StringValidation.emptyString(surName))
+        {
+            throw new IllegalArgumentException("Surname is empty");
+        }
+
         this.surName = surName;
     }
 
@@ -63,7 +75,7 @@ public class Person
         return gender;
     }
 
-    public void setGender(Gender gender)
+    private void setGender(Gender gender)
     {
         this.gender = gender;
     }
@@ -73,7 +85,7 @@ public class Person
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate)
+    private void setBirthDate(Date birthDate)
     {
         this.birthDate = birthDate;
     }
@@ -83,7 +95,7 @@ public class Person
         return deathDate;
     }
 
-    public void setDeathDate(Date deathDate)
+    private void setDeathDate(Date deathDate)
     {
         this.deathDate = deathDate;
     }
@@ -93,7 +105,7 @@ public class Person
         return place;
     }
 
-    public void setPlace(Place place)
+    private void setPlace(Place place)
     {
         this.place = place;
     }
@@ -105,6 +117,11 @@ public class Person
 
     public void setFather(Person father)
     {
+        if (father == this)
+        {
+            throw new InvalidParentException();
+        }
+
         this.father = father;
     }
 
@@ -115,6 +132,10 @@ public class Person
 
     public void setMother(Person mother)
     {
+        if (mother == this)
+        {
+            throw new InvalidParentException();
+        }
         this.mother = mother;
     }
 

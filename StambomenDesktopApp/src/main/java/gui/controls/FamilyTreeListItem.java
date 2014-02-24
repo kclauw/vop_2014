@@ -54,8 +54,11 @@ public class FamilyTreeListItem extends javax.swing.JPanel {
      * @param name
      * @param privacy
      */
-    public FamilyTreeListItem(String name, int privacy) {
+    public FamilyTreeListItem() {
         initComponents();
+    }
+    public FamilyTreeListItem(String name, int privacy) {
+        this();
         
         setFamilyTreeName(name);
         setPrivacy(privacy);

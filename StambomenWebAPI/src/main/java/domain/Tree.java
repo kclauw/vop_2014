@@ -17,11 +17,11 @@ public class Tree
 
     public Tree(int id, User owner, Privacy privacy, String name, List<Person> persons)
     {
-        this.id = id;
-        this.owner = owner;
-        this.privacy = privacy;
-        this.name = name;
-        this.persons = persons;
+        setId(id);
+        setOwner(owner);
+        setPrivacy(privacy);
+        setName(name);
+        setPersons(persons);
     }
 
     public List<Person> getPersons()
@@ -29,7 +29,7 @@ public class Tree
         return persons;
     }
 
-    public void setPersons(List<Person> persons)
+    private void setPersons(List<Person> persons)
     {
         this.persons = persons;
     }
@@ -39,7 +39,7 @@ public class Tree
         return id;
     }
 
-    public void setId(int id)
+    private void setId(int id)
     {
         this.id = id;
     }
@@ -49,7 +49,7 @@ public class Tree
         return owner;
     }
 
-    public void setOwner(User owner)
+    private void setOwner(User owner)
     {
         this.owner = owner;
     }
@@ -59,7 +59,7 @@ public class Tree
         return privacy;
     }
 
-    public void setPrivacy(Privacy privacy)
+    private void setPrivacy(Privacy privacy)
     {
         this.privacy = privacy;
     }
@@ -69,7 +69,7 @@ public class Tree
         return name;
     }
 
-    public void setName(String name)
+    private void setName(String name)
     {
         this.name = name;
     }

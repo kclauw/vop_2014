@@ -1,6 +1,7 @@
 package gui.controller;
 
-import gui.Frames;
+import gui.Panels;
+import javax.swing.JPanel;
 
 public class TreeController implements IFrameController
 {
@@ -12,12 +13,12 @@ public class TreeController implements IFrameController
         this.gui = gui;
     }
 
-    public void show()
+    public JPanel show()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void goTo(Frames frame)
+    public void goTo(Panels frame)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

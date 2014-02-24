@@ -1,9 +1,13 @@
 package gui.controller;
 
-import gui.Frames;
+import gui.Panels;
+import java.awt.Dimension;
+import javax.swing.JFrame;
 
 public class GuiController
 {
+
+    private JFrame programFrame;
 
     private LoginController loginController;
     private RegisterController registerController;
@@ -12,28 +16,36 @@ public class GuiController
     public GuiController()
     {
         init();
-        loginController.show();
+        goTo(Panels.LOGIN);
+        programFrame.setVisible(true);
     }
 
     private void init()
     {
+        programFrame = new JFrame();
+        programFrame.setSize(new Dimension(800, 400));
+        programFrame.setPreferredSize(new Dimension(800, 400));
+        programFrame.setLocationRelativeTo(null);
+
         loginController = new LoginController(this);
         registerController = new RegisterController(this);
         treeController = new TreeController(this);
     }
 
-    public void goTo(Frames frame)
+    public void goTo(Panels frame)
     {
+        programFrame.getContentPane().removeAll();
         switch (frame)
         {
             case LOGIN:
-                loginController.show();
+                programFrame.add(loginController.show());
                 break;
             case REGISTER:
-                registerController.show();
+                programFrame.add(registerController.show());
                 break;
 
         }
+        programFrame.revalidate();
     }
 
 }

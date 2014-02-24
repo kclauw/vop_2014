@@ -9,9 +9,9 @@ public class Coordinate
 
     public Coordinate(float longitude, float latitude, int id)
     {
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.id = id;
+        setId(id);
+        setLatitude(latitude);
+        setLongitude(longitude);
     }
 
     public int getId()
