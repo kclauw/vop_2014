@@ -1,12 +1,12 @@
 package gui.controller;
 
 import gui.Panels;
-import java.awt.CardLayout;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 
 public class GuiController
 {
+
     private JFrame programFrame;
 
     private LoginController loginController;
@@ -23,10 +23,10 @@ public class GuiController
     private void init()
     {
         programFrame = new JFrame();
-        programFrame.setLocationRelativeTo(null);
         programFrame.setSize(new Dimension(800, 400));
         programFrame.setPreferredSize(new Dimension(800, 400));
-        
+        programFrame.setLocationRelativeTo(null);
+
         loginController = new LoginController(this);
         registerController = new RegisterController(this);
         treeController = new TreeController(this);
