@@ -20,15 +20,18 @@ public class PersonDao implements IDao<Person>
 {
 
     private Connection con;
-    private final String GETPERSONSBYTREEID = "SELECT d.*, pr.parent as parent1, pr2.parent as parent2 FROM Tree t "
-            + "		JOIN PersonTree c ON c.treeID = t.treeID "
-            + "               JOIN Person d on c.personID = d.personID "
-            + "               LEFT OUTER JOIN ParentRelation pr on pr.child = d.personID "
-            + "		LEFT OUTER JOIN ParentRelation pr2 on pr2.child = d.personID and pr.parent != pr2.parent"
-            + "               where t.treeID = ? "
-            + "	    GROUP BY d.personID "
-            + "            ORDER BY pr.parent ASC";
-
+    private final String GETPERSONSBYTREEID = "SELECT d.*, pr.parent as parent1, pr2.parent as parent2,h.*,g.*,f.* FROM Tree t" 
+            + "JOIN PersonTree c ON c.treeID = t.treeID "
+            + "JOIN Person d on c.personID = d.personID "
+            + "JOIN Place e on d.birthplace=e.placeID"
+            + "left outer JOIN Coordinates f on f.coordinatesID = e.coordinatesID"
+            + "JOIN Placename  g on g.placenameID = e.placenameID"
+            + "JOIN Country h on h.countryID = e.countryID"
+            + "LEFT OUTER JOIN ParentRelation pr on pr.child = d.personID "
+            + "LEFT OUTER JOIN ParentRelation pr2 on pr2.child = d.personID and pr.parent != pr2.parent"
+            + "where t.treeID = 2" 
+            + "GROUP BY d.personID" 
+            + "ORDER BY pr.parent ASC";
     private PersistenceController pc;
 
     public PersonDao(PersistenceController pc)
@@ -112,12 +115,13 @@ public class PersonDao implements IDao<Person>
             Date birthDate = res.getDate("birthdate");
             Date deathDate = res.getDate("deathdate");
             int placeId = res.getInt("birthplace");
-
+            
+            
             Person father = null;
             Person mother = null;
 
             Gender g = Gender.getGender(gender);
-            Place p = pc.getPlace(placeId);
+            Place p = pc.getPlace(res);
 
             person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
 
