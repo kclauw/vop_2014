@@ -6,11 +6,14 @@ import exception.EmptyPasswordException;
 import exception.EmptyUsernameException;
 import exception.InvalidPasswordException;
 import exception.UserAlreadyExistsException;
+import java.util.Map;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  * Proof of Concept klasse ter verduidelijking; De objecten zullen uiteindelijk
@@ -18,8 +21,7 @@ import javax.ws.rs.core.Response;
  *
  */
 @Path("/user")
-public class UserService
-{
+public class UserService {
 
     private UserController uc = new UserController();
 
@@ -36,28 +38,52 @@ public class UserService
     @POST
     @Path("/post")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addUser(User user)
-    {
-        try
-        {
+    public Response addUser(User user) {
+        try {
             String result = "User added:" + user.toString();
             uc.addUser(user);
             return Response.status(Response.Status.OK).entity(result).build();
-        }
-        catch (UserAlreadyExistsException ex)
-        {
+        } catch (UserAlreadyExistsException ex) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        } catch (EmptyPasswordException ex) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        } catch (EmptyUsernameException ex) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        } catch (InvalidPasswordException ex) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
-        catch (EmptyPasswordException ex)
-        {
+    }
+
+    @POST
+    @Path("/post")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response login(User user) {
+        try {
+            uc.login(user);
+
+            //returns json userobject when login is ok
+            //JSONObject json = new JSONObject((Map) user);
+            //return Response.ok(json, MediaType.APPLICATION_JSON).build();
+            return Response.ok(user).build();
+        } catch (UserAlreadyExistsException ex) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
-        catch (EmptyUsernameException ex)
-        {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        }
-        catch (InvalidPasswordException ex)
-        {
+    }
+
+    @POST
+    @Path("/post")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFriends(int userID) {
+        try {
+            Map<String, Integer> friends = uc.getFriends(userID);
+
+            //returns json friends
+            JSONObject json = new JSONObject(friends);
+
+            return Response.ok(json, MediaType.APPLICATION_JSON).build();
+        } catch (UserAlreadyExistsException ex) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
     }
