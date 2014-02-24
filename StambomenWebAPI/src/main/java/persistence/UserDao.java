@@ -109,8 +109,8 @@ public class UserDao implements IDao<User> {
             ResultSet res = prep.executeQuery();
 
             while (res.next()) {
-                int id = res.getInt("id");
-                String friend = res.getString("userID");
+                int id = res.getInt("userID");
+                String friend = res.getString("username");
                 friends.put(friend, id);
             }
 
