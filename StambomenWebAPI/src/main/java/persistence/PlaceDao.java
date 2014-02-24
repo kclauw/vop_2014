@@ -6,7 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,18 +39,7 @@ public class PlaceDao implements IDao<Place> {
             ResultSet res = prep.executeQuery();
 
             if (res.next()) {
-                int countryId = res.getInt("countryID");
-                int placeNameId = res.getInt("placenameID");
-                int coordId = res.getInt("coordinatesID");
-                float lat = res.getFloat("latitude");
-                float longi = res.getFloat("longitude");
-                String zip = res.getString("zipcode");
-                String country = res.getString("countryname");
-                String placeName = res.getString("placename");
-
-                Coordinate coord = new Coordinate(longi, lat, coordId);
-                place = new Place(placeId, countryId, placeNameId, coord, country, zip, placeName);
-
+                 place = map(res);
             }
 
             con.close();
@@ -76,10 +69,8 @@ public class PlaceDao implements IDao<Place> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public Collection<Place> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
+    
 
     @Override
     public Place map(ResultSet res) {
@@ -105,6 +96,11 @@ public class PlaceDao implements IDao<Place> {
 
         return place;
 
+    }
+
+    @Override
+    public Collection<Place> getAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
