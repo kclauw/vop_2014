@@ -167,8 +167,6 @@ public class PersonDao implements IDao<Person>
                     }
                 }
             }
-
-            persMap.remove(personId);
         }
 
     }

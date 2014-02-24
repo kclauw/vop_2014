@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
@@ -60,7 +61,7 @@ public class TreeDao implements IDao<Tree>
 
     public List<Tree> getAll(int userid)
     {
-        List<Tree> trees = null;
+        List<Tree> trees = new ArrayList<Tree>();
         try
         {
 
@@ -72,9 +73,12 @@ public class TreeDao implements IDao<Tree>
             while (res.next())
             {
                 Tree tree = map(res);
-                trees.add(tree);
+
+                if (tree != null)
+                {
+                    trees.add(tree);
+                }
             }
-            // tree object, mapping van objecten en personen :( persoondao mss maken
 
             con.close();
         }
@@ -144,6 +148,7 @@ public class TreeDao implements IDao<Tree>
             System.out.println(pers);
 
             tree = new Tree(id, user, priv, name, pers);
+            System.out.println(tree);
         }
         catch (SQLException ex)
         {
