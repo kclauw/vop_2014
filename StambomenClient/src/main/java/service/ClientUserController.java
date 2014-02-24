@@ -17,5 +17,9 @@ public class ClientUserController {
     public String makeUser(UserDTO user) {
         return client.makeUser(user);
     }
+    
+    public String login(UserDTO user) {
+        return client.login(user);
+    }
 
 }

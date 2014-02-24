@@ -34,4 +34,13 @@ public class ClientUserService
 
         return null;
     }
+    
+    /**
+     * 
+     * @param user
+     * @return 
+     */
+    public String login(UserDTO user) {
+        return "This is an exception example";
+    }
 }

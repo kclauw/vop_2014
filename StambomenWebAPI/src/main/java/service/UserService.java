@@ -55,10 +55,11 @@ public class UserService {
     }
 
     @POST
-    @Path("/post")
+    @Path("/post/login")
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(User user) {
         try {
+            
             uc.login(user);
 
             //returns json userobject when login is ok
@@ -71,7 +72,7 @@ public class UserService {
     }
 
     @POST
-    @Path("/post")
+    @Path("/post/getFriends")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFriends(int userID) {
         try {
