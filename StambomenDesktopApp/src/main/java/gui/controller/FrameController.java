@@ -1,11 +1,12 @@
 package gui.controller;
 
-import gui.Frames;
+import gui.Panels;
+import javax.swing.JPanel;
 
 public interface FrameController
 {
 
-    public void show();
+    public JPanel show();
 
-    public void goTo(Frames frame);
+    public void goTo(Panels frame);
 }

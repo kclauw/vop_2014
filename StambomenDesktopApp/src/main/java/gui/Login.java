@@ -1,9 +1,18 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package gui;
 
 import gui.controller.LoginController;
 
-public class Login extends javax.swing.JFrame
-{
+/**
+ *
+ * @author Lowie
+ */
+public class Login extends javax.swing.JPanel {
 
     private LoginController login;
 
@@ -24,8 +33,7 @@ public class Login extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 200), new java.awt.Dimension(0, 200), new java.awt.Dimension(32767, 200));
@@ -38,10 +46,8 @@ public class Login extends javax.swing.JFrame
         jPanel2 = new javax.swing.JPanel();
         btnRegister = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(900, 500));
-        getContentPane().setLayout(new java.awt.GridLayout(1, 3));
-        getContentPane().add(filler1);
+        setLayout(new java.awt.GridLayout());
+        add(filler1);
 
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -94,13 +100,11 @@ public class Login extends javax.swing.JFrame
         gridBagConstraints.weighty = 0.1;
         jPanel1.add(filler2, gridBagConstraints);
 
-        getContentPane().add(jPanel1);
+        add(jPanel1);
 
         btnRegister.setText("Register");
-        btnRegister.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegisterActionPerformed(evt);
             }
         });
@@ -110,7 +114,7 @@ public class Login extends javax.swing.JFrame
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(183, Short.MAX_VALUE)
+                .addContainerGap(212, Short.MAX_VALUE)
                 .addComponent(btnRegister)
                 .addContainerGap())
         );
@@ -119,18 +123,16 @@ public class Login extends javax.swing.JFrame
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnRegister)
-                .addContainerGap(366, Short.MAX_VALUE))
+                .addContainerGap(441, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2);
-
-        pack();
+        add(jPanel2);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnRegisterActionPerformed
-    {//GEN-HEADEREND:event_btnRegisterActionPerformed
-        login.goTo(Frames.REGISTER);
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        login.goTo(Panels.REGISTER);
     }//GEN-LAST:event_btnRegisterActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
