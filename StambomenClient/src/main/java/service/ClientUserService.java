@@ -34,4 +34,14 @@ public class ClientUserService
 
         return null;
     }
+    
+    /**
+     * 
+     * @param user
+     * @return 
+     */
+    public UserDTO login(UserDTO user){
+    
+        return user;
+    }
 }
