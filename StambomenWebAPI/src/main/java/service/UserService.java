@@ -6,6 +6,7 @@ import exception.EmptyPasswordException;
 import exception.EmptyUsernameException;
 import exception.InvalidPasswordException;
 import exception.UserAlreadyExistsException;
+import exception.WrongLoginExeption;
 import java.util.Map;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,7 +14,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.codehaus.jettison.json.JSONObject;
 
 /**
  * Proof of Concept klasse ter verduidelijking; De objecten zullen uiteindelijk
@@ -56,7 +56,6 @@ public class UserService {
 
     @POST
     @Path("/post")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(User user) {
         try {
@@ -66,24 +65,20 @@ public class UserService {
             //JSONObject json = new JSONObject((Map) user);
             //return Response.ok(json, MediaType.APPLICATION_JSON).build();
             return Response.ok(user).build();
-        } catch (UserAlreadyExistsException ex) {
+        } catch (WrongLoginExeption ex) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
     }
 
     @POST
     @Path("/post")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFriends(int userID) {
         try {
             Map<String, Integer> friends = uc.getFriends(userID);
 
-            //returns json friends
-            JSONObject json = new JSONObject(friends);
-
-            return Response.ok(json, MediaType.APPLICATION_JSON).build();
-        } catch (UserAlreadyExistsException ex) {
+            return Response.ok(friends).build();
+        } catch (Exception ex) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
     }
