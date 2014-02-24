@@ -13,13 +13,13 @@ public class Place
 
     public Place(int id, int countryId, int placeNameId, Coordinate coord, String country, String zipCode, String placeName)
     {
-        this.id = id;
-        this.countryId = countryId;
-        this.placeNameId = placeNameId;
-        this.coord = coord;
-        this.country = country;
-        this.zipCode = zipCode;
-        this.placeName = placeName;
+        setId(id);
+        setCountry(country);
+        setPlaceNameId(placeNameId);
+        setCoord(coord);
+        setZipCode(zipCode);
+        setPlaceName(placeName);
+        setCountryId(countryId);;
     }
 
     public int getCountryId()
@@ -27,7 +27,7 @@ public class Place
         return countryId;
     }
 
-    public void setCountryId(int countryId)
+    private void setCountryId(int countryId)
     {
         this.countryId = countryId;
     }
@@ -37,7 +37,7 @@ public class Place
         return placeNameId;
     }
 
-    public void setPlaceNameId(int placeNameId)
+    private void setPlaceNameId(int placeNameId)
     {
         this.placeNameId = placeNameId;
     }
@@ -47,7 +47,7 @@ public class Place
         return id;
     }
 
-    public void setId(int id)
+    private void setId(int id)
     {
         this.id = id;
     }
@@ -57,7 +57,7 @@ public class Place
         return coord;
     }
 
-    public void setCoord(Coordinate coord)
+    private void setCoord(Coordinate coord)
     {
         this.coord = coord;
     }
@@ -67,7 +67,7 @@ public class Place
         return country;
     }
 
-    public void setCountry(String country)
+    private void setCountry(String country)
     {
         this.country = country;
     }
@@ -77,7 +77,7 @@ public class Place
         return zipCode;
     }
 
-    public void setZipCode(String zipCode)
+    private void setZipCode(String zipCode)
     {
         this.zipCode = zipCode;
     }
@@ -87,7 +87,7 @@ public class Place
         return placeName;
     }
 
-    public void setPlaceName(String placeName)
+    private void setPlaceName(String placeName)
     {
         this.placeName = placeName;
     }
