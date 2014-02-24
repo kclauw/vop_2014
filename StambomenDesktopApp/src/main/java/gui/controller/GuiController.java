@@ -2,6 +2,7 @@ package gui.controller;
 
 import gui.Panels;
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import javax.swing.JFrame;
 
 public class GuiController
@@ -22,7 +23,9 @@ public class GuiController
     private void init()
     {
         programFrame = new JFrame();
-        programFrame.setLayout(new CardLayout());
+        programFrame.setLocationRelativeTo(null);
+        programFrame.setSize(new Dimension(800, 400));
+        programFrame.setPreferredSize(new Dimension(800, 400));
         
         loginController = new LoginController(this);
         registerController = new RegisterController(this);
@@ -31,6 +34,7 @@ public class GuiController
 
     public void goTo(Panels frame)
     {
+        programFrame.getContentPane().removeAll();
         switch (frame)
         {
             case LOGIN:
@@ -41,6 +45,7 @@ public class GuiController
                 break;
 
         }
+        programFrame.revalidate();
     }
 
 }
