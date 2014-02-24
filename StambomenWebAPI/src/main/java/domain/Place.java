@@ -13,7 +13,7 @@ public class Place
 
     public Place(int placeId, int countryId, int placeNameId, Coordinate coord, String country, String zipCode, String placeName)
     {
-        setId(placeId);
+        setplaceId(placeId);
         setCountry(country);
         setPlaceNameId(placeNameId);
         setCoord(coord);
