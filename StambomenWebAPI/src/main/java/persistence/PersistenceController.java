@@ -62,4 +62,9 @@ public class PersistenceController
         return (List<Person>) personDao.GetAll(treeId);
     }
 
+    public List<Tree> getTrees(int userId)
+    {
+        return treeDao.getAll(userId);
+    }
+
 }

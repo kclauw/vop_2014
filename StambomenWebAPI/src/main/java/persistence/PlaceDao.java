@@ -20,7 +20,7 @@ public class PlaceDao implements IDao<Place>
             + " LEFT JOIN Coordinates c on c.coordinatesID = p.coordinatesID "
             + " JOIN Country coun on coun.countryID = p.countryID "
             + " JOIN Placename pla on pla.placenameID = p.placenameID "
-            + " WHERE p.place = ?";
+            + " WHERE p.placeID = ?";
 
     public PlaceDao()
     {
