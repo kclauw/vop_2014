@@ -26,4 +26,9 @@ public class TreeController
 //            pc.addTree(tree);
 //        };
     }
+
+    public Tree getTree(int id)
+    {
+        return pc.getTree(id);
+    }
 }

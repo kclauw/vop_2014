@@ -2,6 +2,9 @@ package service;
 
 import domain.User;
 import domain.controller.UserController;
+import exception.EmptyPasswordException;
+import exception.EmptyUsernameException;
+import exception.InvalidPasswordException;
 import exception.UserAlreadyExistsException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,7 +16,6 @@ import javax.ws.rs.core.Response;
  * Proof of Concept klasse ter verduidelijking; De objecten zullen uiteindelijk
  * via de persistence uit de db moeten komen
  *
- * @author Axl
  */
 @Path("/user")
 public class UserService
@@ -43,6 +45,18 @@ public class UserService
             return Response.status(Response.Status.OK).entity(result).build();
         }
         catch (UserAlreadyExistsException ex)
+        {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
+        catch (EmptyPasswordException ex)
+        {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
+        catch (EmptyUsernameException ex)
+        {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
+        catch (InvalidPasswordException ex)
         {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }

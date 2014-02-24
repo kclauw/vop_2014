@@ -1,36 +1,65 @@
 package persistence;
 
-import domain.User;
+import domain.Person;
+import domain.Place;
 import domain.Tree;
+import domain.User;
 import java.util.List;
 
-public class PersistenceController 
+public class PersistenceController
 {
+
     private UserDao userDao;
     private TreeDao treeDao;
-    
+    private PersonDao personDao;
+    private PlaceDao placeDao;
+
     public PersistenceController()
     {
         userDao = new UserDao();
+        treeDao = new TreeDao(this);
+        personDao = new PersonDao(this);
+        placeDao = new PlaceDao();
     }
 
-    public void addUser(User user) 
+    public void addUser(User user)
     {
-        userDao.Save(user);
+        userDao.save(user);
     }
 
-    public List<User> getUsers() 
+    public List<User> getUsers()
     {
-        return (List<User>) userDao.GetAll();
+        return (List<User>) userDao.getAll();
     }
-    
+
     public User getUser(String username)
     {
-        return userDao.Get(username);
+        return userDao.get(username);
     }
-    
-      public void addTree(Tree tree) 
+
+    public User getUser(int id)
     {
-        treeDao.Save(tree);
-    }  
+        return userDao.get(id);
+    }
+
+    public Tree getTree(int id)
+    {
+        return treeDao.get(id);
+    }
+
+    public void addTree(Tree tree)
+    {
+        treeDao.save(tree);
+    }
+
+    public Place getPlace(int placeId)
+    {
+        return placeDao.get(placeId);
+    }
+
+    public List<Person> getPersons(int treeId)
+    {
+        return (List<Person>) personDao.GetAll(treeId);
+    }
+
 }

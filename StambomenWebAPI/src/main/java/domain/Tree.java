@@ -1,44 +1,77 @@
-
 package domain;
 
+import java.util.List;
 
-public class Tree {
+public class Tree
+{
 
     private int id;
-    private int owner;
-    private int privacy;
+    private User owner;
+    private Privacy privacy;
+    private String name;
+    private List<Person> persons;
 
-    public Tree() {
+    public Tree()
+    {
     }
 
-    public Tree(int id, int owner, int privacy) {
+    public Tree(int id, User owner, Privacy privacy, String name, List<Person> persons)
+    {
         this.id = id;
         this.owner = owner;
         this.privacy = privacy;
+        this.name = name;
+        this.persons = persons;
     }
 
-    public int getId() {
+    public List<Person> getPersons()
+    {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons)
+    {
+        this.persons = persons;
+    }
+
+    public int getId()
+    {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id)
+    {
         this.id = id;
     }
 
-    public int getOwner() {
+    public User getOwner()
+    {
         return owner;
     }
 
-    public void setOwner(int owner) {
+    public void setOwner(User owner)
+    {
         this.owner = owner;
     }
 
-    public int getPrivacy() {
+    public Privacy getPrivacy()
+    {
         return privacy;
     }
 
-    public void setPrivacy(int privacy) {
+    public void setPrivacy(Privacy privacy)
+    {
         this.privacy = privacy;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
     }
 
 }

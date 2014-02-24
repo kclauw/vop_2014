@@ -9,7 +9,7 @@ public class StringValidation
 {
     public static boolean emptyString(String s)
     {
-         return (s == null || s.equals(""));
+         return (s == null || s.equals("") || s.isEmpty());
     }
     
     public static boolean alphaNumericString(String s)

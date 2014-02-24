@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
@@ -15,30 +14,54 @@ import java.util.logging.Logger;
 public class UserDao implements IDao<User>
 {
 
-    private List<User> users;
     private Connection con;
-    private final String getAllUsers = "SELECT id, username, password FROM User";
-    private final String saveUser = "INSERT INTO User (username, password) VALUES (?, ?)";
-    private final String getUser = "Select id, username, password FROM User WHERE username = ?";
+    private final String GETALLUSER = "SELECT userID, username, password FROM User";
+    private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
+    private final String GETUSER = "Select userID, username, password FROM User WHERE username = ?";
+    private final String GETUSERBYID = "Select userID, username, password FROM User WHERE userID = ?";
 
     public UserDao()
     {
-        users = new ArrayList<User>();
     }
 
     @Override
-    public User Get(User id)
+    public User get(int id)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        User user = null;
+
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            PreparedStatement prep = con.prepareStatement(GETUSERBYID);
+            prep.setInt(1, id);
+            ResultSet res = prep.executeQuery();
+
+            if (res.next())
+            {
+                user = map(res);
+            }
+
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return user;
     }
 
     @Override
-    public void Save(User value)
+    public void save(User value)
     {
         try
         {
             con = DatabaseUtils.getConnection();
-            PreparedStatement prep = con.prepareStatement(saveUser);
+            PreparedStatement prep = con.prepareStatement(SAVEUSER);
             prep.setString(1, value.getUsername());
             prep.setString(2, value.getPassword());
             prep.executeUpdate();
@@ -56,32 +79,30 @@ public class UserDao implements IDao<User>
     }
 
     @Override
-    public void Update(User value)
+    public void update(User value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void Delete(User value)
+    public void delete(User value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Collection<User> GetAll()
+    public Collection<User> getAll()
     {
+        List<User> users = null;
         try
         {
             con = DatabaseUtils.getConnection();
             Statement stat = con.createStatement();
-            ResultSet res = stat.executeQuery(getAllUsers);
+            ResultSet res = stat.executeQuery(GETALLUSER);
 
             while (res.next())
             {
-                int id = res.getInt("id");
-                String username = res.getString("username");
-                String password = res.getString("password");
-                User user = new User(id, username, password);
+                User user = map(res);
                 users.add(user);
             }
 
@@ -99,23 +120,20 @@ public class UserDao implements IDao<User>
         return users;
     }
 
-    public User Get(String username)
+    public User get(String username)
     {
         User user = null;
 
         try
         {
             con = DatabaseUtils.getConnection();
-            PreparedStatement prep = con.prepareStatement(getUser);
+            PreparedStatement prep = con.prepareStatement(GETUSER);
             prep.setString(1, username);
             ResultSet res = prep.executeQuery();
 
             if (res.next())
             {
-                int id = res.getInt("id");
-                String ur = res.getString("username");
-                String password = res.getString("password");
-                user = new User(id, ur, password);
+                user = map(res);
             }
 
             con.close();
@@ -131,6 +149,26 @@ public class UserDao implements IDao<User>
 
         return user;
 
+    }
+
+    @Override
+    public User map(ResultSet res)
+    {
+        User user = null;
+
+        try
+        {
+            int uid = res.getInt("userID");
+            String ur = res.getString("username");
+            String password = res.getString("password");
+            user = new User(uid, ur, password);
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return user;
     }
 
 }
