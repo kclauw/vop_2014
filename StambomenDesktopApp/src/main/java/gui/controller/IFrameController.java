@@ -8,5 +8,5 @@ public interface IFrameController
 
     public JPanel show();
 
-    public void goTo(Panels panel);
+    public void goTo(Panels frame);
 }
