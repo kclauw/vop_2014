@@ -1,0 +1,231 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+CREATE SCHEMA IF NOT EXISTS `team12_staging` DEFAULT CHARACTER SET latin1 ;
+USE `team12_staging` ;
+
+-- -----------------------------------------------------
+-- Table `team12_staging`.`Coordinates`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `team12_staging`.`Coordinates` ;
+
+CREATE TABLE IF NOT EXISTS `team12_staging`.`Coordinates` (
+  `coordinatesID` INT(11) NOT NULL AUTO_INCREMENT,
+  `latitude` DECIMAL(10,0) NULL DEFAULT NULL,
+  `longitude` DECIMAL(10,0) NULL DEFAULT NULL,
+  PRIMARY KEY (`coordinatesID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `team12_staging`.`Country`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `team12_staging`.`Country` ;
+
+CREATE TABLE IF NOT EXISTS `team12_staging`.`Country` (
+  `countryID` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NULL DEFAULT NULL,
+  PRIMARY KEY (`countryID`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `team12_staging`.`User`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `team12_staging`.`User` ;
+
+CREATE TABLE IF NOT EXISTS `team12_staging`.`User` (
+  `userID` INT(11) NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`userID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 10
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `team12_staging`.`Tree`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `team12_staging`.`Tree` ;
+
+CREATE TABLE IF NOT EXISTS `team12_staging`.`Tree` (
+  `treeID` INT(11) NOT NULL AUTO_INCREMENT,
+  `ownerID` INT(11) NOT NULL,
+  `privacy` TINYINT(2) NOT NULL,
+  `name` VARCHAR(50) NULL DEFAULT 'unknown',
+  PRIMARY KEY (`treeID`),
+  INDEX `FKOwner_idx` (`ownerID` ASC),
+  CONSTRAINT `FKOwner`
+    FOREIGN KEY (`ownerID`)
+    REFERENCES `team12_staging`.`User` (`userID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `team12_staging`.`Placename`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `team12_staging`.`Placename` ;
+
+CREATE TABLE IF NOT EXISTS `team12_staging`.`Placename` (
+  `placenameID` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NULL DEFAULT NULL,
+  PRIMARY KEY (`placenameID`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `team12_staging`.`Place`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `team12_staging`.`Place` ;
+
+CREATE TABLE IF NOT EXISTS `team12_staging`.`Place` (
+  `placeID` INT(11) NOT NULL AUTO_INCREMENT,
+  `coordinatesID` INT(11) NULL DEFAULT NULL,
+  `countryID` INT(11) NULL DEFAULT NULL,
+  `zipcode` VARCHAR(50) NULL DEFAULT NULL,
+  `placenameID` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`placeID`),
+  INDEX `FKPlacename_idx` (`placenameID` ASC),
+  INDEX `FKCountry_idx` (`countryID` ASC),
+  INDEX `FKCoordinates_idx` (`coordinatesID` ASC),
+  CONSTRAINT `FKCoordinates`
+    FOREIGN KEY (`coordinatesID`)
+    REFERENCES `team12_staging`.`Coordinates` (`coordinatesID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FKCountry`
+    FOREIGN KEY (`countryID`)
+    REFERENCES `team12_staging`.`Country` (`countryID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FKPlacename`
+    FOREIGN KEY (`placenameID`)
+    REFERENCES `team12_staging`.`Placename` (`placenameID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `team12_staging`.`Person`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `team12_staging`.`Person` ;
+
+CREATE TABLE IF NOT EXISTS `team12_staging`.`Person` (
+  `personID` INT(11) NOT NULL AUTO_INCREMENT,
+  `birthplace` INT(11) NULL DEFAULT NULL,
+  `firstname` VARCHAR(50) NULL DEFAULT NULL,
+  `lastname` VARCHAR(50) NOT NULL,
+  `gender` TINYINT(1) NOT NULL,
+  `birthdate` DATE NULL DEFAULT NULL,
+  `deathdate` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`personID`),
+  INDEX `FKBirthplace_idx` (`birthplace` ASC),
+  CONSTRAINT `FKBirthplace`
+    FOREIGN KEY (`birthplace`)
+    REFERENCES `team12_staging`.`Place` (`placeID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 11
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `team12_staging`.`ParentRelation`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `team12_staging`.`ParentRelation` ;
+
+CREATE TABLE IF NOT EXISTS `team12_staging`.`ParentRelation` (
+  `treeID` INT(11) NOT NULL,
+  `parent` INT(11) NULL DEFAULT NULL,
+  `child` INT(11) NULL DEFAULT NULL,
+  INDEX `FKTree_idx` (`treeID` ASC),
+  INDEX `FKParent_idx` (`parent` ASC),
+  INDEX `FKChild_idx` (`child` ASC),
+  CONSTRAINT `FKTreeParentRelation`
+    FOREIGN KEY (`treeID`)
+    REFERENCES `team12_staging`.`Tree` (`treeID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FKChild`
+    FOREIGN KEY (`child`)
+    REFERENCES `team12_staging`.`Person` (`personID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FKParent`
+    FOREIGN KEY (`parent`)
+    REFERENCES `team12_staging`.`Person` (`personID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `team12_staging`.`PersonTree`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `team12_staging`.`PersonTree` ;
+
+CREATE TABLE IF NOT EXISTS `team12_staging`.`PersonTree` (
+  `treeID` INT(11) NOT NULL,
+  `personID` INT(11) NOT NULL,
+  INDEX `FKPersonTree_idx` (`personID` ASC),
+  INDEX `FKTree_idx` (`treeID` ASC),
+  CONSTRAINT `FKTree`
+    FOREIGN KEY (`treeID`)
+    REFERENCES `team12_staging`.`Tree` (`treeID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FKPerson`
+    FOREIGN KEY (`personID`)
+    REFERENCES `team12_staging`.`Person` (`personID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `team12_staging`.`Request`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `team12_staging`.`Request` ;
+
+CREATE TABLE IF NOT EXISTS `team12_staging`.`Request` (
+  `friend` INT(11) NOT NULL,
+  `receiver` INT(11) NOT NULL,
+  `status` TINYINT(2) NOT NULL,
+  INDEX `FKRequest_idx` (`friend` ASC),
+  INDEX `FKReceiver_idx` (`receiver` ASC),
+  CONSTRAINT `FKReceiver`
+    FOREIGN KEY (`receiver`)
+    REFERENCES `team12_staging`.`User` (`userID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FKRequest`
+    FOREIGN KEY (`friend`)
+    REFERENCES `team12_staging`.`User` (`userID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
