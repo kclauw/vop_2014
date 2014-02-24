@@ -1,9 +1,3 @@
-<%-- 
-    Document   : stambomen.jsp
-    Created on : 16-feb-2014, 22:34:56
-    Author     : Jelle
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

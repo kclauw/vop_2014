@@ -10,8 +10,7 @@ import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PlaceDao implements IDao<Place>
-{
+public class PlaceDao implements IDao<Place> {
 
     private Connection con;
     private final String GETPLACEBYID = "SELECT placeID, zipcode, c.coordinatesID, "
@@ -22,24 +21,20 @@ public class PlaceDao implements IDao<Place>
             + " JOIN Placename pla on pla.placenameID = p.placenameID "
             + " WHERE p.place = ?";
 
-    public PlaceDao()
-    {
+    public PlaceDao() {
     }
 
     @Override
-    public Place get(int placeId)
-    {
+    public Place get(int placeId) {
         Place place = null;
 
-        try
-        {
+        try {
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(GETPLACEBYID);
             prep.setInt(1, placeId);
             ResultSet res = prep.executeQuery();
 
-            if (res.next())
-            {
+            if (res.next()) {
                 int countryId = res.getInt("countryID");
                 int placeNameId = res.getInt("placenameID");
                 int coordId = res.getInt("coordinatesID");
@@ -56,13 +51,9 @@ public class PlaceDao implements IDao<Place>
 
             con.close();
 
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -71,33 +62,49 @@ public class PlaceDao implements IDao<Place>
     }
 
     @Override
-    public void save(Place value)
-    {
+    public void save(Place value) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Place value)
-    {
+    public void update(Place value) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Place value)
-    {
+    public void delete(Place value) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Collection<Place> getAll()
-    {
+    public Collection<Place> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Place map(ResultSet res)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Place map(ResultSet res) {
+        Place place = null;
+        try {
+            int placeId = res.getInt("placeID");
+            int countryId = res.getInt("countryID");
+            int placeNameId = res.getInt("placenameID");
+            int coordId = res.getInt("coordinatesID");
+            float lat = res.getFloat("latitude");
+            float longi = res.getFloat("longitude");
+            String zip = res.getString("zipcode");
+            String country = res.getString("countryname");
+            String placeName = res.getString("placename");
+
+            Coordinate coord = new Coordinate(longi, lat, coordId);
+            place = new Place(placeId, countryId, placeNameId, coord, country, zip, placeName);
+        } catch (SQLException ex) {
+            Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return place;
+
     }
 
 }
