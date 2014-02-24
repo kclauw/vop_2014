@@ -70,7 +70,7 @@ public class PersonDao implements IDao<Person>
     {
         System.out.println("GET ALL PERSON BY TREEID" + treeId);
         List<Person> persons = new ArrayList<Person>();
-        Map<Integer, Person> personMap = new HashMap<Integer, Person>();;
+        Map<Integer, Person> personMap = new HashMap<Integer, Person>();
 
         try
         {
