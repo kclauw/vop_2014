@@ -3,7 +3,7 @@ package domain;
 public class Place
 {
 
-    private int id;
+    private int placeId;
     private int countryId;
     private int placeNameId;
     private Coordinate coord;
@@ -11,9 +11,9 @@ public class Place
     private String zipCode;
     private String placeName;
 
-    public Place(int id, int countryId, int placeNameId, Coordinate coord, String country, String zipCode, String placeName)
+    public Place(int placeId, int countryId, int placeNameId, Coordinate coord, String country, String zipCode, String placeName)
     {
-        setId(id);
+        setId(placeId);
         setCountry(country);
         setPlaceNameId(placeNameId);
         setCoord(coord);
@@ -42,14 +42,14 @@ public class Place
         this.placeNameId = placeNameId;
     }
 
-    public int getId()
+    public int getplaceId()
     {
-        return id;
+        return placeId;
     }
 
-    private void setId(int id)
+    private void setplaceId(int placeId)
     {
-        this.id = id;
+        this.placeId = placeId;
     }
 
     public Coordinate getCoord()
