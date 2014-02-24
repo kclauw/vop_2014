@@ -40,8 +40,7 @@ public class ClientUserService
      * @param user
      * @return 
      */
-    public UserDTO login(UserDTO user){
-    
-        return user;
+    public String login(UserDTO user) {
+        return "This is an exception example";
     }
 }
