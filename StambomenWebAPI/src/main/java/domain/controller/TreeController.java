@@ -1,6 +1,7 @@
 package domain.controller;
 
 import domain.Tree;
+import java.util.List;
 import persistence.PersistenceController;
 
 public class TreeController
@@ -30,5 +31,10 @@ public class TreeController
     public Tree getTree(int id)
     {
         return pc.getTree(id);
+    }
+
+    public List<Tree> getTrees(int userId)
+    {
+        return pc.getTrees(userId);
     }
 }
