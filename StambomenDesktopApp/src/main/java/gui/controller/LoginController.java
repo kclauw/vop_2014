@@ -1,13 +1,14 @@
 package gui.controller;
 
-import gui.FrameFactory;
-import gui.Frames;
+import gui.PanelFactory;
+import gui.Panels;
 import gui.Login;
+import javax.swing.JPanel;
 
 public class LoginController implements IFrameController
 {
     
-    private Login loginFrame;
+    private Login loginPanel;
     private GuiController gui;
     
     public LoginController(GuiController guiC)
@@ -17,16 +18,17 @@ public class LoginController implements IFrameController
     
     public Login getLoginFrame()
     {
-        return loginFrame;
+        return loginPanel;
     }
     
-    public void show()
+    public JPanel show()
     {
-        loginFrame = (Login) FrameFactory.makeFrame(Frames.LOGIN);
-        loginFrame.setLoginController(this);
+        loginPanel = (Login) PanelFactory.makePanel(Panels.LOGIN);
+        loginPanel.setLoginController(this);
+        return loginPanel;
     }
     
-    public void goTo(Frames frame)
+    public void goTo(Panels frame)
     {
         gui.goTo(frame);
     }

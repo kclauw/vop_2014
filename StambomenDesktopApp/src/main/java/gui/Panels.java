@@ -1,6 +1,6 @@
 package gui;
 
-public enum Frames 
+public enum Panels 
 {
     LOGIN, REGISTER
 }
