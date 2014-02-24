@@ -23,6 +23,7 @@ public class TreeController implements IFrameController
     {
         this.gui = gui;
         this.familyTreeList = new FamilyTreeList();
+        this.serv = new ClientTreeService();
     }
 
     public JPanel show()
@@ -44,7 +45,7 @@ public class TreeController implements IFrameController
 
         for (TreeDTO tree : trees)
         {
-            this.familyTreeList.add(new FamilyTreeListItem(tree.getName(), tree.getPrivacy().ordinal()));
+            this.familyTreeList.addFamilyTree(new FamilyTreeListItem(tree.getName(), tree.getPrivacy().ordinal()));
         }
 
         mainPanel.viewFriendlist(this.familyTreeList);

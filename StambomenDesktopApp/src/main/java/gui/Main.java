@@ -32,7 +32,7 @@ public class Main extends javax.swing.JPanel
 
     public void viewFriendlist(FamilyTreeList fam)
     {
-        this.add(fam);
+        pnlMain.add(fam);
     }
 
     /**
