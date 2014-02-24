@@ -1,8 +1,9 @@
 package dto;
 
-public class PlaceDTO {
+public class PlaceDTO
+{
 
-    private int id;
+    private int placeId;
     private int countryId;
     private int placeNameId;
     private CoordinateDTO coord;
@@ -10,8 +11,13 @@ public class PlaceDTO {
     private String zipCode;
     private String placeName;
 
-    public PlaceDTO(int id, int countryId, int placeNameId, CoordinateDTO coord, String country, String zipCode, String placeName) {
-        this.id = id;
+    public PlaceDTO()
+    {
+    }
+
+    public PlaceDTO(int placeId, int countryId, int placeNameId, CoordinateDTO coord, String country, String zipCode, String placeName)
+    {
+        this.placeId = placeId;
         this.countryId = countryId;
         this.placeNameId = placeNameId;
         this.coord = coord;
@@ -20,59 +26,74 @@ public class PlaceDTO {
         this.placeName = placeName;
     }
 
-    public int getCountryId() {
+    public int getPlaceId()
+    {
+        return placeId;
+    }
+
+    public void setPlaceId(int placeId)
+    {
+        this.placeId = placeId;
+    }
+
+    public int getCountryId()
+    {
         return countryId;
     }
 
-    public void setCountryId(int countryId) {
+    public void setCountryId(int countryId)
+    {
         this.countryId = countryId;
     }
 
-    public int getPlaceNameId() {
+    public int getPlaceNameId()
+    {
         return placeNameId;
     }
 
-    public void setPlaceNameId(int placeNameId) {
+    public void setPlaceNameId(int placeNameId)
+    {
         this.placeNameId = placeNameId;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public CoordinateDTO getCoord() {
+    public CoordinateDTO getCoord()
+    {
         return coord;
     }
 
-    public void setCoord(CoordinateDTO coord) {
+    public void setCoord(CoordinateDTO coord)
+    {
         this.coord = coord;
     }
 
-    public String getCountry() {
+    public String getCountry()
+    {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(String country)
+    {
         this.country = country;
     }
 
-    public String getZipCode() {
+    public String getZipCode()
+    {
         return zipCode;
     }
 
-    public void setZipCode(String zipCode) {
+    public void setZipCode(String zipCode)
+    {
         this.zipCode = zipCode;
     }
 
-    public String getPlaceName() {
+    public String getPlaceName()
+    {
         return placeName;
     }
 
-    public void setPlaceName(String placeName) {
+    public void setPlaceName(String placeName)
+    {
         this.placeName = placeName;
     }
+
 }

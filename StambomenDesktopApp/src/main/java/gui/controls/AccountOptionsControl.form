@@ -78,15 +78,6 @@
             <Property name="verticalGap" type="int" value="5"/>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btnShowFriendlist">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Show friendlist"/>
-                <Property name="horizontalAlignment" type="int" value="2"/>
-              </Properties>
-              <Events>
-                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnShowFriendlistMouseReleased"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JButton" name="btnLogOut">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Log out"/>

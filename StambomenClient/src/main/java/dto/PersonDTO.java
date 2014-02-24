@@ -1,9 +1,11 @@
-
 package dto;
+
 import java.util.Date;
 
-public class PersonDTO {
-private int personId;
+public class PersonDTO
+{
+
+    private int personId;
     private String firstName;
     private String surName;
     private GenderDTO gender;
@@ -12,6 +14,10 @@ private int personId;
     private PlaceDTO place;
     private PersonDTO father;
     private PersonDTO mother;
+
+    public PersonDTO()
+    {
+    }
 
     public PersonDTO(int personId, String firstName, String surName, GenderDTO gender, Date birthDate, Date deathDate, PlaceDTO place, PersonDTO father, PersonDTO mother)
     {

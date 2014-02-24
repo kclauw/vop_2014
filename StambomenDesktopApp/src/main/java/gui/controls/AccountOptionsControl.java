@@ -3,68 +3,78 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gui.controls;
 
-import gui.controls.listeners.IViewFriendlistListener;
 import gui.controls.listeners.ILogoutListener;
+import gui.controls.listeners.IViewFriendlistListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JLabel;
 
 /**
  *
  * @author Lowie
  */
-public class AccountOptionsControl extends javax.swing.JPanel {
+public class AccountOptionsControl extends javax.swing.JPanel
+{
 
     protected List<ILogoutListener> logoutListeners;
     protected List<IViewFriendlistListener> friendlistListeners;
 
-    public String getUsername() {
+    public String getUsername()
+    {
         return lblUsername.getText();
     }
 
-    public void setUsername(String username) {
+    public void setUsername(String username)
+    {
         this.lblUsername.setText(username);
     }
-    
+
     /**
      * Creates new form AccountOptions
      */
-    public AccountOptionsControl() {
+    public AccountOptionsControl()
+    {
         initComponents();
     }
-    
+
     public void addLogoutEventListener(ILogoutListener listener)
     {
         if (logoutListeners == null)
+        {
             logoutListeners = new ArrayList<ILogoutListener>();
-             
+        }
+
         logoutListeners.add(listener);
     }
+
     public void addFriendlistEventListener(IViewFriendlistListener listener)
     {
         if (friendlistListeners == null)
+        {
             friendlistListeners = new ArrayList<IViewFriendlistListener>();
-             
+        }
+
         friendlistListeners.add(listener);
     }
-     
+
     protected void fireLogoutEvent()
     {
         if (logoutListeners != null)
         {
-            for (ILogoutListener listener : logoutListeners) {
+            for (ILogoutListener listener : logoutListeners)
+            {
                 listener.Logout();
             }
         }
     }
+
     protected void fireFriendlistEvent()
     {
         if (friendlistListeners != null)
         {
-            for (IViewFriendlistListener listener : friendlistListeners) {
+            for (IViewFriendlistListener listener : friendlistListeners)
+            {
                 listener.ViewFriendlist();
             }
         }
@@ -77,14 +87,14 @@ public class AccountOptionsControl extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblUsername = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        btnShowFriendlist = new javax.swing.JButton();
         btnLogOut = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
@@ -117,19 +127,12 @@ public class AccountOptionsControl extends javax.swing.JPanel {
         jPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
         jPanel1.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
 
-        btnShowFriendlist.setText("Show friendlist");
-        btnShowFriendlist.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnShowFriendlist.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnShowFriendlistMouseReleased(evt);
-            }
-        });
-        jPanel1.add(btnShowFriendlist);
-
         btnLogOut.setText("Log out");
         btnLogOut.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
+        btnLogOut.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
                 btnLogOutMouseReleased(evt);
             }
         });
@@ -167,18 +170,12 @@ public class AccountOptionsControl extends javax.swing.JPanel {
         add(filler2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnShowFriendlistMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnShowFriendlistMouseReleased
-        fireLogoutEvent();
-    }//GEN-LAST:event_btnShowFriendlistMouseReleased
-
     private void btnLogOutMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogOutMouseReleased
         fireLogoutEvent();
     }//GEN-LAST:event_btnLogOutMouseReleased
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogOut;
-    private javax.swing.JButton btnShowFriendlist;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.JLabel jLabel1;

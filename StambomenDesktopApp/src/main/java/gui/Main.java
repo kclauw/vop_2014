@@ -3,37 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gui;
 
-import gui.controls.listeners.ILogoutListener;
-import gui.controls.listeners.IViewFriendlistListener;
+import gui.controller.TreeController;
+import gui.controls.FamilyTreeList;
 
 /**
  *
  * @author Lowie
  */
-public class Main extends javax.swing.JPanel implements ILogoutListener, IViewFriendlistListener {
+public class Main extends javax.swing.JPanel
+{
+
+    private TreeController treeController;
 
     /**
      * Creates new form Main
      */
-    public Main() {
+    public Main()
+    {
         initComponents();
-        init();
-    }
-    
-    private void init() {
-        ccAccount.addFriendlistEventListener(this);
-        ccAccount.addLogoutEventListener(this);
-    }
-    
-    public void Logout() {
-        
     }
 
-    public void ViewFriendlist() {
-        
+    public void Logout()
+    {
+
+    }
+
+    public void viewFriendlist(FamilyTreeList fam)
+    {
+        this.add(fam);
     }
 
     /**
@@ -43,7 +42,8 @@ public class Main extends javax.swing.JPanel implements ILogoutListener, IViewFr
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         ccAccount = new gui.controls.AccountOptionsControl();
@@ -70,10 +70,19 @@ public class Main extends javax.swing.JPanel implements ILogoutListener, IViewFr
         add(pnlMain, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private gui.controls.AccountOptionsControl ccAccount;
     private javax.swing.JPanel pnlMain;
     // End of variables declaration//GEN-END:variables
+
+    public void ViewFriendlist()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setTreeController(TreeController treeController)
+    {
+        this.treeController = treeController;
+    }
 
 }

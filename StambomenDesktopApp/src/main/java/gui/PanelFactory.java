@@ -17,6 +17,9 @@ public class PanelFactory
             case REGISTER:
                 panel = new Register();
                 break;
+            case MAIN:
+                panel = new Main();
+                break;
         }
 
         return panel;

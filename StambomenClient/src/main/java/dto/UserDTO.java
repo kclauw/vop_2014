@@ -1,30 +1,35 @@
 package dto;
 
-public class UserDTO 
+public class UserDTO
 {
+
     private int id;
     private String username;
     private String password;
 
-    public UserDTO(int id, String username, String password) 
+    public UserDTO()
+    {
+    }
+
+    public UserDTO(int id, String username, String password)
     {
         this.id = id;
         this.username = username;
         this.password = password;
     }
 
-    public UserDTO(int id, String username) 
+    public UserDTO(int id, String username)
     {
         this.id = id;
         this.username = username;
     }
 
-    public int getId() 
+    public int getId()
     {
         return id;
     }
 
-    public void setId(int id) 
+    public void setId(int id)
     {
         this.id = id;
     }
@@ -34,21 +39,19 @@ public class UserDTO
         return username;
     }
 
-    public void setUsername(String username) 
+    public void setUsername(String username)
     {
         this.username = username;
     }
 
-    public String getPassword() 
+    public String getPassword()
     {
         return password;
     }
 
-    public void setPassword(String password) 
+    public void setPassword(String password)
     {
         this.password = password;
     }
-    
-    
-    
+
 }

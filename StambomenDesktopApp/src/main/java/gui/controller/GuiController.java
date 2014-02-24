@@ -43,6 +43,9 @@ public class GuiController
             case REGISTER:
                 programFrame.add(registerController.show());
                 break;
+            case MAIN:
+                programFrame.add(treeController.show());
+                break;
 
         }
         programFrame.revalidate();

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gui;
 
 import gui.controller.LoginController;
@@ -12,7 +11,8 @@ import gui.controller.LoginController;
  *
  * @author Lowie
  */
-public class Login extends javax.swing.JPanel {
+public class Login extends javax.swing.JPanel
+{
 
     private LoginController login;
 
@@ -33,7 +33,8 @@ public class Login extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 200), new java.awt.Dimension(0, 200), new java.awt.Dimension(32767, 200));
@@ -46,7 +47,7 @@ public class Login extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         btnRegister = new javax.swing.JButton();
 
-        setLayout(new java.awt.GridLayout());
+        setLayout(new java.awt.GridLayout(1, 0));
         add(filler1);
 
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -73,6 +74,13 @@ public class Login extends javax.swing.JPanel {
         jPanel1.add(txtPassword, gridBagConstraints);
 
         btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnLoginActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -103,8 +111,10 @@ public class Login extends javax.swing.JPanel {
         add(jPanel1);
 
         btnRegister.setText("Register");
-        btnRegister.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnRegister.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnRegisterActionPerformed(evt);
             }
         });
@@ -133,6 +143,10 @@ public class Login extends javax.swing.JPanel {
         login.goTo(Panels.REGISTER);
     }//GEN-LAST:event_btnRegisterActionPerformed
 
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnLoginActionPerformed
+    {//GEN-HEADEREND:event_btnLoginActionPerformed
+        login.goTo(Panels.MAIN);
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;

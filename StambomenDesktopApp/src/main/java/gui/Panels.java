@@ -2,5 +2,5 @@ package gui;
 
 public enum Panels 
 {
-    LOGIN, REGISTER
+    LOGIN, REGISTER, MAIN
 }
