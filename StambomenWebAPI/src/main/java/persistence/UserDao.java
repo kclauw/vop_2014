@@ -20,7 +20,7 @@ public class UserDao implements IDao<User> {
     private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
     private final String GETUSER = "Select userID, username, password FROM User WHERE username = ?";
     private final String GETUSERBYID = "Select userID, username, password FROM User WHERE userID = ?";
-    private final String getFriends = "Select User.userID, User.username FROM Request, User WHERE receiver = ? and status = \"1\" and User.userID = Request.friend";
+    private final String GETFRIENDSBYID = "Select User.userID, User.username FROM Request, User WHERE receiver = ? and status = \"1\" and User.userID = Request.friend";
 
     public UserDao() {
     }
@@ -104,7 +104,7 @@ public class UserDao implements IDao<User> {
 
         try {
             con = DatabaseUtils.getConnection();
-            PreparedStatement prep = con.prepareStatement(getFriends);
+            PreparedStatement prep = con.prepareStatement(GETFRIENDSBYID);
             prep.setString(1, Integer.toString(userID));
             ResultSet res = prep.executeQuery();
 
@@ -163,5 +163,4 @@ public class UserDao implements IDao<User> {
 
         return user;
     }
-
 }
