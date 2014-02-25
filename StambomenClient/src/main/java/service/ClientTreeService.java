@@ -42,8 +42,7 @@ public class ClientTreeService
         List<TreeDTO> list = client.resource(url + "/user/" + userId).get(new GenericType<List<TreeDTO>>()
         {
         });
-
-        System.out.println(list.toString());
+        
         return list;
     }
 }

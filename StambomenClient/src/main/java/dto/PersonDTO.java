@@ -14,6 +14,8 @@ public class PersonDTO
     private PlaceDTO place;
     private PersonDTO father;
     private PersonDTO mother;
+    private int x;
+    private int y;
 
     public PersonDTO()
     {
@@ -120,5 +122,15 @@ public class PersonDTO
     public void setMother(PersonDTO mother)
     {
         this.mother = mother;
+    }
+
+    public void setX(int i) 
+    {
+        this.x = i;
+    }
+
+    public void setY(int i) 
+    {
+        this.y = i;
     }
 }

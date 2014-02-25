@@ -59,6 +59,7 @@ public class GuiController
     {
         goTo(Panels.TREE);
         treeController.setTree(tree);
+        treeController.drawTree();
     }
 
 }

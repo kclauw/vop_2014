@@ -41,6 +41,8 @@ public class TreeOverviewController implements IPanelController
     public void getTrees(int userId)
     {
         List<TreeDTO> trees = serv.getTrees(userId);
+        
+        System.out.println("Found " +trees.size() + " trees!");
 
         for (TreeDTO tree : trees)
         {
