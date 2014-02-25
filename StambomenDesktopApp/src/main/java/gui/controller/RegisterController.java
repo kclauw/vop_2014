@@ -3,15 +3,15 @@ package gui.controller;
 import dto.UserDTO;
 import gui.PanelFactory;
 import gui.Panels;
-import gui.Register;
+import gui.RegisterPanel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import service.ClientUserController;
 
-public class RegisterController implements IFrameController
+public class RegisterController implements IPanelController
 {
     
-    private Register registerPanel;
+    private RegisterPanel registerPanel;
     private ClientUserController uc;
     private GuiController gui;
     
@@ -45,7 +45,7 @@ public class RegisterController implements IFrameController
     
     public JPanel show()
     {
-        registerPanel = (Register) PanelFactory.makePanel(Panels.REGISTER);
+        registerPanel = (RegisterPanel) PanelFactory.makePanel(Panels.REGISTER);
         registerPanel.setRegisterController(this);
         return registerPanel;
     }

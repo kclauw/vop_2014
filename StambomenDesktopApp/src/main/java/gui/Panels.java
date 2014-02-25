@@ -1,6 +1,7 @@
 package gui;
 
-public enum Panels 
+public enum Panels
 {
-    LOGIN, REGISTER, MAIN
+
+    LOGIN, REGISTER, MAIN, TREE, TREEOVERVIEW
 }

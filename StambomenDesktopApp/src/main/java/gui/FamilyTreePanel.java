@@ -5,12 +5,16 @@
  */
 package gui;
 
+import gui.controller.TreeController;
+
 /**
  *
  * @author Axl
  */
 public class FamilyTreePanel extends javax.swing.JPanel
 {
+
+    private TreeController treeController;
 
     /**
      * Creates new form FamilyTreePanel
@@ -44,4 +48,8 @@ public class FamilyTreePanel extends javax.swing.JPanel
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+    public void setTreeController(TreeController treeController)
+    {
+        this.treeController = treeController;
+    }
 }

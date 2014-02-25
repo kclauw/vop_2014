@@ -5,23 +5,27 @@
  */
 package gui.controls;
 
-import gui.controls.listeners.IOpenFamilyTreeListener;
+import dto.TreeDTO;
+import gui.controller.TreeOverviewController;
 
 /**
  *
  * @author Lowie
  */
-public class FamilyTreeList extends javax.swing.JPanel implements IOpenFamilyTreeListener
+public class FamilyTreeList extends javax.swing.JPanel
 {
 
-    public FamilyTreeList()
+    private TreeOverviewController treeController;
+
+    public FamilyTreeList(TreeOverviewController tc)
     {
+        this.treeController = tc;
         initComponents();
     }
 
-    public void OpenFamilyTree()
+    public void openFamilyTree(TreeDTO tree)
     {
-
+        this.treeController.showTree(tree);
     }
 
     @SuppressWarnings("unchecked")
@@ -73,6 +77,7 @@ public class FamilyTreeList extends javax.swing.JPanel implements IOpenFamilyTre
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel pnlAllFamilyTrees;
     // End of variables declaration//GEN-END:variables
+
     public void addFamilyTree(FamilyTreeListItem item)
     {
         pnlAllFamilyTrees.add(item);

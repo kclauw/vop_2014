@@ -12,12 +12,12 @@ import gui.controller.RegisterController;
  *
  * @author Lowie
  */
-public class Register extends javax.swing.JPanel {
+public class RegisterPanel extends javax.swing.JPanel {
 
 
     private RegisterController reg;
 
-    public Register()
+    public RegisterPanel()
     {
         initComponents();
     }
@@ -39,7 +39,8 @@ public class Register extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
@@ -53,7 +54,7 @@ public class Register extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         btnLogin = new javax.swing.JButton();
 
-        setLayout(new java.awt.GridLayout());
+        setLayout(new java.awt.GridLayout(1, 0));
         add(filler1);
 
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -91,8 +92,10 @@ public class Register extends javax.swing.JPanel {
         jPanel1.add(txtUsername, gridBagConstraints);
 
         btnRegister.setText("Register");
-        btnRegister.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnRegister.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnRegisterActionPerformed(evt);
             }
         });
@@ -125,8 +128,10 @@ public class Register extends javax.swing.JPanel {
         add(jPanel1);
 
         btnLogin.setText("Login");
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnLogin.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnLoginActionPerformed(evt);
             }
         });

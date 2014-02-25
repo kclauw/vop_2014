@@ -3,19 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package domain;
 
 /**
  *
  * @author Jelle
  */
-public class AddingTree extends javax.swing.JPanel {
+public class AddingTreePanel extends javax.swing.JPanel
+{
 
     /**
      * Creates new form AddingTree
      */
-    public AddingTree() {
+    public AddingTreePanel()
+    {
         initComponents();
     }
 
@@ -26,7 +27,8 @@ public class AddingTree extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
@@ -38,8 +40,10 @@ public class AddingTree extends javax.swing.JPanel {
         jLabel1.setText("Adding a tree");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "private", "only friends", "public" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jComboBox1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jComboBox1ActionPerformed(evt);
             }
         });
@@ -82,7 +86,6 @@ public class AddingTree extends javax.swing.JPanel {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

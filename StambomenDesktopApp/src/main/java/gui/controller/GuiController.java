@@ -1,5 +1,6 @@
 package gui.controller;
 
+import dto.TreeDTO;
 import gui.Panels;
 import java.awt.Dimension;
 import javax.swing.JFrame;
@@ -11,6 +12,7 @@ public class GuiController
 
     private LoginController loginController;
     private RegisterController registerController;
+    private TreeOverviewController treeControllerOverviewController;
     private TreeController treeController;
 
     public GuiController()
@@ -29,6 +31,7 @@ public class GuiController
 
         loginController = new LoginController(this);
         registerController = new RegisterController(this);
+        treeControllerOverviewController = new TreeOverviewController(this);
         treeController = new TreeController(this);
     }
 
@@ -43,12 +46,19 @@ public class GuiController
             case REGISTER:
                 programFrame.add(registerController.show());
                 break;
-            case MAIN:
-                programFrame.add(treeController.show());
+            case TREEOVERVIEW:
+                programFrame.add(treeControllerOverviewController.show());
                 break;
-
+            case TREE:
+                programFrame.add(treeController.show());
         }
         programFrame.revalidate();
+    }
+
+    void showTree(TreeDTO tree)
+    {
+        goTo(Panels.TREE);
+        treeController.setTree(tree);
     }
 
 }

@@ -3,37 +3,62 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gui.controls;
 
-import gui.controls.listeners.IOpenFamilyTreeListener;
-import java.util.ArrayList;
-import java.util.List;
+import dto.TreeDTO;
 
 /**
  *
  * @author Lowie
  */
-public class FamilyTreeListItem extends javax.swing.JPanel {
+public class FamilyTreeListItem extends javax.swing.JPanel
+{
 
-    private List<IOpenFamilyTreeListener> openFamilyTreeListeners;
+    private FamilyTreeList familyTreeList;
     private int privacy = 0;
+    private TreeDTO tree;
 
-    public String getFamilyTreeName() {
+    public String getFamilyTreeName()
+    {
         return lblName.getText();
     }
-    
-    public void setFamilyTreeName(String name) {
+
+    public FamilyTreeList getFamilyTreeList()
+    {
+        return familyTreeList;
+    }
+
+    private void setFamilyTreeList(FamilyTreeList familyTreeList)
+    {
+        this.familyTreeList = familyTreeList;
+    }
+
+    private void setFamilyTreeName(String name)
+    {
         lblName.setText(name);
     }
-    
-    public int getPrivacy() {
+
+    public TreeDTO getTree()
+    {
+        return tree;
+    }
+
+    private void setTree(TreeDTO tree)
+    {
+        this.tree = tree;
+    }
+
+    public int getPrivacy()
+    {
         return privacy;
     }
-    public void setPrivacy(int privacy) {
+
+    private void setPrivacy(int privacy)
+    {
         this.privacy = privacy;
-        
-        switch (privacy) {
+
+        switch (privacy)
+        {
             case 2:
                 lblPrivacy.setText("Public");
                 break;
@@ -48,38 +73,25 @@ public class FamilyTreeListItem extends javax.swing.JPanel {
                 break;
         }
     }
-    
+
     /**
      * Creates new form FamiliyTreeListItem
+     *
      * @param name
      * @param privacy
      */
-    public FamilyTreeListItem() {
+    public FamilyTreeListItem()
+    {
         initComponents();
     }
-    public FamilyTreeListItem(String name, int privacy) {
+
+    public FamilyTreeListItem(String name, int privacy, FamilyTreeList famTreeList, TreeDTO tree)
+    {
         this();
-        
         setFamilyTreeName(name);
         setPrivacy(privacy);
-    }
-    
-    public void addFriendlistEventListener(IOpenFamilyTreeListener listener)
-    {
-        if (openFamilyTreeListeners == null)
-            openFamilyTreeListeners = new ArrayList<IOpenFamilyTreeListener>();
-             
-        openFamilyTreeListeners.add(listener);
-    }
-     
-    protected void fireLogoutEvent()
-    {
-        if (openFamilyTreeListeners != null)
-        {
-            for (IOpenFamilyTreeListener listener : openFamilyTreeListeners) {
-                listener.OpenFamilyTree();
-            }
-        }
+        setFamilyTreeList(famTreeList);
+        setTree(tree);
     }
 
     /**
@@ -89,7 +101,8 @@ public class FamilyTreeListItem extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         btnOpen = new javax.swing.JButton();
@@ -104,6 +117,13 @@ public class FamilyTreeListItem extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         btnOpen.setLabel("O");
+        btnOpen.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnOpenActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -129,6 +149,10 @@ public class FamilyTreeListItem extends javax.swing.JPanel {
         add(lblPrivacy, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnOpenActionPerformed
+    {//GEN-HEADEREND:event_btnOpenActionPerformed
+        this.familyTreeList.openFamilyTree(tree);
+    }//GEN-LAST:event_btnOpenActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOpen;

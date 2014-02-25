@@ -11,12 +11,12 @@ import gui.controller.LoginController;
  *
  * @author Lowie
  */
-public class Login extends javax.swing.JPanel
+public class LoginPanel extends javax.swing.JPanel
 {
 
     private LoginController login;
 
-    public Login()
+    public LoginPanel()
     {
         initComponents();
     }
@@ -145,7 +145,7 @@ public class Login extends javax.swing.JPanel
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnLoginActionPerformed
     {//GEN-HEADEREND:event_btnLoginActionPerformed
-        login.goTo(Panels.MAIN);
+        login.goTo(Panels.TREEOVERVIEW);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -12,13 +12,13 @@ public class PanelFactory
         switch (panelType)
         {
             case LOGIN:
-                panel = new Login();
+                panel = new LoginPanel();
                 break;
             case REGISTER:
-                panel = new Register();
+                panel = new RegisterPanel();
                 break;
-            case MAIN:
-                panel = new Main();
+            case TREEOVERVIEW:
+                panel = new FamilyTreeOverviewPanel();
                 break;
         }
 

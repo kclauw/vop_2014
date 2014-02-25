@@ -2,13 +2,13 @@ package gui.controller;
 
 import gui.PanelFactory;
 import gui.Panels;
-import gui.Login;
+import gui.LoginPanel;
 import javax.swing.JPanel;
 
-public class LoginController implements IFrameController
+public class LoginController implements IPanelController
 {
     
-    private Login loginPanel;
+    private LoginPanel loginPanel;
     private GuiController gui;
     
     public LoginController(GuiController guiC)
@@ -16,14 +16,14 @@ public class LoginController implements IFrameController
         this.gui = guiC;
     }
     
-    public Login getLoginFrame()
+    public LoginPanel getLoginFrame()
     {
         return loginPanel;
     }
     
     public JPanel show()
     {
-        loginPanel = (Login) PanelFactory.makePanel(Panels.LOGIN);
+        loginPanel = (LoginPanel) PanelFactory.makePanel(Panels.LOGIN);
         loginPanel.setLoginController(this);
         return loginPanel;
     }

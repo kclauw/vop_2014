@@ -1,7 +1,7 @@
 package gui.controller;
 
 import dto.TreeDTO;
-import gui.Main;
+import gui.FamilyTreeOverviewPanel;
 import gui.PanelFactory;
 import gui.Panels;
 import gui.controls.FamilyTreeList;
@@ -10,45 +10,49 @@ import java.util.List;
 import javax.swing.JPanel;
 import service.ClientTreeService;
 
-public class TreeController implements IFrameController
+public class TreeOverviewController implements IPanelController
 {
 
-    private Main mainPanel;
+    private FamilyTreeOverviewPanel treeOverviewPanel;
     private FamilyTreeList familyTreeList;
     private GuiController gui;
     private ClientTreeService serv;
-    private List<TreeDTO> trees;
 
-    public TreeController(GuiController gui)
+    public TreeOverviewController(GuiController gui)
     {
         this.gui = gui;
-        this.familyTreeList = new FamilyTreeList();
+        this.familyTreeList = new FamilyTreeList(this);
         this.serv = new ClientTreeService();
     }
 
     public JPanel show()
     {
-        mainPanel = (Main) PanelFactory.makePanel(Panels.MAIN);
-        mainPanel.setTreeController(this);
+        treeOverviewPanel = (FamilyTreeOverviewPanel) PanelFactory.makePanel(Panels.TREEOVERVIEW);
+        treeOverviewPanel.setTreeController(this);
         getTrees(8);
-        return mainPanel;
+        return treeOverviewPanel;
     }
 
     public void goTo(Panels frame)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gui.goTo(frame);
     }
 
     public void getTrees(int userId)
     {
-        trees = serv.getTrees(userId);
+        List<TreeDTO> trees = serv.getTrees(userId);
 
         for (TreeDTO tree : trees)
         {
-            this.familyTreeList.addFamilyTree(new FamilyTreeListItem(tree.getName(), tree.getPrivacy().ordinal()));
+            this.familyTreeList.addFamilyTree(new FamilyTreeListItem(tree.getName(), tree.getPrivacy().ordinal(), this.familyTreeList, tree));
         }
 
-        mainPanel.viewFriendlist(this.familyTreeList);
+        treeOverviewPanel.viewFriendlist(this.familyTreeList);
+    }
+
+    public void showTree(TreeDTO tree)
+    {
+        gui.showTree(tree);
     }
 
 }

@@ -1,37 +1,36 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package gui.controller;
 
 import dto.TreeDTO;
-import gui.Main;
+import gui.FamilyTreePanel;
 import gui.PanelFactory;
 import gui.Panels;
-import gui.controls.FamilyTreeList;
-import gui.controls.FamilyTreeListItem;
-import java.util.List;
 import javax.swing.JPanel;
-import service.ClientTreeService;
 
-public class TreeController implements IFrameController
+/**
+ *
+ * @author Axl
+ */
+public class TreeController implements IPanelController
 {
 
-    private Main mainPanel;
-    private FamilyTreeList familyTreeList;
+    private FamilyTreePanel familyTreePanel;
     private GuiController gui;
-    private ClientTreeService serv;
-    private List<TreeDTO> trees;
 
-    public TreeController(GuiController gui)
+    TreeController(GuiController guiController)
     {
-        this.gui = gui;
-        this.familyTreeList = new FamilyTreeList();
-        this.serv = new ClientTreeService();
+        this.gui = guiController;
     }
 
     public JPanel show()
     {
-        mainPanel = (Main) PanelFactory.makePanel(Panels.MAIN);
-        mainPanel.setTreeController(this);
-        getTrees(8);
-        return mainPanel;
+        familyTreePanel = (FamilyTreePanel) PanelFactory.makePanel(Panels.TREE);
+        familyTreePanel.setTreeController(this);
+        return familyTreePanel;
     }
 
     public void goTo(Panels frame)
@@ -39,16 +38,9 @@ public class TreeController implements IFrameController
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void getTrees(int userId)
+    void setTree(TreeDTO tree)
     {
-        trees = serv.getTrees(userId);
-
-        for (TreeDTO tree : trees)
-        {
-            this.familyTreeList.addFamilyTree(new FamilyTreeListItem(tree.getName(), tree.getPrivacy().ordinal()));
-        }
-
-        mainPanel.viewFriendlist(this.familyTreeList);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
