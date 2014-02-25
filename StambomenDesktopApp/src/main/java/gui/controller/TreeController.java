@@ -5,10 +5,12 @@
  */
 package gui.controller;
 
+import dto.PersonDTO;
 import dto.TreeDTO;
 import gui.FamilyTreePanel;
 import gui.PanelFactory;
 import gui.Panels;
+import gui.controls.PersonLabel;
 import javax.swing.JPanel;
 
 /**
@@ -20,6 +22,7 @@ public class TreeController implements IPanelController
 
     private FamilyTreePanel familyTreePanel;
     private GuiController gui;
+    private TreeDTO tree;
 
     TreeController(GuiController guiController)
     {
@@ -35,12 +38,25 @@ public class TreeController implements IPanelController
 
     public void goTo(Panels frame)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gui.goTo(frame);
     }
 
-    void setTree(TreeDTO tree)
+    public void setTree(TreeDTO tree)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.tree = tree;
+    }
+
+    public void drawTree()
+    {
+        if (this.tree == null)
+        {
+            throw new IllegalArgumentException("Tree must be set");
+        }
+
+        for (PersonDTO person : tree.getPersons())
+        {
+            familyTreePanel.add(new PersonLabel(person));
+        }
     }
 
 }

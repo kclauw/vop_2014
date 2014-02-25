@@ -55,7 +55,7 @@ public class GuiController
         programFrame.revalidate();
     }
 
-    void showTree(TreeDTO tree)
+    public void showTree(TreeDTO tree)
     {
         goTo(Panels.TREE);
         treeController.setTree(tree);

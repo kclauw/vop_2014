@@ -1,68 +1,42 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package gui.controls;
 
-import javax.swing.JLabel;
+import dto.PersonDTO;
 
+/**
+ *
+ * @author Axl
+ */
 public class PersonLabel extends javax.swing.JLabel
 {
 
+    private PersonDTO person;
+
     /**
-     * Creates new customizer PersonLabel
+     * Creates new form UserLabel
      */
     public PersonLabel()
     {
         initComponents();
     }
 
-    public void setFirstNameLabel(JLabel firstNameLabel)
+    public PersonLabel(PersonDTO person)
     {
-        this.firstNameLabel = firstNameLabel;
+        this.person = person;
     }
 
-    public void setLastNameLabel(JLabel lastNameLabel)
-    {
-        this.lastNameLabel = lastNameLabel;
-    }
-
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents()
     {
-        java.awt.GridBagConstraints gridBagConstraints;
-
-        jButton1 = new javax.swing.JButton();
-        firstNameLabel = new javax.swing.JLabel();
-        lastNameLabel = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-
-        jButton1.setText("jButton1");
 
         setLayout(new java.awt.GridBagLayout());
-
-        firstNameLabel.setText("Voornaam:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        add(firstNameLabel, gridBagConstraints);
-
-        lastNameLabel.setText("Achternaam:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 4;
-        gridBagConstraints.ipady = 2;
-        add(lastNameLabel, gridBagConstraints);
-
-        jButton2.setText("More info");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        add(jButton2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel firstNameLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel lastNameLabel;
     // End of variables declaration//GEN-END:variables
 }

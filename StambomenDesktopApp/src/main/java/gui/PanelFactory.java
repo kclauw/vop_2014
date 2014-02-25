@@ -20,6 +20,9 @@ public class PanelFactory
             case TREEOVERVIEW:
                 panel = new FamilyTreeOverviewPanel();
                 break;
+            case TREE:
+                panel = new FamilyTreePanel();
+                break;
         }
 
         return panel;
