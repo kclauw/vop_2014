@@ -133,4 +133,22 @@ public class PersonDTO
     {
         this.y = i;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+  // Overriding the compareTo method
+   public int compareTo(PersonDTO person)
+   {
+       if(person.getPersonId() == this.getPersonId())
+           return 0;
+       else
+           return -1;
+   }
+    
 }
