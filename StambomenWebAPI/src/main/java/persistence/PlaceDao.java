@@ -11,8 +11,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class PlaceDao implements IDao<Place> {
 
@@ -45,9 +46,13 @@ public class PlaceDao implements IDao<Place> {
             con.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[SQLException][PLACEDAO][Get]Sql exception: " + ex.getMessage());
+        }
+          catch (Exception ex)
+        {
+            org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[Exception][PLACEDAO][Get]Exception: " + ex.getMessage());
         }
 
         return place;
@@ -89,9 +94,13 @@ public class PlaceDao implements IDao<Place> {
             Coordinate coord = new Coordinate(longi, lat, coordId);
             place = new Place(placeId, countryId, placeNameId, coord, country, zip, placeName);
         } catch (SQLException ex) {
-            Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[SQLException][PLACEDAO][Map]Sql exception: " + ex.getMessage());
+        }
+          catch (Exception ex)
+        {
+            org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[Exception][PLACEDAO][Map]Exception: " + ex.getMessage());
         }
 
         return place;
