@@ -11,6 +11,8 @@ import dto.TreeDTO;
 import gui.FamilyTreePanel;
 import gui.PanelFactory;
 import gui.Panels;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -61,58 +63,125 @@ public class TreeController implements IPanelController
             JOptionPane.showConfirmDialog(null, "Error no persons in tree!");
             goTo(Panels.TREEOVERVIEW);
         }
-
-        int xMother = 0; int yMother = 0;
-        int xFather = 0; int yFather = 0;
-        int xChildF = 0; int yChildF = 0;
-        int xChildM = 0; int yChildM = 0;
-        PersonDTO root; 
+        
         List<PersonDTO> persons = tree.getPersons();
+        PersonDTO root = null;
+        PersonDTO partner = null;
+        int niveau = 0;
         
-        root = persons.get(0);
-        root.setX(0); root.setY(0);
-        
-            if(root.getFather() != null)
+        for (PersonDTO person : persons)
+        {
+            if (person.getFather() == null && person.getMother() == null)
             {
-                root.getFather().setX(xFather+100);
-                root.getFather().setY(yFather+100);
-                persons.remove(root.getFather());
-            }
+                root = person;
+                root.setX(400);
+                root.setY(0);
+                
+                partner = getPartner(root, persons);
+                System.out.println(partner.toString());
 
-            if(root.getMother() != null)
-            {
-                root.getMother().setX(xMother-100);
-                root.getMother().setY(yMother+100);
-                persons.remove(root.getMother());
-            }
-
-            for(PersonDTO pers : tree.getPersons())
-            {
-                if(root.getGender() == GenderDTO.MALE)
+                if(partner!=null)
                 {
-                    if(pers.getFather() == root)
-                    {
-                        pers.setX(xChildF-100);
-                        pers.setY(yChildF-100);
-                        persons.remove(pers);
+                    partner.setX(300);
+                    partner.setY(0);
+                }
+                break;
+            }
+        }
+        
+        System.out.println("Root="+root.getFirstName() + "Partner = " +partner.getX());
+
+        List<PersonDTO> childeren = getChilderen(root, persons);
+        
+        niveau++; //we gaan naar niv 1
+        int by = niveau * 100;
+        int initalBX = ((childeren.size()) * 100) + 100;
+
+            for (PersonDTO person : childeren)
+            {
+                //coords(initalBX-100, by)
+                person.setX(initalBX);
+                person.setY(by);
+                
+                PersonDTO childpart = getPartner(person, childeren);
+                if (childpart != null)
+                {
+                    //partner ( initalBX-10,by);
+                    childpart.setX(initalBX-10);
+                    childpart.setX(by);
+                }
+            }
+            
+           familyTreePanel.drawFamilyTree(persons);
+           familyTreePanel.validate();
+      }
+    
+        public List<PersonDTO> getChilderen(PersonDTO root, List<PersonDTO> persons)
+        {
+            List<PersonDTO> pers = new ArrayList<PersonDTO>();
+
+            for (PersonDTO p : persons)
+            {
+                PersonDTO m = p.getMother();
+                PersonDTO f = p.getFather();
+                System.out.println("Checking" + p.getFirstName());
+                
+                if(m != null)
+                { 
+                    if (m.compareTo(root) == 0)
+                    {         
+                        System.out.println("FOUND!");
+                        pers.add(p);
                     }
                 }
-                else if(root.getGender() == GenderDTO.FEMALE)
+                
+                if(f!= null)
                 {
-                    if(pers.getMother() == root)
+                    if(f.compareTo(root) == 0)
                     {
-                        pers.setX(xChildM+100);
-                        pers.setY(yChildM-100);
-                        persons.remove(pers);
+                        pers.add(p);
                     }
                 }
             }
+            return pers;
+        }
 
-        
-        int size = tree.getPersons().size();
-        
-        familyTreePanel.repaint();
-        familyTreePanel.revalidate();
-    }
+        private PersonDTO getPartner(PersonDTO person, List<PersonDTO> persons)
+        {
+            boolean gender = person.getGender() == GenderDTO.FEMALE;
+            PersonDTO partner = null;
+         
+            for (PersonDTO p : persons)
+            {
+                if(gender && p.getMother() != null)
+                {
+                    if(p.getMother().compareTo(person) == 0)
+                    {
+                        int id = p.getFather().getPersonId();
+                        for (PersonDTO per : persons)
+                        {
+                            if(id==per.getPersonId())
+                                return per;
+                        }
+                    }
+                }
+                
+                if(!gender && p.getFather() != null)
+                {
+                    if(p.getFather().compareTo(person) == 0)
+                    {
+                        int id = p.getMother().getPersonId();
+                        for (PersonDTO per : persons)
+                        {
+                            if(id==per.getPersonId())
+                                return per;
+                        }
+                    }
+                }
+ 
+            }
+
+            return partner;
+        }
 
 }

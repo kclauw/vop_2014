@@ -5,16 +5,20 @@
  */
 package gui;
 
+import dto.PersonDTO;
 import gui.controller.TreeController;
+import gui.controls.PersonPanel;
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.util.List;
 import org.w3c.dom.Node;
 
 public class FamilyTreePanel extends javax.swing.JPanel
 {
 
     private TreeController treeController;
+    private List<PersonDTO> persons;
 
     public FamilyTreePanel()
     {
@@ -33,29 +37,28 @@ public class FamilyTreePanel extends javax.swing.JPanel
         this.treeController = treeController;
     }
   
+    @Override
     public void paint(Graphics g)
     { 
-//	FontMetrics f = g.getFontMetrics();
-//	int nodeHeight = 100;
-//	g.setColor(Color.black);
-//	for (edge e : edges) 
-//        {
-//	    g.drawLine(nodes.get(e.i).x, nodes.get(e.i).y,
-//		     nodes.get(e.j).x, nodes.get(e.j).y);
-//	}
+        FontMetrics f = g.getFontMetrics();
+        
+        for(PersonDTO person : persons)
+        {
+            System.out.println("p= "+person.getFirstName() +"X= "+person.getX()+ " Y= " +person.getY());
+            g.drawOval(person.getX(), person.getY(), 110, 40);
+            g.drawString(person.getFirstName(), person.getX()+35,person.getY()+25);
+            if(person.getFather() != null)
+            g.drawLine(person.getX(), person.getY(), person.getFather().getX(), person.getFather().getY());
+        }
+    }
 
-//	for (Node n : nodes) {
-//	    int nodeWidth = Math.max(width, f.stringWidth(n.name)+width/2);
-//	    g.setColor(Color.white);
-//	    g.fillOval(n.x-nodeWidth/2, n.y-nodeHeight/2, 
-//		       nodeWidth, nodeHeight);
-//	    g.setColor(Color.black);
-//	    g.drawOval(n.x-nodeWidth/2, n.y-nodeHeight/2, 
-//		       nodeWidth, nodeHeight);
-//	    
-//	    g.drawString(n.name, n.x-f.stringWidth(n.name)/2,
-//			 n.y+f.getHeight()/2);
-//	}
+    public void drawFamilyTree(List<PersonDTO> persons) 
+    {
+        this.persons = persons;
+        System.out.println("Drawing " + persons.size() +" persons");
+        paint(this.getGraphics());
+        repaint();
+        validate();
     }
 
 }
