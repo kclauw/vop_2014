@@ -8,18 +8,18 @@ public class Translator {
     private ResourceBundle messages;
 
     public Translator() {
-        selecteerTaal("en", "US");
+        selectLanguage("en", "US");
     }
 
-    public void selecteerTaal(String language, String country) {
+    public void selectLanguage(String language, String country) {
         messages = ResourceBundle.getBundle("MessagesBundle", new Locale(language, country));
     }
 
-    public String vertaal(String bericht) {
+    public String translate(String bericht) {
         return messages.getString(bericht);
     }
 
-    public String geefHuidigeTaal() {
+    public String giveRecentLanguage() {
         return messages.getLocale().getLanguage();
     }
 }
