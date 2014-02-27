@@ -1,6 +1,8 @@
 package dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class PersonDTO
 {
@@ -124,31 +126,109 @@ public class PersonDTO
         this.mother = mother;
     }
 
-    public void setX(int i) 
+    public void setX(int i)
     {
         this.x = i;
     }
 
-    public void setY(int i) 
+    public void setY(int i)
     {
         this.y = i;
     }
 
-    public int getX() {
+    public int getX()
+    {
         return x;
     }
 
-    public int getY() {
+    public int getY()
+    {
         return y;
     }
 
-  // Overriding the compareTo method
-   public int compareTo(PersonDTO person)
-   {
-       if(person.getPersonId() == this.getPersonId())
-           return 0;
-       else
-           return -1;
-   }
-    
+    // Overriding the compareTo method
+    public int compareTo(PersonDTO person)
+    {
+        if (person.getPersonId() == this.getPersonId())
+        {
+            return 0;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    public List<PersonDTO> getChilderen(List<PersonDTO> persons)
+    {
+        List<PersonDTO> pers = new ArrayList<PersonDTO>();
+
+        for (PersonDTO p : persons)
+        {
+            PersonDTO m = p.getMother();
+            PersonDTO f = p.getFather();
+            System.out.println("Checking" + p.getFirstName());
+
+            if (m != null)
+            {
+                if (m.compareTo(this) == 0)
+                {
+                    System.out.println("FOUND!");
+                    pers.add(p);
+                }
+            }
+
+            if (f != null)
+            {
+                if (f.compareTo(this) == 0)
+                {
+                    pers.add(p);
+                }
+            }
+        }
+        return pers;
+    }
+
+    public PersonDTO getPartner(List<PersonDTO> persons)
+    {
+        boolean gender = this.getGender() == GenderDTO.FEMALE;
+        PersonDTO partner = null;
+
+        for (PersonDTO p : persons)
+        {
+            if (gender && p.getMother() != null)
+            {
+                if (p.getMother().compareTo(this) == 0)
+                {
+                    int id = p.getFather().getPersonId();
+                    for (PersonDTO per : persons)
+                    {
+                        if (id == per.getPersonId())
+                        {
+                            return per;
+                        }
+                    }
+                }
+            }
+
+            if (!gender && p.getFather() != null)
+            {
+                if (p.getFather().compareTo(this) == 0)
+                {
+                    int id = p.getMother().getPersonId();
+                    for (PersonDTO per : persons)
+                    {
+                        if (id == per.getPersonId())
+                        {
+                            return per;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        return partner;
+    }
+
 }
