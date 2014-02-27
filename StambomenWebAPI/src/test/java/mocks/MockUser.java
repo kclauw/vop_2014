@@ -13,13 +13,13 @@ public class MockUser implements IMocks<User> {
 
     MockUser() {
         User user1 = new User(1, "Jelle", "Verreth");
-        User user2 = new User(2, "Jelle", "Verreth");
-        User user3 = new User(3, "Jelle", "Verreth");
-        User user4 = new User(4, "Jelle", "Verreth");
-        User user5 = new User(5, "Jelle", "Verreth");
-        User user6 = new User(6, "Jelle", "Verreth");
-        User user7 = new User(7, "Jelle", "Verreth");
-        User user8 = new User(8, "Jelle", "Verreth");
+        User user2 = new User(2, "Lowie", "Verreth");
+        User user3 = new User(3, "Axl", "Verreth");
+        User user4 = new User(4, "Sander", "Verreth");
+        User user5 = new User(5, "God", "Verdomme");
+        User user6 = new User(6, "Jezus", "Jebroer");
+        User user7 = new User(7, "Damien", "Rice");
+        User user8 = new User(8, "Achmed", "Van Borgerhout");
         users.add(user1);
         users.add(user2);
         users.add(user3);
