@@ -58,10 +58,7 @@ public class GuiController
     public void showTree(TreeDTO tree)
     {
         goTo(Panels.TREE);
-        /**/
-        System.out.println("Setting tree"+tree.toString());
         treeController.setTree(tree);
-        treeController.drawTree();
     }
 
 }
