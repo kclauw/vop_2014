@@ -7,13 +7,13 @@ package gui;
 
 import dto.PersonDTO;
 import gui.controller.TreeController;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FamilyTreePanel extends javax.swing.JPanel
@@ -22,6 +22,7 @@ public class FamilyTreePanel extends javax.swing.JPanel
     private TreeController treeController;
     private List<PersonDTO> persons;
     private final FamilyTreeTotalPanel totalPanel;
+    private List<Shape> shapes;
 
     public FamilyTreePanel(TreeController tree, FamilyTreeTotalPanel tp)
     {
@@ -40,18 +41,47 @@ public class FamilyTreePanel extends javax.swing.JPanel
     @Override
     public void paint(Graphics g)
     {
-        FontMetrics f = g.getFontMetrics();
+        for (Shape shape : shapes)
+        {
+
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.draw(shape);
+        }
 
         for (PersonDTO person : persons)
+        {
+            g.drawString(person.getFirstName(), person.getX() + 35, person.getY() + 25);
+
+            if (person.getFather() != null)
+            {
+                g.drawLine(person.getX() + 40, person.getY() + 30, person.getFather().getX() + 35, person.getFather().getY() + 25);
+            }
+        }
+    }
+
+    public void drawFamilyTree(List<PersonDTO> persons)
+    {
+        this.persons = persons;
+        System.out.println("Drawing " + persons.size() + " persons");
+        for (PersonDTO person : persons)
+        {
+            System.out.println(person.getX() + " " + person.getY());
+        }
+        shapes = makeShapes(persons);
+        paint(this.getGraphics());
+        repaint();
+        validate();
+    }
+
+    private List<Shape> makeShapes(List<PersonDTO> persons)
+    {
+        final List<PersonDTO> pers = persons;
+        List<Shape> shapes = new ArrayList<Shape>();
+        for (PersonDTO person : pers)
         {
             final int xcoord = person.getX();
             final int ycoord = person.getY();
             final Shape oval = new Ellipse2D.Double(xcoord, ycoord, 100, 50);
-
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.draw(oval);
-
-            g.drawString(person.getFirstName(), xcoord + 35, ycoord + 25);
 
             this.addMouseListener(new MouseAdapter()
             {
@@ -62,7 +92,7 @@ public class FamilyTreePanel extends javax.swing.JPanel
                     {
                         System.out.println(oval.getBounds().x + "  " + oval.getBounds().y);
 
-                        for (PersonDTO person : persons)
+                        for (PersonDTO person : pers)
                         {
                             if (person.getX() == oval.getBounds().x && person.getY() == oval.getBounds().y)
                             {
@@ -74,20 +104,12 @@ public class FamilyTreePanel extends javax.swing.JPanel
                 }
             });
 
-            if (person.getFather() != null)
-            {
-                g.drawLine(person.getX(), person.getY(), person.getFather().getX(), person.getFather().getY());
-            }
-        }
-    }
+            shapes.add(oval);
 
-    public void drawFamilyTree(List<PersonDTO> persons)
-    {
-        this.persons = persons;
-        System.out.println("Drawing " + persons.size() + " persons");
-        paint(this.getGraphics());
-        repaint();
-        validate();
+        }
+
+        return shapes;
+
     }
 
 }

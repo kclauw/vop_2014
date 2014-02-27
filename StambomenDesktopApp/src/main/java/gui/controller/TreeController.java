@@ -9,10 +9,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Axl
- */
 public class TreeController implements IPanelController
 {
 
@@ -66,25 +62,29 @@ public class TreeController implements IPanelController
         {
             if (person.getFather() == null && person.getMother() == null)
             {
+                person.setX(450);
+                person.setY(0);
                 root = person;
-                root.setX(400);
-                root.setY(0);
 
-                partner = root.getPartner(persons);
-                System.out.println(partner.toString());
+                partner = person.getPartner(persons);
+                partner.setX(380);
+                partner.setY(0);
 
-                if (partner != null)
-                {
-                    partner.setX(300);
-                    partner.setY(0);
-                }
                 break;
             }
         }
 
-        System.out.println("Root=" + root.getFirstName() + "Partner = " + partner.getX());
+        for (PersonDTO person : persons)
+        {
+            System.out.println("[NA ROOT] " + person.getX() + " " + person.getY());
+        }
 
         List<PersonDTO> childeren = root.getChilderen(persons);
+
+        for (PersonDTO person : childeren)
+        {
+            System.out.println("[NA ROOT] " + person.getX() + " " + person.getY());
+        }
 
         niveau++; //we gaan naar niv 1
         int by = niveau * 100;
@@ -93,16 +93,24 @@ public class TreeController implements IPanelController
         for (PersonDTO person : childeren)
         {
             //coords(initalBX-100, by)
+            System.out.println("Setting coords for " + person.getFirstName() + " at " + initalBX + " " + by);
             person.setX(initalBX);
             person.setY(by);
 
-            PersonDTO childpart = partner.getPartner(childeren);
+            PersonDTO childpart = person.getPartner(childeren);
             if (childpart != null)
             {
                 //partner ( initalBX-10,by);
+                System.out.println("[PART]Setting coords for " + childpart.getFirstName() + " at " + initalBX + " " + by);
+
                 childpart.setX(initalBX - 10);
                 childpart.setX(by);
             }
+        }
+
+        for (PersonDTO person : persons)
+        {
+            System.out.println("[LOL] " + person.getX() + " " + person.getY());
         }
 
         familyTreeTotalPanel.drawFamilyTree(persons);
