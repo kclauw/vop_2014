@@ -7,10 +7,16 @@ import java.util.List;
 import java.util.Map;
 
 public class MockUser implements IMocks<User> {
-
+    int a=5;
+    User user = new User(5,"Jelle","Verreth");
+    List<User> users = null;
+    users.add(user);
+    
+    
     @Override
     public User get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        return user;
     }
 
     @Override
@@ -35,12 +41,12 @@ public class MockUser implements IMocks<User> {
 
     @Override
     public User map(ResultSet res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return user;
     }
 
     @Override
     public User map(ResultSet res, Map<Integer, User> persMap) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return user;
     }
 
     @Override
@@ -65,7 +71,7 @@ public class MockUser implements IMocks<User> {
 
     @Override
     public User get(String username) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return user;
     }
     
 }
