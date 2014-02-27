@@ -4,14 +4,14 @@ public enum Gender
 {
     MALE((byte)0), FEMALE((byte)1);
     
-    private byte g;
+    public byte g;
     
     Gender(byte g)
     {
         this.g = g;
     }
     
-    private int getGenderId()
+    public byte getGenderId()
     {
         return g;
     }
