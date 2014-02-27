@@ -6,16 +6,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-public class PlaceDao implements IDao<Place> {
+public class PlaceDao implements IDao<Place>
+{
 
     private Connection con;
     private final String GETPLACEBYID = "SELECT placeID, zipcode, c.coordinatesID, "
@@ -26,30 +22,36 @@ public class PlaceDao implements IDao<Place> {
             + " JOIN Placename pla on pla.placenameID = p.placenameID "
             + " WHERE p.placeID = ?";
 
-    public PlaceDao() {
+    public PlaceDao()
+    {
     }
 
     @Override
-    public Place get(int placeId) {
+    public Place get(int placeId)
+    {
         Place place = null;
 
-        try {
+        try
+        {
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(GETPLACEBYID);
             prep.setInt(1, placeId);
             ResultSet res = prep.executeQuery();
 
-            if (res.next()) {
-                 place = map(res);
+            if (res.next())
+            {
+                place = map(res);
             }
 
             con.close();
 
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex)
+        {
             Logger logger = LoggerFactory.getLogger(getClass());
             logger.info("[SQLException][PLACEDAO][Get]Sql exception: " + ex.getMessage());
         }
-          catch (Exception ex)
+        catch (Exception ex)
         {
             org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
             logger.info("[Exception][PLACEDAO][Get]Exception: " + ex.getMessage());
@@ -60,27 +62,29 @@ public class PlaceDao implements IDao<Place> {
     }
 
     @Override
-    public void save(Place value) {
+    public void save(Place value)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Place value) {
+    public void update(Place value)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Place value) {
+    public void delete(Place value)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
-    
-
     @Override
-    public Place map(ResultSet res) {
+    public Place map(ResultSet res)
+    {
         Place place = null;
-        try {
+        try
+        {
             int placeId = res.getInt("placeID");
             int countryId = res.getInt("countryID");
             int placeNameId = res.getInt("placenameID");
@@ -93,11 +97,13 @@ public class PlaceDao implements IDao<Place> {
 
             Coordinate coord = new Coordinate(longi, lat, coordId);
             place = new Place(placeId, countryId, placeNameId, coord, country, zip, placeName);
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex)
+        {
             Logger logger = LoggerFactory.getLogger(getClass());
             logger.info("[SQLException][PLACEDAO][Map]Sql exception: " + ex.getMessage());
         }
-          catch (Exception ex)
+        catch (Exception ex)
         {
             org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
             logger.info("[Exception][PLACEDAO][Map]Exception: " + ex.getMessage());
@@ -108,7 +114,8 @@ public class PlaceDao implements IDao<Place> {
     }
 
     @Override
-    public Collection<Place> getAll() {
+    public Collection<Place> getAll()
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
