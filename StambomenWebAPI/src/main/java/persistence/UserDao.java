@@ -45,7 +45,7 @@ public class UserDao implements IDao<User> {
             logger.info("[SQLException][USERDAO][Get]Sql exception: " + ex.getMessage());
         } catch (Exception ex) {
             Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[Exception][USERDAO][Get]Exception: "+ ex.getMessage());
+            logger.info("[Exception][USERDAO][Get]Exception: " + ex.getMessage());
         }
 
         return user;
@@ -122,10 +122,11 @@ public class UserDao implements IDao<User> {
 
             con.close();
         } catch (SQLException ex) {
-
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[SQLException][USERDAO][GetFriends]Sql exception: " + ex.getMessage());
         } catch (Exception ex) {
             Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[GET][USERSERVICE]");
+            logger.info("[SQLException][USERDAO][GetFriends]Exception: " + ex.getMessage());
         }
 
         return friends;
@@ -146,10 +147,11 @@ public class UserDao implements IDao<User> {
 
             con.close();
         } catch (SQLException ex) {
-
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[SQLException][USERDAO][Get]Sql exception: " + ex.getMessage());
         } catch (Exception ex) {
             Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[GET][USERSERVICE]");
+            logger.info("[SQLException][USERDAO][Get]Exception: " + ex.getMessage());
         }
 
         return user;
@@ -167,7 +169,10 @@ public class UserDao implements IDao<User> {
             user = new User(uid, ur, password);
         } catch (SQLException ex) {
             Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[GET][USERSERVICE]");
+            logger.info("[SQLException][USERDAO][Map]Sql exception: " + ex.getMessage());
+        } catch (Exception ex) {
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[SQLException][USERDAO][Map]Exception: " + ex.getMessage());
         }
 
         return user;
