@@ -2,11 +2,11 @@ package domain;
 
 public enum Gender
 {
-    MALE(0), FEMALE(1);
+    MALE((byte)0), FEMALE((byte)1);
     
-    private int g;
+    private byte g;
     
-    Gender(int g)
+    Gender(byte g)
     {
         this.g = g;
     }
@@ -16,7 +16,7 @@ public enum Gender
         return g;
     }
     
-    public static Gender getGender(int genderId)
+    public static Gender getGender(byte genderId)
     {
         for(Gender g : Gender.values())
         {
