@@ -21,7 +21,7 @@ public class PanelFactory
                 panel = new FamilyTreeOverviewPanel();
                 break;
             case TREE:
-                panel = new FamilyTreePanel();
+                panel = new FamilyTreeTotalPanel();
                 break;
         }
 

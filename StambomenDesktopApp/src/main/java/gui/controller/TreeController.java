@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui.controller;
 
 import dto.PersonDTO;
 import dto.TreeDTO;
-import gui.FamilyTreePanel;
+import gui.FamilyTreeTotalPanel;
 import gui.PanelFactory;
 import gui.Panels;
 import java.util.List;
@@ -21,7 +16,7 @@ import javax.swing.JPanel;
 public class TreeController implements IPanelController
 {
 
-    private FamilyTreePanel familyTreePanel;
+    private FamilyTreeTotalPanel familyTreeTotalPanel;
     private GuiController gui;
     private TreeDTO tree;
 
@@ -32,9 +27,9 @@ public class TreeController implements IPanelController
 
     public JPanel show()
     {
-        familyTreePanel = (FamilyTreePanel) PanelFactory.makePanel(Panels.TREE);
-        familyTreePanel.setTreeController(this);
-        return familyTreePanel;
+        familyTreeTotalPanel = (FamilyTreeTotalPanel) PanelFactory.makePanel(Panels.TREE);
+        familyTreeTotalPanel.setTreeController(this);
+        return familyTreeTotalPanel;
     }
 
     public void goTo(Panels frame)
@@ -45,6 +40,7 @@ public class TreeController implements IPanelController
     public void setTree(TreeDTO tree)
     {
         this.tree = tree;
+        drawTree();
     }
 
     public void drawTree()
@@ -109,7 +105,7 @@ public class TreeController implements IPanelController
             }
         }
 
-        familyTreePanel.drawFamilyTree(persons);
-        familyTreePanel.validate();
+        familyTreeTotalPanel.drawFamilyTree(persons);
+        familyTreeTotalPanel.validate();
     }
 }
