@@ -8,6 +8,7 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
+import dto.PersonDTO;
 import dto.TreeDTO;
 import java.util.List;
 
@@ -42,7 +43,44 @@ public class ClientTreeService
         List<TreeDTO> list = client.resource(url + "/user/" + userId).get(new GenericType<List<TreeDTO>>()
         {
         });
-        
+
+        fixReferenceRelations(list);
+
         return list;
+    }
+
+    private void fixReferenceRelations(List<TreeDTO> list)
+    {
+        for (TreeDTO tree : list)
+        {
+            List<PersonDTO> persons = tree.getPersons();
+
+            for (PersonDTO person : persons)
+            {
+                PersonDTO mother = person.getMother();
+                PersonDTO father = person.getFather();
+
+                if (person.getMother() != null)
+                {
+                    for (PersonDTO p : persons)
+                    {
+                        if (mother.compareTo(p) == 0)
+                        {
+                            person.setMother(p);
+                        }
+                    }
+                }
+                else if (person.getFather() != null)
+                {
+                    for (PersonDTO p : persons)
+                    {
+                        if (father.compareTo(p) == 0)
+                        {
+                            person.setFather(p);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
