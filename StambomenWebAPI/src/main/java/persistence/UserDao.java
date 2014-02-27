@@ -96,10 +96,10 @@ public class UserDao implements IDao<User> {
             con.close();
         } catch (SQLException ex) {
             Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[SQLException][USERDAO][Save]Sql exception: " + ex.getMessage());
+            logger.info("[SQLException][USERDAO][GetAll]Sql exception: " + ex.getMessage());
         } catch (Exception ex) {
             Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[SQLException][USERDAO][Save]Sql exception: " + ex.getMessage());
+            logger.info("[SQLException][USERDAO][GetAll]Sql exception: " + ex.getMessage());
         }
 
         return users;
