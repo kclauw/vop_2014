@@ -32,7 +32,13 @@ public class PersonDao implements IDao<Person>
             + " where t.treeID = ? "
             + " GROUP BY d.personID "
             + " ORDER BY pr.parent ASC ";
-
+    
+    private final String SAVEPERSON = "INSERT INTO Person (birthplace, firstname,lastname,gender,birthdate,deathdate) VALUES (?,?,?,?,?,?,?)";
+    private final String UPDATEPERSON = "UPDATE Person SET birthplace = ? , firstname = ? , lastname = ?, gender = ? , birthdate = ? , deathdate = ? WHERE personID = ?";
+    private final String DELETEPERSON = "DELETE FROM Person WHERE personID = ?";
+    private final String GETPERSON = "Select birthplace, firstname,lastname,gender,birthdate,deathdate FROM Person WHERE firstname = ? and lastname = ?";
+    private final String GETPERSONBYID = "Select birthplace, firstname,lastname,gender,birthdate,deathdate FROM Person WHERE personID = ?";
+    private final String GETPERSONBYNAME = "Select * FROM Person WHERE firstname = ?,lastname = ?";
     private PersistenceController pc;
 
     public PersonDao(PersistenceController pc)
@@ -43,25 +49,119 @@ public class PersonDao implements IDao<Person>
     @Override
     public Person get(int id)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Person person = null;
+
+        try {
+            con = DatabaseUtils.getConnection();
+            PreparedStatement prep = con.prepareStatement(GETPERSONBYID);
+            prep.setInt(1, id);
+            ResultSet res = prep.executeQuery();
+
+            if (res.next()) {
+                person = map(res);
+            }
+
+            con.close();
+        } catch (SQLException ex) {
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[SQLException][PERSONDAO][Get]Sql exception: " + ex.getMessage());
+        } catch (Exception ex) {
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[Exception][PERSONDAO][Get]Exception: " + ex.getMessage());
+        }
+        return person;
+        
+    }
+    
+    public Person get(String firstname,String surname)
+    {
+        Person person = null;
+
+        try {
+            con = DatabaseUtils.getConnection();
+            PreparedStatement prep = con.prepareStatement(GETPERSONBYNAME);
+            
+            prep.setString(1, firstname);
+            prep.setString(2, surname);
+            ResultSet res = prep.executeQuery();
+
+            if (res.next()) {
+                person = map(res);
+            }
+
+            con.close();
+        } catch (SQLException ex) {
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[SQLException][PERSONDAO][Get]Sql exception: " + ex.getMessage());
+        } catch (Exception ex) {
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[Exception][PERSONDAO][Get]Exception: " + ex.getMessage());
+        }
+        return person;
+        
     }
 
     @Override
-    public void save(Person value)
+    public void save(Person person)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            con = DatabaseUtils.getConnection();
+            PreparedStatement prep = con.prepareStatement(SAVEPERSON);
+            prep.setInt(1, person.getPlace().getplaceId());
+            prep.setString(2, person.getFirstName());
+            prep.setString(3, person.getSurName());
+            prep.setByte(4,person.getGender().getGenderId());
+            prep.setDate(5, (java.sql.Date) person.getBirthDate());
+            prep.setDate(6, (java.sql.Date) person.getDeathDate());
+            con.close();
+        } catch (SQLException ex) {
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[SQLException][PERSONDAO][Save]Sql exception: " + ex.getMessage());
+        } catch (Exception ex) {
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[Exception][PERSONDAO][Save]Exception: " + ex.getMessage());
+        }
     }
 
     @Override
-    public void update(Person value)
+    public void update(Person person)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+              try {
+            con = DatabaseUtils.getConnection();
+            PreparedStatement prep = con.prepareStatement(UPDATEPERSON);
+            prep.setInt(1, person.getPlace().getplaceId());
+            prep.setString(2, person.getFirstName());
+            prep.setString(3, person.getSurName());
+            prep.setByte(4,person.getGender().getGenderId());
+            prep.setDate(5, (java.sql.Date) person.getBirthDate());
+            prep.setDate(6, (java.sql.Date) person.getDeathDate());
+            prep.setInt(7, person.getPersonId());
+            con.close();
+        } catch (SQLException ex) {
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[SQLException][PERSONDAO][Save]Sql exception: " + ex.getMessage());
+        } catch (Exception ex) {
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[Exception][PERSONDAO][Save]Exception: " + ex.getMessage());
+        }
     }
 
     @Override
-    public void delete(Person value)
+    public void delete(Person person)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            try {
+            con = DatabaseUtils.getConnection();
+            PreparedStatement prep = con.prepareStatement(DELETEPERSON);
+            prep.setInt(1, person.getPersonId());
+    
+            con.close();
+        } catch (SQLException ex) {
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[SQLException][PERSONDAO][Save]Sql exception: " + ex.getMessage());
+        } catch (Exception ex) {
+            Logger logger = LoggerFactory.getLogger(getClass());
+            logger.info("[Exception][PERSONDAO][Save]Exception: " + ex.getMessage());
+        }
     }
 
     @Override
@@ -118,7 +218,7 @@ public class PersonDao implements IDao<Person>
             int personId = res.getInt("personID");
             String firstName = res.getString("firstname");
             String lastName = res.getString("lastname");
-            int gender = res.getInt("gender");
+            byte gender = res.getByte("gender");
             Date birthDate = res.getDate("birthdate");
             Date deathDate = res.getDate("deathdate");
             int placeId = res.getInt("birthplace");
