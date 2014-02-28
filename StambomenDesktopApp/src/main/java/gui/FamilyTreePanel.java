@@ -50,11 +50,11 @@ public class FamilyTreePanel extends javax.swing.JPanel
 
         for (PersonDTO person : persons)
         {
-            g.drawString(person.getFirstName(), person.getX() + 35, person.getY() + 25);
+            g.drawString(person.getFirstName()+" "+person.getSurName(), person.getX() + 35, person.getY() + 25);
 
             if (person.getFather() != null)
             {
-                g.drawLine(person.getX() + 40, person.getY() + 30, person.getFather().getX() + 35, person.getFather().getY() + 25);
+                g.drawLine(person.getX()+40, person.getY()+30,475,10);
             }
         }
     }
