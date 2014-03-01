@@ -45,7 +45,7 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         this.familyTreePanel = new FamilyTreePanel(treeController, this);
         this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null);
         this.add(familyTreePanel, BorderLayout.CENTER);
-        this.add(familyTreeDetailPanel, BorderLayout.EAST);
+        this.add(familyTreeDetailPanel, BorderLayout.SOUTH);
         this.validate();
         this.familyTreePanel.validate();
         this.familyTreeDetailPanel.validate();

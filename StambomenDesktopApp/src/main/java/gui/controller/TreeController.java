@@ -74,18 +74,19 @@ public class TreeController implements IPanelController
             }
         }
 
-        for (PersonDTO person : persons)
-        {
-            System.out.println("[NA ROOT] " + person.getX() + " " + person.getY());
-        }
 
         List<PersonDTO> childeren = root.getChilderen(persons);
+        
+        coordsNextLevel(niveau, childeren);
 
-        for (PersonDTO person : childeren)
-        {
-            System.out.println("[NA ROOT] " + person.getX() + " " + person.getY());
-        }
-
+        familyTreeTotalPanel.drawFamilyTree(persons);
+        familyTreeTotalPanel.validate();
+    }
+    
+    
+    private void coordsNextLevel(int niveau, List<PersonDTO> childeren)
+    {
+        
         niveau++; //we gaan naar niv 1
         int by = niveau * 100;
         int initalBX = ((childeren.size()) * 100) + 100;
@@ -108,12 +109,5 @@ public class TreeController implements IPanelController
             }
         }
 
-        for (PersonDTO person : persons)
-        {
-            System.out.println("[LOL] " + person.getX() + " " + person.getY());
-        }
-
-        familyTreeTotalPanel.drawFamilyTree(persons);
-        familyTreeTotalPanel.validate();
     }
 }
