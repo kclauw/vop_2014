@@ -6,14 +6,17 @@ import exception.EmptyPasswordException;
 import exception.EmptyUsernameException;
 import exception.InvalidPasswordException;
 import exception.UserAlreadyExistsException;
-import exception.WrongLoginExeption;
 import java.util.Map;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.slf4j.LoggerFactory;
 
 /**
  * Proof of Concept klasse ter verduidelijking; De objecten zullen uiteindelijk
@@ -26,16 +29,18 @@ public class UserService
 
     private UserController uc = new UserController();
 
-//    @GET
-//    @Path("/get")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<User> getUsernames()
-//    {       /*Test voor te zien of dit werkt*/
-//        org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
-//        logger.info("[GET][USERSERVICE]");
-//        return uc.getUsers();
-//    }
-//
+    @GET
+    @Path("/get")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getUsernames()
+    {       /*Test voor te zien of dit werkt*/
+
+        org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
+        logger.info("[GET][USERSERVICE]");
+
+        return "works";
+    }
+
     @POST
     @Path("/post")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -65,29 +70,17 @@ public class UserService
         }
     }
 
-    @POST
-    @Path("/post/login")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response login(User user)
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/login")
+    public Response login(@Context ContainerRequestContext request)
     {
-        try
-        {
-
-            uc.login(user);
-
-            //returns json userobject when login is ok
-            //JSONObject json = new JSONObject((Map) user);
-            //return Response.ok(json, MediaType.APPLICATION_JSON).build();
-            return Response.ok(user).build();
-        }
-        catch (WrongLoginExeption ex)
-        {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        }
+        System.out.println("[SERVICE][LOGIN]");
+        return Response.status(Response.Status.OK).entity("Login Succesful!").build();
     }
 
     @POST
-    @Path("/post/getFriends")
+    @Path("/getFriends")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFriends(int userID)
     {

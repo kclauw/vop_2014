@@ -42,30 +42,10 @@
         </dependency>
     
         <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-bundle</artifactId>
-            <version>1.18</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.jersey.oauth</groupId>
-            <artifactId>oauth-signature</artifactId>
-            <version>1.1.1-ea</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.jersey.oauth</groupId>
-            <artifactId>oauth-client</artifactId>
-            <version>1.1.1-ea</version>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.29</version>
             <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-json</artifactId>
-            <version>1.18</version>
         </dependency>
 
         <dependency>
@@ -78,6 +58,21 @@
             <artifactId>easymock</artifactId>
             <version>3.2</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet-core</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>2.6</version>
         </dependency>
     </dependencies>
     

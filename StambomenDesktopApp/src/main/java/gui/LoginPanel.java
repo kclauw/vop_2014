@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
+import dto.UserDTO;
 import gui.controller.LoginController;
 
-/**
- *
- * @author Lowie
- */
 public class LoginPanel extends javax.swing.JPanel
 {
 
-    private LoginController login;
+    private LoginController loginPanel;
 
     public LoginPanel()
     {
@@ -23,7 +15,7 @@ public class LoginPanel extends javax.swing.JPanel
 
     public void setLoginController(LoginController login)
     {
-        this.login = login;
+        this.loginPanel = login;
     }
 
     /**
@@ -140,12 +132,14 @@ public class LoginPanel extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        login.goTo(Panels.REGISTER);
+        loginPanel.goTo(Panels.REGISTER);
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnLoginActionPerformed
     {//GEN-HEADEREND:event_btnLoginActionPerformed
-        login.goTo(Panels.TREEOVERVIEW);
+        UserDTO user = new UserDTO(0, txtUsername.getText(), txtPassword.getText());
+        loginPanel.login(user);
+        loginPanel.goTo(Panels.TREEOVERVIEW);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

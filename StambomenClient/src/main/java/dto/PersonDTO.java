@@ -186,6 +186,7 @@ public class PersonDTO
                 }
             }
         }
+
         return pers;
     }
 
@@ -196,33 +197,19 @@ public class PersonDTO
 
         for (PersonDTO p : persons)
         {
-            if (gender && p.getMother() != null)
+            if (!gender && p.getMother() != null)
             {
                 if (p.getMother().compareTo(this) == 0)
                 {
-                    int id = p.getFather().getPersonId();
-                    for (PersonDTO per : persons)
-                    {
-                        if (id == per.getPersonId())
-                        {
-                            return per;
-                        }
-                    }
+                    return p.getMother();
                 }
             }
 
-            if (!gender && p.getFather() != null)
+            if (gender && p.getFather() != null)
             {
                 if (p.getFather().compareTo(this) == 0)
                 {
-                    int id = p.getMother().getPersonId();
-                    for (PersonDTO per : persons)
-                    {
-                        if (id == per.getPersonId())
-                        {
-                            return per;
-                        }
-                    }
+                    return p.getFather();
                 }
             }
 
