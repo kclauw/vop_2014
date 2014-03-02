@@ -11,6 +11,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
@@ -79,15 +80,14 @@ public class UserService
         return Response.status(Response.Status.OK).entity("Login Succesful!").build();
     }
 
-    @POST
-    @Path("/getFriends")
+    @GET
+    @Path("/friends/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getFriends(int userID)
+    public Response getFriends(@PathParam("userId") int userID)
     {
         try
         {
             Map<String, Integer> friends = uc.getFriends(userID);
-
             return Response.ok(friends).build();
         }
         catch (Exception ex)

@@ -17,11 +17,10 @@ public class BasicAuthFilter implements ContainerRequestFilter
     @Override
     public void filter(ContainerRequestContext containerRequest) throws IOException
     {
-        System.out.println("DECODING REQUEST");
         String method = containerRequest.getMethod();
         String path = containerRequest.getUriInfo().getPath();
-
-        if (method.equals("POST") && (path.equals("rest/user/")))
+        System.out.println("DECODING REQUEST METHOD= " + method + " PATH=" + path);
+        if (method.equals("POST") && (path.equals("/user/post")))
         {
             return;
         }
