@@ -34,15 +34,16 @@ public class ClientUserService
     public String login(UserDTO user)
     {
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().credentials(user.getUsername(), user.getPassword()).build();
-        // register the filter into the client (in this case using ClientBuilder)
-        final Client client = ClientBuilder.newClient();
+        Client client = ClientBuilder.newClient();
         client.register(feature);
-        // make request (authentication will be managed by filter during the request if needed)
-        final Response response = client.target(url + "user/login").request().accept("application/json").get();
+
+        Response response = client.target(url + "user/login").request().accept("application/json").get();
+
+        System.out.println(response.getStatus() + " " + response.getStatusInfo());
 
         if (response.getStatus() != 200)
         {
-            return response.getEntity().toString();
+            return " " + response.getStatusInfo();
         }
 
         return null;

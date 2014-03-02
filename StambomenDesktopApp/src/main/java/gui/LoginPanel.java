@@ -139,7 +139,6 @@ public class LoginPanel extends javax.swing.JPanel
     {//GEN-HEADEREND:event_btnLoginActionPerformed
         UserDTO user = new UserDTO(0, txtUsername.getText(), txtPassword.getText());
         loginPanel.login(user);
-        loginPanel.goTo(Panels.TREEOVERVIEW);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -153,4 +152,9 @@ public class LoginPanel extends javax.swing.JPanel
     private gui.controls.CustomTextField txtPassword;
     private gui.controls.CustomTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+
+    public void setError(String login)
+    {
+        this.lblError.setText(login);
+    }
 }

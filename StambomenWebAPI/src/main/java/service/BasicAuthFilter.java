@@ -27,7 +27,7 @@ public class BasicAuthFilter implements ContainerRequestFilter
 
         String authorization = containerRequest.getHeaderString(HttpHeaders.AUTHORIZATION);
 
-        if (authorization == null)
+        if (authorization == null || authorization.isEmpty())
         {
             containerRequest.abortWith(Response.status(Status.UNAUTHORIZED).build());
         }

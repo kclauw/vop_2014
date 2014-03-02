@@ -8,6 +8,7 @@ import gui.Panels;
 import gui.controls.FamilyTreeList;
 import gui.controls.FamilyTreeListItem;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import service.ClientTreeService;
 
@@ -30,7 +31,7 @@ public class TreeOverviewController implements IPanelController
     {
         treeOverviewPanel = (FamilyTreeOverviewPanel) PanelFactory.makePanel(Panels.TREEOVERVIEW);
         treeOverviewPanel.setTreeController(this);
-        getTrees(8);
+        getTrees(gui.getUser().getId());
         return treeOverviewPanel;
     }
 
@@ -43,18 +44,24 @@ public class TreeOverviewController implements IPanelController
     {
         List<TreeDTO> trees = serv.getTrees(userId);
 
-        System.out.println("Found " + trees.size() + " trees!");
-
-        for (TreeDTO tree : trees)
+        if (trees == null || trees.isEmpty())
         {
-            this.familyTreeList.addFamilyTree(new FamilyTreeListItem(tree.getName(), tree.getPrivacy().ordinal(), this.familyTreeList, tree));
-            for (PersonDTO p : tree.getPersons())
+            JOptionPane.showMessageDialog(null, "You currently have no trees, please add one :)");
+        }
+        else
+        {
+            System.out.println("Found " + trees.size() + " trees!");
+
+            for (TreeDTO tree : trees)
             {
-                System.out.println(p.toString());
+                this.familyTreeList.addFamilyTree(new FamilyTreeListItem(tree.getName(), tree.getPrivacy().ordinal(), this.familyTreeList, tree));
+                for (PersonDTO p : tree.getPersons())
+                {
+                    System.out.println(p.toString());
+                }
             }
         }
-
-        treeOverviewPanel.viewFriendlist(this.familyTreeList);
+//        treeOverviewPanel.viewFriendlist(this.familyTreeList);
     }
 
     public void showTree(TreeDTO tree)

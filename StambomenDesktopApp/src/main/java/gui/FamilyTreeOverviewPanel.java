@@ -2,6 +2,13 @@ package gui;
 
 import gui.controller.TreeOverviewController;
 import gui.controls.FamilyTreeList;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 {
@@ -14,6 +21,20 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
     public FamilyTreeOverviewPanel()
     {
         initComponents();
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu = new JMenu("Tree");
+        JMenuItem addTreeItem = new JMenuItem("Add tree");
+        addTreeItem.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                JOptionPane.showMessageDialog(null, "Add a tree");
+            }
+        });
+        menu.add(addTreeItem);
+        menuBar.add(menu);
+        this.add(menuBar, BorderLayout.NORTH);
     }
 
     public void viewFriendlist(FamilyTreeList fam)
@@ -25,23 +46,14 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents()
     {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         pnlMain = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(800, 400));
-        setLayout(new java.awt.GridBagLayout());
+        setLayout(new java.awt.BorderLayout());
 
         pnlMain.setLayout(new javax.swing.BoxLayout(pnlMain, javax.swing.BoxLayout.LINE_AXIS));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.weighty = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(11, 11, 11, 11);
-        add(pnlMain, gridBagConstraints);
+        add(pnlMain, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

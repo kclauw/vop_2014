@@ -39,7 +39,21 @@ public class LoginController implements IPanelController
 
     public void login(UserDTO user)
     {
-        clientUserController.login(user);
+        String login = clientUserController.login(user);
+        System.out.println("[LOGINCONTROLLER] login" + user.toString());
+
+        System.out.println("REPLY FROM SERVICE:" + login);
+
+        if (login != null)
+        {
+            this.loginPanel.setError(login);
+        }
+        else
+        {
+            System.out.println("Login succes");
+            gui.setUser(user);
+            goTo(Panels.TREEOVERVIEW);
+        }
     }
 
 }
