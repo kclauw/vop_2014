@@ -13,12 +13,22 @@ public class MockPlace implements IMocks<Place>  {
 
     public List<Place> places;
     public Place place;
+    public MockCoordinate mcoor;
 
     MockPlace() {
-   //     Place user1 = new Place(1, 1, 1, Coordinate coord, "België", "2980", "Zoersel");
+        Coordinate coord=mcoor.get(1);
 
-    //    places.add(user1);
-  
+        Place user1 = new Place(1, 1, 1,coord, "België", "2980", "Zoersel");
+        Place user2 = new Place(1, 1, 1,coord, "België", "2000", "Antwerpen");
+        Place user3 = new Place(1, 1, 1,coord, "België", "9000", "Gent");
+        Place user4 = new Place(1, 1, 1,coord, "België", "2940", "Bercht");
+        Place user5 = new Place(1, 1, 1,coord, "België", "2500", "Mechelen");
+        places.add(user1);
+        places.add(user2);
+        places.add(user3);
+        places.add(user4);
+        places.add(user5);
+        
     }
     @Override
     public Place get(int id) {

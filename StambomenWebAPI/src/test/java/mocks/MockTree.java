@@ -1,62 +1,75 @@
-
 package mocks;
 
+import domain.Person;
+import domain.Privacy;
 import domain.Tree;
+import domain.User;
 import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-
-public class MockTree implements IMocks<Tree>  {
+public class MockTree implements IMocks<Tree> {
 
     public List<Tree> trees;
     public Tree tree;
+    public MockPerson mPerson;
+    public MockUser mUser;
 
     MockTree() {
-     //   Tree user1 = new Tree(1, "Jelle", "Verreth");
+        User u1 = mUser.get(1);
+        List<Person> lPer = null;
+        lPer.add(mPerson.get(0));
+        lPer.add(mPerson.get(1));
+        lPer.add(mPerson.get(2));
+        Privacy p = Privacy.FRIENDS;
+        Tree tree1 = new Tree(1, u1, p, "Verreth", lPer);
 
-    //    trees.add(user1);
+        trees.add(tree1);
+        trees.add(tree1);
+        trees.add(tree1);
+        trees.add(tree1);
 
     }
+
     @Override
     public Tree get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return trees.get(id);
     }
 
     @Override
     public void save(Tree value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        trees.add(value);
     }
 
     @Override
     public void update(Tree value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        trees.add(value);
     }
 
     @Override
     public void delete(Tree value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        trees.remove(value);
     }
 
     @Override
     public Collection<Tree> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return trees;
     }
 
     @Override
     public Tree map(ResultSet res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return trees.get(2);
     }
 
     @Override
     public Tree map(ResultSet res, Map<Integer, Tree> persMap) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return trees.get(1);
     }
 
     @Override
     public Collection<Tree> GetAll(int treeId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return trees;
     }
 
     @Override
