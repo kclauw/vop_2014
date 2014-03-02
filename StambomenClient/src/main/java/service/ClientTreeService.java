@@ -3,6 +3,11 @@ package service;
 import dto.PersonDTO;
 import dto.TreeDTO;
 import java.util.List;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 
 public class ClientTreeService
 {
@@ -29,17 +34,16 @@ public class ClientTreeService
 
     public List<TreeDTO> getTrees(int userId)
     {
-//        ClientConfig clientConfig = new DefaultClientConfig();
-//        clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
-//        Client client = Client.create(clientConfig);
-//        List<TreeDTO> list = client.resource(url + "/user/" + userId).get(new GenericType<List<TreeDTO>>()
-//        {
-//        });
-//
-//        fixReferenceRelations(list);
-//
-//        return list;
-        return null;
+        HttpAuthenticationFeature feature = ClientServiceController.getInstance().getHttpCredentials();
+        Client client = ClientBuilder.newClient();
+        client.register(feature);
+        List<TreeDTO> list = client.target(url + "/user/" + userId).request(MediaType.APPLICATION_JSON).get(new GenericType<List<TreeDTO>>()
+        {
+        });
+
+        fixReferenceRelations(list);
+
+        return list;
     }
 
     private void fixReferenceRelations(List<TreeDTO> list)

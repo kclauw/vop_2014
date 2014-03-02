@@ -19,8 +19,8 @@ public class ClientUserController
 
     public String login(UserDTO user)
     {
-        ClientServiceController cl = new ClientServiceController();
-        cl.setUser(user);
+        System.out.println("[CLIENT USER CONTROLLER] LOGIN CLIENT USER SERVICE");
+        ClientServiceController.getInstance().setUser(user);
         return client.login(user);
     }
 

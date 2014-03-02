@@ -1,6 +1,7 @@
 package service;
 
 import dto.UserDTO;
+import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 
 public class ClientServiceController
 {
@@ -10,6 +11,7 @@ public class ClientServiceController
 
     public void setUser(UserDTO user)
     {
+        System.out.println("USER SET " + user);
         this.user = user;
     }
 
@@ -33,5 +35,11 @@ public class ClientServiceController
             createInstance();
         }
         return instance;
+    }
+
+    public HttpAuthenticationFeature getHttpCredentials()
+    {
+        System.out.println("Building request for user " + user.getUsername());
+        return HttpAuthenticationFeature.basicBuilder().credentials(user.getUsername(), user.getPassword()).build();
     }
 }
