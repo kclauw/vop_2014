@@ -20,6 +20,6 @@ public class ClientTreeController
 
     public List<TreeDTO> getTrees(int i)
     {
-        return client.getTrees(i);
+        return client.getTrees(ClientServiceController.getInstance().getUser().getId());
     }
 }

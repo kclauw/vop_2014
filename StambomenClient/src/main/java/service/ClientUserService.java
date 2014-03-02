@@ -37,15 +37,17 @@ public class ClientUserService
         Client client = ClientBuilder.newClient();
         client.register(feature);
 
-        Response response = client.target(url + "user/login").request().accept("application/json").get();
+        UserDTO dto = client.target(url + "user/login/" + user.getUsername()).request("application/json").accept("application/json").get(UserDTO.class);
 
-        System.out.println(response.getStatus() + " " + response.getStatusInfo());
-
-        if (response.getStatus() != 200)
+        if (dto == null)
         {
-            return " " + response.getStatusInfo();
+            System.out.println("USER NOT FOUND");
+            return "Error";
         }
 
+        System.out.println("[CLIENT USER SERVICE] User dto found" + dto);
+
+        ClientServiceController.getInstance().setUser(dto);
         return null;
     }
 

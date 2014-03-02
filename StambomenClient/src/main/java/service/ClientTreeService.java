@@ -34,6 +34,7 @@ public class ClientTreeService
 
     public List<TreeDTO> getTrees(int userId)
     {
+        System.out.println("[CLIENT TREE SERVICE] GETTING TREES FOR USER: " + userId);
         HttpAuthenticationFeature feature = ClientServiceController.getInstance().getHttpCredentials();
         Client client = ClientBuilder.newClient();
         client.register(feature);
