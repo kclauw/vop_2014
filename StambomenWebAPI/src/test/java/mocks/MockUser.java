@@ -94,12 +94,15 @@ public class MockUser implements IMocks<User> {
 
     @Override
     public List<User> getAll(int userid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return users;
     }
 
     @Override
     public Map<String, Integer> GetFriends(int userID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String,Integer> map= null;
+        map.put("Jelle", 1);
+        map.put("Lowie", 2);
+        return map;
     }
 
     @Override
