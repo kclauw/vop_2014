@@ -5,8 +5,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
+        <title>JSP Page</title>
     </head>
     <body>
+        <p>${notifymessage}</p>
+        <form method="post">
+            <input name="username" />
+            <input name="password" />
+            <input type="submit" value="Login"/>
+        </form>
+        <p>${errormessage}</p>
     </body>
 </html>
