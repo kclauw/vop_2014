@@ -2,15 +2,10 @@ package service;
 
 import dto.UserDTO;
 
-/**
- * This class provides an interface for manipulation of UserObjects. JSON
- * request are send to the StambomenWebAPI to achieve this.
- */
 public class ClientUserController
 {
 
     private ClientUserService client;
-    private UserDTO user;
 
     public ClientUserController()
     {
@@ -24,7 +19,8 @@ public class ClientUserController
 
     public String login(UserDTO user)
     {
-        this.user = user;
+        ClientServiceController cl = new ClientServiceController();
+        cl.setUser(user);
         return client.login(user);
     }
 
