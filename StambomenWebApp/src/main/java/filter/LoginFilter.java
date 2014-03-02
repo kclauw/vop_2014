@@ -6,9 +6,13 @@
 
 package filter;
 
+import dto.GenderDTO;
+import dto.PersonDTO;
+import dto.PrivacyDTO;
 import dto.TreeDTO;
 import dto.UserDTO;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -79,8 +83,26 @@ public class LoginFilter implements Filter {
             }
         }
         
-        if ((session != null && session.getAttribute("user") != null) || requesturi.endsWith(contextpath + "/login.jsp")) {
-            chain.doFilter(req, res);
+        List<String> allowedExtensions = new ArrayList<String>();
+        allowedExtensions.add("css");
+        allowedExtensions.add("js");
+        allowedExtensions.add("png");
+        allowedExtensions.add("jpg");
+        
+        boolean allowed = false;
+        for (String ext : allowedExtensions) {
+            if (requesturi.endsWith("." + ext)){
+                allowed = true;
+                break;
+            }
+        }
+        if (allowed || (session != null && session.getAttribute("user") != null) || requesturi.endsWith(contextpath + "/login.jsp")) {
+            if (requesturi.endsWith(contextpath + "/index.jsp"))
+            {
+                response.sendRedirect(contextpath + "/main.jsp");
+            } else {
+                chain.doFilter(req, res);
+            }
         } else {
             response.sendRedirect(contextpath + "/login.jsp");
         }
@@ -93,10 +115,52 @@ public class LoginFilter implements Filter {
     }
     
     private void initUserData(HttpSession session, UserDTO user) {
-        ClientTreeController controller = new ClientTreeController();
-        List<TreeDTO> trees = controller.getTrees(user.getId());
+//        ClientTreeController controller = new ClientTreeController();
+//        List<TreeDTO> trees = controller.getTrees(user.getId());
+        List<TreeDTO> trees = new ArrayList<TreeDTO>();
+        TreeDTO tree = new TreeDTO(0, user, PrivacyDTO.PUBLIC, "Family Huyghe", null);
+        trees.add(tree);
+        trees.add(new TreeDTO(1, user, PrivacyDTO.FRIENDS, "Family Demey", null));
+        trees.add(new TreeDTO(2, user, PrivacyDTO.PRIVATE, "Family Hooghe", null));
+        trees.add(new TreeDTO(3, user, PrivacyDTO.PRIVATE, "Family Vanpeperstraete", null));
+        
+        PersonDTO father = new PersonDTO(0, "Mario", "Huyghe", GenderDTO.MALE, null, null, null, null, null);
+        PersonDTO mother = new PersonDTO(1, "Jo", "Demey", GenderDTO.FEMALE, null, null, null, null, null);
+        tree.setPersons(new ArrayList<PersonDTO>());
+        tree.getPersons().add(father);
+        tree.getPersons().add(mother);
+        
+        PersonDTO childfather = new PersonDTO(2, "Lowie", "Huyghe", GenderDTO.MALE, null, null, null, father, mother);
+        PersonDTO childmother = new PersonDTO(2, "Emma", "Watson", GenderDTO.FEMALE, null, null, null, null, null);
+        tree.getPersons().add(childfather);
+        tree.getPersons().add(childmother);
+        tree.getPersons().add(new PersonDTO(3, "Pedro", "Huyghe", GenderDTO.MALE, null, null, null, childfather, childmother));
+        tree.getPersons().add(new PersonDTO(3, "Erna", "Huyghe", GenderDTO.FEMALE, null, null, null, childfather, childmother));
+        
+        PersonDTO grandchildfather = new PersonDTO(3, "Jef", "Huyghe", GenderDTO.MALE, null, null, null, childfather, childmother);
+        PersonDTO grandchildmother = new PersonDTO(2, "Mila", "Kunis", GenderDTO.FEMALE, null, null, null, null, null);
+        tree.getPersons().add(grandchildfather);
+        tree.getPersons().add(grandchildmother);
+        tree.getPersons().add(new PersonDTO(3, "Wolf", "Huyghe", GenderDTO.MALE, null, null, null, grandchildfather, grandchildmother));
+        tree.getPersons().add(new PersonDTO(3, "Winter", "Huyghe", GenderDTO.MALE, null, null, null, grandchildfather, grandchildmother));
+        tree.getPersons().add(new PersonDTO(3, "Lisa", "Huyghe", GenderDTO.FEMALE, null, null, null, grandchildfather, grandchildmother));
+        tree.getPersons().add(new PersonDTO(3, "Lisa", "Huyghe", GenderDTO.FEMALE, null, null, null, grandchildfather, grandchildmother));
+        tree.getPersons().add(new PersonDTO(3, "Lisa", "Huyghe", GenderDTO.FEMALE, null, null, null, grandchildfather, grandchildmother));
+        
+        tree.getPersons().add(new PersonDTO(3, "Marie", "Huyghe", GenderDTO.FEMALE, null, null, null, father, mother));
+        tree.getPersons().add(new PersonDTO(4, "Emiel", "Huyghe", GenderDTO.MALE, null, null, null, father, mother));
         
         session.setAttribute("trees", trees);
+        
+        
+        List<UserDTO> friends = new ArrayList<UserDTO>();
+        friends.add(new UserDTO(0, "blowfish", "zdqzdqzd"));
+        friends.add(new UserDTO(0, "bedwetter", "zdqzdqzd"));
+        friends.add(new UserDTO(0, "rabbitkiller", "zdqzdqzd"));
+        friends.add(new UserDTO(0, "jhonny", "zdqzdqzd"));
+        friends.add(new UserDTO(0, "shellfish", "zdqzdqzd"));
+        
+        session.setAttribute("friends", friends);
     }
 
 }

@@ -1,0 +1,107 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 2, 2014, 5:18:27 PM
+    Author     : Lowie
+*/
+* {
+    font-family: 'Varela', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #252525;
+    font-size: 11pt;
+}
+
+h1 {
+    font-size: 20pt;
+}
+
+body {    
+    background: url(../images/bg.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.wrapper {
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#topbar {
+    height: 50px;
+    background-color: white;
+    box-shadow: 0px 0px 15px #231f20;
+    font-size: 14pt;
+}
+#topbar a {
+    text-decoration: none;
+}
+#topbar a:link {color:#252525;}
+#topbar a:visited {color:#252525;}
+#topbar a:hover {color:#363636;}
+#topbar a:active{color:#252525;}
+
+#logo {
+    margin: 7px 15px;
+}
+
+#menu {
+    float: right;
+}
+#menu li {
+    float: left;
+    display: block;
+    margin: 15px 15px;
+}
+
+.itemblock {
+    background: white;
+    border-left: 5px solid #334455;
+}
+
+.popupbox {
+    width: 350px;
+    height: 400px;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}
+.popupbox > div {
+    margin: 10px 15px;
+}
+
+.popupbox h1 {
+    margin-bottom: 20px;
+}
+
+.popupbox form input, form label {
+    display: block;
+    position: relative;
+    width: 305px;
+    margin-bottom: 10px;
+    padding: 3px 5px;
+}
+form .error {
+    color: red;
+}
+.popupbox form .submit {
+    width: 60%;
+    float: right;
+}
+
+body > .wrapper > div {
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
+}

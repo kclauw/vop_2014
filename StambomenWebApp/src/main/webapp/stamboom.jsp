@@ -1,6 +1,6 @@
 <%-- 
-    Document   : main
-    Created on : Mar 1, 2014, 5:15:45 PM
+    Document   : stamboom
+    Created on : Mar 1, 2014, 9:08:48 PM
     Author     : Lowie
 --%>
 
@@ -11,11 +11,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
-        <title>Tree - Main</title>
-
+        <title>Tree - ${tree.name}</title>
+        
         <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="./css/general.css"/>
-        <link rel="stylesheet" type="text/css" href="./css/main.css"/>
+        <link rel="stylesheet" type="text/css" href="./css/stamboom.css"/>
     </head>
     <body>
         <div id="topbar">
@@ -30,14 +30,11 @@
         </div>
         <div class="wrapper">
             <div>
-                <ul class="treelist">
-                    <c:forEach var="tree" items="${trees}" varStatus="counter">
-                        <a href="./TreeServlet?treeid=${tree.id}"><li class="itemblock">
-                            <div>${tree.name}</div>
-                            <img class="privacy" src="./images/${tree.privacy}.png" alt="${tree.privacy}" />
-                        </li></a>
-                    </c:forEach>
-                </ul>
+                <div class="tree">
+                    <ul>
+                        ${treehtml}
+                    </ul>
+                </div>
             </div>
         </div>
     </body>
