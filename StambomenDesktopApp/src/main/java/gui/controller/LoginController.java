@@ -39,9 +39,8 @@ public class LoginController implements IPanelController
 
     public void login(UserDTO user)
     {
-        String login = clientUserController.login(user);
         System.out.println("[LOGINCONTROLLER] login" + user.toString());
-
+        String login = clientUserController.login(user);
         System.out.println("REPLY FROM SERVICE:" + login);
 
         if (login != null)
@@ -51,7 +50,6 @@ public class LoginController implements IPanelController
         else
         {
             System.out.println("Login succes");
-            gui.setUser(user);
             goTo(Panels.TREEOVERVIEW);
         }
     }
