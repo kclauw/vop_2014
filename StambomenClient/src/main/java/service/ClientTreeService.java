@@ -1,16 +1,23 @@
 package service;
 
+import com.google.gson.Gson;
 import dto.PersonDTO;
 import dto.TreeDTO;
+import java.util.Collection;
 import java.util.List;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-public class ClientTreeService
-{
+public class ClientTreeService {
 
     private final String url = "http://localhost:8084/StambomenWebAPI/rest/tree";
 
-    public String makeTree(TreeDTO treeDTO)
-    {
+  //  public String makeTree(TreeDTO treeDTO)
+    //   {
 //        ClientConfig clientConfig = new DefaultClientConfig();
 //        clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
 //        Client client = Client.create(clientConfig);
@@ -23,52 +30,69 @@ public class ClientTreeService
 //        {
 //            return response.getEntity(String.class);
 //        }
+//        return null;
+//    }
+    public String makeTree(TreeDTO treeDTO) {
+        Client client = ClientBuilder.newClient();
+        String json = new Gson().toJson(treeDTO);
+        Response response = client.target(url + "tree/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
+
+        if (response.getStatus() != 200) {
+            return " " + response.getStatusInfo();
+        }
 
         return null;
     }
 
-    public List<TreeDTO> getTrees(int userId)
-    {
+//    public List<TreeDTO> getTrees(int treeId) {
+//        Client client = ClientBuilder.newClient();
+//        List<TreeDTO> list;
+//        final WebResource treeResource = webResource.path(String.format("/tree/getTrees", Tree)).accept(MediaType.TEXT_XML) ;
+//        client.
+//        list = client.resource(url + "/tree/" + treeId).get(new GenericType<List<TreeDTO>>();
+//        list = client.target(url + "/tree/" + treeId);
+//       fixReferenceRelations(list);
+//        
+//        if (response.getStatus() != 200)
+//        {
+//            return treeResource.get(new GenericType<Collection<TreeDTO>>(){});
+//        }
+//        
+//        return null;
+//    }
+   
+   // public List<TreeDTO> getTrees(int treeId)
+    //  {
 //        ClientConfig clientConfig = new DefaultClientConfig();
 //        clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
 //        Client client = Client.create(clientConfig);
-//        List<TreeDTO> list = client.resource(url + "/user/" + userId).get(new GenericType<List<TreeDTO>>()
+//        List<TreeDTO> list = client.resource(url + "/tree/" + treeId).get(new GenericType<List<TreeDTO>>()
 //        {
 //        });
 //
 //        fixReferenceRelations(list);
 //
 //        return list;
-        return null;
-    }
+    //       return null;
+    //   }
 
-    private void fixReferenceRelations(List<TreeDTO> list)
-    {
-        for (TreeDTO tree : list)
-        {
+    private void fixReferenceRelations(List<TreeDTO> list) {
+        for (TreeDTO tree : list) {
             List<PersonDTO> persons = tree.getPersons();
 
-            for (PersonDTO person : persons)
-            {
+            for (PersonDTO person : persons) {
                 PersonDTO mother = person.getMother();
                 PersonDTO father = person.getFather();
 
-                if (person.getMother() != null)
-                {
-                    for (PersonDTO p : persons)
-                    {
-                        if (mother.compareTo(p) == 0)
-                        {
+                if (person.getMother() != null) {
+                    for (PersonDTO p : persons) {
+                        if (mother.compareTo(p) == 0) {
                             person.setMother(p);
                         }
                     }
-                }
-                else if (person.getFather() != null)
-                {
-                    for (PersonDTO p : persons)
-                    {
-                        if (father.compareTo(p) == 0)
-                        {
+                } else if (person.getFather() != null) {
+                    for (PersonDTO p : persons) {
+                        if (father.compareTo(p) == 0) {
                             person.setFather(p);
                         }
                     }
