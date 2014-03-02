@@ -3,7 +3,6 @@ package service;
 import domain.Tree;
 import domain.controller.TreeController;
 import java.util.List;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -21,7 +20,6 @@ public class TreeService
     @GET
     @Path("{treeId}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public Tree getTree(@PathParam("treeId") int treeId)
     {
         Logger logger = LoggerFactory.getLogger(getClass());

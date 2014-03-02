@@ -66,4 +66,16 @@ public class UserController
 
         return null;
     }
+
+    public User getUser(String username)
+    {
+        User user = pc.getUser(username);
+
+        if (user != null)
+        {
+            return user;
+        }
+
+        return null;
+    }
 }
