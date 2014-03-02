@@ -16,7 +16,7 @@ public class ClientTreeService {
 
     private final String url = "http://localhost:8084/StambomenWebAPI/rest/tree";
 
-  //  public String makeTree(TreeDTO treeDTO)
+    //  public String makeTree(TreeDTO treeDTO)
     //   {
 //        ClientConfig clientConfig = new DefaultClientConfig();
 //        clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
@@ -44,23 +44,26 @@ public class ClientTreeService {
         return null;
     }
 
-//    public List<TreeDTO> getTrees(int treeId) {
+   public List<TreeDTO> getTrees(int treeId) {
 //        Client client = ClientBuilder.newClient();
 //        List<TreeDTO> list;
-//        final WebResource treeResource = webResource.path(String.format("/tree/getTrees", Tree)).accept(MediaType.TEXT_XML) ;
-//        client.
-//        list = client.resource(url + "/tree/" + treeId).get(new GenericType<List<TreeDTO>>();
-//        list = client.target(url + "/tree/" + treeId);
-//       fixReferenceRelations(list);
+//       // final WebResource treeResource = webResource.path(String.format("/tree/getTrees", Tree)).accept(MediaType.TEXT_XML);
+//        list = client.target(url + "/tree/" + treeId).toString().
+//                .get(new GenericType<List<TreeDTO>>(){});
+//       
+//        client.target(url + "/tree/" + treeId).toString();
+//
+//       
+//            //list = treeResource.get(new GenericType<Collection<TreeDTO>>(); 
+//            
+//            fixReferenceRelations(list);
+//            return list;
+//
 //        
-//        if (response.getStatus() != 200)
-//        {
-//            return treeResource.get(new GenericType<Collection<TreeDTO>>(){});
-//        }
-//        
-//        return null;
-//    }
-   
+//   
+       return null;
+    }
+
    // public List<TreeDTO> getTrees(int treeId)
     //  {
 //        ClientConfig clientConfig = new DefaultClientConfig();
@@ -75,7 +78,6 @@ public class ClientTreeService {
 //        return list;
     //       return null;
     //   }
-
     private void fixReferenceRelations(List<TreeDTO> list) {
         for (TreeDTO tree : list) {
             List<PersonDTO> persons = tree.getPersons();
