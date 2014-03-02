@@ -11,7 +11,7 @@ public class ClientServiceController
 
     public void setUser(UserDTO user)
     {
-        System.out.println("USER SET " + user);
+        System.out.println("[CLIENT SERVICE CONTROLLER] USER SET " + user);
         this.user = user;
     }
 

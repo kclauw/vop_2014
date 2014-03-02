@@ -8,6 +8,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
+import org.glassfish.jersey.jackson.JacksonFeature;
 
 public class ClientTreeService
 {
@@ -34,10 +35,13 @@ public class ClientTreeService
 
     public List<TreeDTO> getTrees(int userId)
     {
+        userId = ClientServiceController.getInstance().getUser().getId();
         System.out.println("[CLIENT TREE SERVICE] GETTING TREES FOR USER: " + userId);
         HttpAuthenticationFeature feature = ClientServiceController.getInstance().getHttpCredentials();
         Client client = ClientBuilder.newClient();
         client.register(feature);
+        client.register(new JacksonFeature());
+
         List<TreeDTO> list = client.target(url + "/user/" + userId).request(MediaType.APPLICATION_JSON).get(new GenericType<List<TreeDTO>>()
         {
         });

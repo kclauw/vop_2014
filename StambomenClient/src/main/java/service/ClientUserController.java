@@ -20,7 +20,6 @@ public class ClientUserController
     public String login(UserDTO user)
     {
         System.out.println("[CLIENT USER CONTROLLER] LOGIN CLIENT USER SERVICE");
-        ClientServiceController.getInstance().setUser(user);
         return client.login(user);
     }
 
