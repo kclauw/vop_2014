@@ -50,12 +50,14 @@ public class TreeDao implements IDao<Tree>
             // tree object, mapping van objecten en personen :( persoondao mss maken
 
             con.close();
-        
-        } catch (SQLException ex) {
+
+        }
+        catch (SQLException ex)
+        {
             Logger logger = LoggerFactory.getLogger(getClass());
             logger.info("[SQLException][TREEDAO][Get]Sql exception: " + ex.getMessage());
         }
-          catch (Exception ex)
+        catch (Exception ex)
         {
             org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
             logger.info("[Exception][TREEDAO][Get]Exception: " + ex.getMessage());
@@ -73,6 +75,7 @@ public class TreeDao implements IDao<Tree>
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(GETTREEBYUSERID);
             prep.setInt(1, userid);
+            System.out.println("[TREE DAO] GET ALL USERID " + prep.toString());
             ResultSet res = prep.executeQuery();
 
             while (res.next())
@@ -87,7 +90,8 @@ public class TreeDao implements IDao<Tree>
 
             con.close();
         }
-        catch (SQLException ex) {
+        catch (SQLException ex)
+        {
             Logger logger = LoggerFactory.getLogger(getClass());
             logger.info("[SQLException][TREEDAO][GetAll]Sql exception: " + ex.getMessage());
         }
@@ -113,7 +117,8 @@ public class TreeDao implements IDao<Tree>
 
             con.close();
         }
-        catch (SQLException ex) {
+        catch (SQLException ex)
+        {
             Logger logger = LoggerFactory.getLogger(getClass());
             logger.info("[SQLException][TREEDAO][Save]Sql exception: " + ex.getMessage());
         }
@@ -161,7 +166,8 @@ public class TreeDao implements IDao<Tree>
             tree = new Tree(id, user, priv, name, pers);
             System.out.println(tree);
         }
-        catch (SQLException ex) {
+        catch (SQLException ex)
+        {
             Logger logger = LoggerFactory.getLogger(getClass());
             logger.info("[SQLException][TREEDAO][Map]Sql exception: " + ex.getMessage());
         }

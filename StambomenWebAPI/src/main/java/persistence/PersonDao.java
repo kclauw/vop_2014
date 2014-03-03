@@ -32,7 +32,7 @@ public class PersonDao implements IDao<Person>
             + " where t.treeID = ? "
             + " GROUP BY d.personID "
             + " ORDER BY pr.parent ASC ";
-    
+
     private final String SAVEPERSON = "INSERT INTO Person (birthplace, firstname,lastname,gender,birthdate,deathdate) VALUES (?,?,?,?,?,?,?)";
     private final String UPDATEPERSON = "UPDATE Person SET birthplace = ? , firstname = ? , lastname = ?, gender = ? , birthdate = ? , deathdate = ? WHERE personID = ?";
     private final String DELETEPERSON = "DELETE FROM Person WHERE personID = ?";
@@ -40,10 +40,12 @@ public class PersonDao implements IDao<Person>
     private final String GETPERSONBYID = "Select birthplace, firstname,lastname,gender,birthdate,deathdate FROM Person WHERE personID = ?";
     private final String GETPERSONBYNAME = "Select * FROM Person WHERE firstname = ?,lastname = ?";
     private PersistenceController pc;
+    private final Logger logger;
 
     public PersonDao(PersistenceController pc)
     {
         this.pc = pc;
+        logger = LoggerFactory.getLogger(getClass());
     }
 
     @Override
@@ -51,89 +53,106 @@ public class PersonDao implements IDao<Person>
     {
         Person person = null;
 
-        try {
+        try
+        {
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(GETPERSONBYID);
             prep.setInt(1, id);
+            logger.info("[PERSON DAO] Getting person by id" + prep.toString());
             ResultSet res = prep.executeQuery();
 
-            if (res.next()) {
+            if (res.next())
+            {
                 person = map(res);
             }
 
             con.close();
-        } catch (SQLException ex) {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[SQLException][PERSONDAO][Get]Sql exception: " + ex.getMessage());
-        } catch (Exception ex) {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[Exception][PERSONDAO][Get]Exception: " + ex.getMessage());
+        }
+        catch (SQLException ex)
+        {
+
+            logger.info("[PERSON DAO][SQLException][Get] Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[PERSON DAO][Exception][Get] Exception: " + ex.getMessage());
         }
         return person;
-        
+
     }
-    
-  
 
     @Override
     public void save(Person person)
     {
-        try {
+        try
+        {
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(SAVEPERSON);
             prep.setInt(1, person.getPlace().getplaceId());
             prep.setString(2, person.getFirstName());
             prep.setString(3, person.getSurName());
-            prep.setByte(4,person.getGender().getGenderId());
+            prep.setByte(4, person.getGender().getGenderId());
             prep.setDate(5, (java.sql.Date) person.getBirthDate());
             prep.setDate(6, (java.sql.Date) person.getDeathDate());
+            logger.info("[PERSON DAO] Saving person " + prep.toString());
+            prep.executeQuery();
             con.close();
-        } catch (SQLException ex) {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[SQLException][PERSONDAO][Save]Sql exception: " + ex.getMessage());
-        } catch (Exception ex) {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[Exception][PERSONDAO][Save]Exception: " + ex.getMessage());
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[PERSON DAO][SQLException][Save] Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[PERSON DAO][Exception][Save] Exception: " + ex.getMessage());
         }
     }
 
     @Override
     public void update(Person person)
     {
-              try {
+        try
+        {
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(UPDATEPERSON);
             prep.setInt(1, person.getPlace().getplaceId());
             prep.setString(2, person.getFirstName());
             prep.setString(3, person.getSurName());
-            prep.setByte(4,person.getGender().getGenderId());
+            prep.setByte(4, person.getGender().getGenderId());
             prep.setDate(5, (java.sql.Date) person.getBirthDate());
             prep.setDate(6, (java.sql.Date) person.getDeathDate());
             prep.setInt(7, person.getPersonId());
+            logger.info("[PERSON DAO] Updating person " + prep.toString());
+            prep.executeUpdate();
             con.close();
-        } catch (SQLException ex) {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[SQLException][PERSONDAO][Save]Sql exception: " + ex.getMessage());
-        } catch (Exception ex) {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[Exception][PERSONDAO][Save]Exception: " + ex.getMessage());
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[PERSONDAO][SQLException][Save] Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[PERSONDAO][Exception][Save] Exception: " + ex.getMessage());
         }
     }
 
     @Override
     public void delete(Person person)
     {
-            try {
+        try
+        {
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(DELETEPERSON);
             prep.setInt(1, person.getPersonId());
-    
+            logger.info("[PERSON DAO] Deleting person " + prep.toString());
             con.close();
-        } catch (SQLException ex) {
-            Logger logger = LoggerFactory.getLogger(getClass());
+        }
+        catch (SQLException ex)
+        {
             logger.info("[SQLException][PERSONDAO][Save]Sql exception: " + ex.getMessage());
-        } catch (Exception ex) {
-            Logger logger = LoggerFactory.getLogger(getClass());
+        }
+        catch (Exception ex)
+        {
             logger.info("[Exception][PERSONDAO][Save]Exception: " + ex.getMessage());
         }
     }
@@ -146,7 +165,7 @@ public class PersonDao implements IDao<Person>
 
     public Collection<Person> GetAll(int treeId)
     {
-        System.out.println("GET ALL PERSON BY TREEID" + treeId);
+
         List<Person> persons = new ArrayList<Person>();
         Map<Integer, Person> personMap = new HashMap<Integer, Person>();
 
@@ -155,6 +174,7 @@ public class PersonDao implements IDao<Person>
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(GETPERSONSBYTREEID);
             prep.setInt(1, treeId);
+            logger.info("[PERSON DAO] GET ALL PERSON BY TREEID" + prep.toString());
             ResultSet res = prep.executeQuery();
 
             while (res.next())
@@ -169,13 +189,11 @@ public class PersonDao implements IDao<Person>
         }
         catch (SQLException ex)
         {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[SQLException][PERSONDAO][GetAll]Sql exception: " + ex.getMessage());
+            logger.info("[PERSONDAOSQL][Exception][GetAll]Sql exception: " + ex.getMessage());
         }
         catch (Exception ex)
         {
-            org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[Exception][PERSONDAO][GetAll]Exception: " + ex.getMessage());
+            logger.info("[PERSONDAO][Exception][GetAll]Exception: " + ex.getMessage());
         }
 
         mapRelations(persons, personMap);
@@ -208,13 +226,11 @@ public class PersonDao implements IDao<Person>
         }
         catch (SQLException ex)
         {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[SQLException][PERSONDAO][Map]Sql exception: " + ex.getMessage());
+            logger.info("[PERSONDAO][SQLException][Map]Sql exception: " + ex.getMessage());
         }
         catch (Exception ex)
         {
-            org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[Exception][PERSONDAO][Map]Exception: " + ex.getMessage());
+            logger.info("[PERSONDAO][Exception][Map]Exception: " + ex.getMessage());
         }
 
         return person;
@@ -234,13 +250,11 @@ public class PersonDao implements IDao<Person>
         }
         catch (SQLException ex)
         {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[SQLException][PERSONDAO][Map]Sql exception: " + ex.getMessage());
+            logger.info("[PERSONDAO][SQLException][Map]Sql exception: " + ex.getMessage());
         }
         catch (Exception ex)
         {
-            org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[Exception][PERSONDAO][Map]Exception: " + ex.getMessage());
+            logger.info("[PERSONDAO][Exception][Map]Exception: " + ex.getMessage());
         }
         return person;
     }
@@ -268,4 +282,3 @@ public class PersonDao implements IDao<Person>
     }
 
 }
-

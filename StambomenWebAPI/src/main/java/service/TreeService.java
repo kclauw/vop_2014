@@ -36,9 +36,7 @@ public class TreeService
     public List<Tree> getTreeByUser(@PathParam("userId") int userId)
     {
         Logger logger = LoggerFactory.getLogger(getClass());
-        System.out.println("TreeByUserid:" + userId);
-        logger.info("[GET][TREESERVICE]");
-        System.out.println("GET - TreeServices by userID" + userId);
+        logger.info("[GET][TREESERVICE] BY USERID" + userId);
         List<Tree> tr = tc.getTrees(userId);
         return tr;
     }
