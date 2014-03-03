@@ -1,6 +1,6 @@
 
 package dto;
-public enum PrivacyDTO {
+public enum PrivacyDTO  {
 PUBLIC(0), PRIVATE(1), FRIENDS(2);
   
   private int privacyId;

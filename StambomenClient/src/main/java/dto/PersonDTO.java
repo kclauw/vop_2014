@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PersonDTO
+public class PersonDTO implements java.io.Serializable
 {
 
     private int personId;

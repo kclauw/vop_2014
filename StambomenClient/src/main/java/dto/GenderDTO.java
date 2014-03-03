@@ -1,6 +1,6 @@
 package dto;
 
-public enum GenderDTO
+public enum GenderDTO 
 {
 
     MALE(0), FEMALE(1);

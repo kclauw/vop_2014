@@ -1,6 +1,6 @@
 package dto;
 
-public class PlaceDTO
+public class PlaceDTO implements java.io.Serializable
 {
 
     private int placeId;

@@ -18,17 +18,17 @@ public interface IMocks<T> {
     public Collection<T> getAll();
 
     public T map(ResultSet res);
-    
+
     public T map(ResultSet res, Map<Integer, T> persMap);
 
     public Collection<T> GetAll(int treeId);
-    
+
     public void mapRelations(List<T> persons, Map<Integer, T> persMap);
-    
+
     public List<T> getAll(int userid);
-    
-    public  Map<String, Integer> GetFriends(int userID);
-    
-     public T get(String username);
+
+    public Map<String, Integer> GetFriends(int userID);
+
+    public T get(String username);
 
 }
