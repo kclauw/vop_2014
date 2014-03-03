@@ -48,6 +48,24 @@ public class ClientTreeService
 
         fixReferenceRelations(list);
 
+        for (TreeDTO tree : list)
+        {
+            List<PersonDTO> persons = tree.getPersons();
+
+            for (PersonDTO person : persons)
+            {
+                System.out.println("[CLIENT TREE SERVICE] person" + person.hashCode());
+                if (person.getFather() != null)
+                {
+                    System.out.println("[CLIENT TREE SERVICE] person father" + person.getFather().hashCode());
+                }
+                if (person.getMother() != null)
+                {
+                    System.out.println("[CLIENT TREE SERVICE] person mother" + person.getMother().hashCode());
+
+                }
+            }
+        }
         return list;
     }
 
@@ -72,7 +90,8 @@ public class ClientTreeService
                         }
                     }
                 }
-                else if (person.getFather() != null)
+
+                if (person.getFather() != null)
                 {
                     for (PersonDTO p : persons)
                     {
