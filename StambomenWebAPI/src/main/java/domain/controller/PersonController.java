@@ -1,67 +1,78 @@
 package domain.controller;
 
 import domain.Person;
+import exception.CannotDeletePersonThatDoesntExistException;
 import exception.PersonAlreadyExistsException;
-import exception.WrongLoginExeption;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import persistence.PersistenceController;
 
 /**
  * This class is the facade to all person interaction.
  */
-public class PersonController {
+public class PersonController
+{
 
     private PersistenceController pc;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public PersonController() {
+    public PersonController()
+    {
         pc = new PersistenceController();
     }
 
     /**
-     * Add a person that doesn't already exist. Throws PersonAlreadyExistsException
-     * otherwise.
+     * Add a person that doesn't already exist. Throws
+     * PersonAlreadyExistsException otherwise.
      *
      * @param person
      */
-    public void addPerson(Person person) {
+    public void addPerson(Person person)
+    {
         /*Check wheter the person exists. This should be place in a repo.*/
         Person ps = pc.getPerson(person.getPersonId());
-        if (ps != null) {
+        if (ps != null)
+        {
+            logger.info("[PERSON CONTROLLER] This person already exists: " + person);
             throw new PersonAlreadyExistsException();
-        } else {
+        }
+        else
+        {
+            logger.info("[PERSON CONTROLLER] Adding person: " + person);
             pc.addPerson(person);
         };
     }
-    
-        public void deletePerson(Person person) {
-        
+
+    public void deletePerson(Person person)
+    {
         Person ps = pc.getPerson(person.getPersonId());
-        pc.removePerson(person);
-        
+
+        if (ps != null)
+        {
+            pc.removePerson(person);
+        }
+        if (ps == null)
+        {
+            logger.info("[PERSON CONTROLLER] Cannot delete person that doesn't exist");
+            throw new CannotDeletePersonThatDoesntExistException();
+        }
     }
-    
-        public void updatePerson(Person person) {
-       
-        Person ps = pc.getPerson(person.getPersonId());
+
+    public void updatePerson(Person person)
+    {
+        logger.info("[PERSON CONTROLLER] Updating person " + person);
         pc.updatePerson(person);
-        
     }
+
     public Person getPerson(int id)
     {
+        logger.info("[PERSON CONTROLLER] Getting person by id " + id);
         return pc.getPerson(id);
-    }       
+    }
+
     public Collection<Person> getPersons(int personID)
     {
         return pc.getPersons(personID);
     }
-
-    /**
-     *
-     * @param person
-     * @param mode
-     * @return
-     */
- 
 }
