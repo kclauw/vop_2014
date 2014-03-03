@@ -1,5 +1,6 @@
 package mocks;
 
+import domain.Coordinate;
 import domain.Gender;
 import domain.Person;
 import domain.Place;
@@ -9,24 +10,27 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import persistence.IPersonDAO;
 
-public class MockPerson implements IMocks<Person> {
+public class MockPerson implements IPersonDAO<Person> {
 
     public List<Person> persons;
     public Person person;
-    public MockPlace mplace;
-    public MockGender gen;
+    public Place place;
+    public Gender gf, gm;
+    public Coordinate coord;
 
     MockPerson() {
-        Gender gf = gen.get(0);
-        Gender gm = gen.get(1);
+        gf = Gender.FEMALE;
+        gm = Gender.MALE;
         Date d1 = new Date("6/10/1966");
         Date d2 = new Date("31/5/1969");
         Date d3 = new Date("24/5/1992");
-        Place p = mplace.get(1);
-        Person person1 = new Person(1, "Peter", "Verreth", gm, d1, null, p, null, null);
-        Person person2 = new Person(1, "Shirley", "Verreth", gf, d1, null, p, null, null);
-        Person person3 = new Person(1, "Jelle", "Verreth", gm, d1, null, p, person1, person2);
+        coord = new Coordinate(1,0,0);
+        place = new Place(1, 1, 1,coord, "België", "2980", "Zoersel");
+        Person person1 = new Person(1, "Peter", "Verreth", gm, d1, null, place, null, null);
+        Person person2 = new Person(1, "Shirley", "Verreth", gf, d1, null, place, null, null);
+        Person person3 = new Person(1, "Jelle", "Verreth", gm, d1, null, place, person1, person2);
         persons.add(person1);
         persons.add(person2);
         persons.add(person3);
@@ -34,7 +38,15 @@ public class MockPerson implements IMocks<Person> {
 
     @Override
     public Person get(int id) {
-        return persons.get(id);
+       Person p = null;
+
+        for (Person item : persons) {
+            if (item.getPersonId() == id) {
+                p = item;
+            }
+        }
+
+        return p;
     }
 
     @Override
@@ -44,7 +56,7 @@ public class MockPerson implements IMocks<Person> {
 
     @Override
     public void update(Person value) {
-        persons.add(value);
+        //
     }
 
     @Override
@@ -69,7 +81,7 @@ public class MockPerson implements IMocks<Person> {
 
     @Override
     public Collection<Person> GetAll(int treeId) {
-        return persons;
+         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -78,18 +90,15 @@ public class MockPerson implements IMocks<Person> {
     }
 
     @Override
-    public List<Person> getAll(int personid) {
-        return persons;
-    }
+    public Person get(String firstname, String surname) {
+         Person p = null;
 
-    @Override
-    public Map<String, Integer> GetFriends(int personID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        for (Person item : persons) {
+            if (item.getFirstName().equals(firstname) && item.getSurName().equals(surname) ) {
+                p = item;
+            }
+        }
 
-    @Override
-    public Person get(String personname) {
-        return persons.get(1);
+        return p;
     }
-
 }
