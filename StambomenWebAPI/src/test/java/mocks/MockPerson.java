@@ -56,7 +56,12 @@ public class MockPerson implements IPersonDAO<Person> {
 
     @Override
     public void update(Person value) {
-        //
+         Person p = null;
+        for (Person item : persons) {
+            if (item.getPersonId() == value.getPersonId()) {
+                item = value;
+            }
+        }
     }
 
     @Override
@@ -66,7 +71,7 @@ public class MockPerson implements IPersonDAO<Person> {
 
     @Override
     public Collection<Person> getAll() {
-        return persons;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -86,7 +91,23 @@ public class MockPerson implements IPersonDAO<Person> {
 
     @Override
     public void mapRelations(List<Person> persons, Map<Integer, Person> persMap) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int personId : persMap.keySet())
+        {
+            for (Person p : persons)
+            {
+                if (p.getPersonId() == personId)
+                {
+                    if (p.getGender() == Gender.MALE)
+                    {
+                        persMap.get(personId).setFather(p);
+                    }
+                    else
+                    {
+                        persMap.get(personId).setMother(p);
+                    }
+                }
+            }
+        }
     }
 
     @Override
