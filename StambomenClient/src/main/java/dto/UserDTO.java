@@ -1,6 +1,6 @@
 package dto;
 
-public class UserDTO
+public class UserDTO implements java.io.Serializable
 {
 
     private int id;

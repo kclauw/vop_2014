@@ -1,6 +1,6 @@
 package dto;
 
-public class CoordinateDTO
+public class CoordinateDTO implements java.io.Serializable
 {
 
     private float longitude;
