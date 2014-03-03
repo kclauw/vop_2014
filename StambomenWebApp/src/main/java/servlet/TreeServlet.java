@@ -52,12 +52,21 @@ public class TreeServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String streeid = request.getParameter("treeid");
+        
+        if (streeid != null)
+            processTree(request, response, streeid);
+        else
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
+    }
+    
+    private void processTree(HttpServletRequest request, HttpServletResponse response, String streeid) throws ServletException, IOException {
+        request.removeAttribute("treeid");
         int treeid;
         if (streeid == null)
             return;
         treeid = Integer.parseInt(streeid);
         
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         List<TreeDTO> trees = (List<TreeDTO>)session.getAttribute("trees");
         TreeDTO tree = null;
                 
@@ -68,6 +77,12 @@ public class TreeServlet extends HttpServlet {
                 break;
             }
         }
+        
+        generateTree(request, response, tree);
+    }
+    
+    private void generateTree(HttpServletRequest request, HttpServletResponse response, TreeDTO tree) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
         
         if (tree != null && tree.getPersons() != null)
         {
@@ -80,7 +95,10 @@ public class TreeServlet extends HttpServlet {
                     break;
                 }
             }
-            treehtml = loop(tree.getPersons(), treehtml, top);
+            PersonDTO refperson = (PersonDTO)session.getAttribute("refpersontree" + tree.getId());
+            if (refperson == null)
+                refperson = top;
+            treehtml = loop(tree.getPersons(), refperson, treehtml, top);
             
             session.setAttribute("tree", tree);
             session.setAttribute("treehtml", treehtml);
@@ -88,11 +106,12 @@ public class TreeServlet extends HttpServlet {
         } else {
             response.sendRedirect(request.getContextPath() + "/index.jsp");
         }
+        
     }
     
-    private String loop(List<PersonDTO> allpersons, String treehtml, PersonDTO parent) {
+    private String loop(List<PersonDTO> allpersons, PersonDTO refperson, String treehtml, PersonDTO parent) {
         
-        treehtml += "\n <li>" + getPersonHtml(parent);
+        treehtml += "\n <li>" + getPersonHtml(refperson, parent);
         
         boolean first = true;
         for (PersonDTO personitem : allpersons) {
@@ -108,10 +127,10 @@ public class TreeServlet extends HttpServlet {
                     else if (personitem.getMother() == parent && personitem.getFather() != null)
                         partner = personitem.getFather();
                     if (partner != null)
-                        treehtml += getPersonHtml(partner);
+                        treehtml += getPersonHtml(refperson, partner);
                     treehtml += "\n <ul>";
                 }
-                treehtml = loop(allpersons, treehtml, personitem);
+                treehtml = loop(allpersons, refperson, treehtml, personitem);
             }
         }
         if (!first)
@@ -123,8 +142,13 @@ public class TreeServlet extends HttpServlet {
         return treehtml;
     }
     
-    private String getPersonHtml(PersonDTO person) {
+    private String getPersonHtml(PersonDTO refperson, PersonDTO person) {
         String html = "<a style=\"background-image: url('./images/" + person.getGender().toString() + ".png');\" class=\"itemblock\" ";
+        
+        if (person == refperson)
+            html += "id=\"refperson\" ";
+        
+        html+= "data-id=\"" + person.getPersonId() + "\" ";
         html+= "data-firstname=\"" + getString(person.getFirstName()) + "\" ";
         html+= "data-surname=\"" + getString(person.getSurName())+ "\" ";
         if (person.getBirthDate() != null)
@@ -152,6 +176,31 @@ public class TreeServlet extends HttpServlet {
             return obj.toString();
     }
 
+    private void changeRefPerson(HttpServletRequest request, HttpServletResponse response, String refPerson) throws ServletException, IOException {
+        request.removeAttribute("refpersonid");
+        int personid;
+        if (refPerson == null)
+            return;
+        personid = Integer.parseInt(refPerson);
+        HttpSession session = request.getSession(false);
+        TreeDTO tree = (TreeDTO)session.getAttribute("tree");
+        
+        
+        if (tree != null)
+        {
+            for (PersonDTO person : tree.getPersons()) {
+                if(person.getPersonId() == personid)
+                {
+                    session.setAttribute("refpersontree" + tree.getId(), person);
+                    break;
+                }
+            }
+            generateTree(request, response, tree);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
+        }
+    }
+    
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -163,6 +212,12 @@ public class TreeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String refPerson = request.getParameter("refpersonid");
+        if (refPerson != null)
+            changeRefPerson(request, response, refPerson);
+        else
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
         
     }
 

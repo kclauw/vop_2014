@@ -29,6 +29,7 @@
                     <p id="deathdate"></p>
                     <p id="place"></p>
                     <p id="country"></p>
+                    <form method="post" action="./TreeServlet"><input id="refpersonid" name="refpersonid" value="" type="hidden"/><input class="submit" type="submit" value="Set as referenceperson"/></form>
                 </div>
             </div>
             <div></div>

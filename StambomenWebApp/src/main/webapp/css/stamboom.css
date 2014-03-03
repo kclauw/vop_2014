@@ -9,8 +9,8 @@ and open the template in the editor.
 */
 
 .tree {
+    display: inline-block;
     overflow: auto;
-    white-space: nowrap;
 }
 .tree ul {
 	padding-top: 20px;
@@ -86,20 +86,6 @@ right connector from last child*/
 	-moz-transition: all 0.5s;
 }
 
-/*Time for some hover effects*/
-/*We will apply the hover effect the the lineage of the element also*/
-.tree li a:hover, .tree li a:hover+ul li a {
-	border-color: #447733;
-        background-color: #ffffe5;
-}
-/*Connector styles on hover*/
-.tree li a:hover+ul li::after, 
-.tree li a:hover+ul li::before, 
-.tree li a:hover+ul::before, 
-.tree li a:hover+ul ul::before{
-	border-color:  #447733;
-}
-
 body > .wrapper {
     width: auto;
     text-align: center;
@@ -115,4 +101,9 @@ body > .wrapper > div {
 
 .popupbox p {
     margin-bottom: 10px;
+}
+
+#refperson {
+    border-left-color: #447733;
+    border-right: 5px solid #447733;
 }

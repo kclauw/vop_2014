@@ -136,24 +136,24 @@ public class LoginFilter implements Filter {
         Calendar birthdate = Calendar.getInstance();
         birthdate.set(1992, 5, 9);
         PersonDTO childfather = new PersonDTO(2, "Lowie", "Huyghe", GenderDTO.MALE, birthdate.getTime(), null, new PlaceDTO(0, 0, 0, null, "België", "8500", "Kortrijk"), father, mother);
-        PersonDTO childmother = new PersonDTO(2, "Emma", "Watson", GenderDTO.FEMALE, null, null, null, null, null);
+        PersonDTO childmother = new PersonDTO(3, "Emma", "Watson", GenderDTO.FEMALE, null, null, null, null, null);
         tree.getPersons().add(childfather);
         tree.getPersons().add(childmother);
-        tree.getPersons().add(new PersonDTO(3, "Pedro", "Huyghe", GenderDTO.MALE, null, null, null, childfather, childmother));
-        tree.getPersons().add(new PersonDTO(3, "Erna", "Huyghe", GenderDTO.FEMALE, null, null, null, childfather, childmother));
+        tree.getPersons().add(new PersonDTO(4, "Pedro", "Huyghe", GenderDTO.MALE, null, null, null, childfather, childmother));
+        tree.getPersons().add(new PersonDTO(5, "Erna", "Huyghe", GenderDTO.FEMALE, null, null, null, childfather, childmother));
         
-        PersonDTO grandchildfather = new PersonDTO(3, "Jef", "Huyghe", GenderDTO.MALE, null, null, null, childfather, childmother);
-        PersonDTO grandchildmother = new PersonDTO(2, "Mila", "Kunis", GenderDTO.FEMALE, null, null, null, null, null);
+        PersonDTO grandchildfather = new PersonDTO(6, "Jef", "Huyghe", GenderDTO.MALE, null, null, null, childfather, childmother);
+        PersonDTO grandchildmother = new PersonDTO(7, "Mila", "Kunis", GenderDTO.FEMALE, null, null, null, null, null);
         tree.getPersons().add(grandchildfather);
         tree.getPersons().add(grandchildmother);
-        tree.getPersons().add(new PersonDTO(3, "Wolf", "Huyghe", GenderDTO.MALE, null, null, null, grandchildfather, grandchildmother));
-        tree.getPersons().add(new PersonDTO(3, "Winter", "Huyghe", GenderDTO.MALE, null, null, null, grandchildfather, grandchildmother));
-        tree.getPersons().add(new PersonDTO(3, "Lisa", "Huyghe", GenderDTO.FEMALE, null, null, null, grandchildfather, grandchildmother));
-        tree.getPersons().add(new PersonDTO(3, "Lisa", "Huyghe", GenderDTO.FEMALE, null, null, null, grandchildfather, grandchildmother));
-        tree.getPersons().add(new PersonDTO(3, "Lisa", "Huyghe", GenderDTO.FEMALE, null, null, null, grandchildfather, grandchildmother));
+        tree.getPersons().add(new PersonDTO(8, "Wolf", "Huyghe", GenderDTO.MALE, null, null, null, grandchildfather, grandchildmother));
+        tree.getPersons().add(new PersonDTO(9, "Winter", "Huyghe", GenderDTO.MALE, null, null, null, grandchildfather, grandchildmother));
+        tree.getPersons().add(new PersonDTO(10, "Lisa", "Huyghe", GenderDTO.FEMALE, null, null, null, grandchildfather, grandchildmother));
+        tree.getPersons().add(new PersonDTO(11, "Lisa", "Huyghe", GenderDTO.FEMALE, null, null, null, grandchildfather, grandchildmother));
+        tree.getPersons().add(new PersonDTO(12, "Lisa", "Huyghe", GenderDTO.FEMALE, null, null, null, grandchildfather, grandchildmother));
         
-        tree.getPersons().add(new PersonDTO(3, "Marie", "Huyghe", GenderDTO.FEMALE, null, null, null, father, mother));
-        tree.getPersons().add(new PersonDTO(4, "Emiel", "Huyghe", GenderDTO.MALE, null, null, null, father, mother));
+        tree.getPersons().add(new PersonDTO(13, "Marie", "Huyghe", GenderDTO.FEMALE, null, null, null, father, mother));
+        tree.getPersons().add(new PersonDTO(14, "Emiel", "Huyghe", GenderDTO.MALE, null, null, null, father, mother));
         
         session.setAttribute("trees", trees);
         
