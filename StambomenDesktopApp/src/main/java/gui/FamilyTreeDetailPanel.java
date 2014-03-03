@@ -1,6 +1,8 @@
 package gui;
 
 import dto.PersonDTO;
+import dto.PlaceDTO;
+import java.util.Date;
 
 public class FamilyTreeDetailPanel extends javax.swing.JPanel
 {
@@ -11,6 +13,14 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     public FamilyTreeDetailPanel(PersonDTO person)
     {
         initComponents();
+        textFieldFirstname.setEditable(false);
+        textFieldGender.setEditable(false);
+        textFieldLastname.setEditable(false);
+        textFieldCity.setEditable(false);
+        textFieldCountry.setEditable(false);
+        textFieldZipCode.setEditable(false);
+        textFieldDoD.setEditable(false);
+        textFieldDob.setEditable(false);
     }
 
     /**
@@ -20,46 +30,73 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        personPanel = new javax.swing.JPanel();
+        textFieldGender = new javax.swing.JTextField();
+        labelFieldLastname = new javax.swing.JLabel();
+        labelFieldFirstname = new javax.swing.JLabel();
+        textFieldLastname = new javax.swing.JTextField();
+        textFieldFirstname = new javax.swing.JTextField();
+        labeFieldGender = new javax.swing.JLabel();
+        adressPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        textFieldFirstname = new javax.swing.JTextField();
-        textFieldLastname = new javax.swing.JTextField();
-        textFieldGender = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        textFieldCity = new javax.swing.JTextField();
+        textFieldZipCode = new javax.swing.JTextField();
+        textFieldCountry = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        textFieldDob = new javax.swing.JTextField();
+        textFieldDoD = new javax.swing.JTextField();
 
+        setBorder(javax.swing.BorderFactory.createTitledBorder("Person"));
         setLayout(new java.awt.GridBagLayout());
 
-        jLabel4.setText("Firstname:");
+        personPanel.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 11, 0, 11);
-        add(jLabel4, gridBagConstraints);
-
-        jLabel5.setText("Lastname:");
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        add(personPanel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 11, 0, 11);
-        add(jLabel5, gridBagConstraints);
-
-        jLabel8.setText("Gender:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 11, 0, 11);
-        add(jLabel8, gridBagConstraints);
+        gridBagConstraints.ipadx = 3;
+        gridBagConstraints.weightx = 1.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
+        add(textFieldGender, gridBagConstraints);
 
-        textFieldFirstname.setText("jTextField1");
-        textFieldFirstname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        labelFieldLastname.setText("Lastname:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        add(labelFieldLastname, gridBagConstraints);
+
+        labelFieldFirstname.setText("Firstname:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        add(labelFieldFirstname, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 3;
+        gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
+        add(textFieldLastname, gridBagConstraints);
+
+        textFieldFirstname.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 textFieldFirstnameActionPerformed(evt);
             }
         });
@@ -68,70 +105,177 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 3;
-        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weightx = 0.9;
         gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
         add(textFieldFirstname, gridBagConstraints);
 
-        textFieldLastname.setText("jTextField2");
+        labeFieldGender.setText("Gender:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 3;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
-        add(textFieldLastname, gridBagConstraints);
-
-        textFieldGender.setText("jTextField3");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 3;
-        gridBagConstraints.weightx = 0.3;
-        gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
-        add(textFieldGender, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        add(labeFieldGender, gridBagConstraints);
 
-        jButton1.setText("edit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        adressPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Adress"));
+        adressPanel.setMinimumSize(new java.awt.Dimension(90, 100));
+        adressPanel.setLayout(new java.awt.GridBagLayout());
+
+        jLabel4.setText("City:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.3;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 1);
+        adressPanel.add(jLabel4, gridBagConstraints);
+
+        jLabel5.setText("Zip code:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.3;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 1);
+        adressPanel.add(jLabel5, gridBagConstraints);
+
+        jLabel6.setText("Country:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.3;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 1);
+        adressPanel.add(jLabel6, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.9;
+        adressPanel.add(textFieldCity, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.9;
+        adressPanel.add(textFieldZipCode, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.9;
+        adressPanel.add(textFieldCountry, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        add(adressPanel, gridBagConstraints);
+
+        jLabel1.setText("Date of Birth:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        add(jLabel1, gridBagConstraints);
+
+        jLabel2.setText("Date of Death:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        add(jLabel2, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
+        add(textFieldDob, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 4;
-        add(jButton1, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
+        add(textFieldDoD, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textFieldFirstnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldFirstnameActionPerformed
+    private void textFieldFirstnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textFieldFirstnameActionPerformed
+    {//GEN-HEADEREND:event_textFieldFirstnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldFirstnameActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel adressPanel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel labeFieldGender;
+    private javax.swing.JLabel labelFieldFirstname;
+    private javax.swing.JLabel labelFieldLastname;
+    private javax.swing.JPanel personPanel;
+    private javax.swing.JTextField textFieldCity;
+    private javax.swing.JTextField textFieldCountry;
+    private javax.swing.JTextField textFieldDoD;
+    private javax.swing.JTextField textFieldDob;
     private javax.swing.JTextField textFieldFirstname;
     private javax.swing.JTextField textFieldGender;
     private javax.swing.JTextField textFieldLastname;
+    private javax.swing.JTextField textFieldZipCode;
     // End of variables declaration//GEN-END:variables
 
     public void setPerson(PersonDTO person)
     {
         if (person != null)
         {
-            this.textFieldFirstname.setText(person.getFirstName());
-            this.textFieldFirstname.setEditable(false);
-            this.textFieldGender.setText(person.getGender().toString());
-            this.textFieldGender.setEditable(false);
-            this.textFieldLastname.setText(person.getSurName());
-            this.textFieldLastname.setEditable(false);
+            textFieldFirstname.setText(person.getFirstName());
+            textFieldLastname.setText(person.getSurName());
+            textFieldGender.setText(person.getGender().toString());
+
+            Date dob = person.getBirthDate();
+            if (dob != null)
+            {
+                textFieldDob.setText(dob.toString());
+            }
+            else
+            {
+                textFieldDob.setText("Undefined");
+            }
+
+            Date dod = person.getDeathDate();
+
+            if (dod != null)
+            {
+                textFieldDoD.setText(dod.toString());
+            }
+            else
+            {
+                textFieldDoD.setText("Undefined");
+            }
+
+            PlaceDTO place = person.getPlace();
+            if (place == null)
+            {
+                textFieldCity.setText("Undefined");
+                textFieldCountry.setText("Undefined");
+                textFieldZipCode.setText("Undefined");
+            }
+            else
+            {
+                textFieldCity.setText(place.getPlaceName());
+                textFieldCountry.setText(place.getCountry());
+                textFieldZipCode.setText(place.getZipCode());
+            }
+
         }
     }
 }

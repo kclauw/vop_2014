@@ -63,7 +63,7 @@ public class TreeOverviewController implements IPanelController
                 }
             }
         }
-//        treeOverviewPanel.viewFriendlist(this.familyTreeList);
+        treeOverviewPanel.addFamilyTreeList(this.familyTreeList);
     }
 
     public void showTree(TreeDTO tree)

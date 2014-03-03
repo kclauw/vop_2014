@@ -37,9 +37,9 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         this.add(menuBar, BorderLayout.NORTH);
     }
 
-    public void viewFriendlist(FamilyTreeList fam)
+    public void addFamilyTreeList(FamilyTreeList fam)
     {
-        pnlMain.add(fam);
+        this.add(fam);
     }
 
     @SuppressWarnings("unchecked")
@@ -51,8 +51,6 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
         setPreferredSize(new java.awt.Dimension(800, 400));
         setLayout(new java.awt.BorderLayout());
-
-        pnlMain.setLayout(new javax.swing.BoxLayout(pnlMain, javax.swing.BoxLayout.LINE_AXIS));
         add(pnlMain, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
