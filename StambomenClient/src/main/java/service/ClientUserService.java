@@ -54,14 +54,19 @@ public class ClientUserService {
     public Map<String, Integer> getFriends(int userID) {
         System.out.println("[CLIENT USER SERVICE] GETTING FRIENDS FOR USER: " + userID);
 
+        Client client = getClient();
+        Map<String, Integer> friends = client.target(url + "/user/friends/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<Map<String, Integer>>() {
+        });
+
+        return friends;
+    }
+
+    private Client getClient() {
         HttpAuthenticationFeature feature = ClientServiceController.getInstance().getHttpCredentials();
         Client client = ClientBuilder.newClient();
         client.register(feature);
         client.register(new JacksonFeature());
 
-        Map<String, Integer> friends = client.target(url + "/user/friends/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<Map<String, Integer>>() {
-        });
-
-        return friends;
+        return client;
     }
 }
