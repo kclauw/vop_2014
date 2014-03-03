@@ -65,5 +65,26 @@ public class PersistenceController {
     public Place getPlace(ResultSet res) {
         return placeDao.map(res);
     }
+    
+    
+    public Person getPerson(String firstName, String surName) {
+        return this.personDao.get(firstName, surName);
+    }
+
+    public void addPerson(Person person) {
+        personDao.save(person);
+    }
+    public void removePerson(Person person) {
+        personDao.delete(person);
+    }
+
+    public Person getPerson(int personId) {
+        return personDao.get(personId);
+    }
+
+    public void updatePerson(Person person) {
+        personDao.update(person);
+    }
+    
 
 }
