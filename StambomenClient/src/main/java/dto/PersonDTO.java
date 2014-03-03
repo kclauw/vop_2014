@@ -192,30 +192,39 @@ public class PersonDTO
 
     public PersonDTO getPartner(List<PersonDTO> persons)
     {
-        boolean gender = this.getGender() == GenderDTO.FEMALE;
+
+        System.out.println("[PERSON DTO] Getting partner of " + this.toString());
+
+        boolean g = this.getGender() == GenderDTO.FEMALE;
+
+        System.out.println("[PERSON DTO] Person is of gender female " + g);
+
         PersonDTO partner = null;
 
         for (PersonDTO p : persons)
         {
-            if (!gender && p.getMother() != null)
+            if (p.getFather() != null && p.getFather().compareTo(this) == 0 || p.getMother() != null && p.getMother().compareTo(this) == 0)
             {
-                if (p.getMother().compareTo(this) == 0)
+                if (g)
                 {
+                    System.out.println("[PERSON DTO] found father");
+                    return p.getFather();
+                }
+                else
+                {
+                    System.out.println("[PERSON DTO] found mother");
                     return p.getMother();
                 }
             }
-
-            if (gender && p.getFather() != null)
-            {
-                if (p.getFather().compareTo(this) == 0)
-                {
-                    return p.getFather();
-                }
-            }
-
         }
 
         return partner;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "PersonDTO{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + ", gender=" + gender + ", birthDate=" + birthDate + ", deathDate=" + deathDate + ", place=" + place + ", father=" + father + ", mother=" + mother + ", x=" + x + ", y=" + y + '}';
     }
 
 }

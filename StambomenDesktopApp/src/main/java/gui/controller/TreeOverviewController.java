@@ -31,7 +31,8 @@ public class TreeOverviewController implements IPanelController
     {
         treeOverviewPanel = (FamilyTreeOverviewPanel) PanelFactory.makePanel(Panels.TREEOVERVIEW);
         treeOverviewPanel.setTreeController(this);
-        getTrees(gui.getUser().getId());
+        System.out.println("[TREE OVERVIEW CONTROLLER] Showing trees");
+        getTrees(-1);
         return treeOverviewPanel;
     }
 
@@ -50,18 +51,19 @@ public class TreeOverviewController implements IPanelController
         }
         else
         {
-            System.out.println("Found " + trees.size() + " trees!");
+            System.out.println("[TREE OVERVIEW CONTROLLER] Found " + trees.size() + " trees!");
 
             for (TreeDTO tree : trees)
             {
                 this.familyTreeList.addFamilyTree(new FamilyTreeListItem(tree.getName(), tree.getPrivacy().ordinal(), this.familyTreeList, tree));
+
                 for (PersonDTO p : tree.getPersons())
                 {
                     System.out.println(p.toString());
                 }
             }
         }
-//        treeOverviewPanel.viewFriendlist(this.familyTreeList);
+        treeOverviewPanel.addFamilyTreeList(this.familyTreeList);
     }
 
     public void showTree(TreeDTO tree)

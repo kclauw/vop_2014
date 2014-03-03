@@ -13,8 +13,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.slf4j.LoggerFactory;
@@ -73,11 +71,12 @@ public class UserService
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/login")
-    public Response login(@Context ContainerRequestContext request)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/login/{username}")
+    public User login(@PathParam("username") String username)
     {
         System.out.println("[SERVICE][LOGIN]");
-        return Response.status(Response.Status.OK).entity("Login Succesful!").build();
+        return uc.getUser(username);
     }
 
     @GET

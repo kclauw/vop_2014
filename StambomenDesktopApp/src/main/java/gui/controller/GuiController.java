@@ -1,7 +1,6 @@
 package gui.controller;
 
 import dto.TreeDTO;
-import dto.UserDTO;
 import gui.Panels;
 import java.awt.Dimension;
 import javax.swing.JFrame;
@@ -15,7 +14,6 @@ public class GuiController
     private RegisterController registerController;
     private TreeOverviewController treeControllerOverviewController;
     private TreeController treeController;
-    private UserDTO user;
 
     public GuiController()
     {
@@ -61,16 +59,6 @@ public class GuiController
     {
         goTo(Panels.TREE);
         treeController.setTree(tree);
-    }
-
-    public void setUser(UserDTO user)
-    {
-        this.user = user;
-    }
-
-    public UserDTO getUser()
-    {
-        return this.user;
     }
 
 }

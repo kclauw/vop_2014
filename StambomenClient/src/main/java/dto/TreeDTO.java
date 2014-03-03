@@ -74,4 +74,10 @@ public class TreeDTO
         this.name = name;
     }
 
+    @Override
+    public String toString()
+    {
+        return "TreeDTO{" + "id=" + id + ", owner=" + owner + ", privacy=" + privacy + ", name=" + name + ", persons=" + persons + '}';
+    }
+
 }

@@ -8,6 +8,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
+import org.glassfish.jersey.jackson.JacksonFeature;
 
 /**
  * Contains the concrete implementations for the request to the WebAPI.
@@ -33,19 +34,23 @@ public class ClientUserService
 
     public String login(UserDTO user)
     {
+        System.out.println("[CLIENT USER SERVICE] login of user " + user.toString());
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().credentials(user.getUsername(), user.getPassword()).build();
         Client client = ClientBuilder.newClient();
         client.register(feature);
+        client.register(new JacksonFeature());
 
-        Response response = client.target(url + "user/login").request().accept("application/json").get();
+        UserDTO dto = client.target(url + "user/login/" + user.getUsername()).request("application/json").accept("application/json").get(UserDTO.class);
 
-        System.out.println(response.getStatus() + " " + response.getStatusInfo());
-
-        if (response.getStatus() != 200)
+        if (dto == null)
         {
-            return " " + response.getStatusInfo();
+            System.out.println("USER NOT FOUND");
+            return "Error";
         }
 
+        System.out.println("[CLIENT USER SERVICE] User dto found" + dto);
+
+        ClientServiceController.getInstance().setUser(dto);
         return null;
     }
 
