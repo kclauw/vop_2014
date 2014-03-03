@@ -16,9 +16,24 @@
         <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="./css/general.css"/>
         <link rel="stylesheet" type="text/css" href="./css/stamboom.css"/>
+        
+        <script src="./js/jquery-1.11.0.min.js"></script>
+        <script src="./js/stamboom.js"></script>
     </head>
     <body>
-        <div id="topbar">
+        <div class="popupboxbg">
+            <div class="popupbox itemblock shadow">
+                <div>
+                    <h1></h1>
+                    <p id="birthdate"></p>
+                    <p id="deathdate"></p>
+                    <p id="place"></p>
+                    <p id="country"></p>
+                </div>
+            </div>
+            <div></div>
+        </div>
+        <div id="topbar" class="shadow">
             <div class="wrapper">
                 <a href="./index.jsp"><img id="logo" src="./images/logo.png" height="35" alt="Tree" /></a>
                 <ul id="menu">

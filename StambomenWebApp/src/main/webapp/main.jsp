@@ -18,7 +18,7 @@
         <link rel="stylesheet" type="text/css" href="./css/main.css"/>
     </head>
     <body>
-        <div id="topbar">
+        <div id="topbar" class="shadow">
             <div class="wrapper">
                 <a href="./index.jsp"><img id="logo" src="./images/logo.png" height="35" alt="Tree" /></a>
                 <ul id="menu">
@@ -32,7 +32,7 @@
             <div>
                 <ul class="treelist">
                     <c:forEach var="tree" items="${trees}" varStatus="counter">
-                        <a href="./TreeServlet?treeid=${tree.id}"><li class="itemblock">
+                        <a href="./TreeServlet?treeid=${tree.id}" class="itemblock"><li>
                             <div>${tree.name}</div>
                             <img class="privacy" src="./images/${tree.privacy}.png" alt="${tree.privacy}" />
                         </li></a>

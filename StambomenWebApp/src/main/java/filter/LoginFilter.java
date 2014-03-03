@@ -8,11 +8,14 @@ package filter;
 
 import dto.GenderDTO;
 import dto.PersonDTO;
+import dto.PlaceDTO;
 import dto.PrivacyDTO;
 import dto.TreeDTO;
 import dto.UserDTO;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -130,7 +133,9 @@ public class LoginFilter implements Filter {
         tree.getPersons().add(father);
         tree.getPersons().add(mother);
         
-        PersonDTO childfather = new PersonDTO(2, "Lowie", "Huyghe", GenderDTO.MALE, null, null, null, father, mother);
+        Calendar birthdate = Calendar.getInstance();
+        birthdate.set(1992, 5, 9);
+        PersonDTO childfather = new PersonDTO(2, "Lowie", "Huyghe", GenderDTO.MALE, birthdate.getTime(), null, new PlaceDTO(0, 0, 0, null, "België", "8500", "Kortrijk"), father, mother);
         PersonDTO childmother = new PersonDTO(2, "Emma", "Watson", GenderDTO.FEMALE, null, null, null, null, null);
         tree.getPersons().add(childfather);
         tree.getPersons().add(childmother);

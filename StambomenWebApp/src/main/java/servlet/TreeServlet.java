@@ -9,6 +9,7 @@ package servlet;
 import dto.PersonDTO;
 import dto.TreeDTO;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -91,7 +92,7 @@ public class TreeServlet extends HttpServlet {
     
     private String loop(List<PersonDTO> allpersons, String treehtml, PersonDTO parent) {
         
-        treehtml += "\n <li><a style=\"background-image: url('./images/" + parent.getGender().toString() + ".png');\" class=\"itemblock\" href=\"#\">" + parent.getFirstName() + " " + parent.getSurName() + "</a>";
+        treehtml += "\n <li>" + getPersonHtml(parent);
         
         boolean first = true;
         for (PersonDTO personitem : allpersons) {
@@ -107,7 +108,7 @@ public class TreeServlet extends HttpServlet {
                     else if (personitem.getMother() == parent && personitem.getFather() != null)
                         partner = personitem.getFather();
                     if (partner != null)
-                        treehtml += "<a style=\"background-image: url('./images/" + partner.getGender().toString() + ".png');\" class=\"itemblock\" href=\"#\">" + partner.getFirstName() + " " + partner.getSurName() + "</a>";
+                        treehtml += getPersonHtml(partner);
                     treehtml += "\n <ul>";
                 }
                 treehtml = loop(allpersons, treehtml, personitem);
@@ -120,6 +121,35 @@ public class TreeServlet extends HttpServlet {
         treehtml += "</li>";
         
         return treehtml;
+    }
+    
+    private String getPersonHtml(PersonDTO person) {
+        String html = "<a style=\"background-image: url('./images/" + person.getGender().toString() + ".png');\" class=\"itemblock\" ";
+        html+= "data-firstname=\"" + getString(person.getFirstName()) + "\" ";
+        html+= "data-surname=\"" + getString(person.getSurName())+ "\" ";
+        if (person.getBirthDate() != null)
+            html+= "data-birthdate=\"" +  (new SimpleDateFormat("d MMMM y")).format(person.getBirthDate()) + "\" ";
+        else
+            html+= "data-birthdate=\"/\" ";
+        html+= "data-deathdate=\"" + getString(person.getDeathDate()) + "\" ";
+        if (person.getPlace() != null)
+        {
+            html+= "data-zipcode=\"" + getString(person.getPlace().getZipCode())+ "\" ";
+            html+= "data-placename=\"" + getString(person.getPlace().getPlaceName())+ "\" ";
+            html+= "data-country=\"" + getString(person.getPlace().getCountry())+ "\" ";
+        } else {
+            html += "data-zipcode=\"/\" data-placename=\"\" data-country=\"/\" ";
+        }
+        html += ">" + person.getFirstName() + " " + person.getSurName() + "</a>";
+        
+        return html;
+    }
+    
+    private String getString(Object obj) {
+        if (obj == null)
+            return "/";
+        else
+            return obj.toString();
     }
 
     /**

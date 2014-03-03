@@ -17,7 +17,7 @@
         <link rel="stylesheet" type="text/css" href="./css/friends.css"/>
     </head>
     <body>
-        <div id="topbar">
+        <div id="topbar" class="shadow">
             <div class="wrapper">
                 <a href="./index.jsp"><img id="logo" src="./images/logo.png" height="35" alt="Tree" /></a>
                 <ul id="menu">

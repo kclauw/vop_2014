@@ -12,18 +12,13 @@
         <link rel="stylesheet" type="text/css" href="./css/general.css"/>
         <link rel="stylesheet" type="text/css" href="./css/login.css"/>
     </head>
-    <body>
-        <div id="topbar">
-            <div class="wrapper">
-                <a href="./"><img id="logo" src="./images/logo.png" height="35" alt="Tree" /></a>
-            </div>
-        </div>
+    <body id="body">
         <div class="wrapper">
             <div>
                 <div class="popupbox itemblock">
+                    <a href="./"><img id="logo" src="./images/logo.png" height="35" alt="Tree" /></a>
                     <div>
                         <h1>Login</h1>
-                        <p>${notifymessage}</p>
                         <form method="post">
                             <input name="username" type="text" placeholder="Username" />
                             <input name="password" type="password" placeholder="Password" />
