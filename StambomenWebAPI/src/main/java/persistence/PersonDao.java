@@ -73,33 +73,7 @@ public class PersonDao implements IDao<Person>
         
     }
     
-    public Person get(String firstname,String surname)
-    {
-        Person person = null;
-
-        try {
-            con = DatabaseUtils.getConnection();
-            PreparedStatement prep = con.prepareStatement(GETPERSONBYNAME);
-            
-            prep.setString(1, firstname);
-            prep.setString(2, surname);
-            ResultSet res = prep.executeQuery();
-
-            if (res.next()) {
-                person = map(res);
-            }
-
-            con.close();
-        } catch (SQLException ex) {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[SQLException][PERSONDAO][Get]Sql exception: " + ex.getMessage());
-        } catch (Exception ex) {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[Exception][PERSONDAO][Get]Exception: " + ex.getMessage());
-        }
-        return person;
-        
-    }
+  
 
     @Override
     public void save(Person person)

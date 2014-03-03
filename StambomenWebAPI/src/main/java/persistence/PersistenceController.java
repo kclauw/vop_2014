@@ -67,13 +67,13 @@ public class PersistenceController {
     }
     
     
-    public Person getPerson(String firstName, String surName) {
-        return this.personDao.get(firstName, surName);
-    }
+
 
     public void addPerson(Person person) {
         personDao.save(person);
     }
+    
+    
     public void removePerson(Person person) {
         personDao.delete(person);
     }

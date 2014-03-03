@@ -27,7 +27,7 @@ public class PersonController {
      */
     public void addPerson(Person person) {
         /*Check wheter the person exists. This should be place in a repo.*/
-        Person ps = pc.getPerson(person.getFirstName(),person.getSurName());
+        Person ps = pc.getPerson(person.getPersonId());
         if (ps != null) {
             throw new PersonAlreadyExistsException();
         } else {
@@ -44,7 +44,7 @@ public class PersonController {
     
         public void updatePerson(Person person) {
        
-        Person ps = pc.getPerson(person.getFirstName(),person.getSurName());
+        Person ps = pc.getPerson(person.getPersonId());
         pc.updatePerson(person);
         
     }
