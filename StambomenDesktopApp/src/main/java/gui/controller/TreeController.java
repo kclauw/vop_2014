@@ -1,5 +1,6 @@
 package gui.controller;
 
+import dto.PersonDTO;
 import dto.TreeDTO;
 import gui.FamilyTreeTotalPanel;
 import gui.PanelFactory;
@@ -55,6 +56,11 @@ public class TreeController implements IPanelController
 
         familyTreeTotalPanel.drawFamilyTree(tree.getPersons());
 
+    }
+
+    public void savePerson(PersonDTO person)
+    {
+        System.out.println("[TREE CONTROLLER] SAVING PERSON " +person.toString());
     }
 
 }

@@ -43,6 +43,7 @@ public class FamilyTreePanel extends javax.swing.JPanel
     @Override
     public void paint(Graphics g)
     {
+        super.paint(g);
         for (Shape shape : shapes)
         {
 

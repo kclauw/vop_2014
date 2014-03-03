@@ -36,7 +36,7 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         initComponents();
         this.treeController = treeController;
         this.familyTreePanel = new FamilyTreePanel(treeController, this);
-        this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null);
+        this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
     }
 
     public FamilyTreeTotalPanel()
@@ -48,25 +48,12 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         initComponents();
         this.treeController = treeController;
         this.familyTreePanel = new FamilyTreePanel(treeController, this);
-        this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null);
+        this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
         this.validate();
         this.familyTreeDetailPanel.validate();
         scroll = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         this.scroll.add(familyTreePanel);
         scroll.setViewportView(familyTreePanel);
-        AdjustmentListener listener = new AdjustmentListener()
-        {
-
-            public void adjustmentValueChanged(AdjustmentEvent e)
-            {
-                familyTreePanel.revalidate();
-                familyTreePanel.repaint();
-            }
-        };
-
-        scroll.getVerticalScrollBar().addAdjustmentListener(listener);
-        scroll.getHorizontalScrollBar().addAdjustmentListener(listener);
-
         this.scroll.setVisible(true);
         this.add(scroll, BorderLayout.CENTER);
         this.add(familyTreeDetailPanel, BorderLayout.SOUTH);
@@ -91,6 +78,11 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     public void drawFamilyTree(List<PersonDTO> persons)
     {
         this.familyTreePanel.drawFamilyTree(persons);
+    }
+
+    public void savePerson(PersonDTO person) 
+    {
+        this.treeController.savePerson(person);
     }
 
 }

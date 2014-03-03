@@ -96,4 +96,11 @@ public class PlaceDTO implements java.io.Serializable
         this.placeName = placeName;
     }
 
+    @Override
+    public String toString() {
+        return "PlaceDTO{" + "placeId=" + placeId + ", countryId=" + countryId + ", placeNameId=" + placeNameId + ", coord=" + coord + ", country=" + country + ", zipCode=" + zipCode + ", placeName=" + placeName + '}';
+    }
+    
+    
+
 }
