@@ -36,9 +36,7 @@ public class PersonDao implements IDao<Person>
     private final String SAVEPERSON = "INSERT INTO Person (birthplace, firstname,lastname,gender,birthdate,deathdate) VALUES (?,?,?,?,?,?,?)";
     private final String UPDATEPERSON = "UPDATE Person SET birthplace = ? , firstname = ? , lastname = ?, gender = ? , birthdate = ? , deathdate = ? WHERE personID = ?";
     private final String DELETEPERSON = "DELETE FROM Person WHERE personID = ?";
-    private final String GETPERSON = "Select birthplace, firstname,lastname,gender,birthdate,deathdate FROM Person WHERE firstname = ? and lastname = ?";
     private final String GETPERSONBYID = "Select birthplace, firstname,lastname,gender,birthdate,deathdate FROM Person WHERE personID = ?";
-    private final String GETPERSONBYNAME = "Select * FROM Person WHERE firstname = ?,lastname = ?";
     private PersistenceController pc;
     private final Logger logger;
 
