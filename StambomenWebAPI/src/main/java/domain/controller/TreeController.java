@@ -12,6 +12,7 @@ public class TreeController
 
     private PersistenceController pc;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
     public TreeController()
     {
         pc = new PersistenceController();
@@ -19,16 +20,27 @@ public class TreeController
 
     public void addTree(Tree tree)
     {
+        System.out.println("[TREE CONTROLLER] ADDING A TREE" + tree);
 
-        Tree tr = pc.getTree(tree.getId());
-        if (tr != null)
+        if (tree.getId() == -1)
         {
-            throw new TreeAlreadyExistsException();
+            //TODO Still have to check wether the name already exists
+            System.out.println("[TREE CONTROLLER] ADDING TREE");
+            pc.addTree(tree);
         }
         else
         {
-            pc.addTree(tree);
-        };
+            Tree tr = pc.getTree(tree.getId());
+            if (tr != null)
+            {
+                System.out.println("[TREE CONTROLLER] Tree already exists!");
+                throw new TreeAlreadyExistsException();
+            }
+            else
+            {
+                pc.addTree(tree);
+            };
+        }
     }
 
     public Tree getTree(int id)

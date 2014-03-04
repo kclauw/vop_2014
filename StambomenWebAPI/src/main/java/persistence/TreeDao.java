@@ -18,7 +18,7 @@ public class TreeDao implements IDao<Tree>
 {
 
     private Connection con;
-    private final String SAVETREE = "INSERT INTO Tree (owner, privacy,name) VALUES (?,?,?)";
+    private final String SAVETREE = "INSERT INTO Tree (ownerID, privacy,name) VALUES (?,?,?)";
     private final String GETTREE = "SELECT treeID, name, ownerID, privacy FROM Tree WHERE treeID = ?";
     private final String GETTREEBYUSERID = "SELECT treeID, name, ownerID, privacy FROM Tree WHERE ownerID = ?";
     private PersistenceController per;
