@@ -41,7 +41,7 @@ public class ClientUserService
         client.register(feature);
         client.register(new JacksonFeature());
 
-        UserDTO dto = client.target(url + "/login" + user.getUsername()).request("application/json").accept("application/json").get(UserDTO.class);
+        UserDTO dto = client.target(url + "/login/" + user.getUsername()).request("application/json").accept("application/json").get(UserDTO.class);
 
         if (dto == null)
         {
@@ -60,7 +60,7 @@ public class ClientUserService
         System.out.println("[CLIENT USER SERVICE] GETTING FRIENDS FOR USER: " + userID);
 
         Client client = getClient();
-        Map<String, Integer> friends = client.target(url + "/user/friends/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<Map<String, Integer>>()
+        Map<String, Integer> friends = client.target(url + "/friends/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<Map<String, Integer>>()
         {
         });
 

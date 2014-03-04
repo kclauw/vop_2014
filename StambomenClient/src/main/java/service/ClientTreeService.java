@@ -21,13 +21,17 @@ public class ClientTreeService
     public String makeTree(TreeDTO treeDTO)
     {
         Client client = ClientBuilder.newClient();
+        client.register(ClientServiceController.getInstance().getHttpCredentials());
         String json = new Gson().toJson(treeDTO);
+        System.out.println("[CLIENT TREE SERVICE] Tree in json: " + json);
         Response response = client.target(url + "/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
 
+        System.out.println("[CLIENT TREE SERVICE] Tree " + response.toString());
         if (response.getStatus() != 200)
         {
             return " " + response.getStatusInfo();
         }
+
         return null;
     }
 

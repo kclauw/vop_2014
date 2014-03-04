@@ -16,6 +16,7 @@ public class ClientTreeController
     public String makeTree(TreeDTO tree)
     {
         tree.setOwner(ClientServiceController.getInstance().getUser());
+        System.out.println("[CLIENT TREE CONTROLLER] Making a tree " + tree.toString());
         return client.makeTree(tree);
     }
 
