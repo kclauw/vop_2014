@@ -167,17 +167,19 @@ public class FamilyTreePanel extends javax.swing.JPanel
 
         for (PersonDTO person : childeren)
         {
-            System.out.println("[FAMILY TREE PANEL] Setting coords for " + person.getFirstName() + " at " + initalBX + " " + by);
+            System.out.println("[FAMILY TREE PANEL] Setting coords for  " + person.getFirstName() + " at " + initalBX + " " + by);
             person.setX(initalBX);
             person.setY(by);
 
             PersonDTO childpart = person.getPartner(childeren);
             if (childpart != null)
             {
-                System.out.println("[FAMILY TREE PANEL] [PART]Setting coords for " + childpart.getFirstName() + " at " + initalBX + 100 + " " + by);
+                System.out.println("[FAMILY TREE PANEL] [PARTNER] Setting coords for " + childpart.getFirstName() + " at " + initalBX + 100 + " " + by);
                 childpart.setX(initalBX - 10);
                 childpart.setX(by);
             }
+
+            System.out.println("[FAMILY TREE PANEL] Person has no partner.");
 
             if (person.getChilderen(persons).size() > 0)
             {
