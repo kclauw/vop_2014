@@ -82,7 +82,7 @@ public class ClientTreeService
                 PersonDTO mother = person.getMother();
                 PersonDTO father = person.getFather();
 
-                if (person.getMother() != null)
+                if (mother != null)
                 {
                     for (PersonDTO p : persons)
                     {
@@ -93,7 +93,7 @@ public class ClientTreeService
                     }
                 }
 
-                if (person.getFather() != null)
+                if (father != null)
                 {
                     for (PersonDTO p : persons)
                     {

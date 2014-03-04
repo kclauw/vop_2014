@@ -41,8 +41,6 @@ public class PersonUtil
 
         boolean g = person.getGender() == GenderDTO.FEMALE;
 
-        PersonDTO partner = null;
-
         for (PersonDTO p : persons)
         {
             if (p.getFather() != null && p.getFather().compareTo(person) == 0 || p.getMother() != null && p.getMother().compareTo(person) == 0)
@@ -59,8 +57,7 @@ public class PersonUtil
                 }
             }
         }
-
-        return partner;
+        return null;
     }
 
     public static PersonDTO getRoot(List<PersonDTO> persons)
