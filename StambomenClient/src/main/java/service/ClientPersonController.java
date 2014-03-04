@@ -15,8 +15,8 @@ public class ClientPersonController {
         return clientPersonService.savePerson(person);
     }
 
-    public String deletePerson(PersonDTO person) {
+    public void deletePerson(PersonDTO person) {
         System.out.println("[CLIENT PERSON CONTROLLER] DELETING PERSON " + person.toString());
-        return clientPersonService.deletePerson(person);
+      //  return clientPersonService.deletePerson(person);
     }
 }
