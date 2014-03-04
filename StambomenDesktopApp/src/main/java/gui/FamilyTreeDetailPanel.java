@@ -15,6 +15,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
     private JDateChooser dob;
     private JDateChooser dod;
     private FamilyTreeTotalPanel fttp;
+    private TreeController treeController;
     
     public FamilyTreeDetailPanel(PersonDTO person, FamilyTreeTotalPanel fttp) {
         this.fttp = fttp;
@@ -278,7 +279,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
            JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this person?");
+           
+           System.out.println("[FAMILY TREE DETAIL PANEL] DELETING PERSON " + person.toString());
            fttp.deletePerson(person);
+            //treeController.deletePerson(person);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
