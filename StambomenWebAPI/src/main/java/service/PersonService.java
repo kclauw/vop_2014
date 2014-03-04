@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 public class PersonService
 {
     private PersonController pc = new PersonController();
-
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 //    @GET
 //    @Path("/get")
 //    @Produces(MediaType.APPLICATION_JSON)
@@ -59,9 +59,9 @@ public class PersonService
     @POST
     @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response removePerson(Person person)
+    public Response deletePerson(Person person)
     {
-      
+            logger.info("[PERSON SERVICE] DELETING PERSON " + person.toString());
             String result = "Person deleted:" + person.toString();
             pc.deletePerson(person);
             return Response.status(Response.Status.OK).entity(result).build();
