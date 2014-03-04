@@ -14,14 +14,38 @@ my $db ="team12_staging";
 my $user = "team12";
 my $pass = "RKAxujnJ";
 my $host="db.vop.tiwi.be:443";
-my $query = "select * from Person";
 my $dbh = DBI->connect("DBI:mysql:$db:$host", $user, $pass);
-my $sqlQuery  = $dbh->prepare($query)
-or die "Can't prepare $query: $dbh->errstr\n";
-my $rv = $sqlQuery->execute
-or die "can't execute the query: $sqlQuery->errstr";
-my $rc = $sqlQuery->finish;
 
+
+
+my $queryUser = "insert into User (username,password) 
+      values (?,?)";
+my $queryTree = "insert into Tree (ownerID,privacy,name) 
+      values (?,?,?)";
+my $queryPersonTree = "insert into PersonTree (treeID,personID) 
+      values (?,?)";
+my $queryPerson = "insert into Person (birthplace,firstname,lastname,gender) 
+      values (?,?,?,?)";     
+my $queryParentrelation = "insert into ParentRelation (treeID,parent,child) 
+      values (?,?,?)";     
+
+
+my $sqlQueryUser  = $dbh->prepare($queryUser)
+or die "";
+
+
+my $sqlQueryTree  = $dbh->prepare($queryTree)
+or die "";
+
+
+my $sqlQueryPersonTree  = $dbh->prepare($queryPersonTree)
+or die "";
+
+my $sqlQueryPerson  = $dbh->prepare($queryPerson)
+or die "";
+
+my $sqlQueryParentrelation  = $dbh->prepare($queryParentrelation)
+or die "";
 
 my $firstURL= "http://www.naamkunde.net/?page_id=293&vt_list_female=true";
 my $secondURL = "http://www.naamkunde.net/?page_id=293&vt_list_male=true";
@@ -37,18 +61,12 @@ my $surTree = HTML::TreeBuilder->new_from_url($surURL);
 my @femalenames;
 my @malenames;
 my @surnames;
+my @User;
 
- my @AoH = (
-        {
-            firstname     => "fred",
-            surname   => "barney",
-            gender   => "m",
-        }
-  );
 
 foreach my $sur ($surTree->look_down(_tag => 'a',sub { $_[0]->as_text =~/^[a-zA-Z]/})){
-  say $sur->as_text;
-  push @surnames,$sur->as_text;
+ 
+  push @surnames,ucfirst(lc($sur->as_text));
 };
 
 foreach my $female ($femaleTree->look_down(_tag => 'td',sub { $_[0]->as_text =~/^[a-zA-Z]/})){
@@ -58,38 +76,87 @@ foreach my $male ($maleTree->look_down(_tag => 'td',sub { $_[0]->as_text =~/^[a-
   push @malenames,substr($male->as_text, 0, -3)
 };
 
-
-
-
-my $teller = 0;
-for(my $i = 0; $i  < 10; $i++){
-  for(my $y = 0; $y  < 3; $y++){
-      push @AoH, { firstname => $femalenames[$teller],surname=>$surnames[$teller],gender => "v" };
-      push @AoH, { firstname => $malenames[$teller],surname=>$surnames[$teller],gender => "m" };
-      $teller++;
-  }
   
-};
-
-
-
-
-  
-
-
-
-  
-
-for my $i ( 0 .. $#AoH ) {
-    print "$i is { ";
-    for my $role ( keys %{ $AoH[$i] } ) {
-         print "$role=$AoH[$i]{$role} ";
+    for (my $i = @femalenames; --$i; ) {
+        my $j = int rand ($i+1);
+        next if $i == $j;
+        @femalenames[$i,$j] = @femalenames[$j,$i];
     }
-    print "}\n";
-}
-
-
-
-
 
  
+    for (my $y = @malenames; --$y; ) {
+        my $j = int rand ($y+1);
+        next if $y == $j;
+        @malenames[$y,$j] = @malenames[$j,$y];
+    }
+
+   
+    for (my $z = @surnames; --$z; ) {
+        my $j = int rand ($z+1);
+        next if $z == $j;
+        @surnames[$z,$j] = @surnames[$j,$z];
+    }
+
+my $teller = 0;
+$sqlQueryUser->execute('test','123');
+my $userID = $dbh->last_insert_id(undef, undef, undef, undef);
+
+
+for(my $i = 0; $i  < 50; $i++){
+
+$sqlQueryTree->execute($userID,1,$surnames[$i]);
+my $tree =$dbh->last_insert_id(undef, undef, undef, undef);
+
+my @Lijst;
+my $aantal = 2;
+
+      for(my $y = 0; $y  < 78 ; $y++){
+          $sqlQueryPerson->execute(1,$femalenames[$teller],$surnames[$i],1);
+           push @Lijst,$dbh->last_insert_id(undef, undef, undef, undef);
+          $sqlQueryPersonTree->execute($tree,$dbh->last_insert_id(undef, undef, undef, undef));
+          $sqlQueryPerson->execute(1,$malenames[$teller],$surnames[$i],0);
+          push @Lijst,$dbh->last_insert_id(undef, undef, undef, undef);
+          $sqlQueryPersonTree->execute($tree,$dbh->last_insert_id(undef, undef, undef, undef));
+          $teller++;}
+
+
+
+for(my $childID = $aantal; $childID <= 6 ; $childID+=2){
+          $sqlQueryParentrelation->execute($tree,$Lijst[0],$Lijst[$childID]);
+          $sqlQueryParentrelation->execute($tree,$Lijst[1],$Lijst[$childID]);
+}    
+
+ my $start = 8;
+
+  for(my $parent = 2 ; $parent <= 6;$parent+=2){
+   my $max = $start + 6;
+        for(my $child = $start; $child < $max ;$child+=2){
+            $sqlQueryParentrelation->execute($tree,$Lijst[$parent],$Lijst[$child]);
+            $sqlQueryParentrelation->execute($tree,$Lijst[$parent+1],$Lijst[$child]);
+          }
+            $start+=6;
+   }
+
+
+   for(my $parent = 8 ; $parent <= 24;$parent+=2){
+   my $max = $start + 9;
+        for(my $child = $start; $child < $max ;$child+=2){
+            $sqlQueryParentrelation->execute($tree,$Lijst[$parent],$Lijst[$child]);
+            $sqlQueryParentrelation->execute($tree,$Lijst[$parent+1],$Lijst[$child]);
+          }
+            $start+=9;
+   }
+
+
+   for(my $parent = 26 ; $parent <= 78;$parent+=2){
+   my $max = $start + 9;
+        for(my $child = $start; $child < $max ;$child+=2){
+            $sqlQueryParentrelation->execute($tree,$Lijst[$parent],$Lijst[$child]);
+            $sqlQueryParentrelation->execute($tree,$Lijst[$parent+1],$Lijst[$child]);
+          }
+            $start+=9;
+   }
+
+
+
+}
