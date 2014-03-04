@@ -72,9 +72,11 @@ public class GuiController
             case TREE:
                 programFrame.add(treeController.show());
                 programFrame.setTitle("Tree");
+                break;
             case ADDTREE:
                 programFrame.add(addTreeController.show());
                 programFrame.setTitle("Adding a tree");
+                break;
         }
         programFrame.revalidate();
     }

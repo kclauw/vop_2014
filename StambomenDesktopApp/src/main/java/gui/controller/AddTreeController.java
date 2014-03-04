@@ -28,7 +28,7 @@ public class AddTreeController implements IPanelController
 
     public void goTo(Panels frame)
     {
-        this.gui.goTo(Panels.ADDTREE);
+        this.gui.goTo(frame);
     }
 
     public void makeTree(TreeDTO tree)

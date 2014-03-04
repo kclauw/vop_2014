@@ -151,7 +151,7 @@ public class FamilyTreeListItem extends javax.swing.JPanel
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnOpenActionPerformed
     {//GEN-HEADEREND:event_btnOpenActionPerformed
-        System.out.println("Tree:"+tree.toString().toString());
+        System.out.println("[FAMILT TREE LIST ITEM] Tree:" + tree.toString().toString());
         this.familyTreeList.openFamilyTree(tree);
     }//GEN-LAST:event_btnOpenActionPerformed
 

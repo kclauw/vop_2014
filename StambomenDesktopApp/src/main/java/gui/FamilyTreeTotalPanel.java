@@ -51,7 +51,6 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         this.treeController = treeController;
         this.familyTreePanel = new FamilyTreePanel(treeController, this);
         this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
-        this.validate();
         this.familyTreeDetailPanel.validate();
         scroll = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         this.scroll.add(familyTreePanel);
