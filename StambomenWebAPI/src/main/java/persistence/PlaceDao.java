@@ -21,9 +21,11 @@ public class PlaceDao implements IDao<Place>
             + " JOIN Country coun on coun.countryID = p.countryID "
             + " JOIN Placename pla on pla.placenameID = p.placenameID "
             + " WHERE p.placeID = ?";
+    private final Logger logger;
 
     public PlaceDao()
     {
+        logger = LoggerFactory.getLogger(getClass());
     }
 
     @Override
@@ -36,6 +38,7 @@ public class PlaceDao implements IDao<Place>
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(GETPLACEBYID);
             prep.setInt(1, placeId);
+            logger.info("[PLACE DAO] Get place by id" + prep.toString());
             ResultSet res = prep.executeQuery();
 
             if (res.next())
@@ -48,12 +51,10 @@ public class PlaceDao implements IDao<Place>
         }
         catch (SQLException ex)
         {
-            Logger logger = LoggerFactory.getLogger(getClass());
             logger.info("[SQLException][PLACEDAO][Get]Sql exception: " + ex.getMessage());
         }
         catch (Exception ex)
         {
-            org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
             logger.info("[Exception][PLACEDAO][Get]Exception: " + ex.getMessage());
         }
 
@@ -100,13 +101,11 @@ public class PlaceDao implements IDao<Place>
         }
         catch (SQLException ex)
         {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[SQLException][PLACEDAO][Map]Sql exception: " + ex.getMessage());
+            logger.info("[PLACE DAO][SQLException][Map]Sql exception: " + ex.getMessage());
         }
         catch (Exception ex)
         {
-            org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[Exception][PLACEDAO][Map]Exception: " + ex.getMessage());
+            logger.info("[PLACEDAO][Exception][Map]Exception: " + ex.getMessage());
         }
 
         return place;

@@ -1,12 +1,15 @@
 package service;
 
+import com.google.gson.Gson;
 import dto.PersonDTO;
 import dto.TreeDTO;
 import java.util.List;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
@@ -17,18 +20,17 @@ public class ClientTreeService
 
     public String makeTree(TreeDTO treeDTO)
     {
-//        ClientConfig clientConfig = new DefaultClientConfig();
-//        clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
-//        Client client = Client.create(clientConfig);
-//        WebResource webResource = client.resource(url + "/post");
-//        String json = new Gson().toJson(treeDTO);
-//        ClientResponse response = webResource.accept("application/json")
-//                .type("application/json").post(ClientResponse.class, json);
-//
-//        if (response.getStatus() != 200)
-//        {
-//            return response.getEntity(String.class);
-//        }
+        Client client = ClientBuilder.newClient();
+        client.register(ClientServiceController.getInstance().getHttpCredentials());
+        String json = new Gson().toJson(treeDTO);
+        System.out.println("[CLIENT TREE SERVICE] Tree in json: " + json);
+        Response response = client.target(url + "/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
+
+        System.out.println("[CLIENT TREE SERVICE] Tree " + response.toString());
+        if (response.getStatus() != 200)
+        {
+            return " " + response.getStatusInfo();
+        }
 
         return null;
     }

@@ -2,12 +2,16 @@ package service;
 
 import domain.Tree;
 import domain.controller.TreeController;
+import exception.TreeAlreadyExistsException;
 import java.util.List;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,14 +20,14 @@ public class TreeService
 {
 
     private TreeController tc = new TreeController();
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @GET
     @Path("{treeId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Tree getTree(@PathParam("treeId") int treeId)
     {
-        Logger logger = LoggerFactory.getLogger(getClass());
-        logger.info("[GET][TREESERVICE]");
+        logger.info("[TREE SERVICE][GET] Getting trees by treeid" + treeId);
         System.out.println("GET - TreeServices" + treeId);
         Tree t = tc.getTree(treeId);
         System.out.println(t);
@@ -35,12 +39,28 @@ public class TreeService
     @Produces(MediaType.APPLICATION_JSON)
     public List<Tree> getTreeByUser(@PathParam("userId") int userId)
     {
-        Logger logger = LoggerFactory.getLogger(getClass());
-        System.out.println("TreeByUserid:" + userId);
-        logger.info("[GET][TREESERVICE]");
-        System.out.println("GET - TreeServices by userID" + userId);
+        logger.info("[TREE SERVICE][GET] Getting trees by userid" + userId);
         List<Tree> tr = tc.getTrees(userId);
         return tr;
+    }
+
+    @POST
+    @Path("/post")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response makeTree(Tree tree)
+    {
+        try
+        {
+            String result = "Tree added:" + tree.toString();
+            System.out.println("[TREE SERVICE] Adding " + result);
+            tc.addTree(tree);
+            return Response.status(Response.Status.OK).entity(result).build();
+        }
+        catch (TreeAlreadyExistsException ex)
+        {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
+
     }
 
 }

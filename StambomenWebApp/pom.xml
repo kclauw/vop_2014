@@ -16,10 +16,33 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.mycompany</groupId>
+            <artifactId>StambomenClient</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>6.0</version>
             <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.mycompany</groupId>
+            <artifactId>StambomenClient</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mycompany</groupId>
+            <artifactId>StambomenWebAPI</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>war</type>
         </dependency>
     </dependencies>
 

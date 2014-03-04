@@ -1,6 +1,5 @@
 package gui.controller;
 
-import dto.PersonDTO;
 import dto.TreeDTO;
 import gui.FamilyTreeOverviewPanel;
 import gui.PanelFactory;
@@ -16,14 +15,12 @@ public class TreeOverviewController implements IPanelController
 {
 
     private FamilyTreeOverviewPanel treeOverviewPanel;
-    private FamilyTreeList familyTreeList;
     private GuiController gui;
     private ClientTreeService serv;
 
     public TreeOverviewController(GuiController gui)
     {
         this.gui = gui;
-        this.familyTreeList = new FamilyTreeList(this);
         this.serv = new ClientTreeService();
     }
 
@@ -44,6 +41,7 @@ public class TreeOverviewController implements IPanelController
     public void getTrees(int userId)
     {
         List<TreeDTO> trees = serv.getTrees(userId);
+        FamilyTreeList familyTreeList = new FamilyTreeList(this);
 
         if (trees == null || trees.isEmpty())
         {
@@ -55,15 +53,10 @@ public class TreeOverviewController implements IPanelController
 
             for (TreeDTO tree : trees)
             {
-                this.familyTreeList.addFamilyTree(new FamilyTreeListItem(tree.getName(), tree.getPrivacy().ordinal(), this.familyTreeList, tree));
-
-                for (PersonDTO p : tree.getPersons())
-                {
-                    System.out.println(p.toString());
-                }
+                familyTreeList.addFamilyTree(new FamilyTreeListItem(tree.getName(), tree.getPrivacy().ordinal(), familyTreeList, tree));
             }
         }
-        treeOverviewPanel.addFamilyTreeList(this.familyTreeList);
+        treeOverviewPanel.addFamilyTreeList(familyTreeList);
     }
 
     public void showTree(TreeDTO tree)

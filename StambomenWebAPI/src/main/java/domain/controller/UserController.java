@@ -2,7 +2,9 @@ package domain.controller;
 
 import domain.User;
 import exception.UserAlreadyExistsException;
-import java.util.Map;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import persistence.PersistenceController;
 
 /**
@@ -12,6 +14,7 @@ public class UserController
 {
 
     private PersistenceController pc;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public UserController()
     {
@@ -43,7 +46,7 @@ public class UserController
      * @param id
      * @return
      */
-    public Map<String, Integer> getFriends(int id)
+    public List<User> getFriends(int id)
     {
         return pc.getFriends(id);
     }
@@ -78,4 +81,10 @@ public class UserController
 
         return null;
     }
+
+    public List<User> getFriendRequest(int userID)
+    {
+        return pc.getFriendRequest(userID);
+    }
+
 }

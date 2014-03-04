@@ -1,8 +1,6 @@
 package dto;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class PersonDTO implements java.io.Serializable
 {
@@ -157,68 +155,6 @@ public class PersonDTO implements java.io.Serializable
         {
             return -1;
         }
-    }
-
-    public List<PersonDTO> getChilderen(List<PersonDTO> persons)
-    {
-        List<PersonDTO> pers = new ArrayList<PersonDTO>();
-
-        for (PersonDTO p : persons)
-        {
-            PersonDTO m = p.getMother();
-            PersonDTO f = p.getFather();
-            System.out.println("Checking" + p.getFirstName());
-
-            if (m != null)
-            {
-                if (m.compareTo(this) == 0)
-                {
-                    System.out.println("FOUND!");
-                    pers.add(p);
-                }
-            }
-
-            if (f != null)
-            {
-                if (f.compareTo(this) == 0)
-                {
-                    pers.add(p);
-                }
-            }
-        }
-
-        return pers;
-    }
-
-    public PersonDTO getPartner(List<PersonDTO> persons)
-    {
-
-        System.out.println("[PERSON DTO] Getting partner of " + this.toString());
-
-        boolean g = this.getGender() == GenderDTO.FEMALE;
-
-        System.out.println("[PERSON DTO] Person is of gender female " + g);
-
-        PersonDTO partner = null;
-
-        for (PersonDTO p : persons)
-        {
-            if (p.getFather() != null && p.getFather().compareTo(this) == 0 || p.getMother() != null && p.getMother().compareTo(this) == 0)
-            {
-                if (g)
-                {
-                    System.out.println("[PERSON DTO] found father");
-                    return p.getFather();
-                }
-                else
-                {
-                    System.out.println("[PERSON DTO] found mother");
-                    return p.getMother();
-                }
-            }
-        }
-
-        return partner;
     }
 
     @Override

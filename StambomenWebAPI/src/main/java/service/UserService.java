@@ -6,7 +6,7 @@ import exception.EmptyPasswordException;
 import exception.EmptyUsernameException;
 import exception.InvalidPasswordException;
 import exception.UserAlreadyExistsException;
-import java.util.Map;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -32,11 +32,9 @@ public class UserService
     @Path("/get")
     @Produces(MediaType.APPLICATION_JSON)
     public String getUsernames()
-    {       /*Test voor te zien of dit werkt*/
-
+    {
         org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
         logger.info("[GET][USERSERVICE]");
-
         return "works";
     }
 
@@ -86,7 +84,7 @@ public class UserService
     {
         try
         {
-            Map<String, Integer> friends = uc.getFriends(userID);
+            List<User> friends = uc.getFriends(userID);
             return Response.ok(friends).build();
         }
         catch (Exception ex)
@@ -95,13 +93,13 @@ public class UserService
         }
     }
 
-    /*
-     Voor fiddler:
-     {"id":5,"username":"A11xl","passsword":"l11ol"}
-     User-Agent: Fiddler
-     Host: localhost:8084
-     Content-Length: 49
-     Accept: application/json
-     Content-Type: application/json
-     */
+    @GET
+    @Path("/friends/requests/{userId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFriendRequests(@PathParam("userId") int userID)
+    {
+        List<User> request = uc.getFriendRequest(userID);
+        return Response.ok(request).build();
+    }
+
 }

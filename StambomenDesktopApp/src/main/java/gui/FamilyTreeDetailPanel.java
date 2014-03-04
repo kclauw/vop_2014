@@ -4,6 +4,7 @@ import com.toedter.calendar.JDateChooser;
 import dto.GenderDTO;
 import dto.PersonDTO;
 import dto.PlaceDTO;
+import gui.controller.TreeController;
 import java.awt.GridBagConstraints;
 import javax.swing.JOptionPane;
 
@@ -48,9 +49,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
         textFieldCountry = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        editButton = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
         radioMale = new javax.swing.JRadioButton();
         radioFemale = new javax.swing.JRadioButton();
+        btnDelete = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Person"));
         setLayout(new java.awt.GridBagLayout());
@@ -185,19 +187,22 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         add(jLabel2, gridBagConstraints);
 
-        editButton.setText("Edit");
-        editButton.addActionListener(new java.awt.event.ActionListener() {
+        btnEdit.setText("Edit");
+        btnEdit.setMaximumSize(new java.awt.Dimension(200, 23));
+        btnEdit.setMinimumSize(new java.awt.Dimension(200, 23));
+        btnEdit.setPreferredSize(new java.awt.Dimension(200, 23));
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editButtonActionPerformed(evt);
+                btnEditActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
-        add(editButton, gridBagConstraints);
+        add(btnEdit, gridBagConstraints);
 
         radioMale.setText("male");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -218,6 +223,21 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
         gridBagConstraints.weightx = 0.4;
         gridBagConstraints.insets = new java.awt.Insets(0, 14, 0, 14);
         add(radioFemale, gridBagConstraints);
+
+        btnDelete.setText("Delete");
+        btnDelete.setMaximumSize(new java.awt.Dimension(200, 23));
+        btnDelete.setMinimumSize(new java.awt.Dimension(200, 23));
+        btnDelete.setPreferredSize(new java.awt.Dimension(200, 23));
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 2;
+        add(btnDelete, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textFieldFirstnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textFieldFirstnameActionPerformed
@@ -225,9 +245,9 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_textFieldFirstnameActionPerformed
 
-    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         if (!edit) {
-            editButton.setText("save");
+            btnEdit.setText("save");
             this.setEditable(true);
             edit = true;
         } else {
@@ -251,15 +271,21 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
             fttp.savePerson(person);
             
             this.setEditable(false);
-            editButton.setText("edit");
+            btnEdit.setText("edit");
             edit = false;
         }
-    }//GEN-LAST:event_editButtonActionPerformed
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+           JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this person?");
+           fttp.deletePerson(person);
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel adressPanel;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton editButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

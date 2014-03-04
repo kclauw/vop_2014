@@ -10,17 +10,17 @@ import service.ClientUserController;
 
 public class RegisterController implements IPanelController
 {
-    
+
     private RegisterPanel registerPanel;
     private ClientUserController uc;
     private GuiController gui;
-    
+
     public RegisterController(GuiController gui)
     {
         uc = new ClientUserController();
         this.gui = gui;
     }
-    
+
     public void makeUser(String username, String password, String passwordConfirm)
     {
         if (password.equals(passwordConfirm))
@@ -42,17 +42,17 @@ public class RegisterController implements IPanelController
             registerPanel.setError("The passwords do not match!");
         }
     }
-    
+
     public JPanel show()
     {
         registerPanel = (RegisterPanel) PanelFactory.makePanel(Panels.REGISTER);
         registerPanel.setRegisterController(this);
         return registerPanel;
     }
-    
+
     public void goTo(Panels frame)
     {
         gui.goTo(frame);
     }
-    
+
 }

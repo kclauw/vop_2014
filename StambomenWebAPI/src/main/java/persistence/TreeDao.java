@@ -18,18 +18,16 @@ public class TreeDao implements IDao<Tree>
 {
 
     private Connection con;
-    private final String SAVETREE = "INSERT INTO Tree (owner, privacy,name) VALUES (?,?,?)";
-    /*   private final String getTree = "select b.username, a.name, a.privacy,d.firstname, d.lastname from Tree a\n" +
-     "inner join User b on b.id=a.owner\n" +
-     "inner join  PersonTree c on c.tree = a.id \n" +
-     "inner join Person d on c.person = d.persoonID";*/
+    private final String SAVETREE = "INSERT INTO Tree (ownerID, privacy,name) VALUES (?,?,?)";
     private final String GETTREE = "SELECT treeID, name, ownerID, privacy FROM Tree WHERE treeID = ?";
     private final String GETTREEBYUSERID = "SELECT treeID, name, ownerID, privacy FROM Tree WHERE ownerID = ?";
     private PersistenceController per;
+    private final Logger logger;
 
     public TreeDao(PersistenceController per)
     {
         this.per = per;
+        logger = LoggerFactory.getLogger(getClass());
     }
 
     @Override
@@ -41,24 +39,24 @@ public class TreeDao implements IDao<Tree>
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(GETTREE);
             prep.setInt(1, id);
+            logger.info("[TREE DAO] Get tree by id " + prep.toString());
             ResultSet res = prep.executeQuery();
 
             if (res.next())
             {
                 tree = map(res);
             }
-            // tree object, mapping van objecten en personen :( persoondao mss maken
 
             con.close();
-        
-        } catch (SQLException ex) {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[SQLException][TREEDAO][Get]Sql exception: " + ex.getMessage());
+
         }
-          catch (Exception ex)
+        catch (SQLException ex)
         {
-            org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[Exception][TREEDAO][Get]Exception: " + ex.getMessage());
+            logger.info("[TREE DAO][SQLException][Get]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[TREE DAO][Exception][Get]Exception: " + ex.getMessage());
         }
 
         return tree;
@@ -73,6 +71,7 @@ public class TreeDao implements IDao<Tree>
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(GETTREEBYUSERID);
             prep.setInt(1, userid);
+            logger.info("[TREE DAO] GET ALL USERID " + prep.toString());
             ResultSet res = prep.executeQuery();
 
             while (res.next())
@@ -87,14 +86,13 @@ public class TreeDao implements IDao<Tree>
 
             con.close();
         }
-        catch (SQLException ex) {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[SQLException][TREEDAO][GetAll]Sql exception: " + ex.getMessage());
+        catch (SQLException ex)
+        {
+            logger.info("[TREE DAO][SQLException][GetAll]Sql exception: " + ex.getMessage());
         }
         catch (Exception ex)
         {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[Exception][TREEDAO][GetAll]Exception: " + ex.getMessage());
+            logger.info("[TREE DAO][Exception][GetAll]Exception: " + ex.getMessage());
         }
 
         return trees;
@@ -109,18 +107,18 @@ public class TreeDao implements IDao<Tree>
             prep.setInt(1, tree.getOwner().getId());
             prep.setInt(2, tree.getPrivacy().getPrivacyId());
             prep.setString(3, tree.getName());
+            logger.info("[TREE DAO] Saving tree" + prep);
             prep.executeUpdate();
 
             con.close();
         }
-        catch (SQLException ex) {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[SQLException][TREEDAO][Save]Sql exception: " + ex.getMessage());
+        catch (SQLException ex)
+        {
+            logger.info("[TREE DAO][SQLException][Save]Sql exception: " + ex.getMessage());
         }
         catch (Exception ex)
         {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[Exception][TREEDAO][Save]Exception: " + ex.getMessage());
+            logger.info("[TREE DAO][Exception][Save]Exception: " + ex.getMessage());
         }
     }
 
@@ -161,14 +159,13 @@ public class TreeDao implements IDao<Tree>
             tree = new Tree(id, user, priv, name, pers);
             System.out.println(tree);
         }
-        catch (SQLException ex) {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[SQLException][TREEDAO][Map]Sql exception: " + ex.getMessage());
+        catch (SQLException ex)
+        {
+            logger.info("[TREE DAO][SQLException][Map]Sql exception: " + ex.getMessage());
         }
         catch (Exception ex)
         {
-            Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("[Exception][TREEDAO][Map]Exception: " + ex.getMessage());
+            logger.info("[TREE DAO][Exception][Map]Exception: " + ex.getMessage());
         }
 
         return tree;

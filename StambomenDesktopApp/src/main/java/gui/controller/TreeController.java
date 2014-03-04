@@ -7,6 +7,8 @@ import gui.PanelFactory;
 import gui.Panels;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import service.ClientPersonController;
+import service.ClientTreeController;
 
 public class TreeController implements IPanelController
 {
@@ -14,6 +16,8 @@ public class TreeController implements IPanelController
     private FamilyTreeTotalPanel familyTreeTotalPanel;
     private GuiController gui;
     private TreeDTO tree;
+    private ClientTreeController clientTreeController;
+    private ClientPersonController clientPersonController;
 
     TreeController(GuiController guiController)
     {
@@ -40,27 +44,39 @@ public class TreeController implements IPanelController
 
     public void drawTree()
     {
-        if (this.tree == null)
+
+        System.out.println("[TREE CONTROLLER] TRYING TO DRAW TREE" + tree + " SIZE= " + tree.getPersons().size());
+        if (tree == null)
         {
+            System.out.println("[TREE CONTROLLER] TREE IS NULL");
             goTo(Panels.TREEOVERVIEW);
             throw new IllegalArgumentException("Tree must be set");
         }
-
-        if (this.tree.getPersons().isEmpty())
+        else if (tree.getPersons().isEmpty())
         {
-            JOptionPane.showConfirmDialog(null, "Error no persons in tree!");
-            goTo(Panels.TREEOVERVIEW);
+            System.out.println("[TREE CONTROLLER] Tree is empty!");
+            JOptionPane.showMessageDialog(familyTreeTotalPanel, "Error no persons in tree!");
         }
-
-        System.out.println("[TREE CONTROLLER] Drawing tree" + tree.toString());
-
-        familyTreeTotalPanel.drawFamilyTree(tree.getPersons());
+        else
+        {
+            System.out.println("[TREE CONTROLLER] Drawing tree" + tree.toString());
+            familyTreeTotalPanel.drawFamilyTree(tree.getPersons());
+        }
 
     }
 
     public void savePerson(PersonDTO person)
     {
-        System.out.println("[TREE CONTROLLER] SAVING PERSON " +person.toString());
+        System.out.println("[TREE CONTROLLER] SAVING PERSON " + person.toString());
+        clientPersonController.savePerson(person);
+        this.gui.goTo(Panels.TREEOVERVIEW);
+    }
+    
+        public void deletePerson(PersonDTO person)
+    {
+        System.out.println("[TREE CONTROLLER] DELETING PERSON " + person.toString());
+        clientPersonController.deletePerson(person);
+        this.gui.goTo(Panels.TREEOVERVIEW);
     }
 
 }

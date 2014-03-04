@@ -7,10 +7,11 @@ package gui;
 
 import dto.PersonDTO;
 import gui.controller.TreeController;
-import java.awt.BorderLayout;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
+import java.awt.GridBagConstraints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
@@ -43,20 +44,46 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     {
     }
 
-    public void setTreeController(TreeController treeController)
+    public void setTreeController(final TreeController treeController)
     {
         initComponents();
+        this.setSize(800, 600);
         this.treeController = treeController;
         this.familyTreePanel = new FamilyTreePanel(treeController, this);
         this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
-        this.validate();
         this.familyTreeDetailPanel.validate();
         scroll = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         this.scroll.add(familyTreePanel);
         scroll.setViewportView(familyTreePanel);
         this.scroll.setVisible(true);
-        this.add(scroll, BorderLayout.CENTER);
-        this.add(familyTreeDetailPanel, BorderLayout.SOUTH);
+
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = 1;
+        c.weightx = 0;
+        c.ipadx = 400;
+        this.add(scroll, c);
+        c.gridx = 1;
+        c.gridy = 0;
+        c.ipadx = 400;
+        c.weightx = 1;
+        this.add(familyTreeDetailPanel, c);
+
+        JButton b = new JButton("Back to overview");
+        b.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                treeController.goTo(Panels.TREEOVERVIEW);
+            }
+        });
+        c.ipadx = 50;
+        c.ipady = 20;
+        c.gridx = 1;
+        c.gridy = 1;
+        c.gridwidth = 2;
+        this.add(b, c);
         this.validate();
     }
 
@@ -65,7 +92,7 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     private void initComponents()
     {
 
-        setLayout(new java.awt.GridLayout(1, 2));
+        setLayout(new java.awt.GridBagLayout());
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -80,9 +107,12 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         this.familyTreePanel.drawFamilyTree(persons);
     }
 
-    public void savePerson(PersonDTO person) 
+    public void savePerson(PersonDTO person)
     {
         this.treeController.savePerson(person);
     }
-
+    public void deletePerson(PersonDTO person)
+    {
+        this.treeController.deletePerson(person);
+    }
 }

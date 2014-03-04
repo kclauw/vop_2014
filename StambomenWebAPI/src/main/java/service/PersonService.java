@@ -57,13 +57,13 @@ public class PersonService
 
     }
     @POST
-    @Path("/remove")
+    @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response removePerson(Person person)
     {
       
-            String result = "Person added:" + person.toString();
-            pc.addPerson(person);
+            String result = "Person deleted:" + person.toString();
+            pc.deletePerson(person);
             return Response.status(Response.Status.OK).entity(result).build();
     }
     

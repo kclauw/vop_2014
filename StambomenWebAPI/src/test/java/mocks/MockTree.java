@@ -92,7 +92,13 @@ public class MockTree implements ITreeDAO<Tree> {
 
     @Override
     public List<Tree> getAll(int userid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Tree> tr=null;
+        for (Tree item : trees) {
+            if (item.getOwner().getId()==userid) {
+                tr.add(item);
+            }
+        }
+        return tr;
     }
 
 }
