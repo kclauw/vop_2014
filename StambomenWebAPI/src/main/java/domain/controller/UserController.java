@@ -86,4 +86,19 @@ public class UserController
     {
         return pc.getFriendRequest(userID);
     }
+
+    public void deleteFriend(int userID, int frienduserID)
+    {
+        pc.removeFriend(int userID, int frienduserID);
+    }
+
+    public void allowDenyFriendRequest(int userID, int frienduserID, boolean allow)
+    {
+        pc.allowDenyFriendRequest(int userID, int frienduserID, boolean allow);
+    }
+
+    public void sendFriendRequest(int userID, int frienduserID)
+    {
+        pc.sendFriendRequest(int userID, int frienduserID);
+    }
 }

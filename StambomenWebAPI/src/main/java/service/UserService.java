@@ -101,4 +101,31 @@ public class UserService
         List<User> request = uc.getFriendRequest(userID);
         return Response.ok(request).build();
     }
+
+    @GET
+    @Path("/friends/delete/{userId}/{frienduserId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteFriend(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID)
+    {
+        uc.deleteFriend(userID, frienduserID);
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("/friends/requests/allow/{userId}/{frienduserId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response allowFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID)
+    {
+        uc.allowDenyFriendRequest(userID, frienduserID, true);
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("/friends/requests/deny/{userId}/{frienduserId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response denyFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID)
+    {
+        uc.allowDenyFriendRequest(userID, frienduserID, false);
+        return Response.ok().build();
+    }
 }
