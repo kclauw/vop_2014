@@ -54,6 +54,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
         radioMale = new javax.swing.JRadioButton();
         radioFemale = new javax.swing.JRadioButton();
         btnDelete = new javax.swing.JButton();
+        btnButton = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Person"));
         setLayout(new java.awt.GridBagLayout());
@@ -239,6 +240,12 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
         add(btnDelete, gridBagConstraints);
+
+        btnButton.setText("Add");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 8;
+        add(btnButton, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textFieldFirstnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textFieldFirstnameActionPerformed
@@ -287,6 +294,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel adressPanel;
+    private javax.swing.JButton btnButton;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.ButtonGroup buttonGroup1;
