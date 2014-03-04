@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import util.PersonUtil;
 
 /**
  *
@@ -87,37 +88,7 @@ public class TreeServlet extends HttpServlet {
         if (tree != null && tree.getPersons() != null)
         {
             String treehtml = "";
-            PersonDTO top = null;
-            for (PersonDTO personitem : tree.getPersons()) {
-                if (personitem.getFather() == null && personitem.getMother() == null)
-                {
-                    List<PersonDTO> children = personitem.getChilderen(tree.getPersons());
-                    
-                    if (children != null && !children.isEmpty())
-                    {
-                        PersonDTO child = children.get(0);
-                        if(child.getFather() == personitem && child.getMother() != null) {
-                            if (child.getMother().getMother() == null && child.getMother().getFather() == null) {
-                                top = personitem;
-                                break;
-                            }
-                        } else if (child.getMother() == personitem && child.getFather() != null) {
-                            if (child.getFather().getMother() == null && child.getFather().getFather() == null) {
-                                top = personitem;
-                                break;
-                            }
-                        }
-                        else {
-                            top = personitem;
-                            break;
-                        }
-                            
-                    } else {
-                        top = personitem;
-                        break;
-                    }
-                }
-            }
+            PersonDTO top = PersonUtil.getRoot(tree.getPersons());
             PersonDTO refperson = (PersonDTO)session.getAttribute("refpersontree" + tree.getId());
             if (refperson == null)
                 refperson = top;

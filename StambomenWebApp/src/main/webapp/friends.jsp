@@ -22,7 +22,7 @@
                 <a href="./index.jsp"><img id="logo" src="./images/logo.png" height="35" alt="Tree" /></a>
                 <ul id="menu">
                     <li><a href="./main.jsp">Trees</a></li>
-                    <li><a href="./FriendsServlet">Friends</a></li>
+                    <li><a href="./FriendServlet">Friends</a></li>
                     <li><a href="./index.jsp?logout=logout">Logout</a></li>
                 </ul>
             </div>
@@ -30,12 +30,10 @@
         <div class="wrapper">
             <div>
                 <ul class="friendlist">
-                    <c:forEach var="user" items="${friends}" varStatus="counter">
-                        <li class="itemblock">
-                            <div>${user.name}</div>
-                            <a href="./UserServlet?removefriendid=${user.id}"><img class="removefriend" src="./images/remove.png" alt="remove" /></a>
-                        </li>
-                    </c:forEach>
+                    ${friendshtml}
+                </ul><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                <ul class="friendlist">
+                    ${friendrequestshtml}
                 </ul>
             </div>
         </div>

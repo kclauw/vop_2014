@@ -17,8 +17,8 @@
         <servlet-class>servlet.UserServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FriendsServlet</servlet-name>
-        <servlet-class>servlet.FriendsServlet</servlet-class>
+        <servlet-name>FriendServlet</servlet-name>
+        <servlet-class>servlet.FriendServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>TreeServlet</servlet-name>
@@ -29,8 +29,8 @@
         <url-pattern>/UserServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>FriendsServlet</servlet-name>
-        <url-pattern>/FriendsServlet</url-pattern>
+        <servlet-name>FriendServlet</servlet-name>
+        <url-pattern>/FriendServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

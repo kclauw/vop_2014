@@ -71,7 +71,9 @@ public class LoginFilter implements Filter {
             String loginResponse = userController.login(user);
             if (loginResponse == null)
             {
-                ClientServiceController serviceController = new ClientServiceController();
+                session = request.getSession();
+                
+                ClientServiceController serviceController = ClientServiceController.getInstance();
                 ClientTreeController treeController = new ClientTreeController();
                 session.setAttribute("serviceController", serviceController);
                 session.setAttribute("treeController", treeController);
@@ -79,7 +81,6 @@ public class LoginFilter implements Filter {
                 
                 user = serviceController.getUser();
                 
-                session = request.getSession();
                 session.setAttribute("user", user);
                 initUserData(session, user);
 

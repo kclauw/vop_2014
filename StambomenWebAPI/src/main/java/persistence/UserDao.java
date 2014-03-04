@@ -21,10 +21,9 @@ public class UserDao implements IDao<User> {
     private final String GETUSERBYID = "Select userID, username, password FROM User WHERE userID = ?";
     private final String GETFRIENDSBYID = "Select friend, receiver, status FROM Request WHERE receiver = ? AND status = 1";
     private final String GETFRIENDREQUESTBYID = "Select friend, receiver, status FROM Request WHERE receiver = ? AND status = 0";
-    private final String SENDFRIENDREQUEST = "INSERT INTO Request (friend, receiver, STATUS) VALUES(?,?,0)";
-    private final String ACCEPTFRIENDREQUEST = "UPDATE Request SET STATUS =1 WHERE friend = ? AND receiver = ? AND STATUS = 0";
-    private final String DENYFRIENDREQUEST = "DELETE FROM Request WHERE friend = ? AND receiver = ? AND STATUS = 0";
-    private final String DELETEFRIEND = "DELETE FROM Request WHERE friend = ? AND receiver = ? AND STATUS = 1";
+    private final String DELETEFRIENDBYIDS = "Delete from Request where (friend=? and receiver=?) or (receiver=? and friend=?)";
+    private final String ALLOWDENYFRIENDREQUESTBYIDS = "Update Request set status=? where (friend=? and receiver=?) or (receiver=? and friend=?)";
+    private final String SENDFRIENDREQUEST = "Insert Into Request (friend,receiver,status) values (?,?,0) where (((friend=? and receiver=?) or (receiver=? and friend=?)) and status!=2) is null";
 
     private final Logger logger;
 
@@ -214,71 +213,81 @@ public class UserDao implements IDao<User> {
         return friends;
     }
 
-    public void deleteFriend(int friendId, int userId) {
-        try {
+    public void deleteFriend(int userID, int frienduserID)
+    {
+        try
+        {
             con = DatabaseUtils.getConnection();
-            PreparedStatement prep = con.prepareStatement(DELETEFRIEND);
-            prep.setInt(1, friendId);
-            prep.setInt(2, userId);
-            logger.info("[USER DAO] Delete friend " + prep.toString());
-            prep.executeUpdate();
+            PreparedStatement prep = con.prepareStatement(DELETEFRIENDBYIDS);
+            prep.setInt(1, userID);
+            prep.setInt(2, frienduserID);
+            prep.setInt(3, userID);
+            prep.setInt(4, frienduserID);
+            prep.executeQuery();
 
             con.close();
-        } catch (SQLException ex) {
-            logger.info("[USER DAO][SQLException][DeleteFriendRequest]Sql exception: " + ex.getMessage());
-        } catch (Exception ex) {
-            logger.info("[USER DAO][SQLException][DeleteFriendRequest]Exception: " + ex.getMessage());
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[USER DAO][SQLException][getFriendRequest]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[USER DAO][SQLException][getFriendRequest]Exception: " + ex.getMessage());
         }
     }
 
-    public void acceptFriendRequest(int friendId, int userId) {
-        try {
+    public void allowDenyFriendRequest(int userID, int frienduserID, boolean allow)
+    {
+        try
+        {
             con = DatabaseUtils.getConnection();
-            PreparedStatement prep = con.prepareStatement(ACCEPTFRIENDREQUEST);
-            prep.setInt(1, friendId);
-            prep.setInt(2, userId);
-            logger.info("[USER DAO] Accept friend " + prep.toString());
-            prep.executeUpdate();
+            PreparedStatement prep = con.prepareStatement(ALLOWDENYFRIENDREQUESTBYIDS);
+            prep.setInt(1, allow?1:2);
+            prep.setInt(2, userID);
+            prep.setInt(3, frienduserID);
+            prep.setInt(4, userID);
+            prep.setInt(5, frienduserID);
+            prep.executeQuery();
 
             con.close();
-        } catch (SQLException ex) {
-            logger.info("[USER DAO][SQLException][AcceptFriendRequest]Sql exception: " + ex.getMessage());
-        } catch (Exception ex) {
-            logger.info("[USER DAO][SQLException][AcceptFriendRequest]Exception: " + ex.getMessage());
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[USER DAO][SQLException][getFriendRequest]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[USER DAO][SQLException][getFriendRequest]Exception: " + ex.getMessage());
         }
     }
 
-    public void denyFriendRequest(int friendId, int userId) {
-        try {
-            con = DatabaseUtils.getConnection();
-            PreparedStatement prep = con.prepareStatement(DENYFRIENDREQUEST);
-            prep.setInt(1, friendId);
-            prep.setInt(2, userId);
-            logger.info("[USER DAO] Deny friend " + prep.toString());
-            prep.executeUpdate();
-
-            con.close();
-        } catch (SQLException ex) {
-            logger.info("[USER DAO][SQLException][DenyFriendRequest]Sql exception: " + ex.getMessage());
-        } catch (Exception ex) {
-            logger.info("[USER DAO][SQLException][DenyFriendRequest]Exception: " + ex.getMessage());
-        }
-    }
-
-    public void sendFriendRequest(int friendId, int userId) {
-        try {
+    public void sendFriendRequest(int userID, int frienduserID)
+    {
+        try
+        {
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(SENDFRIENDREQUEST);
-            prep.setInt(1, friendId);
-            prep.setInt(2, userId);
-            logger.info("[USER DAO] Send friend request " + prep.toString());
-            prep.executeUpdate();
+            prep.setInt(1, userID);
+            prep.setInt(2, frienduserID);
+            
+            prep.setInt(3, userID);
+            prep.setInt(4, frienduserID);
+            prep.setInt(5, userID);
+            prep.setInt(6, frienduserID);
+            prep.executeQuery();
 
             con.close();
-        } catch (SQLException ex) {
-            logger.info("[USER DAO][SQLException][SendFriendRequest]Sql exception: " + ex.getMessage());
-        } catch (Exception ex) {
-            logger.info("[USER DAO][SQLException][SendFriendRequest]Exception: " + ex.getMessage());
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[USER DAO][SQLException][getFriendRequest]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[USER DAO][SQLException][getFriendRequest]Exception: " + ex.getMessage());
         }
     }
+    
+    
 }
