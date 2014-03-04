@@ -21,7 +21,7 @@ public class UserDao implements IDao<User>
     private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
     private final String GETUSER = "Select userID, username, password FROM User WHERE username = ?";
     private final String GETUSERBYID = "Select userID, username, password FROM User WHERE userID = ?";
-    private final String GETFRIENDSBYID = "Select User.userID, User.username FROM Request, User WHERE receiver = ? and status = \"1\" and User.userID = Request.friend";
+    private final String GETFRIENDSBYID = "Select friend, receiver, status FROM Request WHERE (receiver = ?  OR friend = ?) AND status != 2";
     private final Logger logger;
 
     public UserDao()
@@ -130,22 +130,34 @@ public class UserDao implements IDao<User>
         return users;
     }
 
-    Map<String, Integer> GetFriends(int userID)
+    /**
+     * Alle users met hun status
+     *
+     * Map <USER, status>
+     *
+     * @param userID
+     * @return
+     */
+    public Map<User, Integer> getFriends(int userID)
     {
-        Map<String, Integer> friends = new HashMap<String, Integer>();
+        Map<User, Integer> friends = new HashMap<String, Integer>();
 
         try
         {
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(GETFRIENDSBYID);
-            prep.setString(1, Integer.toString(userID));
+            prep.setInt(1, userID);
+            prep.setInt(2, userID);
             ResultSet res = prep.executeQuery();
 
             while (res.next())
             {
-                int id = res.getInt("userID");
-                String friend = res.getString("username");
-                friends.put(friend, id);
+                int id = res.getInt("receiver");
+                int friend = res.getInt("friend");
+                int status = res.getInt("status");
+
+                User user = get(friend);
+                friends.put(user, status);
             }
 
             con.close();

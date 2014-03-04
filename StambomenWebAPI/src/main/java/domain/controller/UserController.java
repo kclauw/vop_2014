@@ -15,6 +15,7 @@ public class UserController
 
     private PersistenceController pc;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
     public UserController()
     {
         pc = new PersistenceController();
@@ -45,7 +46,7 @@ public class UserController
      * @param id
      * @return
      */
-    public Map<String, Integer> getFriends(int id)
+    public Map<User, Integer> getFriends(int id)
     {
         return pc.getFriends(id);
     }

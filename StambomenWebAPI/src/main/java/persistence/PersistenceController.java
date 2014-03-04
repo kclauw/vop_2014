@@ -83,10 +83,10 @@ public class PersistenceController
         return treeDao.getAll(userId);
     }
 
-    public Map<String, Integer> getFriends(int userID)
+    public Map<User, Integer> getFriends(int userID)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get friends from user " + userID);
-        return userDao.GetFriends(userID);
+        return userDao.getFriends(userID);
     }
 
     public Place getPlace(ResultSet res)
