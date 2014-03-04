@@ -20,7 +20,7 @@ public class ClientUserController {
         return client.login(user);
     }
 
-    public Map<String, Integer> getFriends() {
+    public Map<UserDTO, Integer> getFriends() {
         int userID = ClientServiceController.getInstance().getUser().getId();
 
         return client.getFriends(userID);

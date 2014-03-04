@@ -55,12 +55,13 @@ public class ClientUserService
         return null;
     }
 
-    public Map<String, Integer> getFriends(int userID)
+    public Map<UserDTO, Integer> getFriends(int userID)
     {
         System.out.println("[CLIENT USER SERVICE] GETTING FRIENDS FOR USER: " + userID);
 
         Client client = getClient();
-        Map<String, Integer> friends = client.target(url + "/friends/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<Map<String, Integer>>()
+        client.register(new JacksonFeature());
+        Map<UserDTO, Integer> friends = client.target(url + "/friends/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<Map<UserDTO, Integer>>()
         {
         });
 
