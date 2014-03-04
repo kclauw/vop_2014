@@ -6,7 +6,6 @@ import domain.Tree;
 import domain.User;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,7 +82,7 @@ public class PersistenceController
         return treeDao.getAll(userId);
     }
 
-    public Map<User, Integer> getFriends(int userID)
+    public List<User> getFriends(int userID)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get friends from user " + userID);
         return userDao.getFriends(userID);

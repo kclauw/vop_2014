@@ -6,7 +6,7 @@ import exception.EmptyPasswordException;
 import exception.EmptyUsernameException;
 import exception.InvalidPasswordException;
 import exception.UserAlreadyExistsException;
-import java.util.Map;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -84,7 +84,7 @@ public class UserService
     {
         try
         {
-            Map<User, Integer> friends = uc.getFriends(userID);
+            List<User> friends = uc.getFriends(userID);
             return Response.ok(friends).build();
         }
         catch (Exception ex)

@@ -6,10 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +20,7 @@ public class UserDao implements IDao<User>
     private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
     private final String GETUSER = "Select userID, username, password FROM User WHERE username = ?";
     private final String GETUSERBYID = "Select userID, username, password FROM User WHERE userID = ?";
-    private final String GETFRIENDSBYID = "Select friend, receiver, status FROM Request WHERE (receiver = ?  OR friend = ?) AND status != 2";
+    private final String GETFRIENDSBYID = "Select friend, status FROM Request WHERE receiver AND status != 2";
     private final Logger logger;
 
     public UserDao()
@@ -138,9 +137,9 @@ public class UserDao implements IDao<User>
      * @param userID
      * @return
      */
-    public Map<User, Integer> getFriends(int userID)
+    public List<User> getFriends(int userID)
     {
-        Map<User, Integer> friends = new HashMap<User, Integer>();
+        List<User> friends = new ArrayList<User>();
 
         try
         {
@@ -157,7 +156,7 @@ public class UserDao implements IDao<User>
                 int status = res.getInt("status");
 
                 User user = get(friend);
-                friends.put(user, status);
+                friends.add(user);
             }
 
             con.close();
