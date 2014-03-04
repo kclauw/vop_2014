@@ -2,7 +2,7 @@ package dto;
 
 import java.util.List;
 
-public class TreeDTO
+public class TreeDTO implements java.io.Serializable
 {
 
     private int id;

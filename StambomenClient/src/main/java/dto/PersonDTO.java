@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PersonDTO
+public class PersonDTO implements java.io.Serializable
 {
 
     private int personId;
@@ -167,13 +167,11 @@ public class PersonDTO
         {
             PersonDTO m = p.getMother();
             PersonDTO f = p.getFather();
-            System.out.println("Checking" + p.getFirstName());
 
             if (m != null)
             {
                 if (m.compareTo(this) == 0)
                 {
-                    System.out.println("FOUND!");
                     pers.add(p);
                 }
             }
@@ -192,12 +190,9 @@ public class PersonDTO
 
     public PersonDTO getPartner(List<PersonDTO> persons)
     {
-
         System.out.println("[PERSON DTO] Getting partner of " + this.toString());
 
         boolean g = this.getGender() == GenderDTO.FEMALE;
-
-        System.out.println("[PERSON DTO] Person is of gender female " + g);
 
         PersonDTO partner = null;
 

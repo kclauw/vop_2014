@@ -16,14 +16,14 @@ public class TreeService
 {
 
     private TreeController tc = new TreeController();
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @GET
     @Path("{treeId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Tree getTree(@PathParam("treeId") int treeId)
     {
-        Logger logger = LoggerFactory.getLogger(getClass());
-        logger.info("[GET][TREESERVICE]");
+        logger.info("[TREE SERVICE][GET] Getting trees by treeid" + treeId);
         System.out.println("GET - TreeServices" + treeId);
         Tree t = tc.getTree(treeId);
         System.out.println(t);
@@ -35,10 +35,7 @@ public class TreeService
     @Produces(MediaType.APPLICATION_JSON)
     public List<Tree> getTreeByUser(@PathParam("userId") int userId)
     {
-        Logger logger = LoggerFactory.getLogger(getClass());
-        System.out.println("TreeByUserid:" + userId);
-        logger.info("[GET][TREESERVICE]");
-        System.out.println("GET - TreeServices by userID" + userId);
+        logger.info("[TREE SERVICE][GET] Getting trees by userid" + userId);
         List<Tree> tr = tc.getTrees(userId);
         return tr;
     }

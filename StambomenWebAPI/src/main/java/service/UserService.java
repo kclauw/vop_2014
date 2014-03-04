@@ -32,11 +32,9 @@ public class UserService
     @Path("/get")
     @Produces(MediaType.APPLICATION_JSON)
     public String getUsernames()
-    {       /*Test voor te zien of dit werkt*/
-
+    {
         org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
         logger.info("[GET][USERSERVICE]");
-
         return "works";
     }
 
@@ -94,14 +92,4 @@ public class UserService
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
     }
-
-    /*
-     Voor fiddler:
-     {"id":5,"username":"A11xl","passsword":"l11ol"}
-     User-Agent: Fiddler
-     Host: localhost:8084
-     Content-Length: 49
-     Accept: application/json
-     Content-Type: application/json
-     */
 }

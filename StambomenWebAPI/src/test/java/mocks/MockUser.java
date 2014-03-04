@@ -5,8 +5,9 @@ import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import persistence.IUserDao;
 
-public class MockUser implements IMocks<User> {
+public class MockUser implements IUserDao<User> {
 
     public List<User> users;
     public User user;
@@ -48,8 +49,15 @@ public class MockUser implements IMocks<User> {
 
     @Override
     public User get(int id) {
+        User u = null;
 
-        return user;
+        for (User item : users) {
+            if (item.getId() == id) {
+                u = item;
+            }
+        }
+
+        return u;
     }
 
     @Override
@@ -59,7 +67,7 @@ public class MockUser implements IMocks<User> {
 
     @Override
     public void update(User value) {
-        users.add(value);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -78,28 +86,8 @@ public class MockUser implements IMocks<User> {
     }
 
     @Override
-    public User map(ResultSet res, Map<Integer, User> persMap) {
-         return users.get(1);
-    }
-
-    @Override
-    public Collection<User> GetAll(int treeId) {
-        return users;
-    }
-
-    @Override
-    public void mapRelations(List<User> persons, Map<Integer, User> persMap) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<User> getAll(int userid) {
-        return users;
-    }
-
-    @Override
     public Map<String, Integer> GetFriends(int userID) {
-        Map<String,Integer> map= null;
+        Map<String, Integer> map = null;
         map.put("Jelle", 1);
         map.put("Lowie", 2);
         return map;
@@ -107,7 +95,14 @@ public class MockUser implements IMocks<User> {
 
     @Override
     public User get(String username) {
-        return users.get(1);
+        User u = null;
+
+        for (User item : users) {
+            if (item.getUsername().equals(username)) {
+                u = item;
+            }
+        }
+        return u;
     }
 
 }

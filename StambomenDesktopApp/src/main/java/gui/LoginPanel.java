@@ -2,6 +2,7 @@ package gui;
 
 import dto.UserDTO;
 import gui.controller.LoginController;
+import javax.swing.ProgressMonitor;
 
 public class LoginPanel extends javax.swing.JPanel
 {
@@ -139,6 +140,7 @@ public class LoginPanel extends javax.swing.JPanel
     {//GEN-HEADEREND:event_btnLoginActionPerformed
         UserDTO user = new UserDTO(0, txtUsername.getText(), txtPassword.getText());
         loginPanel.login(user);
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

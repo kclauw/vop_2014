@@ -1,26 +1,25 @@
 package gui;
 
+import com.toedter.calendar.JDateChooser;
+import dto.GenderDTO;
 import dto.PersonDTO;
 import dto.PlaceDTO;
-import java.util.Date;
+import java.awt.GridBagConstraints;
+import javax.swing.JOptionPane;
 
-public class FamilyTreeDetailPanel extends javax.swing.JPanel
-{
+public class FamilyTreeDetailPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form FamilyTreeDetailPanel
-     */
-    public FamilyTreeDetailPanel(PersonDTO person)
-    {
+    private boolean edit = false;
+    private PersonDTO person;
+    private JDateChooser dob;
+    private JDateChooser dod;
+    private FamilyTreeTotalPanel fttp;
+    
+    public FamilyTreeDetailPanel(PersonDTO person, FamilyTreeTotalPanel fttp) {
+        this.fttp = fttp;
         initComponents();
-        textFieldFirstname.setEditable(false);
-        textFieldGender.setEditable(false);
-        textFieldLastname.setEditable(false);
-        textFieldCity.setEditable(false);
-        textFieldCountry.setEditable(false);
-        textFieldZipCode.setEditable(false);
-        textFieldDoD.setEditable(false);
-        textFieldDob.setEditable(false);
+        initDate();
+        setEditable(false);
     }
 
     /**
@@ -30,12 +29,11 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         personPanel = new javax.swing.JPanel();
-        textFieldGender = new javax.swing.JTextField();
         labelFieldLastname = new javax.swing.JLabel();
         labelFieldFirstname = new javax.swing.JLabel();
         textFieldLastname = new javax.swing.JTextField();
@@ -50,8 +48,9 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         textFieldCountry = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        textFieldDob = new javax.swing.JTextField();
-        textFieldDoD = new javax.swing.JTextField();
+        editButton = new javax.swing.JButton();
+        radioMale = new javax.swing.JRadioButton();
+        radioFemale = new javax.swing.JRadioButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Person"));
         setLayout(new java.awt.GridBagLayout());
@@ -60,14 +59,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         add(personPanel, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 3;
-        gridBagConstraints.weightx = 1.1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
-        add(textFieldGender, gridBagConstraints);
 
         labelFieldLastname.setText("Lastname:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -85,24 +76,24 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         add(labelFieldFirstname, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 3;
         gridBagConstraints.weightx = 0.9;
         gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
         add(textFieldLastname, gridBagConstraints);
 
-        textFieldFirstname.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        textFieldFirstname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textFieldFirstnameActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 3;
         gridBagConstraints.weightx = 0.9;
@@ -193,27 +184,82 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         add(jLabel2, gridBagConstraints);
+
+        editButton.setText("Edit");
+        editButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        add(editButton, gridBagConstraints);
+
+        radioMale.setText("male");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 4;
+        gridBagConstraints.weightx = 0.4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 14, 0, 14);
+        add(radioMale, gridBagConstraints);
+
+        radioFemale.setText("female");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
-        add(textFieldDob, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
-        add(textFieldDoD, gridBagConstraints);
+        gridBagConstraints.ipadx = 4;
+        gridBagConstraints.weightx = 0.4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 14, 0, 14);
+        add(radioFemale, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textFieldFirstnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textFieldFirstnameActionPerformed
     {//GEN-HEADEREND:event_textFieldFirstnameActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_textFieldFirstnameActionPerformed
+
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        if (!edit) {
+            editButton.setText("save");
+            this.setEditable(true);
+            edit = true;
+        } else {
+            JOptionPane.showConfirmDialog(null, "Are you sure you want to save?");
+            
+            person.setFirstName(textFieldFirstname.getText());
+            person.setSurName(textFieldLastname.getText());
+            person.setBirthDate(dob.getDate());
+            person.setDeathDate(dod.getDate());
+            
+            if(radioFemale.isSelected())
+            {
+                person.setGender(GenderDTO.FEMALE);
+            }
+            else
+            {
+                person.setGender(GenderDTO.MALE);
+            }
+            
+            person.setPlace(new PlaceDTO(-1, -1, -1, null, textFieldCountry.getText(), textFieldZipCode.getText(), textFieldCity.getText()));
+            fttp.savePerson(person);
+            
+            this.setEditable(false);
+            editButton.setText("edit");
+            edit = false;
+        }
+    }//GEN-LAST:event_editButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel adressPanel;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton editButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -223,59 +269,92 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private javax.swing.JLabel labelFieldFirstname;
     private javax.swing.JLabel labelFieldLastname;
     private javax.swing.JPanel personPanel;
+    private javax.swing.JRadioButton radioFemale;
+    private javax.swing.JRadioButton radioMale;
     private javax.swing.JTextField textFieldCity;
     private javax.swing.JTextField textFieldCountry;
-    private javax.swing.JTextField textFieldDoD;
-    private javax.swing.JTextField textFieldDob;
     private javax.swing.JTextField textFieldFirstname;
-    private javax.swing.JTextField textFieldGender;
     private javax.swing.JTextField textFieldLastname;
     private javax.swing.JTextField textFieldZipCode;
     // End of variables declaration//GEN-END:variables
 
-    public void setPerson(PersonDTO person)
-    {
-        if (person != null)
-        {
+    public void setPerson(PersonDTO person) {
+        this.person = person;
+        
+        if (person != null) {
             textFieldFirstname.setText(person.getFirstName());
             textFieldLastname.setText(person.getSurName());
-            textFieldGender.setText(person.getGender().toString());
-
-            Date dob = person.getBirthDate();
-            if (dob != null)
-            {
-                textFieldDob.setText(dob.toString());
-            }
-            else
-            {
-                textFieldDob.setText("Undefined");
-            }
-
-            Date dod = person.getDeathDate();
-
-            if (dod != null)
-            {
-                textFieldDoD.setText(dod.toString());
-            }
-            else
-            {
-                textFieldDoD.setText("Undefined");
+            
+            GenderDTO g = person.getGender();
+            buttonGroup1.add(radioMale);
+            buttonGroup1.add(radioFemale);
+            
+            dob.setDate(person.getBirthDate());
+            dod.setDate(person.getDeathDate());
+            
+            if (g == GenderDTO.MALE) {
+                radioMale.setSelected(true);
+            } else {
+                radioFemale.setSelected(true);
             }
 
             PlaceDTO place = person.getPlace();
-            if (place == null)
-            {
+            if (place == null) {
                 textFieldCity.setText("Undefined");
                 textFieldCountry.setText("Undefined");
                 textFieldZipCode.setText("Undefined");
-            }
-            else
-            {
+            } else {
                 textFieldCity.setText(place.getPlaceName());
                 textFieldCountry.setText(place.getCountry());
                 textFieldZipCode.setText(place.getZipCode());
             }
-
+            
         }
+    }
+    
+    private void setEditable(boolean edit) {
+        if (!edit) {
+            textFieldFirstname.setEditable(false);
+            radioFemale.setEnabled(false);
+            radioMale.setEnabled(false);
+            textFieldLastname.setEditable(false);
+            textFieldCity.setEditable(false);
+            textFieldCountry.setEditable(false);
+            textFieldZipCode.setEditable(false);
+            dob.setEnabled(false);
+            dod.setEnabled(false);
+        } else {
+            textFieldFirstname.setEditable(true);
+            radioFemale.setEnabled(true);
+            radioMale.setEnabled(true);
+            textFieldLastname.setEditable(true);
+            textFieldCity.setEditable(true);
+            textFieldCountry.setEditable(true);
+            textFieldZipCode.setEditable(true);
+            dob.setEnabled(true);
+            dod.setEnabled(true);
+        }
+    }
+    
+    private void initDate() {
+        dob = new JDateChooser();
+        GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+         gridBagConstraints.ipadx = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        this.add(dob, gridBagConstraints);
+        
+        dod = new JDateChooser();
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.weightx = 0.9;
+         gridBagConstraints.ipadx = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        this.add(dod, gridBagConstraints);
     }
 }

@@ -7,16 +7,16 @@ import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import persistence.IPlaceDAO;
 
 
-public class MockPlace implements IMocks<Place>  {
-
+public class MockPlace implements IPlaceDAO<Place>  {
     public List<Place> places;
     public Place place;
-    public MockCoordinate mcoor;
+    public Coordinate coord;
 
     MockPlace() {
-        Coordinate coord=mcoor.get(1);
+        coord = new Coordinate(1,0,0);
 
         Place user1 = new Place(1, 1, 1,coord, "België", "2980", "Zoersel");
         Place user2 = new Place(1, 1, 1,coord, "België", "2000", "Antwerpen");
@@ -32,7 +32,15 @@ public class MockPlace implements IMocks<Place>  {
     }
     @Override
     public Place get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          Place p = null;
+
+        for (Place item : places) {
+            if (item.getplaceId() == id) {
+                p = item;
+            }
+        }
+
+        return p;
     }
 
     @Override
@@ -57,37 +65,8 @@ public class MockPlace implements IMocks<Place>  {
 
     @Override
     public Place map(ResultSet res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return places.get(1);
     }
 
-    @Override
-    public Place map(ResultSet res, Map<Integer, Place> persMap) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Collection<Place> GetAll(int treeId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mapRelations(List<Place> persons, Map<Integer, Place> persMap) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Place> getAll(int userid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Map<String, Integer> GetFriends(int userID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Place get(String username) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+   
 }

@@ -1,6 +1,6 @@
 package dto;
 
-public class PlaceDTO
+public class PlaceDTO implements java.io.Serializable
 {
 
     private int placeId;
@@ -95,5 +95,12 @@ public class PlaceDTO
     {
         this.placeName = placeName;
     }
+
+    @Override
+    public String toString() {
+        return "PlaceDTO{" + "placeId=" + placeId + ", countryId=" + countryId + ", placeNameId=" + placeNameId + ", coord=" + coord + ", country=" + country + ", zipCode=" + zipCode + ", placeName=" + placeName + '}';
+    }
+    
+    
 
 }
