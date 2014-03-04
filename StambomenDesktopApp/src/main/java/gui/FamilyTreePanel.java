@@ -15,7 +15,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import util.PersonUtil;
 
 public class FamilyTreePanel extends javax.swing.JPanel
@@ -67,7 +71,7 @@ public class FamilyTreePanel extends javax.swing.JPanel
                 }
                 else if (person.getMother() != null)
                 {
-                    g.drawLine(person.getX() + 50, person.getY(), person.getMother().getX(), person.getMother().getY() + 25);
+//                    g.drawLine(person.getX() + 50, person.getY(), person.getMother().getX(), person.getMother().getY() + 25);
                 }
             }
         }
@@ -139,121 +143,72 @@ public class FamilyTreePanel extends javax.swing.JPanel
         this.setMinimumSize(new Dimension(persons.size() * 100, persons.size() * 50));
         this.setPreferredSize(new Dimension(persons.size() * 200, persons.size() * 100));
 
-        PersonDTO root = null;
-        PersonDTO partner = null;
         int niveau = 0;
+        List<PersonDTO> del = new ArrayList<PersonDTO>();
+        del.addAll(persons);
 
-        System.out.println("[FAMILY TREE PANEL] Calculating coords");
-
-        for (PersonDTO per : persons)
-        {
-            System.out.println("[FAMILY TREE PANEL] " + per.toString());
-        }
-
-        root = PersonUtil.getRoot(persons);
-        int x = (this.getWidth() / 2);
-        int y = (0);
-        System.out.println("[FAMILY TREE PANEL] Found root : " + root.getFirstName() + " x=" + x + " y=" + y);
-
-        partner = PersonUtil.getPartner(root, persons);
-
-        if (partner != null)
-        {
-            int i = x + 100;
-            int j = 0;
-            partner.setX(i);
-            partner.setY(j);
-            System.out.println("[FAMILY TREE PANEL] Found partner : " + partner.getFirstName() + " x=" + i + " y=" + j);
-        }
-
-        //FOUT GET CHILDEREN
-        List<PersonDTO> childeren = PersonUtil.getChilderen(root, persons);
-
-        coordsNextLevel(niveau, childeren, persons);
-    }
-
-    private void coordsNextLevel(int niveau, List<PersonDTO> childeren, List<PersonDTO> persons)
-    {
-        niveau++; //we gaan naar niv 1
-        System.out.println("[FAMILY TREE CONTROLLER] Calculating coords for level " + niveau);
-        System.out.println("[FAMILY TREE CONTROLLER] Number of childeren " + childeren.size());
-        int by = niveau * 100;
-        int initalBX = ((childeren.size()) * 100) + 100;
-        int childNumber = 0;
-
-        for (PersonDTO person : childeren)
-        {
-            childNumber++;
-            System.out.println("[FAMILY TREE PANEL] CHILD NUMBER: " + childNumber);
-            person.setX(initalBX);
-            person.setY(by);
-            System.out.println("[FAMILY TREE PANEL] Setting coords for  " + person.getFirstName() + " at " + initalBX + " " + by);
-
-            PersonDTO childpart = PersonUtil.getPartner(person, persons);
-            if (childpart != null)
-            {
-                childpart.setX(person.getX() + 100);
-                childpart.setX(person.getY());
-                System.out.println("[FAMILY TREE PANEL] [PARTNER] Setting coords for " + childpart.getX() + " " + childpart.getY() + " ");
-            }
-
-            System.out.println("[FAMILY TREE PANEL] Person has no partner.");
-
-            if (PersonUtil.getChilderen(person, persons).size() > 0)
-            {
-                coordsNextLevel(niveau, PersonUtil.getChilderen(person, persons), persons);
-            }
-        }
-    }
-
-    private void test(List<PersonDTO> persons)
-    {
-        int niveau = 0;
-        List<PersonDTO> del = persons;
         PersonDTO root = PersonUtil.getRoot(persons);
         root.setX(200);
         root.setY(0);
         del.remove(root);
 
         PersonDTO partner = PersonUtil.getPartner(root, del);
+        Set<PersonDTO> childs = new HashSet<PersonDTO>();
 
         if (partner != null)
         {
             partner.setX(300);
             partner.setY(0);
             del.remove(partner);
+            childs.addAll(PersonUtil.getChilderen(partner, del));
         }
 
-        List<PersonDTO> childs = new ArrayList<PersonDTO>();
         childs.addAll(PersonUtil.getChilderen(root, del));
-        childs.addAll(PersonUtil.getChilderen(partner, del));
-        aid(niveau, childs, del);
+
+        coordsNextLevel(niveau, childs, del);
     }
 
-    private void aid(int niveau, List<PersonDTO> childs, List<PersonDTO> del)
+    private void coordsNextLevel(int niveau, Set<PersonDTO> childs, List<PersonDTO> del)
     {
-        List<PersonDTO> newChilds = new ArrayList<PersonDTO>();
+        Set<PersonDTO> newChilds = new HashSet<PersonDTO>();
         niveau++;
 
-        int x = childs.size() * 100;
+        int x = (childs.size() * 100) + 100;
         int y = niveau * 100;
 
         for (PersonDTO p : childs)
         {
+            x -= 100;
             p.setX(x);
             p.setY(y);
             del.remove(p);
 
             PersonDTO partner = PersonUtil.getPartner(p, del);
-            partner.setX(p.getX() + 75);
-            partner.setY(p.getY());
-            del.remove(partner);
+
+            if (partner != null)
+            {
+                partner.setX(p.getX() + 100);
+                partner.setY(p.getY());
+                del.remove(partner);
+                newChilds.addAll(PersonUtil.getChilderen(partner, del));
+            }
 
             newChilds.addAll(PersonUtil.getChilderen(p, del));
-            newChilds.addAll(PersonUtil.getChilderen(partner, del));
+
         }
 
-        aid(niveau, newChilds, del);
+        if (del.isEmpty())
+        {
+            return;
+        }
+
+        System.out.println("At the end of level " + niveau + " we have " + del.size() + " persons left");
+
+        if (niveau == 500)
+        {
+            return;
+        }
+        coordsNextLevel(niveau, newChilds, del);
     }
 
 }
