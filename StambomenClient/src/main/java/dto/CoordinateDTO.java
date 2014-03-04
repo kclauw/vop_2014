@@ -1,50 +1,41 @@
 package dto;
 
-public class CoordinateDTO implements java.io.Serializable
-{
+public class CoordinateDTO implements java.io.Serializable {
 
     private float longitude;
     private float latitude;
     private int id;
 
-    public CoordinateDTO()
-    {
+    public CoordinateDTO() {
     }
 
-    public CoordinateDTO(float longitude, float latitude, int id)
-    {
+    public CoordinateDTO(float longitude, float latitude, int id) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.id = id;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public float getLongitude()
-    {
+    public float getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude)
-    {
+    public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
 
-    public float getLatitude()
-    {
+    public float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude)
-    {
+    public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 
