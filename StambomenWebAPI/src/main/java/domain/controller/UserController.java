@@ -81,4 +81,9 @@ public class UserController
 
         return null;
     }
+
+    public List<User> getFriendRequest(int userID)
+    {
+        return pc.getFriendRequest(userID);
+    }
 }
