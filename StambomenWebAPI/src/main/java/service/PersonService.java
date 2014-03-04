@@ -55,15 +55,15 @@ public class PersonService
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
 
-    }
-    @POST
-    @Path("/delete")
+    } //http://localhost:8084/StambomenWebAPI/rest/person/delete/6
+    @GET
+    @Path("/delete/{personId}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response deletePerson(Person person)
+    public Response deletePerson(int personId)
     {
-            logger.info("[PERSON SERVICE] DELETING PERSON " + person.toString());
-            String result = "Person deleted:" + person.toString();
-            pc.deletePerson(person);
+            logger.info("[PERSON SERVICE] DELETING PERSON " + personId);
+            String result = "Person deleted:" + personId;
+            pc.deletePerson(personId);
             return Response.status(Response.Status.OK).entity(result).build();
     }
     
