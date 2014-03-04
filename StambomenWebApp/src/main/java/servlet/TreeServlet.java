@@ -91,8 +91,31 @@ public class TreeServlet extends HttpServlet {
             for (PersonDTO personitem : tree.getPersons()) {
                 if (personitem.getFather() == null && personitem.getMother() == null)
                 {
-                    top = personitem;
-                    break;
+                    List<PersonDTO> children = personitem.getChilderen(tree.getPersons());
+                    
+                    if (children != null && !children.isEmpty())
+                    {
+                        PersonDTO child = children.get(0);
+                        if(child.getFather() == personitem && child.getMother() != null) {
+                            if (child.getMother().getMother() == null && child.getMother().getFather() == null) {
+                                top = personitem;
+                                break;
+                            }
+                        } else if (child.getMother() == personitem && child.getFather() != null) {
+                            if (child.getFather().getMother() == null && child.getFather().getFather() == null) {
+                                top = personitem;
+                                break;
+                            }
+                        }
+                        else {
+                            top = personitem;
+                            break;
+                        }
+                            
+                    } else {
+                        top = personitem;
+                        break;
+                    }
                 }
             }
             PersonDTO refperson = (PersonDTO)session.getAttribute("refpersontree" + tree.getId());
@@ -143,28 +166,35 @@ public class TreeServlet extends HttpServlet {
     }
     
     private String getPersonHtml(PersonDTO refperson, PersonDTO person) {
-        String html = "<a style=\"background-image: url('./images/" + person.getGender().toString() + ".png');\" class=\"itemblock\" ";
+        String html = "";
         
-        if (person == refperson)
-            html += "id=\"refperson\" ";
-        
-        html+= "data-id=\"" + person.getPersonId() + "\" ";
-        html+= "data-firstname=\"" + getString(person.getFirstName()) + "\" ";
-        html+= "data-surname=\"" + getString(person.getSurName())+ "\" ";
-        if (person.getBirthDate() != null)
-            html+= "data-birthdate=\"" +  (new SimpleDateFormat("d MMMM y")).format(person.getBirthDate()) + "\" ";
-        else
-            html+= "data-birthdate=\"/\" ";
-        html+= "data-deathdate=\"" + getString(person.getDeathDate()) + "\" ";
-        if (person.getPlace() != null)
+        if (person != null)
         {
-            html+= "data-zipcode=\"" + getString(person.getPlace().getZipCode())+ "\" ";
-            html+= "data-placename=\"" + getString(person.getPlace().getPlaceName())+ "\" ";
-            html+= "data-country=\"" + getString(person.getPlace().getCountry())+ "\" ";
+            html = "<a style=\"background-image: url('./images/" + person.getGender().toString() + ".png');\" class=\"itemblock\" ";
+
+            if (person == refperson)
+                html += "id=\"refperson\" ";
+
+            html+= "data-id=\"" + person.getPersonId() + "\" ";
+            html+= "data-firstname=\"" + getString(person.getFirstName()) + "\" ";
+            html+= "data-surname=\"" + getString(person.getSurName())+ "\" ";
+            if (person.getBirthDate() != null)
+                html+= "data-birthdate=\"" +  (new SimpleDateFormat("d MMMM y")).format(person.getBirthDate()) + "\" ";
+            else
+                html+= "data-birthdate=\"/\" ";
+            html+= "data-deathdate=\"" + getString(person.getDeathDate()) + "\" ";
+            if (person.getPlace() != null)
+            {
+                html+= "data-zipcode=\"" + getString(person.getPlace().getZipCode())+ "\" ";
+                html+= "data-placename=\"" + getString(person.getPlace().getPlaceName())+ "\" ";
+                html+= "data-country=\"" + getString(person.getPlace().getCountry())+ "\" ";
+            } else {
+                html += "data-zipcode=\"/\" data-placename=\"\" data-country=\"/\" ";
+            }
+            html += ">" + person.getFirstName() + " " + person.getSurName() + "</a>";
         } else {
-            html += "data-zipcode=\"/\" data-placename=\"\" data-country=\"/\" ";
+            html = "<a class=\"itemblock unknown\">Unknown</a>";
         }
-        html += ">" + person.getFirstName() + " " + person.getSurName() + "</a>";
         
         return html;
     }

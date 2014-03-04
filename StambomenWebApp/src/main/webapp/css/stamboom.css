@@ -79,11 +79,14 @@ right connector from last child*/
         font-size: 10pt;
         background-position: left bottom;
         background-repeat: no-repeat;
-        cursor: pointer;
 	
 	-transition: all 0.5s;
 	-webkit-transition: all 0.5s;
 	-moz-transition: all 0.5s;
+}
+
+.tree li a:not(.unknown) {
+        cursor: pointer;
 }
 
 body > .wrapper {

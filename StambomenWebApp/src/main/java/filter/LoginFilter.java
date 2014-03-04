@@ -6,16 +6,11 @@
 
 package filter;
 
-import dto.GenderDTO;
-import dto.PersonDTO;
-import dto.PlaceDTO;
-import dto.PrivacyDTO;
-import dto.TreeDTO;
 import dto.UserDTO;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -28,7 +23,6 @@ import javax.servlet.http.HttpSession;
 import service.ClientServiceController;
 import service.ClientTreeController;
 import service.ClientUserController;
-import service.ClientUserService;
 
 /**
  *
@@ -71,13 +65,19 @@ public class LoginFilter implements Filter {
                 session = null;
             }
             
-            ClientUserController usercontroller = new ClientUserController();
+            ClientUserController userController = new ClientUserController();
             
             UserDTO user = new UserDTO(0, username, password);
-            String loginResponse = usercontroller.login(user);
+            String loginResponse = userController.login(user);
             if (loginResponse == null)
             {
-                user = ClientServiceController.getInstance().getUser();
+                ClientServiceController serviceController = new ClientServiceController();
+                ClientTreeController treeController = new ClientTreeController();
+                session.setAttribute("serviceController", serviceController);
+                session.setAttribute("treeController", treeController);
+                session.setAttribute("userController", userController);
+                
+                user = serviceController.getUser();
                 
                 session = request.getSession();
                 session.setAttribute("user", user);
@@ -121,19 +121,8 @@ public class LoginFilter implements Filter {
     }
     
     private void initUserData(HttpSession session, UserDTO user) {
-        
-        ClientTreeController controller = new ClientTreeController();
-        
-        session.setAttribute("trees", controller.getTrees(user.getId()));
-        
-        List<UserDTO> friends = new ArrayList<UserDTO>();
-        friends.add(new UserDTO(0, "blowfish", "zdqzdqzd"));
-        friends.add(new UserDTO(0, "bedwetter", "zdqzdqzd"));
-        friends.add(new UserDTO(0, "rabbitkiller", "zdqzdqzd"));
-        friends.add(new UserDTO(0, "jhonny", "zdqzdqzd"));
-        friends.add(new UserDTO(0, "shellfish", "zdqzdqzd"));
-        
-        session.setAttribute("friends", friends);
+        ClientTreeController treeController = (ClientTreeController) session.getAttribute("treeController");
+        session.setAttribute("trees", treeController.getTrees(user.getId()));
     }
 
 }

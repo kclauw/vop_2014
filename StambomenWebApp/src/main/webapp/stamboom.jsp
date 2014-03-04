@@ -39,7 +39,7 @@
                 <a href="./index.jsp"><img id="logo" src="./images/logo.png" height="35" alt="Tree" /></a>
                 <ul id="menu">
                     <li><a href="./main.jsp">Trees</a></li>
-                    <li><a href="./friends.jsp">Friends</a></li>
+                    <li><a href="./FriendsServlet">Friends</a></li>
                     <li><a href="./index.jsp?logout=logout">Logout</a></li>
                 </ul>
             </div>
