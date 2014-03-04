@@ -2,6 +2,7 @@ package service;
 
 import com.google.gson.Gson;
 import dto.UserDTO;
+import java.util.List;
 import java.util.Map;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -55,13 +56,26 @@ public class ClientUserService
         return null;
     }
 
-    public Map<UserDTO, Integer> getFriends(int userID)
+    public List<UserDTO> getFriends(int userID)
     {
         System.out.println("[CLIENT USER SERVICE] GETTING FRIENDS FOR USER: " + userID);
 
         Client client = getClient();
         client.register(new JacksonFeature());
-        Map<UserDTO, Integer> friends = client.target(url + "/friends/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<Map<UserDTO, Integer>>()
+        List<UserDTO> friends = client.target(url + "/friends/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
+        {
+        });
+
+        return friends;
+    }
+
+    public List<UserDTO> getFriendRequests(int userID)
+    {
+        System.out.println("[CLIENT USER SERVICE] GETTING FRIENDS FOR USER: " + userID);
+
+        Client client = getClient();
+        client.register(new JacksonFeature());
+        List<UserDTO> friends = client.target(url + "/friends/requests/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
         {
         });
 

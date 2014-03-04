@@ -1,6 +1,7 @@
 package service;
 
 import dto.UserDTO;
+import java.util.List;
 import java.util.Map;
 
 public class ClientUserController {
@@ -20,9 +21,15 @@ public class ClientUserController {
         return client.login(user);
     }
 
-    public Map<UserDTO, Integer> getFriends() {
+    public List<UserDTO> getFriends() {
         int userID = ClientServiceController.getInstance().getUser().getId();
 
         return client.getFriends(userID);
+    }
+
+    public List<UserDTO> getFriendRequests() {
+        int userID = ClientServiceController.getInstance().getUser().getId();
+
+        return client.getFriendRequests(userID);
     }
 }
