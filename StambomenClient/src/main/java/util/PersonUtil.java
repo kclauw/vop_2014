@@ -65,7 +65,7 @@ public class PersonUtil
         return partner;
     }
     
-    public static PersonDTO getRoot(PersonDTO person, List<PersonDTO> persons) {
+    public static PersonDTO getRoot(List<PersonDTO> persons) {
         PersonDTO top = null;
         for (PersonDTO personitem : persons) {
             if (personitem.getFather() == null && personitem.getMother() == null)
