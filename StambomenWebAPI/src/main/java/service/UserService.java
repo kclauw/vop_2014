@@ -23,14 +23,16 @@ import org.slf4j.LoggerFactory;
  *
  */
 @Path("/user")
-public class UserService {
+public class UserService
+{
 
     private UserController uc = new UserController();
 
     @GET
     @Path("/get")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUsernames() {
+    public String getUsernames()
+    {
         org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
         logger.info("[GET][USERSERVICE]");
         return "works";
@@ -39,18 +41,28 @@ public class UserService {
     @POST
     @Path("/post")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addUser(User user) {
-        try {
+    public Response addUser(User user)
+    {
+        try
+        {
             String result = "User added:" + user.toString();
             uc.addUser(user);
             return Response.status(Response.Status.OK).entity(result).build();
-        } catch (UserAlreadyExistsException ex) {
+        }
+        catch (UserAlreadyExistsException ex)
+        {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        } catch (EmptyPasswordException ex) {
+        }
+        catch (EmptyPasswordException ex)
+        {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        } catch (EmptyUsernameException ex) {
+        }
+        catch (EmptyUsernameException ex)
+        {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        } catch (InvalidPasswordException ex) {
+        }
+        catch (InvalidPasswordException ex)
+        {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
     }
@@ -59,7 +71,8 @@ public class UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/login/{username}")
-    public User login(@PathParam("username") String username) {
+    public User login(@PathParam("username") String username)
+    {
         System.out.println("[SERVICE][LOGIN]");
         return uc.getUser(username);
     }
@@ -67,11 +80,15 @@ public class UserService {
     @GET
     @Path("/friends/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getFriends(@PathParam("userId") int userID) {
-        try {
+    public Response getFriends(@PathParam("userId") int userID)
+    {
+        try
+        {
             List<User> friends = uc.getFriends(userID);
             return Response.ok(friends).build();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
     }
@@ -79,64 +96,10 @@ public class UserService {
     @GET
     @Path("/friends/requests/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getFriendRequests(@PathParam("userId") int userID) {
+    public Response getFriendRequests(@PathParam("userId") int userID)
+    {
         List<User> request = uc.getFriendRequest(userID);
         return Response.ok(request).build();
     }
 
-    @GET
-    @Path("/sendFriendRequest/{userId}/{friendId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response sendFriendRequest(@PathParam("userId") int userID, @PathParam("friendId") int friendId) {
-        try {
-            String result = "Friend invited:" + friendId;
-            uc.sendFriendRequest(userID, userID);
-
-            return Response.ok(result).build();
-        } catch (Exception ex) {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        }
-    }
-
-    @GET
-    @Path("/acceptFriendRequest/{userId}/{friendId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response acceptFriendRequest(@PathParam("userId") int userID, @PathParam("friendId") int friendId) {
-        try {
-            String result = "Friend accepted:" + friendId;
-            uc.acceptFriendRequest(userID, userID);
-
-            return Response.ok(result).build();
-        } catch (Exception ex) {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        }
-    }
-
-    @GET
-    @Path("/denyFriendRequest/{userId}/{friendId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response denyFriendRequest(@PathParam("userId") int userID, @PathParam("friendId") int friendId) {
-        try {
-            String result = "Friend request denied:" + friendId;
-            uc.DenyFriendRequest(userID, userID);
-
-            return Response.ok(result).build();
-        } catch (Exception ex) {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        }
-    }
-
-    @GET
-    @Path("/deleteFriendRequest/{userId}/{friendId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteFriend(@PathParam("userId") int userID, @PathParam("friendId") int friendId) {
-        try {
-            String result = "Friend deleted:" + friendId;
-            uc.deleteFriend(userID, userID);
-
-            return Response.ok(result).build();
-        } catch (Exception ex) {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        }
-    }
 }
