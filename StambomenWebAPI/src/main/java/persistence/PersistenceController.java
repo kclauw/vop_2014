@@ -73,7 +73,14 @@ public class PersistenceController
     public List<Person> getPersons(int treeId)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get persons from tree with id " + treeId);
-        return (List<Person>) personDao.GetAll(treeId);
+        List<Person> p = (List<Person>) personDao.GetAll(treeId);
+
+        for (Person per : p)
+        {
+            logger.info("[PERSISTENCE CONTROLLER][PERSON] " + per.toString());
+        }
+
+        return p;
     }
 
     public List<Tree> getTrees(int userId)

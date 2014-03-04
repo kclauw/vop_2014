@@ -139,4 +139,10 @@ public class Person
         this.mother = mother;
     }
 
+    @Override
+    public String toString()
+    {
+        return "Person{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + ", gender=" + gender + ", birthDate=" + birthDate + ", deathDate=" + deathDate + ", place=" + place + ", father=" + father + ", mother=" + mother + '}';
+    }
+
 }
