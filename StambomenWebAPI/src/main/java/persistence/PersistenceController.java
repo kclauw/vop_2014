@@ -140,9 +140,9 @@ public class PersistenceController
         userDao.allowDenyFriendRequest(userID, frienduserID, allow);
     }
 
-    public void sendFriendRequest(int userID, int frienduserID)
+    public void sendFriendRequest(int userID, String frienduserName)
     {
-        userDao.sendFriendRequest(userID, frienduserID);
+        userDao.sendFriendRequest(userID, frienduserName);
     }
 
 }
