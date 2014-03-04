@@ -140,7 +140,7 @@ public class UserDao implements IDao<User>
      */
     public Map<User, Integer> getFriends(int userID)
     {
-        Map<User, Integer> friends = new HashMap<String, Integer>();
+        Map<User, Integer> friends = new HashMap<User, Integer>();
 
         try
         {
