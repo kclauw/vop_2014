@@ -10,9 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import org.jvnet.hk2.component.MultiMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -165,7 +164,7 @@ public class PersonDao implements IDao<Person>
     {
 
         List<Person> persons = new ArrayList<Person>();
-        Map<Integer, Person> personMap = new HashMap<Integer, Person>();
+        MultiMap<Integer, Person> personMap = new MultiMap<Integer, Person>();
 
         try
         {
@@ -234,7 +233,7 @@ public class PersonDao implements IDao<Person>
         return person;
     }
 
-    public Person map(ResultSet res, Map<Integer, Person> persMap)
+    public Person map(ResultSet res, MultiMap<Integer, Person> persMap)
     {
         Person person = map(res);
 
@@ -242,8 +241,18 @@ public class PersonDao implements IDao<Person>
         {
             int parentId1 = res.getInt("parent1");
             int parentId2 = res.getInt("parent2");
-            persMap.put(parentId1, person);
-            persMap.put(parentId2, person);
+
+            if (parentId1 != 0)
+            {
+                persMap.add(parentId1, person);
+                System.out.println("Adding parent1 " + parentId1);
+            }
+            if (parentId2 != 0)
+            {
+                persMap.add(parentId2, person);
+                System.out.println("Adding parent2 " + parentId2);
+
+            }
 
         }
         catch (SQLException ex)
@@ -264,7 +273,7 @@ public class PersonDao implements IDao<Person>
      * @param persons
      * @param persMap
      */
-    private void mapRelations(List<Person> persons, Map<Integer, Person> persMap)
+    private void mapRelations(List<Person> persons, MultiMap<Integer, Person> persMap)
     {
         for (int personId : persMap.keySet())
         {
@@ -276,13 +285,14 @@ public class PersonDao implements IDao<Person>
                 {
                     if (p.getGender() == Gender.FEMALE)
                     {
-                        System.out.println("[PERSON DAO] Setting mother " + p.getFirstName() + " for Person " + persMap.get(personId).getFirstName());
-                        persMap.get(personId).setMother(p);
+                        System.out.println("[PERSON DAO] Setting mother " + p.getFirstName() + " for Person " + persMap.getOne(personId).getFirstName());
+                        persMap.getOne(personId).setMother(p);
+
                     }
                     else if (p.getGender() == Gender.MALE)
                     {
-                        System.out.println("[PERSON DAO] Setting father " + p.getFirstName() + " for Person " + persMap.get(personId).getFirstName());
-                        persMap.get(personId).setFather(p);
+                        System.out.println("[PERSON DAO] Setting father " + p.getFirstName() + " for Person " + persMap.getOne(personId).getFirstName());
+                        persMap.getOne(personId).setFather(p);
                     }
                 }
             }
