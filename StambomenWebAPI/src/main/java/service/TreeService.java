@@ -42,7 +42,7 @@ public class TreeService {
     }
 
     @POST
-    @Path("/post")
+    @Path("/tree/post")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response makeTree(Tree tree) {
         try {
