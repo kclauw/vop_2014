@@ -76,6 +76,13 @@ public class FamilyTreePanel extends javax.swing.JPanel
     public void drawFamilyTree(List<PersonDTO> persons)
     {
         calculateCoordinates(persons);
+
+        for (PersonDTO p : persons)
+        {
+            System.out.println("[FAMILY TREE PANEL][COORD] " + p.getFirstName() + " X=" + p.getX() + " Y=" + p.getY());
+            System.out.println("[FAMILY TREE HASHCODE] PC:" + p.hashCode());
+        }
+
         this.persons = persons;
         System.out.println("[FAMILY TREE PANEL] Drawing " + persons.size() + " persons");
         for (PersonDTO person : persons)
@@ -144,25 +151,24 @@ public class FamilyTreePanel extends javax.swing.JPanel
         }
 
         root = PersonUtil.getRoot(persons);
-        System.out.println("[FAMILY TREE PANEL] Found root : " + root.toString());
-        root.setX(this.getWidth() / 2);
-        root.setY(0);
+        int x = (this.getWidth() / 2);
+        int y = (0);
+        System.out.println("[FAMILY TREE PANEL] Found root : " + root.getFirstName() + " x=" + x + " y=" + y);
 
         partner = PersonUtil.getPartner(root, persons);
 
         if (partner != null)
         {
-            System.out.println("[FAMILY TREE PANEL] Person has a partner " + partner.getFirstName() + " " + partner.getSurName());
-            partner.setX((this.getWidth() / 2) + 100);
-            partner.setY(0);
+            int i = x + 100;
+            int j = 0;
+            partner.setX(i);
+            partner.setY(j);
+            System.out.println("[FAMILY TREE PANEL] Found partner : " + partner.getFirstName() + " x=" + i + " y=" + j);
         }
 
+        //FOUT GET CHILDEREN
         List<PersonDTO> childeren = PersonUtil.getChilderen(root, persons);
 
-        for (PersonDTO person : childeren)
-        {
-            System.out.println("[FAMILY TREE PANEL][CHILDERN] CHILD:" + person);
-        }
         coordsNextLevel(niveau, childeren, persons);
     }
 
