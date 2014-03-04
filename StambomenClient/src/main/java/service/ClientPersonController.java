@@ -16,6 +16,7 @@ public class ClientPersonController {
     }
 
     public String deletePerson(PersonDTO person) {
+        System.out.println("[CLIENT PERSON CONTROLLER] DELETING PERSON " + person.toString());
         return clientPersonService.deletePerson(person);
     }
 }

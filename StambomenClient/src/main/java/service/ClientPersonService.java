@@ -32,14 +32,19 @@ public class ClientPersonService
     public String deletePerson(PersonDTO person)
     {
         Client client = ClientBuilder.newClient();
-        String json = new Gson().toJson(person);
-        Response response = client.target(url + "person/delete").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
-
+        client.register(ClientServiceController.getInstance().getHttpCredentials());
+    
+        Response response = client.target(url + "person/delete/" + person.getPersonId()).request(MediaType.APPLICATION_JSON).get();
+     
+        System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + person.toString());
         if (response.getStatus() != 200)
         {
+            System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + person.toString());
+            System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + response.toString());
             return " " + response.getStatusInfo();
         }
-
+        System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + person.toString());
+        System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + response.toString());
         return null;
     }
 }
