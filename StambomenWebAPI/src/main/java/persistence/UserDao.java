@@ -129,10 +129,14 @@ public class UserDao implements IDao<User> {
             ResultSet res = prep.executeQuery();
 
             while (res.next()) {
-                int id = res.getInt("receiver");
+                int receiver = res.getInt("receiver");
                 int friend = res.getInt("friend");
                 int status = res.getInt("status");
-                User user = get(friend);
+                User user;
+                if (receiver == userID)
+                    user = get(friend);
+                else
+                    user = get(receiver);
                 friends.add(user);
             }
 
@@ -199,9 +203,13 @@ public class UserDao implements IDao<User> {
             ResultSet res = prep.executeQuery();
 
             while (res.next()) {
-                int id = res.getInt("receiver");
+                int receiver = res.getInt("receiver");
                 int friend = res.getInt("friend");
-                User user = get(friend);
+                User user;
+                if (receiver == userID)
+                    user = get(friend);
+                else
+                    user = get(receiver);
                 friends.add(user);
             }
 
