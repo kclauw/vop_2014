@@ -20,8 +20,8 @@ public class UserDao implements IDao<User>
     private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
     private final String GETUSER = "Select userID, username, password FROM User WHERE username = ?";
     private final String GETUSERBYID = "Select userID, username, password FROM User WHERE userID = ?";
-    private final String GETFRIENDSBYID = "Select friend, status FROM Request WHERE receiver = ? AND status = 1";
-    private final String GETFRIENDREQUESTBYID = "Select friend, status FROM Request WHERE receiver = ? AND status = 0";
+    private final String GETFRIENDSBYID = "Select friend, receiver, status FROM Request WHERE receiver = ? AND status = 1";
+    private final String GETFRIENDREQUESTBYID = "Select friend, receiver, status FROM Request WHERE receiver = ? AND status = 0";
 
     private final Logger logger;
 
