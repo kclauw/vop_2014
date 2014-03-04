@@ -15,6 +15,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
     private JDateChooser dob;
     private JDateChooser dod;
     private FamilyTreeTotalPanel fttp;
+    private TreeController treeController;
     
     public FamilyTreeDetailPanel(PersonDTO person, FamilyTreeTotalPanel fttp) {
         this.fttp = fttp;
@@ -53,6 +54,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
         radioMale = new javax.swing.JRadioButton();
         radioFemale = new javax.swing.JRadioButton();
         btnDelete = new javax.swing.JButton();
+        btnButton = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Person"));
         setLayout(new java.awt.GridBagLayout());
@@ -238,6 +240,12 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
         add(btnDelete, gridBagConstraints);
+
+        btnButton.setText("Add");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 8;
+        add(btnButton, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textFieldFirstnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textFieldFirstnameActionPerformed
@@ -278,11 +286,15 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
            JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this person?");
+           
+           System.out.println("[FAMILY TREE DETAIL PANEL] DELETING PERSON " + person.toString());
            fttp.deletePerson(person);
+            //treeController.deletePerson(person);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel adressPanel;
+    private javax.swing.JButton btnButton;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.ButtonGroup buttonGroup1;

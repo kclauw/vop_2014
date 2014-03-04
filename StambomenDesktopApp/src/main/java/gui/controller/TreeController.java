@@ -8,6 +8,7 @@ import gui.Panels;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import service.ClientPersonController;
+import service.ClientPersonService;
 import service.ClientTreeController;
 
 public class TreeController implements IPanelController
@@ -18,10 +19,14 @@ public class TreeController implements IPanelController
     private TreeDTO tree;
     private ClientTreeController clientTreeController;
     private ClientPersonController clientPersonController;
-
-    TreeController(GuiController guiController)
+    private ClientPersonService clientPersonService;
+   public TreeController(GuiController guiController)
     {
         this.gui = guiController;
+        
+        this.clientTreeController = new ClientTreeController();
+        this.clientPersonService = new ClientPersonService();
+        this.clientPersonController = new ClientPersonController(clientPersonService);
     }
 
     public JPanel show()
@@ -74,6 +79,7 @@ public class TreeController implements IPanelController
     
         public void deletePerson(PersonDTO person)
     {
+
         System.out.println("[TREE CONTROLLER] DELETING PERSON " + person.toString());
         clientPersonController.deletePerson(person);
         this.gui.goTo(Panels.TREEOVERVIEW);

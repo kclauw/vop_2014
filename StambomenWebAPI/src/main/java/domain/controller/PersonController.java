@@ -46,11 +46,12 @@ public class PersonController
 
     public void deletePerson(Person person)
     {
+        System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + person.toString());
         Person ps = pc.getPerson(person.getPersonId());
 
         if (ps != null)
         {
-            pc.removePerson(person);
+            pc.deletePerson(person);
         }
         if (ps == null)
         {
