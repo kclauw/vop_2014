@@ -137,30 +137,27 @@ public class FamilyTreePanel extends javax.swing.JPanel
         int niveau = 0;
 
         System.out.println("[FAMILY TREE PANEL] Calculating coords");
-        for (PersonDTO person : persons)
+
+        for (PersonDTO per : persons)
         {
-            System.out.println("[FAMILY TREE PANEL] Person" + person.toString());
-
-            if (person.getFather() == null && person.getMother() == null)
-            {
-                System.out.println("[FAMILY TREE PANEL] person has no father and no mother" + person.getFirstName() + " " + person.getSurName());
-                root = person;
-                root.setX(this.getWidth() / 2);
-                root.setY(0);
-
-                partner = personUtil.getPartner(root, persons);
-
-                if (partner != null)
-                {
-                    System.out.println("[FAMILY TREE PANEL] Person has a partner " + partner.getFirstName() + " " + partner.getSurName());
-                    partner.setX(this.getWidth() / 2 + 100);
-                    partner.setY(0);
-                }
-                break;
-            }
+            System.out.println("[FAMILY TREE PANEL] " + per.toString());
         }
 
-        List<PersonDTO> childeren = personUtil.getChilderen(root, persons);
+        root = PersonUtil.getRoot(persons);
+        System.out.println("[FAMILY TREE PANEL] Found root : " + root.toString());
+        root.setX(this.getWidth() / 2);
+        root.setY(0);
+
+        partner = PersonUtil.getPartner(root, persons);
+
+        if (partner != null)
+        {
+            System.out.println("[FAMILY TREE PANEL] Person has a partner " + partner.getFirstName() + " " + partner.getSurName());
+            partner.setX(this.getWidth() / 2 + 100);
+            partner.setY(0);
+        }
+
+        List<PersonDTO> childeren = PersonUtil.getChilderen(root, persons);
         coordsNextLevel(niveau, childeren, persons);
     }
 
@@ -168,16 +165,20 @@ public class FamilyTreePanel extends javax.swing.JPanel
     {
         niveau++; //we gaan naar niv 1
         System.out.println("[FAMILY TREE CONTROLLER] Calculating coords for level " + niveau);
+        System.out.println("[FAMILY TREE CONTROLLER] Number of childeren " + childeren.size());
         int by = niveau * 100;
         int initalBX = ((childeren.size()) * 100) + 100;
+        int childNumber = 0;
 
         for (PersonDTO person : childeren)
         {
+            childNumber++;
+            System.out.println("[FAMILY TREE PANEL] CHILD NUMBER: " + childNumber);
             System.out.println("[FAMILY TREE PANEL] Setting coords for  " + person.getFirstName() + " at " + initalBX + " " + by);
             person.setX(initalBX);
             person.setY(by);
 
-            PersonDTO childpart = personUtil.getPartner(person, persons);
+            PersonDTO childpart = PersonUtil.getPartner(person, persons);
             if (childpart != null)
             {
                 System.out.println("[FAMILY TREE PANEL] [PARTNER] Setting coords for " + childpart.getFirstName() + " at " + initalBX + 100 + " " + by);
@@ -187,12 +188,11 @@ public class FamilyTreePanel extends javax.swing.JPanel
 
             System.out.println("[FAMILY TREE PANEL] Person has no partner.");
 
-            if (personUtil.getChilderen(person, persons).size() > 0)
+            if (PersonUtil.getChilderen(person, persons).size() > 0)
             {
-                coordsNextLevel(niveau, personUtil.getChilderen(person, persons), persons);
+                coordsNextLevel(niveau, PersonUtil.getChilderen(person, persons), persons);
             }
         }
-
     }
 
 }

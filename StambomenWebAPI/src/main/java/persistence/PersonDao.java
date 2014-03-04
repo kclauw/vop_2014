@@ -257,21 +257,32 @@ public class PersonDao implements IDao<Person>
         return person;
     }
 
+    /**
+     * Deze methode mapt de parentRelations naar echt relations. De int stelt
+     * een personid voor van een parent van de person.
+     *
+     * @param persons
+     * @param persMap
+     */
     private void mapRelations(List<Person> persons, Map<Integer, Person> persMap)
     {
         for (int personId : persMap.keySet())
         {
+            System.out.println("[PERSON DAO] LOOKING FOR PERSON WITH ID " + personId);
+
             for (Person p : persons)
             {
                 if (p.getPersonId() == personId)
                 {
-                    if (p.getGender() == Gender.MALE)
+                    if (p.getGender() == Gender.FEMALE)
                     {
-                        persMap.get(personId).setFather(p);
-                    }
-                    else
-                    {
+                        System.out.println("[PERSON DAO] Setting mother " + p.getFirstName() + " for Person " + persMap.get(personId).getFirstName());
                         persMap.get(personId).setMother(p);
+                    }
+                    else if (p.getGender() == Gender.MALE)
+                    {
+                        System.out.println("[PERSON DAO] Setting father " + p.getFirstName() + " for Person " + persMap.get(personId).getFirstName());
+                        persMap.get(personId).setFather(p);
                     }
                 }
             }

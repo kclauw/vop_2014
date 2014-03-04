@@ -57,7 +57,7 @@ public class PersonService
 
     }
     @POST
-    @Path("/remove")
+    @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response removePerson(Person person)
     {

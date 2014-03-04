@@ -16,6 +16,6 @@ public class ClientPersonController {
     }
 
     public String deletePerson(PersonDTO person) {
-        return clientPersonService.savePerson(person);
+        return clientPersonService.deletePerson(person);
     }
 }

@@ -3,7 +3,6 @@ package service;
 import com.google.gson.Gson;
 import dto.UserDTO;
 import java.util.List;
-import java.util.Map;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
