@@ -16,24 +16,17 @@ public class TreeOverviewController implements IPanelController
 {
 
     private FamilyTreeOverviewPanel treeOverviewPanel;
-    private FamilyTreeList familyTreeList;
     private GuiController gui;
     private ClientTreeService serv;
 
     public TreeOverviewController(GuiController gui)
     {
         this.gui = gui;
-        this.familyTreeList = new FamilyTreeList(this);
         this.serv = new ClientTreeService();
     }
 
     public JPanel show()
     {
-        if (treeOverviewPanel != null)
-        {
-            treeOverviewPanel.removeAll();
-        }
-
         treeOverviewPanel = (FamilyTreeOverviewPanel) PanelFactory.makePanel(Panels.TREEOVERVIEW);
         treeOverviewPanel.setTreeController(this);
         System.out.println("[TREE OVERVIEW CONTROLLER] Showing trees");
@@ -49,6 +42,7 @@ public class TreeOverviewController implements IPanelController
     public void getTrees(int userId)
     {
         List<TreeDTO> trees = serv.getTrees(userId);
+        FamilyTreeList familyTreeList = new FamilyTreeList(this);
 
         if (trees == null || trees.isEmpty())
         {
@@ -60,7 +54,7 @@ public class TreeOverviewController implements IPanelController
 
             for (TreeDTO tree : trees)
             {
-                this.familyTreeList.addFamilyTree(new FamilyTreeListItem(tree.getName(), tree.getPrivacy().ordinal(), this.familyTreeList, tree));
+                familyTreeList.addFamilyTree(new FamilyTreeListItem(tree.getName(), tree.getPrivacy().ordinal(), familyTreeList, tree));
 
                 for (PersonDTO p : tree.getPersons())
                 {
@@ -68,7 +62,7 @@ public class TreeOverviewController implements IPanelController
                 }
             }
         }
-        treeOverviewPanel.addFamilyTreeList(this.familyTreeList);
+        treeOverviewPanel.addFamilyTreeList(familyTreeList);
     }
 
     public void showTree(TreeDTO tree)

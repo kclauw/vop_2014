@@ -7,7 +7,6 @@ public class ClientTreeController
 {
 
     private ClientTreeService client;
-    
 
     public ClientTreeController()
     {
@@ -16,6 +15,7 @@ public class ClientTreeController
 
     public String makeTree(TreeDTO tree)
     {
+        tree.setOwner(ClientServiceController.getInstance().getUser());
         return client.makeTree(tree);
     }
 

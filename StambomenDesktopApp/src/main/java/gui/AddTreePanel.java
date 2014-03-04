@@ -7,7 +7,6 @@ package gui;
 
 import dto.PrivacyDTO;
 import dto.TreeDTO;
-import dto.UserDTO;
 import gui.controller.AddTreeController;
 
 /**
@@ -115,9 +114,8 @@ public class AddTreePanel extends javax.swing.JPanel
         {
             p = null;
         }
-        UserDTO owner;
-        owner = new UserDTO();
-        TreeDTO tree = new TreeDTO(0, owner, p, txtNameTree.getText(), null);
+
+        TreeDTO tree = new TreeDTO(-1, null, p, txtNameTree.getText(), null);
         addTreeController.makeTree(tree);
 
     }//GEN-LAST:event_jButton1ActionPerformed
