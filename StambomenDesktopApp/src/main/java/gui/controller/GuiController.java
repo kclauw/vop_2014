@@ -15,6 +15,7 @@ public class GuiController
     private RegisterController registerController;
     private TreeOverviewController treeControllerOverviewController;
     private TreeController treeController;
+    private AddTreeController addTreeController;
 
     public GuiController()
     {
@@ -48,6 +49,7 @@ public class GuiController
         registerController = new RegisterController(this);
         treeControllerOverviewController = new TreeOverviewController(this);
         treeController = new TreeController(this);
+        addTreeController = new AddTreeController(this);
     }
 
     public void goTo(Panels frame)
@@ -70,6 +72,9 @@ public class GuiController
             case TREE:
                 programFrame.add(treeController.show());
                 programFrame.setTitle("Tree");
+            case ADDTREE:
+                programFrame.add(addTreeController.show());
+                programFrame.setTitle("Adding a tree");
         }
         programFrame.revalidate();
     }

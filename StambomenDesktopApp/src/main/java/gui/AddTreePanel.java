@@ -3,27 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gui;
 
 import dto.PrivacyDTO;
 import dto.TreeDTO;
 import dto.UserDTO;
-import gui.controller.TreeController;
+import gui.controller.AddTreeController;
 
 /**
  *
  * @author Jelle
  */
-public class AddTreePanel extends javax.swing.JPanel {
+public class AddTreePanel extends javax.swing.JPanel
+{
 
-    private TreeController addtreePanel;
-    public AddTreePanel() {
-        initComponents();
-    }
-    public void setTreeController(TreeController tree)
+    private AddTreeController addTreeController;
+
+    public AddTreePanel()
     {
-        this.addtreePanel = tree;
+        initComponents();
     }
 
     /**
@@ -99,24 +97,30 @@ public class AddTreePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     int privacy = cbxPrivacy.getSelectedIndex();
-     PrivacyDTO p;
-     if(privacy==0){
-         p = PrivacyDTO.PRIVATE;
-     }else if(privacy==1){
-        p = PrivacyDTO.FRIENDS; 
-     }else if(privacy==2){
-       p = PrivacyDTO.PUBLIC;           
-     } else {
-        p = null;
-     }
-     UserDTO owner;
-     owner = new UserDTO();
-     TreeDTO tree = new TreeDTO(0, owner, p, txtNameTree.getText(), null);
-     addtreePanel.makeTree(tree);
-     //   addtreepanel.login(user);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        int privacy = cbxPrivacy.getSelectedIndex();
+        PrivacyDTO p;
+        if (privacy == 0)
+        {
+            p = PrivacyDTO.PRIVATE;
+        }
+        else if (privacy == 1)
+        {
+            p = PrivacyDTO.FRIENDS;
+        }
+        else if (privacy == 2)
+        {
+            p = PrivacyDTO.PUBLIC;
+        }
+        else
+        {
+            p = null;
+        }
+        UserDTO owner;
+        owner = new UserDTO();
+        TreeDTO tree = new TreeDTO(0, owner, p, txtNameTree.getText(), null);
+        addTreeController.makeTree(tree);
 
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbxPrivacy;
@@ -126,4 +130,9 @@ public class AddTreePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtNameTree;
     // End of variables declaration//GEN-END:variables
+
+    public void setAddTreeController(AddTreeController atc)
+    {
+        this.addTreeController = atc;
+    }
 }
