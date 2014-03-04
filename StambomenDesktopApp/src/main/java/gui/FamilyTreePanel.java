@@ -47,25 +47,28 @@ public class FamilyTreePanel extends javax.swing.JPanel
     public void paint(Graphics g)
     {
         super.paint(g);
-        for (Shape shape : shapes)
+        if (shapes != null && shapes.size() > 0)
         {
-
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.draw(shape);
-        }
-
-        for (PersonDTO person : persons)
-        {
-
-            g.drawString(person.getFirstName() + " " + person.getSurName().charAt(0) + ".", person.getX() + 35, person.getY() + 25);
-
-            if (person.getFather() != null)
+            for (Shape shape : shapes)
             {
-                g.drawLine(person.getX() + 50, person.getY(), person.getFather().getX(), person.getFather().getY() + 25);
+
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.draw(shape);
             }
-            else if (person.getMother() != null)
+
+            for (PersonDTO person : persons)
             {
-                g.drawLine(person.getX() + 50, person.getY(), person.getMother().getX(), person.getMother().getY() + 25);
+
+                g.drawString(person.getFirstName() + " " + person.getSurName().charAt(0) + ".", person.getX() + 35, person.getY() + 25);
+
+                if (person.getFather() != null)
+                {
+                    g.drawLine(person.getX() + 50, person.getY(), person.getFather().getX(), person.getFather().getY() + 25);
+                }
+                else if (person.getMother() != null)
+                {
+                    g.drawLine(person.getX() + 50, person.getY(), person.getMother().getX(), person.getMother().getY() + 25);
+                }
             }
         }
     }

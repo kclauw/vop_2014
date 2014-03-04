@@ -42,21 +42,24 @@ public class TreeController implements IPanelController
 
     public void drawTree()
     {
-        if (this.tree == null)
+
+        System.out.println("[TREE CONTROLLER] TRYING TO DRAW TREE" + tree + " SIZE= " + tree.getPersons().size());
+        if (tree == null)
         {
+            System.out.println("[TREE CONTROLLER] TREE IS NULL");
             goTo(Panels.TREEOVERVIEW);
             throw new IllegalArgumentException("Tree must be set");
         }
-
-        if (this.tree.getPersons().isEmpty())
+        else if (tree.getPersons().isEmpty())
         {
-            JOptionPane.showConfirmDialog(null, "Error no persons in tree!");
-            goTo(Panels.TREEOVERVIEW);
+            System.out.println("[TREE CONTROLLER] Tree is empty!");
+            JOptionPane.showMessageDialog(familyTreeTotalPanel, "Error no persons in tree!");
         }
-
-        System.out.println("[TREE CONTROLLER] Drawing tree" + tree.toString());
-
-        familyTreeTotalPanel.drawFamilyTree(tree.getPersons());
+        else
+        {
+            System.out.println("[TREE CONTROLLER] Drawing tree" + tree.toString());
+            familyTreeTotalPanel.drawFamilyTree(tree.getPersons());
+        }
 
     }
 
