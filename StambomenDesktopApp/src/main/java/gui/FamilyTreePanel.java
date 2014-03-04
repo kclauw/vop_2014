@@ -185,16 +185,16 @@ public class FamilyTreePanel extends javax.swing.JPanel
         {
             childNumber++;
             System.out.println("[FAMILY TREE PANEL] CHILD NUMBER: " + childNumber);
-            System.out.println("[FAMILY TREE PANEL] Setting coords for  " + person.getFirstName() + " at " + initalBX + " " + by);
             person.setX(initalBX);
             person.setY(by);
+            System.out.println("[FAMILY TREE PANEL] Setting coords for  " + person.getFirstName() + " at " + initalBX + " " + by);
 
             PersonDTO childpart = PersonUtil.getPartner(person, persons);
             if (childpart != null)
             {
-                System.out.println("[FAMILY TREE PANEL] [PARTNER] Setting coords for " + childpart.getFirstName() + " at " + (initalBX + 100) + " " + by);
-                childpart.setX(initalBX - 10);
-                childpart.setX(by);
+                childpart.setX(person.getX() + 100);
+                childpart.setX(person.getY());
+                System.out.println("[FAMILY TREE PANEL] [PARTNER] Setting coords for " + childpart.getX() + " " + childpart.getY() + " ");
             }
 
             System.out.println("[FAMILY TREE PANEL] Person has no partner.");
@@ -204,6 +204,56 @@ public class FamilyTreePanel extends javax.swing.JPanel
                 coordsNextLevel(niveau, PersonUtil.getChilderen(person, persons), persons);
             }
         }
+    }
+
+    private void test(List<PersonDTO> persons)
+    {
+        int niveau = 0;
+        List<PersonDTO> del = persons;
+        PersonDTO root = PersonUtil.getRoot(persons);
+        root.setX(200);
+        root.setY(0);
+        del.remove(root);
+
+        PersonDTO partner = PersonUtil.getPartner(root, del);
+
+        if (partner != null)
+        {
+            partner.setX(300);
+            partner.setY(0);
+            del.remove(partner);
+        }
+
+        List<PersonDTO> childs = new ArrayList<PersonDTO>();
+        childs.addAll(PersonUtil.getChilderen(root, del));
+        childs.addAll(PersonUtil.getChilderen(partner, del));
+        aid(niveau, childs, del);
+    }
+
+    private void aid(int niveau, List<PersonDTO> childs, List<PersonDTO> del)
+    {
+        List<PersonDTO> newChilds = new ArrayList<PersonDTO>();
+        niveau++;
+
+        int x = childs.size() * 100;
+        int y = niveau * 100;
+
+        for (PersonDTO p : childs)
+        {
+            p.setX(x);
+            p.setY(y);
+            del.remove(p);
+
+            PersonDTO partner = PersonUtil.getPartner(p, del);
+            partner.setX(p.getX() + 75);
+            partner.setY(p.getY());
+            del.remove(partner);
+
+            newChilds.addAll(PersonUtil.getChilderen(p, del));
+            newChilds.addAll(PersonUtil.getChilderen(partner, del));
+        }
+
+        aid(niveau, newChilds, del);
     }
 
 }
