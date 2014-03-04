@@ -56,15 +56,14 @@ public class ClientTreeService
 
             for (PersonDTO person : persons)
             {
-                System.out.println("[CLIENT TREE SERVICE] person" + person.hashCode());
+                System.out.println("[CLIENT TREE SERVICE] person " + person.hashCode() + " " + person.getFirstName());
                 if (person.getFather() != null)
                 {
-                    System.out.println("[CLIENT TREE SERVICE] person father" + person.getFather().hashCode());
+                    System.out.println("[CLIENT TREE SERVICE] person father" + person.getFather().hashCode() + " " + person.getFather().getFirstName());
                 }
                 if (person.getMother() != null)
                 {
-                    System.out.println("[CLIENT TREE SERVICE] person mother" + person.getMother().hashCode());
-
+                    System.out.println("[CLIENT TREE SERVICE] person mother" + person.getMother().hashCode() + " " + person.getMother().getFirstName());
                 }
             }
         }
