@@ -7,6 +7,7 @@ import gui.PanelFactory;
 import gui.Panels;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import service.ClientTreeController;
 
 public class TreeController implements IPanelController
 {
@@ -14,6 +15,7 @@ public class TreeController implements IPanelController
     private FamilyTreeTotalPanel familyTreeTotalPanel;
     private GuiController gui;
     private TreeDTO tree;
+    private ClientTreeController clientTreeController;
 
     TreeController(GuiController guiController)
     {
@@ -60,7 +62,7 @@ public class TreeController implements IPanelController
 
     public void savePerson(PersonDTO person)
     {
-        System.out.println("[TREE CONTROLLER] SAVING PERSON " +person.toString());
+        System.out.println("[TREE CONTROLLER] SAVING PERSON " + person.toString());
     }
 
 }

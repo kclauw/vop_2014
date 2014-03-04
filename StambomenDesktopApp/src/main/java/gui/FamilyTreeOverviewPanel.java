@@ -8,16 +8,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
 public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 {
 
     private TreeOverviewController treeController;
 
-    /**
-     * Creates new form Main
-     */
     public FamilyTreeOverviewPanel()
     {
         initComponents();
@@ -29,7 +25,7 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
             public void actionPerformed(ActionEvent e)
             {
-                JOptionPane.showMessageDialog(null, "Add a tree");
+                treeController.goTo(Panels.ADDTREE);
             }
         });
         menu.add(addTreeItem);

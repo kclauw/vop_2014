@@ -23,6 +23,9 @@ public class PanelFactory
             case TREE:
                 panel = new FamilyTreeTotalPanel();
                 break;
+            case ADDTREE:
+                panel = new AddTreePanel();
+                break;
         }
 
         return panel;

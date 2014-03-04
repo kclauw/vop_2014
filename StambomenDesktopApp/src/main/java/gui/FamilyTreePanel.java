@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
+import util.PersonUtil;
 
 public class FamilyTreePanel extends javax.swing.JPanel
 {
@@ -24,10 +25,12 @@ public class FamilyTreePanel extends javax.swing.JPanel
     private List<PersonDTO> persons;
     private final FamilyTreeTotalPanel totalPanel;
     private List<Shape> shapes;
+    private PersonUtil personUtil;
 
     public FamilyTreePanel(TreeController tree, FamilyTreeTotalPanel tp)
     {
         initComponents();
+        personUtil = new PersonUtil();
         this.treeController = tree;
         this.totalPanel = tp;
     }
@@ -142,7 +145,7 @@ public class FamilyTreePanel extends javax.swing.JPanel
                 root.setX(this.getWidth() / 2);
                 root.setY(0);
 
-                partner = root.getPartner(persons);
+                partner = personUtil.getPartner(root, persons);
 
                 if (partner != null)
                 {
@@ -154,7 +157,7 @@ public class FamilyTreePanel extends javax.swing.JPanel
             }
         }
 
-        List<PersonDTO> childeren = root.getChilderen(persons);
+        List<PersonDTO> childeren = personUtil.getChilderen(root, persons);
         coordsNextLevel(niveau, childeren, persons);
     }
 
@@ -171,7 +174,7 @@ public class FamilyTreePanel extends javax.swing.JPanel
             person.setX(initalBX);
             person.setY(by);
 
-            PersonDTO childpart = person.getPartner(childeren);
+            PersonDTO childpart = personUtil.getPartner(person, persons);
             if (childpart != null)
             {
                 System.out.println("[FAMILY TREE PANEL] [PARTNER] Setting coords for " + childpart.getFirstName() + " at " + initalBX + 100 + " " + by);
@@ -181,9 +184,9 @@ public class FamilyTreePanel extends javax.swing.JPanel
 
             System.out.println("[FAMILY TREE PANEL] Person has no partner.");
 
-            if (person.getChilderen(persons).size() > 0)
+            if (personUtil.getChilderen(person, persons).size() > 0)
             {
-                coordsNextLevel(niveau, person.getChilderen(persons), persons);
+                coordsNextLevel(niveau, personUtil.getChilderen(person, persons), persons);
             }
         }
 

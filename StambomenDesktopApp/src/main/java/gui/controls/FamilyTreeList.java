@@ -81,6 +81,7 @@ public class FamilyTreeList extends javax.swing.JPanel
     public void addFamilyTree(FamilyTreeListItem item)
     {
         System.out.println("[FAMILY TREE LIST PANEL] Adding tree item" + item);
+
         pnlAllFamilyTrees.add(item);
     }
 }
