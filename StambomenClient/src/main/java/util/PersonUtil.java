@@ -7,13 +7,8 @@ import java.util.List;
 
 public class PersonUtil
 {
-
-    public PersonUtil()
-    {
-
-    }
-
-    public List<PersonDTO> getChilderen(PersonDTO person, List<PersonDTO> persons)
+    
+    public static List<PersonDTO> getChilderen(PersonDTO person, List<PersonDTO> persons)
     {
         List<PersonDTO> pers = new ArrayList<PersonDTO>();
 
@@ -42,9 +37,9 @@ public class PersonUtil
         return pers;
     }
 
-    public PersonDTO getPartner(PersonDTO person, List<PersonDTO> persons)
+    public static PersonDTO getPartner(PersonDTO person, List<PersonDTO> persons)
     {
-        System.out.println("[PERSON UTILS] Getting partner of " + this.toString());
+        //System.out.println("[PERSON UTILS] Getting partner of " + this.toString());
 
         boolean g = person.getGender() == GenderDTO.FEMALE;
 
@@ -68,6 +63,41 @@ public class PersonUtil
         }
 
         return partner;
+    }
+    
+    public static PersonDTO getRoot(PersonDTO person, List<PersonDTO> persons) {
+        PersonDTO top = null;
+        for (PersonDTO personitem : persons) {
+            if (personitem.getFather() == null && personitem.getMother() == null)
+            {
+                List<PersonDTO> children = getChilderen(personitem, persons);
+
+                if (children != null && !children.isEmpty())
+                {
+                    PersonDTO child = children.get(0);
+                    if(child.getFather() == personitem && child.getMother() != null) {
+                        if (child.getMother().getMother() == null && child.getMother().getFather() == null) {
+                            top = personitem;
+                            break;
+                        }
+                    } else if (child.getMother() == personitem && child.getFather() != null) {
+                        if (child.getFather().getMother() == null && child.getFather().getFather() == null) {
+                            top = personitem;
+                            break;
+                        }
+                    }
+                    else {
+                        top = personitem;
+                        break;
+                    }
+
+                } else {
+                    top = personitem;
+                    break;
+                }
+            }
+        }
+        return top;
     }
 
 }
