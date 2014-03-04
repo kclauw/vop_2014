@@ -223,7 +223,7 @@ public class UserDao implements IDao<User> {
             prep.setInt(2, frienduserID);
             prep.setInt(3, userID);
             prep.setInt(4, frienduserID);
-            prep.executeQuery();
+            prep.execute();
 
             con.close();
         }
@@ -248,7 +248,7 @@ public class UserDao implements IDao<User> {
             prep.setInt(3, frienduserID);
             prep.setInt(4, userID);
             prep.setInt(5, frienduserID);
-            prep.executeQuery();
+            prep.executeUpdate();
 
             con.close();
         }
@@ -262,10 +262,14 @@ public class UserDao implements IDao<User> {
         }
     }
 
-    public void sendFriendRequest(int userID, int frienduserID)
+    public void sendFriendRequest(int userID, String frienduserName)
     {
         try
         {
+            User friend = get(frienduserName);
+            //exceptie opvangen dat die niet bestaat!!!
+            int frienduserID = friend.getId();
+            
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(SENDFRIENDREQUEST);
             prep.setInt(1, userID);
@@ -275,7 +279,7 @@ public class UserDao implements IDao<User> {
             prep.setInt(4, frienduserID);
             prep.setInt(5, userID);
             prep.setInt(6, frienduserID);
-            prep.executeQuery();
+            prep.execute();
 
             con.close();
         }

@@ -80,6 +80,27 @@ public class ClientUserService
 
         return friends;
     }
+    
+    public void deleteFriend(int userID, int frienduserID)
+    {
+        Client client = getClient();
+        client.register(new JacksonFeature());
+        client.target(url + "/friends/delete/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+    }
+
+    public void allowDenyFriendRequest(int userID, int frienduserID, boolean allow)
+    {
+        Client client = getClient();
+        client.register(new JacksonFeature());
+        client.target(url + "/friends/requests/" + (allow?"allow":"deny") + "/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+    }
+
+    public void sendFriendRequest(int userID, int frienduserID)
+    {
+        Client client = getClient();
+        client.register(new JacksonFeature());
+        client.target(url + "/friends/requests/deny/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+    }
 
     private Client getClient()
     {

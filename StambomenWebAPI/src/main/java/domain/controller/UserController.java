@@ -97,8 +97,8 @@ public class UserController
         pc.allowDenyFriendRequest(userID, frienduserID, allow);
     }
 
-    public void sendFriendRequest(int userID, int frienduserID)
+    public void sendFriendRequest(int userID, String frienduserName)
     {
-        pc.sendFriendRequest(userID, frienduserID);
+        pc.sendFriendRequest(userID, frienduserName);
     }
 }

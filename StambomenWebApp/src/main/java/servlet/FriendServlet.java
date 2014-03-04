@@ -8,9 +8,7 @@ package servlet;
 
 import dto.UserDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -51,46 +49,52 @@ public class FriendServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String sremovefriendid = request.getParameter("removefriendid");
-        String sdenyfriendid = request.getParameter("denyfriendid");
-        String sacceptfriendid = request.getParameter("acceptfriendid");
+        String sdeletefriendid = request.getParameter("deletefriendid");
+        String sdenyfriendrequestid = request.getParameter("denyfriendrequestid");
+        String sallowfriendrequestid = request.getParameter("allowfriendrequestid");
         
-        if (sremovefriendid != null)
-            removeFriend(request, response, sremovefriendid);
-        else if (sdenyfriendid != null)
-            denyFriendRequest(request, response, sdenyfriendid);
-        else if (sacceptfriendid != null)
-            acceptFriendRequest(request, response, sacceptfriendid);
+        if (sdeletefriendid != null)
+            deleteFriend(request, response, sdeletefriendid.trim());
+        else if (sdenyfriendrequestid != null || sallowfriendrequestid != null)
+            allowDenyFriendRequest(request, response, sdenyfriendrequestid.trim(), false);
+        else if (sallowfriendrequestid != null)
+            allowDenyFriendRequest(request, response, sdenyfriendrequestid.trim(), true);
         else
             getDefault(request, response);
     }
     
-    private void removeFriend(HttpServletRequest request, HttpServletResponse response, String sremovefriendid) {
-        request.removeAttribute("sremovefriendid");
-        int removefriendid;
-        if (sremovefriendid == null)
+    private void deleteFriend(HttpServletRequest request, HttpServletResponse response, String sdeletefriendid) throws IOException {
+        HttpSession session = request.getSession(false);
+        
+        request.removeAttribute("deletefriendid");
+        int deletefriendid;
+        if (sdeletefriendid == null)
             return;
-        removefriendid = Integer.parseInt(sremovefriendid);
+        deletefriendid = Integer.parseInt(sdeletefriendid);
         
+        ClientUserController userController = (ClientUserController) session.getAttribute("userController");
+        userController.deleteFriend(deletefriendid);
         
+        response.sendRedirect(request.getContextPath() + "/FriendServlet");
     }
     
-    private void denyFriendRequest(HttpServletRequest request, HttpServletResponse response, String sdenyfriendid) {
-        request.removeAttribute("sdenyfriendid");
-        int denyfriendid;
-        if (sdenyfriendid == null)
-            return;
-        denyfriendid = Integer.parseInt(sdenyfriendid);
+    private void allowDenyFriendRequest(HttpServletRequest request, HttpServletResponse response, String sfriendid, boolean allow) throws IOException {
+        HttpSession session = request.getSession(false);
         
-    }
-    
-    private void acceptFriendRequest(HttpServletRequest request, HttpServletResponse response, String sacceptfriendid) {
-        request.removeAttribute("sacceptfriendid");
-        int acceptfriendid;
-        if (sacceptfriendid == null)
-            return;
-        acceptfriendid = Integer.parseInt(sacceptfriendid);
+        if (allow)
+            request.removeAttribute("allowfriendrequestid");
+        else
+            request.removeAttribute("denyfriendrequestid");
         
+        int friendid;
+        if (sfriendid == null)
+            return;
+        friendid = Integer.parseInt(sfriendid);
+        
+        ClientUserController userController = (ClientUserController) session.getAttribute("userController");
+        userController.allowDenyFriendRequest(friendid, allow);
+        
+        response.sendRedirect(request.getContextPath() + "/FriendServlet");
     }
     
     private void getDefault(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -122,10 +126,10 @@ public class FriendServlet extends HttpServlet {
         
         if (!request)
         {
-            html += "\n<a href=\"./FriendServlet?removefriendid=\"" + user.getId() + "\"><img class=\"removefriend\" src=\"./images/remove.png\" alt=\"remove\" /></a>";
+            html += "\n<a href=\"./FriendServlet?deletefriendid=" + user.getId() + "\"><img class=\"deletefriend\" src=\"./images/remove.png\" alt=\"remove\" /></a>";
         } else {
-            html += "\n<a href=\"./FriendServlet?denyfriendid=\"" + user.getId() + "\"><img class=\"denyfriend\" src=\"./images/deny.png\" alt=\"deny\" /></a>";
-            html += "\n<a href=\"./FriendServlet?acceptfriendid=\"" + user.getId() + "\"><img class=\"acceptfriend\" src=\"./images/accept.png\" alt=\"accept\" /></a>";
+            html += "\n<a href=\"./FriendServlet?denyfriendid=" + user.getId() + "\"><img class=\"denyfriend\" src=\"./images/deny.png\" alt=\"deny\" /></a>";
+            html += "\n<a href=\"./FriendServlet?allowfriendid=" + user.getId() + "\"><img class=\"allowfriend\" src=\"./images/allow.png\" alt=\"allow\" /></a>";
         }
         html += "\n</li>";
         

@@ -130,11 +130,11 @@ public class UserService
     }
 
     @GET
-    @Path("/friends/requests/send/{userId}/{frienduserId}")
+    @Path("/friends/requests/send/{userId}/{frienduserName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response sendFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID)
+    public Response sendFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserName") String frienduserName)
     {
-        uc.sendFriendRequest(userID, frienduserID);
+        uc.sendFriendRequest(userID, frienduserName);
         return Response.ok().build();
     }
 }
