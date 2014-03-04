@@ -251,7 +251,6 @@ public class PersonDao implements IDao<Person>
             {
                 persMap.add(parentId2, person);
                 System.out.println("Adding parent2 " + parentId2);
-
             }
 
         }
@@ -275,6 +274,7 @@ public class PersonDao implements IDao<Person>
      */
     private void mapRelations(List<Person> persons, MultiMap<Integer, Person> persMap)
     {
+        System.out.println("[PERSON DAO] Number of persMAP " + persMap.keySet().size());
         for (int personId : persMap.keySet())
         {
             System.out.println("[PERSON DAO] LOOKING FOR PERSON WITH ID " + personId);
@@ -286,13 +286,19 @@ public class PersonDao implements IDao<Person>
                     if (p.getGender() == Gender.FEMALE)
                     {
                         System.out.println("[PERSON DAO] Setting mother " + p.getFirstName() + " for Person " + persMap.getOne(personId).getFirstName());
-                        persMap.getOne(personId).setMother(p);
+                        for (Person per : persMap.get(personId))
+                        {
+                            per.setMother(p);
+                        }
 
                     }
                     else if (p.getGender() == Gender.MALE)
                     {
                         System.out.println("[PERSON DAO] Setting father " + p.getFirstName() + " for Person " + persMap.getOne(personId).getFirstName());
-                        persMap.getOne(personId).setFather(p);
+                        for (Person per : persMap.get(personId))
+                        {
+                            per.setFather(p);
+                        }
                     }
                 }
             }
