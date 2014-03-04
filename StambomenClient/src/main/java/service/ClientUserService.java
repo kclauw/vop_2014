@@ -3,7 +3,6 @@ package service;
 import com.google.gson.Gson;
 import dto.UserDTO;
 import java.util.List;
-import java.util.Map;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -16,22 +15,26 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 /**
  * Contains the concrete implementations for the request to the WebAPI.
  */
-public class ClientUserService {
+public class ClientUserService
+{
 
     private final String url = "http://localhost:8084/StambomenWebAPI/rest/user";
 
-    public String makeUser(UserDTO userDTO) {
+    public String makeUser(UserDTO userDTO)
+    {
         Client client = ClientBuilder.newClient();
         String json = new Gson().toJson(userDTO);
         Response response = client.target(url + "/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
-        if (response.getStatus() != 200) {
+        if (response.getStatus() != 200)
+        {
             return " " + response.getStatusInfo();
         }
 
         return null;
     }
 
-    public String login(UserDTO user) {
+    public String login(UserDTO user)
+    {
         System.out.println("[CLIENT USER SERVICE] login of user " + user.toString());
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().credentials(user.getUsername(), user.getPassword()).build();
         Client client = ClientBuilder.newClient();
@@ -40,7 +43,8 @@ public class ClientUserService {
 
         UserDTO dto = client.target(url + "/login/" + user.getUsername()).request("application/json").accept("application/json").get(UserDTO.class);
 
-        if (dto == null) {
+        if (dto == null)
+        {
             System.out.println("USER NOT FOUND");
             return "Error";
         }
@@ -51,81 +55,34 @@ public class ClientUserService {
         return null;
     }
 
-    public List<UserDTO> getFriends(int userID) {
+    public List<UserDTO> getFriends(int userID)
+    {
         System.out.println("[CLIENT USER SERVICE] GETTING FRIENDS FOR USER: " + userID);
 
         Client client = getClient();
         client.register(new JacksonFeature());
-        List<UserDTO> friends = client.target(url + "/friends/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>() {
+        List<UserDTO> friends = client.target(url + "/friends/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
+        {
         });
 
         return friends;
     }
 
-    public List<UserDTO> getFriendRequests(int userID) {
+    public List<UserDTO> getFriendRequests(int userID)
+    {
         System.out.println("[CLIENT USER SERVICE] GETTING FRIENDS FOR USER: " + userID);
 
         Client client = getClient();
         client.register(new JacksonFeature());
-        List<UserDTO> friends = client.target(url + "/friends/requests/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>() {
+        List<UserDTO> friends = client.target(url + "/friends/requests/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
+        {
         });
 
         return friends;
     }
 
-    public String sendFriendRequest(int friendId, int userId) {
-        System.out.println("[CLIENT USER SERVICE] SEND FRIENDREQUEST FOR USER: " + userId + "TO:" + friendId);
-        Client client = getClient();
-
-        Response response = client.target(url + "/user/sendFriendRequest/" + userId + "/" + friendId).request(MediaType.APPLICATION_JSON).get(new GenericType<Map<String, Integer>>() {
-        });
-        if (response.getStatus() != 200) {
-            return " " + response.getStatusInfo();
-        }
-
-        return null;
-    }
-
-    public String acceptFriendRequest(int friendId, int userId) {
-        System.out.println("[CLIENT USER SERVICE] ACCEPT FRIENDREQUEST FROM: " + friendId);
-        Client client = getClient();
-
-        Response response = client.target(url + "/user/sendFriendRequest/" + userId + "/" + friendId).request(MediaType.APPLICATION_JSON).get(new GenericType<Map<String, Integer>>() {
-        });
-        if (response.getStatus() != 200) {
-            return " " + response.getStatusInfo();
-        }
-
-        return null;
-    }
-
-    public String denyFriendRequest(int friendId, int userId) {
-        System.out.println("[CLIENT USER SERVICE] DENY FRIENDREQUEST FOR USER: " + userId + "TO:" + friendId);
-        Client client = getClient();
-
-        Response response = client.target(url + "/user/sendFriendRequest/" + userId + "/" + friendId).request(MediaType.APPLICATION_JSON).get(new GenericType<Map<String, Integer>>() {
-        });
-        if (response.getStatus() != 200) {
-            return " " + response.getStatusInfo();
-        }
-
-        return null;
-    }
-
-    public String deleteFriendRequest(int friendId, int userId) {
-        System.out.println("[CLIENT USER SERVICE] DELETE FRIENDREQUEST FOR USER: " + userId + "TO:" + friendId);
-        Client client = getClient();
-
-        Response response = client.target(url + "/user/sendFriendRequest/" + userId + "/" + friendId).request(MediaType.APPLICATION_JSON).get(new GenericType<Map<String, Integer>>() {
-        });
-        if (response.getStatus() != 200) {
-            return " " + response.getStatusInfo();
-        }
-
-        return null;
-    }
-
-    private Client getClient() {
+    private Client getClient()
+    {
         HttpAuthenticationFeature feature = ClientServiceController.getInstance().getHttpCredentials();
         Client client = ClientBuilder.newClient();
         client.register(feature);
