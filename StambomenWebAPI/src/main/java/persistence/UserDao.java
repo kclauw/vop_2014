@@ -223,7 +223,7 @@ public class UserDao implements IDao<User> {
             prep.setInt(2, frienduserID);
             prep.setInt(3, userID);
             prep.setInt(4, frienduserID);
-            prep.executeQuery();
+            prep.execute();
 
             con.close();
         }
@@ -248,7 +248,7 @@ public class UserDao implements IDao<User> {
             prep.setInt(3, frienduserID);
             prep.setInt(4, userID);
             prep.setInt(5, frienduserID);
-            prep.executeQuery();
+            prep.executeUpdate();
 
             con.close();
         }
@@ -275,7 +275,7 @@ public class UserDao implements IDao<User> {
             prep.setInt(4, frienduserID);
             prep.setInt(5, userID);
             prep.setInt(6, frienduserID);
-            prep.executeQuery();
+            prep.execute();
 
             con.close();
         }
