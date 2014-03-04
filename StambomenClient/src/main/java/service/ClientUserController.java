@@ -52,11 +52,11 @@ public class ClientUserController
         client.allowDenyFriendRequest(userID, frienduserID, allow);
     }
 
-    public void sendFriendRequest(int frienduserID)
+    public void sendFriendRequest(String frienduserName)
     {
         int userID = ClientServiceController.getInstance().getUser().getId();
         
-        client.sendFriendRequest(userID, frienduserID);
+        client.sendFriendRequest(userID, frienduserName);
     }
 
 }

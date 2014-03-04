@@ -95,11 +95,11 @@ public class ClientUserService
         client.target(url + "/friends/requests/" + (allow?"allow":"deny") + "/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
     }
 
-    public void sendFriendRequest(int userID, int frienduserID)
+    public void sendFriendRequest(int userID, String frienduserName)
     {
         Client client = getClient();
         client.register(new JacksonFeature());
-        client.target(url + "/friends/requests/deny/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+        client.target(url + "/friends/requests/deny/" + userID + "/" + frienduserName).request(MediaType.APPLICATION_JSON).get();
     }
 
     private Client getClient()
