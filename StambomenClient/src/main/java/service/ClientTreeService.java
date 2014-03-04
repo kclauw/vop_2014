@@ -1,5 +1,6 @@
 package service;
 
+import com.google.gson.Gson;
 import dto.PersonDTO;
 import dto.TreeDTO;
 import java.util.List;
@@ -9,6 +10,8 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.jackson.JacksonFeature;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.client.Entity;
 
 public class ClientTreeService
 {
@@ -17,7 +20,13 @@ public class ClientTreeService
 
     public String makeTree(TreeDTO treeDTO)
     {
+        Client client = ClientBuilder.newClient();
+        String json = new Gson().toJson(treeDTO);
+        Response response = client.target(url + "tree/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
 
+        if (response.getStatus() != 200) {
+            return " " + response.getStatusInfo();
+        }
         return null;
     }
 
