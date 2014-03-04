@@ -195,6 +195,7 @@ public class UserDao implements IDao<User> {
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(GETFRIENDREQUESTBYID);
             prep.setInt(1, userID);
+            prep.setInt(2, userID);
             ResultSet res = prep.executeQuery();
 
             while (res.next()) {
