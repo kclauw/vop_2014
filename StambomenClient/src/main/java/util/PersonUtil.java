@@ -7,7 +7,7 @@ import java.util.List;
 
 public class PersonUtil
 {
-    
+
     public static List<PersonDTO> getChilderen(PersonDTO person, List<PersonDTO> persons)
     {
         List<PersonDTO> pers = new ArrayList<PersonDTO>();
@@ -64,10 +64,12 @@ public class PersonUtil
 
         return partner;
     }
-    
-    public static PersonDTO getRoot(List<PersonDTO> persons) {
+
+    public static PersonDTO getRoot(List<PersonDTO> persons)
+    {
         PersonDTO top = null;
-        for (PersonDTO personitem : persons) {
+        for (PersonDTO personitem : persons)
+        {
             if (personitem.getFather() == null && personitem.getMother() == null)
             {
                 List<PersonDTO> children = getChilderen(personitem, persons);
@@ -75,23 +77,31 @@ public class PersonUtil
                 if (children != null && !children.isEmpty())
                 {
                     PersonDTO child = children.get(0);
-                    if(child.getFather() == personitem && child.getMother() != null) {
-                        if (child.getMother().getMother() == null && child.getMother().getFather() == null) {
-                            top = personitem;
-                            break;
-                        }
-                    } else if (child.getMother() == personitem && child.getFather() != null) {
-                        if (child.getFather().getMother() == null && child.getFather().getFather() == null) {
+                    if (child.getFather() == personitem && child.getMother() != null)
+                    {
+                        if (child.getMother().getMother() == null && child.getMother().getFather() == null)
+                        {
                             top = personitem;
                             break;
                         }
                     }
-                    else {
+                    else if (child.getMother() == personitem && child.getFather() != null)
+                    {
+                        if (child.getFather().getMother() == null && child.getFather().getFather() == null)
+                        {
+                            top = personitem;
+                            break;
+                        }
+                    }
+                    else
+                    {
                         top = personitem;
                         break;
                     }
 
-                } else {
+                }
+                else
+                {
                     top = personitem;
                     break;
                 }
