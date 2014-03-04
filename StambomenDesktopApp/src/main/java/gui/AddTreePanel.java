@@ -6,17 +6,24 @@
 
 package gui;
 
+import dto.PrivacyDTO;
+import dto.TreeDTO;
+import dto.UserDTO;
+import gui.controller.TreeController;
+
 /**
  *
  * @author Jelle
  */
 public class AddTreePanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form AddTreePanel
-     */
+    private TreeController addtreePanel;
     public AddTreePanel() {
         initComponents();
+    }
+    public void setTreeController(TreeController tree)
+    {
+        this.addtreePanel = tree;
     }
 
     /**
@@ -29,10 +36,10 @@ public class AddTreePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNameTree = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cbxPrivacy = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
 
         jLabel1.setText("Add a tree");
@@ -41,9 +48,14 @@ public class AddTreePanel extends javax.swing.JPanel {
 
         jLabel3.setText("Privacy");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Private", "Only friends", "Public" }));
+        cbxPrivacy.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Private", "Only friends", "Public" }));
 
         jButton1.setText("Add tree");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -58,8 +70,8 @@ public class AddTreePanel extends javax.swing.JPanel {
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
-                            .addComponent(jComboBox1, 0, 327, Short.MAX_VALUE)))
+                            .addComponent(txtNameTree)
+                            .addComponent(cbxPrivacy, 0, 327, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -75,24 +87,43 @@ public class AddTreePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNameTree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxPrivacy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+     int privacy = cbxPrivacy.getSelectedIndex();
+     PrivacyDTO p;
+     if(privacy==0){
+         p = PrivacyDTO.PRIVATE;
+     }else if(privacy==1){
+        p = PrivacyDTO.FRIENDS; 
+     }else if(privacy==2){
+       p = PrivacyDTO.PUBLIC;           
+     } else {
+        p = null;
+     }
+     UserDTO owner;
+     owner = new UserDTO();
+     TreeDTO tree = new TreeDTO(0, owner, p, txtNameTree.getText(), null);
+     addtreePanel.makeTree(tree);
+     //   addtreepanel.login(user);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cbxPrivacy;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtNameTree;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,47 +7,41 @@ import gui.PanelFactory;
 import gui.Panels;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import service.ClientTreeController;
 
-public class TreeController implements IPanelController
-{
+public class TreeController implements IPanelController {
 
     private FamilyTreeTotalPanel familyTreeTotalPanel;
     private GuiController gui;
     private TreeDTO tree;
+    private ClientTreeController clientTreeController;
 
-    TreeController(GuiController guiController)
-    {
+    TreeController(GuiController guiController) {
         this.gui = guiController;
     }
 
-    public JPanel show()
-    {
+    public JPanel show() {
         familyTreeTotalPanel = (FamilyTreeTotalPanel) PanelFactory.makePanel(Panels.TREE);
         familyTreeTotalPanel.setTreeController(this);
         return familyTreeTotalPanel;
     }
 
-    public void goTo(Panels frame)
-    {
+    public void goTo(Panels frame) {
         gui.goTo(frame);
     }
 
-    public void setTree(TreeDTO tree)
-    {
+    public void setTree(TreeDTO tree) {
         this.tree = tree;
         drawTree();
     }
 
-    public void drawTree()
-    {
-        if (this.tree == null)
-        {
+    public void drawTree() {
+        if (this.tree == null) {
             goTo(Panels.TREEOVERVIEW);
             throw new IllegalArgumentException("Tree must be set");
         }
 
-        if (this.tree.getPersons().isEmpty())
-        {
+        if (this.tree.getPersons().isEmpty()) {
             JOptionPane.showConfirmDialog(null, "Error no persons in tree!");
             goTo(Panels.TREEOVERVIEW);
         }
@@ -58,9 +52,13 @@ public class TreeController implements IPanelController
 
     }
 
-    public void savePerson(PersonDTO person)
-    {
-        System.out.println("[TREE CONTROLLER] SAVING PERSON " +person.toString());
+    public void savePerson(PersonDTO person) {
+        System.out.println("[TREE CONTROLLER] SAVING PERSON " + person.toString());
     }
 
+    public void makeTree(TreeDTO tree) {
+        System.out.println("[TREE CONTROLLER] ADDING TREE" + tree.toString());
+        String addingtree = clientTreeController.makeTree(tree);
+        System.out.println("REPLY FROM SERVICE:" + addingtree);     
+    }
 }
