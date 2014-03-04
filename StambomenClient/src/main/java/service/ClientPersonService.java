@@ -29,5 +29,17 @@ public class ClientPersonService
 
         return null;
     }
+    public String deletePerson(PersonDTO person)
+    {
+        Client client = ClientBuilder.newClient();
+        String json = new Gson().toJson(person);
+        Response response = client.target(url + "person/delete").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
 
+        if (response.getStatus() != 200)
+        {
+            return " " + response.getStatusInfo();
+        }
+
+        return null;
+    }
 }

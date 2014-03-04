@@ -1,6 +1,7 @@
 package service;
 
 import dto.UserDTO;
+import java.util.List;
 import java.util.Map;
 
 public class ClientUserController {
@@ -20,9 +21,39 @@ public class ClientUserController {
         return client.login(user);
     }
 
-    public Map<UserDTO, Integer> getFriends() {
+    public List<UserDTO> getFriends() {
         int userID = ClientServiceController.getInstance().getUser().getId();
 
         return client.getFriends(userID);
+    }
+
+    public List<UserDTO> getFriendRequests() {
+        int userID = ClientServiceController.getInstance().getUser().getId();
+
+        return client.getFriendRequests(userID);
+    }
+
+    public String sendFriendRequest(int friendId) {
+        int userID = ClientServiceController.getInstance().getUser().getId();
+
+        return client.sendFriendRequest(friendId, userID);
+    }
+
+    public String acceptFriendRequest(int friendId) {
+        int userID = ClientServiceController.getInstance().getUser().getId();
+
+        return client.acceptFriendRequest(friendId, userID);
+    }
+
+    public String denyFriendRequest(int friendId) {
+        int userID = ClientServiceController.getInstance().getUser().getId();
+
+        return client.denyFriendRequest(friendId, userID);
+    }
+
+    public String deleteFriendRequest(int friendId) {
+        int userID = ClientServiceController.getInstance().getUser().getId();
+
+        return client.deleteFriendRequest(friendId, userID);
     }
 }

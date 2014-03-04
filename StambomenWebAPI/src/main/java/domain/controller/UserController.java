@@ -10,14 +10,12 @@ import persistence.PersistenceController;
 /**
  * This class is the facade to all user interaction.
  */
-public class UserController
-{
+public class UserController {
 
     private PersistenceController pc;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public UserController()
-    {
+    public UserController() {
         pc = new PersistenceController();
     }
 
@@ -27,16 +25,12 @@ public class UserController
      *
      * @param user
      */
-    public void addUser(User user)
-    {
+    public void addUser(User user) {
         /*Check wheter the user exists. This should be place in a repo.*/
         User us = pc.getUser(user.getUsername());
-        if (us != null)
-        {
+        if (us != null) {
             throw new UserAlreadyExistsException();
-        }
-        else
-        {
+        } else {
             pc.addUser(user);
         };
     }
@@ -46,8 +40,7 @@ public class UserController
      * @param id
      * @return
      */
-    public List<User> getFriends(int id)
-    {
+    public List<User> getFriends(int id) {
         return pc.getFriends(id);
     }
 
@@ -58,32 +51,43 @@ public class UserController
      * @param userCredentials
      * @return
      */
-    public User login(String[] userCredentials)
-    {
+    public User login(String[] userCredentials) {
         User user = pc.getUser(userCredentials[0]);
 
-        if (user != null && user.getPassword().equals(userCredentials[1]))
-        {
+        if (user != null && user.getPassword().equals(userCredentials[1])) {
             return user;
         }
 
         return null;
     }
 
-    public User getUser(String username)
-    {
+    public User getUser(String username) {
         User user = pc.getUser(username);
 
-        if (user != null)
-        {
+        if (user != null) {
             return user;
         }
 
         return null;
     }
 
-    public List<User> getFriendRequest(int userID)
-    {
+    public List<User> getFriendRequest(int userID) {
         return pc.getFriendRequest(userID);
+    }
+
+    public void sendFriendRequest(int friendId, int userId) {
+        pc.sendFriendRequest(friendId, userId);
+    }
+
+    public void acceptFriendRequest(int friendId, int userId) {
+        pc.acceptFriendRequest(friendId, userId);
+    }
+
+    public void DenyFriendRequest(int friendId, int userId) {
+        pc.denyFriendRequest(friendId, userId);
+    }
+
+    public void deleteFriend(int friendId, int userId) {
+        pc.deleteFriend(friendId, userId);
     }
 }
