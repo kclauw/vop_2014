@@ -32,4 +32,28 @@ public class ClientUserController {
 
         return client.getFriendRequests(userID);
     }
+
+    public String sendFriendRequest(int friendId) {
+        int userID = ClientServiceController.getInstance().getUser().getId();
+
+        return client.sendFriendRequest(friendId, userID);
+    }
+
+    public String acceptFriendRequest(int friendId) {
+        int userID = ClientServiceController.getInstance().getUser().getId();
+
+        return client.acceptFriendRequest(friendId, userID);
+    }
+
+    public String denyFriendRequest(int friendId) {
+        int userID = ClientServiceController.getInstance().getUser().getId();
+
+        return client.denyFriendRequest(friendId, userID);
+    }
+
+    public String deleteFriendRequest(int friendId) {
+        int userID = ClientServiceController.getInstance().getUser().getId();
+
+        return client.deleteFriendRequest(friendId, userID);
+    }
 }
