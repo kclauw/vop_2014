@@ -16,6 +16,7 @@ public class AddTreeController implements IPanelController
 
     public AddTreeController(GuiController gui)
     {
+        this.clientTreeController = new ClientTreeController();
         this.gui = gui;
     }
 
@@ -34,8 +35,7 @@ public class AddTreeController implements IPanelController
     public void makeTree(TreeDTO tree)
     {
         System.out.println("[TREE CONTROLLER] ADDING TREE" + tree.toString());
-        String addingTree = clientTreeController.makeTree(tree);
-        System.out.println("REPLY FROM SERVICE:" + addingTree);
+        clientTreeController.makeTree(tree);
         this.gui.goTo(Panels.TREEOVERVIEW);
     }
 
