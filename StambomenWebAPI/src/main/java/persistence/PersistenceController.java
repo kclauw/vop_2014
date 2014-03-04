@@ -107,10 +107,10 @@ public class PersistenceController
         personDao.save(person);
     }
 
-    public void deletePerson(Person person)
+    public void deletePerson(int personId)
     {
-        logger.info("[PERSISTENCE CONTROLLER] Remove person " + person);
-        personDao.delete(person);
+        logger.info("[PERSISTENCE CONTROLLER] Remove person " + personId);
+        personDao.delete(personId);
     }
 
     public Person getPerson(int personId)

@@ -239,12 +239,14 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         add(btnDelete, gridBagConstraints);
 
         btnButton.setText("Add");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         add(btnButton, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 

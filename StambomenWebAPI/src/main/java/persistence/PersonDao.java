@@ -133,14 +133,14 @@ public class PersonDao implements IDao<Person>
         }
     }
 
-    @Override
-    public void delete(Person person)
+    
+    public void delete(int personId)
     {
         try
         {
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(DELETEPERSON);
-            prep.setInt(1, person.getPersonId());
+            prep.setInt(1, personId);
             logger.info("[PERSON DAO] Deleting person " + prep.toString());
             con.close();
         }
@@ -304,6 +304,11 @@ public class PersonDao implements IDao<Person>
             }
         }
 
+    }
+
+    @Override
+    public void delete(Person value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
