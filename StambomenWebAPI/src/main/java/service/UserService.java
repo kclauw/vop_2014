@@ -92,4 +92,13 @@ public class UserService
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
     }
+
+    @GET
+    @Path("/friends/requests/{userId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFriendRequests(@PathParam("userId") int userID)
+    {
+        List<User> request = uc.getFriendRequest(userID);
+        return Response.ok(request).build();
+    }
 }

@@ -118,4 +118,9 @@ public class PersistenceController
         personDao.update(person);
     }
 
+    public List<User> getFriendRequest(int userID)
+    {
+        return userDao.getFriendRequest(userID);
+    }
+
 }

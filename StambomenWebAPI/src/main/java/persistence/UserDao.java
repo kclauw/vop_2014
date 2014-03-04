@@ -20,7 +20,9 @@ public class UserDao implements IDao<User>
     private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
     private final String GETUSER = "Select userID, username, password FROM User WHERE username = ?";
     private final String GETUSERBYID = "Select userID, username, password FROM User WHERE userID = ?";
-    private final String GETFRIENDSBYID = "Select friend, status FROM Request WHERE receiver AND status != 2";
+    private final String GETFRIENDSBYID = "Select friend, status FROM Request WHERE receiver = ? AND status = 1";
+    private final String GETFRIENDREQUESTBYID = "Select friend, status FROM Request WHERE receiver = ? AND status = 0";
+
     private final Logger logger;
 
     public UserDao()
@@ -146,7 +148,6 @@ public class UserDao implements IDao<User>
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(GETFRIENDSBYID);
             prep.setInt(1, userID);
-            prep.setInt(2, userID);
             ResultSet res = prep.executeQuery();
 
             while (res.next())
@@ -154,7 +155,6 @@ public class UserDao implements IDao<User>
                 int id = res.getInt("receiver");
                 int friend = res.getInt("friend");
                 int status = res.getInt("status");
-
                 User user = get(friend);
                 friends.add(user);
             }
@@ -226,5 +226,38 @@ public class UserDao implements IDao<User>
         }
 
         return user;
+    }
+
+    public List<User> getFriendRequest(int userID)
+    {
+        List<User> friends = new ArrayList<User>();
+
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            PreparedStatement prep = con.prepareStatement(GETFRIENDREQUESTBYID);
+            prep.setInt(1, userID);
+            ResultSet res = prep.executeQuery();
+
+            while (res.next())
+            {
+                int id = res.getInt("receiver");
+                int friend = res.getInt("friend");
+                User user = get(friend);
+                friends.add(user);
+            }
+
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[USER DAO][SQLException][getFriendRequest]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[USER DAO][SQLException][getFriendRequest]Exception: " + ex.getMessage());
+        }
+
+        return friends;
     }
 }
