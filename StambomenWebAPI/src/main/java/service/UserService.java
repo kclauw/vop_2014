@@ -84,7 +84,7 @@ public class UserService
     {
         try
         {
-            Map<String, Integer> friends = uc.getFriends(userID);
+            Map<User, Integer> friends = uc.getFriends(userID);
             return Response.ok(friends).build();
         }
         catch (Exception ex)
