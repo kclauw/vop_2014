@@ -167,13 +167,11 @@ public class PersonDTO implements java.io.Serializable
         {
             PersonDTO m = p.getMother();
             PersonDTO f = p.getFather();
-            System.out.println("Checking" + p.getFirstName());
 
             if (m != null)
             {
                 if (m.compareTo(this) == 0)
                 {
-                    System.out.println("FOUND!");
                     pers.add(p);
                 }
             }
@@ -192,12 +190,9 @@ public class PersonDTO implements java.io.Serializable
 
     public PersonDTO getPartner(List<PersonDTO> persons)
     {
-
         System.out.println("[PERSON DTO] Getting partner of " + this.toString());
 
         boolean g = this.getGender() == GenderDTO.FEMALE;
-
-        System.out.println("[PERSON DTO] Person is of gender female " + g);
 
         PersonDTO partner = null;
 
