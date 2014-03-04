@@ -3,6 +3,8 @@ package domain.controller;
 import domain.User;
 import exception.UserAlreadyExistsException;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import persistence.PersistenceController;
 
 /**
@@ -12,7 +14,7 @@ public class UserController
 {
 
     private PersistenceController pc;
-
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     public UserController()
     {
         pc = new PersistenceController();
