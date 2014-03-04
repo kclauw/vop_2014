@@ -29,6 +29,11 @@ public class TreeOverviewController implements IPanelController
 
     public JPanel show()
     {
+        if (treeOverviewPanel != null)
+        {
+            treeOverviewPanel.removeAll();
+        }
+
         treeOverviewPanel = (FamilyTreeOverviewPanel) PanelFactory.makePanel(Panels.TREEOVERVIEW);
         treeOverviewPanel.setTreeController(this);
         System.out.println("[TREE OVERVIEW CONTROLLER] Showing trees");
