@@ -130,4 +130,19 @@ public class PersistenceController
         return userDao.getFriendRequest(userID);
     }
 
+    public void deleteFriend(int userID, int frienduserID)
+    {
+        userDao.deleteFriend(userID, frienduserID);
+    }
+
+    public void allowDenyFriendRequest(int userID, int frienduserID, boolean allow)
+    {
+        userDao.allowDenyFriendRequest(userID, frienduserID, allow);
+    }
+
+    public void sendFriendRequest(int userID, int frienduserID)
+    {
+        userDao.sendFriendRequest(userID, frienduserID);
+    }
+
 }

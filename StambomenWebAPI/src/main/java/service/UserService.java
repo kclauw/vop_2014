@@ -128,4 +128,13 @@ public class UserService
         uc.allowDenyFriendRequest(userID, frienduserID, false);
         return Response.ok().build();
     }
+
+    @GET
+    @Path("/friends/requests/send/{userId}/{frienduserId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response sendFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID)
+    {
+        uc.sendFriendRequest(userID, frienduserID);
+        return Response.ok().build();
+    }
 }
