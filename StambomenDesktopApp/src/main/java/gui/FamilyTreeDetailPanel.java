@@ -18,6 +18,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private JDateChooser dod;
     private FamilyTreeTotalPanel fttp;
     private TreeController treeController;
+    private boolean adding;
 
     public FamilyTreeDetailPanel(PersonDTO person, FamilyTreeTotalPanel fttp)
     {
@@ -270,6 +271,35 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             this.setEditable(true);
             edit = true;
         }
+        else if (adding)
+        {
+            PersonDTO p = new PersonDTO();
+            p.setFirstName(textFieldFirstname.getText());
+            p.setSurName(textFieldLastname.getText());
+
+            if (radioFemale.isSelected())
+            {
+                p.setGender(GenderDTO.FEMALE);
+            }
+            else
+            {
+                p.setGender(GenderDTO.MALE);
+            }
+
+            if (person.getGender() == GenderDTO.FEMALE)
+            {
+                p.setMother(person);
+            }
+            else
+            {
+                p.setFather(person);
+            }
+
+            p.setPlace(new PlaceDTO(-1, -1, -1, null, textFieldCountry.getText(), textFieldZipCode.getText(), textFieldCity.getText()));
+            adding = false;
+            JOptionPane.showMessageDialog(null, "Adding child!" + p.toString());
+            fttp.addPerson(p);
+        }
         else
         {
             int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to save?");
@@ -312,22 +342,15 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
     {//GEN-HEADEREND:event_btnAddActionPerformed
-
-        PersonDTO p = new PersonDTO();
-        p.setFirstName(textFieldFirstname.getText());
-        p.setSurName(textFieldLastname.getText());
-//        p.setBirthDate(dob.getDate());
-//        p.setDeathDate(dod.getDate());
-
-        if (radioFemale.isSelected())
-        {
-            p.setGender(GenderDTO.FEMALE);
-        }
-        else
-        {
-            p.setGender(GenderDTO.MALE);
-        }
-        fttp.addPerson(p);
+        JOptionPane.showMessageDialog(null, "Please enter the information of the new child, press save when done: ");
+        textFieldCity.setText("");
+        textFieldCountry.setText("");
+        textFieldFirstname.setText("");
+        textFieldLastname.setText("");
+        textFieldZipCode.setText("");
+        adding = true;
+        btnEdit.setText("save");
+        this.setEditable(true);
 
     }//GEN-LAST:event_btnAddActionPerformed
 
