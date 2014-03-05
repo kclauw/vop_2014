@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import service.ClientUserController;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  *
  * @author Lowie
@@ -31,9 +32,10 @@ public class FriendServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+            logger.info("[FRIEND SERVLET][PROCESS REQUEST]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -48,7 +50,7 @@ public class FriendServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        logger.info("[FRIEND SERVLET][DO GET]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
         String sdeletefriendid = request.getParameter("deletefriendid");
         String sdenyfriendrequestid = request.getParameter("denyfriendrequestid");
         String sallowfriendrequestid = request.getParameter("allowfriendrequestid");
@@ -64,6 +66,8 @@ public class FriendServlet extends HttpServlet {
     }
     
     private void deleteFriend(HttpServletRequest request, HttpServletResponse response, String sdeletefriendid) throws IOException {
+        logger.info("[FRIEND SERVLET][DELETE FRIEND]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
+        logger.info("[FRIEND SERVLET][DELETE FRIEND]DELETE FRIEND ID:" + sdeletefriendid.toString());
         HttpSession session = request.getSession(false);
         
         request.removeAttribute("deletefriendid");
@@ -79,6 +83,8 @@ public class FriendServlet extends HttpServlet {
     }
     
     private void allowDenyFriendRequest(HttpServletRequest request, HttpServletResponse response, String sfriendid, boolean allow) throws IOException {
+        logger.info("[FRIEND SERVLET][ALLOW DENY FRIEND REQUEST]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
+        logger.info("[FRIEND SERVLET][ALLOW DENY FRIEND REQUEST]FRIEND ID:" + sfriendid.toString() + "ALLOW" + allow);
         HttpSession session = request.getSession(false);
         
         if (allow)
@@ -98,6 +104,7 @@ public class FriendServlet extends HttpServlet {
     }
     
     private void getDefault(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        logger.info("[FRIEND SERVLET][GET DEFAULT]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
         HttpSession session = request.getSession(false);
         
         ClientUserController userController = (ClientUserController) session.getAttribute("userController");
@@ -119,6 +126,8 @@ public class FriendServlet extends HttpServlet {
     }
     
     private String getFriendHtml(UserDTO user, boolean request) {
+        logger.info("[FRIEND SERVLET][GET FRIEND HTML]USERDTO:" + user.toString() + "request" + request);
+       
         String html = "";
         
         html += "<li class=\"itemblock\">";
@@ -147,7 +156,8 @@ public class FriendServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        logger.info("[FRIEND SERVLET][DO POST]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
+       
         String sendfriendrequestname = request.getParameter("sendfriendrequestname");
         
         if (sendfriendrequestname != null)
@@ -157,6 +167,9 @@ public class FriendServlet extends HttpServlet {
     }
     
     private void sendFriendRequestName(HttpServletRequest request, HttpServletResponse response, String sendfriendrequestname) throws IOException {
+        logger.info("[FRIEND SERVLET][SEND FRIEND REQUEST NAME]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
+        logger.info("[FRIEND SERVLET][SEND FRIEND REQUEST NAME]SEND FRIEND REQUEST NAME:" + sendfriendrequestname.toString());
+       
         HttpSession session = request.getSession(false);
         
         request.removeAttribute("sendfriendrequestname");
@@ -174,6 +187,7 @@ public class FriendServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
+        logger.info("[FRIEND SERVLET][GET SERVLET INFO]");
         return "Short description";
     }// </editor-fold>
 
