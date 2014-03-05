@@ -8,6 +8,12 @@ and open the template in the editor.
     Author     : Lowie
 */
 
+.friendlist {
+    float: left;
+    width: 620px;
+    min-height: 1px;
+}
+
 .friendlist li {
     display: block;
     width: 350px;
@@ -22,7 +28,7 @@ and open the template in the editor.
     margin-left: 15px;
 }
 
-.friendlist li .removefriend {
+.friendlist li .deletefriend {
     top: 0px;
     right: 0px;
     position: relative;
@@ -31,4 +37,52 @@ and open the template in the editor.
     height: 20px;
     margin: 10px;
     opacity: 0.5;
+}
+
+
+
+.friendrequestlist {
+    float: left;
+    width: 200px;
+}
+
+.friendrequestlist li {
+    display: block;
+    width: 200px;
+    height: 35px;
+    margin: 15px 0px;
+}
+
+.friendrequestlist li div {
+    font-size: 16px;
+    float: left;
+    margin-top: 8px;
+    margin-left: 15px;
+}
+
+.friendrequestlist li .allowfriend {
+    top: 0px;
+    right: 0px;
+    position: relative;
+    float: right;
+    width: 15px;
+    height: 15px;
+    margin: 10px;
+    margin-right: 0px;
+}
+
+.friendrequestlist li .denyfriend {
+    top: 0px;
+    right: 0px;
+    position: relative;
+    float: right;
+    width: 15px;
+    height: 15px;
+    margin: 10px;
+}
+
+#adduser {
+    float:right;
+    margin-right: 263px;
+    cursor: pointer;
 }
