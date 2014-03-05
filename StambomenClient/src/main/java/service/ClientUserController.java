@@ -2,12 +2,14 @@ package service;
 
 import dto.UserDTO;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ClientUserController
 {
 
     private ClientUserService client;
-
+    private final Logger logger = LoggerFactory.getLogger(getClass()); 
     public ClientUserController()
     {
         this.client = new ClientUserService();
@@ -20,12 +22,13 @@ public class ClientUserController
 
     public String login(UserDTO user)
     {
-        System.out.println("[CLIENT USER CONTROLLER] LOGIN CLIENT USER SERVICE");
+        logger.info("[CLIENT USER CONTROLLER][LOGIN]Login van user:" + user.toString());
         return client.login(user);
     }
 
     public List<UserDTO> getFriends()
     {
+        logger.info("[CLIENT USER CONTROLLER][GET FRIENDS]");
         int userID = ClientServiceController.getInstance().getUser().getId();
 
         return client.getFriends(userID);
@@ -33,6 +36,7 @@ public class ClientUserController
 
     public List<UserDTO> getFriendRequests()
     {
+        logger.info("[CLIENT USER CONTROLLER][GET FRIEND REQUESTS]");
         int userID = ClientServiceController.getInstance().getUser().getId();
 
         return client.getFriendRequests(userID);
@@ -40,6 +44,7 @@ public class ClientUserController
 
     public void deleteFriend(int frienduserID)
     {
+        logger.info("[CLIENT USER CONTROLLER][DELETE FRIEND]Delete friend with ID:" + frienduserID);
         int userID = ClientServiceController.getInstance().getUser().getId();
         
         client.deleteFriend(userID, frienduserID);
@@ -47,6 +52,7 @@ public class ClientUserController
 
     public void allowDenyFriendRequest(int frienduserID, boolean allow)
     {
+        logger.info("[CLIENT USER CONTROLLER][ALLOW DENY FRIEND REQUEST]Allow friendrequest from user with id:" + frienduserID);
         int userID = ClientServiceController.getInstance().getUser().getId();
         
         client.allowDenyFriendRequest(userID, frienduserID, allow);
@@ -54,6 +60,7 @@ public class ClientUserController
 
     public void sendFriendRequest(String frienduserName)
     {
+        logger.info("[CLIENT USER CONTROLLER][SEND FRIEND REQUEST]Friend request naar user:" + frienduserName.toString());
         int userID = ClientServiceController.getInstance().getUser().getId();
         
         client.sendFriendRequest(userID, frienduserName);

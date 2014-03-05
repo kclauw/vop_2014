@@ -9,14 +9,17 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.glassfish.jersey.jackson.JacksonFeature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ClientPersonService
 {
 
     private final String url = "http://localhost:8084/StambomenWebAPI/rest/";
-
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     public String savePerson(PersonDTO person)
     {
+        logger.info("[CLIENT PERSON SERVICE][SAVE PERSON]:" + person.toString());
         Client client = ClientBuilder.newClient();
         client.register(ClientServiceController.getInstance().getHttpCredentials());
         client.register(new JacksonFeature());
@@ -33,6 +36,7 @@ public class ClientPersonService
 
     public String updatePerson(PersonDTO person)
     {
+        logger.info("[CLIENT PERSON SERVICE][UPDATE PERSON]:" + person.toString());
         Client client = ClientBuilder.newClient();
         client.register(ClientServiceController.getInstance().getHttpCredentials());
         client.register(new JacksonFeature());
@@ -55,6 +59,7 @@ public class ClientPersonService
 
     public String deletePerson(PersonDTO person)
     {
+        logger.info("[CLIENT PERSON SERVICE][DELETE PERSON]:" + person.toString());
         //Client client = ClientBuilder.newClient();
         //client.register(ClientServiceController.getInstance().getHttpCredentials());
         //client.register(new JacksonFeature());
