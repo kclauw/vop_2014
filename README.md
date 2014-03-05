@@ -102,18 +102,18 @@ The stambomen folder contains the [DB-script][dbS] and the [perlscript][pS]
 * use cases
 
 ### Initialization ###
-1.import projects in netbeans
-2.build with dependencies
-3.add the StambomenWebAPI and StambomenWebApp to the tomcat server
-4.run tomcat and run StambomenWebApp
-5.login
 
-6.run the stambomenDesktopApp
-7.login
+1. import projects in netbeans
+2. build with dependencies
+3. add the StambomenWebAPI and StambomenWebApp to the tomcat server
+4. run tomcat and run StambomenWebApp
+5. login
+6. run the stambomenDesktopApp
+7. login
 
 ## login details ##
-username: default
-password: 12345
+* username: default
+* password: 12345
 
 
 
