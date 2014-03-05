@@ -27,7 +27,7 @@ public class TreeController implements IPanelController
 
         this.clientTreeController = new ClientTreeController();
         this.clientPersonService = new ClientPersonService();
-        this.clientPersonController = new ClientPersonController(clientPersonService);
+        this.clientPersonController = new ClientPersonController();
     }
 
     public JPanel show()
