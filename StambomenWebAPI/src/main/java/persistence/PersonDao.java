@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -33,44 +34,58 @@ public class PersonDao implements IDao<Person>
             + " GROUP BY d.personID "
             + " ORDER BY pr.parent ASC ";
 
-    private final String SAVEPERSON = "INSERT INTO Person (birthplace, firstname,lastname,gender,birthdate,deathdate) VALUES (?,?,?,?,?,?,?)";
+    private final String SAVEPERSON = "INSERT INTO Person (birthplace, firstname,lastname,gender,birthdate,deathdate) VALUES (?,?,?,?,?,?)";
     private final String UPDATEPERSON = "UPDATE Person SET birthplace = ? , firstname = ? , lastname = ?, gender = ? , birthdate = ? , deathdate = ? WHERE personID = ?";
     private final String DELETEPERSON = "DELETE FROM Person WHERE personID = ?";
     private final String GETPERSONBYID = "Select birthplace, firstname,lastname,gender,birthdate,deathdate FROM Person WHERE personID = ?";
     private PersistenceController pc;
     private final Logger logger;
     private int lastInsertedId;
-    
+
     public PersonDao(PersistenceController pc)
     {
         this.pc = pc;
         logger = LoggerFactory.getLogger(getClass());
     }
-    
-    
-     public int savePerson(Person person)
+
+    public int savePerson(Person person)
     {
         PreparedStatement prep = null;
         try
         {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(SAVEPERSON);
-            prep.setInt(1, person.getPlace().getPlaceId());
+
+            Place pl = pc.getPlace(person.getPlace());
+            if (pl != null)
+            {
+                prep.setInt(1, pl.getPlaceId());
+            }
+            else
+            {
+                prep.setNull(1, Types.INTEGER);
+            }
+
             prep.setString(2, person.getFirstName());
             prep.setString(3, person.getSurName());
             prep.setByte(4, person.getGender().getGenderId());
-            prep.setDate(5, (java.sql.Date) person.getBirthDate());
-            prep.setDate(6, (java.sql.Date) person.getDeathDate());
+//            prep.setDate(5, (java.sql.Date) person.getBirthDate());
+//            prep.setDate(6, (java.sql.Date) person.getDeathDate());
+            prep.setNull(5, Types.DATE);
+            prep.setNull(6, Types.DATE);
             logger.info("[PERSON DAO] Saving person " + prep.toString());
-            prep.executeQuery();
+            prep.executeUpdate();
             ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
-                if (getKeyRs != null) {
-                   if (getKeyRs.next()) {
-                       lastInsertedId=getKeyRs.getInt(1);
-                    }
-                    getKeyRs.close();
+            if (getKeyRs != null)
+            {
+
+                if (getKeyRs.next())
+                {
+                    lastInsertedId = getKeyRs.getInt(1);
                 }
-                
+                getKeyRs.close();
+            }
+
             con.close();
         }
         catch (SQLException ex)
@@ -144,11 +159,6 @@ public class PersonDao implements IDao<Person>
 
         }
     }
-
-    
-  
-   
-   
 
     @Override
     public void update(Person person)
@@ -411,7 +421,8 @@ public class PersonDao implements IDao<Person>
     }
 
     @Override
-    public void save(Person value) {
+    public void save(Person value)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

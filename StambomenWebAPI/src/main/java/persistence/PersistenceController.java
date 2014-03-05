@@ -5,7 +5,6 @@ import domain.Place;
 import domain.Tree;
 import domain.User;
 
-
 import java.sql.ResultSet;
 import java.util.List;
 import org.slf4j.Logger;
@@ -20,7 +19,7 @@ public class PersistenceController
     private PlaceDao placeDao;
     private PersonTreeDAO persontreeDao;
     private ParentRelationDAO parentrelationDao;
-    
+
     private final Logger logger;
 
     public PersistenceController()
@@ -29,6 +28,8 @@ public class PersistenceController
         treeDao = new TreeDao(this);
         personDao = new PersonDao(this);
         placeDao = new PlaceDao();
+        persontreeDao = new PersonTreeDAO(this);
+        parentrelationDao = new ParentRelationDAO(this);
         logger = LoggerFactory.getLogger(getClass());
 
     }
@@ -153,20 +154,22 @@ public class PersistenceController
     {
         /*Logica voor het wegschrijven van een boom */
         logger.info("[PERSISTENCE CONTROLLER] Add person " + person);
-        
-         
-         int personid = personDao.savePerson(person);
-         persontreeDao.save(personid,treeID);
-         //controle niet vergeten
-         if(person.getMother().getPersonId() != 0){
-         parentrelationDao.save(treeID,person.getFather().getPersonId(),personid);
-         parentrelationDao.save(treeID,person.getMother().getPersonId(),personid);
-         }
-         
+
+        int personid = personDao.savePerson(person);
+        persontreeDao.save(personid, treeID);
+        //controle niet vergeten
+
+        if (person.getMother() != null)
+        {
+            parentrelationDao.save(treeID, person.getMother().getPersonId(), personid);
+        }
+        else if (person.getFather() != null)
+        {
+            parentrelationDao.save(treeID, person.getFather().getPersonId(), personid);
+        }
+
         /*Get persoon op naam*/
-         
         /*Voeg persoon toe aan een boom*/
-         
     }
 
 }

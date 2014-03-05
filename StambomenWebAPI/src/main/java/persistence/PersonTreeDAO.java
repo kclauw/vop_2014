@@ -22,13 +22,11 @@ public class PersonTreeDAO implements IDao
 {
 
     private Connection con;
-  
 
     private final String SAVEPERSONTREE = "INSERT INTO PersonTree (TreeID,PersonID) VALUES (?,?)";
     private final String UPDATEPERSONTREE = "UPDATE PersonTree SET TreeID = ?,PersonID = ? WHERE personID = ? and TreeID = ?";
     private final String DELETEPERSONTREE = "DELETE FROM PersonTree WHERE personID = ? and TreeID = ?";
- 
-    
+
     private PersistenceController pc;
     private final Logger logger;
 
@@ -38,19 +36,17 @@ public class PersonTreeDAO implements IDao
         logger = LoggerFactory.getLogger(getClass());
     }
 
-   
-
-    public void save(int personId,int treeId)
+    public void save(int personId, int treeId)
     {
         PreparedStatement prep = null;
         try
         {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(SAVEPERSONTREE);
-            prep.setInt(1,personId);
-            prep.setInt(2,treeId);
+            prep.setInt(1, treeId);
+            prep.setInt(2, personId);
             logger.info("[PERSONTREE DAO] Saving persontree " + prep.toString());
-            prep.executeQuery();
+            prep.executeUpdate();
             con.close();
         }
         catch (SQLException ex)
@@ -77,16 +73,15 @@ public class PersonTreeDAO implements IDao
         }
     }
 
-    
-    public void update(int personId,int treeId)
+    public void update(int personId, int treeId)
     {
         PreparedStatement prep = null;
         try
         {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(UPDATEPERSONTREE);
-            prep.setInt(1,personId);
-            prep.setInt(2,treeId);
+            prep.setInt(1, personId);
+            prep.setInt(2, treeId);
             logger.info("[PERSON DAO] Updating person " + prep.toString());
             prep.executeUpdate();
             con.close();
@@ -115,7 +110,7 @@ public class PersonTreeDAO implements IDao
         }
     }
 
-    public void delete(int personId,int treeId)
+    public void delete(int personId, int treeId)
     {
         PreparedStatement prep = null;
         try
@@ -151,42 +146,39 @@ public class PersonTreeDAO implements IDao
     }
 
     @Override
-    public Object get(int id) {
+    public Object get(int id)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void save(Object value) {
+    public void save(Object value)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Object value) {
+    public void update(Object value)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Object value) {
+    public void delete(Object value)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Collection getAll() {
+    public Collection getAll()
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object map(ResultSet res) {
+    public Object map(ResultSet res)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-   
-
-   
-
-
-
-
-    
 
 }

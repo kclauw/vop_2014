@@ -22,13 +22,9 @@ public class ParentRelationDAO implements IDao
 {
 
     private Connection con;
-  
 
     private final String SAVEPARENTRELATION = "INSERT INTO ParentRelation(TreeID,parent,child) VALUES (?,?,?)";
 
-   
- 
-    
     private PersistenceController pc;
     private final Logger logger;
 
@@ -38,20 +34,18 @@ public class ParentRelationDAO implements IDao
         logger = LoggerFactory.getLogger(getClass());
     }
 
-   
-
-    public void save(int treeId,int parentId,int childId)
+    public void save(int treeId, int parentId, int childId)
     {
         PreparedStatement prep = null;
         try
         {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(SAVEPARENTRELATION);
-            prep.setInt(1,treeId);
-            prep.setInt(2,parentId);
-            prep.setInt(3,childId);
+            prep.setInt(1, treeId);
+            prep.setInt(2, parentId);
+            prep.setInt(3, childId);
             logger.info("[PARENTRELATION DAO] Saving parentrelation " + prep.toString());
-            prep.executeQuery();
+            prep.executeUpdate();
             con.close();
         }
         catch (SQLException ex)
@@ -78,54 +72,50 @@ public class ParentRelationDAO implements IDao
         }
     }
 
-    
-    public void update(int personId,int treeId)
+    public void update(int personId, int treeId)
     {
-       
+
     }
 
-    public void delete(int personId,int treeId)
+    public void delete(int personId, int treeId)
     {
-      
+
     }
 
     @Override
-    public Object get(int id) {
+    public Object get(int id)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void save(Object value) {
+    public void save(Object value)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Object value) {
+    public void update(Object value)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Object value) {
+    public void delete(Object value)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Collection getAll() {
+    public Collection getAll()
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object map(ResultSet res) {
+    public Object map(ResultSet res)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-   
-
-   
-
-
-
-
-    
 
 }
