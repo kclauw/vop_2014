@@ -57,9 +57,12 @@ public class TreeServlet extends HttpServlet {
         logger.info("[TREE SERVLET][DO GET]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
        
         String streeid = request.getParameter("treeid");
+        String srebuildtree = request.getParameter("rebuildtree");
         
         if (streeid != null)
             processTree(request, response, streeid);
+        else if (srebuildtree != null)
+            rebuildTree(request, response);
         else
             response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
@@ -85,6 +88,15 @@ public class TreeServlet extends HttpServlet {
                 break;
             }
         }
+        
+        generateTree(request, response, tree);
+    }
+    
+    private void rebuildTree(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.info("[TREE SERVLET][REBUILD TREE]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
+        HttpSession session = request.getSession(false);
+        
+        TreeDTO tree = (TreeDTO)session.getAttribute("tree");
         
         generateTree(request, response, tree);
     }
