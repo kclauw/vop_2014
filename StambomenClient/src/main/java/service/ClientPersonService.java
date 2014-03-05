@@ -17,17 +17,20 @@ public class ClientPersonService
 
     private final String url = "http://localhost:8084/StambomenWebAPI/rest/";
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    public String savePerson(PersonDTO person)
+    public String savePerson(int treeID, PersonDTO person)
     {
         logger.info("[CLIENT PERSON SERVICE][SAVE PERSON]:" + person.toString());
         Client client = ClientBuilder.newClient();
         client.register(ClientServiceController.getInstance().getHttpCredentials());
         client.register(new JacksonFeature());
-        String json = new Gson().toJson(person);
-        Response response = client.target(url + "person/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
+        PersonDTO2 pers = new PersonDTO2(person);
+        String json = new Gson().toJson(pers);
+        System.out.println("Person in json: " + json);
+        Response response = client.target(url + "person/" + treeID + "/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() != 200)
         {
+            logger.info("[CLIENT PERSON SERVICE][SAVE PERSON]Error occured" + response.toString() + "  " + response.readEntity(String.class));
             return " " + response.getStatusInfo();
         }
 

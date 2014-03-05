@@ -15,10 +15,10 @@ public class ClientPersonController
         this.clientPersonService = new ClientPersonService();
     }
 
-    public String savePerson(PersonDTO person)
+    public String savePerson(int treeID, PersonDTO person)
     {
-        logger.info("[CLIENT PERSON CONTROLLER][SAVE PERSON]:" + person.toString());
-        return clientPersonService.savePerson(person);
+        logger.info("[CLIENT PERSON CONTROLLER][SAVE PERSON]: " + person.toString());
+        return clientPersonService.savePerson(treeID, person);
     }
 
     public void deletePerson(PersonDTO person)
