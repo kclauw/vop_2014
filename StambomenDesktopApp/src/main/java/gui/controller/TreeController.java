@@ -90,7 +90,7 @@ public class TreeController implements IPanelController
     {
         System.out.println("[TREE CONTROLLER] SAVING PERSON " + person.toString());
         clientPersonController.savePerson(tree.getId(), person);
-        this.gui.goTo(Panels.TREEOVERVIEW);
+       // this.gui.goTo(Panels.TREEOVERVIEW);
     }
 
 }
