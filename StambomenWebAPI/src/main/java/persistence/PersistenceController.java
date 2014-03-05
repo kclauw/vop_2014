@@ -148,7 +148,9 @@ public class PersistenceController
     {
         /*Logica voor het wegschrijven van een boom */
         logger.info("[PERSISTENCE CONTROLLER] Add person " + person);
-        personDao.save(person);
+        //     int personid = personDao.save(person);
+        /*Get persoon op naam*/
+        /*Voeg persoon toe aan een boom*/
     }
 
 }
