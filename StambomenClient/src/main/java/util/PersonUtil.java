@@ -10,31 +10,29 @@ public class PersonUtil
 
     public static List<PersonDTO> getChilderen(PersonDTO person, List<PersonDTO> persons)
     {
-        List<PersonDTO> pers = new ArrayList<PersonDTO>();
+        System.out.println("   [PERSON UTIL] Getting childeren of " + person.getFirstName());
+
+        List<PersonDTO> childs = new ArrayList<PersonDTO>();
 
         for (PersonDTO p : persons)
         {
-            PersonDTO m = p.getMother();
-            PersonDTO f = p.getFather();
+            PersonDTO father = p.getFather();
+            PersonDTO mother = p.getMother();
 
-            if (m != null)
+            if (father != null && father.compareTo(person) == 0)
             {
-                if (m.compareTo(person) == 0)
-                {
-                    pers.add(p);
-                }
+                System.out.println("    [PERSON UTIL] Found a child " + p.getFirstName());
+                childs.add(p);
             }
 
-            if (f != null)
+            if (mother != null && mother.compareTo(person) == 0)
             {
-                if (f.compareTo(person) == 0)
-                {
-                    pers.add(p);
-                }
+                System.out.println("    [PERSON UTIL] Found a child " + p.getFirstName());
+                childs.add(p);
             }
         }
 
-        return pers;
+        return childs;
     }
 
     public static PersonDTO getPartner(PersonDTO person, List<PersonDTO> persons)
@@ -42,8 +40,6 @@ public class PersonUtil
         //System.out.println("[PERSON UTILS] Getting partner of " + this.toString());
 
         boolean g = person.getGender() == GenderDTO.FEMALE;
-
-        PersonDTO partner = null;
 
         for (PersonDTO p : persons)
         {
@@ -61,8 +57,7 @@ public class PersonUtil
                 }
             }
         }
-
-        return partner;
+        return null;
     }
 
     public static PersonDTO getRoot(List<PersonDTO> persons)

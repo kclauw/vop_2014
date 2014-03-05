@@ -1,8 +1,9 @@
 package dto;
 
+import java.util.Comparator;
 import java.util.Date;
 
-public class PersonDTO implements java.io.Serializable
+public class PersonDTO implements java.io.Serializable, Cloneable
 {
 
     private int personId;
@@ -162,5 +163,37 @@ public class PersonDTO implements java.io.Serializable
     {
         return "PersonDTO{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + ", gender=" + gender + ", birthDate=" + birthDate + ", deathDate=" + deathDate + ", place=" + place + ", father=" + father + ", mother=" + mother + ", x=" + x + ", y=" + y + '}';
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        PersonDTO person = new PersonDTO();
+//        person.setBirthDate(birthDate);
+//        person.setDeathDate(deathDate);
+//        person.setFather(father);
+//        person.setFirstName(firstName);
+//        person.setGender(gender);
+//        person.setMother(mother);
+//        person.setSurName(surName);
+        person.setPersonId(personId);
+        return person;
+    }
+
+    public static Comparator<PersonDTO> PersonComparator
+            = new Comparator<PersonDTO>()
+            {
+
+                public int compare(PersonDTO p1, PersonDTO p2)
+                {
+                    if (p1.getGender() == GenderDTO.FEMALE)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+                }
+            };
 
 }

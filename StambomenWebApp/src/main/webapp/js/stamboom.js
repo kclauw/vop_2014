@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $('.popupboxbg').hide();
-    $('.popupboxbg div:last-child').click(function(args) {
+    $('.popupboxbg > div:last-child').click(function(args) {
         $('.popupboxbg').hide();
     });
     

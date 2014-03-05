@@ -99,7 +99,7 @@ public class ClientUserService
     {
         Client client = getClient();
         client.register(new JacksonFeature());
-        client.target(url + "/friends/requests/deny/" + userID + "/" + frienduserName).request(MediaType.APPLICATION_JSON).get();
+        client.target(url + "/friends/requests/send/" + userID + "/" + frienduserName).request(MediaType.APPLICATION_JSON).get();
     }
 
     private Client getClient()

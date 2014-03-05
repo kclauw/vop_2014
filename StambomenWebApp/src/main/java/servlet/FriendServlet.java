@@ -54,11 +54,11 @@ public class FriendServlet extends HttpServlet {
         String sallowfriendrequestid = request.getParameter("allowfriendrequestid");
         
         if (sdeletefriendid != null)
-            deleteFriend(request, response, sdeletefriendid.trim());
-        else if (sdenyfriendrequestid != null || sallowfriendrequestid != null)
-            allowDenyFriendRequest(request, response, sdenyfriendrequestid.trim(), false);
+            deleteFriend(request, response, sdeletefriendid);
+        else if (sdenyfriendrequestid != null)
+            allowDenyFriendRequest(request, response, sdenyfriendrequestid, false);
         else if (sallowfriendrequestid != null)
-            allowDenyFriendRequest(request, response, sdenyfriendrequestid.trim(), true);
+            allowDenyFriendRequest(request, response, sallowfriendrequestid, true);
         else
             getDefault(request, response);
     }
@@ -126,10 +126,10 @@ public class FriendServlet extends HttpServlet {
         
         if (!request)
         {
-            html += "\n<a href=\"./FriendServlet?deletefriendid=" + user.getId() + "\"><img class=\"deletefriend\" src=\"./images/remove.png\" alt=\"remove\" /></a>";
+            html += "\n<a href=\"./FriendServlet?deletefriendid=" + user.getId() + "\"><img class=\"deletefriend\" src=\"./images/delete.png\" alt=\"remove\" /></a>";
         } else {
-            html += "\n<a href=\"./FriendServlet?denyfriendid=" + user.getId() + "\"><img class=\"denyfriend\" src=\"./images/deny.png\" alt=\"deny\" /></a>";
-            html += "\n<a href=\"./FriendServlet?allowfriendid=" + user.getId() + "\"><img class=\"allowfriend\" src=\"./images/allow.png\" alt=\"allow\" /></a>";
+            html += "\n<a href=\"./FriendServlet?denyfriendrequestid=" + user.getId() + "\"><img class=\"denyfriend\" src=\"./images/delete.png\" alt=\"deny\" /></a>";
+            html += "\n<a href=\"./FriendServlet?allowfriendrequestid=" + user.getId() + "\"><img class=\"allowfriend\" src=\"./images/allow.png\" alt=\"allow\" /></a>";
         }
         html += "\n</li>";
         
@@ -147,7 +147,24 @@ public class FriendServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        String sendfriendrequestname = request.getParameter("sendfriendrequestname");
+        
+        if (sendfriendrequestname != null)
+            sendFriendRequestName(request, response, sendfriendrequestname);
+        else
+            getDefault(request, response);
+    }
+    
+    private void sendFriendRequestName(HttpServletRequest request, HttpServletResponse response, String sendfriendrequestname) throws IOException {
+        HttpSession session = request.getSession(false);
+        
+        request.removeAttribute("sendfriendrequestname");
+            
+        ClientUserController userController = (ClientUserController) session.getAttribute("userController");
+        userController.sendFriendRequest(sendfriendrequestname);
+        
+        response.sendRedirect(request.getContextPath() + "/FriendServlet");
     }
 
     /**

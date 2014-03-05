@@ -15,8 +15,20 @@
         <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="./css/general.css"/>
         <link rel="stylesheet" type="text/css" href="./css/friends.css"/>
+        
+        <script src="./js/jquery-1.11.0.min.js"></script>
+        <script src="./js/friends.js"></script>
     </head>
     <body>
+        <div class="popupboxbg">
+            <div class="popupbox itemblock shadow">
+                <div>
+                    <h1>Add friend</h1>
+                    <form method="post" action="./FriendServlet"><input name="sendfriendrequestname" type="text" placeholder="Username"/><input class="submit" type="submit" value="Add"/></form>
+                </div>
+            </div>
+            <div></div>
+        </div>
         <div id="topbar" class="shadow">
             <div class="wrapper">
                 <a href="./index.jsp"><img id="logo" src="./images/logo.png" height="35" alt="Tree" /></a>
@@ -29,12 +41,19 @@
         </div>
         <div class="wrapper">
             <div>
-                <ul class="friendlist">
-                    ${friendshtml}
-                </ul><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                <ul class="friendlist">
-                    ${friendrequestshtml}
-                </ul>
+                <div class="friendlist">
+                    <img id="adduser" src="./images/adduser.png" width="32" height="32" alt="Add User" />
+                    <h1>Friendlist</h1>
+                    <ul>
+                        ${friendshtml}
+                    </ul>
+                </div>
+                <div class="friendrequestlist">
+                    <h1>Requests</h1>
+                    <ul>
+                        ${friendrequestshtml}
+                    </ul>   
+                </div>
             </div>
         </div>
     </body>

@@ -8,11 +8,13 @@ package gui;
 import dto.PersonDTO;
 import gui.controller.TreeController;
 import java.awt.GridBagConstraints;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
+import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 
 /**
@@ -47,7 +49,7 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     public void setTreeController(final TreeController treeController)
     {
         initComponents();
-        this.setSize(800, 600);
+        this.setSize(1200, 400);
         this.treeController = treeController;
         this.familyTreePanel = new FamilyTreePanel(treeController, this);
         this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
@@ -60,13 +62,14 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
+        c.ipady = 500;
         c.fill = 1;
-        c.weightx = 0;
-        c.ipadx = 400;
+        c.weightx = 20;
+        c.weighty = 20;
         this.add(scroll, c);
         c.gridx = 1;
+        c.ipady = 300;
         c.gridy = 0;
-        c.ipadx = 400;
         c.weightx = 1;
         this.add(familyTreeDetailPanel, c);
 
@@ -111,8 +114,14 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     {
         this.treeController.savePerson(person);
     }
+
     public void deletePerson(PersonDTO person)
     {
         this.treeController.deletePerson(person);
+    }
+
+    public void setViewPort(int width, int i)
+    {
+        this.scroll.getHorizontalScrollBar().setValue(width / 2);
     }
 }
