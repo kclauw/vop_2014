@@ -2,7 +2,6 @@ package service;
 
 import com.google.gson.Gson;
 import dto.PersonDTO;
-import dto.UserDTO;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -20,6 +19,21 @@ public class ClientPersonService
         client.register(ClientServiceController.getInstance().getHttpCredentials());
         String json = new Gson().toJson(person);
         Response response = client.target(url + "person/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
+
+        if (response.getStatus() != 200)
+        {
+            return " " + response.getStatusInfo();
+        }
+
+        return null;
+    }
+
+    public String updatePerson(PersonDTO person)
+    {
+        Client client = ClientBuilder.newClient();
+        client.register(ClientServiceController.getInstance().getHttpCredentials());
+        String json = new Gson().toJson(person);
+        Response response = client.target(url + "person/update").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() != 200)
         {
@@ -47,4 +61,5 @@ public class ClientPersonService
         System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + response.toString());
         return null;
     }
+
 }
