@@ -56,8 +56,8 @@ public class PersonService
 
     @GET
     @Path("/delete/{personId}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response deletePerson(int personId)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deletePerson(@PathParam("personId") int personId)
     {
         logger.info("[PERSON SERVICE] DELETING PERSON " + personId);
         String result = "Person deleted:" + personId;
@@ -70,9 +70,10 @@ public class PersonService
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updatePerson(Person person)
     {
-        String result = "Person updated:" + person.toString();
-        pc.updatePerson(person);
-        return Response.status(Response.Status.OK).entity(result).build();
+            logger.info("[PERSON SERVICE] DELETING PERSON " + person.toString());
+            String result = "Person updated:" + person.toString();
+            pc.updatePerson(person);
+            return Response.status(Response.Status.OK).entity(result).build();
     }
 
     @GET
@@ -81,8 +82,7 @@ public class PersonService
     @Consumes(MediaType.APPLICATION_JSON)
     public Person getPerson(@PathParam("personID") int personID)
     {
-        Logger logger = LoggerFactory.getLogger(getClass());
-        logger.info("[GET][PERSONSERVICE]");
+        logger.info("[GET][PERSONSERVICE]"  + personID);
         System.out.println("GET - PersonServices" + personID);
         Person t = pc.getPerson(personID);
         System.out.println(t);

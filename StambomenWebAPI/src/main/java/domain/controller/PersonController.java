@@ -47,17 +47,7 @@ public class PersonController
     public void deletePerson(int personId)
     {
         System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + personId);
-        Person ps = pc.getPerson(personId);
-
-        if (ps != null)
-        {
-            pc.deletePerson(personId);
-        }
-        if (ps == null)
-        {
-            logger.info("[PERSON CONTROLLER] Cannot delete person that doesn't exist");
-            throw new CannotDeletePersonThatDoesntExistException();
-        }
+        pc.deletePerson(personId);
     }
 
     public void updatePerson(Person person)

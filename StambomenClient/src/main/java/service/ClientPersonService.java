@@ -7,6 +7,8 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
+import org.glassfish.jersey.jackson.JacksonFeature;
 
 public class ClientPersonService
 {
@@ -45,21 +47,25 @@ public class ClientPersonService
 
     public String deletePerson(PersonDTO person)
     {
+        //Client client = ClientBuilder.newClient();
+        //client.register(ClientServiceController.getInstance().getHttpCredentials());
+        //client.register(new JacksonFeature());
+        // client.target(url + "person/delete/" + person.getPersonId()).request(MediaType.APPLICATION_JSON).get();
+        //client.target(url + "person/delete/" + person.getPersonId()).request(MediaType.APPLICATION_JSON).get();;
+        System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + person.toString());
+        Client client = getClient();
+        Response resp = client.target(url + "person/delete/" + person.getPersonId()).request(MediaType.APPLICATION_JSON).get();
+        return resp.toString();
+    }
+
+    private Client getClient()
+    {
+        HttpAuthenticationFeature feature = ClientServiceController.getInstance().getHttpCredentials();
         Client client = ClientBuilder.newClient();
-        client.register(ClientServiceController.getInstance().getHttpCredentials());
+        client.register(feature);
+        client.register(new JacksonFeature());
 
-        Response response = client.target(url + "person/delete/" + person.getPersonId()).request(MediaType.APPLICATION_JSON).get();
-
-        System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + person.toString());
-        if (response.getStatus() != 200)
-        {
-            System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + person.toString());
-            System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + response.toString());
-            return " " + response.getStatusInfo();
-        }
-        System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + person.toString());
-        System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + response.toString());
-        return null;
+        return client;
     }
 
 }
