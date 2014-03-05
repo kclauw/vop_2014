@@ -59,10 +59,19 @@ public class PersonService
     @Produces(MediaType.APPLICATION_JSON)
     public Response deletePerson(@PathParam("personId") int personId)
     {
-        logger.info("[PERSON SERVICE] DELETING PERSON " + personId);
-        String result = "Person deleted:" + personId;
-        pc.deletePerson(personId);
-        return Response.status(Response.Status.OK).entity(result).build();
+        try
+        {
+            logger.info("[PERSON SERVICE] DELETING PERSON " + personId);
+            String result = "Person deleted:" + personId;
+            pc.deletePerson(personId);
+            return Response.status(Response.Status.OK).entity(result).build();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
+
+        }
     }
 
     @POST
@@ -70,10 +79,19 @@ public class PersonService
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updatePerson(Person person)
     {
-            logger.info("[PERSON SERVICE] DELETING PERSON " + person.toString());
+        try
+        {
+            logger.info("[PERSON SERVICE][UPDATE] UPDATING PERSON " + person.toString());
             String result = "Person updated:" + person.toString();
             pc.updatePerson(person);
             return Response.status(Response.Status.OK).entity(result).build();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
+
+        }
     }
 
     @GET
@@ -82,7 +100,7 @@ public class PersonService
     @Consumes(MediaType.APPLICATION_JSON)
     public Person getPerson(@PathParam("personID") int personID)
     {
-        logger.info("[GET][PERSONSERVICE]"  + personID);
+        logger.info("[GET][PERSONSERVICE]" + personID);
         System.out.println("GET - PersonServices" + personID);
         Person t = pc.getPerson(personID);
         System.out.println(t);

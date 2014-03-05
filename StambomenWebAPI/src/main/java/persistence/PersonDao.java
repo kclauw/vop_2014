@@ -142,6 +142,7 @@ public class PersonDao implements IDao<Person>
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(DELETEPERSON);
             prep.setInt(1, personId);
+            prep.executeUpdate();
             logger.info("[PERSON DAO] Deleting person " + prep.toString());
             con.close();
         }

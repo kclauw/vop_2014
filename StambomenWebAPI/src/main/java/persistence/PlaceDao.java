@@ -51,9 +51,12 @@ public class PlaceDao implements IDao<Place>
             logger.info("[PLACE DAO] Get place by id" + prep.toString());
             ResultSet res = prep.executeQuery();
 
-            if (res.next())
+            if (res != null)
             {
-                place = map(res);
+                if (res.next())
+                {
+                    place = map(res);
+                }
             }
 
             con.close();
@@ -96,20 +99,23 @@ public class PlaceDao implements IDao<Place>
         Place place = null;
         try
         {
-            int placeId = res.getInt("placeID");
-            int countryId = res.getInt("countryID");
-            int placeNameId = res.getInt("placenameID");
-            int coordId = res.getInt("coordinatesID");
-            float lat = res.getFloat("latitude");
-            float longi = res.getFloat("longitude");
-            String zip = res.getString("zipcode");
-            String country = res.getString("countryname");
-            String placeName = res.getString("placename");
-
-            if (placeId != 0 && countryId != 0 && placeNameId != 0)
+            if (res != null)
             {
-                Coordinate coord = new Coordinate(longi, lat, coordId);
-                place = new Place(placeId, countryId, placeNameId, coord, country, zip, placeName);
+                int placeId = res.getInt("placeID");
+                int countryId = res.getInt("countryID");
+                int placeNameId = res.getInt("placenameID");
+                int coordId = res.getInt("coordinatesID");
+                float lat = res.getFloat("latitude");
+                float longi = res.getFloat("longitude");
+                String zip = res.getString("zipcode");
+                String country = res.getString("countryname");
+                String placeName = res.getString("placename");
+
+                if (placeId != 0 && countryId != 0 && placeNameId != 0)
+                {
+                    Coordinate coord = new Coordinate(longi, lat, coordId);
+                    place = new Place(placeId, countryId, placeNameId, coord, country, zip, placeName);
+                }
             }
         }
         catch (SQLException ex)

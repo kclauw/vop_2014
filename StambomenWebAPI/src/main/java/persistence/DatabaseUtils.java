@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class DatabaseUtils
 {
 
-    private DatabaseUtils()
+    private DatabaseUtils() throws Exception
     {
     }
 
@@ -23,6 +23,8 @@ public class DatabaseUtils
 
     public static Connection getConnection() throws Exception
     {
+
         return getCon(driver, url, username, password);
     }
+
 }

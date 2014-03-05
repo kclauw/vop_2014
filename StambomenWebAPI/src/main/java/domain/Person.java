@@ -17,6 +17,10 @@ public class Person
     private Person father;
     private Person mother;
 
+    public Person()
+    {
+    }
+
     public Person(int personId, String firstName, String surName, Gender gender, Date birthDate, Date deathDate, Place place, Person father, Person mother)
     {
         setFirstName(firstName);

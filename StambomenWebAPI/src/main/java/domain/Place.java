@@ -11,6 +11,10 @@ public class Place
     private String zipCode;
     private String placeName;
 
+    public Place()
+    {
+    }
+
     public Place(int placeId, int countryId, int placeNameId, Coordinate coord, String country, String zipCode, String placeName)
     {
         setplaceId(placeId);
