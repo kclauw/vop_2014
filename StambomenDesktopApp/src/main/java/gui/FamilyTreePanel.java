@@ -17,13 +17,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import util.PersonUtil;
 
 public class FamilyTreePanel extends javax.swing.JPanel
@@ -34,6 +33,7 @@ public class FamilyTreePanel extends javax.swing.JPanel
     private final FamilyTreeTotalPanel totalPanel;
     private List<Shape> shapes;
     private PersonUtil personUtil;
+    private HashMap<Integer, Color> colors = new HashMap<Integer, Color>();
 
     public FamilyTreePanel(TreeController tree, FamilyTreeTotalPanel tp)
     {
@@ -55,6 +55,7 @@ public class FamilyTreePanel extends javax.swing.JPanel
     public void paint(Graphics g)
     {
         super.paint(g);
+
         if (shapes != null && shapes.size() > 0)
         {
             for (Shape shape : shapes)
@@ -71,21 +72,21 @@ public class FamilyTreePanel extends javax.swing.JPanel
 
                 int niv = person.getY() / 150;
 
-                int R = (int) (Math.random() * niv);
-                int G = (int) (Math.random() * niv);
-                int B = (int) (Math.random() * niv);
-                Color color = new Color(R, G, B); //random color, but can be bright or dull
-
-                g.setColor(color);
+                if (!colors.containsKey(niv))
+                {
+                    g.setColor(Color.red);
+                }
+                else if (colors.containsKey(niv))
+                {
+                    g.setColor(colors.get(niv));
+                }
 
                 if (person.getFather() != null)
                 {
-                    g.setColor(Color.BLUE);
                     g.drawLine(person.getX() + 50, person.getY(), person.getFather().getX(), person.getFather().getY() + 25);
                 }
                 else if (person.getMother() != null)
                 {
-                    g.setColor(Color.PINK);
                     g.drawLine(person.getX() + 50, person.getY(), person.getMother().getX(), person.getMother().getY() + 25);
                 }
 //
@@ -132,6 +133,10 @@ public class FamilyTreePanel extends javax.swing.JPanel
         {
             final int xcoord = person.getX();
             final int ycoord = person.getY();
+            int niv = ycoord / 150;
+            Random r = new Random();
+            Color c = Color.getHSBColor(r.nextFloat(), r.nextFloat(), r.nextFloat());
+            colors.put(niv, c);
             final Shape oval = new Ellipse2D.Double(xcoord, ycoord, 75, 40);
 
             this.addMouseListener(new MouseAdapter()
