@@ -32,6 +32,7 @@ public class PersonController
     {
         /*Check wheter the person exists. This should be place in a repo.*/
         Person ps = pc.getPerson(person.getPersonId());
+
         if (ps != null)
         {
             logger.info("[PERSON CONTROLLER] This person already exists: " + person);
