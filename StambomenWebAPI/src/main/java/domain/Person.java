@@ -4,7 +4,8 @@ import exception.InvalidParentException;
 import java.util.Date;
 import util.StringValidation;
 
-public class Person {
+public class Person
+{
 
     private int personId;   // optional
     private String firstName; // required
@@ -16,65 +17,136 @@ public class Person {
     private Person father; // optional
     private Person mother; // optional
 
-    public Person() {
+    public Person()
+    {
     }
 
-    public Person(int personId, String firstName, String surName, Gender gender, Date birthDate, Date deathDate, Place place, Person father, Person mother) {
-
+    public Person(int personId, String firstName, String surName, Gender gender, Date birthDate, Date deathDate, Place place, Person father, Person mother)
+    {
+        setFirstName(firstName);
+        setSurName(surName);
+        setGender(gender);
+        setBirthDate(birthDate);
+        setDeathDate(deathDate);
+        setPlace(place);
+        setFather(father);
+        setMother(mother);
+        setPersonId(personId);
     }
 
-    public int getPersonId() {
+    public int getPersonId()
+    {
         return personId;
     }
 
-    public String getFirstName() {
+    private void setPersonId(int personId)
+    {
+        this.personId = personId;
+    }
+
+    public String getFirstName()
+    {
         return firstName;
     }
 
-    public String getSurName() {
+    private void setFirstName(String firstName)
+    {
+        if (StringValidation.emptyString(firstName))
+        {
+            throw new IllegalArgumentException("Firstname is empty.");
+        }
+
+        this.firstName = firstName;
+    }
+
+    public String getSurName()
+    {
         return surName;
     }
 
-    public Gender getGender() {
+    private void setSurName(String surName)
+    {
+        if (StringValidation.emptyString(surName))
+        {
+            throw new IllegalArgumentException("Surname is empty");
+        }
+
+        this.surName = surName;
+    }
+
+    public Gender getGender()
+    {
         return gender;
     }
 
-    public Date getBirthDate() {
+    private void setGender(Gender gender)
+    {
+        this.gender = gender;
+    }
+
+    public Date getBirthDate()
+    {
         return birthDate;
     }
 
-    public Date getDeathDate() {
+    private void setBirthDate(Date birthDate)
+    {
+        this.birthDate = birthDate;
+    }
+
+    public Date getDeathDate()
+    {
         return deathDate;
     }
 
-    public Place getPlace() {
+    private void setDeathDate(Date deathDate)
+    {
+        this.deathDate = deathDate;
+    }
+
+    public Place getPlace()
+    {
         return place;
     }
 
-    public Person getFather() {
+    private void setPlace(Place place)
+    {
+        this.place = place;
+    }
+
+    public Person getFather()
+    {
         return father;
     }
 
-    public Person getMother() {
+    public void setFather(Person father)
+    {
+        if (father == this)
+        {
+            throw new InvalidParentException();
+        }
+
+        this.father = father;
+    }
+
+    public Person getMother()
+    {
         return mother;
     }
 
+    public void setMother(Person mother)
+    {
+        if (mother == this)
+        {
+            throw new InvalidParentException();
+        }
+        this.mother = mother;
+    }
+
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Person{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + ", gender=" + gender + ", birthDate=" + birthDate + ", deathDate=" + deathDate + ", place=" + place + ", father=" + father + ", mother=" + mother + '}';
     }
 
-    public static class PersonBuilder {
-
-        private int personId;   // optional
-        private final String firstName; // required
-        private final String surName; // required
-        private final Gender gender; // required
-        private Date birthDate; // optional
-        private Date deathDate; // optional
-        private Place place; // optional
-        private Person father; // optional
-        private Person mother; // optional
-    }
-try
 }
