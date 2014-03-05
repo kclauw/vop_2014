@@ -106,8 +106,11 @@ public class PlaceDao implements IDao<Place>
             String country = res.getString("countryname");
             String placeName = res.getString("placename");
 
-            Coordinate coord = new Coordinate(longi, lat, coordId);
-            place = new Place(placeId, countryId, placeNameId, coord, country, zip, placeName);
+            if (placeId != 0 && countryId != 0 && placeNameId != 0)
+            {
+                Coordinate coord = new Coordinate(longi, lat, coordId);
+                place = new Place(placeId, countryId, placeNameId, coord, country, zip, placeName);
+            }
         }
         catch (SQLException ex)
         {
@@ -152,14 +155,14 @@ public class PlaceDao implements IDao<Place>
 
     public Place getPlaceObject(Place place)
     {
-        if (place.getplaceId() == -1)
+        if (place.getPlaceId() == -1)
         {
             save(place);
             return get(place);
         }
         else
         {
-            return get(place);
+            return this.get(place.getPlaceId());
         }
     }
 

@@ -42,7 +42,7 @@ public class Place
         this.placeNameId = placeNameId;
     }
 
-    public int getplaceId()
+    public int getPlaceId()
     {
         return placeId;
     }

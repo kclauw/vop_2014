@@ -85,7 +85,7 @@ public class PersonDao implements IDao<Person>
         {
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(SAVEPERSON);
-            prep.setInt(1, person.getPlace().getplaceId());
+            prep.setInt(1, person.getPlace().getPlaceId());
             prep.setString(2, person.getFirstName());
             prep.setString(3, person.getSurName());
             prep.setByte(4, person.getGender().getGenderId());
@@ -114,7 +114,7 @@ public class PersonDao implements IDao<Person>
             PreparedStatement prep = con.prepareStatement(UPDATEPERSON);
             Place place;
             place = pc.getPlace(person.getPlace());
-            prep.setInt(1, place.getplaceId());
+            prep.setInt(1, place.getPlaceId());
             prep.setString(2, person.getFirstName());
             prep.setString(3, person.getSurName());
             prep.setByte(4, person.getGender().getGenderId());
