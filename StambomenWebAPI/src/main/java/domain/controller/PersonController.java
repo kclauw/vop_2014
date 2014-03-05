@@ -1,7 +1,7 @@
 package domain.controller;
 
 import domain.Person;
-import exception.CannotDeletePersonThatDoesntExistException;
+import exception.PersonAlreadyExistsException;
 import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,29 +19,6 @@ public class PersonController
     public PersonController()
     {
         pc = new PersistenceController();
-    }
-
-    /**
-     * Add a person that doesn't already exist. Throws
-     * PersonAlreadyExistsException otherwise.
-     *
-     * @param person
-     */
-    public void addPerson(Person person)
-    {
-        /*Check wheter the person exists. This should be place in a repo.*/
-        Person ps = pc.getPerson(person.getPersonId());
-
-        if (ps != null)
-        {
-            logger.info("[PERSON CONTROLLER] Updating person: " + person);
-            pc.updatePerson(person);
-        }
-        else
-        {
-            logger.info("[PERSON CONTROLLER] Adding person: " + person);
-            pc.addPerson(person);
-        };
     }
 
     public void deletePerson(int personId)
@@ -65,5 +42,27 @@ public class PersonController
     public Collection<Person> getPersons(int personID)
     {
         return pc.getPersons(personID);
+    }
+
+    /**
+     * Add a person that doesn't already exist. Throws
+     * PersonAlreadyExistsException otherwise.
+     *
+     * @param person
+     */
+    public void addPerson(int treeID, Person person)
+    {
+        /*Check wheter the person exists. This should be place in a repo.*/
+        Person ps = pc.getPerson(person.getPersonId());
+
+        if (ps != null)
+        {
+            throw new PersonAlreadyExistsException();
+        }
+        else
+        {
+            logger.info("[PERSON CONTROLLER] Adding person: " + person);
+            pc.addPerson(treeID, person);
+        };
     }
 }
