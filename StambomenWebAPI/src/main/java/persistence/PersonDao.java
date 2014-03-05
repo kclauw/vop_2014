@@ -112,7 +112,9 @@ public class PersonDao implements IDao<Person>
         {
             con = DatabaseUtils.getConnection();
             PreparedStatement prep = con.prepareStatement(UPDATEPERSON);
-            prep.setInt(1, person.getPlace().getplaceId());
+            Place place;
+            place = pc.getPlace(person.getPlace());
+            prep.setInt(1, place.getplaceId());
             prep.setString(2, person.getFirstName());
             prep.setString(3, person.getSurName());
             prep.setByte(4, person.getGender().getGenderId());
@@ -133,7 +135,6 @@ public class PersonDao implements IDao<Person>
         }
     }
 
-    
     public void delete(int personId)
     {
         try
@@ -307,7 +308,8 @@ public class PersonDao implements IDao<Person>
     }
 
     @Override
-    public void delete(Person value) {
+    public void delete(Person value)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -92,4 +92,19 @@ public class Place
         this.placeName = placeName;
     }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj.getClass() == this.getClass())
+        {
+            Place p2 = (Place) obj;
+
+            if (this.getPlaceName().equals(p2.placeName) && this.getZipCode().equals(p2.getZipCode()) && this.getCountry().equals(p2.getCountry()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

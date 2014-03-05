@@ -145,4 +145,9 @@ public class PersistenceController
         userDao.sendFriendRequest(userID, frienduserName);
     }
 
+    public Place getPlace(Place place)
+    {
+        return this.placeDao.get(place);
+    }
+
 }

@@ -2,7 +2,6 @@ package domain.controller;
 
 import domain.Person;
 import exception.CannotDeletePersonThatDoesntExistException;
-import exception.PersonAlreadyExistsException;
 import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +34,8 @@ public class PersonController
 
         if (ps != null)
         {
-            logger.info("[PERSON CONTROLLER] This person already exists: " + person);
-            throw new PersonAlreadyExistsException();
+            logger.info("[PERSON CONTROLLER] Updating person: " + person);
+            pc.updatePerson(person);
         }
         else
         {

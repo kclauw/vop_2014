@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +22,15 @@ public class PlaceDao implements IDao<Place>
             + " JOIN Country coun on coun.countryID = p.countryID "
             + " JOIN Placename pla on pla.placenameID = p.placenameID "
             + " WHERE p.placeID = ?";
+
+    private final String GETPLACEBYPLACE = "SELECT placeID, zipcode, c.coordinatesID, "
+            + "             p.countryID,c.latitude, c.longitude, coun.name as countryname, "
+            + "            pla.placenameID, pla.name as placename FROM Place as p \n"
+            + "             LEFT JOIN Coordinates c on c.coordinatesID = p.coordinatesID "
+            + "		JOIN Country coun on coun.countryID = p.countryID "
+            + "			JOIN Placename pla on pla.placenameID = p.placenameID "
+            + "             WHERE coun.name = ? and pla.name = ? and zipcode = ?";
+
     private final Logger logger;
 
     public PlaceDao()
@@ -63,7 +73,7 @@ public class PlaceDao implements IDao<Place>
     }
 
     @Override
-    public void save(Place value)
+    public void save(Place place)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -116,6 +126,41 @@ public class PlaceDao implements IDao<Place>
     public Collection<Place> getAll()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Place get(Place place)
+    {
+        Place p = null;
+
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            PreparedStatement prep = con.prepareStatement(GETPLACEBYPLACE);
+            prep.setString(1, place.getCountry());
+            prep.setString(2, place.getPlaceName());
+            prep.setString(3, place.getZipCode());
+            ResultSet res = prep.executeQuery();
+            p = map(res);
+            return p;
+        }
+        catch (Exception ex)
+        {
+            java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public Place getPlaceObject(Place place)
+    {
+        if (place.getplaceId() == -1)
+        {
+            save(place);
+            return get(place);
+        }
+        else
+        {
+            return get(place);
+        }
     }
 
 }
