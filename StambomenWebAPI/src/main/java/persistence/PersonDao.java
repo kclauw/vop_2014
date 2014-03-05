@@ -98,10 +98,12 @@ public class PersonDao implements IDao<Person>
         catch (SQLException ex)
         {
             logger.info("[PERSON DAO][SQLException][Save] Sql exception: " + ex.getMessage());
+            ex.printStackTrace();
         }
         catch (Exception ex)
         {
             logger.info("[PERSON DAO][Exception][Save] Exception: " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 
@@ -114,7 +116,14 @@ public class PersonDao implements IDao<Person>
             PreparedStatement prep = con.prepareStatement(UPDATEPERSON);
             Place place;
             place = pc.getPlace(person.getPlace());
-            prep.setInt(1, place.getPlaceId());
+            if (place != null)
+            {
+                prep.setInt(1, place.getPlaceId());
+            }
+            else
+            {
+                prep.setNull(1, java.sql.Types.INTEGER);
+            }
             prep.setString(2, person.getFirstName());
             prep.setString(3, person.getSurName());
             prep.setByte(4, person.getGender().getGenderId());
@@ -127,11 +136,13 @@ public class PersonDao implements IDao<Person>
         }
         catch (SQLException ex)
         {
-            logger.info("[PERSONDAO][SQLException][Save] Sql exception: " + ex.getMessage());
+            logger.info("[PERSONDAO][SQLException][Update] Sql exception: " + ex.getMessage());
+            ex.printStackTrace();
         }
         catch (Exception ex)
         {
-            logger.info("[PERSONDAO][Exception][Save] Exception: " + ex.getMessage());
+            logger.info("[PERSONDAO][Exception][Update] Exception: " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 
