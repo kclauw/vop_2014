@@ -10,17 +10,19 @@ public class ClientPersonController
     private ClientPersonService clientPersonService;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public ClientPersonController(ClientPersonService clientPersonService) {
-        logger.info("[CLIENT PERSON CONTROLLER]" + clientPersonService.toString());
-        this.clientPersonService = clientPersonService;
+    public ClientPersonController()
+    {
+        this.clientPersonService = new ClientPersonService();
     }
 
-    public String savePerson(PersonDTO person) {
+    public String savePerson(PersonDTO person)
+    {
         logger.info("[CLIENT PERSON CONTROLLER] SAVE PERSON " + person.toString());
         return clientPersonService.savePerson(person);
     }
 
-    public void deletePerson(PersonDTO person) {
+    public void deletePerson(PersonDTO person)
+    {
         System.out.println("[CLIENT PERSON CONTROLLER] DELETING PERSON " + person.toString());
         clientPersonService.deletePerson(person);
     }
