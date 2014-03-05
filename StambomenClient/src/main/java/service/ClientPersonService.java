@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
+
 public class ClientPersonService
 {
 
@@ -38,11 +39,8 @@ public class ClientPersonService
        // client.target(url + "person/delete/" + person.getPersonId()).request(MediaType.APPLICATION_JSON).get();
         //client.target(url + "person/delete/" + person.getPersonId()).request(MediaType.APPLICATION_JSON).get();;    
         System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + person.toString());
-        Client client = getClient();
-        client.register(new JacksonFeature());
-        client.target(url + "/person/delete/" + person.getPersonId()).request(MediaType.APPLICATION_JSON).get();
-        
-        
+        Client client = getClient();       
+        client.target(url + "person/delete/" + person.getPersonId()).request(MediaType.APPLICATION_JSON).get();
     }
         private Client getClient()
     {
