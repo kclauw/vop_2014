@@ -30,6 +30,7 @@
         </div>
         <div class="wrapper">
             <div>
+                <h1>Familytrees</h1>
                 <ul class="treelist">
                     <c:forEach var="tree" items="${trees}" varStatus="counter">
                         <a href="./TreeServlet?treeid=${tree.id}" class="itemblock"><li>
