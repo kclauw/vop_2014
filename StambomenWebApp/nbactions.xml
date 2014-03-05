@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-Deploy Staging</actionName>
+            <displayName>Deploy Staging</displayName>
+            <goals>
+                <goal>tomcat:redeploy</goal>
+            </goals>
+            <properties>
+                <vop.env>staging</vop.env>
+            </properties>
+        </action>
+    </actions>

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(window).load(function() {
     $('.popupboxbg').hide();
     $('.popupboxbg > div:last-child').click(function(args) {
         $('.popupboxbg').hide();
@@ -15,7 +15,8 @@ $(document).ready(function() {
         $('.popupboxbg').show();
     });
     
-    $('body > .wrapper > div').width(1000000);
-    $('.tree').width($('.tree').width() + 40);
+    $('.tree').width($('.tree').width());
     $('body > .wrapper > div').css({'width':'auto'});
+    
+    $(document).scrollTo( '50%', {axis: 'x'} );
 });

@@ -18,6 +18,7 @@
         <link rel="stylesheet" type="text/css" href="./css/stamboom.css"/>
         
         <script src="./js/jquery-1.11.0.min.js"></script>
+        <script src="./js/jquery.scrollTo-1.4.3.1-min.js"></script>
         <script src="./js/stamboom.js"></script>
     </head>
     <body>
