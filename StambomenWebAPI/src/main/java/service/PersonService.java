@@ -2,12 +2,7 @@ package service;
 
 import domain.Person;
 import domain.controller.PersonController;
-import exception.EmptyPasswordException;
-import exception.EmptyUsernameException;
-import exception.InvalidPasswordException;
 import exception.PersonAlreadyExistsException;
-import exception.WrongLoginExeption;
-import java.util.Map;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -27,6 +22,7 @@ import org.slf4j.LoggerFactory;
 @Path("/person")
 public class PersonService
 {
+
     private PersonController pc = new PersonController();
     private final Logger logger = LoggerFactory.getLogger(getClass());
 //    @GET
@@ -39,6 +35,7 @@ public class PersonService
 //        return uc.getUsers();
 //    }
 //
+
     @POST
     @Path("/post")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -55,29 +52,30 @@ public class PersonService
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
 
-    } //http://localhost:8084/StambomenWebAPI/rest/person/delete/6
+    }
+
     @GET
     @Path("/delete/{personId}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response deletePerson(int personId)
     {
-            logger.info("[PERSON SERVICE] DELETING PERSON " + personId);
-            String result = "Person deleted:" + personId;
-            pc.deletePerson(personId);
-            return Response.status(Response.Status.OK).entity(result).build();
+        logger.info("[PERSON SERVICE] DELETING PERSON " + personId);
+        String result = "Person deleted:" + personId;
+        pc.deletePerson(personId);
+        return Response.status(Response.Status.OK).entity(result).build();
     }
-    
+
     @POST
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updatePerson(Person person)
     {
-      
-            String result = "Person updated:" + person.toString();
-            pc.updatePerson(person);
-            return Response.status(Response.Status.OK).entity(result).build();
+
+        String result = "Person updated:" + person.toString();
+        pc.updatePerson(person);
+        return Response.status(Response.Status.OK).entity(result).build();
     }
-    
+
     @GET
     @Path("{personID}")
     @Produces(MediaType.APPLICATION_JSON)
