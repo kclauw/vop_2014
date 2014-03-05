@@ -29,13 +29,21 @@ public class PersonDTO2
         setBirthDate(person.getBirthDate());
         setDeathDate(person.getDeathDate());
 
-        PersonDTO2 father = new PersonDTO2();
-        father.setPersonId(person.getFather().getPersonId());
-        setFather(father);
+        PersonDTO2 newFather = new PersonDTO2();
+        PersonDTO father = person.getFather();
+        if (father != null)
+        {
+            father.setPersonId(father.getPersonId());
+            setFather(newFather);
+        }
 
-        PersonDTO2 mother = new PersonDTO2();
-        mother.setPersonId(person.getMother().getPersonId());
-        setMother(mother);
+        PersonDTO2 newMother = new PersonDTO2();
+        PersonDTO mother = person.getMother();
+        if (mother != null)
+        {
+            mother.setPersonId(mother.getPersonId());
+            setMother(newMother);
+        }
 
         setFirstName(person.getFirstName());
         setSurName(person.getSurName());
