@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 public class FamilyTreeDetailPanel extends javax.swing.JPanel
 {
+
     private boolean add = false;
     private boolean edit = false;
     private PersonDTO person;
@@ -277,8 +278,8 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             {
                 person.setFirstName(textFieldFirstname.getText());
                 person.setSurName(textFieldLastname.getText());
-                person.setBirthDate(dob.getDate());
-                person.setDeathDate(dod.getDate());
+//                person.setBirthDate(dob.getDate());
+//                person.setDeathDate(dod.getDate());
 
                 if (radioFemale.isSelected())
                 {
@@ -311,24 +312,23 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
     {//GEN-HEADEREND:event_btnAddActionPerformed
-        
+
         PersonDTO p = new PersonDTO();
         p.setFirstName(textFieldFirstname.getText());
         p.setSurName(textFieldLastname.getText());
-        p.setBirthDate(dob.getDate());
-        p.setDeathDate(dod.getDate());
-        
-                 if (radioFemale.isSelected())
-                {
-                    p.setGender(GenderDTO.FEMALE);
-                }
-                else
-                {
-                    p.setGender(GenderDTO.MALE);
-                }
+//        p.setBirthDate(dob.getDate());
+//        p.setDeathDate(dod.getDate());
+
+        if (radioFemale.isSelected())
+        {
+            p.setGender(GenderDTO.FEMALE);
+        }
+        else
+        {
+            p.setGender(GenderDTO.MALE);
+        }
         fttp.addPerson(p);
-           
-       
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
