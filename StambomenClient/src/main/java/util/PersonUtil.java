@@ -4,13 +4,15 @@ import dto.GenderDTO;
 import dto.PersonDTO;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PersonUtil
 {
-
+    private static final  Logger logger = LoggerFactory.getLogger(PersonUtil.class);
     public static List<PersonDTO> getChilderen(PersonDTO person, List<PersonDTO> persons)
-    {
-        System.out.println("   [PERSON UTIL] Getting childeren of " + person.getFirstName());
+    {      
+        logger.info("[PERSON UTIL][GET CHILDREN]Getting childeren of " + person.getFirstName());
 
         List<PersonDTO> childs = new ArrayList<PersonDTO>();
 
@@ -21,13 +23,13 @@ public class PersonUtil
 
             if (father != null && father.compareTo(person) == 0)
             {
-                System.out.println("    [PERSON UTIL] Found a child " + p.getFirstName());
+                logger.info("[PERSON UTIL][GET CHILDREN]Found a child " + p.getFirstName());
                 childs.add(p);
             }
 
             if (mother != null && mother.compareTo(person) == 0)
             {
-                System.out.println("    [PERSON UTIL] Found a child " + p.getFirstName());
+                logger.info("[PERSON UTIL][GET CHILDREN]Found a child " + p.getFirstName());
                 childs.add(p);
             }
         }
@@ -37,7 +39,7 @@ public class PersonUtil
 
     public static PersonDTO getPartner(PersonDTO person, List<PersonDTO> persons)
     {
-        //System.out.println("[PERSON UTILS] Getting partner of " + this.toString());
+        logger.info("[PERSON UTIL][GET PARTNER]Getting partner of " + person.toString());
 
         boolean g = person.getGender() == GenderDTO.FEMALE;
 
@@ -47,12 +49,12 @@ public class PersonUtil
             {
                 if (g)
                 {
-                    System.out.println("[PERSON UTILS] found father");
+                    logger.info("[PERSON UTIL][GET PARTNER]found father");
                     return p.getFather();
                 }
                 else
                 {
-                    System.out.println("[PERSON UTILS] found mother");
+                    logger.info("[PERSON UTIL][GET PARTNER]found mother");
                     return p.getMother();
                 }
             }
@@ -62,6 +64,7 @@ public class PersonUtil
 
     public static PersonDTO getRoot(List<PersonDTO> persons)
     {
+        logger.info("[PERSON UTIL][GET ROOT]");
         PersonDTO top = null;
         for (PersonDTO personitem : persons)
         {

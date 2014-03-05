@@ -11,6 +11,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.jackson.JacksonFeature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Contains the concrete implementations for the request to the WebAPI.
@@ -19,9 +21,10 @@ public class ClientUserService
 {
 
     private final String url = "http://localhost:8084/StambomenWebAPI/rest/user";
-
+    private final Logger logger = LoggerFactory.getLogger(getClass()); 
     public String makeUser(UserDTO userDTO)
     {
+        logger.info("[CLIENT USER SERVICE][MAKE USER]Make user:" + userDTO.toString());
         Client client = ClientBuilder.newClient();
         String json = new Gson().toJson(userDTO);
         Response response = client.target(url + "/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
@@ -35,7 +38,7 @@ public class ClientUserService
 
     public String login(UserDTO user)
     {
-        System.out.println("[CLIENT USER SERVICE] login of user " + user.toString());
+        logger.info("[CLIENT USER SERVICE][LOGIN]Login of user:" + user.toString());
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().credentials(user.getUsername(), user.getPassword()).build();
         Client client = ClientBuilder.newClient();
         client.register(feature);
@@ -48,8 +51,7 @@ public class ClientUserService
             System.out.println("USER NOT FOUND");
             return "Error";
         }
-
-        System.out.println("[CLIENT USER SERVICE] User dto found" + dto);
+        logger.info("[CLIENT USER SERVICE][LOGIN]User dto found" + dto);
 
         ClientServiceController.getInstance().setUser(dto);
         return null;
@@ -57,7 +59,7 @@ public class ClientUserService
 
     public List<UserDTO> getFriends(int userID)
     {
-        System.out.println("[CLIENT USER SERVICE] GETTING FRIENDS FOR USER: " + userID);
+        logger.info("[CLIENT USER SERVICE][GET FRIENDS]Getting friends for user: " + userID);
 
         Client client = getClient();
         client.register(new JacksonFeature());
@@ -70,8 +72,7 @@ public class ClientUserService
 
     public List<UserDTO> getFriendRequests(int userID)
     {
-        System.out.println("[CLIENT USER SERVICE] GETTING FRIENDS FOR USER: " + userID);
-
+        logger.info("[CLIENT USER SERVICE][GET FRIEND REQUESTS]Getting friendsfor user with id:" + userID);
         Client client = getClient();
         client.register(new JacksonFeature());
         List<UserDTO> friends = client.target(url + "/friends/requests/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
@@ -83,6 +84,7 @@ public class ClientUserService
     
     public void deleteFriend(int userID, int frienduserID)
     {
+        logger.info("[CLIENT USER SERVICE][DELETE FRIEND]Delete friend with id:" + frienduserID + " for user with id: "+ userID);
         Client client = getClient();
         client.register(new JacksonFeature());
         client.target(url + "/friends/delete/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
@@ -90,6 +92,7 @@ public class ClientUserService
 
     public void allowDenyFriendRequest(int userID, int frienduserID, boolean allow)
     {
+        logger.info("[CLIENT USER SERVICE][ALLOW DENY FRIEND REQUEST]Allow deny friendrequest for friend with id:" + frienduserID + " for user with id: "+ userID);
         Client client = getClient();
         client.register(new JacksonFeature());
         client.target(url + "/friends/requests/" + (allow?"allow":"deny") + "/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
@@ -97,6 +100,7 @@ public class ClientUserService
 
     public void sendFriendRequest(int userID, String frienduserName)
     {
+        logger.info("[CLIENT USER SERVICE][SEND FRIEND REQUEST]Send friendrequest to user with id:" + userID + " to friend user with name" + frienduserName);
         Client client = getClient();
         client.register(new JacksonFeature());
         client.target(url + "/friends/requests/send/" + userID + "/" + frienduserName).request(MediaType.APPLICATION_JSON).get();
@@ -104,6 +108,7 @@ public class ClientUserService
 
     private Client getClient()
     {
+        logger.info("[CLIENT USER SERVICE][GET CLIENT]");
         HttpAuthenticationFeature feature = ClientServiceController.getInstance().getHttpCredentials();
         Client client = ClientBuilder.newClient();
         client.register(feature);

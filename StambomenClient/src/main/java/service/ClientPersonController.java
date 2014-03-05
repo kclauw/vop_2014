@@ -17,19 +17,19 @@ public class ClientPersonController
 
     public String savePerson(int treeID, PersonDTO person)
     {
-        logger.info("[CLIENT PERSON CONTROLLER] SAVE PERSON " + person.toString());
+        logger.info("[CLIENT PERSON CONTROLLER][SAVE PERSON]:" + person.toString());
         return clientPersonService.savePerson(treeID, person);
     }
 
     public void deletePerson(PersonDTO person)
     {
-        System.out.println("[CLIENT PERSON CONTROLLER] DELETING PERSON " + person.toString());
+        logger.info("[CLIENT PERSON CONTROLLER][DELETING PERSON]:" + person.toString());
         clientPersonService.deletePerson(person);
     }
 
     public String updatePerson(PersonDTO person)
     {
-        System.out.println("[CLIENT PERSON CONTROLLER] Updating PERSON " + person.toString());
+        logger.info("[CLIENT PERSON CONTROLLER][Updating PERSON]:" + person.toString());
         return clientPersonService.updatePerson(person);
     }
 
