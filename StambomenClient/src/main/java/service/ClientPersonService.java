@@ -1,5 +1,3 @@
-
-
 package service;
 
 import com.google.gson.Gson;
@@ -11,14 +9,15 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-public class ClientPersonService 
+public class ClientPersonService
 {
-    
+
     private final String url = "http://localhost:8084/StambomenWebAPI/rest/";
 
     public String savePerson(PersonDTO person)
     {
         Client client = ClientBuilder.newClient();
+        client.register(ClientServiceController.getInstance().getHttpCredentials());
         String json = new Gson().toJson(person);
         Response response = client.target(url + "person/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
 
@@ -29,13 +28,14 @@ public class ClientPersonService
 
         return null;
     }
+
     public String deletePerson(PersonDTO person)
     {
         Client client = ClientBuilder.newClient();
         client.register(ClientServiceController.getInstance().getHttpCredentials());
-    
+
         Response response = client.target(url + "person/delete/" + person.getPersonId()).request(MediaType.APPLICATION_JSON).get();
-     
+
         System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + person.toString());
         if (response.getStatus() != 200)
         {
