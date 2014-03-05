@@ -55,10 +55,10 @@ public class PersonDao implements IDao<Person>
         try
         {
             con = DatabaseUtils.getConnection();
-             prep = con.prepareStatement(GETPERSONBYID);
+            prep = con.prepareStatement(GETPERSONBYID);
             prep.setInt(1, id);
             logger.info("[PERSON DAO] Getting person by id" + prep.toString());
-             res = prep.executeQuery();
+            res = prep.executeQuery();
 
             if (res.next())
             {
@@ -75,17 +75,22 @@ public class PersonDao implements IDao<Person>
         catch (Exception ex)
         {
             logger.info("[PERSON DAO][Exception][Get] Exception: " + ex.getMessage());
-        }finally {
-            try {
+        }
+        finally
+        {
+            try
+            {
                 DatabaseUtils.closeQuietly(res);
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
-            } catch (SQLException ex) {
+            }
+            catch (SQLException ex)
+            {
                 java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-        return person;
+            return person;
 
-    }
+        }
     }
 
     @Override
@@ -115,17 +120,24 @@ public class PersonDao implements IDao<Person>
         {
             logger.info("[PERSON DAO][Exception][Save] Exception: " + ex.getMessage());
             ex.printStackTrace();
-        }finally {
-            try {
+        }
+        finally
+        {
+            try
+            {
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
-            } catch (SQLException ex) {
+            }
+            catch (SQLException ex)
+            {
                 java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-    }}
+        }
+    }
 
     @Override
-    public void update(Person person){
+    public void update(Person person)
+    {
         PreparedStatement prep = null;
         try
         {
@@ -160,14 +172,20 @@ public class PersonDao implements IDao<Person>
         {
             logger.info("[PERSONDAO][Exception][Update] Exception: " + ex.getMessage());
             ex.printStackTrace();
-        }finally {
-            try {
+        }
+        finally
+        {
+            try
+            {
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
-            } catch (SQLException ex) {
+            }
+            catch (SQLException ex)
+            {
                 java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-    }}
+        }
+    }
 
     public void delete(int personId)
     {
@@ -188,14 +206,20 @@ public class PersonDao implements IDao<Person>
         catch (Exception ex)
         {
             logger.info("[Exception][PERSONDAO][Save]Exception: " + ex.getMessage());
-        }finally {
-            try {
+        }
+        finally
+        {
+            try
+            {
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
-            } catch (SQLException ex) {
+            }
+            catch (SQLException ex)
+            {
                 java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-    }}
+        }
+    }
 
     @Override
     public Collection<Person> getAll()
@@ -235,18 +259,24 @@ public class PersonDao implements IDao<Person>
         catch (Exception ex)
         {
             logger.info("[PERSONDAO][Exception][GetAll]Exception: " + ex.getMessage());
-        }finally {
-            try {
+        }
+        finally
+        {
+            try
+            {
                 DatabaseUtils.closeQuietly(res);
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
-            } catch (SQLException ex) {
+            }
+            catch (SQLException ex)
+            {
                 java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        mapRelations(persons, personMap);
-        return persons;
-    }}
+            mapRelations(persons, personMap);
+            return persons;
+        }
+    }
 
     @Override
     public Person map(ResultSet res)
@@ -279,16 +309,11 @@ public class PersonDao implements IDao<Person>
         catch (Exception ex)
         {
             logger.info("[PERSONDAO][Exception][Map]Exception: " + ex.getMessage());
-        }finally {
-            try {
-                DatabaseUtils.closeQuietly(res);
-                DatabaseUtils.closeQuietly(con);
-            } catch (SQLException ex) {
-                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        }
 
         return person;
-    }}
+
+    }
 
     public Person map(ResultSet res, MultiMap<Integer, Person> persMap)
     {
@@ -318,15 +343,10 @@ public class PersonDao implements IDao<Person>
         catch (Exception ex)
         {
             logger.info("[PERSONDAO][Exception][Map]Exception: " + ex.getMessage());
-        }finally {
-            try {
-                DatabaseUtils.closeQuietly(res);
-                DatabaseUtils.closeQuietly(con);
-            } catch (SQLException ex) {
-                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        }
+
         return person;
-    }}
+    }
 
     /**
      * Deze methode mapt de parentRelations naar echt relations. De int stelt
@@ -374,7 +394,5 @@ public class PersonDao implements IDao<Person>
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
 
 }

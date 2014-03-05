@@ -11,7 +11,8 @@ import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PlaceDao implements IDao<Place> {
+public class PlaceDao implements IDao<Place>
+{
 
     private Connection con;
     private final String GETPLACEBYID = "SELECT placeID, zipcode, c.coordinatesID, "
@@ -32,40 +33,54 @@ public class PlaceDao implements IDao<Place> {
 
     private final Logger logger;
 
-    public PlaceDao() {
+    public PlaceDao()
+    {
         logger = LoggerFactory.getLogger(getClass());
     }
 
     @Override
-    public Place get(int placeId) {
+    public Place get(int placeId)
+    {
         Place place = null;
         ResultSet res = null;
         PreparedStatement prep = null;
-        try {
+        try
+        {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(GETPLACEBYID);
             prep.setInt(1, placeId);
             logger.info("[PLACE DAO] Get place by id" + prep.toString());
             res = prep.executeQuery();
 
-            if (res != null) {
-                if (res.next()) {
+            if (res != null)
+            {
+                if (res.next())
+                {
                     place = map(res);
                 }
             }
 
             con.close();
 
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex)
+        {
             logger.info("[SQLException][PLACEDAO][Get]Sql exception: " + ex.getMessage());
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             logger.info("[Exception][PLACEDAO][Get]Exception: " + ex.getMessage());
-        } finally {
-            try {
+        }
+        finally
+        {
+            try
+            {
                 DatabaseUtils.closeQuietly(res);
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
-            } catch (SQLException ex) {
+            }
+            catch (SQLException ex)
+            {
                 java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -76,26 +91,32 @@ public class PlaceDao implements IDao<Place> {
     }
 
     @Override
-    public void save(Place place) {
+    public void save(Place place)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Place value) {
+    public void update(Place value)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Place value) {
+    public void delete(Place value)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Place map(ResultSet res) {
+    public Place map(ResultSet res)
+    {
 
         Place place = null;
-        try {
-            if (res != null && res.next()) {
+        try
+        {
+            if (res != null && res.next())
+            {
                 int placeId = res.getInt("placeID");
                 int countryId = res.getInt("countryID");
                 int placeNameId = res.getInt("placenameID");
@@ -106,23 +127,21 @@ public class PlaceDao implements IDao<Place> {
                 String country = res.getString("countryname");
                 String placeName = res.getString("placename");
 
-                if (placeId != 0 && countryId != 0 && placeNameId != 0) {
+                if (placeId != 0 && countryId != 0 && placeNameId != 0)
+                {
                     Coordinate coord = new Coordinate(longi, lat, coordId);
                     place = new Place(placeId, countryId, placeNameId, coord, country, zip, placeName);
                 }
             }
 
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex)
+        {
             logger.info("[PLACE DAO][SQLException][Map]Sql exception: " + ex.getMessage());
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             logger.info("[PLACEDAO][Exception][Map]Exception: " + ex.getMessage());
-        } finally {
-            try {
-                DatabaseUtils.closeQuietly(res);
-                DatabaseUtils.closeQuietly(con);
-            } catch (SQLException ex) {
-                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
 
         return place;
@@ -130,15 +149,18 @@ public class PlaceDao implements IDao<Place> {
     }
 
     @Override
-    public Collection<Place> getAll() {
+    public Collection<Place> getAll()
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Place get(Place place) {
+    public Place get(Place place)
+    {
         Place p = null;
         ResultSet res = null;
         PreparedStatement prep = null;
-        try {
+        try
+        {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(GETPLACEBYPLACE);
             prep.setString(1, place.getCountry());
@@ -147,14 +169,21 @@ public class PlaceDao implements IDao<Place> {
             res = prep.executeQuery();
             p = map(res);
             return p;
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
+        }
+        finally
+        {
+            try
+            {
                 DatabaseUtils.closeQuietly(res);
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
-            } catch (SQLException ex) {
+            }
+            catch (SQLException ex)
+            {
                 java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -162,11 +191,15 @@ public class PlaceDao implements IDao<Place> {
         return null;
     }
 
-    public Place getPlaceObject(Place place) {
-        if (place.getPlaceId() == -1) {
+    public Place getPlaceObject(Place place)
+    {
+        if (place.getPlaceId() == -1)
+        {
             save(place);
             return get(place);
-        } else {
+        }
+        else
+        {
             return this.get(place.getPlaceId());
         }
     }
