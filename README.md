@@ -1,6 +1,5 @@
 vop-2014-team12
 ===============
-# Stambomen team 12 #
 
 ## Preamble ##
 Stambomen is an application that's splitted into two applications, the stambomenWebAPP and the StambomenDesktopApp.
