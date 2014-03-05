@@ -70,7 +70,6 @@ public class PersonService
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updatePerson(Person person)
     {
-
         String result = "Person updated:" + person.toString();
         pc.updatePerson(person);
         return Response.status(Response.Status.OK).entity(result).build();
