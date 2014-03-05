@@ -8,13 +8,11 @@ package gui;
 import dto.PersonDTO;
 import gui.controller.TreeController;
 import java.awt.GridBagConstraints;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
-import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 
 /**
@@ -123,5 +121,10 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     public void setViewPort(int width, int i)
     {
         this.scroll.getHorizontalScrollBar().setValue(width / 2);
+    }
+
+    public void updatePerson(PersonDTO person)
+    {
+        this.treeController.updatePerson(person);
     }
 }
