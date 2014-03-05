@@ -8,6 +8,7 @@ package gui;
 import dto.PersonDTO;
 import gui.controller.TreeController;
 import java.awt.GridBagConstraints;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -117,5 +118,10 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     public void deletePerson(PersonDTO person)
     {
         this.treeController.deletePerson(person);
+    }
+
+    public void setViewPort(int width, int i)
+    {
+        this.scroll.getHorizontalScrollBar().setValue(width / 2);
     }
 }

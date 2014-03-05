@@ -123,6 +123,7 @@ public class FamilyTreePanel extends javax.swing.JPanel
         paint(this.getGraphics());
         repaint();
         validate();
+        this.totalPanel.setViewPort(this.getMinimumSize().width, 0);
     }
 
     private List<Shape> makeShapes()
