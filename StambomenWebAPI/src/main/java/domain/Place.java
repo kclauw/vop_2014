@@ -11,6 +11,10 @@ public class Place
     private String zipCode;
     private String placeName;
 
+    public Place()
+    {
+    }
+
     public Place(int placeId, int countryId, int placeNameId, Coordinate coord, String country, String zipCode, String placeName)
     {
         setplaceId(placeId);
@@ -42,7 +46,7 @@ public class Place
         this.placeNameId = placeNameId;
     }
 
-    public int getplaceId()
+    public int getPlaceId()
     {
         return placeId;
     }
@@ -90,6 +94,21 @@ public class Place
     private void setPlaceName(String placeName)
     {
         this.placeName = placeName;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj.getClass() == this.getClass())
+        {
+            Place p2 = (Place) obj;
+
+            if (this.getPlaceName().equals(p2.placeName) && this.getZipCode().equals(p2.getZipCode()) && this.getCountry().equals(p2.getCountry()))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

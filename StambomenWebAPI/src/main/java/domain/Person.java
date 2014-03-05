@@ -7,15 +7,19 @@ import util.StringValidation;
 public class Person
 {
 
-    private int personId;
-    private String firstName;
-    private String surName;
-    private Gender gender;
-    private Date birthDate;
-    private Date deathDate;
-    private Place place;
-    private Person father;
-    private Person mother;
+    private int personId;   // optional
+    private String firstName; // required
+    private String surName; // required
+    private Gender gender; // required
+    private Date birthDate; // optional
+    private Date deathDate; // optional
+    private Place place; // optional
+    private Person father; // optional
+    private Person mother; // optional
+
+    public Person()
+    {
+    }
 
     public Person(int personId, String firstName, String surName, Gender gender, Date birthDate, Date deathDate, Place place, Person father, Person mother)
     {

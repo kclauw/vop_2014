@@ -8,7 +8,8 @@ import gui.controller.TreeController;
 import java.awt.GridBagConstraints;
 import javax.swing.JOptionPane;
 
-public class FamilyTreeDetailPanel extends javax.swing.JPanel {
+public class FamilyTreeDetailPanel extends javax.swing.JPanel
+{
 
     private boolean edit = false;
     private PersonDTO person;
@@ -16,8 +17,9 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
     private JDateChooser dod;
     private FamilyTreeTotalPanel fttp;
     private TreeController treeController;
-    
-    public FamilyTreeDetailPanel(PersonDTO person, FamilyTreeTotalPanel fttp) {
+
+    public FamilyTreeDetailPanel(PersonDTO person, FamilyTreeTotalPanel fttp)
+    {
         this.fttp = fttp;
         initComponents();
         initDate();
@@ -31,7 +33,8 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup1 = new javax.swing.ButtonGroup();
@@ -89,8 +92,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
         add(textFieldLastname, gridBagConstraints);
 
-        textFieldFirstname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        textFieldFirstname.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 textFieldFirstnameActionPerformed(evt);
             }
         });
@@ -193,8 +198,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
         btnEdit.setMaximumSize(new java.awt.Dimension(200, 23));
         btnEdit.setMinimumSize(new java.awt.Dimension(200, 23));
         btnEdit.setPreferredSize(new java.awt.Dimension(200, 23));
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnEdit.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnEditActionPerformed(evt);
             }
         });
@@ -230,8 +237,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
         btnDelete.setMaximumSize(new java.awt.Dimension(200, 23));
         btnDelete.setMinimumSize(new java.awt.Dimension(200, 23));
         btnDelete.setPreferredSize(new java.awt.Dimension(200, 23));
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnDelete.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnDeleteActionPerformed(evt);
             }
         });
@@ -243,6 +252,13 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
         add(btnDelete, gridBagConstraints);
 
         btnButton.setText("Add");
+        btnButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 8;
@@ -256,30 +272,36 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_textFieldFirstnameActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        if (!edit) {
+        if (!edit)
+        {
             btnEdit.setText("save");
             this.setEditable(true);
             edit = true;
-        } else {
-            JOptionPane.showConfirmDialog(null, "Are you sure you want to save?");
-            
-            person.setFirstName(textFieldFirstname.getText());
-            person.setSurName(textFieldLastname.getText());
-            person.setBirthDate(dob.getDate());
-            person.setDeathDate(dod.getDate());
-            
-            if(radioFemale.isSelected())
+        }
+        else
+        {
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to save?");
+
+            if (confirm == JOptionPane.YES_OPTION)
             {
-                person.setGender(GenderDTO.FEMALE);
+                person.setFirstName(textFieldFirstname.getText());
+                person.setSurName(textFieldLastname.getText());
+                person.setBirthDate(dob.getDate());
+                person.setDeathDate(dod.getDate());
+
+                if (radioFemale.isSelected())
+                {
+                    person.setGender(GenderDTO.FEMALE);
+                }
+                else
+                {
+                    person.setGender(GenderDTO.MALE);
+                }
+
+                person.setPlace(new PlaceDTO(-1, -1, -1, null, textFieldCountry.getText(), textFieldZipCode.getText(), textFieldCity.getText()));
+                fttp.updatePerson(person);
             }
-            else
-            {
-                person.setGender(GenderDTO.MALE);
-            }
-            
-            person.setPlace(new PlaceDTO(-1, -1, -1, null, textFieldCountry.getText(), textFieldZipCode.getText(), textFieldCity.getText()));
-            fttp.savePerson(person);
-            
+
             this.setEditable(false);
             btnEdit.setText("edit");
             edit = false;
@@ -287,12 +309,22 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-           JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this person?");
-           
-           System.out.println("[FAMILY TREE DETAIL PANEL] DELETING PERSON " + person.toString());
-           fttp.deletePerson(person);
-            //treeController.deletePerson(person);
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this person?");
+
+        if (confirm == JOptionPane.YES_OPTION)
+        {
+            System.out.println("[FAMILY TREE DETAIL PANEL] DELETING PERSON " + person.toString());
+            fttp.deletePerson(person);
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnButtonActionPerformed
+    {//GEN-HEADEREND:event_btnButtonActionPerformed
+        PersonDTO person = new PersonDTO();
+        person.setFirstName("Hell ");
+        person.setSurName(" YEAH");
+        this.fttp.addPerson(person);
+    }//GEN-LAST:event_btnButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel adressPanel;
@@ -318,42 +350,52 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
     private javax.swing.JTextField textFieldZipCode;
     // End of variables declaration//GEN-END:variables
 
-    public void setPerson(PersonDTO person) {
+    public void setPerson(PersonDTO person)
+    {
         this.person = person;
-        
-        if (person != null) {
+
+        if (person != null)
+        {
             textFieldFirstname.setText(person.getFirstName());
             textFieldLastname.setText(person.getSurName());
-            
+
             GenderDTO g = person.getGender();
             buttonGroup1.add(radioMale);
             buttonGroup1.add(radioFemale);
-            
+
             dob.setDate(person.getBirthDate());
             dod.setDate(person.getDeathDate());
-            
-            if (g == GenderDTO.MALE) {
+
+            if (g == GenderDTO.MALE)
+            {
                 radioMale.setSelected(true);
-            } else {
+            }
+            else
+            {
                 radioFemale.setSelected(true);
             }
 
             PlaceDTO place = person.getPlace();
-            if (place == null) {
+            if (place == null)
+            {
                 textFieldCity.setText("Undefined");
                 textFieldCountry.setText("Undefined");
                 textFieldZipCode.setText("Undefined");
-            } else {
+            }
+            else
+            {
                 textFieldCity.setText(place.getPlaceName());
                 textFieldCountry.setText(place.getCountry());
                 textFieldZipCode.setText(place.getZipCode());
             }
-            
+
         }
     }
-    
-    private void setEditable(boolean edit) {
-        if (!edit) {
+
+    private void setEditable(boolean edit)
+    {
+        if (!edit)
+        {
             textFieldFirstname.setEditable(false);
             radioFemale.setEnabled(false);
             radioMale.setEnabled(false);
@@ -363,7 +405,9 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
             textFieldZipCode.setEditable(false);
             dob.setEnabled(false);
             dod.setEnabled(false);
-        } else {
+        }
+        else
+        {
             textFieldFirstname.setEditable(true);
             radioFemale.setEnabled(true);
             radioMale.setEnabled(true);
@@ -375,24 +419,25 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel {
             dod.setEnabled(true);
         }
     }
-    
-    private void initDate() {
+
+    private void initDate()
+    {
         dob = new JDateChooser();
         GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
-         gridBagConstraints.ipadx = 3;
+        gridBagConstraints.ipadx = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.9;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         this.add(dob, gridBagConstraints);
-        
+
         dod = new JDateChooser();
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.weightx = 0.9;
-         gridBagConstraints.ipadx = 3;
+        gridBagConstraints.ipadx = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         this.add(dod, gridBagConstraints);

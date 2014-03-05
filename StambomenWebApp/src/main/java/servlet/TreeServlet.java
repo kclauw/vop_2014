@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import util.PersonUtil;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  *
  * @author Lowie
@@ -34,8 +35,10 @@ public class TreeServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        logger.info("[TREE SERVLET][PROCESS REQUEST]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
         
     }
 
@@ -51,7 +54,8 @@ public class TreeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        logger.info("[TREE SERVLET][DO GET]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
+       
         String streeid = request.getParameter("treeid");
         
         if (streeid != null)
@@ -61,6 +65,8 @@ public class TreeServlet extends HttpServlet {
     }
     
     private void processTree(HttpServletRequest request, HttpServletResponse response, String streeid) throws ServletException, IOException {
+        logger.info("[TREE SERVLET][PROCESS TREE]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
+        logger.info("[TREE SERVLET][PROCESS TREE]TREE ID:" + streeid.toString());
         request.removeAttribute("treeid");
         int treeid;
         if (streeid == null)
@@ -83,6 +89,8 @@ public class TreeServlet extends HttpServlet {
     }
     
     private void generateTree(HttpServletRequest request, HttpServletResponse response, TreeDTO tree) throws ServletException, IOException {
+        logger.info("[TREE SERVLET][GENERATE TREE]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
+        logger.info("[TREE SERVLET][GENERATE TREE]TREEDTO:" + tree.toString());
         HttpSession session = request.getSession(false);
         
         if (tree != null && tree.getPersons() != null)
@@ -104,7 +112,8 @@ public class TreeServlet extends HttpServlet {
     }
     
     private String loop(List<PersonDTO> allpersons, PersonDTO refperson, String treehtml, PersonDTO parent) {
-        
+        logger.info("[TREE SERVLET][LOOP]PERSONDTO LIST:" + allpersons.toString() + "PERSONDTO REFPERSON" + refperson.toString());
+        logger.info("[TREE SERVLET][LOOP]PERSONDTO PARENT:" + parent.toString() + "TREE HTML" + treehtml.toString());
         treehtml += "\n <li>" + getPersonHtml(refperson, parent);
         
         boolean first = true;
@@ -137,6 +146,7 @@ public class TreeServlet extends HttpServlet {
     }
     
     private String getPersonHtml(PersonDTO refperson, PersonDTO person) {
+        logger.info("[TREE SERVLET][GET PERSON HTML]PERSONDTO REFPERSON:" + refperson.toString() + "PERSONDTO PERSON" + person.toString());
         String html = "";
         
         if (person != null)
@@ -171,6 +181,7 @@ public class TreeServlet extends HttpServlet {
     }
     
     private String getString(Object obj) {
+        logger.info("[TREE SERVLET][GET STRING]");
         if (obj == null)
             return "/";
         else
@@ -178,6 +189,8 @@ public class TreeServlet extends HttpServlet {
     }
 
     private void changeRefPerson(HttpServletRequest request, HttpServletResponse response, String refPerson) throws ServletException, IOException {
+        logger.info("[TREE SERVLET][CHANGE REF PERSON]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
+        logger.info("[TREE SERVLET][CHANGE REF PERSON]REF PERSON:" + refPerson.toString());
         request.removeAttribute("refpersonid");
         int personid;
         if (refPerson == null)
@@ -213,7 +226,7 @@ public class TreeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        logger.info("[TREE SERVLET][DO POST]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
         String refPerson = request.getParameter("refpersonid");
         if (refPerson != null)
             changeRefPerson(request, response, refPerson);
@@ -229,6 +242,7 @@ public class TreeServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
+        logger.info("[TREE SERVLET][GET SERVLET INFO]");
         return "Short description";
     }// </editor-fold>
 

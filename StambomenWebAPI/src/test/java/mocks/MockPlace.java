@@ -35,7 +35,7 @@ public class MockPlace implements IPlaceDAO<Place>  {
           Place p = null;
 
         for (Place item : places) {
-            if (item.getplaceId() == id) {
+            if (item.getPlaceId() == id) {
                 p = item;
             }
         }

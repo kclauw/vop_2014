@@ -12,21 +12,23 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.jackson.JacksonFeature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ClientTreeService
 {
 
     private final String url = "http://localhost:8084/StambomenWebAPI/rest/tree";
-
+    private final Logger logger = LoggerFactory.getLogger(getClass()); 
+    
     public String makeTree(TreeDTO treeDTO)
     {
         Client client = ClientBuilder.newClient();
         client.register(ClientServiceController.getInstance().getHttpCredentials());
         String json = new Gson().toJson(treeDTO);
-        System.out.println("[CLIENT TREE SERVICE] Tree in json: " + json);
+        logger.info("[CLIENT TREE SERVICE][MAKE TREE]Tree in json" + json);
         Response response = client.target(url + "/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
-
-        System.out.println("[CLIENT TREE SERVICE] Tree " + response.toString());
+        logger.info("[CLIENT TREE SERVICE][MAKE TREE]Response:" + response.toString());
         if (response.getStatus() != 200)
         {
             return " " + response.getStatusInfo();
@@ -38,7 +40,7 @@ public class ClientTreeService
     public List<TreeDTO> getTrees(int userId)
     {
         userId = ClientServiceController.getInstance().getUser().getId();
-        System.out.println("[CLIENT TREE SERVICE] GETTING TREES FOR USER: " + userId);
+        logger.info("[CLIENT TREE SERVICE][GET TREE]Getting trees from user with userid:" + userId);
         HttpAuthenticationFeature feature = ClientServiceController.getInstance().getHttpCredentials();
         Client client = ClientBuilder.newClient();
         client.register(feature);
@@ -56,14 +58,15 @@ public class ClientTreeService
 
             for (PersonDTO person : persons)
             {
-                System.out.println("[CLIENT TREE SERVICE] person " + person.hashCode() + " " + person.getFirstName());
+                logger.info("[CLIENT TREE SERVICE][GET TREE]Person: " + person.hashCode() + " " + person.getFirstName());
+  
                 if (person.getFather() != null)
                 {
-                    System.out.println("[CLIENT TREE SERVICE] person father" + person.getFather().hashCode() + " " + person.getFather().getFirstName());
+                    logger.info("[CLIENT TREE SERVICE][GET TREE]Person father: " + person.getFather().hashCode() + " " + person.getFather().getFirstName());
                 }
                 if (person.getMother() != null)
                 {
-                    System.out.println("[CLIENT TREE SERVICE] person mother" + person.getMother().hashCode() + " " + person.getMother().getFirstName());
+                    logger.info("[CLIENT TREE SERVICE][GET TREE]Person mother: " + person.getMother().hashCode() + " " + person.getMother().getFirstName());
                 }
             }
         }

@@ -47,7 +47,7 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     public void setTreeController(final TreeController treeController)
     {
         initComponents();
-        this.setSize(800, 600);
+        this.setSize(1200, 400);
         this.treeController = treeController;
         this.familyTreePanel = new FamilyTreePanel(treeController, this);
         this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
@@ -61,13 +61,15 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         c.gridx = 0;
         c.gridy = 0;
         c.fill = 1;
-        c.weightx = 0;
-        c.ipadx = 400;
+        c.weightx = 20;
+        c.weighty = 20;
         this.add(scroll, c);
         c.gridx = 1;
         c.gridy = 0;
-        c.ipadx = 400;
+        c.fill = 1;
+        c.gridx = 10;
         c.weightx = 1;
+        c.weighty = 20;
         this.add(familyTreeDetailPanel, c);
 
         JButton b = new JButton("Back to overview");
@@ -78,11 +80,13 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
                 treeController.goTo(Panels.TREEOVERVIEW);
             }
         });
-        c.ipadx = 50;
-        c.ipady = 20;
+
+        c.ipadx = 5;
+        c.ipady = 5;
         c.gridx = 1;
         c.gridy = 1;
-        c.gridwidth = 2;
+        c.gridwidth = 1;
+        c.fill = 0;
         this.add(b, c);
         this.validate();
     }
@@ -107,12 +111,23 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         this.familyTreePanel.drawFamilyTree(persons);
     }
 
-    public void savePerson(PersonDTO person)
-    {
-        this.treeController.savePerson(person);
-    }
     public void deletePerson(PersonDTO person)
     {
         this.treeController.deletePerson(person);
+    }
+
+    public void setViewPort(int width, int i)
+    {
+        this.scroll.getHorizontalScrollBar().setValue(width / 2);
+    }
+
+    public void updatePerson(PersonDTO person)
+    {
+        this.treeController.updatePerson(person);
+    }
+
+    public void addPerson(PersonDTO person)
+    {
+        this.treeController.addPerson(person);
     }
 }

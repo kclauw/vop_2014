@@ -20,13 +20,14 @@ public class TreeController implements IPanelController
     private ClientTreeController clientTreeController;
     private ClientPersonController clientPersonController;
     private ClientPersonService clientPersonService;
-   public TreeController(GuiController guiController)
+
+    public TreeController(GuiController guiController)
     {
         this.gui = guiController;
-        
+
         this.clientTreeController = new ClientTreeController();
         this.clientPersonService = new ClientPersonService();
-        this.clientPersonController = new ClientPersonController(clientPersonService);
+        this.clientPersonController = new ClientPersonController();
     }
 
     public JPanel show()
@@ -70,18 +71,25 @@ public class TreeController implements IPanelController
 
     }
 
-    public void savePerson(PersonDTO person)
-    {
-        System.out.println("[TREE CONTROLLER] SAVING PERSON " + person.toString());
-        clientPersonController.savePerson(person);
-        this.gui.goTo(Panels.TREEOVERVIEW);
-    }
-    
-        public void deletePerson(PersonDTO person)
+    public void deletePerson(PersonDTO person)
     {
 
         System.out.println("[TREE CONTROLLER] DELETING PERSON " + person.toString());
         clientPersonController.deletePerson(person);
+        this.gui.goTo(Panels.TREEOVERVIEW);
+    }
+
+    public void updatePerson(PersonDTO person)
+    {
+        System.out.println("[TREE CONTROLLER] UPDATING PERSON " + person.toString());
+        clientPersonController.updatePerson(person);
+        this.gui.goTo(Panels.TREEOVERVIEW);
+    }
+
+    public void addPerson(PersonDTO person)
+    {
+        System.out.println("[TREE CONTROLLER] SAVING PERSON " + person.toString());
+        clientPersonController.savePerson(tree.getId(), person);
         this.gui.goTo(Panels.TREEOVERVIEW);
     }
 

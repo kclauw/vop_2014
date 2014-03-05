@@ -23,13 +23,15 @@ import javax.servlet.http.HttpSession;
 import service.ClientServiceController;
 import service.ClientTreeController;
 import service.ClientUserController;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  *
  * @author Lowie
  */
 public class LoginFilter implements Filter {
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     @Override
     public void init(FilterConfig config) throws ServletException {
         // If you have any <init-param> in web.xml, then you could get them
@@ -38,6 +40,7 @@ public class LoginFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+        logger.info("[LOGIN FILTER][DO FILTER]:" + req.toString() + " " + res.toString() + " " + chain.toString());
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession(false);
@@ -53,6 +56,7 @@ public class LoginFilter implements Filter {
         {
             if (session != null)
             {
+                logger.info("[LOGIN FILTER][DO FILTER]" + logout.toString() + " " + session.toString());
                 session.invalidate();
                 session = null;
             }
@@ -68,6 +72,7 @@ public class LoginFilter implements Filter {
             ClientUserController userController = new ClientUserController();
             
             UserDTO user = new UserDTO(0, username, password);
+            logger.info("[LOGIN FILTER][DO FILTER] NEW USER:" + username.toString());
             String loginResponse = userController.login(user);
             if (loginResponse == null)
             {
@@ -122,6 +127,7 @@ public class LoginFilter implements Filter {
     }
     
     private void initUserData(HttpSession session, UserDTO user) {
+        logger.info("[LOGIN FILTER][INIT USER DATA]HTTP SESSION:" + session.toString() + "USERDTO " + user.toString());
         ClientTreeController treeController = (ClientTreeController) session.getAttribute("treeController");
         session.setAttribute("trees", treeController.getTrees(user.getId()));
     }

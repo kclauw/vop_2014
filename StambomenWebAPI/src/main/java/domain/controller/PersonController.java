@@ -1,7 +1,6 @@
 package domain.controller;
 
 import domain.Person;
-import exception.CannotDeletePersonThatDoesntExistException;
 import exception.PersonAlreadyExistsException;
 import java.util.Collection;
 import org.slf4j.Logger;
@@ -22,42 +21,10 @@ public class PersonController
         pc = new PersistenceController();
     }
 
-    /**
-     * Add a person that doesn't already exist. Throws
-     * PersonAlreadyExistsException otherwise.
-     *
-     * @param person
-     */
-    public void addPerson(Person person)
-    {
-        /*Check wheter the person exists. This should be place in a repo.*/
-        Person ps = pc.getPerson(person.getPersonId());
-        if (ps != null)
-        {
-            logger.info("[PERSON CONTROLLER] This person already exists: " + person);
-            throw new PersonAlreadyExistsException();
-        }
-        else
-        {
-            logger.info("[PERSON CONTROLLER] Adding person: " + person);
-            pc.addPerson(person);
-        };
-    }
-
     public void deletePerson(int personId)
     {
         System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + personId);
-        Person ps = pc.getPerson(personId);
-
-        if (ps != null)
-        {
-            pc.deletePerson(personId);
-        }
-        if (ps == null)
-        {
-            logger.info("[PERSON CONTROLLER] Cannot delete person that doesn't exist");
-            throw new CannotDeletePersonThatDoesntExistException();
-        }
+        pc.deletePerson(personId);
     }
 
     public void updatePerson(Person person)
@@ -75,5 +42,27 @@ public class PersonController
     public Collection<Person> getPersons(int personID)
     {
         return pc.getPersons(personID);
+    }
+
+    /**
+     * Add a person that doesn't already exist. Throws
+     * PersonAlreadyExistsException otherwise.
+     *
+     * @param person
+     */
+    public void addPerson(int treeID, Person person)
+    {
+        /*Check wheter the person exists. This should be place in a repo.*/
+        Person ps = pc.getPerson(person.getPersonId());
+
+        if (ps != null)
+        {
+            throw new PersonAlreadyExistsException();
+        }
+        else
+        {
+            logger.info("[PERSON CONTROLLER] Adding person: " + person);
+            pc.addPerson(treeID, person);
+        };
     }
 }

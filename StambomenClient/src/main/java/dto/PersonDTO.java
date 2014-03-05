@@ -1,5 +1,6 @@
 package dto;
 
+import java.util.Comparator;
 import java.util.Date;
 
 public class PersonDTO implements java.io.Serializable, Cloneable
@@ -177,5 +178,22 @@ public class PersonDTO implements java.io.Serializable, Cloneable
         person.setPersonId(personId);
         return person;
     }
+
+    public static Comparator<PersonDTO> PersonComparator
+            = new Comparator<PersonDTO>()
+            {
+
+                public int compare(PersonDTO p1, PersonDTO p2)
+                {
+                    if (p1.getGender() == GenderDTO.FEMALE)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+                }
+            };
 
 }

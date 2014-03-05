@@ -6,7 +6,9 @@
 package gui;
 
 import dto.PersonDTO;
+import static dto.PersonDTO.PersonComparator;
 import gui.controller.TreeController;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -15,21 +17,23 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.TreeSet;
 import util.PersonUtil;
 
 public class FamilyTreePanel extends javax.swing.JPanel
 {
 
     private TreeController treeController;
-    private List<PersonDTO> persons;
+    private TreeSet<PersonDTO> persons;
     private final FamilyTreeTotalPanel totalPanel;
     private List<Shape> shapes;
     private PersonUtil personUtil;
+    private HashMap<Integer, Color> colors = new HashMap<Integer, Color>();
 
     public FamilyTreePanel(TreeController tree, FamilyTreeTotalPanel tp)
     {
@@ -51,6 +55,7 @@ public class FamilyTreePanel extends javax.swing.JPanel
     public void paint(Graphics g)
     {
         super.paint(g);
+
         if (shapes != null && shapes.size() > 0)
         {
             for (Shape shape : shapes)
@@ -62,8 +67,19 @@ public class FamilyTreePanel extends javax.swing.JPanel
 
             for (PersonDTO person : persons)
             {
+                g.setColor(Color.BLACK);
+                g.drawString(person.getFirstName() + " " + person.getSurName().charAt(0) + ".", person.getX() + 20, person.getY() + 25);
 
-                g.drawString(person.getFirstName() + " " + person.getSurName().charAt(0) + ".", person.getX() + 35, person.getY() + 25);
+                int niv = person.getY() / 150;
+
+                if (!colors.containsKey(niv))
+                {
+                    g.setColor(Color.red);
+                }
+                else if (colors.containsKey(niv))
+                {
+                    g.setColor(colors.get(niv));
+                }
 
                 if (person.getFather() != null)
                 {
@@ -71,8 +87,16 @@ public class FamilyTreePanel extends javax.swing.JPanel
                 }
                 else if (person.getMother() != null)
                 {
-//                    g.drawLine(person.getX() + 50, person.getY(), person.getMother().getX(), person.getMother().getY() + 25);
+                    g.drawLine(person.getX() + 50, person.getY(), person.getMother().getX(), person.getMother().getY() + 25);
                 }
+//
+//                PersonDTO per = PersonUtil.getPartner(person, persons);
+//                if (per != null)
+//                {
+//                    g.setColor(Color.ORANGE);
+//                    g.drawLine(per.getX(), per.getY() + 20, person.getX() + 50, person.getY() + 20);
+//                }
+
             }
         }
     }
@@ -87,27 +111,34 @@ public class FamilyTreePanel extends javax.swing.JPanel
             System.out.println("[FAMILY TREE HASHCODE] PC:" + p.hashCode());
         }
 
-        this.persons = persons;
+        this.persons = new TreeSet<PersonDTO>(PersonDTO.PersonComparator);
+        this.persons.addAll(persons);
+
         System.out.println("[FAMILY TREE PANEL] Drawing " + persons.size() + " persons");
         for (PersonDTO person : persons)
         {
             System.out.println(person.getX() + " " + person.getY());
         }
-        shapes = makeShapes(persons);
+        shapes = makeShapes();
         paint(this.getGraphics());
         repaint();
         validate();
+        this.totalPanel.setViewPort(this.getMinimumSize().width, 0);
     }
 
-    private List<Shape> makeShapes(List<PersonDTO> persons)
+    private List<Shape> makeShapes()
     {
-        final List<PersonDTO> pers = persons;
+        final Set<PersonDTO> pers = this.persons;
         List<Shape> shapes = new ArrayList<Shape>();
-        for (PersonDTO person : pers)
+        for (PersonDTO person : this.persons)
         {
             final int xcoord = person.getX();
             final int ycoord = person.getY();
-            final Shape oval = new Ellipse2D.Double(xcoord, ycoord, 100, 50);
+            int niv = ycoord / 150;
+            Random r = new Random();
+            Color c = Color.getHSBColor(r.nextFloat(), r.nextFloat(), r.nextFloat());
+            colors.put(niv, c);
+            final Shape oval = new Ellipse2D.Double(xcoord, ycoord, 75, 40);
 
             this.addMouseListener(new MouseAdapter()
             {
@@ -116,8 +147,6 @@ public class FamilyTreePanel extends javax.swing.JPanel
                 {
                     if (oval.contains(me.getPoint()))
                     {
-                        System.out.println(oval.getBounds().x + "  " + oval.getBounds().y);
-
                         for (PersonDTO person : pers)
                         {
                             if (person.getX() == oval.getBounds().x && person.getY() == oval.getBounds().y)
@@ -140,15 +169,15 @@ public class FamilyTreePanel extends javax.swing.JPanel
 
     private void calculateCoordinates(List<PersonDTO> persons)
     {
-        this.setMinimumSize(new Dimension(persons.size() * 100, persons.size() * 50));
-        this.setPreferredSize(new Dimension(persons.size() * 200, persons.size() * 100));
+        this.setMinimumSize(new Dimension(persons.size() * 200, persons.size() * 50));
+        this.setPreferredSize(new Dimension(persons.size() * 400, persons.size() * 100));
 
         int niveau = 0;
         List<PersonDTO> del = new ArrayList<PersonDTO>();
         del.addAll(persons);
 
         PersonDTO root = PersonUtil.getRoot(persons);
-        root.setX(200);
+        root.setX(this.getMinimumSize().width / 2);
         root.setY(0);
         del.remove(root);
 
@@ -157,7 +186,7 @@ public class FamilyTreePanel extends javax.swing.JPanel
 
         if (partner != null)
         {
-            partner.setX(300);
+            partner.setX((this.getMinimumSize().width / 2) + 75);
             partner.setY(0);
             del.remove(partner);
             childs.addAll(PersonUtil.getChilderen(partner, del));
@@ -170,15 +199,20 @@ public class FamilyTreePanel extends javax.swing.JPanel
 
     private void coordsNextLevel(int niveau, Set<PersonDTO> childs, List<PersonDTO> del)
     {
-        Set<PersonDTO> newChilds = new HashSet<PersonDTO>();
+        Set<PersonDTO> newChilds = new TreeSet<PersonDTO>(PersonComparator);
+        int hop = 200;
         niveau++;
-
-        int x = (childs.size() * 100) + 100;
-        int y = niveau * 100;
+        if (childs.size() > 0)
+        {
+            hop = (this.getMinimumSize().width) / childs.size();
+        }
+        int x = 50;
+        int y = niveau * 150;
 
         for (PersonDTO p : childs)
         {
-            x -= 100;
+            //       x -= 150;
+            x += hop;
             p.setX(x);
             p.setY(y);
             del.remove(p);
@@ -187,7 +221,7 @@ public class FamilyTreePanel extends javax.swing.JPanel
 
             if (partner != null)
             {
-                partner.setX(p.getX() + 100);
+                partner.setX(p.getX() + 75);
                 partner.setY(p.getY());
                 del.remove(partner);
                 newChilds.addAll(PersonUtil.getChilderen(partner, del));
@@ -195,20 +229,25 @@ public class FamilyTreePanel extends javax.swing.JPanel
 
             newChilds.addAll(PersonUtil.getChilderen(p, del));
 
-        }
+            if (del.isEmpty())
+            {
+                return;
+            }
 
-        if (del.isEmpty())
-        {
-            return;
-        }
+            System.out.println("At the end of level " + niveau + " we have " + del.size() + " persons left");
 
-        System.out.println("At the end of level " + niveau + " we have " + del.size() + " persons left");
+            if (niveau == 500)
+            {
+                return;
+            }
+        }
 
         if (niveau == 500)
         {
             return;
         }
         coordsNextLevel(niveau, newChilds, del);
+
     }
 
 }

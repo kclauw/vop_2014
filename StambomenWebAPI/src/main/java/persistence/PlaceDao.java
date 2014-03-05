@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +22,15 @@ public class PlaceDao implements IDao<Place>
             + " JOIN Country coun on coun.countryID = p.countryID "
             + " JOIN Placename pla on pla.placenameID = p.placenameID "
             + " WHERE p.placeID = ?";
+
+    private final String GETPLACEBYPLACE = "SELECT placeID, zipcode, c.coordinatesID, "
+            + "             p.countryID,c.latitude, c.longitude, coun.name as countryname, "
+            + "            pla.placenameID, pla.name as placename FROM Place as p \n"
+            + "             LEFT JOIN Coordinates c on c.coordinatesID = p.coordinatesID "
+            + "		JOIN Country coun on coun.countryID = p.countryID "
+            + "			JOIN Placename pla on pla.placenameID = p.placenameID "
+            + "             WHERE coun.name = ? and pla.name = ? and zipcode = ?";
+
     private final Logger logger;
 
     public PlaceDao()
@@ -32,18 +42,22 @@ public class PlaceDao implements IDao<Place>
     public Place get(int placeId)
     {
         Place place = null;
-
+        ResultSet res = null;
+        PreparedStatement prep = null;
         try
         {
             con = DatabaseUtils.getConnection();
-            PreparedStatement prep = con.prepareStatement(GETPLACEBYID);
+            prep = con.prepareStatement(GETPLACEBYID);
             prep.setInt(1, placeId);
             logger.info("[PLACE DAO] Get place by id" + prep.toString());
-            ResultSet res = prep.executeQuery();
+            res = prep.executeQuery();
 
-            if (res.next())
+            if (res != null)
             {
-                place = map(res);
+                if (res.next())
+                {
+                    place = map(res);
+                }
             }
 
             con.close();
@@ -57,13 +71,27 @@ public class PlaceDao implements IDao<Place>
         {
             logger.info("[Exception][PLACEDAO][Get]Exception: " + ex.getMessage());
         }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
 
         return place;
 
     }
 
     @Override
-    public void save(Place value)
+    public void save(Place place)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -83,21 +111,29 @@ public class PlaceDao implements IDao<Place>
     @Override
     public Place map(ResultSet res)
     {
+
         Place place = null;
         try
         {
-            int placeId = res.getInt("placeID");
-            int countryId = res.getInt("countryID");
-            int placeNameId = res.getInt("placenameID");
-            int coordId = res.getInt("coordinatesID");
-            float lat = res.getFloat("latitude");
-            float longi = res.getFloat("longitude");
-            String zip = res.getString("zipcode");
-            String country = res.getString("countryname");
-            String placeName = res.getString("placename");
+            if (res != null && res.next())
+            {
+                int placeId = res.getInt("placeID");
+                int countryId = res.getInt("countryID");
+                int placeNameId = res.getInt("placenameID");
+                int coordId = res.getInt("coordinatesID");
+                float lat = res.getFloat("latitude");
+                float longi = res.getFloat("longitude");
+                String zip = res.getString("zipcode");
+                String country = res.getString("countryname");
+                String placeName = res.getString("placename");
 
-            Coordinate coord = new Coordinate(longi, lat, coordId);
-            place = new Place(placeId, countryId, placeNameId, coord, country, zip, placeName);
+                if (placeId != 0 && countryId != 0 && placeNameId != 0)
+                {
+                    Coordinate coord = new Coordinate(longi, lat, coordId);
+                    place = new Place(placeId, countryId, placeNameId, coord, country, zip, placeName);
+                }
+            }
+
         }
         catch (SQLException ex)
         {
@@ -116,6 +152,56 @@ public class PlaceDao implements IDao<Place>
     public Collection<Place> getAll()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Place get(Place place)
+    {
+        Place p = null;
+        ResultSet res = null;
+        PreparedStatement prep = null;
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(GETPLACEBYPLACE);
+            prep.setString(1, place.getCountry());
+            prep.setString(2, place.getPlaceName());
+            prep.setString(3, place.getZipCode());
+            res = prep.executeQuery();
+            p = map(res);
+            return p;
+        }
+        catch (Exception ex)
+        {
+            java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        return null;
+    }
+
+    public Place getPlaceObject(Place place)
+    {
+        if (place.getPlaceId() == -1)
+        {
+            save(place);
+            return get(place);
+        }
+        else
+        {
+            return this.get(place.getPlaceId());
+        }
     }
 
 }

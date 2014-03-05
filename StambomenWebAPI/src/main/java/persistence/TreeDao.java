@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,13 +35,15 @@ public class TreeDao implements IDao<Tree>
     public Tree get(int id)
     {
         Tree tree = null;
+        ResultSet res = null;
+        PreparedStatement prep = null;
         try
         {
             con = DatabaseUtils.getConnection();
-            PreparedStatement prep = con.prepareStatement(GETTREE);
+            prep = con.prepareStatement(GETTREE);
             prep.setInt(1, id);
             logger.info("[TREE DAO] Get tree by id " + prep.toString());
-            ResultSet res = prep.executeQuery();
+            res = prep.executeQuery();
 
             if (res.next())
             {
@@ -58,6 +61,20 @@ public class TreeDao implements IDao<Tree>
         {
             logger.info("[TREE DAO][Exception][Get]Exception: " + ex.getMessage());
         }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
 
         return tree;
     }
@@ -65,14 +82,16 @@ public class TreeDao implements IDao<Tree>
     public List<Tree> getAll(int userid)
     {
         List<Tree> trees = new ArrayList<Tree>();
+        PreparedStatement prep = null;
+        ResultSet res = null;
         try
         {
 
             con = DatabaseUtils.getConnection();
-            PreparedStatement prep = con.prepareStatement(GETTREEBYUSERID);
+            prep = con.prepareStatement(GETTREEBYUSERID);
             prep.setInt(1, userid);
             logger.info("[TREE DAO] GET ALL USERID " + prep.toString());
-            ResultSet res = prep.executeQuery();
+            res = prep.executeQuery();
 
             while (res.next())
             {
@@ -94,16 +113,32 @@ public class TreeDao implements IDao<Tree>
         {
             logger.info("[TREE DAO][Exception][GetAll]Exception: " + ex.getMessage());
         }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
 
         return trees;
     }
 
     public void save(Tree tree)
     {
+        PreparedStatement prep = null;
+
         try
         {
             con = DatabaseUtils.getConnection();
-            PreparedStatement prep = con.prepareStatement(SAVETREE);
+            prep = con.prepareStatement(SAVETREE);
             prep.setInt(1, tree.getOwner().getId());
             prep.setInt(2, tree.getPrivacy().getPrivacyId());
             prep.setString(3, tree.getName());
@@ -119,6 +154,19 @@ public class TreeDao implements IDao<Tree>
         catch (Exception ex)
         {
             logger.info("[TREE DAO][Exception][Save]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
     }
 
@@ -170,4 +218,5 @@ public class TreeDao implements IDao<Tree>
 
         return tree;
     }
+
 }
