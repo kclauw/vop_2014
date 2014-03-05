@@ -66,7 +66,8 @@ public class TreeServlet extends HttpServlet {
     
     private void processTree(HttpServletRequest request, HttpServletResponse response, String streeid) throws ServletException, IOException {
         logger.info("[TREE SERVLET][PROCESS TREE]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
-        logger.info("[TREE SERVLET][PROCESS TREE]TREE ID:" + streeid.toString());
+        if (streeid != null)
+            logger.info("[TREE SERVLET][PROCESS TREE]TREE ID:" + streeid.toString());
         request.removeAttribute("treeid");
         int treeid;
         if (streeid == null)
@@ -90,17 +91,20 @@ public class TreeServlet extends HttpServlet {
     
     private void generateTree(HttpServletRequest request, HttpServletResponse response, TreeDTO tree) throws ServletException, IOException {
         logger.info("[TREE SERVLET][GENERATE TREE]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
-        logger.info("[TREE SERVLET][GENERATE TREE]TREEDTO:" + tree.toString());
+        if (tree != null)
+            logger.info("[TREE SERVLET][GENERATE TREE]TREEDTO:" + tree.toString());
         HttpSession session = request.getSession(false);
         
         if (tree != null && tree.getPersons() != null)
         {
             String treehtml = "";
-            PersonDTO top = PersonUtil.getRoot(tree.getPersons());
-            PersonDTO refperson = (PersonDTO)session.getAttribute("refpersontree" + tree.getId());
+            PersonDTO refperson = (PersonDTO)request.getAttribute("refperson");
+            PersonDTO top;
             if (refperson == null)
-                refperson = top;
-            treehtml = loop(tree.getPersons(), refperson, treehtml, top);
+                top = PersonUtil.getRoot(tree.getPersons());
+            else 
+                top = refperson;
+            treehtml = loop(tree.getPersons(), treehtml, top);
             
             session.setAttribute("tree", tree);
             session.setAttribute("treehtml", treehtml);
@@ -111,10 +115,12 @@ public class TreeServlet extends HttpServlet {
         
     }
     
-    private String loop(List<PersonDTO> allpersons, PersonDTO refperson, String treehtml, PersonDTO parent) {
-        logger.info("[TREE SERVLET][LOOP]PERSONDTO LIST:" + allpersons.toString() + "PERSONDTO REFPERSON" + refperson.toString());
-        logger.info("[TREE SERVLET][LOOP]PERSONDTO PARENT:" + parent.toString() + "TREE HTML" + treehtml.toString());
-        treehtml += "\n <li>" + getPersonHtml(refperson, parent);
+    private String loop(List<PersonDTO> allpersons, String treehtml, PersonDTO parent) {
+        if (allpersons != null)
+            logger.info("[TREE SERVLET][LOOP]PERSONDTO LIST:" + allpersons.toString());
+        if (parent != null && treehtml != null)
+            logger.info("[TREE SERVLET][LOOP]PERSONDTO PARENT:" + parent.toString() + "TREE HTML" + treehtml.toString());
+        treehtml += "\n <li>" + getPersonHtml(parent);
         
         boolean first = true;
         for (PersonDTO personitem : allpersons) {
@@ -130,10 +136,10 @@ public class TreeServlet extends HttpServlet {
                     else if (personitem.getMother() == parent && personitem.getFather() != null)
                         partner = personitem.getFather();
                     if (partner != null)
-                        treehtml += getPersonHtml(refperson, partner);
+                        treehtml += getPersonHtml(partner);
                     treehtml += "\n <ul>";
                 }
-                treehtml = loop(allpersons, refperson, treehtml, personitem);
+                treehtml = loop(allpersons, treehtml, personitem);
             }
         }
         if (!first)
@@ -145,16 +151,14 @@ public class TreeServlet extends HttpServlet {
         return treehtml;
     }
     
-    private String getPersonHtml(PersonDTO refperson, PersonDTO person) {
-        logger.info("[TREE SERVLET][GET PERSON HTML]PERSONDTO REFPERSON:" + refperson.toString() + "PERSONDTO PERSON" + person.toString());
+    private String getPersonHtml(PersonDTO person) {
+        if (person != null)
+            logger.info("[TREE SERVLET][GET PERSON HTML]PERSONDTO PERSON:" + person.toString());
         String html = "";
         
         if (person != null)
         {
             html = "<a style=\"background-image: url('./images/" + person.getGender().toString() + ".png');\" class=\"itemblock\" ";
-
-            if (person == refperson)
-                html += "id=\"refperson\" ";
 
             html+= "data-id=\"" + person.getPersonId() + "\" ";
             html+= "data-firstname=\"" + getString(person.getFirstName()) + "\" ";
@@ -190,7 +194,8 @@ public class TreeServlet extends HttpServlet {
 
     private void changeRefPerson(HttpServletRequest request, HttpServletResponse response, String refPerson) throws ServletException, IOException {
         logger.info("[TREE SERVLET][CHANGE REF PERSON]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
-        logger.info("[TREE SERVLET][CHANGE REF PERSON]REF PERSON:" + refPerson.toString());
+        if (refPerson != null)
+            logger.info("[TREE SERVLET][CHANGE REF PERSON]REF PERSON:" + refPerson.toString());
         request.removeAttribute("refpersonid");
         int personid;
         if (refPerson == null)
@@ -205,7 +210,7 @@ public class TreeServlet extends HttpServlet {
             for (PersonDTO person : tree.getPersons()) {
                 if(person.getPersonId() == personid)
                 {
-                    session.setAttribute("refpersontree" + tree.getId(), person);
+                    request.setAttribute("refperson", person);
                     break;
                 }
             }
@@ -232,7 +237,6 @@ public class TreeServlet extends HttpServlet {
             changeRefPerson(request, response, refPerson);
         else
             response.sendRedirect(request.getContextPath() + "/index.jsp");
-        
     }
 
     /**

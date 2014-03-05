@@ -67,7 +67,8 @@ public class FriendServlet extends HttpServlet {
     
     private void deleteFriend(HttpServletRequest request, HttpServletResponse response, String sdeletefriendid) throws IOException {
         logger.info("[FRIEND SERVLET][DELETE FRIEND]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
-        logger.info("[FRIEND SERVLET][DELETE FRIEND]DELETE FRIEND ID:" + sdeletefriendid.toString());
+        if (sdeletefriendid != null)
+            logger.info("[FRIEND SERVLET][DELETE FRIEND]DELETE FRIEND ID:" + sdeletefriendid.toString());
         HttpSession session = request.getSession(false);
         
         request.removeAttribute("deletefriendid");
@@ -84,7 +85,8 @@ public class FriendServlet extends HttpServlet {
     
     private void allowDenyFriendRequest(HttpServletRequest request, HttpServletResponse response, String sfriendid, boolean allow) throws IOException {
         logger.info("[FRIEND SERVLET][ALLOW DENY FRIEND REQUEST]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
-        logger.info("[FRIEND SERVLET][ALLOW DENY FRIEND REQUEST]FRIEND ID:" + sfriendid.toString() + "ALLOW" + allow);
+        if (sfriendid != null)
+            logger.info("[FRIEND SERVLET][ALLOW DENY FRIEND REQUEST]FRIEND ID:" + sfriendid.toString() + "ALLOW" + allow);
         HttpSession session = request.getSession(false);
         
         if (allow)
@@ -126,7 +128,8 @@ public class FriendServlet extends HttpServlet {
     }
     
     private String getFriendHtml(UserDTO user, boolean request) {
-        logger.info("[FRIEND SERVLET][GET FRIEND HTML]USERDTO:" + user.toString() + "request" + request);
+        if (user != null)
+            logger.info("[FRIEND SERVLET][GET FRIEND HTML]USERDTO:" + user.toString() + "request" + request);
        
         String html = "";
         
@@ -168,7 +171,8 @@ public class FriendServlet extends HttpServlet {
     
     private void sendFriendRequestName(HttpServletRequest request, HttpServletResponse response, String sendfriendrequestname) throws IOException {
         logger.info("[FRIEND SERVLET][SEND FRIEND REQUEST NAME]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
-        logger.info("[FRIEND SERVLET][SEND FRIEND REQUEST NAME]SEND FRIEND REQUEST NAME:" + sendfriendrequestname.toString());
+        if (sendfriendrequestname != null)
+            logger.info("[FRIEND SERVLET][SEND FRIEND REQUEST NAME]SEND FRIEND REQUEST NAME:" + sendfriendrequestname.toString());
        
         HttpSession session = request.getSession(false);
         

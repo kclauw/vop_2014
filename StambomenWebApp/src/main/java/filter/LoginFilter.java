@@ -56,7 +56,8 @@ public class LoginFilter implements Filter {
         {
             if (session != null)
             {
-                logger.info("[LOGIN FILTER][DO FILTER]" + logout.toString() + " " + session.toString());
+                if (logout != null && session != null)
+                    logger.info("[LOGIN FILTER][DO FILTER]" + logout.toString() + " " + session.toString());
                 session.invalidate();
                 session = null;
             }
@@ -72,7 +73,8 @@ public class LoginFilter implements Filter {
             ClientUserController userController = new ClientUserController();
             
             UserDTO user = new UserDTO(0, username, password);
-            logger.info("[LOGIN FILTER][DO FILTER] NEW USER:" + username.toString());
+            if (username != null)
+                logger.info("[LOGIN FILTER][DO FILTER] NEW USER:" + username.toString());
             String loginResponse = userController.login(user);
             if (loginResponse == null)
             {
@@ -127,7 +129,8 @@ public class LoginFilter implements Filter {
     }
     
     private void initUserData(HttpSession session, UserDTO user) {
-        logger.info("[LOGIN FILTER][INIT USER DATA]HTTP SESSION:" + session.toString() + "USERDTO " + user.toString());
+        if (session != null && user != null)
+            logger.info("[LOGIN FILTER][INIT USER DATA]HTTP SESSION:" + session.toString() + "USERDTO " + user.toString());
         ClientTreeController treeController = (ClientTreeController) session.getAttribute("treeController");
         session.setAttribute("trees", treeController.getTrees(user.getId()));
     }
