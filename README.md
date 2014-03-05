@@ -2,11 +2,18 @@ vop-2014-team12
 ===============
 
 ## Preamble ##
-Stambomen is an application that's splitted into two applications, the stambomenWebAPP and the StambomenDesktopApp.
+Stambomen is an application that's splitted into two parts, the stambomenWebAPP and the StambomenDesktopApp.
 
+## summary ##
+* StambomenClient
+* StambomenDesktopApp
+* StambomenWebAPI
+* StambomenWebApp
+* Artefacts
+* Initialization
 
 ## Repository folders ##
-###1.[StambomenClient][sc]</br> ###
+### [1.StambomenClient][sc] ###
 StambomenClient folder contains the Client for the destktop application and the webapplication.
 #### packages: ####
 Source Packages:
@@ -25,7 +32,7 @@ Test Packages:
  * com.mycompany.stambomenclient
   * appTest
 
-### 2.[StambomenDesktopApp][sda] ###
+### [2.StambomenDesktopApp][sda] ###
 StambomenDesktopApp folder contains the deskAPP to edit the familytree's.
 #### packages: ####
 Source Packages:
@@ -41,7 +48,7 @@ Source Packages:
  * gui.controls.listeners
    * contains the interface listener files
 
-### 3.[StambomenWebAPI][swAPI]###
+### [3.StambomenWebAPI][swAPI]###
 StambomenWebAPI folder contains the actual webservice with the DB-connection.
 #### packages: ####
 Source Packages:
@@ -67,7 +74,7 @@ Test Packages:
   * contains the test classes
 
 
-### 4.[StambomenWebApp][sc]###
+### [4.StambomenWebApp][sc]###
 StambomenWebApp folder contains the webapplication of stambomen
 #### packages & folders: ####
 Web Pages:
@@ -87,11 +94,26 @@ Source Packages:
   * contains the servlets for the user, tree and friend
 
 
-### 5.[Stambomen][s]##
+### [5.Stambomen][s]##
 The stambomen folder contains the [DB-script][dbS] and the [perlscript][pS]
 
 
+### Artefacts ###
+* use cases
 
+### Initialization ###
+
+1. import projects in netbeans
+2. build with dependencies
+3. add the StambomenWebAPI and StambomenWebApp to the tomcat server
+4. run tomcat and run StambomenWebApp
+5. login
+6. run the stambomenDesktopApp
+7. login
+
+## login details ##
+* username: default
+* password: 12345
 
 
 
