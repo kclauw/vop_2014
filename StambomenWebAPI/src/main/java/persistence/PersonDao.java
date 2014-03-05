@@ -39,11 +39,63 @@ public class PersonDao implements IDao<Person>
     private final String GETPERSONBYID = "Select birthplace, firstname,lastname,gender,birthdate,deathdate FROM Person WHERE personID = ?";
     private PersistenceController pc;
     private final Logger logger;
-
+    private int lastInsertedId;
+    
     public PersonDao(PersistenceController pc)
     {
         this.pc = pc;
         logger = LoggerFactory.getLogger(getClass());
+    }
+    
+    
+     public int savePerson(Person person)
+    {
+        PreparedStatement prep = null;
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(SAVEPERSON);
+            prep.setInt(1, person.getPlace().getPlaceId());
+            prep.setString(2, person.getFirstName());
+            prep.setString(3, person.getSurName());
+            prep.setByte(4, person.getGender().getGenderId());
+            prep.setDate(5, (java.sql.Date) person.getBirthDate());
+            prep.setDate(6, (java.sql.Date) person.getDeathDate());
+            logger.info("[PERSON DAO] Saving person " + prep.toString());
+            prep.executeQuery();
+            ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
+                if (getKeyRs != null) {
+                   if (getKeyRs.next()) {
+                       lastInsertedId=getKeyRs.getInt(1);
+                    }
+                    getKeyRs.close();
+                }
+                
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[PERSON DAO][SQLException][Save] Sql exception: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        catch (Exception ex)
+        {
+            logger.info("[PERSON DAO][Exception][Save] Exception: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return lastInsertedId;
     }
 
     @Override
@@ -93,47 +145,10 @@ public class PersonDao implements IDao<Person>
         }
     }
 
-    @Override
-    public void save(Person person)
-    {
-        PreparedStatement prep = null;
-        try
-        {
-            con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(SAVEPERSON);
-            prep.setInt(1, person.getPlace().getPlaceId());
-            prep.setString(2, person.getFirstName());
-            prep.setString(3, person.getSurName());
-            prep.setByte(4, person.getGender().getGenderId());
-            prep.setDate(5, (java.sql.Date) person.getBirthDate());
-            prep.setDate(6, (java.sql.Date) person.getDeathDate());
-            logger.info("[PERSON DAO] Saving person " + prep.toString());
-            prep.executeQuery();
-            con.close();
-        }
-        catch (SQLException ex)
-        {
-            logger.info("[PERSON DAO][SQLException][Save] Sql exception: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-        catch (Exception ex)
-        {
-            logger.info("[PERSON DAO][Exception][Save] Exception: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                DatabaseUtils.closeQuietly(prep);
-                DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
-                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
+    
+  
+   
+   
 
     @Override
     public void update(Person person)
@@ -392,6 +407,11 @@ public class PersonDao implements IDao<Person>
     @Override
     public void delete(Person value)
     {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void save(Person value) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
