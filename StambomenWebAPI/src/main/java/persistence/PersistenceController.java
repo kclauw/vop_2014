@@ -4,6 +4,8 @@ import domain.Person;
 import domain.Place;
 import domain.Tree;
 import domain.User;
+
+
 import java.sql.ResultSet;
 import java.util.List;
 import org.slf4j.Logger;
@@ -16,6 +18,9 @@ public class PersistenceController
     private TreeDao treeDao;
     private PersonDao personDao;
     private PlaceDao placeDao;
+    private PersonTreeDAO persontreeDao;
+    private ParentRelationDAO parentrelationDao;
+    
     private final Logger logger;
 
     public PersistenceController()
@@ -148,9 +153,20 @@ public class PersistenceController
     {
         /*Logica voor het wegschrijven van een boom */
         logger.info("[PERSISTENCE CONTROLLER] Add person " + person);
-        //     int personid = personDao.save(person);
+        
+         
+         int personid = personDao.savePerson(person);
+         persontreeDao.save(personid,treeID);
+         //controle niet vergeten
+         if(person.getMother().getPersonId() != 0){
+         parentrelationDao.save(treeID,person.getFather().getPersonId(),personid);
+         parentrelationDao.save(treeID,person.getMother().getPersonId(),personid);
+         }
+         
         /*Get persoon op naam*/
+         
         /*Voeg persoon toe aan een boom*/
+         
     }
 
 }

@@ -49,10 +49,7 @@ public class MockPerson implements IPersonDAO<Person> {
         return p;
     }
 
-    @Override
-    public void save(Person value) {
-        persons.add(value);
-    }
+   
 
     @Override
     public void update(Person value) {
@@ -122,4 +119,11 @@ public class MockPerson implements IPersonDAO<Person> {
 
         return p;
     }
+
+    @Override
+    public int save(Person value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+  
 }
