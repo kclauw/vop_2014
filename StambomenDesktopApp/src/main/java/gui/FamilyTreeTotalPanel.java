@@ -60,15 +60,16 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
-        c.ipady = 500;
         c.fill = 1;
         c.weightx = 20;
         c.weighty = 20;
         this.add(scroll, c);
         c.gridx = 1;
-        c.ipady = 300;
         c.gridy = 0;
+        c.fill = 1;
+        c.gridx = 10;
         c.weightx = 1;
+        c.weighty = 20;
         this.add(familyTreeDetailPanel, c);
 
         JButton b = new JButton("Back to overview");
@@ -79,11 +80,13 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
                 treeController.goTo(Panels.TREEOVERVIEW);
             }
         });
-        c.ipadx = 50;
-        c.ipady = 20;
+
+        c.ipadx = 5;
+        c.ipady = 5;
         c.gridx = 1;
         c.gridy = 1;
-        c.gridwidth = 2;
+        c.gridwidth = 1;
+        c.fill = 0;
         this.add(b, c);
         this.validate();
     }
