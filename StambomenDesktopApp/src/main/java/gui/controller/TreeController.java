@@ -71,13 +71,6 @@ public class TreeController implements IPanelController
 
     }
 
-    public void savePerson(PersonDTO person)
-    {
-        System.out.println("[TREE CONTROLLER] SAVING PERSON " + person.toString());
-        clientPersonController.savePerson(person);
-        this.gui.goTo(Panels.TREEOVERVIEW);
-    }
-
     public void deletePerson(PersonDTO person)
     {
 
@@ -90,6 +83,13 @@ public class TreeController implements IPanelController
     {
         System.out.println("[TREE CONTROLLER] UPDATING PERSON " + person.toString());
         clientPersonController.updatePerson(person);
+        this.gui.goTo(Panels.TREEOVERVIEW);
+    }
+
+    public void addPerson(PersonDTO person)
+    {
+        System.out.println("[TREE CONTROLLER] SAVING PERSON " + person.toString());
+        clientPersonController.savePerson(tree.getId(), person);
         this.gui.goTo(Panels.TREEOVERVIEW);
     }
 

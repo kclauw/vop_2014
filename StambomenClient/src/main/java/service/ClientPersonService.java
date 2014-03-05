@@ -16,7 +16,7 @@ public class ClientPersonService
 {
 
     private final String url = "http://localhost:8084/StambomenWebAPI/rest/";
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     public String savePerson(int treeID, PersonDTO person)
     {
         logger.info("[CLIENT PERSON SERVICE][SAVE PERSON]:" + person.toString());
@@ -30,7 +30,7 @@ public class ClientPersonService
 
         if (response.getStatus() != 200)
         {
-            logger.info("[CLIENT PERSON SERVICE][SAVE PERSON]Error occured" + response.toString() + "  " + response.readEntity(String.class));
+            System.out.println("Error occured" + response.toString() + "  " + response.readEntity(String.class));
             return " " + response.getStatusInfo();
         }
 

@@ -101,12 +101,6 @@ public class PersistenceController
         return placeDao.map(res);
     }
 
-    public void addPerson(Person person)
-    {
-        logger.info("[PERSISTENCE CONTROLLER] Add person " + person);
-        personDao.save(person);
-    }
-
     public void deletePerson(int personId)
     {
         logger.info("[PERSISTENCE CONTROLLER] Remove person " + personId);
@@ -148,6 +142,15 @@ public class PersistenceController
     public Place getPlace(Place place)
     {
         return this.placeDao.get(place);
+    }
+
+    public void addPerson(int treeID, Person person)
+    {
+        /*Logica voor het wegschrijven van een boom */
+        logger.info("[PERSISTENCE CONTROLLER] Add person " + person);
+        //     int personid = personDao.save(person);
+        /*Get persoon op naam*/
+        /*Voeg persoon toe aan een boom*/
     }
 
 }

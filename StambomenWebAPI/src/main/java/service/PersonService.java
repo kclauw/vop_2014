@@ -37,14 +37,14 @@ public class PersonService
 //
 
     @POST
-    @Path("/post")
+    @Path("/{treeID}/post")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addPerson(Person person)
+    public Response addPerson(@PathParam("treeID") int treeID, Person person)
     {
         try
         {
             String result = "Person added:" + person.toString();
-            pc.addPerson(person);
+            pc.addPerson(treeID, person);
             return Response.status(Response.Status.OK).entity(result).build();
         }
         catch (PersonAlreadyExistsException ex)

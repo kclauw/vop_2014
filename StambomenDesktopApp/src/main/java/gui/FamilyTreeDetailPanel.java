@@ -33,7 +33,8 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup1 = new javax.swing.ButtonGroup();
@@ -91,8 +92,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
         add(textFieldLastname, gridBagConstraints);
 
-        textFieldFirstname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        textFieldFirstname.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 textFieldFirstnameActionPerformed(evt);
             }
         });
@@ -195,8 +198,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         btnEdit.setMaximumSize(new java.awt.Dimension(200, 23));
         btnEdit.setMinimumSize(new java.awt.Dimension(200, 23));
         btnEdit.setPreferredSize(new java.awt.Dimension(200, 23));
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnEdit.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnEditActionPerformed(evt);
             }
         });
@@ -232,8 +237,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         btnDelete.setMaximumSize(new java.awt.Dimension(200, 23));
         btnDelete.setMinimumSize(new java.awt.Dimension(200, 23));
         btnDelete.setPreferredSize(new java.awt.Dimension(200, 23));
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnDelete.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnDeleteActionPerformed(evt);
             }
         });
@@ -245,6 +252,13 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         add(btnDelete, gridBagConstraints);
 
         btnButton.setText("Add");
+        btnButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 8;
@@ -303,6 +317,14 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             fttp.deletePerson(person);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnButtonActionPerformed
+    {//GEN-HEADEREND:event_btnButtonActionPerformed
+        PersonDTO person = new PersonDTO();
+        person.setFirstName("Hell ");
+        person.setSurName(" YEAH");
+        this.fttp.addPerson(person);
+    }//GEN-LAST:event_btnButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel adressPanel;

@@ -108,11 +108,6 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         this.familyTreePanel.drawFamilyTree(persons);
     }
 
-    public void savePerson(PersonDTO person)
-    {
-        this.treeController.savePerson(person);
-    }
-
     public void deletePerson(PersonDTO person)
     {
         this.treeController.deletePerson(person);
@@ -126,5 +121,10 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     public void updatePerson(PersonDTO person)
     {
         this.treeController.updatePerson(person);
+    }
+
+    public void addPerson(PersonDTO person)
+    {
+        this.treeController.addPerson(person);
     }
 }

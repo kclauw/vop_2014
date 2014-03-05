@@ -17,7 +17,7 @@ public class ClientPersonController
 
     public String savePerson(int treeID, PersonDTO person)
     {
-        logger.info("[CLIENT PERSON CONTROLLER][SAVE PERSON]: " + person.toString());
+        logger.info("[CLIENT PERSON CONTROLLER] SAVE PERSON " + person.toString());
         return clientPersonService.savePerson(treeID, person);
     }
 
