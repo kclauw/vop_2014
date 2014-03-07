@@ -75,7 +75,7 @@ public class TreeController implements IPanelController
     {
 
         System.out.println("[TREE CONTROLLER] DELETING PERSON " + person.toString());
-        clientPersonController.deletePerson(person);
+        clientPersonController.deletePerson(tree.getId(), person.getPersonId());
         this.gui.goTo(Panels.TREEOVERVIEW);
     }
 
