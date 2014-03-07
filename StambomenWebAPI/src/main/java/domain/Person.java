@@ -1,7 +1,9 @@
 package domain;
 
 import exception.InvalidParentException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import util.StringValidation;
 
 public class Person
@@ -147,6 +149,42 @@ public class Person
     public String toString()
     {
         return "Person{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + ", gender=" + gender + ", birthDate=" + birthDate + ", deathDate=" + deathDate + ", place=" + place + ", father=" + father + ", mother=" + mother + '}';
+    }
+
+    public List<Person> getChilderen(List<Person> persons)
+    {
+
+        List<Person> childs = new ArrayList<Person>();
+
+        for (Person p : persons)
+        {
+            Person father = getFather();
+            Person mother = getMother();
+
+            if (father != null && father.compareTo(this) == 0)
+            {
+                childs.add(p);
+            }
+
+            if (mother != null && mother.compareTo(this) == 0)
+            {
+                childs.add(p);
+            }
+        }
+
+        return childs;
+    }
+
+    public int compareTo(Person person)
+    {
+        if (person.getPersonId() == this.getPersonId())
+        {
+            return 0;
+        }
+        else
+        {
+            return -1;
+        }
     }
 
 }

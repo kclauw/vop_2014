@@ -1,8 +1,10 @@
 package domain.controller;
 
 import domain.Person;
+import exception.CannotDeletePersonsWithChidrenException;
 import exception.PersonAlreadyExistsException;
 import java.util.Collection;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.PersistenceController;
@@ -21,10 +23,30 @@ public class PersonController
         pc = new PersistenceController();
     }
 
-    public void deletePerson(int personId)
+    /**
+     * Delete person wil check if a person has children. If not it will delete
+     * the person on a certain tree!
+     *
+     * @param treeID
+     * @param personID
+     */
+    public void deletePerson(int treeID, int personID)
     {
-        System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + personId);
-        pc.deletePerson(personId);
+        /*check wether the person has childs!*/
+        List<Person> persons = pc.getTree(treeID).getPersons();
+        Person p = pc.getPerson(personID);
+
+        List<Person> children = p.getChilderen(persons);
+
+        if (children != null && children.size() > 0)
+        {
+            throw new CannotDeletePersonsWithChidrenException();
+        }
+        else
+        {
+            System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + personID);
+            pc.deletePerson(personID);
+        }
     }
 
     public void updatePerson(Person person)
@@ -48,6 +70,7 @@ public class PersonController
      * Add a person that doesn't already exist. Throws
      * PersonAlreadyExistsException otherwise.
      *
+     * @param treeID
      * @param person
      */
     public void addPerson(int treeID, Person person)
