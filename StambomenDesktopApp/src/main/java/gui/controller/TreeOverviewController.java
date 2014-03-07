@@ -61,7 +61,8 @@ public class TreeOverviewController implements IPanelController
 
     public void showTree(TreeDTO tree)
     {
-        gui.showTree(tree);
+        TreeDTO t = serv.getTree(tree.getId());
+        gui.showTree(t);
     }
 
 }
