@@ -21,10 +21,10 @@ public class ClientPersonController
         return clientPersonService.savePerson(treeID, person);
     }
 
-    public void deletePerson(PersonDTO person)
+    public void deletePerson(int treeID, int personID)
     {
-        logger.info("[CLIENT PERSON CONTROLLER][DELETING PERSON]:" + person.toString());
-        clientPersonService.deletePerson(person);
+        logger.info("[CLIENT PERSON CONTROLLER][DELETING PERSON]:" + personID + " FROM TREE " + treeID);
+        clientPersonService.deletePerson(treeID, personID);
     }
 
     public String updatePerson(PersonDTO person)

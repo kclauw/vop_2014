@@ -17,6 +17,7 @@ public class ClientPersonService
 
     private final String url = "http://localhost:8084/StambomenWebAPI/rest/";
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
     public String savePerson(int treeID, PersonDTO person)
     {
         logger.info("[CLIENT PERSON SERVICE][SAVE PERSON]:" + person.toString());
@@ -60,19 +61,13 @@ public class ClientPersonService
         return null;
     }
 
-    public String deletePerson(PersonDTO person)
+    public String deletePerson(int treeID, int personID)
     {
-        logger.info("[CLIENT PERSON SERVICE][DELETE PERSON]:" + person.toString());
-        //Client client = ClientBuilder.newClient();
-        //client.register(ClientServiceController.getInstance().getHttpCredentials());
-        //client.register(new JacksonFeature());
-        // client.target(url + "person/delete/" + person.getPersonId()).request(MediaType.APPLICATION_JSON).get();
-        //client.target(url + "person/delete/" + person.getPersonId()).request(MediaType.APPLICATION_JSON).get();;
-        System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + person.toString());
+        System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + personID);
         Client client = ClientBuilder.newClient();
         client.register(ClientServiceController.getInstance().getHttpCredentials());
         client.register(new JacksonFeature());
-        Response response = client.target(url + "person/delete/" + person.getPersonId()).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "person/delete/" + treeID + "/" + personID).request(MediaType.APPLICATION_JSON).get();
 
         if (response.getStatus() != 200)
         {
