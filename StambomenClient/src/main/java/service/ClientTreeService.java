@@ -19,8 +19,8 @@ public class ClientTreeService
 {
 
     private final String url = "http://localhost:8084/StambomenWebAPI/rest/tree";
-    private final Logger logger = LoggerFactory.getLogger(getClass()); 
-    
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     public String makeTree(TreeDTO treeDTO)
     {
         Client client = ClientBuilder.newClient();
@@ -50,62 +50,72 @@ public class ClientTreeService
         {
         });
 
-        fixReferenceRelations(list);
-
-        for (TreeDTO tree : list)
-        {
-            List<PersonDTO> persons = tree.getPersons();
-
-            for (PersonDTO person : persons)
-            {
-                logger.info("[CLIENT TREE SERVICE][GET TREE]Person: " + person.hashCode() + " " + person.getFirstName());
-  
-                if (person.getFather() != null)
-                {
-                    logger.info("[CLIENT TREE SERVICE][GET TREE]Person father: " + person.getFather().hashCode() + " " + person.getFather().getFirstName());
-                }
-                if (person.getMother() != null)
-                {
-                    logger.info("[CLIENT TREE SERVICE][GET TREE]Person mother: " + person.getMother().hashCode() + " " + person.getMother().getFirstName());
-                }
-            }
-        }
+//
+//        for (TreeDTO tree : list)
+//        {
+//            List<PersonDTO> persons = tree.getPersons();
+//
+//            for (PersonDTO person : persons)
+//            {
+//                logger.info("[CLIENT TREE SERVICE][GET TREE]Person: " + person.hashCode() + " " + person.getFirstName());
+//
+//                if (person.getFather() != null)
+//                {
+//                    logger.info("[CLIENT TREE SERVICE][GET TREE]Person father: " + person.getFather().hashCode() + " " + person.getFather().getFirstName());
+//                }
+//                if (person.getMother() != null)
+//                {
+//                    logger.info("[CLIENT TREE SERVICE][GET TREE]Person mother: " + person.getMother().hashCode() + " " + person.getMother().getFirstName());
+//                }
+//            }
+//        }
         return list;
     }
 
-    private void fixReferenceRelations(List<TreeDTO> list)
+    public TreeDTO getTree(int treeID)
     {
-        for (TreeDTO tree : list)
+        TreeDTO tree = null;
+        logger.info("[CLIENT TREE SERVICE][GET TREE]Getting tree with treeID" + treeID);
+        HttpAuthenticationFeature feature = ClientServiceController.getInstance().getHttpCredentials();
+        Client client = ClientBuilder.newClient();
+        client.register(feature);
+        client.register(new JacksonFeature());
+        tree = client.target(url + "/" + treeID).request(MediaType.APPLICATION_JSON).get(TreeDTO.class);
+        fixReferenceRelations(tree);
+        return tree;
+    }
+
+    private void fixReferenceRelations(TreeDTO tree)
+    {
+        List<PersonDTO> persons = tree.getPersons();
+
+        for (PersonDTO person : persons)
         {
-            List<PersonDTO> persons = tree.getPersons();
+            PersonDTO mother = person.getMother();
+            PersonDTO father = person.getFather();
 
-            for (PersonDTO person : persons)
+            if (mother != null)
             {
-                PersonDTO mother = person.getMother();
-                PersonDTO father = person.getFather();
-
-                if (mother != null)
+                for (PersonDTO p : persons)
                 {
-                    for (PersonDTO p : persons)
+                    if (mother.compareTo(p) == 0)
                     {
-                        if (mother.compareTo(p) == 0)
-                        {
-                            person.setMother(p);
-                        }
+                        person.setMother(p);
                     }
                 }
+            }
 
-                if (father != null)
+            if (father != null)
+            {
+                for (PersonDTO p : persons)
                 {
-                    for (PersonDTO p : persons)
+                    if (father.compareTo(p) == 0)
                     {
-                        if (father.compareTo(p) == 0)
-                        {
-                            person.setFather(p);
-                        }
+                        person.setFather(p);
                     }
                 }
             }
         }
+
     }
 }
