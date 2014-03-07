@@ -37,7 +37,18 @@ public class PersonDao implements IDao<Person>
     private final String SAVEPERSON = "INSERT INTO Person (birthplace, firstname,lastname,gender,birthdate,deathdate) VALUES (?,?,?,?,?,?)";
     private final String UPDATEPERSON = "UPDATE Person SET birthplace = ? , firstname = ? , lastname = ?, gender = ? , birthdate = ? , deathdate = ? WHERE personID = ?";
     private final String DELETEPERSON = "DELETE FROM Person WHERE personID = ?";
-    private final String GETPERSONBYID = "Select birthplace, firstname,lastname,gender,birthdate,deathdate FROM Person WHERE personID = ?";
+    private final String GETPERSONBYID = "SELECT d.*, pr.parent as parent1, pr2.parent as parent2,h.*,g.*,f.* FROM Tree t "
+            + " JOIN PersonTree c ON c.treeID = t.treeID "
+            + " JOIN Person d on c.personID = d.personID "
+            + " LEFT OUTER JOIN Place e on d.birthplace=e.placeID "
+            + " LEFT OUTER JOIN Coordinates f on f.coordinatesID = e.coordinatesID "
+            + " LEFT OUTER JOIN Placename  g on g.placenameID = e.placenameID "
+            + " LEFT OUTER JOIN Country h on h.countryID = e.countryID "
+            + " LEFT OUTER JOIN ParentRelation pr on pr.child = d.personID "
+            + " LEFT OUTER JOIN ParentRelation pr2 on pr2.child = d.personID and pr.parent != pr2.parent "
+            + " where d.personID = ? "
+            + " GROUP BY d.personID "
+            + " ORDER BY pr.parent ASC ";
     private PersistenceController pc;
     private final Logger logger;
     private int lastInsertedId;
@@ -119,6 +130,8 @@ public class PersonDao implements IDao<Person>
         Person person = null;
         ResultSet res = null;
         PreparedStatement prep = null;
+        MultiMap<Integer, Person> persMap = new MultiMap<Integer, Person>();
+        List<Person> persons = new ArrayList<Person>();
         try
         {
             con = DatabaseUtils.getConnection();
@@ -129,8 +142,12 @@ public class PersonDao implements IDao<Person>
 
             if (res.next())
             {
-                person = map(res);
+                person = map(res, persMap);
             }
+
+            persons.add(person);
+
+            mapRelations(persons, persMap);
 
             con.close();
         }
@@ -147,7 +164,6 @@ public class PersonDao implements IDao<Person>
         {
             try
             {
-                DatabaseUtils.closeQuietly(res);
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
             }
@@ -155,9 +171,10 @@ public class PersonDao implements IDao<Person>
             {
                 java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return person;
-
         }
+
+        return person;
+
     }
 
     @Override

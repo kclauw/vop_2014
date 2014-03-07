@@ -23,15 +23,14 @@ public class DatabaseUtils
     public static Connection getCon(String driver, String url, String username, String password) throws Exception
     {
         Class.forName(driver);
-        setUrlPath();
         Connection con = DriverManager.getConnection(url, username, password);
         return con;
     }
 
     public static Connection getConnection() throws Exception
     {
+        setUrlPath();
         Connection con = getCon(driver, url, username, password);
-
         return con;
     }
 
