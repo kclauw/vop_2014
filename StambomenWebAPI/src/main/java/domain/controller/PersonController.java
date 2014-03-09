@@ -1,6 +1,7 @@
 package domain.controller;
 
 import domain.Person;
+import domain.Tree;
 import exception.CannotDeletePersonsWithChidrenException;
 import exception.PersonAlreadyExistsException;
 import java.util.Collection;
@@ -32,8 +33,10 @@ public class PersonController
      */
     public void deletePerson(int treeID, int personID)
     {
+        logger.info("[PERSON CONTROLLER] Deleting person with id: " + personID + " from Tree " + treeID);
         /*check wether the person has childs!*/
-        List<Person> persons = pc.getTree(treeID).getPersons();
+        Tree tree = pc.getTree(treeID);
+        List<Person> persons = tree.getPersons();
         Person p = pc.getPerson(personID);
 
         List<Person> children = p.getChilderen(persons);

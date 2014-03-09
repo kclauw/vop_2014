@@ -21,7 +21,7 @@ public class PersonDao implements IDao<Person>
 {
 
     private Connection con;
-    private final String GETPERSONSBYTREEID = "SELECT d.*, pr.parent as parent1, pr2.parent as parent2,h.*,g.*,f.* FROM Tree t "
+    private final String GETPERSONSBYTREEID = "SELECT d.*, e.*, pr.parent as parent1, pr2.parent as parent2,h.*,g.*,f.* FROM Tree t "
             + " JOIN PersonTree c ON c.treeID = t.treeID "
             + " JOIN Person d on c.personID = d.personID "
             + " LEFT OUTER JOIN Place e on d.birthplace=e.placeID "
@@ -37,7 +37,7 @@ public class PersonDao implements IDao<Person>
     private final String SAVEPERSON = "INSERT INTO Person (birthplace, firstname,lastname,gender,birthdate,deathdate) VALUES (?,?,?,?,?,?)";
     private final String UPDATEPERSON = "UPDATE Person SET birthplace = ? , firstname = ? , lastname = ?, gender = ? , birthdate = ? , deathdate = ? WHERE personID = ?";
     private final String DELETEPERSON = "DELETE FROM Person WHERE personID = ?";
-    private final String GETPERSONBYID = "SELECT d.*, pr.parent as parent1, pr2.parent as parent2,h.*,g.*,f.* FROM Tree t "
+    private final String GETPERSONBYID = "SELECT d.*,e.*,  pr.parent as parent1, pr2.parent as parent2,h.*,g.*,f.* FROM Tree t "
             + " JOIN PersonTree c ON c.treeID = t.treeID "
             + " JOIN Person d on c.personID = d.personID "
             + " LEFT OUTER JOIN Place e on d.birthplace=e.placeID "
@@ -342,6 +342,7 @@ public class PersonDao implements IDao<Person>
             Place p = pc.getPlace(res);
 
             person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
+            logger.info("[PERSON DAO] Mapping person:" + person);
 
         }
         catch (SQLException ex)
