@@ -115,7 +115,7 @@ public class PlaceDao implements IDao<Place>
         Place place = null;
         try
         {
-            if (res != null && res.next())
+            if (res != null)
             {
                 int placeId = res.getInt("placeID");
                 int countryId = res.getInt("countryID");

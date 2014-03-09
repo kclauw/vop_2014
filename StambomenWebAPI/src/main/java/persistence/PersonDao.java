@@ -21,7 +21,7 @@ public class PersonDao implements IDao<Person>
 {
 
     private Connection con;
-    private final String GETPERSONSBYTREEID = "SELECT d.*, e.*, pr.parent as parent1, pr2.parent as parent2,h.*,g.*,f.* FROM Tree t "
+    private final String GETPERSONSBYTREEID = "SELECT d.*, e.*,h.name as countryname,g.name as placename, pr.parent as parent1, pr2.parent as parent2,g.*,f.* FROM Tree t "
             + " JOIN PersonTree c ON c.treeID = t.treeID "
             + " JOIN Person d on c.personID = d.personID "
             + " LEFT OUTER JOIN Place e on d.birthplace=e.placeID "
@@ -37,7 +37,7 @@ public class PersonDao implements IDao<Person>
     private final String SAVEPERSON = "INSERT INTO Person (birthplace, firstname,lastname,gender,birthdate,deathdate) VALUES (?,?,?,?,?,?)";
     private final String UPDATEPERSON = "UPDATE Person SET birthplace = ? , firstname = ? , lastname = ?, gender = ? , birthdate = ? , deathdate = ? WHERE personID = ?";
     private final String DELETEPERSON = "DELETE FROM Person WHERE personID = ?";
-    private final String GETPERSONBYID = "SELECT d.*,e.*,  pr.parent as parent1, pr2.parent as parent2,h.*,g.*,f.* FROM Tree t "
+    private final String GETPERSONBYID = "SELECT d.*,e.*,h.name as countryname,g.name as placename, pr.parent as parent1, pr2.parent as parent2,g.*,f.* FROM Tree t "
             + " JOIN PersonTree c ON c.treeID = t.treeID "
             + " JOIN Person d on c.personID = d.personID "
             + " LEFT OUTER JOIN Place e on d.birthplace=e.placeID "
@@ -142,12 +142,12 @@ public class PersonDao implements IDao<Person>
 
             if (res.next())
             {
+                System.out.println("[PERSON DAO][GET][FOUND A RESULT!]");
                 person = map(res, persMap);
+                mapRelations(persons, persMap);
             }
 
             persons.add(person);
-
-            mapRelations(persons, persMap);
 
             con.close();
         }
@@ -164,12 +164,13 @@ public class PersonDao implements IDao<Person>
         {
             try
             {
+                DatabaseUtils.closeQuietly(res);
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
             }
             catch (SQLException ex)
             {
-                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.info("[PERSON DAO] Error " + ex.getMessage());
             }
         }
 
@@ -314,10 +315,10 @@ public class PersonDao implements IDao<Person>
             {
                 java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            mapRelations(persons, personMap);
-            return persons;
         }
+
+        mapRelations(persons, personMap);
+        return persons;
     }
 
     @Override
@@ -365,7 +366,10 @@ public class PersonDao implements IDao<Person>
         try
         {
             int parentId1 = res.getInt("parent1");
+
             int parentId2 = res.getInt("parent2");
+
+            logger.info("[PERSON DAO][Map parent] P1: " + parentId1 + " P2: " + parentId2);
 
             if (parentId1 != 0)
             {
@@ -381,11 +385,11 @@ public class PersonDao implements IDao<Person>
         }
         catch (SQLException ex)
         {
-            logger.info("[PERSONDAO][SQLException][Map]Sql exception: " + ex.getMessage());
+            logger.info("[PERSONDAO][SQLException][Map Parent]Sql exception: " + ex.getMessage());
         }
         catch (Exception ex)
         {
-            logger.info("[PERSONDAO][Exception][Map]Exception: " + ex.getMessage());
+            logger.info("[PERSONDAO][Exception][Map Parent]Exception: " + ex.getMessage());
         }
 
         return person;
