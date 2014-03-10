@@ -63,8 +63,8 @@ public class PersonService
         }
         catch (Exception e)
         {
-            e.printStackTrace();
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
+            //   return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
 
         }
     }

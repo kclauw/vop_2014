@@ -34,6 +34,8 @@ public class PersonController
      */
     public void deletePerson(int treeID, int personID)
     {
+
+        logger.info("==============================================================");
         logger.info("[PERSON CONTROLLER] Deleting person with id: " + personID + " from Tree " + treeID);
         /*check wether the person has childs!*/
         Tree tree = pc.getTree(treeID);
@@ -42,7 +44,7 @@ public class PersonController
 
         for (Person p : persons)
         {
-            if (p.getPersonId() == 0)
+            if (p.getPersonId() == personID)
             {
                 children = p.getChilderen(persons);
                 logger.info("[PERSON CONTROLLER] [DELETE] Found the persons ...");
@@ -55,9 +57,11 @@ public class PersonController
         }
         else
         {
-            System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + personID);
+            System.out.println("[PERSON CONTROLLER] DELETING PERSON " + personID);
             pc.deletePerson(personID);
         }
+
+        logger.info("====================================================================");
     }
 
     public void updatePerson(Person person)
