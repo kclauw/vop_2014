@@ -3,6 +3,7 @@ package dto;
 import java.util.Comparator;
 import java.util.Date;
 
+
 public class PersonDTO implements java.io.Serializable, Cloneable
 {
 
@@ -34,6 +35,18 @@ public class PersonDTO implements java.io.Serializable, Cloneable
         this.mother = mother;
         this.personId = personId;
     }
+    
+        public PersonDTO(String firstName, String surName, GenderDTO gender, Date birthDate, Date deathDate, PlaceDTO place)
+    {
+        this.firstName = firstName;
+        this.surName = surName;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.deathDate = deathDate;
+        this.place = place;
+    
+    }
+
 
     public int getPersonId()
     {
