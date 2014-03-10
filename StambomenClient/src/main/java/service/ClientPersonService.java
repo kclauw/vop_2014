@@ -73,7 +73,7 @@ public class ClientPersonService
         {
             System.out.println("[CLIENT PERSON SERVICE] DELETE ERROR :" + response.toString());
 
-            return " " + response.getStatusInfo();
+            return " " + response.readEntity(String.class);
         }
 
         System.out.println(response.toString());
