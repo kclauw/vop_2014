@@ -175,7 +175,7 @@ public class PlaceDao implements IDao<Place>
             else
             {
                 //make place!
-
+                //TODO MAKE PLACE
             }
         }
         catch (Exception ex)
