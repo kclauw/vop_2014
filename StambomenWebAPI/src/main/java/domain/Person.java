@@ -4,9 +4,10 @@ import exception.InvalidParentException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import util.StringValidation;
-
-public class Person
+@JsonIgnoreProperties(ignoreUnknown = true)
+public final class Person
 {
 
     private int personId;   // optional
@@ -35,6 +36,18 @@ public class Person
         setMother(mother);
         setPersonId(personId);
     }
+    
+      public Person(String firstName, String surName, Gender gender, Date birthDate, Date deathDate, Place place)
+    {
+        setFirstName(firstName);
+        setSurName(surName);
+        setGender(gender);
+        setBirthDate(birthDate);
+        setDeathDate(deathDate);
+        setPlace(place);
+ 
+    }
+
 
     public int getPersonId()
     {
