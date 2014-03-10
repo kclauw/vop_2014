@@ -186,7 +186,9 @@ public class PersonDao implements IDao<Person>
         {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(UPDATEPERSON);
+
             Place place;
+
             place = pc.getPlace(person.getPlace());
             if (place != null)
             {

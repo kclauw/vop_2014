@@ -167,8 +167,16 @@ public class PlaceDao implements IDao<Place>
             prep.setString(2, place.getPlaceName());
             prep.setString(3, place.getZipCode());
             res = prep.executeQuery();
-            p = map(res);
-            return p;
+            //We veronderstellen hier dat de plaats bestaat!
+            if (res.next())
+            {
+                p = map(res);
+            }
+            else
+            {
+                //make place!
+
+            }
         }
         catch (Exception ex)
         {
@@ -188,7 +196,7 @@ public class PlaceDao implements IDao<Place>
             }
 
         }
-        return null;
+        return p;
     }
 
     public Place getPlaceObject(Place place)
