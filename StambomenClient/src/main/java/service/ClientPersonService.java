@@ -1,6 +1,7 @@
 package service;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import dto.PersonDTO;
 import dto.PersonDTO2;
 import javax.ws.rs.client.Client;
@@ -45,8 +46,9 @@ public class ClientPersonService
         client.register(ClientServiceController.getInstance().getHttpCredentials());
         client.register(new JacksonFeature());
         PersonDTO2 pers = new PersonDTO2(person);
-        String json = new Gson().toJson(pers);
 
+        Gson gson = new GsonBuilder().setDateFormat("dd-mm-yyyy").create();
+        String json = gson.toJson(pers);
         System.out.println("JSON:" + json);
         Response response = client.target(url + "person/update").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
         System.out.println("[CLIENT PERSON SERVICE] UPDATING PERSON " + pers.toString());
@@ -90,4 +92,8 @@ public class ClientPersonService
 //
 //        return client;
 //    }
+    private void dateToJson()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
