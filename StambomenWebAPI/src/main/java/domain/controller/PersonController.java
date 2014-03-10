@@ -4,6 +4,7 @@ import domain.Person;
 import domain.Tree;
 import exception.CannotDeletePersonsWithChidrenException;
 import exception.PersonAlreadyExistsException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.slf4j.Logger;
@@ -37,9 +38,16 @@ public class PersonController
         /*check wether the person has childs!*/
         Tree tree = pc.getTree(treeID);
         List<Person> persons = tree.getPersons();
-        Person p = pc.getPerson(personID);
+        List<Person> children = new ArrayList<Person>();
 
-        List<Person> children = p.getChilderen(persons);
+        for (Person p : persons)
+        {
+            if (p.getPersonId() == 0)
+            {
+                children = p.getChilderen(persons);
+                logger.info("[PERSON CONTROLLER] [DELETE] Found the persons ...");
+            }
+        }
 
         if (children != null && children.size() > 0)
         {

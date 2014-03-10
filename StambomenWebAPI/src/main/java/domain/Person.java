@@ -158,8 +158,8 @@ public class Person
 
         for (Person p : persons)
         {
-            Person father = getFather();
-            Person mother = getMother();
+            Person father = p.getFather();
+            Person mother = p.getMother();
 
             if (father != null && father.compareTo(this) == 0)
             {
