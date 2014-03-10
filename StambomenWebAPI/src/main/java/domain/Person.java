@@ -6,8 +6,9 @@ import java.util.Date;
 import java.util.List;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import util.StringValidation;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class Person
+public class Person
 {
 
     private int personId;   // optional
@@ -36,8 +37,8 @@ public final class Person
         setMother(mother);
         setPersonId(personId);
     }
-    
-      public Person(String firstName, String surName, Gender gender, Date birthDate, Date deathDate, Place place)
+
+    public Person(String firstName, String surName, Gender gender, Date birthDate, Date deathDate, Place place)
     {
         setFirstName(firstName);
         setSurName(surName);
@@ -45,9 +46,8 @@ public final class Person
         setBirthDate(birthDate);
         setDeathDate(deathDate);
         setPlace(place);
- 
-    }
 
+    }
 
     public int getPersonId()
     {
