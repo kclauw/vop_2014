@@ -25,15 +25,16 @@ public class ClientPersonService
         client.register(ClientServiceController.getInstance().getHttpCredentials());
         client.register(new JacksonFeature());
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-     
+
         String json = gson.toJson(person);
         System.out.println("Person in json: " + json);
         Response response = client.target(url + "person/" + treeID + "/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
-        
+
         if (response.getStatus() != 200)
         {
             System.out.println("Error occured" + response.toString() + "  " + response.readEntity(String.class));
-            return " " + response.getStatusInfo();
+
+            return " " + response.readEntity(String.class);
         }
 
         return null;
@@ -45,7 +46,6 @@ public class ClientPersonService
         Client client = ClientBuilder.newClient();
         client.register(ClientServiceController.getInstance().getHttpCredentials());
         client.register(new JacksonFeature());
-        
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         String json = gson.toJson(person);
@@ -57,7 +57,7 @@ public class ClientPersonService
         {
             System.out.println("[CLIENT PERSON SERVICE] UPDATE ERROR :" + response.toString());
 
-            return " " + response.getStatusInfo();
+            return " " + response.readEntity(String.class);
         }
 
         return null;
@@ -92,5 +92,4 @@ public class ClientPersonService
 //
 //        return client;
 //    }
-   
 }
