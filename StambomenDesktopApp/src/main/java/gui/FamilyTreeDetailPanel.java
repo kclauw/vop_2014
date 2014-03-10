@@ -295,6 +295,9 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 p.setFather(person);
             }
 
+            p.setBirthDate(dob.getDate());
+            p.setDeathDate(dob.getDate());
+
             p.setPlace(new PlaceDTO(-1, -1, -1, null, textFieldCountry.getText(), textFieldZipCode.getText(), textFieldCity.getText()));
             adding = false;
             JOptionPane.showMessageDialog(null, "Adding child!" + p.toString());
@@ -342,15 +345,14 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
     {//GEN-HEADEREND:event_btnAddActionPerformed
-         JOptionPane.showMessageDialog(null, "Fill in data for person to add");
+        JOptionPane.showMessageDialog(null, "Fill in data for person to add");
         adding = true;
         this.textFieldCity.setText("");
-         this.textFieldCountry.setText("");
-         this.textFieldFirstname.setText("");
-         this.textFieldLastname.setText("");
-         this.textFieldZipCode.setText("");
-           this.setEditable(true);
-           
+        this.textFieldCountry.setText("");
+        this.textFieldFirstname.setText("");
+        this.textFieldLastname.setText("");
+        this.textFieldZipCode.setText("");
+        this.setEditable(true);
 
     }//GEN-LAST:event_btnAddActionPerformed
 
