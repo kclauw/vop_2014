@@ -141,7 +141,7 @@ public class PlaceDao implements IDao<Place>
         }
         catch (Exception ex)
         {
-            logger.info("[PLACEDAO][Exception][Map]Exception: " + ex.getMessage());
+            logger.info("[PLACE DAO][Exception][Map]Exception: " + ex.getMessage());
         }
 
         return place;
