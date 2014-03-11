@@ -89,6 +89,16 @@ public class PersistenceController
         return p;
     }
 
+    public void setLanguage(int userID, int language){
+        logger.info("[PERSISTENCE CONTROLLER] Set Language for userid" + userID);
+        userDao.setLanguage(userID,language);
+    }
+    
+    public String getLanguage(int userID){
+        logger.info("[PERSISTENCE CONTROLLER] Get Language for userid" + userID);
+        return userDao.getLanguage(userID);
+    }
+    
     public List<Tree> getTrees(int userId)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get trees from user " + userId);

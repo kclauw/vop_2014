@@ -42,7 +42,7 @@ public class MockTree implements ITreeDAO<Tree> {
         person1 = person1.getPerson(1, "Peter", "Verreth", gm, d1, null, place, null, null);
         person2 = person2.getPerson(1, "Shirley", "Verreth", gf, d1, null, place, null, null);
         person3 = person3.getPerson(1, "Jelle", "Verreth", gm, d1, null, place, person1, person2);
-        user = new User(1, "Jelle", "Verreth");
+        user = new User(1, "Jelle", "Verreth","en");
         List<Person> lPer = null;
 
         lPer.add(person1);
