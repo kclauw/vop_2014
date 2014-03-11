@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import util.PersonUtil;
 
 public class FamilyTreePanel extends javax.swing.JPanel

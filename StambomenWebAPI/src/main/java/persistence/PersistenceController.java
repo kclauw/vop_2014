@@ -157,7 +157,7 @@ public class PersistenceController
 
         int personid = personDao.savePerson(person);
         persontreeDao.save(personid, treeID);
-        //controle niet vergeten
+        
 
         if (person.getMother() != null)
         {
@@ -168,8 +168,7 @@ public class PersistenceController
             parentrelationDao.save(treeID, person.getFather().getPersonId(), personid);
         }
 
-        /*Get persoon op naam*/
-        /*Voeg persoon toe aan een boom*/
+  
     }
 
 }

@@ -18,7 +18,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private JDateChooser dod;
     private FamilyTreeTotalPanel fttp;
     private TreeController treeController;
-    private boolean adding;
+    private boolean adding = false;
 
     public FamilyTreeDetailPanel(PersonDTO person, FamilyTreeTotalPanel fttp)
     {
@@ -286,7 +286,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 p.setGender(GenderDTO.MALE);
             }
 
-            if (person.getGender() == GenderDTO.FEMALE)
+            if (p.getGender() == GenderDTO.FEMALE)
             {
                 p.setMother(person);
             }
@@ -294,6 +294,9 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             {
                 p.setFather(person);
             }
+
+            p.setBirthDate(dob.getDate());
+            p.setDeathDate(dob.getDate());
 
             p.setPlace(new PlaceDTO(-1, -1, -1, null, textFieldCountry.getText(), textFieldZipCode.getText(), textFieldCity.getText()));
             adding = false;
@@ -308,8 +311,8 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             {
                 person.setFirstName(textFieldFirstname.getText());
                 person.setSurName(textFieldLastname.getText());
-//                person.setBirthDate(dob.getDate());
-//                person.setDeathDate(dod.getDate());
+                person.setBirthDate(dob.getDate());
+                person.setDeathDate(dod.getDate());
 
                 if (radioFemale.isSelected())
                 {
@@ -342,14 +345,13 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
     {//GEN-HEADEREND:event_btnAddActionPerformed
-        JOptionPane.showMessageDialog(null, "Please enter the information of the new child, press save when done: ");
-        textFieldCity.setText("");
-        textFieldCountry.setText("");
-        textFieldFirstname.setText("");
-        textFieldLastname.setText("");
-        textFieldZipCode.setText("");
+        JOptionPane.showMessageDialog(null, "Fill in data for person to add");
         adding = true;
-        btnEdit.setText("save");
+        this.textFieldCity.setText("");
+        this.textFieldCountry.setText("");
+        this.textFieldFirstname.setText("");
+        this.textFieldLastname.setText("");
+        this.textFieldZipCode.setText("");
         this.setEditable(true);
 
     }//GEN-LAST:event_btnAddActionPerformed

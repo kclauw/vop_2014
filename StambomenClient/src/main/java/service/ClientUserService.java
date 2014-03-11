@@ -21,7 +21,8 @@ public class ClientUserService
 {
 
     private final String url = "http://localhost:8084/StambomenWebAPI/rest/user";
-    private final Logger logger = LoggerFactory.getLogger(getClass()); 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     public String makeUser(UserDTO userDTO)
     {
         logger.info("[CLIENT USER SERVICE][MAKE USER]Make user:" + userDTO.toString());
@@ -30,7 +31,8 @@ public class ClientUserService
         Response response = client.target(url + "/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
         if (response.getStatus() != 200)
         {
-            return " " + response.getStatusInfo();
+
+            return " " + response.readEntity(String.class);
         }
 
         return null;
@@ -81,29 +83,50 @@ public class ClientUserService
 
         return friends;
     }
-    
-    public void deleteFriend(int userID, int frienduserID)
+
+    public String deleteFriend(int userID, int frienduserID)
     {
-        logger.info("[CLIENT USER SERVICE][DELETE FRIEND]Delete friend with id:" + frienduserID + " for user with id: "+ userID);
+        logger.info("[CLIENT USER SERVICE][DELETE FRIEND]Delete friend with id:" + frienduserID + " for user with id: " + userID);
         Client client = getClient();
         client.register(new JacksonFeature());
-        client.target(url + "/friends/delete/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "/friends/delete/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != 200)
+        {
+
+            return " " + response.readEntity(String.class);
+        }
+
+        return null;
     }
 
-    public void allowDenyFriendRequest(int userID, int frienduserID, boolean allow)
+    public String allowDenyFriendRequest(int userID, int frienduserID, boolean allow)
     {
-        logger.info("[CLIENT USER SERVICE][ALLOW DENY FRIEND REQUEST]Allow deny friendrequest for friend with id:" + frienduserID + " for user with id: "+ userID);
+        logger.info("[CLIENT USER SERVICE][ALLOW DENY FRIEND REQUEST]Allow deny friendrequest for friend with id:" + frienduserID + " for user with id: " + userID);
         Client client = getClient();
         client.register(new JacksonFeature());
-        client.target(url + "/friends/requests/" + (allow?"allow":"deny") + "/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "/friends/requests/" + (allow ? "allow" : "deny") + "/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != 200)
+        {
+
+            return " " + response.readEntity(String.class);
+        }
+
+        return null;
     }
 
-    public void sendFriendRequest(int userID, String frienduserName)
+    public String sendFriendRequest(int userID, String frienduserName)
     {
         logger.info("[CLIENT USER SERVICE][SEND FRIEND REQUEST]Send friendrequest to user with id:" + userID + " to friend user with name" + frienduserName);
         Client client = getClient();
         client.register(new JacksonFeature());
-        client.target(url + "/friends/requests/send/" + userID + "/" + frienduserName).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "/friends/requests/send/" + userID + "/" + frienduserName).request(MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != 200)
+        {
+
+            return " " + response.readEntity(String.class);
+        }
+
+        return null;
     }
 
     private Client getClient()

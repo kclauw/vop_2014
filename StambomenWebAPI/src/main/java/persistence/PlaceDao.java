@@ -15,7 +15,7 @@ public class PlaceDao implements IDao<Place>
 {
 
     private Connection con;
-    private final String GETPLACEBYID = "SELECT placeID, zipcode, c.coordinatesID, "
+    private final String GETPLACEBYID = "SELECT placeID as placeID, zipcode, c.coordinatesID, "
             + " p.countryID,c.latitude, c.longitude, coun.name as countryname, "
             + " pla.placenameID, pla.name as placename FROM Place as p "
             + " LEFT JOIN Coordinates c on c.coordinatesID = p.coordinatesID "
@@ -23,7 +23,7 @@ public class PlaceDao implements IDao<Place>
             + " JOIN Placename pla on pla.placenameID = p.placenameID "
             + " WHERE p.placeID = ?";
 
-    private final String GETPLACEBYPLACE = "SELECT placeID, zipcode, c.coordinatesID, "
+    private final String GETPLACEBYPLACE = "SELECT placeID as placeID, zipcode, c.coordinatesID, "
             + "             p.countryID,c.latitude, c.longitude, coun.name as countryname, "
             + "            pla.placenameID, pla.name as placename FROM Place as p \n"
             + "             LEFT JOIN Coordinates c on c.coordinatesID = p.coordinatesID "
@@ -115,7 +115,7 @@ public class PlaceDao implements IDao<Place>
         Place place = null;
         try
         {
-            if (res != null && res.next())
+            if (res != null)
             {
                 int placeId = res.getInt("placeID");
                 int countryId = res.getInt("countryID");
@@ -141,7 +141,7 @@ public class PlaceDao implements IDao<Place>
         }
         catch (Exception ex)
         {
-            logger.info("[PLACEDAO][Exception][Map]Exception: " + ex.getMessage());
+            logger.info("[PLACE DAO][Exception][Map]Exception: " + ex.getMessage());
         }
 
         return place;
@@ -167,8 +167,16 @@ public class PlaceDao implements IDao<Place>
             prep.setString(2, place.getPlaceName());
             prep.setString(3, place.getZipCode());
             res = prep.executeQuery();
-            p = map(res);
-            return p;
+            //We veronderstellen hier dat de plaats bestaat!
+            if (res.next())
+            {
+                p = map(res);
+            }
+            else
+            {
+                //make place!
+                //TODO MAKE PLACE
+            }
         }
         catch (Exception ex)
         {
@@ -178,7 +186,7 @@ public class PlaceDao implements IDao<Place>
         {
             try
             {
-                DatabaseUtils.closeQuietly(res);
+                //Cannot close res here!
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
             }
@@ -188,7 +196,7 @@ public class PlaceDao implements IDao<Place>
             }
 
         }
-        return null;
+        return p;
     }
 
     public Place getPlaceObject(Place place)

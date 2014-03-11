@@ -4,18 +4,21 @@ import exception.InvalidParentException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import util.StringValidation;
 
-public class Person {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Person
+{
 
-    private int personId;          // optional
-    private String firstName;     // required
-    private String surName;      // required
-    private Gender gender;      // required
-    private Date birthDate;    // optional
-    private Date deathDate;   // optional
-    private Place place;     // optional
-    private Person father;  // optional
+    private int personId;   // optional
+    private String firstName; // required
+    private String surName; // required
+    private Gender gender; // required
+    private Date birthDate; // optional
+    private Date deathDate; // optional
+    private Place place; // optional
+    private Person father; // optional
     private Person mother; // optional
 
     public Person() {
@@ -33,7 +36,19 @@ public class Person {
         this.mother = builder.mother;    // optional 
     }
 
-    public int getPersonId() {
+    public Person(String firstName, String surName, Gender gender, Date birthDate, Date deathDate, Place place)
+    {
+        setFirstName(firstName);
+        setSurName(surName);
+        setGender(gender);
+        setBirthDate(birthDate);
+        setDeathDate(deathDate);
+        setPlace(place);
+
+    }
+
+    public int getPersonId()
+    {
         return personId;
     }
 
@@ -93,9 +108,10 @@ public class Person {
 
         List<Person> childs = new ArrayList<Person>();
 
-        for (Person p : persons) {
-            Person father = getFather();
-            Person mother = getMother();
+        for (Person p : persons)
+        {
+            Person father = p.getFather();
+            Person mother = p.getMother();
 
             if (father != null && father.compareTo(this) == 0) {
                 childs.add(p);

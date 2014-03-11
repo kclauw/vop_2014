@@ -51,7 +51,11 @@ public class TreeDao implements IDao<Tree>
             }
 
             List<Person> pers = per.getPersons(id);
-            tree.setPersons(pers);
+            if (pers != null)
+            {
+                tree.setPersons(pers);
+            }
+
             con.close();
 
         }

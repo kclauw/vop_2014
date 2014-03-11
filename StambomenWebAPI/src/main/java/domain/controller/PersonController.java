@@ -1,8 +1,10 @@
 package domain.controller;
 
 import domain.Person;
+import domain.Tree;
 import exception.CannotDeletePersonsWithChidrenException;
 import exception.PersonAlreadyExistsException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.slf4j.Logger;
@@ -32,11 +34,22 @@ public class PersonController
      */
     public void deletePerson(int treeID, int personID)
     {
-        /*check wether the person has childs!*/
-        List<Person> persons = pc.getTree(treeID).getPersons();
-        Person p = pc.getPerson(personID);
 
-        List<Person> children = p.getChilderen(persons);
+        logger.info("==============================================================");
+        logger.info("[PERSON CONTROLLER] Deleting person with id: " + personID + " from Tree " + treeID);
+        /*check wether the person has childs!*/
+        Tree tree = pc.getTree(treeID);
+        List<Person> persons = tree.getPersons();
+        List<Person> children = new ArrayList<Person>();
+
+        for (Person p : persons)
+        {
+            if (p.getPersonId() == personID)
+            {
+                children = p.getChilderen(persons);
+                logger.info("[PERSON CONTROLLER] [DELETE] Found the persons ...");
+            }
+        }
 
         if (children != null && children.size() > 0)
         {
@@ -44,9 +57,11 @@ public class PersonController
         }
         else
         {
-            System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + personID);
+            System.out.println("[PERSON CONTROLLER] DELETING PERSON " + personID);
             pc.deletePerson(personID);
         }
+
+        logger.info("====================================================================");
     }
 
     public void updatePerson(Person person)
@@ -73,6 +88,7 @@ public class PersonController
      * @param treeID
      * @param person
      */
+    
     public void addPerson(int treeID, Person person)
     {
         /*Check wheter the person exists. This should be place in a repo.*/
