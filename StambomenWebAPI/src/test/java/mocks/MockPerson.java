@@ -28,9 +28,15 @@ public class MockPerson implements IPersonDAO<Person> {
         Date d3 = new Date("24/5/1992");
         coord = new Coordinate(1,0,0);
         place = new Place(1, 1, 1,coord, "België", "2980", "Zoersel");
-        Person person1 = new Person(1, "Peter", "Verreth", gm, d1, null, place, null, null);
-        Person person2 = new Person(1, "Shirley", "Verreth", gf, d1, null, place, null, null);
-        Person person3 = new Person(1, "Jelle", "Verreth", gm, d1, null, place, person1, person2);
+//        Person person1 = new Person(1, "Peter", "Verreth", gm, d1, null, place, null, null);
+//        Person person2 = new Person(1, "Shirley", "Verreth", gf, d1, null, place, null, null);
+//        Person person3 = new Person(1, "Jelle", "Verreth", gm, d1, null, place, person1, person2);
+        Person person1 = new Person();
+        Person person2 = new Person();
+        Person person3 = new Person();
+        person1 = person1.getPerson(1, "Peter", "Verreth", gm, d1, null, place, null, null);
+        person2 = person2.getPerson(1, "Shirley", "Verreth", gf, d1, null, place, null, null);
+        person3 = person3.getPerson(1, "Jelle", "Verreth", gm, d1, null, place, person1, person2);
         persons.add(person1);
         persons.add(person2);
         persons.add(person3);

@@ -76,7 +76,6 @@ public class PersonDao implements IDao<Person>
             {
                 prep.setNull(1, Types.INTEGER);
             }
-
             prep.setString(2, person.getFirstName());
             prep.setString(3, person.getSurName());
             prep.setByte(4, person.getGender().getGenderId());
@@ -341,8 +340,15 @@ public class PersonDao implements IDao<Person>
             Gender g = Gender.getGender(gender);
             Place p = pc.getPlace(res);
 
-            person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
-
+            person = person.getPerson(personId,firstName, lastName, g,  birthDate, deathDate, p,mother, father);
+//           person = Person.PersonBuilder(firstName,lastName,g)
+//                .personId(personId)
+//                .birthDate(birthDate)
+//                .deathDate(deathDate)
+//                .father(father)
+//                .mother(mother)
+//                .place(p)
+//                .build();
         }
         catch (SQLException ex)
         {
