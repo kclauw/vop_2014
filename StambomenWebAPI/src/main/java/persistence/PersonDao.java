@@ -342,8 +342,8 @@ public class PersonDao implements IDao<Person>
 
             Gender g = Gender.getGender(gender);
             Place p = pc.getPlace(res);
-
-            person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
+            person = person.getPerson(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
+            //person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
             logger.info("[PERSON DAO] Mapping person:" + person);
 
         }

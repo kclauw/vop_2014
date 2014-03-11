@@ -36,16 +36,16 @@ public class Person
         this.mother = builder.mother;    // optional 
     }
 
-    public Person(String firstName, String surName, Gender gender, Date birthDate, Date deathDate, Place place)
-    {
-        setFirstName(firstName);
-        setSurName(surName);
-        setGender(gender);
-        setBirthDate(birthDate);
-        setDeathDate(deathDate);
-        setPlace(place);
-
-    }
+//    public Person(String firstName, String surName, Gender gender, Date birthDate, Date deathDate, Place place)
+//    {
+//        setFirstName(firstName);
+//        setSurName(surName);
+//        setGender(gender);
+//        setBirthDate(birthDate);
+//        setDeathDate(deathDate);
+//        setPlace(place);
+//
+//    }
 
     public int getPersonId()
     {
