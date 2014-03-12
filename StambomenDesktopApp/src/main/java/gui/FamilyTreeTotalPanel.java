@@ -7,11 +7,13 @@ package gui;
 
 import dto.PersonDTO;
 import gui.controller.TreeController;
+import gui.tree.NewJFrame;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
@@ -109,6 +111,9 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     public void drawFamilyTree(List<PersonDTO> persons)
     {
         this.familyTreePanel.drawFamilyTree(persons);
+
+        JFrame j = new NewJFrame(treeController, persons);
+        j.setVisible(true);
     }
 
     public void deletePerson(PersonDTO person)

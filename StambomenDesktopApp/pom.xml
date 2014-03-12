@@ -28,9 +28,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-     	<groupId>org.glassfish.jersey.core</groupId>
-	<artifactId>jersey-client</artifactId>
-	<version>2.6</version>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>2.6</version>
         </dependency>
         <dependency>
             <groupId>unknown.binary</groupId>
@@ -49,10 +49,21 @@
             <type>war</type>
         </dependency>
         <dependency>
-	<groupId>com.toedter</groupId>
-	<artifactId>jcalendar</artifactId>
-	<version>1.4</version>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.4</version>
         </dependency>
+        <dependency>
+            <groupId>org.abego.treelayout</groupId>
+            <artifactId>org.abego.treelayout.core</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+	<groupId>org.abego.treelayout</groupId>
+	<artifactId>org.abego.treelayout.netbeans</artifactId>
+	<version>1.0.1</version>
+        </dependency>
+            
             
     </dependencies>
 </project>
