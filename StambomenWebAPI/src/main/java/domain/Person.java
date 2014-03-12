@@ -21,19 +21,21 @@ public class Person
     private Person father; // optional
     private Person mother; // optional
 
-    public Person() {
+    public Person()
+    {
     }
 
-    public Person(PersonBuilder builder) {
-        this.personId = builder.personId;        // optional  
+    public Person(PersonBuilder builder)
+    {
+        this.personId = builder.personId;        // optional
         this.firstName = builder.firstName;     // required
-        this.surName = builder.surName;        // required  
-        this.gender = builder.gender;         // required    
-        this.birthDate = builder.birthDate;  // optional   
-        this.deathDate = builder.deathDate; // optional   
-        this.place = builder.place;        // optional  
-        this.father = builder.father;     // optional 
-        this.mother = builder.mother;    // optional 
+        this.surName = builder.surName;        // required
+        this.gender = builder.gender;         // required
+        this.birthDate = builder.birthDate;  // optional
+        this.deathDate = builder.deathDate; // optional
+        this.place = builder.place;        // optional
+        this.father = builder.father;     // optional
+        this.mother = builder.mother;    // optional
     }
 
 //    public Person(String firstName, String surName, Gender gender, Date birthDate, Date deathDate, Place place)
@@ -46,65 +48,78 @@ public class Person
 //        setPlace(place);
 //
 //    }
-
     public int getPersonId()
     {
         return personId;
     }
 
-    public Gender getGender() {
+    public Gender getGender()
+    {
         return gender;
     }
 
-    public Date getBirthDate() {
+    public Date getBirthDate()
+    {
         return birthDate;
     }
 
-    public String getFirstName() {
+    public String getFirstName()
+    {
         return firstName;
     }
 
-    public String getSurName() {
+    public String getSurName()
+    {
         return surName;
     }
 
-    public Date getDeathDate() {
+    public Date getDeathDate()
+    {
         return deathDate;
     }
 
-    public Place getPlace() {
+    public Place getPlace()
+    {
         return place;
     }
 
-    public Person getFather() {
+    public Person getFather()
+    {
         return father;
     }
 
-    public Person getMother() {
+    public Person getMother()
+    {
         return mother;
     }
 
-    public void setFather(Person father) {
-        if (father == this) {
+    public void setFather(Person father)
+    {
+        if (father == this)
+        {
             throw new InvalidParentException();
         }
 
         this.father = father;
     }
 
-    public void setMother(Person mother) {
-        if (mother == this) {
+    public void setMother(Person mother)
+    {
+        if (mother == this)
+        {
             throw new InvalidParentException();
         }
         this.mother = mother;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Person{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + ", gender=" + gender + ", birthDate=" + birthDate + ", deathDate=" + deathDate + ", place=" + place + ", father=" + father + ", mother=" + mother + '}';
     }
 
-    public List<Person> getChilderen(List<Person> persons) {
+    public List<Person> getChilderen(List<Person> persons)
+    {
 
         List<Person> childs = new ArrayList<Person>();
 
@@ -113,11 +128,13 @@ public class Person
             Person father = p.getFather();
             Person mother = p.getMother();
 
-            if (father != null && father.compareTo(this) == 0) {
+            if (father != null && father.compareTo(this) == 0)
+            {
                 childs.add(p);
             }
 
-            if (mother != null && mother.compareTo(this) == 0) {
+            if (mother != null && mother.compareTo(this) == 0)
+            {
                 childs.add(p);
             }
         }
@@ -125,28 +142,21 @@ public class Person
         return childs;
     }
 
-    public int compareTo(Person person) {
-        if (person.getPersonId() == this.getPersonId()) {
+    public int compareTo(Person person)
+    {
+        if (person.getPersonId() == this.getPersonId())
+        {
             return 0;
-        } else {
+        }
+        else
+        {
             return -1;
 
         }
     }
 
-    public Person getPerson(int personId,String firstName, String lastName, 
-            Gender g, Date birthDate, Date deathDate, Place place, Person mother, Person father){
-        return new Person.PersonBuilder(firstName,lastName,g)
-                .personId(personId)
-                .birthDate(birthDate)
-                .deathDate(deathDate)
-                .father(father)
-                .mother(mother)
-                .place(place)
-                .build();
-    }
-    
-    public static class PersonBuilder {
+    public static class PersonBuilder
+    {
 
         private int personId;   // optional
         private final String firstName; // required
@@ -158,43 +168,51 @@ public class Person
         private Person father; // optional
         private Person mother; // optional
 
-        public PersonBuilder(String firstName, String surName, Gender gender) {
+        public PersonBuilder(String firstName, String surName, Gender gender)
+        {
             this.firstName = firstName;
             this.surName = surName;
             this.gender = gender;
         }
 
-        public PersonBuilder personId(int personId) {
+        public PersonBuilder personId(int personId)
+        {
             this.personId = personId;
             return this;
         }
 
-        public PersonBuilder birthDate(Date birthDate) {
+        public PersonBuilder birthDate(Date birthDate)
+        {
             this.birthDate = birthDate;
             return this;
         }
 
-        public PersonBuilder deathDate(Date deathDate) {
+        public PersonBuilder deathDate(Date deathDate)
+        {
             this.deathDate = deathDate;
             return this;
         }
 
-        public PersonBuilder place(Place place) {
+        public PersonBuilder place(Place place)
+        {
             this.place = place;
             return this;
         }
 
-        public PersonBuilder father(Person father) {
+        public PersonBuilder father(Person father)
+        {
             this.father = father;
             return this;
         }
 
-        public PersonBuilder mother(Person mother) {
+        public PersonBuilder mother(Person mother)
+        {
             this.mother = mother;
             return this;
         }
 
-        public Person build() {
+        public Person build()
+        {
             return new Person(this);
         }
     }

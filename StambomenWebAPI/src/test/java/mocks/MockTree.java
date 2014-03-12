@@ -15,7 +15,8 @@ import java.util.List;
 import java.util.Map;
 import persistence.ITreeDAO;
 
-public class MockTree implements ITreeDAO<Tree> {
+public class MockTree implements ITreeDAO<Tree>
+{
 
     public List<Tree> trees;
     public Tree tree;
@@ -25,7 +26,8 @@ public class MockTree implements ITreeDAO<Tree> {
     public Gender gf, gm;
     public Coordinate coord;
 
-    MockTree() {
+    MockTree()
+    {
         gf = Gender.FEMALE;
         gm = Gender.MALE;
         Date d1 = new Date("6/10/1966");
@@ -39,10 +41,10 @@ public class MockTree implements ITreeDAO<Tree> {
         Person person1 = new Person();
         Person person2 = new Person();
         Person person3 = new Person();
-        person1 = person1.getPerson(1, "Peter", "Verreth", gm, d1, null, place, null, null);
-        person2 = person2.getPerson(1, "Shirley", "Verreth", gf, d1, null, place, null, null);
-        person3 = person3.getPerson(1, "Jelle", "Verreth", gm, d1, null, place, person1, person2);
-        user = new User(1, "Jelle", "Verreth","en");
+//        person1 = person1.getPerson(1, "Peter", "Verreth", gm, d1, null, place, null, null);
+//        person2 = person2.getPerson(1, "Shirley", "Verreth", gf, d1, null, place, null, null);
+//        person3 = person3.getPerson(1, "Jelle", "Verreth", gm, d1, null, place, person1, person2);
+        user = new User(1, "Jelle", "Verreth", "en");
         List<Person> lPer = null;
 
         lPer.add(person1);
@@ -59,11 +61,14 @@ public class MockTree implements ITreeDAO<Tree> {
     }
 
     @Override
-    public Tree get(int id) {
+    public Tree get(int id)
+    {
         Tree p = null;
 
-        for (Tree item : trees) {
-            if (item.getId() == id) {
+        for (Tree item : trees)
+        {
+            if (item.getId() == id)
+            {
                 p = item;
             }
         }
@@ -72,35 +77,43 @@ public class MockTree implements ITreeDAO<Tree> {
     }
 
     @Override
-    public void save(Tree value) {
+    public void save(Tree value)
+    {
         trees.add(value);
     }
 
     @Override
-    public void update(Tree value) {
+    public void update(Tree value)
+    {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void delete(Tree value) {
+    public void delete(Tree value)
+    {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Collection<Tree> getAll() {
+    public Collection<Tree> getAll()
+    {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Tree map(ResultSet res) {
+    public Tree map(ResultSet res)
+    {
         return trees.get(2);
     }
 
     @Override
-    public List<Tree> getAll(int userid) {
+    public List<Tree> getAll(int userid)
+    {
         List<Tree> tr = null;
-        for (Tree item : trees) {
-            if (item.getOwner().getId() == userid) {
+        for (Tree item : trees)
+        {
+            if (item.getOwner().getId() == userid)
+            {
                 tr.add(item);
             }
         }

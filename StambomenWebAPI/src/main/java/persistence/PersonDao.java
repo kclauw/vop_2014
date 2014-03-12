@@ -335,14 +335,21 @@ public class PersonDao implements IDao<Person>
             byte gender = res.getByte("gender");
             Date birthDate = res.getDate("birthdate");
             Date deathDate = res.getDate("deathdate");
-            int placeId = res.getInt("birthplace");
+            //      int placeId = res.getInt("birthplace");
 
             Person father = null;
             Person mother = null;
 
             Gender g = Gender.getGender(gender);
             Place p = pc.getPlace(res);
-            person = person.getPerson(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
+            person = new Person.PersonBuilder(firstName, lastName, g)
+                    .personId(personId)
+                    .birthDate(birthDate)
+                    .deathDate(deathDate)
+                    .father(father)
+                    .mother(mother)
+                    .place(p)
+                    .build();
             //person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
             logger.info("[PERSON DAO] Mapping person:" + person);
 
