@@ -7,15 +7,10 @@ package gui.tree;
 
 import dto.PersonDTO;
 import gui.controller.TreeController;
+import java.awt.BorderLayout;
 import java.util.List;
-import org.abego.treelayout.NodeExtentProvider;
 import org.abego.treelayout.TreeLayout;
-import org.abego.treelayout.netbeans.AbegoTreeLayoutForNetbeans;
 import org.abego.treelayout.util.DefaultConfiguration;
-import org.netbeans.api.visual.graph.GraphScene;
-import org.netbeans.api.visual.layout.LayoutFactory;
-import org.netbeans.api.visual.layout.SceneLayout;
-import org.netbeans.api.visual.widget.Widget;
 import util.PersonUtil;
 
 public class NewJFrame extends javax.swing.JFrame
@@ -34,7 +29,12 @@ public class NewJFrame extends javax.swing.JFrame
         initComponents();
         PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), persons);
         TreePane tree = new TreePane(new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), new DefaultConfiguration<PersonDTO>(100, 100)));
-        this.add(tree);
+
+        this.setLayout(new BorderLayout());
+        this.add(tree, BorderLayout.CENTER);
+
+        repaint();
+        revalidate();
     }
 
     @SuppressWarnings("unchecked")

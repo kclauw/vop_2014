@@ -114,6 +114,10 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
 
         JFrame j = new NewJFrame(treeController, persons);
         j.setVisible(true);
+        j.setLocationRelativeTo(null);
+
+        repaint();
+        revalidate();
     }
 
     public void deletePerson(PersonDTO person)
