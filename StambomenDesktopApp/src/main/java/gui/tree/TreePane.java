@@ -1,13 +1,20 @@
 package gui.tree;
 
 import dto.PersonDTO;
+import gui.FamilyTreeTotalPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import org.abego.treelayout.TreeLayout;
+import util.PersonUtil;
 
 public class TreePane extends JComponent
 {
@@ -18,10 +25,14 @@ public class TreePane extends JComponent
     private final static Color TEXT_COLOR = Color.black;
     //   private PersonTreeForTreeLayout tree;
     private final TreeLayout<PersonDTO> treeLayout;
+    private List<PersonDTO> persons;
+    private FamilyTreeTotalPanel fttp;
 
-    public TreePane(TreeLayout<PersonDTO> tree)
+    public TreePane(TreeLayout<PersonDTO> tree, List<PersonDTO> persons, FamilyTreeTotalPanel fttp)
     {
         this.treeLayout = tree;
+        this.persons = persons;
+        this.fttp = fttp;
         Dimension size = tree.getBounds().getBounds().getSize();
         setPreferredSize(size);
     }
@@ -46,8 +57,18 @@ public class TreePane extends JComponent
 
     private void paintPerson(Graphics g, PersonDTO person)
     {
+        PersonDTO partner = PersonUtil.getPartner(person, persons);
+
         // draw the box in the background
-        g.setColor(BOX_COLOR);
+        if (partner == null)
+        {
+            g.setColor(BOX_COLOR);
+        }
+        else
+        {
+            g.setColor(Color.CYAN);
+        }
+
         Rectangle2D.Double box = getBoundsOfNode(person);
         g.fillRoundRect((int) box.x, (int) box.y, (int) box.width - 1,
                 (int) box.height - 1, ARC_SIZE, ARC_SIZE);
@@ -57,16 +78,48 @@ public class TreePane extends JComponent
 
         // draw the text on top of the box (possibly multiple lines)
         g.setColor(TEXT_COLOR);
-        String[] lines =
+
+        addListener(box, person);
+
+        List<String> lines = new ArrayList<String>();
+
+        lines.add(person.getFirstName());
+        lines.add(person.getSurName());
+
+        drawString(g, lines, box);
+
+        if (partner != null)
         {
-            person.getFirstName(), person.getSurName()
-        };
+            g.setColor(Color.PINK);
+            Rectangle2D.Double partnerBox = new Rectangle2D.Double(box.x + 75, box.y, 75, 50);
+            g.fillRoundRect((int) partnerBox.x, (int) partnerBox.y, (int) partnerBox.width - 1,
+                    (int) partnerBox.height - 1, ARC_SIZE, ARC_SIZE);
+            g.setColor(BORDER_COLOR);
+            g.drawRoundRect((int) partnerBox.x, (int) partnerBox.y, (int) partnerBox.width - 1,
+                    (int) partnerBox.height - 1, ARC_SIZE, ARC_SIZE);
+
+            addListener(partnerBox, partner);
+
+            lines.removeAll(lines);
+
+            lines.add(partner.getFirstName());
+            lines.add(partner.getSurName());
+            drawString(g, lines, partnerBox);
+
+        }
+    }
+
+    private void drawString(Graphics g, List<String> lines, Rectangle2D.Double box)
+    {
+        g.setColor(Color.BLACK);
+
         FontMetrics m = getFontMetrics(getFont());
         int x = (int) box.x + ARC_SIZE / 2;
         int y = (int) box.y + m.getAscent() + m.getLeading() + 1;
-        for (int i = 0; i < lines.length; i++)
+
+        for (String l : lines)
         {
-            g.drawString(lines[i], x, y);
+            g.drawString(l, x, y);
             y += m.getHeight();
         }
     }
@@ -87,4 +140,20 @@ public class TreePane extends JComponent
     {
         return treeLayout.getNodeBounds().get(node);
     }
+
+    private void addListener(final Rectangle2D.Double box, final PersonDTO person)
+    {
+        this.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mousePressed(MouseEvent me)
+            {
+                if (box.contains(me.getPoint()))
+                {
+                    fttp.setPerson(person);
+                }
+            }
+        });
+    }
+
 }
