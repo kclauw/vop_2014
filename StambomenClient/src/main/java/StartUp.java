@@ -13,7 +13,7 @@ public class StartUp
     public static void main(String args[])
     {
         ClientUserController uc = new ClientUserController();
-        UserDTO user = new UserDTO(-1, "Jelle", "123");
+        UserDTO user = new UserDTO(-1, "Jelle", "123", null);
         String login = uc.login(user);
 
         ClientTreeController ctc = new ClientTreeController();
