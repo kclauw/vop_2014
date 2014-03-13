@@ -225,11 +225,11 @@ my $db_pass = "RKAxujnJ";
 my $db_host="db.vop.tiwi.be:" . (($db_port_ownpc)?"443":"3306");
 
 #Bevestiging vragen
-# printlines("Are you sure you want to execute the query in '$db_name' on '$db_host'? [y|n]");
-# my $continue = <>;
-# $continue = "n" if ( !defined $continue || $continue ne "y\n" );
-# printlines( "Answer: " . ( ($continue eq "y\n") ? "Positive - Proceeding script" : "Negative - Aborting script" ) );
-# goto END if ( $continue ne "y\n" );
+printlines("Are you sure you want to execute the query in '$db_name' on '$db_host'? [y|n]");
+my $continue = <>;
+$continue = "n" if ( !defined $continue || $continue ne "y\n" );
+printlines( "Answer: " . ( ($continue eq "y\n") ? "Positive - Proceeding script" : "Negative - Aborting script" ) );
+goto END if ( $continue ne "y\n" );
 
 Time::HiRes::sleep(0.1);
 #Connecteren
