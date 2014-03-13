@@ -6,6 +6,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
@@ -19,7 +21,7 @@ import util.PersonUtil;
 public class TreePane extends JComponent
 {
 
-    private final static int ARC_SIZE = 10;
+    private final static int ARC_SIZE = 20;
     private final static Color BOX_COLOR = Color.orange;
     private final static Color BORDER_COLOR = Color.darkGray;
     private final static Color TEXT_COLOR = Color.black;
@@ -34,7 +36,8 @@ public class TreePane extends JComponent
         this.persons = persons;
         this.fttp = fttp;
         Dimension size = tree.getBounds().getBounds().getSize();
-        setPreferredSize(size);
+        setPreferredSize(new Dimension(size.width + 500, size.height + 500));
+
     }
 
     private void paintEdges(Graphics g, PersonDTO root)
@@ -79,8 +82,7 @@ public class TreePane extends JComponent
         // draw the text on top of the box (possibly multiple lines)
         g.setColor(TEXT_COLOR);
 
-        addListener(box, person);
-
+  //      addListener(box, person);
         List<String> lines = new ArrayList<String>();
 
         lines.add(person.getFirstName());
@@ -98,8 +100,7 @@ public class TreePane extends JComponent
             g.drawRoundRect((int) partnerBox.x, (int) partnerBox.y, (int) partnerBox.width - 1,
                     (int) partnerBox.height - 1, ARC_SIZE, ARC_SIZE);
 
-            addListener(partnerBox, partner);
-
+          //  addListener(partnerBox, partner);
             lines.removeAll(lines);
 
             lines.add(partner.getFirstName());
