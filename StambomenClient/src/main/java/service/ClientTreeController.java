@@ -9,7 +9,8 @@ public class ClientTreeController
 {
 
     private ClientTreeService client;
-    private final Logger logger = LoggerFactory.getLogger(getClass());  
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     public ClientTreeController()
     {
         this.client = new ClientTreeService();
@@ -26,5 +27,10 @@ public class ClientTreeController
     {
         logger.info("[CLIENT TREE CONTROLLER][GET TREES]Get trees with id: " + i);
         return client.getTrees(ClientServiceController.getInstance().getUser().getId());
+    }
+
+    public TreeDTO getTree(int id)
+    {
+        return client.getTree(id);
     }
 }
