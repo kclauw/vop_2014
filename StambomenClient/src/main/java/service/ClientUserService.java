@@ -139,4 +139,17 @@ public class ClientUserService
 
         return client;
     }
+    
+     public String setLanguage(int userID, int language) {
+        Client client = getClient();
+        client.register(new JacksonFeature());
+        Response response = client.target(url + "/post/setLanguage/" + userID + "/" + language).request(MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != 200)
+        {
+
+            return " " + response.readEntity(String.class);
+        }
+        return null;
+        
+    }
 }
