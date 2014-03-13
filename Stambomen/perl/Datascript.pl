@@ -26,20 +26,24 @@ STDOUT->autoflush(1);
 # +-+-+-+-+-+-+-+-+-+
 
 #DB info
-my $db_release = 1;
+my $db_release = 0;
 my $db_port_ownpc = 1;
-my $writequery = 1;
-my $openqueryfile = 1;
+my $writequery = 0;
+my $openqueryfile = 0;
 #Hoe moet de boom worden ingevuld?
-my %users = ( "Piet" => "Snot" ); #Users
+#USERS
+my %users = ( "Icecoldcoldcoldcold" => "Outcast" ); #Users
+#TREES
 my @numberoftrees = 4..8; #Variatie in aantal bomen per user
-my @headyearofbirth = 1600..1800; #Variatie in geboortejaar van hoofd van familie
-my @privacyoptions = 0..2; #Variatie in de privacy van een boom
 my @maxnumberofpersons = 60..120; #Maximum aantal personen per boom
+#PERSONS
+my @privacyoptions = 0..2; #Variatie in de privacy van een boom
+my @headyearofbirth = 1600..1800; #Variatie in geboortejaar van hoofd van familie
 my @childrenperperson = (0..6, 0..5, 0..4, 0..3, 0..2, 0..1, 0); #Variatie in aantal kinderen per persoon
 my @personage = (70..110, 72..105, 74..100, 76..95, 78..90, 80..85); #Variatie in leeftijd van een persoon
 my @partneragedifference = (-10..10, -5..10, 0..10); #Variatie in verschil in leeftijd tussen partners
 my @parentagehavingchild = (20..40, 22..36, 24..32, 26..28); #Variatie in leeftijd waarop ouder kind krijgt
+#PLACES
 my $oddsotherprovince = 5; #Kans andere provincie (1 op ...)
 my $oddsothercountry = 20; #Kans ander land (1 op ...)
 
@@ -96,25 +100,33 @@ my $sql_add_parentrelation = "\t\tinsert into ParentRelation (treeID,parent,chil
 printlines("PREPARATION");
 
 #Mannen ophalen
-my $html_men = encode_utf8( get $url_men );
+my $html_men = get $url_men;
+goto DATACHECK if (!$html_men);
+$html_men = encode_utf8($html_men);
 my @men = $html_men =~ m/<td>([A-Za-z äâ éèëê ïî öô üû ç ]*) \(M\)<\/td>/g;
 goto DATACHECK if (@men == 0);
 (s/([A-Za-zäâéèëêïîöôüûç]+)/ucfirst(lc($1))/ge) for @men;
 printlines("Picked up " . @men . " mennames");
 #Vrouwen ophalen
-my $html_women = encode_utf8( get $url_women );
+my $html_women = get $url_women;
+goto DATACHECK if (!$html_women);
+$html_women = encode_utf8($html_women);
 my @women = $html_women =~ m/<td>([A-Za-z äâ éèëê ïî öô üû ç ]*) \(V\)<\/td>/g;
 goto DATACHECK if (@women == 0);
 (s/([A-Za-zäâéèëêïîöôüûç]+)/ucfirst(lc($1))/ge) for @women;
 printlines("Picked up " . @women . " womennames");
 #Familienamen ophalen
-my $html_surnames = encode_utf8( get $url_surnames );
+my $html_surnames = get $url_surnames;
+goto DATACHECK if (!$html_surnames);
+$html_surnames = encode_utf8($html_surnames);
 my @surnames = shuffle ( $html_surnames =~ m/<a href="idx.*?[^.]">([A-Za-z äâ éèëê ïî öô üû ç ]*)<\/a>/g );
 goto DATACHECK if (@surnames == 0);
 (s/([A-Za-zäâéèëêïîöôüûç]+)/ucfirst(lc($1))/ge) for @surnames;
 printlines("Picked up " . @surnames . " surnames");
 #Plaatsen ophalen
-my $html_places = encode_utf8( get $url_places );
+my $html_places = get $url_places;
+goto DATACHECK if (!$html_places);
+$html_places = encode_utf8($html_places);
 my %places;
 my @placesrough = $html_places =~ m/<tr.*?><td.*?>([0-9]+).*?<\/td>.*?<td.*?><a.*?>([A-Za-z äâ éèëê ïî öô üû ç -]*)<\/a>.*?<a.*?>([A-Za-z äâ éèëê ïî öô üû ç -]*)<\/a>.*?<\/tr>/g;
 (s/([A-Za-zäâéèëêïîöôüûç]+)/ucfirst(lc($1))/ge) for @placesrough;
@@ -126,9 +138,10 @@ while( my($pc, $pl, $pr) = ( @placesrough ) ) {
 	splice(@placesrough,0,3);
 }
 printlines("Picked up " . $placesaantal . " places");
+
 DATACHECK:
-if (@men == 0 || @women == 0 || @surnames == 0 || $placesaantal == 0) {
-	printlines("Could not fetch all data");
+if (!$html_men || !$html_women || !$url_surnames || !$html_places || @men == 0 || @women == 0 || @surnames == 0 || $placesaantal == 0) {
+	printlines("ERROR: Could not fetch all data");
 	goto END;
 }
 
@@ -141,13 +154,6 @@ if (@men == 0 || @women == 0 || @surnames == 0 || $placesaantal == 0) {
 # +-+-+-+-+-+-+-+-+-+-+
 
 printlines("GENERATING");
-
-#Bevestiging vragen
-# printlines("Ben je zeker dat je de data wilt toevoegen in '$db_name' op '$db_host'? [y|n]");
-# my $continue = <>;
-# $continue = "n" if ( !defined $continue || $continue ne "y\n" );
-# printlines( "Antwoord: " . ( ($continue eq "y\n") ? "Ja" : "Nee" ) );
-# goto END if ( $continue ne "y\n" );
 
 foreach my $username (keys %users) {
 	my $password = $users{$username};
@@ -189,7 +195,7 @@ foreach my $username (keys %users) {
 		#Aantal personen vastleggen
 		my $n = getmaxnumberofpersons();
 		while ($n > 0) { #Loop voor personen
-			$n -= $personstack[0][7];
+			$n -= 0+$personstack[0][7];
 
 			addchildren($personstack[0]);
 			shift @personstack;
@@ -217,29 +223,59 @@ my $db_name ="team12_" . (($db_release)?"release":"staging");
 my $db_user = "team12";
 my $db_pass = "RKAxujnJ";
 my $db_host="db.vop.tiwi.be:" . (($db_port_ownpc)?"443":"3306");
+
+#Bevestiging vragen
+# printlines("Are you sure you want to execute the query in '$db_name' on '$db_host'? [y|n]");
+# my $continue = <>;
+# $continue = "n" if ( !defined $continue || $continue ne "y\n" );
+# printlines( "Answer: " . ( ($continue eq "y\n") ? "Positive - Proceeding script" : "Negative - Aborting script" ) );
+# goto END if ( $continue ne "y\n" );
+
 Time::HiRes::sleep(0.1);
 #Connecteren
-my $dbh = DBI->connect("DBI:mysql:$db_name:$db_host", $db_user, $db_pass) or die $DBI::errstr;
+my $dbh = DBI->connect("DBI:mysql:$db_name:$db_host", $db_user, $db_pass, { PrintError => 0 } ) or die DBI->errstr;
 printlines("Connected to $db_host");
+
 $dbh->begin_work or die $dbh->errstr;
 printlines("Started transaction");
-eval {
-    if (1) {
 
-    }
-    1; #if it doesn't die then this will force it to return true
+eval {
+	my @sqlelements = split(m/\n/x, $sql );
+	my $numberofstatements_total = 0+@sqlelements;
+	my $numberofstatements_done = 0;
+
+	my $lastprogress = -1;
+	foreach my $statement (@sqlelements) {
+		++$numberofstatements_done;
+		my $progress = int(($numberofstatements_done / $numberofstatements_total) * 100);
+		if ($lastprogress != $progress && $progress % 5 == 0)
+		{
+			$lastprogress = $progress;
+			printlines("Progress: $progress%");
+		}
+
+		printlines("Doing: Adding user") if ($statement =~ m/^\s*#USER.*$/g);
+		printlines("Doing: Adding tree") if ($statement =~ m/^\s*#TREE.*$/g);
+		next if ($statement =~ m/^\s*#.*$/g || $statement =~ m/^\s*$/g);
+
+		my $numberofparameters = $statement =~ tr/?//;
+		my @parameters = splice(@sql_parameters, 0, $numberofparameters);
+
+		my $sth = $dbh->prepare( $statement ) or die $dbh->errstr;
+		$sth->execute(@parameters) or die $dbh->errstr;
+	}
+
+	$dbh->commit() or $dbh->errstr;
+	printlines("Commited changes");
+	1;
 } or do {
-    my $error = DBI->errstr;
-    $dbh->rollback() or die $dbh->errstr;
-	printlines("Rolledback changes -> $error");
+	printlines("ERROR: " . ($@ =~ s/^\s+|\s+$//rg)) if ($@);
+    $dbh->rollback();
+	printlines("Rolledback changes");
 };
-$dbh->commit() or die $dbh->errstr;
-printlines("Commited changes");
+
 $dbh->disconnect() or die $dbh->errstr;
 printlines("Disconnected from $db_host");
-
-#Uitvoering afronden
-
 
 
 
@@ -286,7 +322,7 @@ sub addchildren {
 
 		#CHILDREN
 		my $child_childrennumber = getchildrennumber();
-		while ($child_childrennumber == 0 && @personstack == 0) {
+		while ($child_childrennumber == 0 && @personstack <= 1) {
 			$child_childrennumber = getchildrennumber();
 		}
 
@@ -434,7 +470,7 @@ sub getbirthdatehead {
 }
 
 sub random() {
-	return 0 if ($_[0] == 1);
+	return 0 if ($_[0] <= 1);
 	return int((rand ($_[0]-1))+ 0.5);
 }
 
@@ -445,10 +481,15 @@ sub printlines {
 	$timer_prevtime = $timer_time;
 
 	$timer_time = sprintf("%.2f", $timer_time);
+	$timer_time = (" " x (6 - length($timer_time))) . $timer_time;
 	$timer_diffprevtime = sprintf("%.2f", $timer_diffprevtime);
+	$timer_diffprevtime = (" " x (6 - length($timer_diffprevtime))) . $timer_diffprevtime;
+
+	my $numberofprintsstr = "" . $numberofprints;
+	$numberofprintsstr = (" " x (3 - length($numberofprintsstr))) . $numberofprintsstr;
 
 	my @myarray = @_;
-	print join "\n", map { "[${timer_time}s [+${timer_diffprevtime}s]] $numberofprints ->" . ( ($_ =~ m/^[A-Z]*$/g)?" ":"\t\t" ) . (($_ =~ s/\n/\n\t\t\t\t\t\t\t/g && defined $1)?$1:$_) } @myarray;
+	print join "\n", map { "[${timer_time}s [+${timer_diffprevtime}s]] $numberofprintsstr -> " . ( ($_ =~ m/^[A-Z]*$/g)?" ":"\t\t" ) . (($_ =~ s/\n/\n\t\t\t\t\t\t\t/g && defined $1)?$1:$_) } @myarray;
 	print "\n";
 }
 sub fillvarsinSQL {
