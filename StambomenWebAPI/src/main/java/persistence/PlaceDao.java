@@ -31,6 +31,17 @@ public class PlaceDao implements IDao<Place>
             + "			JOIN Placename pla on pla.placenameID = p.placenameID "
             + "             WHERE coun.name = ? and pla.name = ? and zipcode = ?";
 
+    private final String GETCOUNTRIDBYNAME = "SELECT countryID FROM Country where name = ?";
+    private final String SAVECOUNTRY = "INSERT INTO Country VALUES (null,?);";
+
+    private final String GETPLACENAMEIDBYNAME = "SELECT placeNameID FROM PlaceName where name = ?";
+    private final String SAVEPLACENAME = "INSERT INTO PlaceName VALUES (null,?);";
+
+    private final String GETCOORDSBYLONGANDLAT = "SELECT * FROM Coordinates WHERE longitude = ? AND latitude = ?";
+    private final String SAVECOORD = "INSERT INTO Coordinates VALUES (null,?,?);";
+
+    private final String SAVEPLACE = "INSERT INTO PLACE VALUES (null, ?, ?, ?, ?)";
+
     private final Logger logger;
 
     public PlaceDao()
@@ -93,7 +104,108 @@ public class PlaceDao implements IDao<Place>
     @Override
     public void save(Place place)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int countryID = -1;
+        int placeNameID = -1;
+        int coordinateID = -1;
+
+        try
+        {
+            PreparedStatement prep;
+            ResultSet res;
+            con = DatabaseUtils.getConnection();
+
+            /*Maak country aan indien nodig:*/
+            prep = con.prepareStatement(GETCOUNTRIDBYNAME);
+            prep.setString(1, place.getCountry());
+            res = prep.executeQuery();
+
+            if (res.next())
+            {
+                countryID = res.getInt("countryID");
+            }
+            else
+            {
+                prep = con.prepareStatement(SAVECOUNTRY);
+                prep.setString(1, place.getCountry());
+                prep.executeUpdate();
+
+                ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
+                if (getKeyRs != null)
+                {
+
+                    if (getKeyRs.next())
+                    {
+                        countryID = getKeyRs.getInt(1);
+                    }
+                    getKeyRs.close();
+                }
+
+            }
+            /*Maak plaats aan indien nodig*/
+            prep = con.prepareStatement(GETPLACENAMEIDBYNAME);
+            prep.setString(1, place.getPlaceName());
+            res = prep.executeQuery();
+
+            if (res.next())
+            {
+                placeNameID = res.getInt("placeNameID");
+            }
+            else
+            {
+                prep = con.prepareStatement(SAVEPLACENAME);
+                prep.setString(1, place.getPlaceName());
+                prep.executeUpdate();
+
+                ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
+                if (getKeyRs != null)
+                {
+
+                    if (getKeyRs.next())
+                    {
+                        placeNameID = getKeyRs.getInt(1);
+                    }
+                    getKeyRs.close();
+                }
+
+            }
+
+            prep = con.prepareStatement(SAVEPLACE);
+            Coordinate coord = place.getCoord();
+
+            //TODO!!!
+            if (coord != null && coord.getId() != -1)
+            {
+                coordinateID = coord.getId();
+            }
+            else if (coord != null)
+            {
+                //normal insert
+
+            }
+            else
+            {
+                //null insert
+            }
+
+            prep.setInt(1, coordinateID);
+            prep.setInt(2, countryID);
+
+            String zipCode = place.getZipCode();
+
+            if (zipCode != null)
+            {
+                prep.setString(3, place.getZipCode());
+            }
+
+            prep.setInt(4, placeNameID);
+
+            prep.executeUpdate();
+
+        }
+        catch (Exception ex)
+        {
+            java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
