@@ -3,6 +3,7 @@
 # |I|M|P|O|R|T|S|
 # +-+-+-+-+-+-+-+ 
 
+use Date::Calc qw(Add_Delta_Days);
 use DBI;
 use Encode;
 use File::Basename;
@@ -30,11 +31,15 @@ my $db_port_ownpc = 1;
 my $writequery = 1;
 my $openqueryfile = 1;
 #Hoe moet de boom worden ingevuld?
-my %users = ( "Lowie" => "12345", "Axl" => "12345" ); #Users
-my @numberoftrees = 3..6; #Variatie in aantal bomen per user
+my %users = ( "Piet" => "Snot" ); #Users
+my @numberoftrees = 4..8; #Variatie in aantal bomen per user
+my @headyearofbirth = 1600..1800; #Variatie in geboortejaar van hoofd van familie
 my @privacyoptions = 0..2; #Variatie in de privacy van een boom
-my $maxnumberofpersons = 60; #Maximum aantal personen per boom
-my @childrenperperson = 0..4; #Variatie in aantal kinderen per persoon
+my @maxnumberofpersons = 60..120; #Maximum aantal personen per boom
+my @childrenperperson = (0..6, 0..5, 0..4, 0..3, 0..2, 0..1, 0); #Variatie in aantal kinderen per persoon
+my @personage = (70..110, 72..105, 74..100, 76..95, 78..90, 80..85); #Variatie in leeftijd van een persoon
+my @partneragedifference = (-10..10, -5..10, 0..10); #Variatie in verschil in leeftijd tussen partners
+my @parentagehavingchild = (20..40, 22..36, 24..32, 26..28); #Variatie in leeftijd waarop ouder kind krijgt
 my $oddsotherprovince = 5; #Kans andere provincie (1 op ...)
 my $oddsothercountry = 20; #Kans ander land (1 op ...)
 
@@ -154,6 +159,7 @@ foreach my $username (keys %users) {
 	#Aantal bomen vastleggen
 	my $trees = getnumberoftrees();
 	for (my $m = 0; $m < $trees; $m++) { #Loop voor bomen
+		@personstack = ();
 		#Familienaam bepalen
 		my $data_head_surname = getsurname();
 		#Boom toevoegen
@@ -167,18 +173,26 @@ foreach my $username (keys %users) {
 		my $data_head_province = getprovince($data_head_country);
 		my $data_head_zipcode = getzipcode($data_head_country, $data_head_province);
 		my $data_head_place = getplace($data_head_country, $data_head_province, $data_head_zipcode);
+		my $data_head_birthdate = getbirthdatehead();
+		my $data_head_deathdate = getdeathdate($data_head_birthdate);
+
+		my $var_head_placeid = addplacetoSQL($data_head_country, $data_head_zipcode, $data_head_place); #Place
+		#(firstname,lastname,gender,birthdate,deathdate,birthplace)
+		my $var_head_personid = addpersontoSQL($data_head_firstname, $data_head_surname, 1, $data_head_birthdate, $data_head_deathdate, $var_head_placeid);
+		addtoSQL($sql_add_persontree, $var_treeid, $var_head_personid);
+		my $head_childrennumber = 0;
+		while ($head_childrennumber == 0) {
+			$head_childrennumber = getchildrennumber();
+		}
+		push(@personstack, [($var_treeid, $var_head_personid, $data_head_surname, 1, $data_head_birthdate, $data_head_country, $data_head_province, $head_childrennumber)]);
 
 		#Aantal personen vastleggen
-		my $n = $maxnumberofpersons;
+		my $n = getmaxnumberofpersons();
 		while ($n > 0) { #Loop voor personen
-			$n = 0;
+			$n -= $personstack[0][7];
 
-			
-
-			my $var_head_placeid = addplacetoSQL($data_head_country, $data_head_zipcode, $data_head_place); #Place
-			#(firstname,lastname,gender,birthdate,deathdate,birthplace)
-			my $var_head_personid = addpersontoSQL($data_head_firstname, $data_head_surname, 1, "09/05/1992", "\@var0", $var_head_placeid);
-			addtoSQL($sql_add_persontree, $var_treeid, $var_head_personid);
+			addchildren($personstack[0]);
+			shift @personstack;
 		}
 	}
 	printlines($trees . " trees generated for " . $username);
@@ -236,38 +250,48 @@ printlines("Disconnected from $db_host");
 # +-+-+-+-+-+-+-+
 
 sub addchildren {
-	my ($var_treeid, $var_parent_personid, $data_parent_surname, $data_parent_gender, $data_parent_birthdate, $data_parent_country, $data_parent_province) = @_;
+	my ($var_treeid, $var_parent_personid, $data_parent_surname, $data_parent_gender, $data_parent_birthdate, $data_parent_country, $data_parent_province, $childrennumber) = @{$_[0]};
 
 	#PARTNER
 	my $data_partner_gender = ($data_parent_gender)?0:1; #Gender
 	my $data_partner_firstname = $data_partner_gender?getmanname():getwomanname(); #Firstname
 	my $data_partner_surname = getsurname(); #Surname
 	my ($data_partner_country, $data_partner_province, $data_partner_zipcode, $data_partner_place) = getplacefull($data_parent_country, $data_parent_province); #Place
-	my $data_partner_birtdate = $data_parent_birthdate; #Birtdate
+	my $data_partner_birtdate = getbirthdatepartner($data_parent_birthdate); #Birtdate
 	my $var_partner_placeid = addplacetoSQL($data_partner_country, $data_partner_zipcode, $data_partner_place); #Place
 	#(firstname,lastname,gender,birthdate,deathdate,birthplace)
 	my $var_partner_personid = addpersontoSQL($data_partner_firstname, $data_partner_surname, $data_partner_gender, $data_partner_birtdate, "\@var0", $var_partner_placeid);
 	addtoSQL($sql_add_persontree, $var_treeid, $var_partner_personid);
 
-	#CHILD
-	my $data_child_gender = random(2); #Gender
-	my $data_child_firstname = $data_child_gender?getmanname():getwomanname(); #Firstname
-	my $data_child_lastname = $data_parent_gender?$data_parent_surname:$data_partner_surname; #Surname
-	my ($data_child_country, $data_child_province, $data_child_zipcode, $data_child_place);
-	if (random(2) == 0) {
-		($data_child_country, $data_child_province, $data_child_zipcode, $data_child_place) = getplacefull($data_parent_country, $data_parent_province); #Place
-	} else {
-		($data_child_country, $data_child_province, $data_child_zipcode, $data_child_place) = getplacefull($data_partner_country, $data_partner_province); #Place
-	}
-	my $data_child_birtdate = $data_parent_birthdate; #Birtdate
-	my $var_child_placeid = addplacetoSQL($data_child_country, $data_child_zipcode, $data_child_place); #Birtdate
-	#(firstname,lastname,gender,birthdate,deathdate,birthplace)
-	my $var_child_personid = addpersontoSQL($data_child_firstname, $data_child_lastname, $data_child_gender, $data_child_birtdate, "\@var0", $var_child_placeid);
-	addtoSQL($sql_add_persontree, $var_treeid, $var_partner_personid);
+	for (my $i = 0; $i < $childrennumber; $i++) {
+		#CHILD
+		my $data_child_gender = random(2); #Gender
+		my $data_child_firstname = $data_child_gender?getmanname():getwomanname(); #Firstname
+		my $data_child_lastname = $data_parent_gender?$data_parent_surname:$data_partner_surname; #Surname
+		my ($data_child_country, $data_child_province, $data_child_zipcode, $data_child_place);
+		if (random(2) == 0) {
+			($data_child_country, $data_child_province, $data_child_zipcode, $data_child_place) = getplacefull($data_parent_country, $data_parent_province); #Place
+		} else {
+			($data_child_country, $data_child_province, $data_child_zipcode, $data_child_place) = getplacefull($data_partner_country, $data_partner_province); #Place
+		}
+		my $data_child_birtdate = getbirthdatechild($data_parent_birthdate); #Birtdate
+		my $var_child_placeid = addplacetoSQL($data_child_country, $data_child_zipcode, $data_child_place); #Birtdate
+		#(firstname,lastname,gender,birthdate,deathdate,birthplace)
+		my $var_child_personid = addpersontoSQL($data_child_firstname, $data_child_lastname, $data_child_gender, $data_child_birtdate, "\@var0", $var_child_placeid);
+		addtoSQL($sql_add_persontree, $var_treeid, $var_child_personid);
 
-	#RELATIONS
-	addtoSQL($sql_add_parentrelation, $var_treeid, $var_parent_personid, $var_child_personid);
-	addtoSQL($sql_add_parentrelation, $var_treeid, $var_partner_personid, $var_child_personid);
+		#RELATIONS
+		addtoSQL($sql_add_parentrelation, $var_treeid, $var_parent_personid, $var_child_personid);
+		addtoSQL($sql_add_parentrelation, $var_treeid, $var_partner_personid, $var_child_personid);
+
+		#CHILDREN
+		my $child_childrennumber = getchildrennumber();
+		while ($child_childrennumber == 0 && @personstack == 0) {
+			$child_childrennumber = getchildrennumber();
+		}
+
+		push(@personstack, [($var_treeid, $var_child_personid, $data_child_lastname, $data_child_gender, $data_child_birtdate, $data_child_country, $data_child_province, $child_childrennumber)]) if ($child_childrennumber != 0);
+	}
 
 }
 
@@ -381,6 +405,33 @@ sub getzipcode {
 sub getplace {
 	return $places{$_[0]}{$_[1]}{$_[2]};
 }
+sub getchildrennumber {
+	return $childrenperperson[random(0+@childrenperperson)];
+}
+sub getmaxnumberofpersons {
+	return $maxnumberofpersons[random(0+@maxnumberofpersons)];
+}
+sub adddaystodate {
+	my ($date, $daystoadd) = @_;
+	my ($year, $month, $day) = $date =~ m/([0-9]+)-([0-9]+)-([0-9]+)/g;
+	($year, $month, $day) = Add_Delta_Days($year, $month, $day, $daystoadd);
+	return "$year-$month-$day";
+}
+sub getbirthdatechild {
+	my $date = $_[0];
+	return adddaystodate($date, ($parentagehavingchild[random(0+@parentagehavingchild)] * 365) + random(365));
+}
+sub getdeathdate {
+	my $date = $_[0];
+	return adddaystodate($date, ($personage[random(0+@personage)] * 365) + random(365));
+}
+sub getbirthdatepartner {
+	my $date = $_[0];
+	return adddaystodate($date, ($partneragedifference[random(0+@partneragedifference)] * 365) + random(365));
+}
+sub getbirthdatehead {
+	return adddaystodate($headyearofbirth[random(0+@headyearofbirth)] . "-01-01", random(365));
+}
 
 sub random() {
 	return 0 if ($_[0] == 1);
@@ -420,7 +471,7 @@ sub testprintSQL {
 	my $precomment = 	"#Script generated for Team12 on " . localtime(time) . 
 				"\n" .	"#\tConstants:" . 
 				"\n" .	"#\t  - Number of trees\t\t\t= [" . $numberoftrees[0] . "," . @numberoftrees[@numberoftrees - 1] . "]" . 
-				"\n" .	"#\t  - Max number of persons\t= $maxnumberofpersons" . 
+				"\n" .	"#\t  - Max number of persons\t= [" . $maxnumberofpersons[0] . "," . @maxnumberofpersons[@maxnumberofpersons - 1] . "]" . 
 				"\n" .	"#\t  - Children per person\t\t= [" . $childrenperperson[0] . "," . @childrenperperson[@childrenperperson - 1] . "]" . 
 				"\n" .	"#\t  - Odds other province\t\t= 1 in $oddsotherprovince" . 
 				"\n" .	"#\t  - Odds other country\t\t= 1 in $oddsothercountry";
