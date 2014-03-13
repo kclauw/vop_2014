@@ -36,7 +36,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         cbxLanguage = new javax.swing.JComboBox();
-        btnSave = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -64,19 +64,18 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.ipadx = 17;
         add(cbxLanguage, gridBagConstraints);
 
-        btnSave.setText(org.openide.util.NbBundle.getMessage(SettingsPanel.class, "SettingsPanel.btnSave.text")); // NOI18N
+        jButton1.setText(org.openide.util.NbBundle.getMessage(SettingsPanel.class, "SettingsPanel.jButton1.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        add(btnSave, gridBagConstraints);
+        add(jButton1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox cbxLanguage;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
