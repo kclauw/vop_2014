@@ -24,8 +24,8 @@ public class UserDao implements IDao<User> {
     private final String DELETEFRIENDBYIDS = "DELETE from Request where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status=1";
     private final String ALLOWDENYFRIENDREQUESTBYIDS = "Update Request set status=? where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status=0";
     private final String SENDFRIENDREQUEST = "INSERT INTO Request (friend,receiver,status) select ?,?,0 from dual where not exists ( select * from Request where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status!=2 )";
-    private final String SETLANGUAGE = "INSERT INTO UserLanguage values (?,?);";
-    private final String GETLANGUAGE = "SELECT language FROM Language l join UserLanguage u on u.languageID = l.languageID where userID=?;";
+    private final String SETLANGUAGE = "UPDATE User set languageID=? where userID=?;";
+    private final String GETLANGUAGE = "SELECT languageID FROM User where userID=?;";
     private final Logger logger;
 
     public UserDao() {
@@ -380,8 +380,8 @@ public class UserDao implements IDao<User> {
             if (userID <= 0 && language <= 0) {
                 con = DatabaseUtils.getConnection();
                 prep = con.prepareStatement(SETLANGUAGE);
-                prep.setInt(1, userID);
-                prep.setInt(2, language);
+                prep.setInt(1, language);
+                prep.setInt(2, userID);
                 prep.execute();
             }
             con.close();
