@@ -12,67 +12,55 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UserDao implements IDao<User>
-{
+public class UserDao implements IDao<User> {
 
     private Connection con;
     private final String GETALLUSER = "SELECT userID, username, password FROM User";
     private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
-    private final String GETUSER = "Select userID, username, password FROM User WHERE username = ?";
-    private final String GETUSERBYID = "Select userID, username, password FROM User WHERE userID = ?";
-    private final String GETFRIENDSBYID = "Select friend, receiver, status FROM Request WHERE (receiver=? or friend=?) AND status = 1";
-    private final String GETFRIENDREQUESTBYID = "Select friend, receiver, status FROM Request WHERE receiver=? AND status = 0";
-    private final String DELETEFRIENDBYIDS = "Delete from Request where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status=1";
+    private final String GETUSER = "SELECT userID, username, password FROM User WHERE username = ?";
+    private final String GETUSERBYID = "SELECT userID, username, password FROM User WHERE userID = ?";
+    private final String GETFRIENDSBYID = "SELECT friend, receiver, status FROM Request WHERE (receiver=? or friend=?) AND status = 1";
+    private final String GETFRIENDREQUESTBYID = "SELECT friend, receiver, status FROM Request WHERE receiver=? AND status = 0";
+    private final String DELETEFRIENDBYIDS = "DELETE from Request where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status=1";
     private final String ALLOWDENYFRIENDREQUESTBYIDS = "Update Request set status=? where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status=0";
-    private final String SENDFRIENDREQUEST = "Insert Into Request (friend,receiver,status) select ?,?,0 from dual where not exists ( select * from Request where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status!=2 )";
-
+    private final String SENDFRIENDREQUEST = "INSERT INTO Request (friend,receiver,status) select ?,?,0 from dual where not exists ( select * from Request where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status!=2 )";
+    private final String SETLANGUAGE = "UPDATE User set languageID=? where userID=?;";
+    private final String GETLANGUAGE = "SELECT languageID FROM User where userID=?;";
+    private final String SETUSERPRIVACY = "UPDATE USER SET privacy = ? WHERE userID = ?";
     private final Logger logger;
 
-    public UserDao()
-    {
+    public UserDao() {
         logger = LoggerFactory.getLogger(getClass());
     }
 
     @Override
-    public User get(int id)
-    {
+    public User get(int id) {
         User user = null;
         PreparedStatement prep = null;
         ResultSet res = null;
 
-        try
-        {
+        try {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(GETUSERBYID);
             prep.setInt(1, id);
             logger.info("[USER DAO] Getting by id " + prep.toString());
             res = prep.executeQuery();
 
-            if (res.next())
-            {
+            if (res.next()) {
                 user = map(res);
             }
 
             con.close();
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             logger.info("[USER DAO][SQLException][Get]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             logger.info("[USER DAO][SQLException][Get]Exception: " + ex.getMessage());
-        }
-        finally
-        {
-            try
-            {
+        } finally {
+            try {
                 DatabaseUtils.closeQuietly(res);
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
 
@@ -82,11 +70,9 @@ public class UserDao implements IDao<User>
     }
 
     @Override
-    public void save(User value)
-    {
+    public void save(User value) {
         PreparedStatement prep = null;
-        try
-        {
+        try {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(SAVEUSER);
             prep.setString(1, value.getUsername());
@@ -95,25 +81,16 @@ public class UserDao implements IDao<User>
             prep.executeUpdate();
 
             con.close();
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             logger.info("[USER DAO][SQLException][Save]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             logger.info("[USER DAO][SQLException][Save]Exception: " + ex.getMessage());
-        }
-        finally
-        {
-            try
-            {
+        } finally {
+            try {
 
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
 
@@ -121,57 +98,43 @@ public class UserDao implements IDao<User>
     }
 
     @Override
-    public void update(User value)
-    {
+    public void update(User value) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(User value)
-    {
+    public void delete(User value) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Collection<User> getAll()
-    {
+    public Collection<User> getAll() {
         ResultSet res = null;
         Statement stat = null;
         List<User> users = null;
-        try
-        {
+        try {
             con = DatabaseUtils.getConnection();
             stat = con.createStatement();
             res = stat.executeQuery(GETALLUSER);
             logger.info("[USER DAO] GETTING ALL THE USERS");
 
-            while (res.next())
-            {
+            while (res.next()) {
                 User user = map(res);
                 users.add(user);
             }
 
             con.close();
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
 
             logger.info("[USER DAO][SQLException][GetAll]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
 
             logger.info("[USER DAO][SQLException][GetAll]Sql exception: " + ex.getMessage());
-        }
-        finally
-        {
-            try
-            {
+        } finally {
+            try {
                 DatabaseUtils.closeQuietly(res);
                 DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
 
@@ -188,56 +151,41 @@ public class UserDao implements IDao<User>
      * @param userID
      * @return
      */
-    public List<User> getFriends(int userID)
-    {
+    public List<User> getFriends(int userID) {
         List<User> friends = new ArrayList<User>();
         PreparedStatement prep = null;
         ResultSet res = null;
-        try
-        {
+        try {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(GETFRIENDSBYID);
             prep.setInt(1, userID);
             prep.setInt(2, userID);
             res = prep.executeQuery();
 
-            while (res.next())
-            {
+            while (res.next()) {
                 int receiver = res.getInt("receiver");
                 int friend = res.getInt("friend");
                 int status = res.getInt("status");
                 User user;
-                if (receiver == userID)
-                {
+                if (receiver == userID) {
                     user = get(friend);
-                }
-                else
-                {
+                } else {
                     user = get(receiver);
                 }
                 friends.add(user);
             }
 
             con.close();
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             logger.info("[USER DAO][SQLException][GetFriends]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             logger.info("[USER DAO][SQLException][GetFriends]Exception: " + ex.getMessage());
-        }
-        finally
-        {
-            try
-            {
+        } finally {
+            try {
                 DatabaseUtils.closeQuietly(res);
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
 
@@ -246,44 +194,32 @@ public class UserDao implements IDao<User>
         return friends;
     }
 
-    public User get(String username)
-    {
+    public User get(String username) {
         User user = null;
         PreparedStatement prep = null;
         ResultSet res = null;
 
-        try
-        {
+        try {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(GETUSER);
             prep.setString(1, username);
             res = prep.executeQuery();
 
-            if (res.next())
-            {
+            if (res.next()) {
                 user = map(res);
             }
 
             con.close();
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             logger.info("[USER DAO][SQLException][Get]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             logger.info("[USER DAO][SQLException][Get]Exception: " + ex.getMessage());
-        }
-        finally
-        {
-            try
-            {
+        } finally {
+            try {
                 DatabaseUtils.closeQuietly(res);
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
 
@@ -294,43 +230,34 @@ public class UserDao implements IDao<User>
     }
 
     @Override
-    public User map(ResultSet res)
-    {
+    public User map(ResultSet res) {
         User user = null;
 
-        try
-        {
+        try {
             int uid = res.getInt("userID");
             String ur = res.getString("username");
             String password = res.getString("password");
-            user = new User(uid, ur, password);
-        }
-        catch (SQLException ex)
-        {
+            user = new User(uid, ur, password, "en");
+        } catch (SQLException ex) {
             logger.info("[USER DAO][SQLException][Map]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             logger.info("[USER DAO][SQLException][Map]Exception: " + ex.getMessage());
         }
 
         return user;
     }
 
-    public List<User> getFriendRequest(int userID)
-    {
+    public List<User> getFriendRequest(int userID) {
         List<User> friends = new ArrayList<User>();
         PreparedStatement prep = null;
         ResultSet res = null;
-        try
-        {
+        try {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(GETFRIENDREQUESTBYID);
             prep.setInt(1, userID);
             res = prep.executeQuery();
 
-            while (res.next())
-            {
+            while (res.next()) {
                 int id = res.getInt("receiver");
                 int friend = res.getInt("friend");
                 User user = get(friend);
@@ -338,25 +265,16 @@ public class UserDao implements IDao<User>
             }
 
             con.close();
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             logger.info("[USER DAO][SQLException][getFriendRequest]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             logger.info("[USER DAO][SQLException][getFriendRequest]Exception: " + ex.getMessage());
-        }
-        finally
-        {
-            try
-            {
+        } finally {
+            try {
                 DatabaseUtils.closeQuietly(res);
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
 
@@ -365,11 +283,9 @@ public class UserDao implements IDao<User>
         return friends;
     }
 
-    public void deleteFriend(int userID, int frienduserID)
-    {
+    public void deleteFriend(int userID, int frienduserID) {
         PreparedStatement prep = null;
-        try
-        {
+        try {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(DELETEFRIENDBYIDS);
             prep.setInt(1, userID);
@@ -379,35 +295,24 @@ public class UserDao implements IDao<User>
             prep.execute();
 
             con.close();
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             logger.info("[USER DAO][SQLException][getFriendRequest]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             logger.info("[USER DAO][SQLException][getFriendRequest]Exception: " + ex.getMessage());
-        }
-        finally
-        {
-            try
-            {
+        } finally {
+            try {
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
 
         }
     }
 
-    public void allowDenyFriendRequest(int userID, int frienduserID, boolean allow)
-    {
+    public void allowDenyFriendRequest(int userID, int frienduserID, boolean allow) {
         PreparedStatement prep = null;
-        try
-        {
+        try {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(ALLOWDENYFRIENDREQUESTBYIDS);
             prep.setInt(1, allow ? 1 : 2);
@@ -418,36 +323,25 @@ public class UserDao implements IDao<User>
             prep.executeUpdate();
 
             con.close();
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             logger.info("[USER DAO][SQLException][getFriendRequest]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             logger.info("[USER DAO][SQLException][getFriendRequest]Exception: " + ex.getMessage());
-        }
-        finally
-        {
-            try
-            {
+        } finally {
+            try {
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
 
         }
     }
 
-    public void sendFriendRequest(int userID, String frienduserName)
-    {
+    public void sendFriendRequest(int userID, String frienduserName) {
         PreparedStatement prep = null;
 
-        try
-        {
+        try {
             User friend = get(frienduserName);
             //exceptie opvangen dat die niet bestaat!!!
             int frienduserID = friend.getId();
@@ -465,28 +359,107 @@ public class UserDao implements IDao<User>
             prep.execute();
 
             con.close();
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             logger.info("[USER DAO][SQLException][getFriendRequest]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             logger.info("[USER DAO][SQLException][getFriendRequest]Exception: " + ex.getMessage());
-        }
-        finally
-        {
-            try
-            {
+        } finally {
+            try {
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
 
         }
     }
 
+    public void setLanguage(int userID, int language) {
+        PreparedStatement prep = null;
+        try {
+            //exceptie opvangen dat die niet bestaat!!!
+            if (userID <= 0 && language <= 0) {
+                con = DatabaseUtils.getConnection();
+                prep = con.prepareStatement(SETLANGUAGE);
+                prep.setInt(1, language);
+                prep.setInt(2, userID);
+                prep.execute();
+            }
+            con.close();
+        } catch (SQLException ex) {
+            logger.info("[USER DAO][SQLEXCEPTION][SETLANGUAGE]Sql exception: " + ex.getMessage());
+        } catch (Exception ex) {
+            logger.info("[USER DAO][EXCEPTION][SETLANGUAGE]Exception: " + ex.getMessage());
+        } finally {
+            try {
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            } catch (SQLException ex) {
+                logger.info("[USER DAO][SQLEXCEPTION][SETLANGUAGE]Sql exception: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+
+        }
+    }
+
+    public String getLanguage(int userID) {
+        PreparedStatement prep = null;
+        ResultSet res = null;
+        String lang = null;
+        try {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(GETLANGUAGE);
+            prep.setInt(1, userID);
+            res = prep.executeQuery();
+
+            while (res.next()) {
+                lang = res.getString("language");
+            }
+
+            con.close();
+        } catch (SQLException ex) {
+            logger.info("[USER DAO][SQLEXCEPTION][GETLANGUAGE]Sql exception: " + ex.getMessage());
+        } catch (Exception ex) {
+            logger.info("[USER DAO][EXCEPTION][GETLANGUAGE]Exception: " + ex.getMessage());
+        } finally {
+            try {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            } catch (SQLException ex) {
+                logger.info("[USER DAO][SQLEXCEPTION][GETLANGUAGE]Sql exception: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+
+        }
+
+        return lang;
+    }
+
+    public void setUserPrivacy(int userID, int privacy) {
+        PreparedStatement prep = null;
+        try {
+            if (userID <= 0 && privacy <= 1) {
+                con = DatabaseUtils.getConnection();
+                prep = con.prepareStatement(SETLANGUAGE);
+                prep.setInt(1, privacy);
+                prep.setInt(2, userID);
+                prep.execute();
+            }
+
+            con.close();
+        } catch (SQLException ex) {
+            logger.info("[USER DAO][SQLEXCEPTION][SETUSERPRIVACY]Sql exception: " + ex.getMessage());
+        } catch (Exception ex) {
+            logger.info("[USER DAO][EXCEPTION][SETUSERPRIVACY]Exception: " + ex.getMessage());
+        } finally {
+            try {
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            } catch (SQLException ex) {
+                logger.info("[USER DAO][SQLEXCEPTION][SETUSERPRIVACY]Sql exception: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+    }
 }

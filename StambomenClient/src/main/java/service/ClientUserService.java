@@ -20,17 +20,20 @@ import org.slf4j.LoggerFactory;
 public class ClientUserService
 {
 
-    private final String url = "http://localhost:8084/StambomenWebAPI/rest/user";
-    private final Logger logger = LoggerFactory.getLogger(getClass()); 
+    private final static String url = ServiceConstant.getInstance().getURL();
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     public String makeUser(UserDTO userDTO)
     {
         logger.info("[CLIENT USER SERVICE][MAKE USER]Make user:" + userDTO.toString());
-        Client client = ClientBuilder.newClient();
+        Client client = ClientServiceController.getInstance().getClient();
+
         String json = new Gson().toJson(userDTO);
-        Response response = client.target(url + "/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
+        Response response = client.target(url + "user/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
         if (response.getStatus() != 200)
         {
-            return " " + response.getStatusInfo();
+
+            return " " + response.readEntity(String.class);
         }
 
         return null;
@@ -39,12 +42,12 @@ public class ClientUserService
     public String login(UserDTO user)
     {
         logger.info("[CLIENT USER SERVICE][LOGIN]Login of user:" + user.toString());
-        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().credentials(user.getUsername(), user.getPassword()).build();
         Client client = ClientBuilder.newClient();
-        client.register(feature);
         client.register(new JacksonFeature());
+        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().credentials(user.getUsername(), user.getPassword()).build();
+        client.register(feature);
 
-        UserDTO dto = client.target(url + "/login/" + user.getUsername()).request("application/json").accept("application/json").get(UserDTO.class);
+        UserDTO dto = client.target(url + "user/login/" + user.getUsername()).request("application/json").accept("application/json").get(UserDTO.class);
 
         if (dto == null)
         {
@@ -61,9 +64,9 @@ public class ClientUserService
     {
         logger.info("[CLIENT USER SERVICE][GET FRIENDS]Getting friends for user: " + userID);
 
-        Client client = getClient();
+        Client client = ClientServiceController.getInstance().getClient();
         client.register(new JacksonFeature());
-        List<UserDTO> friends = client.target(url + "/friends/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
+        List<UserDTO> friends = client.target(url + "user/friends/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
         {
         });
 
@@ -73,47 +76,63 @@ public class ClientUserService
     public List<UserDTO> getFriendRequests(int userID)
     {
         logger.info("[CLIENT USER SERVICE][GET FRIEND REQUESTS]Getting friendsfor user with id:" + userID);
-        Client client = getClient();
+        Client client = ClientServiceController.getInstance().getClient();
         client.register(new JacksonFeature());
-        List<UserDTO> friends = client.target(url + "/friends/requests/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
+        List<UserDTO> friends = client.target(url + "user/friends/requests/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
         {
         });
 
         return friends;
     }
-    
-    public void deleteFriend(int userID, int frienduserID)
+
+    public String deleteFriend(int userID, int frienduserID)
     {
-        logger.info("[CLIENT USER SERVICE][DELETE FRIEND]Delete friend with id:" + frienduserID + " for user with id: "+ userID);
-        Client client = getClient();
+        logger.info("[CLIENT USER SERVICE][DELETE FRIEND]Delete friend with id:" + frienduserID + " for user with id: " + userID);
+        Client client = ClientServiceController.getInstance().getClient();
         client.register(new JacksonFeature());
-        client.target(url + "/friends/delete/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "user/friends/delete/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != 200)
+        {
+
+            return " " + response.readEntity(String.class);
+        }
+
+        return null;
     }
 
-    public void allowDenyFriendRequest(int userID, int frienduserID, boolean allow)
+    public String allowDenyFriendRequest(int userID, int frienduserID, boolean allow)
     {
-        logger.info("[CLIENT USER SERVICE][ALLOW DENY FRIEND REQUEST]Allow deny friendrequest for friend with id:" + frienduserID + " for user with id: "+ userID);
-        Client client = getClient();
+        logger.info("[CLIENT USER SERVICE][ALLOW DENY FRIEND REQUEST]Allow deny friendrequest for friend with id:" + frienduserID + " for user with id: " + userID);
+        Client client = ClientServiceController.getInstance().getClient();
         client.register(new JacksonFeature());
-        client.target(url + "/friends/requests/" + (allow?"allow":"deny") + "/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "user/friends/requests/" + (allow ? "allow" : "deny") + "/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != 200)
+        {
+
+            return " " + response.readEntity(String.class);
+        }
+
+        return null;
     }
 
-    public void sendFriendRequest(int userID, String frienduserName)
+    public String sendFriendRequest(int userID, String frienduserName)
     {
         logger.info("[CLIENT USER SERVICE][SEND FRIEND REQUEST]Send friendrequest to user with id:" + userID + " to friend user with name" + frienduserName);
-        Client client = getClient();
+        Client client = ClientServiceController.getInstance().getClient();
         client.register(new JacksonFeature());
-        client.target(url + "/friends/requests/send/" + userID + "/" + frienduserName).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "user/friends/requests/send/" + userID + "/" + frienduserName).request(MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != 200)
+        {
+
+            return " " + response.readEntity(String.class);
+        }
+
+        return null;
     }
 
-    private Client getClient()
+    public void setLanguage(int userID, int language)
     {
-        logger.info("[CLIENT USER SERVICE][GET CLIENT]");
-        HttpAuthenticationFeature feature = ClientServiceController.getInstance().getHttpCredentials();
-        Client client = ClientBuilder.newClient();
-        client.register(feature);
-        client.register(new JacksonFeature());
-
-        return client;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

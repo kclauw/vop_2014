@@ -9,19 +9,19 @@ import gui.controls.FamilyTreeListItem;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import service.ClientTreeService;
+import service.ClientTreeController;
 
 public class TreeOverviewController implements IPanelController
 {
 
     private FamilyTreeOverviewPanel treeOverviewPanel;
     private GuiController gui;
-    private ClientTreeService serv;
+    private ClientTreeController serv;
 
     public TreeOverviewController(GuiController gui)
     {
         this.gui = gui;
-        this.serv = new ClientTreeService();
+        this.serv = new ClientTreeController();
     }
 
     public JPanel show()
@@ -61,7 +61,8 @@ public class TreeOverviewController implements IPanelController
 
     public void showTree(TreeDTO tree)
     {
-        gui.showTree(tree);
+        TreeDTO t = serv.getTree(tree.getId());
+        gui.showTree(t);
     }
 
 }

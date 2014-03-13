@@ -6,6 +6,7 @@ import dto.PersonDTO;
 import dto.PlaceDTO;
 import gui.controller.TreeController;
 import java.awt.GridBagConstraints;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 public class FamilyTreeDetailPanel extends javax.swing.JPanel
@@ -18,7 +19,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private JDateChooser dod;
     private FamilyTreeTotalPanel fttp;
     private TreeController treeController;
-    private boolean adding;
+    private boolean adding = false;
 
     public FamilyTreeDetailPanel(PersonDTO person, FamilyTreeTotalPanel fttp)
     {
@@ -269,36 +270,8 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         {
             btnEdit.setText("save");
             this.setEditable(true);
+            setButtonActive(btnEdit);
             edit = true;
-        }
-        else if (adding)
-        {
-            PersonDTO p = new PersonDTO();
-            p.setFirstName(textFieldFirstname.getText());
-            p.setSurName(textFieldLastname.getText());
-
-            if (radioFemale.isSelected())
-            {
-                p.setGender(GenderDTO.FEMALE);
-            }
-            else
-            {
-                p.setGender(GenderDTO.MALE);
-            }
-
-            if (person.getGender() == GenderDTO.FEMALE)
-            {
-                p.setMother(person);
-            }
-            else
-            {
-                p.setFather(person);
-            }
-
-            p.setPlace(new PlaceDTO(-1, -1, -1, null, textFieldCountry.getText(), textFieldZipCode.getText(), textFieldCity.getText()));
-            adding = false;
-            JOptionPane.showMessageDialog(null, "Adding child!" + p.toString());
-            fttp.addPerson(p);
         }
         else
         {
@@ -308,8 +281,8 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             {
                 person.setFirstName(textFieldFirstname.getText());
                 person.setSurName(textFieldLastname.getText());
-//                person.setBirthDate(dob.getDate());
-//                person.setDeathDate(dod.getDate());
+                person.setBirthDate(dob.getDate());
+                person.setDeathDate(dod.getDate());
 
                 if (radioFemale.isSelected())
                 {
@@ -327,6 +300,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             this.setEditable(false);
             btnEdit.setText("edit");
             edit = false;
+            setAllButtonsActive();
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
@@ -342,15 +316,52 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
     {//GEN-HEADEREND:event_btnAddActionPerformed
-        JOptionPane.showMessageDialog(null, "Please enter the information of the new child, press save when done: ");
-        textFieldCity.setText("");
-        textFieldCountry.setText("");
-        textFieldFirstname.setText("");
-        textFieldLastname.setText("");
-        textFieldZipCode.setText("");
-        adding = true;
-        btnEdit.setText("save");
-        this.setEditable(true);
+        if (!adding)
+        {
+            adding = true;
+            this.textFieldCity.setText("");
+            this.textFieldCountry.setText("");
+            this.textFieldFirstname.setText("");
+            this.textFieldLastname.setText("");
+            this.textFieldZipCode.setText("");
+            this.setEditable(true);
+            setButtonActive(btnAdd);
+            btnAdd.setText("Click to save!");
+        }
+        else if (adding)
+        {
+            PersonDTO p = new PersonDTO();
+            p.setFirstName(textFieldFirstname.getText());
+            p.setSurName(textFieldLastname.getText());
+
+            if (radioFemale.isSelected())
+            {
+                p.setGender(GenderDTO.FEMALE);
+            }
+            else
+            {
+                p.setGender(GenderDTO.MALE);
+            }
+
+            if (p.getGender() == GenderDTO.FEMALE)
+            {
+                p.setMother(person);
+            }
+            else
+            {
+                p.setFather(person);
+            }
+
+            p.setBirthDate(dob.getDate());
+            p.setDeathDate(dob.getDate());
+
+            p.setPlace(new PlaceDTO(-1, -1, -1, null, textFieldCountry.getText(), textFieldZipCode.getText(), textFieldCity.getText()));
+            adding = false;
+            fttp.addPerson(p);
+            setAllButtonsActive();
+            this.setEditable(false);
+            btnAdd.setText("Add");
+        }
 
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -420,6 +431,26 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         }
     }
 
+    private void setButtonActive(JButton b)
+    {
+        b.setEnabled(true);
+
+        if (b != btnAdd)
+        {
+            btnAdd.setEnabled(false);
+        }
+
+        if (b != btnDelete)
+        {
+            btnDelete.setEnabled(false);
+        }
+
+        if (b != btnEdit)
+        {
+            btnEdit.setEnabled(false);
+        }
+    }
+
     private void setEditable(boolean edit)
     {
         if (!edit)
@@ -469,5 +500,12 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         this.add(dod, gridBagConstraints);
+    }
+
+    private void setAllButtonsActive()
+    {
+        btnAdd.setEnabled(true);
+        btnEdit.setEnabled(true);
+        btnDelete.setEnabled(true);
     }
 }

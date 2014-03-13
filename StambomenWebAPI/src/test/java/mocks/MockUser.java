@@ -13,14 +13,14 @@ public class MockUser implements IUserDao<User> {
     public User user;
 
     MockUser() {
-        User user1 = new User(1, "Jelle", "Verreth");
-        User user2 = new User(2, "Lowie", "Verreth");
-        User user3 = new User(3, "Axl", "Verreth");
-        User user4 = new User(4, "Sander", "Verreth");
-        User user5 = new User(5, "God", "Verdomme");
-        User user6 = new User(6, "Jezus", "Jebroer");
-        User user7 = new User(7, "Damien", "Rice");
-        User user8 = new User(8, "Achmed", "Van Borgerhout");
+        User user1 = new User(1, "Jelle", "Verreth","en");
+        User user2 = new User(2, "Lowie", "Verreth","en");
+        User user3 = new User(3, "Axl", "Verreth","en");
+        User user4 = new User(4, "Sander", "Verreth","en");
+        User user5 = new User(5, "God", "Verdomme","en");
+        User user6 = new User(6, "Jezus", "Jebroer","en");
+        User user7 = new User(7, "Damien", "Rice","en");
+        User user8 = new User(8, "Achmed", "Van Borgerhout","en");
         users.add(user1);
         users.add(user2);
         users.add(user3);

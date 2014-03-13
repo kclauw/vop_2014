@@ -9,9 +9,12 @@ public class ClientUserController
 {
 
     private ClientUserService client;
-    private final Logger logger = LoggerFactory.getLogger(getClass()); 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     public ClientUserController()
     {
+        ServiceConstant.getInstance().setMode(1);
+
         this.client = new ClientUserService();
     }
 
@@ -22,7 +25,10 @@ public class ClientUserController
 
     public String login(UserDTO user)
     {
+        ServiceConstant.getInstance().setMode(1);
+
         logger.info("[CLIENT USER CONTROLLER][LOGIN]Login van user:" + user.toString());
+
         return client.login(user);
     }
 
@@ -46,7 +52,7 @@ public class ClientUserController
     {
         logger.info("[CLIENT USER CONTROLLER][DELETE FRIEND]Delete friend with ID:" + frienduserID);
         int userID = ClientServiceController.getInstance().getUser().getId();
-        
+
         client.deleteFriend(userID, frienduserID);
     }
 
@@ -54,7 +60,7 @@ public class ClientUserController
     {
         logger.info("[CLIENT USER CONTROLLER][ALLOW DENY FRIEND REQUEST]Allow friendrequest from user with id:" + frienduserID);
         int userID = ClientServiceController.getInstance().getUser().getId();
-        
+
         client.allowDenyFriendRequest(userID, frienduserID, allow);
     }
 
@@ -62,8 +68,12 @@ public class ClientUserController
     {
         logger.info("[CLIENT USER CONTROLLER][SEND FRIEND REQUEST]Friend request naar user:" + frienduserName.toString());
         int userID = ClientServiceController.getInstance().getUser().getId();
-        
+
         client.sendFriendRequest(userID, frienduserName);
     }
 
+    public void setLanguage(int userID, int language)
+    {
+        client.setLanguage(userID, language);
+    }
 }

@@ -26,6 +26,10 @@ public class PanelFactory
             case ADDTREE:
                 panel = new AddTreePanel();
                 break;
+            case SETTINGS:
+                panel = new SettingsPanel();
+                break;
+                
         }
 
         return panel;

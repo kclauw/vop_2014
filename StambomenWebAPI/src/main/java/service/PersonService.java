@@ -11,14 +11,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Proof of Concept klasse ter verduidelijking; De objecten zullen uiteindelijk
- * via de persistence uit de db moeten komen
- *
- */
 @Path("/person")
 public class PersonService
 {
@@ -39,6 +35,7 @@ public class PersonService
     @POST
     @Path("/{treeID}/post")
     @Consumes(MediaType.APPLICATION_JSON)
+    
     public Response addPerson(@PathParam("treeID") int treeID, Person person)
     {
         try
@@ -55,21 +52,21 @@ public class PersonService
     }
 
     @GET
-    @Path("/delete/{personId}")
+    @Path("/delete/{treeID}/{personId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deletePerson(@PathParam("personId") int personId)
+    public Response deletePerson(@PathParam("treeID") int treeID, @PathParam("personId") int personId)
     {
         try
         {
             logger.info("[PERSON SERVICE] DELETING PERSON " + personId);
             String result = "Person deleted:" + personId;
-            pc.deletePerson(personId);
+            pc.deletePerson(treeID, personId);
             return Response.status(Response.Status.OK).entity(result).build();
         }
         catch (Exception e)
         {
-            e.printStackTrace();
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
+            //   return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
 
         }
     }

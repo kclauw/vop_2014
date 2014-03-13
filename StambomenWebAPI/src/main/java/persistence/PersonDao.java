@@ -21,7 +21,7 @@ public class PersonDao implements IDao<Person>
 {
 
     private Connection con;
-    private final String GETPERSONSBYTREEID = "SELECT d.*, pr.parent as parent1, pr2.parent as parent2,h.*,g.*,f.* FROM Tree t "
+    private final String GETPERSONSBYTREEID = "SELECT d.*, e.*,h.name as countryname,g.name as placename, pr.parent as parent1, pr2.parent as parent2,g.*,f.* FROM Tree t "
             + " JOIN PersonTree c ON c.treeID = t.treeID "
             + " JOIN Person d on c.personID = d.personID "
             + " LEFT OUTER JOIN Place e on d.birthplace=e.placeID "
@@ -37,7 +37,18 @@ public class PersonDao implements IDao<Person>
     private final String SAVEPERSON = "INSERT INTO Person (birthplace, firstname,lastname,gender,birthdate,deathdate) VALUES (?,?,?,?,?,?)";
     private final String UPDATEPERSON = "UPDATE Person SET birthplace = ? , firstname = ? , lastname = ?, gender = ? , birthdate = ? , deathdate = ? WHERE personID = ?";
     private final String DELETEPERSON = "DELETE FROM Person WHERE personID = ?";
-    private final String GETPERSONBYID = "Select birthplace, firstname,lastname,gender,birthdate,deathdate FROM Person WHERE personID = ?";
+    private final String GETPERSONBYID = "SELECT d.*,e.*,h.name as countryname,g.name as placename, pr.parent as parent1, pr2.parent as parent2,g.*,f.* FROM Tree t "
+            + " JOIN PersonTree c ON c.treeID = t.treeID "
+            + " JOIN Person d on c.personID = d.personID "
+            + " LEFT OUTER JOIN Place e on d.birthplace=e.placeID "
+            + " LEFT OUTER JOIN Coordinates f on f.coordinatesID = e.coordinatesID "
+            + " LEFT OUTER JOIN Placename  g on g.placenameID = e.placenameID "
+            + " LEFT OUTER JOIN Country h on h.countryID = e.countryID "
+            + " LEFT OUTER JOIN ParentRelation pr on pr.child = d.personID "
+            + " LEFT OUTER JOIN ParentRelation pr2 on pr2.child = d.personID and pr.parent != pr2.parent "
+            + " where d.personID = ? "
+            + " GROUP BY d.personID "
+            + " ORDER BY pr.parent ASC ";
     private PersistenceController pc;
     private final Logger logger;
     private int lastInsertedId;
@@ -65,12 +76,11 @@ public class PersonDao implements IDao<Person>
             {
                 prep.setNull(1, Types.INTEGER);
             }
-
             prep.setString(2, person.getFirstName());
             prep.setString(3, person.getSurName());
             prep.setByte(4, person.getGender().getGenderId());
-//            prep.setDate(5, (java.sql.Date) person.getBirthDate());
-//            prep.setDate(6, (java.sql.Date) person.getDeathDate());
+            // prep.setDate(5, (java.sql.Date) (person.getBirthDate());
+            // prep.setDate(6, (java.sql.Date) person.getDeathDate());
             prep.setNull(5, Types.DATE);
             prep.setNull(6, Types.DATE);
             logger.info("[PERSON DAO] Saving person " + prep.toString());
@@ -119,6 +129,8 @@ public class PersonDao implements IDao<Person>
         Person person = null;
         ResultSet res = null;
         PreparedStatement prep = null;
+        MultiMap<Integer, Person> persMap = new MultiMap<Integer, Person>();
+        List<Person> persons = new ArrayList<Person>();
         try
         {
             con = DatabaseUtils.getConnection();
@@ -129,8 +141,12 @@ public class PersonDao implements IDao<Person>
 
             if (res.next())
             {
-                person = map(res);
+                System.out.println("[PERSON DAO][GET][FOUND A RESULT!]");
+                person = map(res, persMap);
+                mapRelations(persons, persMap);
             }
+
+            persons.add(person);
 
             con.close();
         }
@@ -153,11 +169,12 @@ public class PersonDao implements IDao<Person>
             }
             catch (SQLException ex)
             {
-                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.info("[PERSON DAO] Error " + ex.getMessage());
             }
-            return person;
-
         }
+
+        return person;
+
     }
 
     @Override
@@ -168,7 +185,9 @@ public class PersonDao implements IDao<Person>
         {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(UPDATEPERSON);
+
             Place place;
+
             place = pc.getPlace(person.getPlace());
             if (place != null)
             {
@@ -181,8 +200,28 @@ public class PersonDao implements IDao<Person>
             prep.setString(2, person.getFirstName());
             prep.setString(3, person.getSurName());
             prep.setByte(4, person.getGender().getGenderId());
-            prep.setDate(5, (java.sql.Date) person.getBirthDate());
-            prep.setDate(6, (java.sql.Date) person.getDeathDate());
+
+            Date dob = person.getBirthDate();
+            Date dod = person.getDeathDate();
+
+            if (dob != null)
+            {
+                prep.setDate(5, new java.sql.Date(person.getBirthDate().getTime()));
+            }
+            else
+            {
+                prep.setNull(5, java.sql.Types.DATE);
+            }
+
+            if (dod != null)
+            {
+                prep.setDate(6, new java.sql.Date(person.getDeathDate().getTime()));
+            }
+            else
+            {
+                prep.setNull(6, java.sql.Types.DATE);
+            }
+
             prep.setInt(7, person.getPersonId());
             logger.info("[PERSON DAO] Updating person " + prep.toString());
             prep.executeUpdate();
@@ -297,10 +336,10 @@ public class PersonDao implements IDao<Person>
             {
                 java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            mapRelations(persons, personMap);
-            return persons;
         }
+
+        mapRelations(persons, personMap);
+        return persons;
     }
 
     @Override
@@ -316,15 +355,23 @@ public class PersonDao implements IDao<Person>
             byte gender = res.getByte("gender");
             Date birthDate = res.getDate("birthdate");
             Date deathDate = res.getDate("deathdate");
-            int placeId = res.getInt("birthplace");
+            //      int placeId = res.getInt("birthplace");
 
             Person father = null;
             Person mother = null;
 
             Gender g = Gender.getGender(gender);
             Place p = pc.getPlace(res);
-
-            person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
+            person = new Person.PersonBuilder(firstName, lastName, g)
+                    .personId(personId)
+                    .birthDate(birthDate)
+                    .deathDate(deathDate)
+                    .father(father)
+                    .mother(mother)
+                    .place(p)
+                    .build();
+            //person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
+            logger.info("[PERSON DAO] Mapping person:" + person);
 
         }
         catch (SQLException ex)
@@ -347,7 +394,10 @@ public class PersonDao implements IDao<Person>
         try
         {
             int parentId1 = res.getInt("parent1");
+
             int parentId2 = res.getInt("parent2");
+
+            logger.info("[PERSON DAO][Map parent] P1: " + parentId1 + " P2: " + parentId2);
 
             if (parentId1 != 0)
             {
@@ -363,11 +413,11 @@ public class PersonDao implements IDao<Person>
         }
         catch (SQLException ex)
         {
-            logger.info("[PERSONDAO][SQLException][Map]Sql exception: " + ex.getMessage());
+            logger.info("[PERSONDAO][SQLException][Map Parent]Sql exception: " + ex.getMessage());
         }
         catch (Exception ex)
         {
-            logger.info("[PERSONDAO][Exception][Map]Exception: " + ex.getMessage());
+            logger.info("[PERSONDAO][Exception][Map Parent]Exception: " + ex.getMessage());
         }
 
         return person;

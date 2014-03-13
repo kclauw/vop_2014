@@ -1,5 +1,7 @@
 package persistence;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,25 +11,27 @@ import java.sql.SQLException;
 public class DatabaseUtils
 {
 
+    protected final static String driver = "com.mysql.jdbc.Driver";
+    protected final static String username = "team12";
+    protected final static String password = "RKAxujnJ";
+    protected static String url;
+
     private DatabaseUtils() throws Exception
     {
     }
 
-    protected final static String driver = "com.mysql.jdbc.Driver";
-    protected final static String username = "team12";
-    protected final static String password = "RKAxujnJ";
-    protected final static String url = "jdbc:mysql://db.vop.tiwi.be:443/team12_staging?";
-
     public static Connection getCon(String driver, String url, String username, String password) throws Exception
     {
         Class.forName(driver);
-        return DriverManager.getConnection(url, username, password);
+        Connection con = DriverManager.getConnection(url, username, password);
+        return con;
     }
 
     public static Connection getConnection() throws Exception
     {
-
-        return getCon(driver, url, username, password);
+        setUrlPath();
+        Connection con = getCon(driver, url, username, password);
+        return con;
     }
 
     public static void closeQuietly(Connection conn) throws SQLException
@@ -54,4 +58,25 @@ public class DatabaseUtils
         }
     }
 
+    private static void setUrlPath() throws UnknownHostException
+    {
+        InetAddress ip;
+        String hostname;
+        ip = InetAddress.getLocalHost();
+        hostname = ip.getHostName();
+        String urlPrefix = "jdbc:mysql://db.vop.tiwi.be";
+
+        if (hostname.equals("staging"))
+        {
+            url = urlPrefix + ":3306/team12_staging?";
+        }
+        else if (hostname.equals("release"))
+        {
+            url = urlPrefix + ":3306/team12_release?";
+        }
+        else
+        {
+            url = urlPrefix + ":443/team12_staging?";
+        }
+    }
 }

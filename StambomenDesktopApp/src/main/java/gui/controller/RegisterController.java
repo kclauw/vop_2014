@@ -25,7 +25,7 @@ public class RegisterController implements IPanelController
     {
         if (password.equals(passwordConfirm))
         {
-            UserDTO user = new UserDTO(-1, username, password);
+            UserDTO user = new UserDTO(-1, username, password, null);
             String succes = uc.makeUser(user);
             if (succes == null)
             {

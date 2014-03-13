@@ -6,22 +6,34 @@ public class UserDTO implements java.io.Serializable
     private int id;
     private String username;
     private String password;
+    private String language;
 
     public UserDTO()
     {
     }
 
-    public UserDTO(int id, String username, String password)
+    public UserDTO(int id, String username, String password, String language)
     {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.language = language;
     }
 
     public UserDTO(int id, String username)
     {
         this.id = id;
         this.username = username;
+    }
+
+    public String getLanguage()
+    {
+        return language;
+    }
+
+    public void setLanguage(String language)
+    {
+        this.language = language;
     }
 
     public int getId()

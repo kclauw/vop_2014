@@ -15,7 +15,7 @@ public class PlaceDao implements IDao<Place>
 {
 
     private Connection con;
-    private final String GETPLACEBYID = "SELECT placeID, zipcode, c.coordinatesID, "
+    private final String GETPLACEBYID = "SELECT placeID as placeID, zipcode, c.coordinatesID, "
             + " p.countryID,c.latitude, c.longitude, coun.name as countryname, "
             + " pla.placenameID, pla.name as placename FROM Place as p "
             + " LEFT JOIN Coordinates c on c.coordinatesID = p.coordinatesID "
@@ -23,13 +23,24 @@ public class PlaceDao implements IDao<Place>
             + " JOIN Placename pla on pla.placenameID = p.placenameID "
             + " WHERE p.placeID = ?";
 
-    private final String GETPLACEBYPLACE = "SELECT placeID, zipcode, c.coordinatesID, "
+    private final String GETPLACEBYPLACE = "SELECT placeID as placeID, zipcode, c.coordinatesID, "
             + "             p.countryID,c.latitude, c.longitude, coun.name as countryname, "
             + "            pla.placenameID, pla.name as placename FROM Place as p \n"
             + "             LEFT JOIN Coordinates c on c.coordinatesID = p.coordinatesID "
             + "		JOIN Country coun on coun.countryID = p.countryID "
             + "			JOIN Placename pla on pla.placenameID = p.placenameID "
             + "             WHERE coun.name = ? and pla.name = ? and zipcode = ?";
+
+    private final String GETCOUNTRIDBYNAME = "SELECT countryID FROM Country where name = ?";
+    private final String SAVECOUNTRY = "INSERT INTO Country VALUES (null,?);";
+
+    private final String GETPLACENAMEIDBYNAME = "SELECT placeNameID FROM PlaceName where name = ?";
+    private final String SAVEPLACENAME = "INSERT INTO PlaceName VALUES (null,?);";
+
+    private final String GETCOORDSBYLONGANDLAT = "SELECT * FROM Coordinates WHERE longitude = ? AND latitude = ?";
+    private final String SAVECOORD = "INSERT INTO Coordinates VALUES (null,?,?);";
+
+    private final String SAVEPLACE = "INSERT INTO PLACE VALUES (null, ?, ?, ?, ?)";
 
     private final Logger logger;
 
@@ -93,7 +104,110 @@ public class PlaceDao implements IDao<Place>
     @Override
     public void save(Place place)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int countryID = -1;
+        int placeNameID = -1;
+        int coordinateID = -1;
+
+        try
+        {
+            PreparedStatement prep;
+            ResultSet res;
+            con = DatabaseUtils.getConnection();
+
+            /*Maak country aan indien nodig:*/
+            prep = con.prepareStatement(GETCOUNTRIDBYNAME);
+            prep.setString(1, place.getCountry());
+            res = prep.executeQuery();
+
+            if (res.next())
+            {
+                countryID = res.getInt("countryID");
+            }
+            else
+            {
+                prep = con.prepareStatement(SAVECOUNTRY);
+                prep.setString(1, place.getCountry());
+                prep.executeUpdate();
+
+                ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
+                if (getKeyRs != null)
+                {
+
+                    if (getKeyRs.next())
+                    {
+                        countryID = getKeyRs.getInt(1);
+                    }
+                    getKeyRs.close();
+                }
+
+            }
+            /*Maak plaats aan indien nodig*/
+            prep = con.prepareStatement(GETPLACENAMEIDBYNAME);
+            prep.setString(1, place.getPlaceName());
+            res = prep.executeQuery();
+
+            if (res.next())
+            {
+                placeNameID = res.getInt("placeNameID");
+            }
+            else
+            {
+                prep = con.prepareStatement(SAVEPLACENAME);
+                prep.setString(1, place.getPlaceName());
+                prep.executeUpdate();
+
+                ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
+                if (getKeyRs != null)
+                {
+
+                    if (getKeyRs.next())
+                    {
+                        placeNameID = getKeyRs.getInt(1);
+                    }
+                    getKeyRs.close();
+                }
+
+            }
+
+            prep = con.prepareStatement(SAVEPLACE);
+            Coordinate coord = place.getCoord();
+
+            //TODO!!!
+            if (coord != null && coord.getId() != -1)
+            {
+                coordinateID = coord.getId();
+            }
+            else if (coord != null)
+            {
+                //normal insert
+                //TODO
+
+            }
+            else
+            {
+                //null insert
+                //TODO
+            }
+
+            prep.setInt(1, coordinateID);
+            prep.setInt(2, countryID);
+
+            String zipCode = place.getZipCode();
+
+            if (zipCode != null)
+            {
+                prep.setString(3, place.getZipCode());
+            }
+
+            prep.setInt(4, placeNameID);
+
+            prep.executeUpdate();
+
+        }
+        catch (Exception ex)
+        {
+            java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -115,7 +229,7 @@ public class PlaceDao implements IDao<Place>
         Place place = null;
         try
         {
-            if (res != null && res.next())
+            if (res != null)
             {
                 int placeId = res.getInt("placeID");
                 int countryId = res.getInt("countryID");
@@ -141,7 +255,7 @@ public class PlaceDao implements IDao<Place>
         }
         catch (Exception ex)
         {
-            logger.info("[PLACEDAO][Exception][Map]Exception: " + ex.getMessage());
+            logger.info("[PLACE DAO][Exception][Map]Exception: " + ex.getMessage());
         }
 
         return place;
@@ -167,8 +281,19 @@ public class PlaceDao implements IDao<Place>
             prep.setString(2, place.getPlaceName());
             prep.setString(3, place.getZipCode());
             res = prep.executeQuery();
-            p = map(res);
-            return p;
+            //We veronderstellen hier dat de plaats bestaat!
+            if (res.next())
+            {
+                p = map(res);
+            }
+            else
+            {
+                //make place!
+                //TODO MAKE PLACE
+                this.save(place);
+                //WATCH OUT RECURSIVE CALL
+                return this.get(place);
+            }
         }
         catch (Exception ex)
         {
@@ -178,7 +303,7 @@ public class PlaceDao implements IDao<Place>
         {
             try
             {
-                DatabaseUtils.closeQuietly(res);
+                //Cannot close res here!
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
             }
@@ -188,7 +313,7 @@ public class PlaceDao implements IDao<Place>
             }
 
         }
-        return null;
+        return p;
     }
 
     public Place getPlaceObject(Place place)
