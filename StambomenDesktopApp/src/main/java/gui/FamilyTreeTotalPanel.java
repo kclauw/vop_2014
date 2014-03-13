@@ -11,21 +11,13 @@ import gui.tree.PersonNodeExtentProvider;
 import gui.tree.PersonTreeForTreeLayout;
 import gui.tree.TreePane;
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import org.abego.treelayout.TreeLayout;
 import org.abego.treelayout.util.DefaultConfiguration;
 import util.PersonUtil;
 
-/**
- *
- * @author Axl
- */
 public class FamilyTreeTotalPanel extends javax.swing.JPanel
 {
 
@@ -80,22 +72,6 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         c.weighty = 20;
         this.add(familyTreeDetailPanel, c);
 
-        JButton b = new JButton("Back to overview");
-        b.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                treeController.goTo(Panels.TREEOVERVIEW);
-            }
-        });
-
-        c.ipadx = 5;
-        c.ipady = 5;
-        c.gridx = 1;
-        c.gridy = 1;
-        c.gridwidth = 1;
-        c.fill = 0;
-        this.add(b, c);
         this.validate();
     }
 
@@ -119,9 +95,12 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), persons);
         TreeLayout<PersonDTO> layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), new DefaultConfiguration<PersonDTO>(50, 30));
         TreePane tree;
+
         tree = new TreePane(layout, persons, this);
+
         this.scroll.add(tree);
         this.scroll.setViewportView(tree);
+
         repaint();
         revalidate();
     }

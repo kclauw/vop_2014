@@ -6,6 +6,7 @@ import dto.PersonDTO;
 import dto.PlaceDTO;
 import gui.controller.TreeController;
 import java.awt.GridBagConstraints;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 public class FamilyTreeDetailPanel extends javax.swing.JPanel
@@ -269,7 +270,63 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         {
             btnEdit.setText("save");
             this.setEditable(true);
+            setButtonActive(btnEdit);
             edit = true;
+        }
+        else
+        {
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to save?");
+
+            if (confirm == JOptionPane.YES_OPTION)
+            {
+                person.setFirstName(textFieldFirstname.getText());
+                person.setSurName(textFieldLastname.getText());
+                person.setBirthDate(dob.getDate());
+                person.setDeathDate(dod.getDate());
+
+                if (radioFemale.isSelected())
+                {
+                    person.setGender(GenderDTO.FEMALE);
+                }
+                else
+                {
+                    person.setGender(GenderDTO.MALE);
+                }
+
+                person.setPlace(new PlaceDTO(-1, -1, -1, null, textFieldCountry.getText(), textFieldZipCode.getText(), textFieldCity.getText()));
+                fttp.updatePerson(person);
+            }
+
+            this.setEditable(false);
+            btnEdit.setText("edit");
+            edit = false;
+            setAllButtonsActive();
+        }
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this person?");
+
+        if (confirm == JOptionPane.YES_OPTION)
+        {
+            System.out.println("[FAMILY TREE DETAIL PANEL] DELETING PERSON " + person.toString());
+            fttp.deletePerson(person);
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
+    {//GEN-HEADEREND:event_btnAddActionPerformed
+        if (!adding)
+        {
+            adding = true;
+            this.textFieldCity.setText("");
+            this.textFieldCountry.setText("");
+            this.textFieldFirstname.setText("");
+            this.textFieldLastname.setText("");
+            this.textFieldZipCode.setText("");
+            this.setEditable(true);
+            setButtonActive(btnAdd);
+            btnAdd.setText("Click to save!");
         }
         else if (adding)
         {
@@ -300,59 +357,11 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
             p.setPlace(new PlaceDTO(-1, -1, -1, null, textFieldCountry.getText(), textFieldZipCode.getText(), textFieldCity.getText()));
             adding = false;
-            JOptionPane.showMessageDialog(null, "Adding child!" + p.toString());
             fttp.addPerson(p);
-        }
-        else
-        {
-            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to save?");
-
-            if (confirm == JOptionPane.YES_OPTION)
-            {
-                person.setFirstName(textFieldFirstname.getText());
-                person.setSurName(textFieldLastname.getText());
-                person.setBirthDate(dob.getDate());
-                person.setDeathDate(dod.getDate());
-
-                if (radioFemale.isSelected())
-                {
-                    person.setGender(GenderDTO.FEMALE);
-                }
-                else
-                {
-                    person.setGender(GenderDTO.MALE);
-                }
-
-                person.setPlace(new PlaceDTO(-1, -1, -1, null, textFieldCountry.getText(), textFieldZipCode.getText(), textFieldCity.getText()));
-                fttp.updatePerson(person);
-            }
-
+            setAllButtonsActive();
             this.setEditable(false);
-            btnEdit.setText("edit");
-            edit = false;
+            btnAdd.setText("Add");
         }
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this person?");
-
-        if (confirm == JOptionPane.YES_OPTION)
-        {
-            System.out.println("[FAMILY TREE DETAIL PANEL] DELETING PERSON " + person.toString());
-            fttp.deletePerson(person);
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
-    {//GEN-HEADEREND:event_btnAddActionPerformed
-        JOptionPane.showMessageDialog(null, "Fill in data for person to add");
-        adding = true;
-        this.textFieldCity.setText("");
-        this.textFieldCountry.setText("");
-        this.textFieldFirstname.setText("");
-        this.textFieldLastname.setText("");
-        this.textFieldZipCode.setText("");
-        this.setEditable(true);
 
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -422,6 +431,26 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         }
     }
 
+    private void setButtonActive(JButton b)
+    {
+        b.setEnabled(true);
+
+        if (b != btnAdd)
+        {
+            btnAdd.setEnabled(false);
+        }
+
+        if (b != btnDelete)
+        {
+            btnDelete.setEnabled(false);
+        }
+
+        if (b != btnEdit)
+        {
+            btnEdit.setEnabled(false);
+        }
+    }
+
     private void setEditable(boolean edit)
     {
         if (!edit)
@@ -471,5 +500,12 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         this.add(dod, gridBagConstraints);
+    }
+
+    private void setAllButtonsActive()
+    {
+        btnAdd.setEnabled(true);
+        btnEdit.setEnabled(true);
+        btnDelete.setEnabled(true);
     }
 }

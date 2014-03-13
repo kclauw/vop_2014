@@ -146,7 +146,7 @@ public class TreePane extends JComponent
         this.addMouseListener(new MouseAdapter()
         {
             @Override
-            public void mousePressed(MouseEvent me)
+            public void mouseClicked(MouseEvent me)
             {
                 if (box.contains(me.getPoint()))
                 {

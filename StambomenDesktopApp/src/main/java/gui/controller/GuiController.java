@@ -17,6 +17,7 @@ public class GuiController
     private TreeOverviewController treeControllerOverviewController;
     private TreeController treeController;
     private AddTreeController addTreeController;
+    private Panels currentPanel;
 
     public GuiController()
     {
@@ -41,8 +42,15 @@ public class GuiController
                 int confirm = JOptionPane.showConfirmDialog(programFrame, "Are you sure you want to close?");
                 if (confirm == JOptionPane.YES_OPTION)
                 {
-                    programFrame.dispose();
-                    System.exit(0);
+                    if (currentPanel == Panels.TREE)
+                    {
+                        goTo(Panels.TREEOVERVIEW);
+                    }
+                    else
+                    {
+                        programFrame.dispose();
+                        System.exit(0);
+                    }
                 }
             }
         });
@@ -56,6 +64,7 @@ public class GuiController
 
     public void goTo(Panels frame)
     {
+        currentPanel = frame;
         programFrame.getContentPane().removeAll();
         switch (frame)
         {
@@ -63,6 +72,7 @@ public class GuiController
                 programFrame.add(loginController.show());
                 programFrame.setTitle("Login");
                 programFrame.setSize(350, 300);
+
                 break;
             case REGISTER:
                 programFrame.add(registerController.show());
