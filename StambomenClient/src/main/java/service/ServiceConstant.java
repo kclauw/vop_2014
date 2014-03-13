@@ -12,7 +12,7 @@ package service;
 public class ServiceConstant
 {
 
-    private String url;
+    private static String url;
     private static ServiceConstant instance;
 
     private ServiceConstant()
@@ -37,7 +37,7 @@ public class ServiceConstant
         return instance;
     }
 
-    public void setMode(int mode)
+    public static void setMode(int mode)
     {
         if (mode == 0)
         {

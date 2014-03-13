@@ -120,7 +120,7 @@ public class ClientUserService
         logger.info("[CLIENT USER SERVICE][SEND FRIEND REQUEST]Send friendrequest to user with id:" + userID + " to friend user with name" + frienduserName);
         Client client = ClientServiceController.getInstance().getClient();
         client.register(new JacksonFeature());
-        Response response = client.target(url + "/friends/requests/send/" + userID + "/" + frienduserName).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "user/friends/requests/send/" + userID + "/" + frienduserName).request(MediaType.APPLICATION_JSON).get();
         if (response.getStatus() != 200)
         {
 
@@ -128,6 +128,11 @@ public class ClientUserService
         }
 
         return null;
+    }
+
+    public void setLanguage(int userID, int language)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

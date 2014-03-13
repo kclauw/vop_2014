@@ -43,9 +43,7 @@ public class ClientPersonService
     public String updatePerson(PersonDTO person)
     {
         logger.info("[CLIENT PERSON SERVICE][UPDATE PERSON]:" + person.toString());
-        Client client = ClientBuilder.newClient();
-        client.register(ClientServiceController.getInstance().getHttpCredentials());
-        client.register(new JacksonFeature());
+        Client client = ClientServiceController.getInstance().getClient();
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         String json = gson.toJson(person);
@@ -66,9 +64,8 @@ public class ClientPersonService
     public String deletePerson(int treeID, int personID)
     {
         System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + personID);
-        Client client = ClientBuilder.newClient();
-        client.register(ClientServiceController.getInstance().getHttpCredentials());
-        client.register(new JacksonFeature());
+        Client client = ClientServiceController.getInstance().getClient();
+
         Response response = client.target(url + "person/delete/" + treeID + "/" + personID).request(MediaType.APPLICATION_JSON).get();
 
         if (response.getStatus() != 200)
