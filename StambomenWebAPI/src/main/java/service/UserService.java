@@ -144,4 +144,17 @@ public class UserService {
         }
 
     }
+
+    @GET
+    @Path("/get/profile/setUserPrivacy/{personId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response setUserPrivacy(@PathParam("userID") int userID, @PathParam("userPrivacy") int userPrivacy) {
+        try {
+            String result = "privacy set:" + userPrivacy;
+            uc.setUserPrivacy(userID, userPrivacy);
+            return Response.status(Response.Status.OK).entity(result).build();
+        } catch (Exception ex) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
+    }
 }
