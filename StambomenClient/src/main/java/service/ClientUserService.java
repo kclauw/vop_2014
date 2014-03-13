@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 public class ClientUserService
 {
 
-    private final String url = ServiceConstant.getInstance().getURL();
+    private final static String url = ServiceConstant.getInstance().getURL();
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public String makeUser(UserDTO userDTO)
@@ -44,8 +44,8 @@ public class ClientUserService
         logger.info("[CLIENT USER SERVICE][LOGIN]Login of user:" + user.toString());
         Client client = ClientBuilder.newClient();
         client.register(new JacksonFeature());
-
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().credentials(user.getUsername(), user.getPassword()).build();
+        client.register(feature);
 
         UserDTO dto = client.target(url + "user/login/" + user.getUsername()).request("application/json").accept("application/json").get(UserDTO.class);
 

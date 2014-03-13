@@ -13,6 +13,8 @@ public class ClientUserController
 
     public ClientUserController()
     {
+        ServiceConstant.getInstance().setMode(1);
+
         this.client = new ClientUserService();
     }
 
@@ -23,8 +25,10 @@ public class ClientUserController
 
     public String login(UserDTO user)
     {
-        ServiceConstant.setMode(0);
+        ServiceConstant.getInstance().setMode(1);
+
         logger.info("[CLIENT USER CONTROLLER][LOGIN]Login van user:" + user.toString());
+
         return client.login(user);
     }
 
