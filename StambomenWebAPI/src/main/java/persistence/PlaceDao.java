@@ -176,6 +176,9 @@ public class PlaceDao implements IDao<Place>
             {
                 //make place!
                 //TODO MAKE PLACE
+                this.save(place);
+                //WATCH OUT RECURSIVE CALL
+                return this.get(place);
             }
         }
         catch (Exception ex)
