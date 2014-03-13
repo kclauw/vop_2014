@@ -200,8 +200,19 @@ public class PersonDao implements IDao<Person>
             prep.setString(2, person.getFirstName());
             prep.setString(3, person.getSurName());
             prep.setByte(4, person.getGender().getGenderId());
-            prep.setDate(5, new java.sql.Date(person.getBirthDate().getTime()));
-            prep.setDate(6, new java.sql.Date(person.getDeathDate().getTime()));
+
+            Date dob = person.getBirthDate();
+            Date dod = person.getDeathDate();
+
+            if (dob != null)
+            {
+                prep.setDate(5, new java.sql.Date(person.getBirthDate().getTime()));
+            }
+            if (dod != null)
+            {
+                prep.setDate(6, new java.sql.Date(person.getDeathDate().getTime()));
+            }
+
             prep.setInt(7, person.getPersonId());
             logger.info("[PERSON DAO] Updating person " + prep.toString());
             prep.executeUpdate();
