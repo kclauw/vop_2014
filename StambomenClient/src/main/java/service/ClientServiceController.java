@@ -1,7 +1,10 @@
 package service;
 
 import dto.UserDTO;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +14,7 @@ public class ClientServiceController
     private static ClientServiceController instance;
     private UserDTO user;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
     public void setUser(UserDTO user)
     {
         logger.info("[CLIENT SERVICE CONTROLLER][USER SET]" + user.toString());
@@ -43,5 +47,14 @@ public class ClientServiceController
     {
         logger.info("[CLIENT SERVICE CONTROLLER][HTTP AUTHENTICATION FEATURE]Building request for user :" + user.getUsername());
         return HttpAuthenticationFeature.basicBuilder().credentials(user.getUsername(), user.getPassword()).build();
+    }
+
+    public Client getClient()
+    {
+        HttpAuthenticationFeature feature = ClientServiceController.getInstance().getHttpCredentials();
+        Client client = ClientBuilder.newClient();
+        client.register(feature);
+        client.register(new JacksonFeature());
+        return client;
     }
 }
