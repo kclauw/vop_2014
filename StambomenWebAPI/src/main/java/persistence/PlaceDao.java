@@ -180,11 +180,13 @@ public class PlaceDao implements IDao<Place>
             else if (coord != null)
             {
                 //normal insert
+                //TODO
 
             }
             else
             {
                 //null insert
+                //TODO
             }
 
             prep.setInt(1, coordinateID);
