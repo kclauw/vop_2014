@@ -208,9 +208,18 @@ public class PersonDao implements IDao<Person>
             {
                 prep.setDate(5, new java.sql.Date(person.getBirthDate().getTime()));
             }
+            else
+            {
+                prep.setNull(5, java.sql.Types.DATE);
+            }
+
             if (dod != null)
             {
                 prep.setDate(6, new java.sql.Date(person.getDeathDate().getTime()));
+            }
+            else
+            {
+                prep.setNull(6, java.sql.Types.DATE);
             }
 
             prep.setInt(7, person.getPersonId());
