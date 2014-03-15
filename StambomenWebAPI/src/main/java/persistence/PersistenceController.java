@@ -5,6 +5,7 @@ import domain.Place;
 import domain.Tree;
 import domain.User;
 import java.io.InputStream;
+import java.net.URI;
 import java.sql.ResultSet;
 import java.util.List;
 import org.slf4j.Logger;
@@ -197,5 +198,10 @@ public class PersistenceController
     public void savePersonImage(int personID, InputStream attachmentInputStream)
     {
         imageDao.save(personID, attachmentInputStream);
+    }
+
+    public URI getPicture(int personID)
+    {
+        return imageDao.get(personID);
     }
 }

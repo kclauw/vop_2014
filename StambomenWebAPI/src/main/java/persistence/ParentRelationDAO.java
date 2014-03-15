@@ -1,20 +1,11 @@
 package persistence;
 
-import domain.Gender;
-import domain.Person;
-
-import domain.Place;
-import domain.Tree;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
-import org.jvnet.hk2.component.MultiMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -143,6 +143,7 @@ public class PersonDao implements IDao<Person>
             {
                 System.out.println("[PERSON DAO][GET][FOUND A RESULT!]");
                 person = map(res, persMap);
+                person.setPicture(pc.getPicture(person.getPersonId()));
                 mapRelations(persons, persMap);
             }
 
@@ -310,6 +311,8 @@ public class PersonDao implements IDao<Person>
             {
                 //personID birthplace firstname lastname gender birthdate deathdate
                 Person person = map(res, personMap);
+                person.setPicture(pc.getPicture(person.getPersonId()));
+
                 persons.add(person);
             }
 
