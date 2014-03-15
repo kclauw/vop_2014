@@ -3,6 +3,7 @@ package service;
 import domain.Person;
 import domain.controller.PersonController;
 import exception.PersonAlreadyExistsException;
+import java.io.InputStream;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -11,7 +12,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +35,7 @@ public class PersonService
     @POST
     @Path("/{treeID}/post")
     @Consumes(MediaType.APPLICATION_JSON)
-    
+
     public Response addPerson(@PathParam("treeID") int treeID, Person person)
     {
         try
@@ -102,6 +102,26 @@ public class PersonService
         Person t = pc.getPerson(personID);
         System.out.println(t);
         return t;
+    }
+
+    @POST
+    @Path("/upload/image/{personID}")
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    public void saveImage(@PathParam("personID") int personID, InputStream attachmentInputStream)
+    {
+        logger.info("[SAVE][PERSONSERVICE] SAVING image for " + personID);
+
+        pc.savePersonImage(personID, attachmentInputStream);
+    }
+
+    @GET
+    @Path("/delete/images/{personID}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void deleteImage(@PathParam("personID") int personID)
+    {
+        logger.info("[DELETE][PERSONSERVICE] Deleting image for " + personID);
+
+        pc.deletePersonImage(personID);
     }
 
 
