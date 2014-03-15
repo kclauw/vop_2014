@@ -49,12 +49,9 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         initComponents();
         this.setSize(1200, 400);
         this.treeController = treeController;
-        //      this.familyTreePanel = new FamilyTreePanel(treeController, this);
         this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
         this.familyTreeDetailPanel.validate();
         scroll = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        //     this.scroll.add(familyTreePanel);
-        //     scroll.setViewportView(familyTreePanel);
         this.scroll.setVisible(true);
 
         GridBagConstraints c = new GridBagConstraints();
@@ -93,7 +90,7 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     public void drawFamilyTree(List<PersonDTO> persons)
     {
         PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), persons);
-        TreeLayout<PersonDTO> layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), new DefaultConfiguration<PersonDTO>(50, 30));
+        TreeLayout<PersonDTO> layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), new DefaultConfiguration<PersonDTO>(125, 125));
         TreePane tree;
 
         tree = new TreePane(layout, persons, this);

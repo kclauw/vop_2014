@@ -18,6 +18,6 @@ public class PersonNodeExtentProvider implements NodeExtentProvider<PersonDTO>
 
     public double getHeight(PersonDTO tn)
     {
-        return 50;
+        return 40;
     }
 }

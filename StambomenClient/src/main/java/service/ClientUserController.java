@@ -25,8 +25,6 @@ public class ClientUserController
 
     public String login(UserDTO user)
     {
-        ServiceConstant.getInstance().setMode(1);
-
         logger.info("[CLIENT USER CONTROLLER][LOGIN]Login van user:" + user.toString());
 
         return client.login(user);
