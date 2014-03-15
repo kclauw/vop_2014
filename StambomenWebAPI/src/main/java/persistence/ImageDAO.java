@@ -1,44 +1,58 @@
 package persistence;
 
-import java.sql.ResultSet;
-import java.util.Collection;
-import org.glassfish.jersey.server.Uri;
+import com.googlecode.sardine.Sardine;
+import com.googlecode.sardine.SardineFactory;
+import com.googlecode.sardine.util.SardineException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ImageDAO implements IDao<Uri>
+/*
+ The images will be stored on an external filesystem. Seeing the files > 1 mb have better performace on filesystem
+ then they would have being stored as blobs in the database.
+ Since each person has an id, we will use that ID as identifier for the images.
+ */
+public class ImageDAO
 {
 
-    @Override
-    public Uri get(int id)
+    private final String url = " http://dav.assets.vop.tiwi.be/team12/persons/";
+    private PersistenceController persistenceController;
+
+    public ImageDAO(PersistenceController per)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.persistenceController = per;
     }
 
-    @Override
-    public void save(Uri value)
+    public URI get(int id)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            return new URI(url + id);
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
     }
 
-    @Override
-    public void update(Uri value)
+    public void save(int personID, InputStream input)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            Sardine sardine = SardineFactory.begin();
+        }
+        catch (SardineException ex)
+        {
+            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
-    @Override
-    public void delete(Uri value)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Collection<Uri> getAll()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Uri map(ResultSet res)
+    public void delete(int personID)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

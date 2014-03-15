@@ -12,6 +12,7 @@ import gui.tree.PersonTreeForTreeLayout;
 import gui.tree.TreePane;
 import java.awt.GridBagConstraints;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import org.abego.treelayout.TreeLayout;
@@ -25,6 +26,11 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     private FamilyTreeDetailPanel familyTreeDetailPanel;
     private TreeController treeController;
     private JScrollPane scroll;
+    private List<PersonDTO> persons;
+    private TreeLayout<PersonDTO> layout;
+    private int maxGapBetweenNodes = 125;
+    private int maxGapBetweenLevel = 125;
+    private int timesZoomed;
 
     /**
      * Creates new form FamilyTreeTotalPanel
@@ -89,8 +95,25 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
 
     public void drawFamilyTree(List<PersonDTO> persons)
     {
+        this.persons = persons;
         PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), persons);
-        TreeLayout<PersonDTO> layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), new DefaultConfiguration<PersonDTO>(125, 125));
+        layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), new DefaultConfiguration<PersonDTO>(maxGapBetweenNodes, maxGapBetweenLevel));
+        TreePane tree;
+
+        tree = new TreePane(layout, persons, this);
+
+        this.scroll.add(tree);
+        this.scroll.setViewportView(tree);
+
+        repaint();
+        revalidate();
+    }
+
+    public void drawFamilyTree(List<PersonDTO> persons, DefaultConfiguration def)
+    {
+        this.persons = persons;
+        PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), persons);
+        TreeLayout<PersonDTO> layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), def);
         TreePane tree;
 
         tree = new TreePane(layout, persons, this);
@@ -120,5 +143,38 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     public void addPerson(PersonDTO person)
     {
         this.treeController.addPerson(person);
+    }
+
+    public void zoomIn()
+    {
+        timesZoomed++;
+
+        if (this.persons != null && this.persons.size() > 0)
+        {
+            maxGapBetweenNodes = maxGapBetweenNodes + 100;
+            maxGapBetweenLevel = maxGapBetweenLevel + 100;
+            drawFamilyTree(persons, new DefaultConfiguration(maxGapBetweenNodes, maxGapBetweenLevel));
+        }
+    }
+
+    public void zoomOut()
+    {
+        try
+        {
+            timesZoomed--;
+
+            if (this.persons != null && this.persons.size() > 0)
+            {
+                maxGapBetweenNodes = maxGapBetweenNodes - 100;
+                maxGapBetweenLevel = maxGapBetweenLevel - 100;
+                drawFamilyTree(persons, new DefaultConfiguration(maxGapBetweenLevel, maxGapBetweenNodes));
+            }
+        }
+        catch (IllegalArgumentException ex)
+        {
+            JOptionPane.showMessageDialog(null, "Cannot zoom out further!");
+            maxGapBetweenLevel = 25;
+            maxGapBetweenNodes = 25;
+        }
     }
 }

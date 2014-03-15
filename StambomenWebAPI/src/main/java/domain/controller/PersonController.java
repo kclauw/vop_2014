@@ -4,6 +4,7 @@ import domain.Person;
 import domain.Tree;
 import exception.CannotDeletePersonsWithChidrenException;
 import exception.PersonAlreadyExistsException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -88,7 +89,6 @@ public class PersonController
      * @param treeID
      * @param person
      */
-    
     public void addPerson(int treeID, Person person)
     {
         /*Check wheter the person exists. This should be place in a repo.*/
@@ -103,5 +103,15 @@ public class PersonController
             logger.info("[PERSON CONTROLLER] Adding person: " + person);
             pc.addPerson(treeID, person);
         };
+    }
+
+    public void deletePersonImage(int personID)
+    {
+        pc.deletePersonImage(personID);
+    }
+
+    public void savePersonImage(int personID, InputStream attachmentInputStream)
+    {
+        pc.savePersonImage(personID, attachmentInputStream);
     }
 }

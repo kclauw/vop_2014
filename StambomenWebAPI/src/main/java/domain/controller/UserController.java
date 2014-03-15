@@ -98,4 +98,10 @@ public class UserController {
     public void setUserPrivacy(int userID, int userPrivacy) {
         pc.setUserPrivacy(userID, userPrivacy);
     }
+
+    public User getUserProfile(int userProfileID, int userPrivacy) {
+        User user = pc.getUserProfile(userProfileID, userPrivacy);
+
+        return user;
+    }
 }
