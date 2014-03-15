@@ -29,7 +29,15 @@ public class MockPerson implements IPersonDAO<Person>
         Date d2 = new Date("31/5/1969");
         Date d3 = new Date("24/5/1992");
         coord = new Coordinate(1, 0, 0);
-        place = new Place(1, 1, 1, coord, "België", "2980", "Zoersel");
+        place = new Place.PlaceBuilder("Zoersel")
+                    .placeId(1)
+                    .countryId(1)
+                    .placeNameId(1)
+                    .coord(coord)
+                    .country("België")
+                    .zipCode("2980")
+                    .build();
+        
 //        Person person1 = new Person(1, "Peter", "Verreth", gm, d1, null, place, null, null);
 //        Person person2 = new Person(1, "Shirley", "Verreth", gf, d1, null, place, null, null);
 //        Person person3 = new Person(1, "Jelle", "Verreth", gm, d1, null, place, person1, person2);

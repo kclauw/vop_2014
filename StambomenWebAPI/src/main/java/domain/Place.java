@@ -1,6 +1,6 @@
 package domain;
 
-public class Place
+public class Place 
 {
 
     private int placeId;
@@ -11,104 +11,119 @@ public class Place
     private String zipCode;
     private String placeName;
 
-    public Place()
-    {
+    public Place() {
     }
 
-    public Place(int placeId, int countryId, int placeNameId, Coordinate coord, String country, String zipCode, String placeName)
-    {
-        setplaceId(placeId);
-        setCountry(country);
-        setPlaceNameId(placeNameId);
-        setCoord(coord);
-        setZipCode(zipCode);
-        setPlaceName(placeName);
-        setCountryId(countryId);;
+    public Place(PlaceBuilder builder) {
+        this.placeId = builder.placeId;       
+        this.countryId = builder.countryId;
+        this.placeNameId = builder.placeNameId;
+        this.coord = builder.coord;        
+        this.country = builder.country; 
+        this.zipCode = builder.zipCode; 
+        this.placeName = builder.placeName; 
     }
 
-    public int getCountryId()
-    {
+    public int getCountryId() {
         return countryId;
     }
 
-    private void setCountryId(int countryId)
-    {
-        this.countryId = countryId;
-    }
+ 
 
-    public int getPlaceNameId()
-    {
+    public int getPlaceNameId() {
         return placeNameId;
     }
 
-    private void setPlaceNameId(int placeNameId)
-    {
-        this.placeNameId = placeNameId;
-    }
+  
 
-    public int getPlaceId()
-    {
+    public int getPlaceId() {
         return placeId;
     }
 
-    private void setplaceId(int placeId)
-    {
-        this.placeId = placeId;
-    }
+   
 
-    public Coordinate getCoord()
-    {
+    public Coordinate getCoord() {
         return coord;
     }
 
-    private void setCoord(Coordinate coord)
-    {
-        this.coord = coord;
-    }
+   
 
-    public String getCountry()
-    {
+    public String getCountry() {
         return country;
     }
 
-    private void setCountry(String country)
-    {
-        this.country = country;
-    }
+   
 
-    public String getZipCode()
-    {
+    public String getZipCode() {
         return zipCode;
     }
 
-    private void setZipCode(String zipCode)
-    {
-        this.zipCode = zipCode;
-    }
+   
 
-    public String getPlaceName()
-    {
+    public String getPlaceName() {
         return placeName;
     }
 
-    private void setPlaceName(String placeName)
-    {
-        this.placeName = placeName;
-    }
+    
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj.getClass() == this.getClass())
-        {
+    public boolean equals(Object obj) {
+        if (obj.getClass() == this.getClass()) {
             Place p2 = (Place) obj;
 
-            if (this.getPlaceName().equals(p2.placeName) && this.getZipCode().equals(p2.getZipCode()) && this.getCountry().equals(p2.getCountry()))
-            {
+            if (this.getPlaceName().equals(p2.placeName) && this.getZipCode().equals(p2.getZipCode()) && this.getCountry().equals(p2.getCountry())) {
                 return true;
             }
         }
         return false;
+    }
+
+    public static class PlaceBuilder {
+
+        private int placeId;
+        private int countryId;
+        private int placeNameId;
+        private Coordinate coord;
+        private String country;
+        private String zipCode;
+        private String placeName;
+
+        public PlaceBuilder(String placeName) {
+            this.placeName = placeName;
+        }
+
+        public PlaceBuilder placeId(int placeId) {
+            this.placeId = placeId;
+            return this;
+        }
+
+        public PlaceBuilder countryId(int countryId) {
+            this.countryId = countryId;
+            return this;
+        }
+
+        public PlaceBuilder placeNameId(int placeNameId) {
+            this.placeNameId = placeNameId;
+            return this;
+        }
+
+        public PlaceBuilder country(String country) {
+            this.country = country;
+            return this;
+        }
+        
+        public PlaceBuilder zipCode(String zipCode) {
+            this.zipCode = zipCode;
+            return this;
+        }
+       
+        public PlaceBuilder coord(Coordinate coord) {
+            this.coord = coord;
+            return this;
+        }
+        public Place build() {
+            return new Place(this);
+        }
     }
 
 }
