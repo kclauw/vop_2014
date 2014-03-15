@@ -29,10 +29,10 @@ STDOUT->autoflush(1);
 my $db_release = 0;
 my $db_port_ownpc = 1;
 my $writequery = 0;
-my $openqueryfile = 0;
+my $openwrittenfile = 0;
 #Hoe moet de boom worden ingevuld?
 #USERS
-my %users = ( "Icecoldcoldcoldcold" => "Outcast" ); #Users
+my %users = ( "Username" => "Password" ); #Users
 #TREES
 my @numberoftrees = 4..8; #Variatie in aantal bomen per user
 my @maxnumberofpersons = 60..120; #Maximum aantal personen per boom
@@ -69,10 +69,17 @@ my @sql_parameters;
 my $numberofsqlvariables = 0;
 
 my @personstack;
+my @personIDs_men;
+my @personIDs_women;
 
 #Sql-statements
+my $sql_lock = "LOCK TABLES User WRITE, Tree WRITE, Country WRITE, Placename WRITE, Place WRITE, Person WRITE, PersonTree WRITE, ParentRelation WRITE";
+my $sql_unlock = "UNLOCK TABLES";
 my $sql_set_nullvar = "set \@var0 = null";
 my $sql_lastinsertid = "set ? = ( select last_insert_id() )";
+my $sql_create_temppersonid = "create temporary table temp_personid_table ( personID int not null, gender tinyint(1) not null )";
+my $sql_add_temppersonid = "insert into temp_personid_table values (?,?)";
+my $sql_get_temppersonid = "select distinct personID, gender from temp_personid_table";
 	#User
 my $sql_add_user = "\n#USER\ninsert into User (username, password) values (?,?)";
 	#Tree
@@ -155,6 +162,8 @@ if (!$html_men || !$html_women || !$url_surnames || !$html_places || @men == 0 |
 
 printlines("GENERATING");
 
+addtoSQL($sql_lock);
+addtoSQL($sql_create_temppersonid);
 foreach my $username (keys %users) {
 	my $password = $users{$username};
 	#User toevoegen
@@ -203,6 +212,8 @@ foreach my $username (keys %users) {
 	}
 	printlines($trees . " trees generated for " . $username);
 }
+addtoSQL("\n" . $sql_unlock);
+addtoSQL($sql_get_temppersonid);
 
 fillvarsinSQL();
 printlines("Query fully generated");
@@ -226,7 +237,7 @@ my $db_host="db.vop.tiwi.be:" . (($db_port_ownpc)?"443":"3306");
 
 #Bevestiging vragen
 printlines("Are you sure you want to execute the query in '$db_name' on '$db_host'? [y|n]");
-my $continue = <>;
+my $continue = <STDIN>;
 $continue = "n" if ( !defined $continue || $continue ne "y\n" );
 printlines( "Answer: " . ( ($continue eq "y\n") ? "Positive - Proceeding script" : "Negative - Aborting script" ) );
 goto END if ( $continue ne "y\n" );
@@ -263,6 +274,16 @@ eval {
 
 		my $sth = $dbh->prepare( $statement ) or die $dbh->errstr;
 		$sth->execute(@parameters) or die $dbh->errstr;
+
+		if ($numberofstatements_done == $numberofstatements_total) {
+			while (my ($personID, $gender) = $sth->fetchrow()) {
+				if ($gender) {
+					push( @personIDs_men, $personID );
+				} else {
+					push( @personIDs_women, $personID );
+				}
+			}
+		}
 	}
 
 	$dbh->commit() or $dbh->errstr;
@@ -276,6 +297,14 @@ eval {
 
 $dbh->disconnect() or die $dbh->errstr;
 printlines("Disconnected from $db_host");
+
+#Print personIDs
+if (@personIDs_men) {
+	writetofile(join(';', @personIDs_men), ".personIDs.men", "csv", "personIDs (men)");
+}
+if (@personIDs_women) {
+	writetofile(join(';', @personIDs_women), ".personIDs.women", "csv", "personIDs (women)");
+}
 
 
 
@@ -379,6 +408,8 @@ sub addpersontoSQL {
 	addtoSQL($sql_add_person, $data_firstname, $data_lastname, $data_gender, $data_birthdate, $data_deathdate, $data_birthplace);
 	my $var_personid = getsqlvariablename();
 	addtoSQL("\t\t" . $sql_lastinsertid, $var_personid);
+
+	addtoSQL("\t\t" . $sql_add_temppersonid, $var_personid, $data_gender);
 
 	return $var_personid;
 }
@@ -524,21 +555,27 @@ sub testprintSQL {
 		$sqlprint = $sqlprint . $string . $sql_parameters[$i] . $string . $sqlelements[$i+1];
 	}
 
-	my $filename = basename($0);
-	my $suffix = ".sql";
+	writetofile($sqlprint, "", "sql", "query");
+}
+sub writetofile {
+	my ($print, $filenamesuffix, $extension, $description) = @_;
+
+	my $filename = basename($0) . $filenamesuffix;
+	$extension = "." . $extension;
+
 	my $counter = 1;
 
-	while (-e ("$filename.$counter$suffix")) {
+	while (-e ("$filename.$counter$extension")) {
 		++$counter;
 	}
 
-	open (MYFILE, ">$filename.$counter$suffix");
-	print MYFILE $sqlprint;
+	open (MYFILE, ">$filename.$counter$extension");
+	print MYFILE $print;
 	close (MYFILE);
 
-	printlines("Wrote query to '$filename.$counter$suffix'");
+	printlines("Wrote $description to '$filename.$counter$extension'");
 
-	system("start $filename.$counter$suffix") if $openqueryfile;
+	system("start $filename.$counter$extension") if $openwrittenfile;
 }
 
 END:
