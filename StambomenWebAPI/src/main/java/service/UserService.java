@@ -163,6 +163,7 @@ public class UserService {
     @Path("/get/profile/getPublicUserProfile/{personId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPublicUserProfile(@PathParam("userID") int userID) {
+        //set userPrivacy to public = 1
         int userPrivacy = 1;
 
         try {
