@@ -167,9 +167,25 @@ public class UserService {
         int userPrivacy = 1;
 
         try {
-            User user = uc.getUserProfile(userPrivacy, userPrivacy);
+            User userProfile = uc.getUserProfile(userPrivacy, userPrivacy);
 
-            return Response.ok(user).build();
+            return Response.ok(userProfile).build();
+        } catch (Exception ex) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("/get/profile/getPublicUserProfiles/{personId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPublicUserProfiles(@PathParam("userID") int userID) {
+        //set userPrivacy to public = 1
+        int userPrivacy = 1;
+
+        try {
+            List<User> userProfiles = uc.getUserProfiles(userPrivacy, userPrivacy);
+
+            return Response.ok(userProfiles).build();
         } catch (Exception ex) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }

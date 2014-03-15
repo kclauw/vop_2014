@@ -163,9 +163,16 @@ public class PersistenceController {
 
     public User getUserProfile(int userProfileID, int userPrivacy) {
         logger.info("[PERSISTENCE CONTROLLER] Get User profile" + userProfileID);
-        User user = userDao.getUserProfile(userProfileID, userPrivacy);
+        User userProfile = userDao.getUserProfile(userProfileID, userPrivacy);
 
-        return user;
+        return userProfile;
+    }
+
+    public List<User> getUserProfiles(int userProfileID, int userPrivacy) {
+        logger.info("[PERSISTENCE CONTROLLER] Get User profiles" + userProfileID);
+        List<User> userProfiles = userDao.getUserProfiles(userProfileID, userPrivacy);
+
+        return userProfiles;
     }
 
     public void deletePersonImage(int personID) {

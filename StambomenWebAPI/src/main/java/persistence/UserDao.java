@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 public class UserDao implements IDao<User> {
 
     private Connection con;
+    private final Logger logger;
     private final String GETALLUSER = "SELECT userID, username, password FROM User";
     private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
     private final String GETUSER = "SELECT userID, username, password FROM User WHERE username = ?";
@@ -27,8 +28,8 @@ public class UserDao implements IDao<User> {
     private final String SETLANGUAGE = "UPDATE User set languageID=? where userID=?;";
     private final String GETLANGUAGE = "SELECT languageID FROM User where userID=?;";
     private final String SETUSERPRIVACY = "UPDATE USER SET privacy = ? WHERE userID = ?";
-    private final String GETUSERPROFILE = "SELECT * FROM USER WHERE userID != ? AND privacy = ?";
-    private final Logger logger;
+    private final String GETUSERPROFILE = "SELECT * FROM USER WHERE userID = ? AND privacy = ?";
+    private final String GETUSERPROFILES = "SELECT * FROM USER WHERE userID != ? AND privacy = ?";
 
     public UserDao() {
         logger = LoggerFactory.getLogger(getClass());
@@ -469,7 +470,7 @@ public class UserDao implements IDao<User> {
     public User getUserProfile(int userProfileID, int privacy) {
         PreparedStatement prep = null;
         ResultSet res = null;
-        User user = null;
+        User userProfile = null;
 
         try {
             con = DatabaseUtils.getConnection();
@@ -480,7 +481,7 @@ public class UserDao implements IDao<User> {
             res = prep.executeQuery();
 
             while (res.next()) {
-                user = map(res);
+                userProfile = map(res);
             }
 
             con.close();
@@ -498,6 +499,44 @@ public class UserDao implements IDao<User> {
                 ex.printStackTrace();
             }
         }
-        return user;
+        return userProfile;
+    }
+
+    public List<User> getUserProfiles(int userProfileID, int privacy) {
+        PreparedStatement prep = null;
+        ResultSet res = null;
+        List<User> userProfiles = new ArrayList<User>();
+
+        try {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(GETUSERPROFILES);
+
+            prep.setInt(1, userProfileID);
+            prep.setInt(2, privacy);
+            res = prep.executeQuery();
+
+            while (res.next()) {
+                User user;
+                user = map(res);
+
+                userProfiles.add(user);
+            }
+
+            con.close();
+        } catch (SQLException ex) {
+            logger.info("[USER DAO][SQLEXCEPTION][getUserProfiles]Sql exception: " + ex.getMessage());
+        } catch (Exception ex) {
+            logger.info("[USER DAO][EXCEPTION][getUserProfiles]Exception: " + ex.getMessage());
+        } finally {
+            try {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            } catch (SQLException ex) {
+                logger.info("[USER DAO][SQLEXCEPTION][getUserProfiles]Sql exception: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+        return userProfiles;
     }
 }

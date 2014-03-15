@@ -100,8 +100,14 @@ public class UserController {
     }
 
     public User getUserProfile(int userProfileID, int userPrivacy) {
-        User user = pc.getUserProfile(userProfileID, userPrivacy);
+        User userProfile = pc.getUserProfile(userProfileID, userPrivacy);
 
-        return user;
+        return userProfile;
+    }
+
+    public List<User> getUserProfiles(int userProfileID, int userPrivacy) {
+        List<User> userProfiles = pc.getUserProfiles(userProfileID, userPrivacy);
+
+        return userProfiles;
     }
 }
