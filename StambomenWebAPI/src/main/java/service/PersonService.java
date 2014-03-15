@@ -3,7 +3,7 @@ package service;
 import domain.Person;
 import domain.controller.PersonController;
 import exception.PersonAlreadyExistsException;
-import java.io.InputStream;
+import java.awt.image.BufferedImage;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -107,11 +107,11 @@ public class PersonService
     @POST
     @Path("/upload/image/{personID}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-    public void saveImage(@PathParam("personID") int personID, InputStream attachmentInputStream)
+    public void saveImage(@PathParam("personID") int personID, BufferedImage attachmentInputStream)
     {
         logger.info("[SAVE][PERSONSERVICE] SAVING image for " + personID);
 
-        pc.savePersonImage(personID, attachmentInputStream);
+        //       pc.savePersonImage(personID, attachmentInputStream);
     }
 
     @GET

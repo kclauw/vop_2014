@@ -4,6 +4,8 @@ import com.googlecode.sardine.Sardine;
 import com.googlecode.sardine.SardineFactory;
 import com.googlecode.sardine.util.SardineException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,9 +25,18 @@ public class ImageDAO
         this.persistenceController = per;
     }
 
-    public String get(int id)
+    public URI get(int id)
     {
-        return url + id;
+        try
+        {
+            return new URI(url + id);
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
     }
 
     public void save(int personID, InputStream input)
