@@ -1,5 +1,6 @@
 package persistence;
 
+import domain.Privacy;
 import domain.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 public class UserDao implements IDao<User> {
 
     private Connection con;
+    private final Logger logger;
     private final String GETALLUSER = "SELECT userID, username, password FROM User";
     private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
     private final String GETUSER = "SELECT userID, username, password FROM User WHERE username = ?";
@@ -27,7 +29,8 @@ public class UserDao implements IDao<User> {
     private final String SETLANGUAGE = "UPDATE User set languageID=? where userID=?;";
     private final String GETLANGUAGE = "SELECT languageID FROM User where userID=?;";
     private final String SETUSERPRIVACY = "UPDATE USER SET privacy = ? WHERE userID = ?";
-    private final Logger logger;
+    private final String GETUSERPROFILE = "SELECT * FROM USER WHERE userID = ? AND privacy = ?";
+    private final String GETUSERPROFILES = "SELECT * FROM USER WHERE userID != ? AND privacy = ?";
 
     public UserDao() {
         logger = LoggerFactory.getLogger(getClass());
@@ -436,14 +439,16 @@ public class UserDao implements IDao<User> {
         return lang;
     }
 
-    public void setUserPrivacy(int userID, int privacy) {
+    public void setUserPrivacy(int userID, Privacy userPrivacy) {
         PreparedStatement prep = null;
+
         try {
-            if (userID <= 0 && privacy <= 1) {
+            if (userID <= 0 && userPrivacy.getPrivacyId() <= 2) {
                 con = DatabaseUtils.getConnection();
-                prep = con.prepareStatement(SETLANGUAGE);
-                prep.setInt(1, privacy);
-                prep.setInt(2, userID);
+                prep = con.prepareStatement(SETUSERPRIVACY);
+
+                prep.setInt(1, userID);
+                prep.setInt(2, userPrivacy.getPrivacyId());
                 prep.execute();
             }
 
@@ -461,5 +466,78 @@ public class UserDao implements IDao<User> {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public User getUserProfile(int userProfileID, Privacy userPrivacy) {
+        PreparedStatement prep = null;
+        ResultSet res = null;
+        User userProfile = null;
+
+        try {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(GETUSERPROFILE);
+
+            prep.setInt(1, userProfileID);
+            prep.setInt(2, userPrivacy.getPrivacyId());
+            res = prep.executeQuery();
+
+            while (res.next()) {
+                userProfile = map(res);
+            }
+
+            con.close();
+        } catch (SQLException ex) {
+            logger.info("[USER DAO][SQLEXCEPTION][GETUSERPROFILE]Sql exception: " + ex.getMessage());
+        } catch (Exception ex) {
+            logger.info("[USER DAO][EXCEPTION][GETUSERPROFILE]Exception: " + ex.getMessage());
+        } finally {
+            try {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            } catch (SQLException ex) {
+                logger.info("[USER DAO][SQLEXCEPTION][GETUSERPROFILE]Sql exception: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+        return userProfile;
+    }
+
+    public List<User> getUserProfiles(int userProfileID, Privacy userPrivacy) {
+        PreparedStatement prep = null;
+        ResultSet res = null;
+        List<User> userProfiles = new ArrayList<User>();
+
+        try {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(GETUSERPROFILES);
+
+            prep.setInt(1, userProfileID);
+            prep.setInt(2, userPrivacy.getPrivacyId());
+            res = prep.executeQuery();
+
+            while (res.next()) {
+                User user;
+                user = map(res);
+
+                userProfiles.add(user);
+            }
+
+            con.close();
+        } catch (SQLException ex) {
+            logger.info("[USER DAO][SQLEXCEPTION][getUserProfiles]Sql exception: " + ex.getMessage());
+        } catch (Exception ex) {
+            logger.info("[USER DAO][EXCEPTION][getUserProfiles]Exception: " + ex.getMessage());
+        } finally {
+            try {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            } catch (SQLException ex) {
+                logger.info("[USER DAO][SQLEXCEPTION][getUserProfiles]Sql exception: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+        return userProfiles;
     }
 }

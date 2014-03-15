@@ -2,9 +2,11 @@ package persistence;
 
 import domain.Person;
 import domain.Place;
+import domain.Privacy;
 import domain.Tree;
 import domain.User;
-
+import java.io.InputStream;
+import java.net.URI;
 import java.sql.ResultSet;
 import java.util.List;
 import org.slf4j.Logger;
@@ -18,6 +20,7 @@ public class PersistenceController {
     private PlaceDao placeDao;
     private PersonTreeDAO persontreeDao;
     private ParentRelationDAO parentrelationDao;
+    private ImageDAO imageDao;
 
     private final Logger logger;
 
@@ -28,6 +31,7 @@ public class PersistenceController {
         placeDao = new PlaceDao();
         persontreeDao = new PersonTreeDAO(this);
         parentrelationDao = new ParentRelationDAO(this);
+        imageDao = new ImageDAO(this);
         logger = LoggerFactory.getLogger(getClass());
 
     }
@@ -153,8 +157,34 @@ public class PersistenceController {
 
     }
 
-    public void setUserPrivacy(int userID, int userPrivacy) {
+    public void setUserPrivacy(int userID, Privacy userPrivacy) {
         logger.info("[PERSISTENCE CONTROLLER] Set privacy for userid" + userID);
-        userDao.setLanguage(userID, userPrivacy);
+        userDao.setUserPrivacy(userID, userPrivacy);
+    }
+
+    public User getUserProfile(int userProfileID, Privacy userPrivacy) {
+        logger.info("[PERSISTENCE CONTROLLER] Get User profile" + userProfileID);
+        User userProfile = userDao.getUserProfile(userProfileID, userPrivacy);
+
+        return userProfile;
+    }
+
+    public List<User> getUserProfiles(int userProfileID, Privacy userPrivacy) {
+        logger.info("[PERSISTENCE CONTROLLER] Get User profiles" + userProfileID);
+        List<User> userProfiles = userDao.getUserProfiles(userProfileID, userPrivacy);
+
+        return userProfiles;
+    }
+
+    public void deletePersonImage(int personID) {
+        imageDao.delete(personID);
+    }
+
+    public void savePersonImage(int personID, InputStream attachmentInputStream) {
+        imageDao.save(personID, attachmentInputStream);
+    }
+
+    public URI getPicture(int personID) {
+        return imageDao.get(personID);
     }
 }

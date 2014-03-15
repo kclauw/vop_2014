@@ -1,11 +1,11 @@
 package domain;
 
 import exception.InvalidParentException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import util.StringValidation;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Person
@@ -20,6 +20,7 @@ public class Person
     private Place place; // optional
     private Person father; // optional
     private Person mother; // optional
+    private URI picture; // optional
 
     public Person()
     {
@@ -36,18 +37,10 @@ public class Person
         this.place = builder.place;        // optional
         this.father = builder.father;     // optional
         this.mother = builder.mother;    // optional
+        this.picture = builder.picture;
     }
 
-//    public Person(String firstName, String surName, Gender gender, Date birthDate, Date deathDate, Place place)
-//    {
-//        setFirstName(firstName);
-//        setSurName(surName);
-//        setGender(gender);
-//        setBirthDate(birthDate);
-//        setDeathDate(deathDate);
-//        setPlace(place);
-//
-//    }
+
     public int getPersonId()
     {
         return personId;
@@ -112,10 +105,20 @@ public class Person
         this.mother = mother;
     }
 
+    public URI getPicture()
+    {
+        return picture;
+    }
+
+    public void setPicture(URI picture)
+    {
+        this.picture = picture;
+    }
+
     @Override
     public String toString()
     {
-        return "Person{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + ", gender=" + gender + ", birthDate=" + birthDate + ", deathDate=" + deathDate + ", place=" + place + ", father=" + father + ", mother=" + mother + '}';
+        return "Person{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + ", gender=" + gender + ", birthDate=" + birthDate + ", deathDate=" + deathDate + ", place=" + place + ", father=" + father + ", mother=" + mother + ", picture=" + picture + '}';
     }
 
     public List<Person> getChilderen(List<Person> persons)
@@ -167,6 +170,7 @@ public class Person
         private Place place; // optional
         private Person father; // optional
         private Person mother; // optional
+        private URI picture; //optional
 
         public PersonBuilder(String firstName, String surName, Gender gender)
         {
@@ -208,6 +212,12 @@ public class Person
         public PersonBuilder mother(Person mother)
         {
             this.mother = mother;
+            return this;
+        }
+
+        public PersonBuilder picture(URI picture)
+        {
+            this.picture = picture;
             return this;
         }
 

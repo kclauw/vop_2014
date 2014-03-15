@@ -1,5 +1,6 @@
 package service;
 
+import domain.Privacy;
 import domain.User;
 import domain.controller.UserController;
 import exception.EmptyPasswordException;
@@ -146,13 +147,44 @@ public class UserService {
     }
 
     @GET
-    @Path("/get/profile/setUserPrivacy/{personId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response setUserPrivacy(@PathParam("userID") int userID, @PathParam("userPrivacy") int userPrivacy) {
+    @Path("/get/profile/setUserPrivacy/{userID}/{userPrivacy}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response setUserPrivacy(@PathParam("userID") int userID, @PathParam("userPrivacy") Privacy userPrivacy) {
         try {
             String result = "privacy set:" + userPrivacy;
             uc.setUserPrivacy(userID, userPrivacy);
-            return Response.status(Response.Status.OK).entity(result).build();
+            return Response.ok(result).build();
+
+        } catch (Exception ex) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("/get/profile/getPublicUserProfile/{userProfileID}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPublicUserProfile(@PathParam("userProfileID") int userProfileID) {
+        Privacy userPrivacy = Privacy.PUBLIC;
+
+        try {
+            User userProfile = uc.getUserProfile(userProfileID, userPrivacy);
+
+            return Response.ok(userProfile).build();
+        } catch (Exception ex) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("/get/profile/getPublicUserProfiles/{userID}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPublicUserProfiles(@PathParam("userID") int userID) {
+        Privacy userPrivacy = Privacy.PUBLIC;
+
+        try {
+            List<User> userProfiles = uc.getUserProfiles(userID, userPrivacy);
+
+            return Response.ok(userProfiles).build();
         } catch (Exception ex) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }

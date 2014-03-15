@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Collection;
 import java.util.logging.Level;
 import org.slf4j.Logger;
@@ -114,60 +115,9 @@ public class PlaceDao implements IDao<Place>
             ResultSet res;
             con = DatabaseUtils.getConnection();
 
-            /*Maak country aan indien nodig:*/
-            prep = con.prepareStatement(GETCOUNTRIDBYNAME);
-            prep.setString(1, place.getCountry());
-            res = prep.executeQuery();
+            countryID = saveCountry(place);
 
-            if (res.next())
-            {
-                countryID = res.getInt("countryID");
-            }
-            else
-            {
-                prep = con.prepareStatement(SAVECOUNTRY);
-                prep.setString(1, place.getCountry());
-                prep.executeUpdate();
-
-                ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
-                if (getKeyRs != null)
-                {
-
-                    if (getKeyRs.next())
-                    {
-                        countryID = getKeyRs.getInt(1);
-                    }
-                    getKeyRs.close();
-                }
-
-            }
-            /*Maak plaats aan indien nodig*/
-            prep = con.prepareStatement(GETPLACENAMEIDBYNAME);
-            prep.setString(1, place.getPlaceName());
-            res = prep.executeQuery();
-
-            if (res.next())
-            {
-                placeNameID = res.getInt("placeNameID");
-            }
-            else
-            {
-                prep = con.prepareStatement(SAVEPLACENAME);
-                prep.setString(1, place.getPlaceName());
-                prep.executeUpdate();
-
-                ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
-                if (getKeyRs != null)
-                {
-
-                    if (getKeyRs.next())
-                    {
-                        placeNameID = getKeyRs.getInt(1);
-                    }
-                    getKeyRs.close();
-                }
-
-            }
+            placeNameID = savePlace(place);
 
             prep = con.prepareStatement(SAVEPLACE);
             Coordinate coord = place.getCoord();
@@ -176,20 +126,18 @@ public class PlaceDao implements IDao<Place>
             if (coord != null && coord.getId() != -1)
             {
                 coordinateID = coord.getId();
+                prep.setInt(1, coordinateID);
             }
             else if (coord != null)
             {
-                //normal insert
-                //TODO
-
+                coordinateID = saveCoordinate(coord);
+                prep.setInt(1, coordinateID);
             }
             else
             {
-                //null insert
-                //TODO
+                prep.setNull(1, Types.INTEGER);
             }
 
-            prep.setInt(1, coordinateID);
             prep.setInt(2, countryID);
 
             String zipCode = place.getZipCode();
@@ -197,6 +145,10 @@ public class PlaceDao implements IDao<Place>
             if (zipCode != null)
             {
                 prep.setString(3, place.getZipCode());
+            }
+            else
+            {
+                prep.setNull(3, Types.VARCHAR);
             }
 
             prep.setInt(4, placeNameID);
@@ -244,7 +196,15 @@ public class PlaceDao implements IDao<Place>
                 if (placeId != 0 && countryId != 0 && placeNameId != 0)
                 {
                     Coordinate coord = new Coordinate(longi, lat, coordId);
-                    place = new Place(placeId, countryId, placeNameId, coord, country, zip, placeName);
+                    //place = new Place(placeId, countryId, placeNameId, coord, country, zip, placeName);
+                    place = new Place.PlaceBuilder(placeName)
+                    .placeId(placeId)
+                    .countryId(countryId)
+                    .placeNameId(placeNameId)
+                    .coord(coord)
+                    .country(country)
+                    .zipCode(zip)
+                    .build();
                 }
             }
 
@@ -327,6 +287,145 @@ public class PlaceDao implements IDao<Place>
         {
             return this.get(place.getPlaceId());
         }
+    }
+
+    private int saveCountry(Place place)
+    {
+        int countryID = 0;
+        Place p = null;
+        ResultSet res = null;
+        PreparedStatement prep = null;
+
+        try
+        {
+            /*Maak country aan indien nodig:*/
+            prep = con.prepareStatement(GETCOUNTRIDBYNAME);
+            prep.setString(1, place.getCountry());
+            res = prep.executeQuery();
+
+            if (res.next())
+            {
+                countryID = res.getInt("countryID");
+            }
+            else
+            {
+                prep = con.prepareStatement(SAVECOUNTRY);
+                prep.setString(1, place.getCountry());
+                prep.executeUpdate();
+
+                ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
+                if (getKeyRs != null)
+                {
+
+                    if (getKeyRs.next())
+                    {
+                        countryID = getKeyRs.getInt(1);
+                    }
+                    getKeyRs.close();
+                }
+
+            }
+        }
+        catch (SQLException ex)
+        {
+            java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return countryID;
+    }
+
+    private int savePlace(Place place)
+    {
+        int placeNameID = 0;
+        Place p = null;
+        ResultSet res;
+        PreparedStatement prep;
+
+        try
+        {
+
+            /*Maak plaats aan indien nodig*/
+            prep = con.prepareStatement(GETPLACENAMEIDBYNAME);
+            prep.setString(1, place.getPlaceName());
+            res = prep.executeQuery();
+
+            if (res.next())
+            {
+                placeNameID = res.getInt("placeNameID");
+            }
+            else
+            {
+                prep = con.prepareStatement(SAVEPLACENAME);
+                prep.setString(1, place.getPlaceName());
+                prep.executeUpdate();
+
+                ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
+                if (getKeyRs != null)
+                {
+
+                    if (getKeyRs.next())
+                    {
+                        placeNameID = getKeyRs.getInt(1);
+                    }
+                    getKeyRs.close();
+                }
+
+            }
+        }
+        catch (SQLException ex)
+        {
+            java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return placeNameID;
+    }
+
+    private int saveCoordinate(Coordinate coord)
+    {
+        int coordinateID = 0;
+        Place p = null;
+        ResultSet res;
+        PreparedStatement prep;
+
+        try
+        {
+
+            /*Maak plaats aan indien nodig*/
+            prep = con.prepareStatement(GETCOORDSBYLONGANDLAT);
+            prep.setFloat(1, coord.getLongitude());
+            prep.setFloat(2, coord.getLatitude());
+            res = prep.executeQuery();
+
+            if (res.next())
+            {
+                coordinateID = res.getInt("coordinatesID");
+            }
+            else
+            {
+                prep = con.prepareStatement(SAVECOORD);
+                prep.setFloat(1, coord.getLongitude());
+                prep.setFloat(2, coord.getLatitude());
+                prep.executeUpdate();
+
+                ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
+                if (getKeyRs != null)
+                {
+
+                    if (getKeyRs.next())
+                    {
+                        coordinateID = getKeyRs.getInt(1);
+                    }
+                    getKeyRs.close();
+                }
+
+            }
+        }
+        catch (SQLException ex)
+        {
+            java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return coordinateID;
     }
 
 }
