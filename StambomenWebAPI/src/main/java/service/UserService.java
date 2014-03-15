@@ -146,13 +146,29 @@ public class UserService {
     }
 
     @GET
-    @Path("/get/profile/setUserPrivacy/{personId}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/get/profile/setUserPrivacy/{userID}/{userPrivacy}")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response setUserPrivacy(@PathParam("userID") int userID, @PathParam("userPrivacy") int userPrivacy) {
         try {
             String result = "privacy set:" + userPrivacy;
             uc.setUserPrivacy(userID, userPrivacy);
-            return Response.status(Response.Status.OK).entity(result).build();
+            return Response.ok(result).build();
+
+        } catch (Exception ex) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("/get/profile/getPublicUserProfile/{personId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPublicUserProfile(@PathParam("userID") int userID) {
+        int userPrivacy = 1;
+
+        try {
+            User user = uc.getUserProfile(userPrivacy, userPrivacy);
+
+            return Response.ok(user).build();
         } catch (Exception ex) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
