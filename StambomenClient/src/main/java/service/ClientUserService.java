@@ -1,6 +1,7 @@
 package service;
 
 import com.google.gson.Gson;
+import dto.PrivacyDTO;
 import dto.UserDTO;
 import java.util.List;
 import javax.ws.rs.client.Client;
@@ -119,7 +120,7 @@ public class ClientUserService {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String setUserPrivacy(int userID, int userPrivacy) {
+    public String setUserPrivacy(int userID, PrivacyDTO userPrivacy) {
         logger.info("[CLIENT USER SERVICE][SET USER PRIVACY]Set user privacy for user with id:" + userID + "to privacy state:" + userPrivacy);
         Client client = ClientServiceController.getInstance().getClient();
         client.register(new JacksonFeature());

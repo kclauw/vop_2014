@@ -1,5 +1,6 @@
 package service;
 
+import dto.PrivacyDTO;
 import dto.UserDTO;
 import java.util.List;
 import org.slf4j.Logger;
@@ -65,7 +66,7 @@ public class ClientUserController {
         client.setLanguage(userID, language);
     }
 
-    public void setUserPrivacy(int userPrivacy) {
+    public void setUserPrivacy(PrivacyDTO userPrivacy) {
         int userID = ClientServiceController.getInstance().getUser().getId();
 
         client.setUserPrivacy(userID, userPrivacy);
