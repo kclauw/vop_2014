@@ -2,6 +2,7 @@ package persistence;
 
 import domain.Person;
 import domain.Place;
+import domain.Privacy;
 import domain.Tree;
 import domain.User;
 import java.io.InputStream;
@@ -156,19 +157,19 @@ public class PersistenceController {
 
     }
 
-    public void setUserPrivacy(int userID, int userPrivacy) {
+    public void setUserPrivacy(int userID, Privacy userPrivacy) {
         logger.info("[PERSISTENCE CONTROLLER] Set privacy for userid" + userID);
-        userDao.setLanguage(userID, userPrivacy);
+        userDao.setUserPrivacy(userID, userPrivacy);
     }
 
-    public User getUserProfile(int userProfileID, int userPrivacy) {
+    public User getUserProfile(int userProfileID, Privacy userPrivacy) {
         logger.info("[PERSISTENCE CONTROLLER] Get User profile" + userProfileID);
         User userProfile = userDao.getUserProfile(userProfileID, userPrivacy);
 
         return userProfile;
     }
 
-    public List<User> getUserProfiles(int userProfileID, int userPrivacy) {
+    public List<User> getUserProfiles(int userProfileID, Privacy userPrivacy) {
         logger.info("[PERSISTENCE CONTROLLER] Get User profiles" + userProfileID);
         List<User> userProfiles = userDao.getUserProfiles(userProfileID, userPrivacy);
 

@@ -1,5 +1,6 @@
 package persistence;
 
+import domain.Privacy;
 import domain.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -438,16 +439,16 @@ public class UserDao implements IDao<User> {
         return lang;
     }
 
-    public void setUserPrivacy(int userID, int privacy) {
+    public void setUserPrivacy(int userID, Privacy userPrivacy) {
         PreparedStatement prep = null;
 
         try {
-            if (userID <= 0 && privacy <= 1) {
+            if (userID <= 0 && userPrivacy.getPrivacyId() <= 2) {
                 con = DatabaseUtils.getConnection();
-                prep = con.prepareStatement(SETLANGUAGE);
+                prep = con.prepareStatement(SETUSERPRIVACY);
 
                 prep.setInt(1, userID);
-                prep.setInt(2, privacy);
+                prep.setInt(2, userPrivacy.getPrivacyId());
                 prep.execute();
             }
 
@@ -467,7 +468,7 @@ public class UserDao implements IDao<User> {
         }
     }
 
-    public User getUserProfile(int userProfileID, int privacy) {
+    public User getUserProfile(int userProfileID, Privacy userPrivacy) {
         PreparedStatement prep = null;
         ResultSet res = null;
         User userProfile = null;
@@ -477,7 +478,7 @@ public class UserDao implements IDao<User> {
             prep = con.prepareStatement(GETUSERPROFILE);
 
             prep.setInt(1, userProfileID);
-            prep.setInt(2, privacy);
+            prep.setInt(2, userPrivacy.getPrivacyId());
             res = prep.executeQuery();
 
             while (res.next()) {
@@ -502,7 +503,7 @@ public class UserDao implements IDao<User> {
         return userProfile;
     }
 
-    public List<User> getUserProfiles(int userProfileID, int privacy) {
+    public List<User> getUserProfiles(int userProfileID, Privacy userPrivacy) {
         PreparedStatement prep = null;
         ResultSet res = null;
         List<User> userProfiles = new ArrayList<User>();
@@ -512,7 +513,7 @@ public class UserDao implements IDao<User> {
             prep = con.prepareStatement(GETUSERPROFILES);
 
             prep.setInt(1, userProfileID);
-            prep.setInt(2, privacy);
+            prep.setInt(2, userPrivacy.getPrivacyId());
             res = prep.executeQuery();
 
             while (res.next()) {

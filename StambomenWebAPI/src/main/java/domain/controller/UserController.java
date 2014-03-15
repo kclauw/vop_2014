@@ -1,5 +1,6 @@
 package domain.controller;
 
+import domain.Privacy;
 import domain.User;
 import exception.UserAlreadyExistsException;
 import java.util.List;
@@ -95,17 +96,17 @@ public class UserController {
         pc.setLanguage(userID, language);
     }
 
-    public void setUserPrivacy(int userID, int userPrivacy) {
+    public void setUserPrivacy(int userID, Privacy userPrivacy) {
         pc.setUserPrivacy(userID, userPrivacy);
     }
 
-    public User getUserProfile(int userProfileID, int userPrivacy) {
+    public User getUserProfile(int userProfileID, Privacy userPrivacy) {
         User userProfile = pc.getUserProfile(userProfileID, userPrivacy);
 
         return userProfile;
     }
 
-    public List<User> getUserProfiles(int userProfileID, int userPrivacy) {
+    public List<User> getUserProfiles(int userProfileID, Privacy userPrivacy) {
         List<User> userProfiles = pc.getUserProfiles(userProfileID, userPrivacy);
 
         return userProfiles;
