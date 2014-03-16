@@ -4,7 +4,7 @@ import domain.Person;
 import domain.Tree;
 import exception.CannotDeletePersonsWithChidrenException;
 import exception.PersonAlreadyExistsException;
-import java.io.InputStream;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -110,8 +110,8 @@ public class PersonController
         pc.deletePersonImage(personID);
     }
 
-    public void savePersonImage(int personID, InputStream attachmentInputStream)
+    public void savePersonImage(int personID, BufferedImage bufferedImage)
     {
-        pc.savePersonImage(personID, attachmentInputStream);
+        pc.savePersonImage(personID, bufferedImage);
     }
 }

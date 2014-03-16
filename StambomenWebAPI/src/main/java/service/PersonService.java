@@ -107,10 +107,10 @@ public class PersonService
     @POST
     @Path("/upload/image/{personID}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-    public void saveImage(@PathParam("personID") int personID, BufferedImage attachmentInputStream)
+    public void saveImage(@PathParam("personID") int personID, BufferedImage bufferedImage)
     {
         logger.info("[SAVE][PERSONSERVICE] SAVING image for " + personID);
-
+        pc.savePersonImage(personID, bufferedImage);
         //       pc.savePersonImage(personID, attachmentInputStream);
     }
 

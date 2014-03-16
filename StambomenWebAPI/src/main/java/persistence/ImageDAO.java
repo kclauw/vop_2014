@@ -3,11 +3,14 @@ package persistence;
 import com.googlecode.sardine.Sardine;
 import com.googlecode.sardine.SardineFactory;
 import com.googlecode.sardine.util.SardineException;
-import java.io.InputStream;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /*
  The images will be stored on an external filesystem. Seeing the files > 1 mb have better performace on filesystem
@@ -18,20 +21,43 @@ public class ImageDAO
 {
 
     private final String url = " http://dav.assets.vop.tiwi.be/team12/persons/";
-    private PersistenceController persistenceController;
+    private final PersistenceController persistenceController;
+    private Sardine sardine;
 
     public ImageDAO(PersistenceController per)
     {
         this.persistenceController = per;
+
+        try
+        {
+            sardine = SardineFactory.begin("team12", "RKAxujnJ");
+        }
+        catch (SardineException ex)
+        {
+            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public URI get(int id)
     {
         try
         {
-            return new URI(url + id);
+            boolean imageExists = sardine.exists(url + id);
+
+            if (imageExists)
+            {
+                return new URI(url + id);
+            }
+            else
+            {
+                return new URI(url + "DefaultMale");
+            }
         }
         catch (URISyntaxException ex)
+        {
+            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (SardineException ex)
         {
             Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -39,11 +65,16 @@ public class ImageDAO
         return null;
     }
 
-    public void save(int personID, InputStream input)
+    public void save(int personID, BufferedImage bufferedImage) throws IOException
     {
         try
         {
-            Sardine sardine = SardineFactory.begin();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "jpg", baos);
+            baos.flush();
+            byte[] imageInByte = baos.toByteArray();
+            baos.close();
+            sardine.put(url + personID + ".jpg", imageInByte);
         }
         catch (SardineException ex)
         {
