@@ -8,6 +8,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /*
@@ -40,7 +42,7 @@ public class ImageDAO
     {
         try
         {
-            boolean imageExists = sardine.exists(url + id + ".jpg");
+            boolean imageExists = personImageExists(id);
 
             if (imageExists)
             {
@@ -83,7 +85,28 @@ public class ImageDAO
 
     public void delete(int personID)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            boolean exists = personImageExists(personID);
+
+            if (exists)
+            {
+                sardine.delete(url + personID + ".jpg");
+            }
+            else
+            {
+                throw new IllegalArgumentException("Trying to delete a picture that doesn't exist");
+            }
+        }
+        catch (SardineException ex)
+        {
+            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
+    private boolean personImageExists(int personID) throws SardineException
+    {
+        return sardine.exists(url + personID + ".jpg");
+    }
 }

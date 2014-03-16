@@ -6,6 +6,7 @@ import domain.Privacy;
 import domain.Tree;
 import domain.User;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URI;
 import java.sql.ResultSet;
 import java.util.List;
@@ -212,7 +213,7 @@ public class PersistenceController
         imageDao.delete(personID);
     }
 
-    public void savePersonImage(int personID, BufferedImage bufferedImage)
+    public void savePersonImage(int personID, BufferedImage bufferedImage) throws IOException
     {
         imageDao.save(personID, bufferedImage);
     }
