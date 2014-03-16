@@ -371,9 +371,17 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 {
                     person.setGender(GenderDTO.MALE);
                 }
-
-                person.setPlace(new PlaceDTO(-1, -1, -1, null, textFieldCountry.getText(), textFieldZipCode.getText(), textFieldCity.getText()));
+                
+                person.setPlace(new PlaceDTO.PlaceDTOBuilder(textFieldCity.getText())
+                        .placeId(-1)
+                        .countryId(-1)
+                        .placeNameId(-1)
+                        .coord(null)
+                        .country(textFieldCountry.getText())
+                        .zipCode(textFieldZipCode.getText())
+                        .build());
                 fttp.updatePerson(person);
+                
             }
 
             this.setEditable(false);
@@ -433,8 +441,15 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
             p.setBirthDate(dob.getDate());
             p.setDeathDate(dob.getDate());
-
-            p.setPlace(new PlaceDTO(-1, -1, -1, null, textFieldCountry.getText(), textFieldZipCode.getText(), textFieldCity.getText()));
+         
+            p.setPlace(new PlaceDTO.PlaceDTOBuilder(textFieldCity.getText())
+                        .placeId(-1)
+                        .countryId(-1)
+                        .placeNameId(-1)
+                        .coord(null)
+                        .country(textFieldCountry.getText())
+                        .zipCode(textFieldZipCode.getText())
+                        .build());
             adding = false;
             fttp.addPerson(p);
             setAllButtonsActive();
