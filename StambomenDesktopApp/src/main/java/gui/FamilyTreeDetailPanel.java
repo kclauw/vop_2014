@@ -1,11 +1,9 @@
 package gui;
 
-import com.toedter.calendar.JDateChooser;
 import dto.GenderDTO;
 import dto.PersonDTO;
 import dto.PlaceDTO;
 import gui.controller.TreeController;
-import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -15,8 +13,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private boolean add = false;
     private boolean edit = false;
     private PersonDTO person;
-    private JDateChooser dob;
-    private JDateChooser dod;
     private FamilyTreeTotalPanel fttp;
     private TreeController treeController;
     private boolean adding = false;
@@ -25,7 +21,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     {
         this.fttp = fttp;
         initComponents();
-        initDate();
         setEditable(false);
     }
 
@@ -43,11 +38,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         buttonGroup1 = new javax.swing.ButtonGroup();
         jButton1 = new javax.swing.JButton();
         personPanel = new javax.swing.JPanel();
-        labelFieldLastname = new javax.swing.JLabel();
-        labelFieldFirstname = new javax.swing.JLabel();
-        textFieldLastname = new javax.swing.JTextField();
-        textFieldFirstname = new javax.swing.JTextField();
-        labeFieldGender = new javax.swing.JLabel();
         adressPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -55,15 +45,24 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         textFieldCity = new javax.swing.JTextField();
         textFieldZipCode = new javax.swing.JTextField();
         textFieldCountry = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        btnEdit = new javax.swing.JButton();
-        radioMale = new javax.swing.JRadioButton();
-        radioFemale = new javax.swing.JRadioButton();
         btnDelete = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        picturePanel = new javax.swing.JPanel();
+        detailPanel = new javax.swing.JPanel();
+        labelFieldLastname = new javax.swing.JLabel();
+        textFieldLastname = new javax.swing.JTextField();
+        textFieldFirstname = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        radioMale = new javax.swing.JRadioButton();
+        radioFemale = new javax.swing.JRadioButton();
+        labelFieldFirstname = new javax.swing.JLabel();
+        labeFieldGender = new javax.swing.JLabel();
+        dod = new com.toedter.calendar.JDateChooser();
+        dob = new com.toedter.calendar.JDateChooser();
 
         jButton1.setText("jButton1");
 
@@ -72,58 +71,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
         personPanel.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         add(personPanel, gridBagConstraints);
-
-        labelFieldLastname.setText("Lastname:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
-        add(labelFieldLastname, gridBagConstraints);
-
-        labelFieldFirstname.setText("Firstname:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
-        add(labelFieldFirstname, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 3;
-        gridBagConstraints.weightx = 0.9;
-        gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
-        add(textFieldLastname, gridBagConstraints);
-
-        textFieldFirstname.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                textFieldFirstnameActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 3;
-        gridBagConstraints.weightx = 0.9;
-        gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
-        add(textFieldFirstname, gridBagConstraints);
-
-        labeFieldGender.setText("Gender:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
-        add(labeFieldGender, gridBagConstraints);
 
         adressPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Adress"));
         adressPanel.setMinimumSize(new java.awt.Dimension(90, 100));
@@ -181,64 +132,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         add(adressPanel, gridBagConstraints);
-
-        jLabel1.setText("Date of Birth:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
-        add(jLabel1, gridBagConstraints);
-
-        jLabel2.setText("Date of Death:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
-        add(jLabel2, gridBagConstraints);
-
-        btnEdit.setText("Edit");
-        btnEdit.setMaximumSize(new java.awt.Dimension(200, 23));
-        btnEdit.setMinimumSize(new java.awt.Dimension(200, 23));
-        btnEdit.setPreferredSize(new java.awt.Dimension(200, 23));
-        btnEdit.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                btnEditActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        add(btnEdit, gridBagConstraints);
-
-        radioMale.setText("male");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 4;
-        gridBagConstraints.weightx = 0.4;
-        gridBagConstraints.insets = new java.awt.Insets(0, 14, 0, 14);
-        add(radioMale, gridBagConstraints);
-
-        radioFemale.setText("female");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 4;
-        gridBagConstraints.weightx = 0.4;
-        gridBagConstraints.insets = new java.awt.Insets(0, 14, 0, 14);
-        add(radioFemale, gridBagConstraints);
 
         btnDelete.setText("Delete");
         btnDelete.setMaximumSize(new java.awt.Dimension(200, 23));
@@ -253,7 +150,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         add(btnDelete, gridBagConstraints);
@@ -268,9 +165,27 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         add(btnAdd, gridBagConstraints);
+
+        btnEdit.setText("Edit");
+        btnEdit.setMaximumSize(new java.awt.Dimension(200, 23));
+        btnEdit.setMinimumSize(new java.awt.Dimension(200, 23));
+        btnEdit.setPreferredSize(new java.awt.Dimension(200, 23));
+        btnEdit.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnEditActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        add(btnEdit, gridBagConstraints);
 
         jButton2.setText("Zoom In");
         jButton2.addActionListener(new java.awt.event.ActionListener()
@@ -282,8 +197,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridy = 11;
         gridBagConstraints.weightx = 0.1;
         add(jButton2, gridBagConstraints);
 
@@ -297,10 +211,130 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridy = 11;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         add(jButton3, gridBagConstraints);
+
+        picturePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Picture"));
+        picturePanel.setMinimumSize(new java.awt.Dimension(150, 150));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        add(picturePanel, gridBagConstraints);
+
+        detailPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Detail"));
+        detailPanel.setLayout(new java.awt.GridBagLayout());
+
+        labelFieldLastname.setText("Lastname:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        detailPanel.add(labelFieldLastname, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 3;
+        gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
+        detailPanel.add(textFieldLastname, gridBagConstraints);
+
+        textFieldFirstname.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                textFieldFirstnameActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 3;
+        gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
+        detailPanel.add(textFieldFirstname, gridBagConstraints);
+
+        jLabel1.setText("Date of Birth:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        detailPanel.add(jLabel1, gridBagConstraints);
+
+        jLabel2.setText("Date of Death:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        detailPanel.add(jLabel2, gridBagConstraints);
+
+        radioMale.setText("male");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 4;
+        gridBagConstraints.weightx = 0.4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 14, 0, 14);
+        detailPanel.add(radioMale, gridBagConstraints);
+
+        radioFemale.setText("female");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 4;
+        gridBagConstraints.weightx = 0.4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 14, 0, 14);
+        detailPanel.add(radioFemale, gridBagConstraints);
+
+        labelFieldFirstname.setText("Firstname:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        detailPanel.add(labelFieldFirstname, gridBagConstraints);
+
+        labeFieldGender.setText("Gender:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        detailPanel.add(labeFieldGender, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 11, 0, 11);
+        detailPanel.add(dod, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 11, 0, 11);
+        detailPanel.add(dob, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        add(detailPanel, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textFieldFirstnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textFieldFirstnameActionPerformed
@@ -424,6 +458,9 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JPanel detailPanel;
+    private com.toedter.calendar.JDateChooser dob;
+    private com.toedter.calendar.JDateChooser dod;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -436,6 +473,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private javax.swing.JLabel labelFieldFirstname;
     private javax.swing.JLabel labelFieldLastname;
     private javax.swing.JPanel personPanel;
+    private javax.swing.JPanel picturePanel;
     private javax.swing.JRadioButton radioFemale;
     private javax.swing.JRadioButton radioMale;
     private javax.swing.JTextField textFieldCity;
@@ -533,29 +571,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             dob.setEnabled(true);
             dod.setEnabled(true);
         }
-    }
-
-    private void initDate()
-    {
-        dob = new JDateChooser();
-        GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.ipadx = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.9;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
-        this.add(dob, gridBagConstraints);
-
-        dod = new JDateChooser();
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.weightx = 0.9;
-        gridBagConstraints.ipadx = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
-        this.add(dod, gridBagConstraints);
     }
 
     private void setAllButtonsActive()
