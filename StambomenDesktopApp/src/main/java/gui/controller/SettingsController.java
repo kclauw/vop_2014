@@ -28,8 +28,8 @@ public class SettingsController {
         this.gui.goTo(frame);
     }
 
-    public void setLanguage(int userid, int language) {
-        clientUserController.setLanguage(userid,language);
+    public void setLanguage(int language) {
+        clientUserController.setLanguage(language);
         this.gui.goTo(Panels.TREEOVERVIEW);
     }
 
