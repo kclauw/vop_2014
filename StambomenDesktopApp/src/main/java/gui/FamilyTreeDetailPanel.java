@@ -4,8 +4,13 @@ import dto.GenderDTO;
 import dto.PersonDTO;
 import dto.PlaceDTO;
 import gui.controller.TreeController;
+import java.awt.Image;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import org.openide.util.Exceptions;
 
 public class FamilyTreeDetailPanel extends javax.swing.JPanel
 {
@@ -51,6 +56,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         picturePanel = new javax.swing.JPanel();
+        labelPicture = new javax.swing.JLabel();
         detailPanel = new javax.swing.JPanel();
         labelFieldLastname = new javax.swing.JLabel();
         textFieldLastname = new javax.swing.JTextField();
@@ -150,9 +156,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.gridy = 7;
         add(btnDelete, gridBagConstraints);
 
         btnAdd.setText("Add");
@@ -165,8 +169,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.gridy = 7;
         add(btnAdd, gridBagConstraints);
 
         btnEdit.setText("Edit");
@@ -182,8 +185,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.weightx = 0.1;
         add(btnEdit, gridBagConstraints);
 
@@ -197,7 +199,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridy = 10;
         gridBagConstraints.weightx = 0.1;
         add(jButton2, gridBagConstraints);
 
@@ -211,13 +213,13 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.gridy = 10;
         add(jButton3, gridBagConstraints);
 
         picturePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Picture"));
         picturePanel.setMinimumSize(new java.awt.Dimension(150, 150));
+        picturePanel.add(labelPicture);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -472,6 +474,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private javax.swing.JLabel labeFieldGender;
     private javax.swing.JLabel labelFieldFirstname;
     private javax.swing.JLabel labelFieldLastname;
+    private javax.swing.JLabel labelPicture;
     private javax.swing.JPanel personPanel;
     private javax.swing.JPanel picturePanel;
     private javax.swing.JRadioButton radioFemale;
@@ -489,37 +492,47 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
         if (person != null)
         {
-            textFieldFirstname.setText(person.getFirstName());
-            textFieldLastname.setText(person.getSurName());
-
-            GenderDTO g = person.getGender();
-            buttonGroup1.add(radioMale);
-            buttonGroup1.add(radioFemale);
-
-            dob.setDate(person.getBirthDate());
-            dod.setDate(person.getDeathDate());
-
-            if (g == GenderDTO.MALE)
+            try
             {
-                radioMale.setSelected(true);
+                textFieldFirstname.setText(person.getFirstName());
+                textFieldLastname.setText(person.getSurName());
+
+                GenderDTO g = person.getGender();
+                buttonGroup1.add(radioMale);
+                buttonGroup1.add(radioFemale);
+
+                dob.setDate(person.getBirthDate());
+                dod.setDate(person.getDeathDate());
+
+                if (g == GenderDTO.MALE)
+                {
+                    radioMale.setSelected(true);
+                }
+                else
+                {
+                    radioFemale.setSelected(true);
+                }
+
+                PlaceDTO place = person.getPlace();
+                if (place == null)
+                {
+                    textFieldCity.setText("Undefined");
+                    textFieldCountry.setText("Undefined");
+                    textFieldZipCode.setText("Undefined");
+                }
+                else
+                {
+                    textFieldCity.setText(place.getPlaceName());
+                    textFieldCountry.setText(place.getCountry());
+                    textFieldZipCode.setText(place.getZipCode());
+                }
+
+                Image image = ImageIO.read(person.getPicture());
+                labelPicture.setIcon(new ImageIcon(image));
             }
-            else
+            catch (IOException ex)
             {
-                radioFemale.setSelected(true);
-            }
-
-            PlaceDTO place = person.getPlace();
-            if (place == null)
-            {
-                textFieldCity.setText("Undefined");
-                textFieldCountry.setText("Undefined");
-                textFieldZipCode.setText("Undefined");
-            }
-            else
-            {
-                textFieldCity.setText(place.getPlaceName());
-                textFieldCountry.setText(place.getCountry());
-                textFieldZipCode.setText(place.getZipCode());
+                Exceptions.printStackTrace(ex);
             }
 
         }
