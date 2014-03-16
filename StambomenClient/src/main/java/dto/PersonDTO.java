@@ -1,8 +1,8 @@
 package dto;
 
+import java.net.URI;
 import java.util.Comparator;
 import java.util.Date;
-
 
 public class PersonDTO implements java.io.Serializable, Cloneable
 {
@@ -16,6 +16,7 @@ public class PersonDTO implements java.io.Serializable, Cloneable
     private PlaceDTO place;
     private PersonDTO father;
     private PersonDTO mother;
+    private URI picture;
     private int x;
     private int y;
 
@@ -23,7 +24,7 @@ public class PersonDTO implements java.io.Serializable, Cloneable
     {
     }
 
-    public PersonDTO(int personId, String firstName, String surName, GenderDTO gender, Date birthDate, Date deathDate, PlaceDTO place, PersonDTO father, PersonDTO mother)
+    public PersonDTO(int personId, String firstName, String surName, GenderDTO gender, Date birthDate, Date deathDate, PlaceDTO place, PersonDTO father, PersonDTO mother, URI picture)
     {
         this.firstName = firstName;
         this.surName = surName;
@@ -34,9 +35,10 @@ public class PersonDTO implements java.io.Serializable, Cloneable
         this.father = father;
         this.mother = mother;
         this.personId = personId;
+        this.picture = picture;
     }
-    
-        public PersonDTO(String firstName, String surName, GenderDTO gender, Date birthDate, Date deathDate, PlaceDTO place)
+
+    public PersonDTO(String firstName, String surName, GenderDTO gender, Date birthDate, Date deathDate, PlaceDTO place)
     {
         this.firstName = firstName;
         this.surName = surName;
@@ -44,9 +46,18 @@ public class PersonDTO implements java.io.Serializable, Cloneable
         this.birthDate = birthDate;
         this.deathDate = deathDate;
         this.place = place;
-    
+
     }
 
+    public URI getPicture()
+    {
+        return picture;
+    }
+
+    public void setPicture(URI picture)
+    {
+        this.picture = picture;
+    }
 
     public int getPersonId()
     {
