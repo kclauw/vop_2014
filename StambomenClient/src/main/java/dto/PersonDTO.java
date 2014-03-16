@@ -1,5 +1,6 @@
 package dto;
 
+import java.awt.Image;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.Date;
@@ -19,6 +20,7 @@ public class PersonDTO implements java.io.Serializable, Cloneable
     private URL picture;
     private int x;
     private int y;
+    private Image image;
 
     public PersonDTO()
     {
@@ -47,6 +49,16 @@ public class PersonDTO implements java.io.Serializable, Cloneable
         this.deathDate = deathDate;
         this.place = place;
 
+    }
+
+    public Image getImage()
+    {
+        return image;
+    }
+
+    public void setImage(Image image)
+    {
+        this.image = image;
     }
 
     public URL getPicture()
