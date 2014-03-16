@@ -12,6 +12,7 @@ import gui.tree.PersonTreeForTreeLayout;
 import gui.tree.TreePane;
 import java.awt.GridBagConstraints;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -151,8 +152,8 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
 
         if (this.persons != null && this.persons.size() > 0)
         {
-            maxGapBetweenNodes = maxGapBetweenNodes + 100;
-            maxGapBetweenLevel = maxGapBetweenLevel + 100;
+            maxGapBetweenNodes = maxGapBetweenNodes + 50;
+            maxGapBetweenLevel = maxGapBetweenLevel + 50;
             drawFamilyTree(persons, new DefaultConfiguration(maxGapBetweenNodes, maxGapBetweenLevel));
         }
     }
@@ -165,8 +166,8 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
 
             if (this.persons != null && this.persons.size() > 0)
             {
-                maxGapBetweenNodes = maxGapBetweenNodes - 100;
-                maxGapBetweenLevel = maxGapBetweenLevel - 100;
+                maxGapBetweenNodes = maxGapBetweenNodes - 50;
+                maxGapBetweenLevel = maxGapBetweenLevel - 50;
                 drawFamilyTree(persons, new DefaultConfiguration(maxGapBetweenLevel, maxGapBetweenNodes));
             }
         }
@@ -176,5 +177,15 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
             maxGapBetweenLevel = 25;
             maxGapBetweenNodes = 25;
         }
+    }
+
+    public void saveImage(PersonDTO person, ImageIcon image)
+    {
+        treeController.saveImage(person, image);
+    }
+
+    public void deleteImage(PersonDTO person)
+    {
+        treeController.deleteImage(person);
     }
 }
