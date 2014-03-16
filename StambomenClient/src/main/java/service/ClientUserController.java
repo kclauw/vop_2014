@@ -62,7 +62,8 @@ public class ClientUserController {
         client.sendFriendRequest(userID, frienduserName);
     }
 
-    public void setLanguage(int userID, int language) {
+    public void setLanguage(int language) {
+        int userID = ClientServiceController.getInstance().getUser().getId();
         client.setLanguage(userID, language);
     }
 
