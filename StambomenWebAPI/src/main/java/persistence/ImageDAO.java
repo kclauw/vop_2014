@@ -8,8 +8,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /*
@@ -20,7 +18,7 @@ import javax.imageio.ImageIO;
 public class ImageDAO
 {
 
-    private final String url = " http://dav.assets.vop.tiwi.be/team12/persons/";
+    private final String url = "http://dav.assets.vop.tiwi.be/team12/staging/images/persons/";
     private final PersistenceController persistenceController;
     private Sardine sardine;
 
@@ -34,7 +32,7 @@ public class ImageDAO
         }
         catch (SardineException ex)
         {
-            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
@@ -42,24 +40,24 @@ public class ImageDAO
     {
         try
         {
-            boolean imageExists = sardine.exists(url + id);
+            boolean imageExists = sardine.exists(url + id + ".jpg");
 
             if (imageExists)
             {
-                return new URI(url + id);
+                return new URI(url + id + ".jpg");
             }
             else
             {
-                return new URI(url + "DefaultMale");
+                return new URI(url + "DefaultMale.png");
             }
         }
         catch (URISyntaxException ex)
         {
-            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         catch (SardineException ex)
         {
-            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
 
         return null;
@@ -78,7 +76,7 @@ public class ImageDAO
         }
         catch (SardineException ex)
         {
-            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
 
     }
