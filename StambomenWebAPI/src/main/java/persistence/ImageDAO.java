@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
 public class ImageDAO
 {
 
-    private final String url = " http://dav.assets.vop.tiwi.be/team12/persons/";
+    private final String url = "http://dav.assets.vop.tiwi.be/team12/staging/images/persons/";
     private final PersistenceController persistenceController;
     private Sardine sardine;
 
@@ -34,7 +34,7 @@ public class ImageDAO
         }
         catch (SardineException ex)
         {
-            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
@@ -42,24 +42,24 @@ public class ImageDAO
     {
         try
         {
-            boolean imageExists = sardine.exists(url + id);
+            boolean imageExists = personImageExists(id);
 
             if (imageExists)
             {
-                return new URI(url + id);
+                return new URI(url + id + ".jpg");
             }
             else
             {
-                return new URI(url + "DefaultMale");
+                return new URI(url + "DefaultMale.png");
             }
         }
         catch (URISyntaxException ex)
         {
-            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         catch (SardineException ex)
         {
-            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
 
         return null;
@@ -78,14 +78,35 @@ public class ImageDAO
         }
         catch (SardineException ex)
         {
-            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
 
     }
 
     public void delete(int personID)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            boolean exists = personImageExists(personID);
+
+            if (exists)
+            {
+                sardine.delete(url + personID + ".jpg");
+            }
+            else
+            {
+                throw new IllegalArgumentException("Trying to delete a picture that doesn't exist");
+            }
+        }
+        catch (SardineException ex)
+        {
+            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
+    private boolean personImageExists(int personID) throws SardineException
+    {
+        return sardine.exists(url + personID + ".jpg");
+    }
 }

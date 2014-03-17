@@ -1,9 +1,17 @@
 package service;
 
 import com.google.gson.Gson;
+import com.googlecode.sardine.Sardine;
+import com.googlecode.sardine.SardineFactory;
+import com.googlecode.sardine.util.SardineException;
 import dto.PersonDTO;
 import dto.TreeDTO;
+import java.awt.Image;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.logging.Level;
+import javax.imageio.ImageIO;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
@@ -84,6 +92,7 @@ public class ClientTreeService
 
         for (PersonDTO person : persons)
         {
+            setImage(person);
             PersonDTO mother = person.getMother();
             PersonDTO father = person.getFather();
 
@@ -108,6 +117,26 @@ public class ClientTreeService
                     }
                 }
             }
+        }
+
+    }
+
+    private void setImage(PersonDTO person)
+    {
+        try
+        {
+            Sardine sardine = SardineFactory.begin("team12", "RKAxujnJ");
+            InputStream is = sardine.getInputStream(person.getPicture().toString());
+            Image image = ImageIO.read(is);
+            person.setImage(image);
+        }
+        catch (SardineException ex)
+        {
+            java.util.logging.Logger.getLogger(ClientTreeService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IOException ex)
+        {
+            java.util.logging.Logger.getLogger(ClientTreeService.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

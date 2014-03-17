@@ -108,13 +108,12 @@ public class PlaceDao implements IDao<Place>
         int countryID = -1;
         int placeNameID = -1;
         int coordinateID = -1;
+        PreparedStatement prep = null;
+        ResultSet res = null;
 
         try
         {
-            PreparedStatement prep;
-            ResultSet res;
             con = DatabaseUtils.getConnection();
-
             countryID = saveCountry(place);
 
             placeNameID = savePlace(place);
@@ -160,6 +159,20 @@ public class PlaceDao implements IDao<Place>
         {
             java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }
 
     @Override
@@ -198,13 +211,13 @@ public class PlaceDao implements IDao<Place>
                     Coordinate coord = new Coordinate(longi, lat, coordId);
                     //place = new Place(placeId, countryId, placeNameId, coord, country, zip, placeName);
                     place = new Place.PlaceBuilder(placeName)
-                    .placeId(placeId)
-                    .countryId(countryId)
-                    .placeNameId(placeNameId)
-                    .coord(coord)
-                    .country(country)
-                    .zipCode(zip)
-                    .build();
+                            .placeId(placeId)
+                            .countryId(countryId)
+                            .placeNameId(placeNameId)
+                            .coord(coord)
+                            .country(country)
+                            .zipCode(zip)
+                            .build();
                 }
             }
 
@@ -246,14 +259,6 @@ public class PlaceDao implements IDao<Place>
             {
                 p = map(res);
             }
-            else
-            {
-                //make place!
-                //TODO MAKE PLACE
-                this.save(place);
-                //WATCH OUT RECURSIVE CALL
-                return this.get(place);
-            }
         }
         catch (Exception ex)
         {
@@ -285,7 +290,7 @@ public class PlaceDao implements IDao<Place>
         }
         else
         {
-            return this.get(place.getPlaceId());
+            return get(place.getPlaceId());
         }
     }
 
@@ -330,6 +335,20 @@ public class PlaceDao implements IDao<Place>
         {
             java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
 
         return countryID;
     }
@@ -338,8 +357,8 @@ public class PlaceDao implements IDao<Place>
     {
         int placeNameID = 0;
         Place p = null;
-        ResultSet res;
-        PreparedStatement prep;
+        ResultSet res = null;
+        PreparedStatement prep = null;
 
         try
         {
@@ -376,6 +395,20 @@ public class PlaceDao implements IDao<Place>
         {
             java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
 
         return placeNameID;
     }
@@ -384,8 +417,8 @@ public class PlaceDao implements IDao<Place>
     {
         int coordinateID = 0;
         Place p = null;
-        ResultSet res;
-        PreparedStatement prep;
+        ResultSet res = null;
+        PreparedStatement prep = null;
 
         try
         {
@@ -423,6 +456,20 @@ public class PlaceDao implements IDao<Place>
         catch (SQLException ex)
         {
             java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
 
         return coordinateID;

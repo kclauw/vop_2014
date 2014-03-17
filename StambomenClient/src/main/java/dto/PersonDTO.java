@@ -1,23 +1,36 @@
 package dto;
 
+import com.google.gson.annotations.Expose;
+import java.awt.Image;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.Date;
 
 public class PersonDTO implements java.io.Serializable, Cloneable {
 
+    @Expose
     private int personId;
+    @Expose
     private String firstName;
+    @Expose
     private String surName;
+    @Expose
     private GenderDTO gender;
+    @Expose
     private Date birthDate;
+    @Expose
     private Date deathDate;
+    @Expose
     private PlaceDTO place;
+    @Expose
     private PersonDTO father;
+    @Expose
     private PersonDTO mother;
+
     private URL picture;
     private int x;
     private int y;
+    private Image image;
 
     public PersonDTO() {
     }
@@ -39,8 +52,19 @@ public class PersonDTO implements java.io.Serializable, Cloneable {
         return picture;
     }
 
-    public int getPersonId() {
-        return personId;
+    public Image getImage()
+    {
+        return image;
+    }
+
+    public void setImage(Image image)
+    {
+        this.image = image;
+    }
+
+    public URL getPicture()
+    {
+        return picture;
     }
 
     public String getFirstName() {

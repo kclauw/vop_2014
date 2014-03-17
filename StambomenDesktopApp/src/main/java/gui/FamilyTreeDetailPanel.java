@@ -4,13 +4,17 @@ import dto.GenderDTO;
 import dto.PersonDTO;
 import dto.PlaceDTO;
 import gui.controller.TreeController;
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import org.openide.util.Exceptions;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class FamilyTreeDetailPanel extends javax.swing.JPanel
 {
@@ -53,10 +57,12 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         btnDelete = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnZoomIn = new javax.swing.JButton();
+        btnZoomOut = new javax.swing.JButton();
         picturePanel = new javax.swing.JPanel();
+        btnAddPicture = new javax.swing.JButton();
         labelPicture = new javax.swing.JLabel();
+        btnDeletePicture = new javax.swing.JButton();
         detailPanel = new javax.swing.JPanel();
         labelFieldLastname = new javax.swing.JLabel();
         textFieldLastname = new javax.swing.JTextField();
@@ -78,7 +84,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         personPanel.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         add(personPanel, gridBagConstraints);
 
@@ -138,9 +144,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 1.0;
         add(adressPanel, gridBagConstraints);
 
         btnDelete.setText("Delete");
@@ -156,7 +163,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 9;
         add(btnDelete, gridBagConstraints);
 
         btnAdd.setText("Add");
@@ -169,7 +176,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 9;
         add(btnAdd, gridBagConstraints);
 
         btnEdit.setText("Edit");
@@ -185,47 +192,81 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.weightx = 0.1;
         add(btnEdit, gridBagConstraints);
 
-        jButton2.setText("Zoom In");
-        jButton2.addActionListener(new java.awt.event.ActionListener()
+        btnZoomIn.setText("Zoom In");
+        btnZoomIn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jButton2ActionPerformed(evt);
+                btnZoomInActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridy = 12;
         gridBagConstraints.weightx = 0.1;
-        add(jButton2, gridBagConstraints);
+        add(btnZoomIn, gridBagConstraints);
 
-        jButton3.setText("Zoom out");
-        jButton3.addActionListener(new java.awt.event.ActionListener()
+        btnZoomOut.setText("Zoom out");
+        btnZoomOut.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jButton3ActionPerformed(evt);
+                btnZoomOutActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 10;
-        add(jButton3, gridBagConstraints);
+        gridBagConstraints.gridy = 12;
+        add(btnZoomOut, gridBagConstraints);
 
         picturePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Picture"));
         picturePanel.setMinimumSize(new java.awt.Dimension(150, 150));
-        picturePanel.add(labelPicture);
+        picturePanel.setLayout(new java.awt.GridBagLayout());
+
+        btnAddPicture.setText("add picture");
+        btnAddPicture.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnAddPictureActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        picturePanel.add(btnAddPicture, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        picturePanel.add(labelPicture, gridBagConstraints);
+
+        btnDeletePicture.setText("delete picture");
+        btnDeletePicture.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnDeletePictureActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        picturePanel.add(btnDeletePicture, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.gridheight = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weighty = 1.5;
         add(picturePanel, gridBagConstraints);
 
         detailPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Detail"));
@@ -333,9 +374,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 1.5;
         add(detailPanel, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -371,7 +413,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 {
                     person.setGender(GenderDTO.MALE);
                 }
-                
+
                 person.setPlace(new PlaceDTO.PlaceDTOBuilder(textFieldCity.getText())
                         .placeId(-1)
                         .countryId(-1)
@@ -381,7 +423,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                         .zipCode(textFieldZipCode.getText())
                         .build());
                 fttp.updatePerson(person);
-                
+
             }
 
             this.setEditable(false);
@@ -441,15 +483,15 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
             p.setBirthDate(dob.getDate());
             p.setDeathDate(dob.getDate());
-         
+
             p.setPlace(new PlaceDTO.PlaceDTOBuilder(textFieldCity.getText())
-                        .placeId(-1)
-                        .countryId(-1)
-                        .placeNameId(-1)
-                        .coord(null)
-                        .country(textFieldCountry.getText())
-                        .zipCode(textFieldZipCode.getText())
-                        .build());
+                    .placeId(-1)
+                    .countryId(-1)
+                    .placeNameId(-1)
+                    .coord(null)
+                    .country(textFieldCountry.getText())
+                    .zipCode(textFieldZipCode.getText())
+                    .build());
             adding = false;
             fttp.addPerson(p);
             setAllButtonsActive();
@@ -459,28 +501,67 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
-    {//GEN-HEADEREND:event_jButton2ActionPerformed
+    private void btnZoomInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnZoomInActionPerformed
+    {//GEN-HEADEREND:event_btnZoomInActionPerformed
         fttp.zoomIn();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnZoomInActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
-    {//GEN-HEADEREND:event_jButton3ActionPerformed
+    private void btnZoomOutActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnZoomOutActionPerformed
+    {//GEN-HEADEREND:event_btnZoomOutActionPerformed
         fttp.zoomOut();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnZoomOutActionPerformed
+
+    private void btnAddPictureActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddPictureActionPerformed
+    {//GEN-HEADEREND:event_btnAddPictureActionPerformed
+
+        JFileChooser fc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png");
+        fc.addChoosableFileFilter(filter);
+        fc.setAcceptAllFileFilterUsed(false);
+        fc.setFileFilter(filter);
+        int returnVal = fc.showOpenDialog(this);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION)
+        {
+            File file = fc.getSelectedFile();
+
+            ImageIcon image = new ImageIcon(file.getAbsolutePath());
+            labelPicture.setIcon(image);
+            picturePanel.repaint();
+            picturePanel.revalidate();
+
+            Image scaledVersion = resize(image.getImage(), 200, 200);
+
+            fttp.saveImage(person, scaledVersion);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "You didn't select a file!");
+        }
+
+        fc.setSelectedFile(null);
+
+    }//GEN-LAST:event_btnAddPictureActionPerformed
+
+    private void btnDeletePictureActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnDeletePictureActionPerformed
+    {//GEN-HEADEREND:event_btnDeletePictureActionPerformed
+        fttp.deleteImage(person);
+    }//GEN-LAST:event_btnDeletePictureActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel adressPanel;
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnAddPicture;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnDeletePicture;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnZoomIn;
+    private javax.swing.JButton btnZoomOut;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel detailPanel;
     private com.toedter.calendar.JDateChooser dob;
     private com.toedter.calendar.JDateChooser dod;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -507,48 +588,40 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
         if (person != null)
         {
-            try
+            textFieldFirstname.setText(person.getFirstName());
+            textFieldLastname.setText(person.getSurName());
+
+            GenderDTO g = person.getGender();
+            buttonGroup1.add(radioMale);
+            buttonGroup1.add(radioFemale);
+
+            dob.setDate(person.getBirthDate());
+            dod.setDate(person.getDeathDate());
+
+            if (g == GenderDTO.MALE)
             {
-                textFieldFirstname.setText(person.getFirstName());
-                textFieldLastname.setText(person.getSurName());
-
-                GenderDTO g = person.getGender();
-                buttonGroup1.add(radioMale);
-                buttonGroup1.add(radioFemale);
-
-                dob.setDate(person.getBirthDate());
-                dod.setDate(person.getDeathDate());
-
-                if (g == GenderDTO.MALE)
-                {
-                    radioMale.setSelected(true);
-                }
-                else
-                {
-                    radioFemale.setSelected(true);
-                }
-
-                PlaceDTO place = person.getPlace();
-                if (place == null)
-                {
-                    textFieldCity.setText("Undefined");
-                    textFieldCountry.setText("Undefined");
-                    textFieldZipCode.setText("Undefined");
-                }
-                else
-                {
-                    textFieldCity.setText(place.getPlaceName());
-                    textFieldCountry.setText(place.getCountry());
-                    textFieldZipCode.setText(place.getZipCode());
-                }
-
-                Image image = ImageIO.read(person.getPicture());
-                labelPicture.setIcon(new ImageIcon(image));
+                radioMale.setSelected(true);
             }
-            catch (IOException ex)
+            else
             {
-                Exceptions.printStackTrace(ex);
+                radioFemale.setSelected(true);
             }
+
+            PlaceDTO place = person.getPlace();
+            if (place == null)
+            {
+                textFieldCity.setText("Undefined");
+                textFieldCountry.setText("Undefined");
+                textFieldZipCode.setText("Undefined");
+            }
+            else
+            {
+                textFieldCity.setText(place.getPlaceName());
+                textFieldCountry.setText(place.getCountry());
+                textFieldZipCode.setText(place.getZipCode());
+            }
+
+            labelPicture.setIcon(new ImageIcon(person.getImage()));
 
         }
     }
@@ -606,5 +679,30 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         btnAdd.setEnabled(true);
         btnEdit.setEnabled(true);
         btnDelete.setEnabled(true);
+    }
+
+    /**
+     *
+     * @param originalImage an x or an o. Use cross or oh fields.
+     *
+     * @param biggerWidth
+     * @param biggerHeight
+     */
+    private Image resize(Image originalImage, int biggerWidth, int biggerHeight)
+    {
+        int type = BufferedImage.TYPE_INT_ARGB;
+
+        BufferedImage resizedImage = new BufferedImage(biggerWidth, biggerHeight, type);
+        Graphics2D g = resizedImage.createGraphics();
+
+        g.setComposite(AlphaComposite.Src);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        g.drawImage(originalImage, 0, 0, biggerWidth, biggerHeight, this);
+        g.dispose();
+
+        return resizedImage;
     }
 }

@@ -3,7 +3,8 @@ package service;
 import domain.Person;
 import domain.controller.PersonController;
 import exception.PersonAlreadyExistsException;
-import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -107,21 +108,40 @@ public class PersonService
     @POST
     @Path("/upload/image/{personID}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-    public void saveImage(@PathParam("personID") int personID, BufferedImage bufferedImage)
+    public Response saveImage(@PathParam("personID") int personID, InputStream bufferedImage)
     {
-        logger.info("[SAVE][PERSONSERVICE] SAVING image for " + personID);
-        pc.savePersonImage(personID, bufferedImage);
-        //       pc.savePersonImage(personID, attachmentInputStream);
+        try
+        {
+            logger.info("TRYING TO SAVE IMAGE " + bufferedImage);
+            String result = "Saving new Image for person " + personID;
+            logger.info("[SAVE][PERSONSERVICE] SAVING image for " + personID);
+            pc.savePersonImage(personID, ImageIO.read(bufferedImage));
+            return Response.status(Response.Status.OK).entity(result).build();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
+        }
     }
 
     @GET
     @Path("/delete/images/{personID}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void deleteImage(@PathParam("personID") int personID)
+    public Response deleteImage(@PathParam("personID") int personID)
     {
-        logger.info("[DELETE][PERSONSERVICE] Deleting image for " + personID);
-
-        pc.deletePersonImage(personID);
+        try
+        {
+            String result = "Deleting Image for person " + personID;
+            logger.info("[DELETE][PERSONSERVICE] Deleting image for " + personID);
+            pc.deletePersonImage(personID);
+            return Response.status(Response.Status.OK).entity(result).build();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
+        }
     }
 
 
