@@ -1,16 +1,19 @@
 package gui;
 
 import gui.controller.SettingsController;
+import util.Translator;
 
-
-public class SettingsPanel extends javax.swing.JPanel {
+public class SettingsPanel extends javax.swing.JPanel
+{
 
     /**
      * Creates new form SettingsPanel
      */
     private SettingsController settingsController;
-    
-    public SettingsPanel() {
+    private Translator translator;
+
+    public SettingsPanel()
+    {
         initComponents();
     }
 
@@ -21,25 +24,20 @@ public class SettingsPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         cbxLanguage = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
 
+        jButton2.setText("jButton2");
+
         setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setText(org.openide.util.NbBundle.getMessage(SettingsPanel.class, "SettingsPanel.jLabel1.text")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        add(jLabel1, gridBagConstraints);
-
-        jLabel2.setText(org.openide.util.NbBundle.getMessage(SettingsPanel.class, "SettingsPanel.jLabel2.text")); // NOI18N
+        jLabel2.setText("Language:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -55,9 +53,11 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.ipadx = 17;
         add(cbxLanguage, gridBagConstraints);
 
-        jButton1.setText(org.openide.util.NbBundle.getMessage(SettingsPanel.class, "SettingsPanel.jButton1.text")); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1.setText("Set Language");
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton1ActionPerformed(evt);
             }
         });
@@ -70,15 +70,14 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int language= cbxLanguage.getSelectedIndex()+1;
+        int language = cbxLanguage.getSelectedIndex() + 1;
         settingsController.setLanguage(language);
     }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbxLanguage;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
     public void setSettingsController(SettingsController sc)
