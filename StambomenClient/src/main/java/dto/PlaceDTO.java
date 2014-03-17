@@ -1,19 +1,32 @@
 package dto;
 
-public class PlaceDTO implements java.io.Serializable {
+import com.google.gson.annotations.Expose;
 
+public class PlaceDTO implements java.io.Serializable
+{
+
+    @Expose
     private int placeId;
+    @Expose
     private int countryId;
+    @Expose
     private int placeNameId;
+    @Expose
     private CoordinateDTO coord;
+    @Expose
     private String country;
+    @Expose
     private String zipCode;
+    @Expose
+
     private String placeName;
 
-    public PlaceDTO() {
+    public PlaceDTO()
+    {
     }
 
-    public PlaceDTO(PlaceDTOBuilder builder) {
+    public PlaceDTO(PlaceDTOBuilder builder)
+    {
         this.placeId = builder.placeId;
         this.countryId = builder.countryId;
         this.placeNameId = builder.placeNameId;
@@ -23,40 +36,49 @@ public class PlaceDTO implements java.io.Serializable {
         this.placeName = builder.placeName;
     }
 
-    public int getPlaceId() {
+    public int getPlaceId()
+    {
         return placeId;
     }
 
-    public int getCountryId() {
+    public int getCountryId()
+    {
         return countryId;
     }
 
-    public int getPlaceNameId() {
+    public int getPlaceNameId()
+    {
         return placeNameId;
     }
 
-    public CoordinateDTO getCoord() {
+    public CoordinateDTO getCoord()
+    {
         return coord;
     }
 
-    public String getCountry() {
+    public String getCountry()
+    {
         return country;
     }
 
-    public String getZipCode() {
+    public String getZipCode()
+    {
         return zipCode;
     }
 
-    public String getPlaceName() {
+    public String getPlaceName()
+    {
         return placeName;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "PlaceDTO{" + "placeId=" + placeId + ", countryId=" + countryId + ", placeNameId=" + placeNameId + ", coord=" + coord + ", country=" + country + ", zipCode=" + zipCode + ", placeName=" + placeName + '}';
     }
 
-    public static class PlaceDTOBuilder {
+    public static class PlaceDTOBuilder
+    {
 
         private int placeId;
         private int countryId;
@@ -66,41 +88,49 @@ public class PlaceDTO implements java.io.Serializable {
         private String zipCode;
         private String placeName;
 
-        public PlaceDTOBuilder(String placeName) {
+        public PlaceDTOBuilder(String placeName)
+        {
             this.placeName = placeName;
         }
 
-        public PlaceDTOBuilder placeId(int placeId) {
+        public PlaceDTOBuilder placeId(int placeId)
+        {
             this.placeId = placeId;
             return this;
         }
 
-        public PlaceDTOBuilder countryId(int countryId) {
+        public PlaceDTOBuilder countryId(int countryId)
+        {
             this.countryId = countryId;
             return this;
         }
 
-        public PlaceDTOBuilder placeNameId(int placeNameId) {
+        public PlaceDTOBuilder placeNameId(int placeNameId)
+        {
             this.placeNameId = placeNameId;
             return this;
         }
 
-        public PlaceDTOBuilder country(String country) {
+        public PlaceDTOBuilder country(String country)
+        {
             this.country = country;
             return this;
         }
 
-        public PlaceDTOBuilder zipCode(String zipCode) {
+        public PlaceDTOBuilder zipCode(String zipCode)
+        {
             this.zipCode = zipCode;
             return this;
         }
 
-        public PlaceDTOBuilder coord(CoordinateDTO coord) {
+        public PlaceDTOBuilder coord(CoordinateDTO coord)
+        {
             this.coord = coord;
             return this;
         }
 
-        public PlaceDTO build() {
+        public PlaceDTO build()
+        {
             return new PlaceDTO(this);
         }
     }
