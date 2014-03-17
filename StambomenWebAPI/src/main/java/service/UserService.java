@@ -24,14 +24,16 @@ import org.slf4j.LoggerFactory;
  *
  */
 @Path("/user")
-public class UserService {
+public class UserService
+{
 
     private UserController uc = new UserController();
 
     @GET
     @Path("/get")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUsernames() {
+    public String getUsernames()
+    {
         org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
         logger.info("[GET][USERSERVICE]");
         return "works";
@@ -40,18 +42,28 @@ public class UserService {
     @POST
     @Path("/post")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addUser(User user) {
-        try {
+    public Response addUser(User user)
+    {
+        try
+        {
             String result = "User added:" + user.toString();
             uc.addUser(user);
             return Response.status(Response.Status.OK).entity(result).build();
-        } catch (UserAlreadyExistsException ex) {
+        }
+        catch (UserAlreadyExistsException ex)
+        {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        } catch (EmptyPasswordException ex) {
+        }
+        catch (EmptyPasswordException ex)
+        {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        } catch (EmptyUsernameException ex) {
+        }
+        catch (EmptyUsernameException ex)
+        {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        } catch (InvalidPasswordException ex) {
+        }
+        catch (InvalidPasswordException ex)
+        {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
     }
@@ -60,7 +72,8 @@ public class UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/login/{username}")
-    public User login(@PathParam("username") String username) {
+    public User login(@PathParam("username") String username)
+    {
         System.out.println("[SERVICE][LOGIN]");
         return uc.getUser(username);
     }
@@ -68,11 +81,15 @@ public class UserService {
     @GET
     @Path("/friends/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getFriends(@PathParam("userId") int userID) {
-        try {
+    public Response getFriends(@PathParam("userId") int userID)
+    {
+        try
+        {
             List<User> friends = uc.getFriends(userID);
             return Response.ok(friends).build();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
     }
@@ -80,7 +97,8 @@ public class UserService {
     @GET
     @Path("/friends/requests/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getFriendRequests(@PathParam("userId") int userID) {
+    public Response getFriendRequests(@PathParam("userId") int userID)
+    {
         List<User> request = uc.getFriendRequest(userID);
         return Response.ok(request).build();
     }
@@ -88,7 +106,8 @@ public class UserService {
     @GET
     @Path("/friends/delete/{userId}/{frienduserId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteFriend(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID) {
+    public Response deleteFriend(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID)
+    {
         uc.deleteFriend(userID, frienduserID);
         return Response.ok().build();
     }
@@ -96,7 +115,8 @@ public class UserService {
     @GET
     @Path("/friends/requests/allow/{userId}/{frienduserId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response allowFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID) {
+    public Response allowFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID)
+    {
         uc.allowDenyFriendRequest(userID, frienduserID, true);
         return Response.ok().build();
     }
@@ -104,7 +124,8 @@ public class UserService {
     @GET
     @Path("/friends/requests/deny/{userId}/{frienduserId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response denyFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID) {
+    public Response denyFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID)
+    {
         uc.allowDenyFriendRequest(userID, frienduserID, false);
         return Response.ok().build();
     }
@@ -112,7 +133,8 @@ public class UserService {
     @GET
     @Path("/friends/requests/send/{userId}/{frienduserName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response sendFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserName") String frienduserName) {
+    public Response sendFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserName") String frienduserName)
+    {
         uc.sendFriendRequest(userID, frienduserName);
         return Response.ok().build();
     }
@@ -120,12 +142,16 @@ public class UserService {
     @POST
     @Path("/post/setLanguage/{userID}/{languageID}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response setLanguage(@PathParam("userID") int userID, @PathParam("languageID") int languageID) {
-        try {
+    public Response setLanguage(@PathParam("userID") int userID, @PathParam("languageID") int languageID)
+    {
+        try
+        {
             String result = "Language set:" + languageID;
             uc.setLanguage(userID, languageID);
             return Response.status(Response.Status.OK).entity(result).build();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
     }
@@ -133,14 +159,18 @@ public class UserService {
     @GET
     @Path("/get/language/{personId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getLanguage(@PathParam("personId") int personId) {
+    public String getLanguage(@PathParam("personId") int personId)
+    {
         org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
         logger.info("[GET][USERSERVICE]");
 
-        try {
+        try
+        {
             String lan = uc.getLanguage(personId);
             return lan;
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return "en";
         }
 
@@ -149,13 +179,17 @@ public class UserService {
     @GET
     @Path("/get/profile/setUserPrivacy/{userID}/{userPrivacy}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response setUserPrivacy(@PathParam("userID") int userID, @PathParam("userPrivacy") Privacy userPrivacy) {
-        try {
+    public Response setUserPrivacy(@PathParam("userID") int userID, @PathParam("userPrivacy") Privacy userPrivacy)
+    {
+        try
+        {
             String result = "privacy set:" + userPrivacy;
             uc.setUserPrivacy(userID, userPrivacy);
             return Response.ok(result).build();
 
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
     }
@@ -163,14 +197,18 @@ public class UserService {
     @GET
     @Path("/get/profile/getPublicUserProfile/{userProfileID}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPublicUserProfile(@PathParam("userProfileID") int userProfileID) {
+    public Response getPublicUserProfile(@PathParam("userProfileID") int userProfileID)
+    {
         Privacy userPrivacy = Privacy.PUBLIC;
 
-        try {
+        try
+        {
             User userProfile = uc.getUserProfile(userProfileID, userPrivacy);
 
             return Response.ok(userProfile).build();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
     }
@@ -178,14 +216,18 @@ public class UserService {
     @GET
     @Path("/get/profile/getPublicUserProfiles/{userID}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPublicUserProfiles(@PathParam("userID") int userID) {
+    public Response getPublicUserProfiles(@PathParam("userID") int userID)
+    {
         Privacy userPrivacy = Privacy.PUBLIC;
 
-        try {
+        try
+        {
             List<User> userProfiles = uc.getUserProfiles(userID, userPrivacy);
 
             return Response.ok(userProfiles).build();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
     }
