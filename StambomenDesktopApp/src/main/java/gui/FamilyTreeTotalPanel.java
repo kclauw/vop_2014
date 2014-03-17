@@ -11,8 +11,8 @@ import gui.tree.PersonNodeExtentProvider;
 import gui.tree.PersonTreeForTreeLayout;
 import gui.tree.TreePane;
 import java.awt.GridBagConstraints;
+import java.awt.Image;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -179,7 +179,7 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         }
     }
 
-    public void saveImage(PersonDTO person, ImageIcon image)
+    public void saveImage(PersonDTO person, Image image)
     {
         treeController.saveImage(person, image);
     }

@@ -5,7 +5,7 @@ import dto.TreeDTO;
 import gui.FamilyTreeTotalPanel;
 import gui.PanelFactory;
 import gui.Panels;
-import javax.swing.ImageIcon;
+import java.awt.Image;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import service.ClientPersonController;
@@ -104,6 +104,10 @@ public class TreeController implements IPanelController
     {
         System.out.println("[TREE CONTROLLER] SAVING PERSON " + person.toString());
         String res = clientPersonController.savePerson(tree.getId(), person);
+        if (res != null)
+        {
+            JOptionPane.showMessageDialog(null, res);
+        }
 
         if (res == null)
         {
@@ -118,10 +122,15 @@ public class TreeController implements IPanelController
         drawTree();
     }
 
-    public void saveImage(PersonDTO person, ImageIcon image)
+    public void saveImage(PersonDTO person, Image image)
     {
         String res = clientPersonController.saveImage(person, image);
         System.out.println("[TREE CONTROLLER] SAVING IMAGE OF PERSON " + person.getPersonId());
+
+        if (res != null)
+        {
+            JOptionPane.showMessageDialog(null, res);
+        }
 
         if (res == null)
         {
@@ -134,6 +143,11 @@ public class TreeController implements IPanelController
     {
         String res = clientPersonController.deleteImage(person);
         System.out.println("[TREE CONTROLLER] DELETE IMAGE OF PERSON " + person.getPersonId());
+
+        if (res != null)
+        {
+            JOptionPane.showMessageDialog(null, res);
+        }
 
         if (res == null)
         {

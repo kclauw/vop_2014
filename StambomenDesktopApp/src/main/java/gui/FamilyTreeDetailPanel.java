@@ -4,6 +4,11 @@ import dto.GenderDTO;
 import dto.PersonDTO;
 import dto.PlaceDTO;
 import gui.controller.TreeController;
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -512,17 +517,22 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         JFileChooser fc = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png");
         fc.addChoosableFileFilter(filter);
+        fc.setAcceptAllFileFilterUsed(false);
         fc.setFileFilter(filter);
         int returnVal = fc.showOpenDialog(this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION)
         {
             File file = fc.getSelectedFile();
+
             ImageIcon image = new ImageIcon(file.getAbsolutePath());
             labelPicture.setIcon(image);
             picturePanel.repaint();
             picturePanel.revalidate();
-            fttp.saveImage(person, image);
+
+            Image scaledVersion = resize(image.getImage(), 200, 200);
+
+            fttp.saveImage(person, scaledVersion);
         }
         else
         {
@@ -669,5 +679,30 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         btnAdd.setEnabled(true);
         btnEdit.setEnabled(true);
         btnDelete.setEnabled(true);
+    }
+
+    /**
+     *
+     * @param originalImage an x or an o. Use cross or oh fields.
+     *
+     * @param biggerWidth
+     * @param biggerHeight
+     */
+    private Image resize(Image originalImage, int biggerWidth, int biggerHeight)
+    {
+        int type = BufferedImage.TYPE_INT_ARGB;
+
+        BufferedImage resizedImage = new BufferedImage(biggerWidth, biggerHeight, type);
+        Graphics2D g = resizedImage.createGraphics();
+
+        g.setComposite(AlphaComposite.Src);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        g.drawImage(originalImage, 0, 0, biggerWidth, biggerHeight, this);
+        g.dispose();
+
+        return resizedImage;
     }
 }
