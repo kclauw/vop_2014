@@ -10,7 +10,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
@@ -49,7 +48,7 @@ public class ClientPersonService
         logger.info("[CLIENT PERSON SERVICE][UPDATE PERSON]:" + person.toString());
         Client client = ClientServiceController.getInstance().getClient();
 
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(person);
         System.out.println("JSON:" + json);
         Response response = client.target(url + "person/update").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
@@ -93,13 +92,13 @@ public class ClientPersonService
 //
 //        return client;
 //    }
-    public String saveImage(int personID, ImageIcon image)
+    public String saveImage(int personID, Image image)
     {
         try
         {
             Client client = ClientServiceController.getInstance().getClient();
             ByteArrayOutputStream bas = new ByteArrayOutputStream();
-            BufferedImage img = imageToBufferedImage(image.getImage());
+            BufferedImage img = imageToBufferedImage(image);
             ImageIO.write(img, "jpg", bas);
             byte[] pic = bas.toByteArray();
 

@@ -1,7 +1,7 @@
 package service;
 
 import dto.PersonDTO;
-import javax.swing.ImageIcon;
+import java.awt.Image;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +34,7 @@ public class ClientPersonController
         return clientPersonService.updatePerson(person);
     }
 
-    public String saveImage(PersonDTO person, ImageIcon image)
+    public String saveImage(PersonDTO person, Image image)
     {
         return clientPersonService.saveImage(person.getPersonId(), image);
     }
