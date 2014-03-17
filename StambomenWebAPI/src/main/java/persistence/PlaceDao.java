@@ -40,7 +40,7 @@ public class PlaceDao implements IDao<Place>
     private final String GETCOORDSBYLONGANDLAT = "SELECT * FROM Coordinates WHERE longitude = ? AND latitude = ?";
     private final String SAVECOORD = "INSERT INTO Coordinates VALUES (null,?,?);";
 
-    private final String SAVEPLACE = "INSERT INTO PLACE VALUES (null, ?, ?, ?, ?)";
+    private final String SAVEPLACE = "INSERT INTO Place VALUES (null, ?, ?, ?, ?)";
 
     private final Logger logger;
 

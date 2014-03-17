@@ -7,6 +7,10 @@ public class Coordinate
     private float latitude;
     private int id;
 
+    public Coordinate()
+    {
+    }
+
     public Coordinate(float longitude, float latitude, int id)
     {
         setId(id);

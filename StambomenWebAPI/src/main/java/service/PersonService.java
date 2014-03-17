@@ -36,7 +36,6 @@ public class PersonService
     @POST
     @Path("/{treeID}/post")
     @Consumes(MediaType.APPLICATION_JSON)
-
     public Response addPerson(@PathParam("treeID") int treeID, Person person)
     {
         try

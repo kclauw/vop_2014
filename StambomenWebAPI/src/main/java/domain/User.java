@@ -10,40 +10,48 @@ import util.StringValidation;
  * [DOMAIN][USER] This class is the representation of each user for the
  * application.
  */
-public class User {
+public class User
+{
 
     private int id;
     private String username;
     private String password;
     private String language;
 
-    public User() {
+    public User()
+    {
     }
 
-    public User(int id, String username, String password, String language) {
+    public User(int id, String username, String password, String language)
+    {
         setUsername(username);
         setPasssword(password);
         setId(id);
         setLanguage(language);
     }
 
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
-    public String getLanguage() {
+    public String getLanguage()
+    {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(String language)
+    {
         this.language = language;
     }
 
-    private void setId(int id) {
+    private void setId(int id)
+    {
         this.id = id;
     }
 
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
@@ -53,19 +61,23 @@ public class User {
      *
      * @param username
      */
-    private void setUsername(String username) {
-        if (StringValidation.emptyString(username)) {
+    private void setUsername(String username)
+    {
+        if (StringValidation.emptyString(username))
+        {
             throw new EmptyUsernameException();
         }
 
-        if (StringValidation.alphaNumericString(username)) {
+        if (StringValidation.alphaNumericString(username))
+        {
             throw new InvalidUsernameException();
         }
 
         this.username = username;
     }
 
-    public String getPassword() {
+    public String getPassword()
+    {
         return password;
     }
 
@@ -75,12 +87,15 @@ public class User {
      *
      * @param password
      */
-    private void setPasssword(String password) {
-        if (StringValidation.emptyString(password)) {
+    private void setPasssword(String password)
+    {
+        if (StringValidation.emptyString(password))
+        {
             throw new EmptyPasswordException();
         }
 
-        if (StringValidation.alphaNumericString(password)) {
+        if (StringValidation.alphaNumericString(password))
+        {
             throw new InvalidPasswordException();
         }
 
