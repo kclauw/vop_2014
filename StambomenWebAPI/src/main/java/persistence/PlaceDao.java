@@ -307,7 +307,6 @@ public class PlaceDao implements IDao<Place>
         try
         {
             con = DatabaseUtils.getConnection();
-
             /*Maak country aan indien nodig:*/
             prep = con.prepareStatement(GETCOUNTRIDBYNAME);
             prep.setString(1, place.getCountry());
