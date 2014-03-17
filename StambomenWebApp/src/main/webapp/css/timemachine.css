@@ -1,0 +1,69 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 16, 2014, 9:30:03 PM
+    Author     : Lowie
+*/
+
+html, body {
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+}
+
+body > .wrapper {
+    position: absolute;
+    top: 100px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: 0px;
+    width: 100%;
+}
+
+body > .wrapper > div, #map-canvas {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+}
+
+#datewindow {
+    background-color: white;
+    
+    position: absolute;
+    height: 50px;
+    
+    right: 0px;
+    left: 0px;
+    top: -50px;
+}
+
+#datewindow > .wrapper {
+    width: 900px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#datewindow p {
+    margin-left: 15px;
+    margin-top: 17px;
+    float: left;
+    width: 70px;
+}
+
+#datepicker {
+    margin-top: 15px;
+    float: left;
+    width: 100px;
+}
+
+#slider {
+    margin-top: 19px;
+    margin-right: 15px;
+    float: right;
+    width: 660px;
+}

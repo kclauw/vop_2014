@@ -32,10 +32,10 @@ my $writequery = 0;
 my $openwrittenfile = 0;
 #Hoe moet de boom worden ingevuld?
 #USERS
-my %users = ( "Username" => "Password" ); #Users
+my %users = ( "default" => "123456789", "Axl" => "123456789", "Jelle" => "123456789", "Sander" => "123456789", "Lowie" => "123456789", "Kenzo" => "123456789" ); #Users
 #TREES
 my @numberoftrees = 4..8; #Variatie in aantal bomen per user
-my @maxnumberofpersons = 60..120; #Maximum aantal personen per boom
+my @maxnumberofpersons = 50..1000; #Maximum aantal personen per boom
 #PERSONS
 my @privacyoptions = 0..2; #Variatie in de privacy van een boom
 my @headyearofbirth = 1600..1800; #Variatie in geboortejaar van hoofd van familie
