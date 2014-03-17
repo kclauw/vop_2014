@@ -56,9 +56,10 @@ public class ClientPersonService
 
         if (response.getStatus() != 200)
         {
-            System.out.println("[CLIENT PERSON SERVICE] UPDATE ERROR :" + response.toString());
+            String resp = response.readEntity(String.class);
+            System.out.println("[CLIENT PERSON SERVICE] UPDATE ERROR :" + resp);
 
-            return " " + response.readEntity(String.class);
+            return " " + resp;
         }
 
         return null;
