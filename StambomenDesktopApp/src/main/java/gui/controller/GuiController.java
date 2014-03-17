@@ -18,6 +18,7 @@ public class GuiController
     private TreeController treeController;
     private AddTreeController addTreeController;
     private Panels currentPanel;
+    private SettingsController settingsController;
 
     public GuiController()
     {
@@ -60,6 +61,7 @@ public class GuiController
         treeControllerOverviewController = new TreeOverviewController(this);
         treeController = new TreeController(this);
         addTreeController = new AddTreeController(this);
+        settingsController = new SettingsController(this);
     }
 
     public void goTo(Panels frame)
@@ -91,6 +93,11 @@ public class GuiController
             case ADDTREE:
                 programFrame.add(addTreeController.show());
                 programFrame.setTitle("Adding a tree");
+                programFrame.setSize(400, 300);
+                break;
+            case SETTINGS:
+                programFrame.add(settingsController.show());
+                programFrame.setTitle("Settings");
                 programFrame.setSize(400, 300);
                 break;
         }
