@@ -79,6 +79,7 @@ public class PersonDao implements IDao<Person>
             prep.setString(2, person.getFirstName());
             prep.setString(3, person.getSurName());
             prep.setByte(4, person.getGender().getGenderId());
+            //T0D0 //FIXME
             // prep.setDate(5, (java.sql.Date) (person.getBirthDate());
             // prep.setDate(6, (java.sql.Date) person.getDeathDate());
             prep.setNull(5, Types.DATE);

@@ -164,7 +164,7 @@ public class PersistenceController
 
     public Place getPlace(Place place)
     {
-        return this.placeDao.get(place);
+        return this.placeDao.getPlaceObject(place);
     }
 
     public void addPerson(int treeID, Person person)
