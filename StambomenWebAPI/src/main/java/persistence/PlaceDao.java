@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 public class PlaceDao implements IDao<Place>
 {
 
-    private Connection con;
     private final String GETPLACEBYID = "SELECT placeID as placeID, zipcode, c.coordinatesID, "
             + " p.countryID,c.latitude, c.longitude, coun.name as countryname, "
             + " pla.placenameID, pla.name as placename FROM Place as p "
@@ -54,6 +53,7 @@ public class PlaceDao implements IDao<Place>
     public Place get(int placeId)
     {
         Place place = null;
+        Connection con = null;
         ResultSet res = null;
         PreparedStatement prep = null;
         try
@@ -110,6 +110,7 @@ public class PlaceDao implements IDao<Place>
         int coordinateID = -1;
         PreparedStatement prep = null;
         ResultSet res = null;
+        Connection con = null;
 
         try
         {
@@ -246,6 +247,8 @@ public class PlaceDao implements IDao<Place>
         Place p = null;
         ResultSet res = null;
         PreparedStatement prep = null;
+        Connection con = null;
+
         try
         {
             con = DatabaseUtils.getConnection();
@@ -300,9 +303,11 @@ public class PlaceDao implements IDao<Place>
         Place p = null;
         ResultSet res = null;
         PreparedStatement prep = null;
-
+        Connection con = null;
         try
         {
+            con = DatabaseUtils.getConnection();
+
             /*Maak country aan indien nodig:*/
             prep = con.prepareStatement(GETCOUNTRIDBYNAME);
             prep.setString(1, place.getCountry());
@@ -335,6 +340,10 @@ public class PlaceDao implements IDao<Place>
         {
             java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (Exception ex)
+        {
+            java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
         finally
         {
             try
@@ -359,11 +368,12 @@ public class PlaceDao implements IDao<Place>
         Place p = null;
         ResultSet res = null;
         PreparedStatement prep = null;
-
+        Connection con = null;
         try
         {
 
             /*Maak plaats aan indien nodig*/
+            con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(GETPLACENAMEIDBYNAME);
             prep.setString(1, place.getPlaceName());
             res = prep.executeQuery();
@@ -395,6 +405,10 @@ public class PlaceDao implements IDao<Place>
         {
             java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (Exception ex)
+        {
+            java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
         finally
         {
             try
@@ -419,6 +433,7 @@ public class PlaceDao implements IDao<Place>
         Place p = null;
         ResultSet res = null;
         PreparedStatement prep = null;
+        Connection con = null;
 
         try
         {
