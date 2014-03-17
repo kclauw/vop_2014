@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gui;
 
 import gui.controller.SettingsController;
 
-/**
- *
- * @author Jelle
- */
+
 public class SettingsPanel extends javax.swing.JPanel {
 
     /**
@@ -65,12 +56,23 @@ public class SettingsPanel extends javax.swing.JPanel {
         add(cbxLanguage, gridBagConstraints);
 
         jButton1.setText(org.openide.util.NbBundle.getMessage(SettingsPanel.class, "SettingsPanel.jButton1.text")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 2;
         add(jButton1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int language= cbxLanguage.getSelectedIndex()+1;
+        settingsController.setLanguage(language);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
