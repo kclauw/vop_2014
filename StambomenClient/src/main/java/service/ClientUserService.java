@@ -132,9 +132,18 @@ public class ClientUserService
         return null;
     }
 
-    public void setLanguage(int userID, int language)
+    public String setLanguage(int userID, int language)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Client client = ClientServiceController.getInstance().getClient();
+        client.register(new JacksonFeature());
+        Response response = client.target(url + "user/post/setLanguage/" + userID + "/" + language).request(MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != 200)
+        {
+
+            return " " + response.readEntity(String.class);
+        }
+
+        return null;
     }
 
     public String setUserPrivacy(int userID, PrivacyDTO userPrivacy)
