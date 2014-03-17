@@ -30,7 +30,8 @@ public class AddTreePanel extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jLabel1 = new javax.swing.JLabel();
         txtNameTree = new javax.swing.JTextField();
@@ -48,8 +49,10 @@ public class AddTreePanel extends javax.swing.JPanel
         cbxPrivacy.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Private", "Only friends", "Public" }));
 
         jButton1.setText("Add tree");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton1ActionPerformed(evt);
             }
         });

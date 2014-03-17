@@ -98,7 +98,7 @@ public class GuiController
             case SETTINGS:
                 programFrame.add(settingsController.show());
                 programFrame.setTitle("Settings");
-                programFrame.setSize(400, 300);
+                programFrame.setSize(250, 150);
                 break;
         }
         programFrame.revalidate();

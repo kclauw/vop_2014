@@ -13,17 +13,18 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 {
 
     private TreeOverviewController treeController;
+
     public FamilyTreeOverviewPanel()
     {
         initComponents();
         JMenuBar menuBar = new JMenuBar();
-        
+
         JMenu menu = new JMenu("Tree");
         JMenu menuS = new JMenu("Settings");
-        
-        JMenuItem settingsItem = new JMenuItem("Settings");
+
+        JMenuItem settingsItem = new JMenuItem("Change language");
         JMenuItem addTreeItem = new JMenuItem("Add tree");
-        
+
         settingsItem.addActionListener(new ActionListener()
         {
 
@@ -32,8 +33,7 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                 treeController.goTo(Panels.SETTINGS);
             }
         });
-         
-        
+
         addTreeItem.addActionListener(new ActionListener()
         {
 
@@ -42,10 +42,10 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                 treeController.goTo(Panels.ADDTREE);
             }
         });
-        
+
         menuS.add(settingsItem);
         menu.add(addTreeItem);
-        
+
         menuBar.add(menu);
         menuBar.add(menuS);
         this.add(menuBar, BorderLayout.NORTH);
