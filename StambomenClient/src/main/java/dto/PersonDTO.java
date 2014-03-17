@@ -52,19 +52,16 @@ public class PersonDTO implements java.io.Serializable, Cloneable {
         return picture;
     }
 
-    public Image getImage()
-    {
+    public int getPersonId() {
+        return personId;
+    }
+
+    public Image getImage() {
         return image;
     }
 
-    public void setImage(Image image)
-    {
+    public void setImage(Image image) {
         this.image = image;
-    }
-
-    public URL getPicture()
-    {
-        return picture;
     }
 
     public String getFirstName() {
