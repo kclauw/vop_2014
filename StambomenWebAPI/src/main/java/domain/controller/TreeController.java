@@ -2,6 +2,7 @@ package domain.controller;
 
 import domain.Tree;
 import exception.TreeAlreadyExistsException;
+import exception.TreeNameAlreadyExistsException;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,15 @@ public class TreeController
             }
             else
             {
+                List<Tree> trees = pc.getTrees(tree.getOwner().getId());
+
+                for (Tree t : trees)
+                {
+                    if (t.getName().equals(tree.getName()))
+                    {
+                        throw new TreeNameAlreadyExistsException();
+                    }
+                }
                 pc.addTree(tree);
             };
         }

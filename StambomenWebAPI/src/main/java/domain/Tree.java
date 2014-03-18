@@ -29,6 +29,11 @@ public class Tree
         return persons;
     }
 
+    /**
+     * Has to be pulbic
+     *
+     * @param persons
+     */
     public void setPersons(List<Person> persons)
     {
         this.persons = persons;
