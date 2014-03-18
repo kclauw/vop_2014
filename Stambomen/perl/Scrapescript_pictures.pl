@@ -29,7 +29,7 @@ STDOUT->autoflush(1);
 my $assets_release = 0;
 my $db_port_ownpc = 1;
 
-my @treeIDs = ( 1, 2 ); #IDs van de trees waarvan de personen foto's moeten krijgen
+my @treeIDs = ( 1 ); #IDs van de trees waarvan de personen foto's moeten krijgen
 
 
 
@@ -159,7 +159,7 @@ for (my $gender = 1; $gender >= 0; $gender--) {
 printlines("DEPLOYEMENT");
 
 #Assets info
-my $assets_location = (($assets_release)?"release":"staging") . "/images/persons/";
+my $assets_location = (($assets_release)?"release":"staging") . "/images/persons";
 my $assets_name ="http://team12:RKAxujnJ\@dav.assets.vop.tiwi.be/team12/";
 
 #Bevestiging vragen
@@ -186,6 +186,11 @@ for (my $gender = 1; $gender >= 0; $gender--) {
 
 	my $filesuploaded = 0;
 	foreach my $treeid (keys %personIDs) {
+		eval
+		{
+			$dav -> mkcol("$assets_location/$treeid");
+		};
+
 		my @pictures_copy = shuffle @{$pictures{$gender}};
 
 		foreach my $personID (@{$personIDs{$treeid}[$gender]}) {
@@ -196,7 +201,7 @@ for (my $gender = 1; $gender >= 0; $gender--) {
 				printprogress("\tProgress: " . ($progress/($progressprecision/100)) . "%");
 			}
 
-			$dav -> put($assets_location . $personID . ".jpg", file => $pictures_copy[0]);
+			$dav -> put("$assets_location/$treeid/$personID.jpg", file => $pictures_copy[0]);
 			shift @pictures_copy;
 
 			++$filesuploaded;
