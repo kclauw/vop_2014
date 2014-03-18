@@ -21,6 +21,8 @@ public class ImageDAO
 {
 
     private final String url = "http://dav.assets.vop.tiwi.be/team12/staging/images/persons/";
+    private final String readUrl = "http://assets.vop.tiwi.be/team12/staging/images/persons/";
+
     private final PersistenceController persistenceController;
     private Sardine sardine;
 
@@ -46,11 +48,11 @@ public class ImageDAO
 
             if (imageExists)
             {
-                return new URI(url + treeID + "/" + personID + ".jpg");
+                return new URI(readUrl + treeID + "/" + personID + ".jpg");
             }
             else
             {
-                return new URI(url + "DefaultMale.png");
+                return new URI(readUrl + "DefaultMale.png");
             }
         }
         catch (URISyntaxException ex)
