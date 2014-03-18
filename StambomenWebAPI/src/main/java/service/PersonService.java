@@ -105,16 +105,16 @@ public class PersonService
     }
 
     @POST
-    @Path("/upload/image/{personID}")
+    @Path("/upload/image/{treeID}/{personID}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-    public Response saveImage(@PathParam("personID") int personID, InputStream bufferedImage)
+    public Response saveImage(@PathParam("personID") int personID, @PathParam("treeID") int treeID, InputStream bufferedImage)
     {
         try
         {
             logger.info("TRYING TO SAVE IMAGE " + bufferedImage);
             String result = "Saving new Image for person " + personID;
             logger.info("[SAVE][PERSONSERVICE] SAVING image for " + personID);
-            pc.savePersonImage(personID, ImageIO.read(bufferedImage));
+            pc.savePersonImage(personID, treeID, ImageIO.read(bufferedImage));
             return Response.status(Response.Status.OK).entity(result).build();
         }
         catch (Exception e)
@@ -125,15 +125,15 @@ public class PersonService
     }
 
     @GET
-    @Path("/delete/images/{personID}")
+    @Path("/delete/images/{treeID}/{personID}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response deleteImage(@PathParam("personID") int personID)
+    public Response deleteImage(@PathParam("personID") int personID, @PathParam("treeID") int treeID)
     {
         try
         {
             String result = "Deleting Image for person " + personID;
             logger.info("[DELETE][PERSONSERVICE] Deleting image for " + personID);
-            pc.deletePersonImage(personID);
+            pc.deletePersonImage(treeID, personID);
             return Response.status(Response.Status.OK).entity(result).build();
         }
         catch (Exception e)

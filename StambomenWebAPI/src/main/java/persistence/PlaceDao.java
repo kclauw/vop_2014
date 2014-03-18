@@ -34,8 +34,8 @@ public class PlaceDao implements IDao<Place>
     private final String GETCOUNTRIDBYNAME = "SELECT countryID FROM Country where name = ?";
     private final String SAVECOUNTRY = "INSERT INTO Country VALUES (null,?);";
 
-    private final String GETPLACENAMEIDBYNAME = "SELECT placeNameID FROM PlaceName where name = ?";
-    private final String SAVEPLACENAME = "INSERT INTO PlaceName VALUES (null,?);";
+    private final String GETPLACENAMEIDBYNAME = "SELECT placeNameID FROM Placename where name = ?";
+    private final String SAVEPLACENAME = "INSERT INTO Placename VALUES (null,?);";
 
     private final String GETCOORDSBYLONGANDLAT = "SELECT * FROM Coordinates WHERE longitude = ? AND latitude = ?";
     private final String SAVECOORD = "INSERT INTO Coordinates VALUES (null,?,?);";

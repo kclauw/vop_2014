@@ -4,6 +4,7 @@ import exception.EmptyPasswordException;
 import exception.EmptyUsernameException;
 import exception.InvalidPasswordException;
 import exception.InvalidUsernameException;
+import exception.UserNameTooLongException;
 import util.StringValidation;
 
 /**
@@ -17,6 +18,7 @@ public class User
     private String username;
     private String password;
     private String language;
+    private final int MAX_SIZE_USERNAME = 50;
 
     public User()
     {
@@ -40,7 +42,7 @@ public class User
         return language;
     }
 
-    public void setLanguage(String language)
+    private void setLanguage(String language)
     {
         this.language = language;
     }
@@ -57,7 +59,7 @@ public class User
 
     /**
      * Validation rules apply when setting a username: - cannot be empty - must
-     * be alphanumeric
+     * be alphanumeric - not longer that chars.
      *
      * @param username
      */
@@ -68,9 +70,14 @@ public class User
             throw new EmptyUsernameException();
         }
 
-        if (StringValidation.alphaNumericString(username))
+        if (StringValidation.isAlphaNumericString(username) || StringValidation.isEmailAdress(username))
         {
             throw new InvalidUsernameException();
+        }
+
+        if (username.length() >= MAX_SIZE_USERNAME)
+        {
+            throw new UserNameTooLongException();
         }
 
         this.username = username;
@@ -83,7 +90,7 @@ public class User
 
     /**
      * Validation rules apply when setting a password - Cannot be empty - Must
-     * be alphaNumeric
+     * be greater then 8 chars
      *
      * @param password
      */
@@ -94,9 +101,14 @@ public class User
             throw new EmptyPasswordException();
         }
 
-        if (StringValidation.alphaNumericString(password))
+        if (password.length() < 8)
         {
-            throw new InvalidPasswordException();
+            throw new InvalidPasswordException("The password is too short!");
+        }
+
+        if (password.length() > 50)
+        {
+            throw new InvalidPasswordException("The password is too long!");
         }
 
         this.password = password;

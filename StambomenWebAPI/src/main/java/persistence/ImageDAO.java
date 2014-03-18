@@ -38,15 +38,15 @@ public class ImageDAO
         }
     }
 
-    public URI get(int id)
+    public URI get(int treeID, int personID)
     {
         try
         {
-            boolean imageExists = personImageExists(id);
+            boolean imageExists = personImageExists(treeID, personID);
 
             if (imageExists)
             {
-                return new URI(url + id + ".jpg");
+                return new URI(url + treeID + "/" + personID + ".jpg");
             }
             else
             {
@@ -83,15 +83,15 @@ public class ImageDAO
 
     }
 
-    public void delete(int personID)
+    public void delete(int treeID, int personID)
     {
         try
         {
-            boolean exists = personImageExists(personID);
+            boolean exists = personImageExists(treeID, personID);
 
             if (exists)
             {
-                sardine.delete(url + personID + ".jpg");
+                sardine.delete(url + treeID + "/" + personID + ".jpg");
             }
             else
             {
@@ -105,8 +105,8 @@ public class ImageDAO
 
     }
 
-    private boolean personImageExists(int personID) throws SardineException
+    private boolean personImageExists(int treeID, int personID) throws SardineException
     {
-        return sardine.exists(url + personID + ".jpg");
+        return sardine.exists(url + treeID + "/" + personID + ".jpg");
     }
 }

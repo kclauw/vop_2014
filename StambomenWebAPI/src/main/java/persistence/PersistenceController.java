@@ -57,7 +57,7 @@ public class PersistenceController
         return userDao.get(username);
     }
 
-    public User getUser(int id)
+    public User getUser(int treeID, int id)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get user with id" + id);
         return userDao.get(id);
@@ -208,9 +208,9 @@ public class PersistenceController
         return userProfiles;
     }
 
-    public void deletePersonImage(int personID)
+    public void deletePersonImage(int treeID, int personID)
     {
-        imageDao.delete(personID);
+        imageDao.delete(treeID, personID);
     }
 
     public void savePersonImage(int personID, BufferedImage bufferedImage) throws IOException
@@ -218,8 +218,8 @@ public class PersistenceController
         imageDao.save(personID, bufferedImage);
     }
 
-    public URI getPicture(int personID)
+    public URI getPicture(int treeID, int personID)
     {
-        return imageDao.get(personID);
+        return imageDao.get(treeID, personID);
     }
 }

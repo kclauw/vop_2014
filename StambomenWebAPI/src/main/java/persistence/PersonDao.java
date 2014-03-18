@@ -124,8 +124,7 @@ public class PersonDao implements IDao<Person>
         return lastInsertedId;
     }
 
-    @Override
-    public Person get(int id)
+    public Person get(int treeID, int personID)
     {
         Person person = null;
         ResultSet res = null;
@@ -136,7 +135,7 @@ public class PersonDao implements IDao<Person>
         {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(GETPERSONBYID);
-            prep.setInt(1, id);
+            prep.setInt(1, personID);
             logger.info("[PERSON DAO] Getting person by id" + prep.toString());
             res = prep.executeQuery();
 
@@ -144,7 +143,7 @@ public class PersonDao implements IDao<Person>
             {
                 System.out.println("[PERSON DAO][GET][FOUND A RESULT!]");
                 person = map(res, persMap);
-                person.setPicture(pc.getPicture(person.getPersonId()));
+                person.setPicture(pc.getPicture(treeID, person.getPersonId()));
                 mapRelations(persons, persMap);
             }
 
@@ -293,7 +292,7 @@ public class PersonDao implements IDao<Person>
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Collection<Person> GetAll(int treeId)
+    public Collection<Person> GetAll(int treeID)
     {
 
         List<Person> persons = new ArrayList<Person>();
@@ -304,16 +303,14 @@ public class PersonDao implements IDao<Person>
         {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(GETPERSONSBYTREEID);
-            prep.setInt(1, treeId);
+            prep.setInt(1, treeID);
             logger.info("[PERSON DAO] GET ALL PERSON BY TREEID" + prep.toString());
             res = prep.executeQuery();
 
             while (res.next())
             {
-                //personID birthplace firstname lastname gender birthdate deathdate
                 Person person = map(res, personMap);
-                person.setPicture(pc.getPicture(person.getPersonId()));
-
+                person.setPicture(pc.getPicture(treeID, person.getPersonId()));
                 persons.add(person);
             }
 
@@ -359,7 +356,6 @@ public class PersonDao implements IDao<Person>
             byte gender = res.getByte("gender");
             Date birthDate = res.getDate("birthdate");
             Date deathDate = res.getDate("deathdate");
-            //      int placeId = res.getInt("birthplace");
 
             Person father = null;
             Person mother = null;
@@ -476,6 +472,12 @@ public class PersonDao implements IDao<Person>
 
     @Override
     public void save(Person value)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Person get(int id)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

@@ -207,7 +207,7 @@ public class TreeDao implements IDao<Tree>
             int privacy = res.getInt("privacy");
 
             Privacy priv = Privacy.getPrivacy(privacy);
-            User user = per.getUser(ownerID);
+            User user = per.getUser(id, ownerID);
             //        List<Person> pers = per.getPersons(id);
             //         System.out.println(pers);
 
