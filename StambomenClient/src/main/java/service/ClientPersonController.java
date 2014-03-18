@@ -34,14 +34,14 @@ public class ClientPersonController
         return clientPersonService.updatePerson(person);
     }
 
-    public String saveImage(PersonDTO person, Image image)
+    public String saveImage(int treeID, int personID, Image image)
     {
-        return clientPersonService.saveImage(person.getPersonId(), image);
+        return clientPersonService.saveImage(treeID, personID, image);
     }
 
-    public String deleteImage(PersonDTO person)
+    public String deleteImage(int treeID, int personID)
     {
-        return clientPersonService.deleteImage(person.getPersonId());
+        return clientPersonService.deleteImage(treeID, personID);
     }
 
 }
