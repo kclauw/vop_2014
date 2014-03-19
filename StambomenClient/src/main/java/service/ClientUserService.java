@@ -134,6 +134,7 @@ public class ClientUserService
 
     public String setLanguage(int userID, int language)
     {
+        logger.info("[CLIENT USER SERVICE][SET LANGUAGE]Set language with id: " + language + " user with id: " + userID);
         Client client = ClientServiceController.getInstance().getClient();
         client.register(new JacksonFeature());
         Response response = client.target(url + "user/post/setLanguage/" + userID + "/" + language).request(MediaType.APPLICATION_JSON).get();
