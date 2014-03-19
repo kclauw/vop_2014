@@ -32,9 +32,9 @@ public class ClientUserService
 
         String json = new Gson().toJson(userDTO);
         Response response = client.target(url + "user/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
+
         if (response.getStatus() != 200)
         {
-
             return " " + response.readEntity(String.class);
         }
 
