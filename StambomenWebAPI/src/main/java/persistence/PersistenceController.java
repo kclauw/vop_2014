@@ -85,12 +85,6 @@ public class PersistenceController
     {
         logger.info("[PERSISTENCE CONTROLLER] Get persons from tree with id " + treeId);
         List<Person> p = (List<Person>) personDao.GetAll(treeId);
-
-        for (Person per : p)
-        {
-            logger.info("[PERSISTENCE CONTROLLER][PERSON] " + per.toString());
-        }
-
         return p;
     }
 

@@ -7,6 +7,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DatabaseUtils
 {
@@ -15,6 +17,18 @@ public class DatabaseUtils
     protected final static String username = "team12";
     protected final static String password = "RKAxujnJ";
     protected static String url;
+
+    static
+    {
+        try
+        {
+            setUrlPath();
+        }
+        catch (UnknownHostException ex)
+        {
+            Logger.getLogger(DatabaseUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private DatabaseUtils() throws Exception
     {
@@ -29,7 +43,7 @@ public class DatabaseUtils
 
     public static Connection getConnection() throws Exception
     {
-        setUrlPath();
+
         Connection con = getCon(driver, url, username, password);
         return con;
     }
@@ -58,7 +72,7 @@ public class DatabaseUtils
         }
     }
 
-    private static void setUrlPath() throws UnknownHostException
+    private static String setUrlPath() throws UnknownHostException
     {
         InetAddress ip;
         String hostname;
@@ -78,5 +92,7 @@ public class DatabaseUtils
         {
             url = urlPrefix + ":443/team12_staging?";
         }
+
+        return url;
     }
 }

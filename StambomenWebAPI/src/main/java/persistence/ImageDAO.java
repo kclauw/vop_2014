@@ -6,8 +6,10 @@ import com.googlecode.sardine.util.SardineException;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -59,10 +61,6 @@ public class ImageDAO
         {
             ex.printStackTrace();
         }
-        catch (SardineException ex)
-        {
-            ex.printStackTrace();
-        }
 
         return null;
     }
@@ -107,8 +105,27 @@ public class ImageDAO
 
     }
 
-    private boolean personImageExists(int treeID, int personID) throws SardineException
+    private boolean personImageExists(int treeID, int personID)
     {
-        return sardine.exists(url + treeID + "/" + personID + ".jpg");
+        try
+        {
+            //  return sardine.exists(url + treeID + "/" + personID + ".jpg");
+
+            HttpURLConnection.setFollowRedirects(false);
+            HttpURLConnection con = (HttpURLConnection) new URL(readUrl + treeID + "/" + personID + ".jpg").openConnection();
+            con.setRequestMethod("HEAD");
+            return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
+        }
+        /**
+         * catch (MalformedURLException ex) {
+         * Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null,
+         * ex); }
+         */
+        catch (IOException ex)
+        {
+            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
     }
 }
