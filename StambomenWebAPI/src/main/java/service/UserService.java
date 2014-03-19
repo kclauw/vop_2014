@@ -43,10 +43,12 @@ public class UserService
     @POST
     @Path("/post")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addUser(User user)
+    public Response addUser(User userInc)
     {
         try
         {
+            logger.info("[REGISTER REQUEST] USER;" + userInc);
+            User user = new User(-1, userInc.getUsername(), userInc.getPassword(), userInc.getLanguage());
             String result = "User added:" + user.toString();
             uc.addUser(user);
             return Response.status(Response.Status.OK).entity(result).build();
@@ -64,6 +66,10 @@ public class UserService
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
         catch (InvalidPasswordException ex)
+        {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
+        catch (Exception ex)
         {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }

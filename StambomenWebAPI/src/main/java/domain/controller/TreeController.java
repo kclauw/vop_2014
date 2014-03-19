@@ -26,7 +26,17 @@ public class TreeController
         if (tree.getId() == -1)
         {
             //TODO Still have to check wether the name already exists
-            System.out.println("[TREE CONTROLLER] ADDING TREE");
+            logger.info("[TREE CONTROLLER] ADDING TREE");
+            List<Tree> trees = pc.getTrees(tree.getOwner().getId());
+
+            for (Tree t : trees)
+            {
+                if (t.getName().equals(tree.getName()))
+                {
+                    throw new TreeNameAlreadyExistsException();
+                }
+            }
+
             pc.addTree(tree);
         }
         else

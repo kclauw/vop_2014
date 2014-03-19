@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,7 +67,7 @@ public class UserDao implements IDao<User>
         }
         catch (Exception ex)
         {
-            logger.info("[USER DAO][SQLException][Get]Exception: " + ex.getMessage());
+            java.util.logging.Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {
@@ -98,16 +99,18 @@ public class UserDao implements IDao<User>
             prep.setString(2, value.getPassword());
             logger.info("[USER DAO] Saving user " + prep.toString());
             prep.executeUpdate();
-
             con.close();
         }
         catch (SQLException ex)
         {
             logger.info("[USER DAO][SQLException][Save]Sql exception: " + ex.getMessage());
+            ex.printStackTrace();
         }
         catch (Exception ex)
         {
-            logger.info("[USER DAO][SQLException][Save]Exception: " + ex.getMessage());
+            java.util.logging.Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            throw new IllegalArgumentException(ex);
         }
         finally
         {
@@ -126,13 +129,15 @@ public class UserDao implements IDao<User>
     }
 
     @Override
-    public void update(User value)
+    public void update(User value
+    )
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(User value)
+    public void delete(User value
+    )
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -314,9 +319,10 @@ public class UserDao implements IDao<User>
         {
             logger.info("[USER DAO][SQLException][Map]Sql exception: " + ex.getMessage());
         }
-        catch (Exception ex)
+        catch (IllegalArgumentException ex)
         {
-            logger.info("[USER DAO][SQLException][Map]Exception: " + ex.getMessage());
+            logger.info("[USER DAO][SQLException][Map]Illegalargument exception: " + ex.getMessage());
+            throw ex;
         }
 
         return user;
