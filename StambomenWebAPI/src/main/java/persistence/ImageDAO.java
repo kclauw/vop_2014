@@ -6,8 +6,10 @@ import com.googlecode.sardine.util.SardineException;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -21,6 +23,8 @@ public class ImageDAO
 {
 
     private final String url = "http://dav.assets.vop.tiwi.be/team12/staging/images/persons/";
+    private final String readUrl = "http://assets.vop.tiwi.be/team12/staging/images/persons/";
+
     private final PersistenceController persistenceController;
     private Sardine sardine;
 
@@ -38,26 +42,22 @@ public class ImageDAO
         }
     }
 
-    public URI get(int id)
+    public URI get(int treeID, int personID)
     {
         try
         {
-            boolean imageExists = personImageExists(id);
+            boolean imageExists = personImageExists(treeID, personID);
 
             if (imageExists)
             {
-                return new URI(url + id + ".jpg");
+                return new URI(readUrl + treeID + "/" + personID + ".jpg");
             }
             else
             {
-                return new URI(url + "DefaultMale.png");
+                return new URI(readUrl + "DefaultMale.png");
             }
         }
         catch (URISyntaxException ex)
-        {
-            ex.printStackTrace();
-        }
-        catch (SardineException ex)
         {
             ex.printStackTrace();
         }
@@ -83,15 +83,15 @@ public class ImageDAO
 
     }
 
-    public void delete(int personID)
+    public void delete(int treeID, int personID)
     {
         try
         {
-            boolean exists = personImageExists(personID);
+            boolean exists = personImageExists(treeID, personID);
 
             if (exists)
             {
-                sardine.delete(url + personID + ".jpg");
+                sardine.delete(url + treeID + "/" + personID + ".jpg");
             }
             else
             {
@@ -105,8 +105,27 @@ public class ImageDAO
 
     }
 
-    private boolean personImageExists(int personID) throws SardineException
+    private boolean personImageExists(int treeID, int personID)
     {
-        return sardine.exists(url + personID + ".jpg");
+        try
+        {
+            //  return sardine.exists(url + treeID + "/" + personID + ".jpg");
+
+            HttpURLConnection.setFollowRedirects(false);
+            HttpURLConnection con = (HttpURLConnection) new URL(readUrl + treeID + "/" + personID + ".jpg").openConnection();
+            con.setRequestMethod("HEAD");
+            return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
+        }
+        /**
+         * catch (MalformedURLException ex) {
+         * Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null,
+         * ex); }
+         */
+        catch (IOException ex)
+        {
+            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
     }
 }

@@ -106,12 +106,12 @@ public class PersonController
         };
     }
 
-    public void deletePersonImage(int personID)
+    public void deletePersonImage(int treeID, int personID)
     {
-        pc.deletePersonImage(personID);
+        pc.deletePersonImage(treeID, personID);
     }
 
-    public void savePersonImage(int personID, BufferedImage bufferedImage) throws IOException
+    public void savePersonImage(int treeID, int personID, BufferedImage bufferedImage) throws IOException
     {
         pc.savePersonImage(personID, bufferedImage);
     }

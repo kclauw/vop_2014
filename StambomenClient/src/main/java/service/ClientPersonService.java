@@ -27,7 +27,7 @@ public class ClientPersonService
     {
         logger.info("[CLIENT PERSON SERVICE][SAVE PERSON]:" + person.toString());
         Client client = ClientServiceController.getInstance().getClient();
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd").create();
 
         String json = gson.toJson(person);
         System.out.println("Person in json: " + json);
@@ -84,16 +84,7 @@ public class ClientPersonService
         return null;
     }
 
-//    private Client getClient()
-//    {
-//        HttpAuthenticationFeature feature = ClientServiceController.getInstance().getHttpCredentials();
-//        Client client = ClientBuilder.newClient();
-//        client.register(feature);
-//        client.register(new JacksonFeature());
-//
-//        return client;
-//    }
-    public String saveImage(int personID, Image image)
+    public String saveImage(int treeID, int personID, Image image)
     {
         try
         {
@@ -103,7 +94,7 @@ public class ClientPersonService
             ImageIO.write(img, "jpg", bas);
             byte[] pic = bas.toByteArray();
 
-            Response response = client.target(url + "person/upload/image/" + personID).request(MediaType.APPLICATION_JSON).post(Entity.entity(pic, MediaType.APPLICATION_OCTET_STREAM_TYPE));
+            Response response = client.target(url + "person/upload/image/" + treeID + "/" + personID).request(MediaType.APPLICATION_JSON).post(Entity.entity(pic, MediaType.APPLICATION_OCTET_STREAM_TYPE));
 
             if (response.getStatus() != 200)
             {
@@ -121,11 +112,11 @@ public class ClientPersonService
         return null;
     }
 
-    public String deleteImage(int personId)
+    public String deleteImage(int treeID, int personId)
     {
         Client client = ClientServiceController.getInstance().getClient();
 
-        Response response = client.target(url + "person/delete/images/" + personId).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "person/delete/images/" + treeID + "/" + personId).request(MediaType.APPLICATION_JSON).get();
 
         if (response.getStatus() != 200)
         {

@@ -1,14 +1,11 @@
 package service;
 
 import com.google.gson.Gson;
-import com.googlecode.sardine.Sardine;
-import com.googlecode.sardine.SardineFactory;
 import com.googlecode.sardine.util.SardineException;
 import dto.PersonDTO;
 import dto.TreeDTO;
 import java.awt.Image;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Level;
 import javax.imageio.ImageIO;
@@ -125,9 +122,7 @@ public class ClientTreeService
     {
         try
         {
-            Sardine sardine = SardineFactory.begin("team12", "RKAxujnJ");
-            InputStream is = sardine.getInputStream(person.getPicture().toString());
-            Image image = ImageIO.read(is);
+            Image image = ImageIO.read(person.getPicture());
             person.setImage(image);
         }
         catch (SardineException ex)

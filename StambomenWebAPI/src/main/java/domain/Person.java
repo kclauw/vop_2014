@@ -1,11 +1,15 @@
 package domain;
 
 import exception.InvalidParentException;
+import exception.PersonFirstNameCannotBeEmptyException;
+import exception.PersonLastNameCannotBeEmptyException;
+import exception.PersonMustHaveAGender;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import util.StringValidation;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Person
@@ -39,7 +43,6 @@ public class Person
         this.mother = builder.mother;    // optional
         this.picture = builder.picture;
     }
-
 
     public int getPersonId()
     {
@@ -174,9 +177,33 @@ public class Person
 
         public PersonBuilder(String firstName, String surName, Gender gender)
         {
-            this.firstName = firstName;
-            this.surName = surName;
-            this.gender = gender;
+            if (!StringValidation.emptyString(firstName))
+            {
+                this.firstName = firstName;
+            }
+            else
+            {
+                throw new PersonFirstNameCannotBeEmptyException();
+            }
+
+            if (!StringValidation.emptyString(surName))
+            {
+                this.surName = surName;
+            }
+            else
+            {
+                throw new PersonLastNameCannotBeEmptyException();
+            }
+
+            if (!(gender == null))
+            {
+                this.gender = gender;
+            }
+            else
+            {
+                throw new PersonMustHaveAGender();
+            }
+
         }
 
         public PersonBuilder personId(int personId)

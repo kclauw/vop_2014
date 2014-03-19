@@ -75,6 +75,7 @@ public class ClientUserController
     {
         int userID = ClientServiceController.getInstance().getUser().getId();
         String response;
+        logger.info("[CLIENT USER CONTROLLER][SET LANGUAGE]Set language with id: " + language + " user with id: " + userID);
         response = client.setLanguage(userID, language);
     }
 

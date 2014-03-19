@@ -124,7 +124,7 @@ public class TreeController implements IPanelController
 
     public void saveImage(PersonDTO person, Image image)
     {
-        String res = clientPersonController.saveImage(person, image);
+        String res = clientPersonController.saveImage(tree.getId(), person.getPersonId(), image);
         System.out.println("[TREE CONTROLLER] SAVING IMAGE OF PERSON " + person.getPersonId());
 
         if (res != null)
@@ -141,7 +141,7 @@ public class TreeController implements IPanelController
 
     public void deleteImage(PersonDTO person)
     {
-        String res = clientPersonController.deleteImage(person);
+        String res = clientPersonController.deleteImage(tree.getId(), person.getPersonId());
         System.out.println("[TREE CONTROLLER] DELETE IMAGE OF PERSON " + person.getPersonId());
 
         if (res != null)

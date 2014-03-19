@@ -7,10 +7,6 @@ package gui.controls;
 
 import dto.TreeDTO;
 
-/**
- *
- * @author Lowie
- */
 public class FamilyTreeListItem extends javax.swing.JPanel
 {
 
@@ -151,7 +147,7 @@ public class FamilyTreeListItem extends javax.swing.JPanel
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnOpenActionPerformed
     {//GEN-HEADEREND:event_btnOpenActionPerformed
-        System.out.println("[FAMILT TREE LIST ITEM] Tree:" + tree.toString().toString());
+
         this.familyTreeList.openFamilyTree(tree);
     }//GEN-LAST:event_btnOpenActionPerformed
 
@@ -160,4 +156,5 @@ public class FamilyTreeListItem extends javax.swing.JPanel
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrivacy;
     // End of variables declaration//GEN-END:variables
+
 }
