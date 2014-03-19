@@ -16,6 +16,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -27,6 +28,7 @@ import org.slf4j.LoggerFactory;
 public class UserService
 {
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private UserController uc = new UserController();
 
     @GET
@@ -34,7 +36,6 @@ public class UserService
     @Produces(MediaType.APPLICATION_JSON)
     public String getUsernames()
     {
-        org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
         logger.info("[GET][USERSERVICE]");
         return "works";
     }
@@ -144,6 +145,7 @@ public class UserService
     @Consumes(MediaType.APPLICATION_JSON)
     public Response setLanguage(@PathParam("userID") int userID, @PathParam("languageID") int languageID)
     {
+        logger.info("[User Service][SET LANGUAGE]Set language with id: " + languageID + " user with id: " + userID);
         try
         {
             String result = "Language set:" + languageID;

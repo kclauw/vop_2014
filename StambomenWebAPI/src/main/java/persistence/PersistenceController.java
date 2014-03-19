@@ -53,19 +53,19 @@ public class PersistenceController
 
     public User getUser(String username)
     {
-        logger.info("[PERSISTENCE CONTROLLER] Get user with username" + username);
+        logger.info("[PERSISTENCE CONTROLLER] Get user with username:" + username);
         return userDao.get(username);
     }
 
-    public User getUser(int treeID, int id)
+    public User getUser(int id)
     {
-        logger.info("[PERSISTENCE CONTROLLER] Get user with id" + id);
+        logger.info("[PERSISTENCE CONTROLLER] Get user with id:" + id);
         return userDao.get(id);
     }
 
     public Tree getTree(int id)
     {
-        logger.info("[PERSISTENCE CONTROLLER] Get tree with id" + id);
+        logger.info("[PERSISTENCE CONTROLLER] Get tree with id:" + id);
         return treeDao.get(id);
     }
 
