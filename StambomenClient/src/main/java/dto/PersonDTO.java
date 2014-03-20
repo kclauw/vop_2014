@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 public class PersonDTO implements java.io.Serializable, Cloneable
 {
@@ -33,6 +34,9 @@ public class PersonDTO implements java.io.Serializable, Cloneable
     private int y;
     private Image image;
 
+    private List<PersonDTO> childeren;
+    private PersonDTO partner;
+
     public PersonDTO()
     {
     }
@@ -49,6 +53,26 @@ public class PersonDTO implements java.io.Serializable, Cloneable
         this.father = builder.father;     // optional
         this.mother = builder.mother;    // optional
         this.picture = builder.picture;
+    }
+
+    public List<PersonDTO> getChilderen()
+    {
+        return childeren;
+    }
+
+    public void setChilderen(List<PersonDTO> childeren)
+    {
+        this.childeren = childeren;
+    }
+
+    public PersonDTO getPartner()
+    {
+        return partner;
+    }
+
+    public void setPartner(PersonDTO partner)
+    {
+        this.partner = partner;
     }
 
     public URL getPicture()

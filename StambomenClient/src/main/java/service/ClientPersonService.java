@@ -3,7 +3,6 @@ package service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.PersonDTO;
-import dto.UserDTO;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
