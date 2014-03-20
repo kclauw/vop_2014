@@ -146,21 +146,24 @@ public class UserService
         return Response.ok().build();
     }
 
-    @POST
+    @GET
     @Path("/setLanguage/{userID}/{languageID}")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response setLanguage(@PathParam("userID") int userID, @PathParam("languageID") int languageID)
     {
         logger.info("[User Service][SET LANGUAGE]Set language with id: " + languageID + " user with id: " + userID);
         try
         {
+            System.out.println("userID: " + userID + " languageID: " + languageID);
             String result = "Language set:" + languageID;
             uc.setLanguage(userID, languageID);
             return Response.status(Response.Status.OK).entity(result).build();
+
         }
         catch (Exception ex)
         {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+
         }
     }
 
