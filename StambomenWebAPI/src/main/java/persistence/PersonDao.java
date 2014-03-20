@@ -144,7 +144,7 @@ public class PersonDao implements IDao<Person>
             if (res.next())
             {
                 System.out.println("[PERSON DAO][GET][FOUND A RESULT!]");
-                person = map(res, persMap);
+                person = map(treeID, res, persMap);
                 mapRelations(persons, persMap);
             }
 
@@ -310,7 +310,194 @@ public class PersonDao implements IDao<Person>
 
             while (res.next())
             {
-                Person person = map(res, personMap);
+                Person person = map(treeID, res, personMap);
+                persons.add(person);
+            }
+
+            con.close();
+
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[PERSONDAOSQL][Exception][GetAll]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[PERSONDAO][Exception][GetAll]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        mapRelations(persons, personMap);
+        return persons;
+    }
+
+    public Person map(int treeID, ResultSet res)
+    {
+        Person person = null;
+
+        try
+        {
+            int personID = res.getInt("personID");
+            String firstName = res.getString("firstname");
+            String lastName = res.getString("lastname");
+            byte gender = res.getByte("gender");
+            Date birthDate = res.getDate("birthdate");
+            Date deathDate = res.getDate("deathdate");
+
+            Person father = null;
+            Person mother = null;
+            boolean pictureExists = res.getBoolean("picture");
+
+            URI picture = pc.getPicture(treeID, personID, pictureExists);
+
+            Gender g = Gender.getGender(gender);
+            Place p = pc.getPlace(res);
+            person = new Person.PersonBuilder(firstName, lastName, g)
+                    .personId(personID)
+                    .birthDate(birthDate)
+                    .deathDate(deathDate)
+                    .father(father)
+                    .mother(mother)
+                    .place(p)
+                    .picture(picture)
+                    .build();
+            //person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
+            logger.debug("[PERSON DAO] Mapping person:" + person);
+
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[PERSONDAO][SQLException][Map]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[PERSONDAO][Exception][Map]Exception: " + ex.getMessage());
+        }
+
+        return person;
+
+    }
+
+    public Person map(int treeID, ResultSet res, MultiMap<Integer, Person> persMap)
+    {
+        Person person = map(treeID, res);
+
+        try
+        {
+            int parentId1 = res.getInt("parent1");
+
+            int parentId2 = res.getInt("parent2");
+
+            logger.debug("[PERSON DAO][Map parent] P1: " + parentId1 + " P2: " + parentId2);
+
+            if (parentId1 != 0)
+            {
+                persMap.add(parentId1, person);
+            }
+            if (parentId2 != 0)
+            {
+                persMap.add(parentId2, person);
+            }
+
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[PERSONDAO][SQLException][Map Parent]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[PERSONDAO][Exception][Map Parent]Exception: " + ex.getMessage());
+        }
+
+        return person;
+    }
+
+    /**
+     * Deze methode mapt de parentRelations naar echt relations. De int stelt
+     * een personid voor van een parent van de person.
+     *
+     * @param persons
+     * @param persMap
+     */
+    private void mapRelations(List<Person> persons, MultiMap<Integer, Person> persMap)
+    {
+        System.out.println("[PERSON DAO] Number of persMAP " + persMap.keySet().size());
+        for (int personId : persMap.keySet())
+        {
+            for (Person p : persons)
+            {
+                if (p.getPersonId() == personId)
+                {
+                    if (p.getGender() == Gender.FEMALE)
+                    {
+                        for (Person per : persMap.get(personId))
+                        {
+                            per.setMother(p);
+                        }
+
+                    }
+                    else if (p.getGender() == Gender.MALE)
+                    {
+                        for (Person per : persMap.get(personId))
+                        {
+                            per.setFather(p);
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public void delete(Person value)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void save(Person value)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Person get(int id)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Person> getPersons(int treeID, int start, int max)
+    {
+        List<Person> persons = new ArrayList<Person>();
+        MultiMap<Integer, Person> personMap = new MultiMap<Integer, Person>();
+        ResultSet res = null;
+        PreparedStatement prep = null;
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(GETPERSONS);
+            prep.setInt(1, start);
+            prep.setInt(2, max);
+            logger.info("[PERSON DAO] GET ALL PERSON " + prep.toString());
+            res = prep.executeQuery();
+
+            while (res.next())
+            {
+                Person person = map(treeID, res, personMap);
+
                 persons.add(person);
             }
 
@@ -346,195 +533,7 @@ public class PersonDao implements IDao<Person>
     @Override
     public Person map(ResultSet res)
     {
-        Person person = null;
-
-        try
-        {
-            int personId = res.getInt("personID");
-            String firstName = res.getString("firstname");
-            String lastName = res.getString("lastname");
-            byte gender = res.getByte("gender");
-            Date birthDate = res.getDate("birthdate");
-            Date deathDate = res.getDate("deathdate");
-
-            Person father = null;
-            Person mother = null;
-            boolean pictureExists = res.getBoolean("picture");
-
-            URI picture = pc.getPicture(personId, personId, pictureExists);
-
-            Gender g = Gender.getGender(gender);
-            Place p = pc.getPlace(res);
-            person = new Person.PersonBuilder(firstName, lastName, g)
-                    .personId(personId)
-                    .birthDate(birthDate)
-                    .deathDate(deathDate)
-                    .father(father)
-                    .mother(mother)
-                    .place(p)
-                    .picture(picture)
-                    .build();
-            //person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
-            logger.info("[PERSON DAO] Mapping person:" + person);
-
-        }
-        catch (SQLException ex)
-        {
-            logger.info("[PERSONDAO][SQLException][Map]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
-            logger.info("[PERSONDAO][Exception][Map]Exception: " + ex.getMessage());
-        }
-
-        return person;
-
-    }
-
-    public Person map(ResultSet res, MultiMap<Integer, Person> persMap)
-    {
-        Person person = map(res);
-
-        try
-        {
-            int parentId1 = res.getInt("parent1");
-
-            int parentId2 = res.getInt("parent2");
-
-            logger.info("[PERSON DAO][Map parent] P1: " + parentId1 + " P2: " + parentId2);
-
-            if (parentId1 != 0)
-            {
-                persMap.add(parentId1, person);
-                System.out.println("Adding parent1 " + parentId1);
-            }
-            if (parentId2 != 0)
-            {
-                persMap.add(parentId2, person);
-                System.out.println("Adding parent2 " + parentId2);
-            }
-
-        }
-        catch (SQLException ex)
-        {
-            logger.info("[PERSONDAO][SQLException][Map Parent]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
-            logger.info("[PERSONDAO][Exception][Map Parent]Exception: " + ex.getMessage());
-        }
-
-        return person;
-    }
-
-    /**
-     * Deze methode mapt de parentRelations naar echt relations. De int stelt
-     * een personid voor van een parent van de person.
-     *
-     * @param persons
-     * @param persMap
-     */
-    private void mapRelations(List<Person> persons, MultiMap<Integer, Person> persMap)
-    {
-        System.out.println("[PERSON DAO] Number of persMAP " + persMap.keySet().size());
-        for (int personId : persMap.keySet())
-        {
-            System.out.println("[PERSON DAO] LOOKING FOR PERSON WITH ID " + personId);
-
-            for (Person p : persons)
-            {
-                if (p.getPersonId() == personId)
-                {
-                    if (p.getGender() == Gender.FEMALE)
-                    {
-                        System.out.println("[PERSON DAO] Setting mother " + p.getFirstName() + " for Person " + persMap.getOne(personId).getFirstName());
-                        for (Person per : persMap.get(personId))
-                        {
-                            per.setMother(p);
-                        }
-
-                    }
-                    else if (p.getGender() == Gender.MALE)
-                    {
-                        System.out.println("[PERSON DAO] Setting father " + p.getFirstName() + " for Person " + persMap.getOne(personId).getFirstName());
-                        for (Person per : persMap.get(personId))
-                        {
-                            per.setFather(p);
-                        }
-                    }
-                }
-            }
-        }
-
-    }
-
-    @Override
-    public void delete(Person value)
-    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void save(Person value)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Person get(int id)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    List<Person> getPersons(int start, int max)
-    {
-        List<Person> persons = new ArrayList<Person>();
-        MultiMap<Integer, Person> personMap = new MultiMap<Integer, Person>();
-        ResultSet res = null;
-        PreparedStatement prep = null;
-        try
-        {
-            con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(GETPERSONS);
-            prep.setInt(1, start);
-            prep.setInt(2, max);
-            logger.info("[PERSON DAO] GET ALL PERSON " + prep.toString());
-            res = prep.executeQuery();
-
-            while (res.next())
-            {
-                Person person = map(res, personMap);
-
-                persons.add(person);
-            }
-
-            con.close();
-
-        }
-        catch (SQLException ex)
-        {
-            logger.info("[PERSONDAOSQL][Exception][GetAll]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
-            logger.info("[PERSONDAO][Exception][GetAll]Exception: " + ex.getMessage());
-        }
-        finally
-        {
-            try
-            {
-                DatabaseUtils.closeQuietly(res);
-                DatabaseUtils.closeQuietly(prep);
-                DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
-                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-      //  mapRelations(persons, personMap);
-        return persons;
     }
 
 }
