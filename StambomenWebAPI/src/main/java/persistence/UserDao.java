@@ -30,9 +30,9 @@ public class UserDao implements IDao<User>
     private final String SENDFRIENDREQUEST = "INSERT INTO Request (friend,receiver,status) select ?,?,0 from dual where not exists ( select * from Request where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status!=2 )";
     private final String SETLANGUAGE = "UPDATE User set languageID=? where userID=?;";
     private final String GETLANGUAGE = "SELECT languageID FROM User where userID=?;";
-    private final String SETUSERPRIVACY = "UPDATE USER SET privacy = ? WHERE userID = ?";
-    private final String GETUSERPROFILE = "SELECT * FROM USER WHERE userID = ? AND privacy = ?";
-    private final String GETUSERPROFILES = "SELECT * FROM USER WHERE userID != ? AND privacy = ?";
+    private final String SETUSERPRIVACY = "UPDATE User SET privacy = ? WHERE userID = ?";
+    private final String GETUSERPROFILE = "SELECT * FROM User WHERE userID = ? AND privacy = ?";
+    private final String GETUSERPROFILES = "SELECT * FROM User WHERE userID != ? AND privacy = ?";
 
     public UserDao()
     {
