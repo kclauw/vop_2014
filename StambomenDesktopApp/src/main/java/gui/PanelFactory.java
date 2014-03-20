@@ -28,8 +28,10 @@ public class PanelFactory
                 break;
             case SETTINGS:
                 panel = new SettingsPanel();
+            case ADMIN:
+                panel = new AdminPanel();
                 break;
-                
+
         }
 
         return panel;

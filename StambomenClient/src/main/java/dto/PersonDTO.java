@@ -6,7 +6,8 @@ import java.net.URL;
 import java.util.Comparator;
 import java.util.Date;
 
-public class PersonDTO implements java.io.Serializable, Cloneable {
+public class PersonDTO implements java.io.Serializable, Cloneable
+{
 
     @Expose
     private int personId;
@@ -32,10 +33,12 @@ public class PersonDTO implements java.io.Serializable, Cloneable {
     private int y;
     private Image image;
 
-    public PersonDTO() {
+    public PersonDTO()
+    {
     }
 
-    public PersonDTO(PersonDTOBuilder builder) {
+    public PersonDTO(PersonDTOBuilder builder)
+    {
         this.personId = builder.personId;        // optional
         this.firstName = builder.firstName;     // required
         this.surName = builder.surName;        // required
@@ -48,130 +51,168 @@ public class PersonDTO implements java.io.Serializable, Cloneable {
         this.picture = builder.picture;
     }
 
-    public URL getPicture() {
+    public URL getPicture()
+    {
         return picture;
     }
 
-    public int getPersonId() {
+    public int getPersonId()
+    {
         return personId;
     }
 
-    public Image getImage() {
+    public Image getImage()
+    {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(Image image)
+    {
         this.image = image;
     }
 
-    public String getFirstName() {
+    public String getFirstName()
+    {
         return firstName;
     }
 
-    public String getSurName() {
+    public String getSurName()
+    {
         return surName;
     }
 
-    public GenderDTO getGender() {
+    public GenderDTO getGender()
+    {
         return gender;
     }
 
-    public Date getBirthDate() {
+    public Date getBirthDate()
+    {
         return birthDate;
     }
 
-    public Date getDeathDate() {
+    public Date getDeathDate()
+    {
         return deathDate;
     }
 
-    public PlaceDTO getPlace() {
+    public PlaceDTO getPlace()
+    {
         return place;
     }
 
-    public PersonDTO getFather() {
+    public PersonDTO getFather()
+    {
         return father;
     }
 
-    public PersonDTO getMother() {
+    public PersonDTO getMother()
+    {
         return mother;
     }
 
-    public void setPersonId(int personId) {
+    public void setPersonId(int personId)
+    {
         this.personId = personId;
     }
 
-    public void setFather(PersonDTO father) {
+    public void setFather(PersonDTO father)
+    {
         this.father = father;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(String firstName)
+    {
         this.firstName = firstName;
     }
 
-    public void setSurName(String surName) {
+    public void setSurName(String surName)
+    {
         this.surName = surName;
     }
 
-    public void setGender(GenderDTO gender) {
+    public void setGender(GenderDTO gender)
+    {
         this.gender = gender;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(Date birthDate)
+    {
         this.birthDate = birthDate;
     }
 
-    public void setDeathDate(Date deathDate) {
+    public void setDeathDate(Date deathDate)
+    {
         this.deathDate = deathDate;
     }
 
-    public void setPlace(PlaceDTO place) {
+    public void setPlace(PlaceDTO place)
+    {
         this.place = place;
     }
 
-    public void setPicture(URL picture) {
+    public void setPicture(URL picture)
+    {
         this.picture = picture;
     }
 
-    public static void setPersonComparator(Comparator<PersonDTO> PersonComparator) {
+    public static void setPersonComparator(Comparator<PersonDTO> PersonComparator)
+    {
         PersonDTO.PersonComparator = PersonComparator;
     }
 
-    public void setMother(PersonDTO mother) {
+    public void setMother(PersonDTO mother)
+    {
         this.mother = mother;
     }
 
-    public void setX(int i) {
+    public void setX(int i)
+    {
         this.x = i;
     }
 
-    public void setY(int i) {
+    public void setY(int i)
+    {
         this.y = i;
     }
 
-    public int getX() {
+    public int getX()
+    {
         return x;
     }
 
-    public int getY() {
+    public int getY()
+    {
         return y;
     }
 
     // Overriding the compareTo method
-    public int compareTo(PersonDTO person) {
-        if (person.getPersonId() == this.getPersonId()) {
+    public int compareTo(PersonDTO person)
+    {
+        if (person.getPersonId() == this.getPersonId())
+        {
             return 0;
-        } else {
+        }
+        else
+        {
             return -1;
         }
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "PersonDTO{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + ", gender=" + gender + ", birthDate=" + birthDate + ", deathDate=" + deathDate + ", place=" + place + ", father=" + father + ", mother=" + mother + ", x=" + x + ", y=" + y + '}';
     }
 
+    public String toStringPerson()
+    {
+        return firstName + surName;
+    }
+
     @Override
-    public Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException
+    {
         PersonDTO person = new PersonDTO();
 //        person.setBirthDate(birthDate);
 //        person.setDeathDate(deathDate);
@@ -185,18 +226,24 @@ public class PersonDTO implements java.io.Serializable, Cloneable {
     }
 
     public static Comparator<PersonDTO> PersonComparator
-            = new Comparator<PersonDTO>() {
+            = new Comparator<PersonDTO>()
+            {
 
-                public int compare(PersonDTO p1, PersonDTO p2) {
-                    if (p1.getGender() == GenderDTO.FEMALE) {
+                public int compare(PersonDTO p1, PersonDTO p2)
+                {
+                    if (p1.getGender() == GenderDTO.FEMALE)
+                    {
                         return 1;
-                    } else {
+                    }
+                    else
+                    {
                         return -1;
                     }
                 }
             };
 
-    public static class PersonDTOBuilder {
+    public static class PersonDTOBuilder
+    {
 
         private int personId;   // optional
         private final String firstName; // required
@@ -209,48 +256,57 @@ public class PersonDTO implements java.io.Serializable, Cloneable {
         private PersonDTO mother; // optional
         private URL picture; //optional
 
-        public PersonDTOBuilder(String firstName, String surName, GenderDTO gender) {
+        public PersonDTOBuilder(String firstName, String surName, GenderDTO gender)
+        {
             this.firstName = firstName;
             this.surName = surName;
             this.gender = gender;
         }
 
-        public PersonDTOBuilder personId(int personId) {
+        public PersonDTOBuilder personId(int personId)
+        {
             this.personId = personId;
             return this;
         }
 
-        public PersonDTOBuilder birthDate(Date birthDate) {
+        public PersonDTOBuilder birthDate(Date birthDate)
+        {
             this.birthDate = birthDate;
             return this;
         }
 
-        public PersonDTOBuilder deathDate(Date deathDate) {
+        public PersonDTOBuilder deathDate(Date deathDate)
+        {
             this.deathDate = deathDate;
             return this;
         }
 
-        public PersonDTOBuilder place(PlaceDTO place) {
+        public PersonDTOBuilder place(PlaceDTO place)
+        {
             this.place = place;
             return this;
         }
 
-        public PersonDTOBuilder father(PersonDTO father) {
+        public PersonDTOBuilder father(PersonDTO father)
+        {
             this.father = father;
             return this;
         }
 
-        public PersonDTOBuilder mother(PersonDTO mother) {
+        public PersonDTOBuilder mother(PersonDTO mother)
+        {
             this.mother = mother;
             return this;
         }
 
-        public PersonDTOBuilder picture(URL picture) {
+        public PersonDTOBuilder picture(URL picture)
+        {
             this.picture = picture;
             return this;
         }
 
-        public PersonDTO build() {
+        public PersonDTO build()
+        {
             return new PersonDTO(this);
         }
     }

@@ -1,5 +1,6 @@
 package gui;
 
+import gui.controller.AdminController;
 import gui.controller.TreeOverviewController;
 import gui.controls.FamilyTreeList;
 import java.awt.BorderLayout;
@@ -21,9 +22,11 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
         JMenu menu = new JMenu("Tree");
         JMenu menuS = new JMenu("Settings");
-
+        JMenu menuA = new JMenu("Admin");
         JMenuItem settingsItem = new JMenuItem("Change language");
         JMenuItem addTreeItem = new JMenuItem("Add tree");
+        JMenuItem personItem = new JMenuItem("Person overview");
+        JMenuItem userItem = new JMenuItem("User overview");
 
         settingsItem.addActionListener(new ActionListener()
         {
@@ -43,11 +46,23 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
             }
         });
 
+        personItem.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                treeController.goTo(Panels.ADMIN);
+            }
+        });
+
         menuS.add(settingsItem);
+        menuA.add(personItem);
+        menuA.add(userItem);
         menu.add(addTreeItem);
 
         menuBar.add(menu);
         menuBar.add(menuS);
+        menuBar.add(menuA);
         this.add(menuBar, BorderLayout.NORTH);
     }
 
