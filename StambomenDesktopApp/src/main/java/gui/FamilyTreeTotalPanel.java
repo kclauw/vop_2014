@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import org.abego.treelayout.Configuration;
 import org.abego.treelayout.TreeLayout;
 import org.abego.treelayout.util.DefaultConfiguration;
 import util.PersonUtil;
@@ -29,8 +30,8 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     private JScrollPane scroll;
     private List<PersonDTO> persons;
     private TreeLayout<PersonDTO> layout;
-    private int maxGapBetweenNodes = 125;
-    private int maxGapBetweenLevel = 125;
+    private int maxGapBetweenNodes = 300;
+    private int maxGapBetweenLevel = 300;
     private int timesZoomed;
 
     /**
@@ -98,7 +99,7 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     {
         this.persons = persons;
         PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), persons);
-        layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), new DefaultConfiguration<PersonDTO>(maxGapBetweenNodes, maxGapBetweenLevel));
+        layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), new DefaultConfiguration<PersonDTO>(maxGapBetweenNodes, maxGapBetweenLevel, Configuration.Location.Top, Configuration.AlignmentInLevel.AwayFromRoot));
         TreePane tree;
 
         tree = new TreePane(layout, persons, this);
