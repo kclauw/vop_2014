@@ -143,7 +143,7 @@ public class PersonDao implements IDao<Person>
             if (res.next())
             {
                 System.out.println("[PERSON DAO][GET][FOUND A RESULT!]");
-                person = map(res, persMap);
+                person = map(treeID, res, persMap);
                 mapRelations(persons, persMap);
             }
 
@@ -309,7 +309,7 @@ public class PersonDao implements IDao<Person>
 
             while (res.next())
             {
-                Person person = map(res, personMap);
+                Person person = map(treeID, res, personMap);
                 persons.add(person);
             }
 
@@ -342,14 +342,13 @@ public class PersonDao implements IDao<Person>
         return persons;
     }
 
-    @Override
-    public Person map(ResultSet res)
+    public Person map(int treeID, ResultSet res)
     {
         Person person = null;
 
         try
         {
-            int personId = res.getInt("personID");
+            int personID = res.getInt("personID");
             String firstName = res.getString("firstname");
             String lastName = res.getString("lastname");
             byte gender = res.getByte("gender");
@@ -360,12 +359,12 @@ public class PersonDao implements IDao<Person>
             Person mother = null;
             boolean pictureExists = res.getBoolean("picture");
 
-            URI picture = pc.getPicture(personId, personId, pictureExists);
+            URI picture = pc.getPicture(treeID, personID, pictureExists);
 
             Gender g = Gender.getGender(gender);
             Place p = pc.getPlace(res);
             person = new Person.PersonBuilder(firstName, lastName, g)
-                    .personId(personId)
+                    .personId(personID)
                     .birthDate(birthDate)
                     .deathDate(deathDate)
                     .father(father)
@@ -390,9 +389,9 @@ public class PersonDao implements IDao<Person>
 
     }
 
-    public Person map(ResultSet res, MultiMap<Integer, Person> persMap)
+    public Person map(int treeID, ResultSet res, MultiMap<Integer, Person> persMap)
     {
-        Person person = map(res);
+        Person person = map(treeID, res);
 
         try
         {
@@ -481,6 +480,12 @@ public class PersonDao implements IDao<Person>
 
     @Override
     public Person get(int id)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Person map(ResultSet res)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
