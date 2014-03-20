@@ -49,39 +49,11 @@ public class ImageDAO
         }
     }
 
-    private void setUrlPath() throws UnknownHostException
-    {
-        InetAddress ip;
-        String hostname;
-        ip = InetAddress.getLocalHost();
-        hostname = ip.getHostName();
-        String urlPrefix = "http://dav.assets.vop.tiwi.be/team12/";
-        String urlReadOnly = "http://assets.vop.tiwi.be/team12/";
-
-        if (hostname.equals("staging"))
-        {
-            url = urlPrefix + "staging/images/persons/";
-            readUrl = urlReadOnly + "staging/images/persons/";;
-        }
-        else if (hostname.equals("release"))
-        {
-            url = urlPrefix + "release/images/persons/";
-            readUrl = urlReadOnly + "release/images/persons/";;
-        }
-        else
-        {
-            url = urlPrefix + "staging/images/persons/";
-            readUrl = urlReadOnly + "staging/images/persons/";;
-        }
-    }
-
-    public URI get(int treeID, int personID)
+    public URI get(int treeID, int personID, boolean exist)
     {
         try
         {
-            boolean imageExists = personImageExists(treeID, personID);
-
-            if (imageExists)
+            if (exist)
             {
                 return new URI(readUrl + treeID + "/" + personID + ".jpg");
             }
@@ -142,23 +114,42 @@ public class ImageDAO
     {
         try
         {
-            //  return sardine.exists(url + treeID + "/" + personID + ".jpg");
-
             HttpURLConnection.setFollowRedirects(false);
             HttpURLConnection con = (HttpURLConnection) new URL(readUrl + treeID + "/" + personID + ".jpg").openConnection();
             con.setRequestMethod("HEAD");
             return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
         }
-        /**
-         * catch (MalformedURLException ex) {
-         * Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null,
-         * ex); }
-         */
         catch (IOException ex)
         {
             Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return false;
+    }
+
+    private void setUrlPath() throws UnknownHostException
+    {
+        InetAddress ip;
+        String hostname;
+        ip = InetAddress.getLocalHost();
+        hostname = ip.getHostName();
+        String urlPrefix = "http://dav.assets.vop.tiwi.be/team12/";
+        String urlReadOnly = "http://assets.vop.tiwi.be/team12/";
+
+        if (hostname.equals("staging"))
+        {
+            url = urlPrefix + "staging/images/persons/";
+            readUrl = urlReadOnly + "staging/images/persons/";;
+        }
+        else if (hostname.equals("release"))
+        {
+            url = urlPrefix + "release/images/persons/";
+            readUrl = urlReadOnly + "release/images/persons/";;
+        }
+        else
+        {
+            url = urlPrefix + "staging/images/persons/";
+            readUrl = urlReadOnly + "staging/images/persons/";;
+        }
     }
 }

@@ -3,6 +3,7 @@ package persistence;
 import domain.Gender;
 import domain.Person;
 import domain.Place;
+import java.net.URI;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -143,7 +144,6 @@ public class PersonDao implements IDao<Person>
             {
                 System.out.println("[PERSON DAO][GET][FOUND A RESULT!]");
                 person = map(res, persMap);
-                person.setPicture(pc.getPicture(treeID, person.getPersonId()));
                 mapRelations(persons, persMap);
             }
 
@@ -310,7 +310,6 @@ public class PersonDao implements IDao<Person>
             while (res.next())
             {
                 Person person = map(res, personMap);
-                person.setPicture(pc.getPicture(treeID, person.getPersonId()));
                 persons.add(person);
             }
 
@@ -359,6 +358,9 @@ public class PersonDao implements IDao<Person>
 
             Person father = null;
             Person mother = null;
+            boolean pictureExists = res.getBoolean("picture");
+
+            URI picture = pc.getPicture(personId, personId, pictureExists);
 
             Gender g = Gender.getGender(gender);
             Place p = pc.getPlace(res);
@@ -369,6 +371,7 @@ public class PersonDao implements IDao<Person>
                     .father(father)
                     .mother(mother)
                     .place(p)
+                    .picture(picture)
                     .build();
             //person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
             logger.info("[PERSON DAO] Mapping person:" + person);

@@ -212,8 +212,8 @@ public class PersistenceController
         imageDao.save(personID, bufferedImage);
     }
 
-    public URI getPicture(int treeID, int personID)
+    public URI getPicture(int treeID, int personID, boolean pictureExists)
     {
-        return imageDao.get(treeID, personID);
+        return imageDao.get(treeID, personID, pictureExists);
     }
 }
