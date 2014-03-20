@@ -13,8 +13,8 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
-    
+
+
 
     <dependencies>
         <dependency>
@@ -70,9 +70,15 @@
             <groupId>com.googlecode.sardine</groupId>
             <artifactId>sardine</artifactId>
             <version>146</version>
-        </dependency>        
+        </dependency>
+        <dependency>
+            <groupId>org.facebook4j</groupId>
+            <artifactId>facebook4j-core</artifactId>
+            <version>2.0.5</version>
+        </dependency>
     </dependencies>
-    
+
+
 
     <build>
         <plugins>
