@@ -217,9 +217,9 @@ public class PersistenceController
         return imageDao.get(treeID, personID, pictureExists);
     }
 
-    public List<Person> getPersons(int start, int max)
+    public List<Person> getPersons(int treeID, int start, int max)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get persons ");
-        return personDao.getPersons(start, max);
+        return personDao.getPersons(treeID, start, max);
     }
 }

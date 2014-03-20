@@ -116,9 +116,8 @@ public class PersonController
         pc.savePersonImage(personID, bufferedImage);
     }
 
-    public List<Person> getPersons(int start, int max) throws IOException
+    public List<Person> getPersons(int treeID, int start, int max)
     {
-
-        return pc.getPersons(start, max);
+        return pc.getPersons(treeID, start, max);
     }
 }
