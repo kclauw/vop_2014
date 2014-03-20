@@ -182,7 +182,7 @@ public class ClientUserService
         Client client = ClientServiceController.getInstance().getClient();
         client.register(new JacksonFeature());
 
-        List<UserDTO> userProfiles = client.target(url + "user/profile/getPublicUserProfile/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
+        List<UserDTO> userProfiles = client.target(url + "user/get/profile/getPublicUserProfiles/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
         {
         });
 
