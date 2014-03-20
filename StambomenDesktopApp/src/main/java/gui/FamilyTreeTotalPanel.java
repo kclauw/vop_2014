@@ -30,8 +30,8 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     private JScrollPane scroll;
     private List<PersonDTO> persons;
     private TreeLayout<PersonDTO> layout;
-    private int maxGapBetweenNodes = 300;
-    private int maxGapBetweenLevel = 300;
+    private int maxGapBetweenNodes = 50;
+    private int maxGapBetweenLevel = 200;
     private int timesZoomed;
 
     /**
