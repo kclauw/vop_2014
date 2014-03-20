@@ -1,6 +1,7 @@
 package service;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import dto.PrivacyDTO;
 import dto.UserDTO;
 import java.util.List;
@@ -132,15 +133,14 @@ public class ClientUserService
         return null;
     }
 
-    public String setLanguage(int userID, int language)
+    public String setLanguage(int userID, int languageID)
     {
-        logger.info("[CLIENT USER SERVICE][SET LANGUAGE]Set language with id: " + language + " user with id: " + userID);
+        logger.info("[CLIENT USER SERVICE][SET LANGUAGE]Set language with id: " + languageID + " user with id: " + userID);
         Client client = ClientServiceController.getInstance().getClient();
-        client.register(new JacksonFeature());
-        Response response = client.target(url + "user/setLanguage/" + userID + "/" + language).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "user/setLanguage/" + userID + "/" + languageID).request(MediaType.APPLICATION_JSON).get();
         if (response.getStatus() != 200)
         {
-
+// /user/setLanguage/{userID}/{languageID}
             return " " + response.readEntity(String.class);
         }
 

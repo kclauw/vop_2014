@@ -33,7 +33,6 @@ public class ClientTreeService
         logger.info("[CLIENT TREE SERVICE][MAKE TREE]Response:" + response.toString());
         if (response.getStatus() != 200)
         {
-
             return " " + response.readEntity(String.class);
         }
 
