@@ -2,20 +2,28 @@ package gui;
 
 import dto.UserDTO;
 import gui.controller.LoginController;
+import java.awt.Dimension;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 public class LoginPanel extends javax.swing.JPanel
 {
 
     private LoginController loginPanel;
+    private JList menuList;
+    private JScrollPane menuScrollPane;
 
     public LoginPanel()
     {
         initComponents();
+
     }
 
     public void setLoginController(LoginController login)
     {
         this.loginPanel = login;
+
     }
 
     /**
