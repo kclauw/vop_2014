@@ -12,11 +12,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
         <title>Tree - ${tree.name}</title>
-        
+
         <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="./css/general.css"/>
         <link rel="stylesheet" type="text/css" href="./css/stamboom.css"/>
-        
+
         <script src="./js/jquery-1.11.0.min.js"></script>
         <script src="./js/jquery.scrollTo-1.4.3.1-min.js"></script>
         <script src="./js/stamboom.js"></script>
@@ -37,19 +37,17 @@
         </div>
         <div id="topbar" class="shadow">
             <div class="wrapper">
-                <a href="./index.jsp"><img id="logo" src="./images/logo.png" height="35" alt="Tree" /></a>
-                <ul id="menu">
-                    <li><a id="rebuildtree" href="./TreeServlet?rebuildtree=rebuildtree"><img src="./images/Refresh.png" width="26" height="26" alt="Refresh Tree" /></a></li>
-                    <li><a href="./main.jsp">Trees</a></li>
-                    <li><a href="./FriendServlet">Friends</a></li>
-                    <li><a href="./index.jsp?logout=logout">Logout</a></li>
-                </ul>
+                <c:import url = "/Components/header.jsp"></c:import>
+                    <ul id="menu">
+                        <li><a id="rebuildtree" href="./TreeServlet?rebuildtree=rebuildtree"><img src="./images/Refresh.png" width="26" height="26" alt="Refresh Tree" /></a></li>
+                            <c:import url = "/Components/menu.jsp"></c:import>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="wrapper">
-            <div>
-                <div class="tree">
-                    <ul>
+            <div class="wrapper">
+                <div>
+                    <div class="tree">
+                        <ul>
                         ${treehtml}
                     </ul>
                 </div>
