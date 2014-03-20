@@ -50,7 +50,7 @@ public class PersonDao implements IDao<Person>
             + " where d.personID = ? "
             + " GROUP BY d.personID "
             + " ORDER BY pr.parent ASC ";
-    private final String GETPERSONS = "SELECT personID,birthplace,firstname,lastname,gender,birthdate,deathdate,picture,fbprofileif FROM Person LIMIT ?, ?";
+    private final String GETPERSONS = "SELECT personID,birthplace,firstname,lastname,gender,birthdate,deathdate,picture,fbprofileif FROM Person ORDER BY lastname DESC LIMIT ?, ?";
     private PersistenceController pc;
     private final Logger logger;
     private int lastInsertedId;
@@ -533,7 +533,7 @@ public class PersonDao implements IDao<Person>
             }
         }
 
-        mapRelations(persons, personMap);
+      //  mapRelations(persons, personMap);
         return persons;
     }
 
