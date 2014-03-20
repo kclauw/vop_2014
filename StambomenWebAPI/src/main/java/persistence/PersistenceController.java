@@ -114,7 +114,7 @@ public class PersistenceController
 
     public Place getPlace(ResultSet res)
     {
-        logger.info("[PERSISTENCE CONTROLLER] Get place based on a resultset");
+        logger.debug("[PERSISTENCE CONTROLLER] Get place based on a resultset");
         return placeDao.map(res);
     }
 

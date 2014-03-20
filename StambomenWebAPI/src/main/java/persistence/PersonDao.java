@@ -373,7 +373,7 @@ public class PersonDao implements IDao<Person>
                     .picture(picture)
                     .build();
             //person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
-            logger.info("[PERSON DAO] Mapping person:" + person);
+            logger.debug("[PERSON DAO] Mapping person:" + person);
 
         }
         catch (SQLException ex)
@@ -399,17 +399,15 @@ public class PersonDao implements IDao<Person>
 
             int parentId2 = res.getInt("parent2");
 
-            logger.info("[PERSON DAO][Map parent] P1: " + parentId1 + " P2: " + parentId2);
+            logger.debug("[PERSON DAO][Map parent] P1: " + parentId1 + " P2: " + parentId2);
 
             if (parentId1 != 0)
             {
                 persMap.add(parentId1, person);
-                System.out.println("Adding parent1 " + parentId1);
             }
             if (parentId2 != 0)
             {
                 persMap.add(parentId2, person);
-                System.out.println("Adding parent2 " + parentId2);
             }
 
         }
@@ -437,15 +435,12 @@ public class PersonDao implements IDao<Person>
         System.out.println("[PERSON DAO] Number of persMAP " + persMap.keySet().size());
         for (int personId : persMap.keySet())
         {
-            System.out.println("[PERSON DAO] LOOKING FOR PERSON WITH ID " + personId);
-
             for (Person p : persons)
             {
                 if (p.getPersonId() == personId)
                 {
                     if (p.getGender() == Gender.FEMALE)
                     {
-                        System.out.println("[PERSON DAO] Setting mother " + p.getFirstName() + " for Person " + persMap.getOne(personId).getFirstName());
                         for (Person per : persMap.get(personId))
                         {
                             per.setMother(p);
@@ -454,7 +449,6 @@ public class PersonDao implements IDao<Person>
                     }
                     else if (p.getGender() == Gender.MALE)
                     {
-                        System.out.println("[PERSON DAO] Setting father " + p.getFirstName() + " for Person " + persMap.getOne(personId).getFirstName());
                         for (Person per : persMap.get(personId))
                         {
                             per.setFather(p);
