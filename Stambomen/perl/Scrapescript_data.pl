@@ -35,11 +35,11 @@ my $writequery = 0;
 my $openwrittenfile = 0;
 #Hoe moet de boom worden ingevuld?
 #USERS
-my %users = ( "Jelle" => "123456789" ); #Users
+my %users = ( "Lowie" => "123456789" ); #Users
 # my %users = ( "Axl" => "123456789", "Jelle" => "123456789", "Sander" => "123456789", "Lowie" => "123456789", "Kenzo" => "123456789" ); #Users
 #TREES
 my @numberoftrees = 4..8; #Variatie in aantal bomen per user
-my @maxnumberofpersons = 50..5000; #Maximum aantal personen per boom
+my @maxnumberofpersons = 50..70; #Maximum aantal personen per boom
 #PERSONS
 my @privacyoptions = 0..2; #Variatie in de privacy van een boom
 my @headyearofbirth = 1600..1800; #Variatie in geboortejaar van hoofd van familie
@@ -97,6 +97,7 @@ my $numberofsqlvariables = 0;
 my @personstack;
 
 my $lastprogressprint = "";
+my $lastprintwasprogress = 0;
 
 
 
@@ -220,7 +221,6 @@ foreach my $username (keys %users) {
 			shift @personstack;
 		}
 	}
-	print "\n";
 }
 addtoSQL("\n" . $sql_unlock);
 
@@ -278,7 +278,6 @@ eval {
 		}
 
 		foreach my $statement (split(m/\n/x, $statements )) {
-
 			printlines("\tDoing: Adding user") if ($statement =~ m/^\s*#USER.*$/g);
 			printlines("\tDoing: Adding tree") if ($statement =~ m/^\s*#TREE.*$/g);
 			next if ($statement =~ m/^\s*#.*$/g || $statement =~ m/^\s*$/g);
@@ -291,7 +290,6 @@ eval {
 
 		}
 	}
-	print "\n";
 
 	$dbh->commit() or $dbh->errstr;
 	printlines("Commited changes");
@@ -513,6 +511,8 @@ sub printprogress {
 	$lastprogressprint = $_[0];
 	$lastprogressprint =~ s/[^\t]/ /g;
 	$timer_prevtime = $temp;
+
+	$lastprintwasprogress = 1;
 }
 
 sub printlinesbis {
@@ -533,6 +533,11 @@ sub printlinesbis {
 	print join "\n", map { "[${timer_time}s [+${timer_diffprevtime}s]] $numberofprintsstr -> " . ( ($_ =~ m/^[A-Z]*$/g)?" ":"\t\t" ) . (($_ =~ s/\n/\n\t\t\t\t\t\t\t/g && defined $1)?$1:$_) } @myarray;
 }
 sub printlines {
+	if ($lastprintwasprogress)
+	{
+		$lastprintwasprogress = 0;
+		print "\n";
+	}
 	printlinesbis(@_);
 	print "\n";
 }
@@ -574,7 +579,6 @@ sub fillvarsinSQL {
 		}
 	}
 	printprogress("\tProgress: 100%");
-	print "\n";
 }
 sub testprintSQL {
 	my $precomment = 	"#Script generated for Team12 on " . localtime(time) . 

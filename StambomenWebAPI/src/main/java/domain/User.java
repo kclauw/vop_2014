@@ -19,6 +19,8 @@ public class User
     private String password;
     private Language language;
     private final int MAX_SIZE_USERNAME = 50;
+    private final int MAX_SIZE_PASSWORD = 50;
+    private final int MIN_SIZE_PASSWORD = 8;
 
     public User()
     {
@@ -101,16 +103,23 @@ public class User
             throw new EmptyPasswordException();
         }
 
-        if (password.length() < 8)
+        if (password.length() < MIN_SIZE_PASSWORD)
         {
             throw new InvalidPasswordException("The password is too short!");
         }
 
-        if (password.length() > 50)
+        if (password.length() > MAX_SIZE_PASSWORD)
         {
             throw new InvalidPasswordException("The password is too long!");
         }
 
         this.password = password;
     }
+
+    @Override
+    public String toString()
+    {
+        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", language=" + language + ", MAX_SIZE_USERNAME=" + MAX_SIZE_USERNAME + '}';
+    }
+
 }

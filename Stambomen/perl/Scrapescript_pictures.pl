@@ -53,6 +53,7 @@ my %pictures;
 my %personIDs;
 
 my $lastprogressprint = "";
+my $lastprintwasprogress = 0;
 
 
 
@@ -241,6 +242,8 @@ sub printprogress {
 	$lastprogressprint = $_[0];
 	$lastprogressprint =~ s/[^\t]/ /g;
 	$timer_prevtime = $temp;
+
+	$lastprintwasprogress = 1;
 }
 
 sub printlinesbis {
@@ -261,6 +264,11 @@ sub printlinesbis {
 	print join "\n", map { "[${timer_time}s [+${timer_diffprevtime}s]] $numberofprintsstr -> " . ( ($_ =~ m/^[A-Z]*$/g)?" ":"\t\t" ) . (($_ =~ s/\n/\n\t\t\t\t\t\t\t/g && defined $1)?$1:$_) } @myarray;
 }
 sub printlines {
+	if ($lastprintwasprogress)
+	{
+		$lastprintwasprogress = 0;
+		print "\n";
+	}
 	printlinesbis(@_);
 	print "\n";
 }

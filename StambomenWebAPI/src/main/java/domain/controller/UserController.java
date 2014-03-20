@@ -39,7 +39,6 @@ public class UserController
         else
         {
             pc.addUser(user);
-
         };
     }
 
@@ -68,8 +67,10 @@ public class UserController
         {
             return user;
         }
-
-        return null;
+        else
+        {
+            throw new IllegalArgumentException("Invalid credentials.");
+        }
     }
 
     public User getUser(String username)

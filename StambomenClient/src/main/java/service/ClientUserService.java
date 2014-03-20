@@ -32,9 +32,9 @@ public class ClientUserService
 
         String json = new Gson().toJson(userDTO);
         Response response = client.target(url + "user/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
+
         if (response.getStatus() != 200)
         {
-
             return " " + response.readEntity(String.class);
         }
 
@@ -182,7 +182,7 @@ public class ClientUserService
         Client client = ClientServiceController.getInstance().getClient();
         client.register(new JacksonFeature());
 
-        List<UserDTO> userProfiles = client.target(url + "user/profile/getPublicUserProfile/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
+        List<UserDTO> userProfiles = client.target(url + "user/get/profile/getPublicUserProfiles/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
         {
         });
 

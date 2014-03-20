@@ -2,7 +2,7 @@ package domain;
 
 public enum Privacy 
 {
-  PUBLIC(0), PRIVATE(1), FRIENDS(2);
+  PUBLIC(2), PRIVATE(0), FRIENDS(1);
   
   private int privacyId;
   

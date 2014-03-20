@@ -14,7 +14,7 @@ public class StringValidation
 
     public static boolean isAlphaNumericString(String s)
     {
-        return (s.matches("[a-zA-Z0-9_]"));
+        return (s.matches("[a-zA-Z0-9]"));
     }
 
     public static boolean isEmailAdress(String s)

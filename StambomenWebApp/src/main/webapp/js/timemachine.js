@@ -50,8 +50,8 @@ function setMarkers(date) {
     today.setHours(0,0,0,0);
     if (date >= new Date("1992-05-09") && date <= new Date())
     {
-        constructMarker(50.8868997, 3.3494059, 23740, "Lowie", "Huyghe", "8792", "Desselgem", "België", "1992-05-09", "");
-        constructMarker(50.562852, 4.391394, 23741, "Sander", "Huyghe", "8792", "Desselgem", "België", "1992-05-09", "");
+        constructMarker(50.8868997, 3.3494059, 1, 1, "Lowie", "Huyghe", "8792", "Desselgem", "België", "1992-05-09", "");
+        constructMarker(50.562852, 4.391394, 1, 2, "Sander", "Huyghe", "8792", "Desselgem", "België", "1992-05-09", "");
     }
     else
     {
@@ -60,7 +60,7 @@ function setMarkers(date) {
     }
 }
 
-function constructMarker(latitude, longitude, id, firstname, lastname, zipcode, placename, country, birthdate, deathdate) {
+function constructMarker(latitude, longitude, treeid, id, firstname, lastname, zipcode, placename, country, birthdate, deathdate) {
     if (markers[id] !== undefined) return;
     
     var myLatlng = new google.maps.LatLng(latitude, longitude);
@@ -77,7 +77,7 @@ function constructMarker(latitude, longitude, id, firstname, lastname, zipcode, 
       '</div>'+
       '<h1 id="firstHeading" class="firstHeading">' + firstname + " " + lastname + '</h1>'+
       '<div id="bodyContent">'+
-      '<img src="http://dav.assets.vop.tiwi.be/team12/staging/images/persons/' + id + '.jpg" height="200" />' +
+      '<img src="http://assets.vop.tiwi.be/team12/staging/images/persons/' + treeid + "/" + id + '.jpg" height="200" />' +
       '<p>Place: ' + zipcode + ' ' + placename + '</p>' +
       '<p>Country: ' + country + '</p>' +
       '<p>Birthdate: ' + birthdate + '</p>' +
