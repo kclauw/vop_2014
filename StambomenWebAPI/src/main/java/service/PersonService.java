@@ -94,14 +94,14 @@ public class PersonService
     }
 
     @GET
-    @Path("{personID}")
+    @Path("{treeID}/{personID}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Person getPerson(@PathParam("personID") int personID)
+    public Person getPerson(@PathParam("treeID") int treeID, @PathParam("personID") int personID)
     {
         logger.info("[GET][PERSONSERVICE]" + personID);
         System.out.println("GET - PersonServices" + personID);
-        Person t = pc.getPerson(personID);
+        Person t = pc.getPerson(treeID, personID);
         System.out.println(t);
         return t;
     }

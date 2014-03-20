@@ -124,10 +124,10 @@ public class PersistenceController
         personDao.delete(personId);
     }
 
-    public Person getPerson(int personId)
+    public Person getPerson(int treeID, int personId)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get person with id" + personId);
-        return personDao.get(personId);
+        return personDao.get(treeID, personId);
     }
 
     public void updatePerson(Person person)
