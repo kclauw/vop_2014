@@ -1,5 +1,6 @@
 package persistence;
 
+import domain.Language;
 import domain.Privacy;
 import domain.User;
 import java.sql.Connection;
@@ -308,7 +309,7 @@ public class UserDao implements IDao<User>
             int uid = res.getInt("userID");
             String ur = res.getString("username");
             String password = res.getString("password");
-            user = new User(uid, ur, password, "en");
+            user = new User(uid, ur, password, Language.EN);
         }
         catch (SQLException ex)
         {
@@ -499,13 +500,14 @@ public class UserDao implements IDao<User>
         PreparedStatement prep = null;
         try
         {
-            if (userID <= 0 && language <= 0)
+            if (userID >= 0 && language >= 0)
             {
                 con = DatabaseUtils.getConnection();
                 prep = con.prepareStatement(SETLANGUAGE);
                 prep.setInt(1, language);
                 prep.setInt(2, userID);
-                prep.executeUpdate();
+                prep.executeQuery();
+
             }
             con.close();
         }

@@ -17,14 +17,14 @@ public class User
     private int id;
     private String username;
     private String password;
-    private String language;
+    private Language language;
     private final int MAX_SIZE_USERNAME = 50;
 
     public User()
     {
     }
 
-    public User(int id, String username, String password, String language)
+    public User(int id, String username, String password, Language language)
     {
         setUsername(username);
         setPasssword(password);
@@ -37,12 +37,12 @@ public class User
         return id;
     }
 
-    public String getLanguage()
+    public Language getLanguage()
     {
         return language;
     }
 
-    private void setLanguage(String language)
+    public void setLanguage(Language language)
     {
         this.language = language;
     }

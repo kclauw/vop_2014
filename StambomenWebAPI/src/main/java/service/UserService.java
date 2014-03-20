@@ -141,7 +141,7 @@ public class UserService
     }
 
     @POST
-    @Path("/post/setLanguage/{userID}/{languageID}")
+    @Path("/setLanguage/{userID}/{languageID}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response setLanguage(@PathParam("userID") int userID, @PathParam("languageID") int languageID)
     {
