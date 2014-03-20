@@ -41,6 +41,8 @@ public class PersonTableModel extends AbstractTableModel
 
     public Object getValueAt(int rowIndex, int columnIndex)
     {
+       
+                
         if (columnIndex == 0)
         {
             return list.get(rowIndex).getFirstName();
@@ -49,6 +51,12 @@ public class PersonTableModel extends AbstractTableModel
         {
             return list.get(rowIndex).getSurName();
         }
+         if (columnIndex == 2)
+        {
+            return list.get(rowIndex).getPersonId();
+        }
+        
+        
         return null;
     }
 
