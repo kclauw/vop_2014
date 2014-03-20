@@ -72,7 +72,7 @@ public class DatabaseUtils
         }
     }
 
-    private static String setUrlPath() throws UnknownHostException
+    private static void setUrlPath() throws UnknownHostException
     {
         InetAddress ip;
         String hostname;
@@ -93,6 +93,5 @@ public class DatabaseUtils
             url = urlPrefix + ":443/team12_staging?";
         }
 
-        return url;
     }
 }

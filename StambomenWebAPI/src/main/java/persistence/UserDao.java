@@ -506,7 +506,7 @@ public class UserDao implements IDao<User>
                 prep = con.prepareStatement(SETLANGUAGE);
                 prep.setInt(1, language);
                 prep.setInt(2, userID);
-                prep.executeQuery();
+                prep.executeUpdate();
 
             }
             con.close();

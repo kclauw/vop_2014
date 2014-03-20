@@ -7,9 +7,11 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -22,33 +24,36 @@ import javax.imageio.ImageIO;
 public class ImageDAO
 {
 
-    private final String url = "http://dav.assets.vop.tiwi.be/team12/staging/images/persons/";
-    private final String readUrl = "http://assets.vop.tiwi.be/team12/staging/images/persons/";
+    private String url;
+    private String readUrl;
 
-    private final PersistenceController persistenceController;
+    private PersistenceController persistenceController = null;
     private Sardine sardine;
 
     public ImageDAO(PersistenceController per)
     {
-        this.persistenceController = per;
-
         try
         {
+            setUrlPath();
+            this.persistenceController = per;
             sardine = SardineFactory.begin("team12", "RKAxujnJ");
+
+        }
+        catch (UnknownHostException ex)
+        {
+            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (SardineException ex)
         {
-            ex.printStackTrace();
+            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public URI get(int treeID, int personID)
+    public URI get(int treeID, int personID, boolean exist)
     {
         try
         {
-            boolean imageExists = personImageExists(treeID, personID);
-
-            if (imageExists)
+            if (exist)
             {
                 return new URI(readUrl + treeID + "/" + personID + ".jpg");
             }
@@ -109,23 +114,42 @@ public class ImageDAO
     {
         try
         {
-            //  return sardine.exists(url + treeID + "/" + personID + ".jpg");
-
             HttpURLConnection.setFollowRedirects(false);
             HttpURLConnection con = (HttpURLConnection) new URL(readUrl + treeID + "/" + personID + ".jpg").openConnection();
             con.setRequestMethod("HEAD");
             return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
         }
-        /**
-         * catch (MalformedURLException ex) {
-         * Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null,
-         * ex); }
-         */
         catch (IOException ex)
         {
             Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return false;
+    }
+
+    private void setUrlPath() throws UnknownHostException
+    {
+        InetAddress ip;
+        String hostname;
+        ip = InetAddress.getLocalHost();
+        hostname = ip.getHostName();
+        String urlPrefix = "http://dav.assets.vop.tiwi.be/team12/";
+        String urlReadOnly = "http://assets.vop.tiwi.be/team12/";
+
+        if (hostname.equals("staging"))
+        {
+            url = urlPrefix + "staging/images/persons/";
+            readUrl = urlReadOnly + "staging/images/persons/";;
+        }
+        else if (hostname.equals("release"))
+        {
+            url = urlPrefix + "release/images/persons/";
+            readUrl = urlReadOnly + "release/images/persons/";;
+        }
+        else
+        {
+            url = urlPrefix + "staging/images/persons/";
+            readUrl = urlReadOnly + "staging/images/persons/";;
+        }
     }
 }
