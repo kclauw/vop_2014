@@ -41,7 +41,7 @@ import service.ClientPersonController;
 import service.ClientUserController;
 import static sun.net.www.http.HttpClient.New;
 
-public class AdminPanel extends javax.swing.JPanel
+public class UserOverviewPanel extends javax.swing.JPanel
 {
 
   
@@ -62,7 +62,7 @@ public class AdminPanel extends javax.swing.JPanel
    
  
 
-    public AdminPanel()
+    public UserOverviewPanel()
     {
         initComponents();
         this.personController = new ClientPersonController();
@@ -122,7 +122,7 @@ public class AdminPanel extends javax.swing.JPanel
                
                 int selectedRow  = table.getSelectedRow();
                 selectedRow = table.convertRowIndexToModel(selectedRow);
-                String val1 = (String)table.getModel().getValueAt(selectedRow, 2);
+                String val1 = (String)table.getModel().getValueAt(selectedRow, 3);
                 System.out.println(val1);
             }
         }); 
@@ -131,8 +131,8 @@ public class AdminPanel extends javax.swing.JPanel
        
         filterText = new JTextField();
         statusText = new JTextField();
-        filterText.setPreferredSize(new Dimension(50,20));
-        statusText.setPreferredSize(new Dimension(50,20));
+        filterText.setPreferredSize(new Dimension(100,50));
+        statusText.setPreferredSize(new Dimension(100,50));
         l1.setLabelFor(filterText);
         l2.setLabelFor(statusText);
         

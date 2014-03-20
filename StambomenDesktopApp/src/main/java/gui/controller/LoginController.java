@@ -45,7 +45,7 @@ public class LoginController implements IPanelController
 
         System.out.println("REPLY FROM SERVICE:" + login);
         goTo(Panels.LOGIN);
-
+//hier moet controle komen op role
         if (login != null)
         {
             this.loginPanel.setError(login);
