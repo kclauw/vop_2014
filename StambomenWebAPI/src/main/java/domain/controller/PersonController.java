@@ -115,4 +115,10 @@ public class PersonController
     {
         pc.savePersonImage(personID, bufferedImage);
     }
+
+    public List<Person> getPersons(int start, int max) throws IOException
+    {
+
+        return pc.getPersons(start, max);
+    }
 }

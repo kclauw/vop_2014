@@ -49,6 +49,7 @@ public class PersonDao implements IDao<Person>
             + " where d.personID = ? "
             + " GROUP BY d.personID "
             + " ORDER BY pr.parent ASC ";
+    private final String GETPERSONS = "SELECT personID,birthplace,firstname,lastname,gender,birthdate,deathdate,picture,fbprofileif FROM Person LIMIT ?, ?";
     private PersistenceController pc;
     private final Logger logger;
     private int lastInsertedId;
@@ -480,6 +481,57 @@ public class PersonDao implements IDao<Person>
     public Person get(int id)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    List<Person> getPersons(int start, int max)
+    {
+        List<Person> persons = new ArrayList<Person>();
+        MultiMap<Integer, Person> personMap = new MultiMap<Integer, Person>();
+        ResultSet res = null;
+        PreparedStatement prep = null;
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(GETPERSONS);
+            prep.setInt(1, start);
+            prep.setInt(2, max);
+            logger.info("[PERSON DAO] GET ALL PERSON " + prep.toString());
+            res = prep.executeQuery();
+
+            while (res.next())
+            {
+                Person person = map(res, personMap);
+
+                persons.add(person);
+            }
+
+            con.close();
+
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[PERSONDAOSQL][Exception][GetAll]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[PERSONDAO][Exception][GetAll]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        mapRelations(persons, personMap);
+        return persons;
     }
 
 }

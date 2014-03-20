@@ -3,7 +3,9 @@ package service;
 import domain.Person;
 import domain.controller.PersonController;
 import exception.PersonAlreadyExistsException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -143,6 +145,17 @@ public class PersonService
         }
     }
 
+    @GET
+    @Path("/persons/{start}/{max}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Person> getPersons(@PathParam("start") int start, @PathParam("max") int max) throws IOException
+    {
+        logger.info("[PERSON SERVICE][GET] Getting persons");
+        System.out.println("GET - TreeServices");
+        List<Person> persons = pc.getPersons(start, max);
+
+        return persons;
+    }
 
     /*
      Voor fiddler:
