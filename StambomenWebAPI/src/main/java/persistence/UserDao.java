@@ -21,8 +21,8 @@ public class UserDao implements IDao<User>
     private final Logger logger;
     private final String GETALLUSER = "SELECT userID, username, password FROM User";
     private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
-    private final String GETUSER = "SELECT userID, username, password FROM User WHERE username = ?";
-    private final String GETUSERBYID = "SELECT userID, username, password FROM User WHERE userID = ?";
+    private final String GETUSER = "SELECT userID, username, password, languageID FROM User WHERE username = ?";
+    private final String GETUSERBYID = "SELECT userID, username, password, languageID  FROM User WHERE userID = ?";
     private final String GETFRIENDSBYID = "SELECT friend, receiver, status FROM Request WHERE (receiver=? or friend=?) AND status = 1";
     private final String GETFRIENDREQUESTBYID = "SELECT friend, receiver, status FROM Request WHERE receiver=? AND status = 0";
     private final String DELETEFRIENDBYIDS = "DELETE from Request where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status=1";
@@ -309,7 +309,21 @@ public class UserDao implements IDao<User>
             int uid = res.getInt("userID");
             String ur = res.getString("username");
             String password = res.getString("password");
-            user = new User(uid, ur, password, Language.EN);
+            int lan = res.getInt("languageID");
+            Language lang;
+            if (lan == 1)
+            {
+                lang = Language.EN;
+            }
+            else if (lan == 2)
+            {
+                lang = Language.NL;
+            }
+            else
+            {
+                lang = Language.FR;
+            }
+            user = new User(uid, ur, password, lang);
         }
         catch (SQLException ex)
         {
