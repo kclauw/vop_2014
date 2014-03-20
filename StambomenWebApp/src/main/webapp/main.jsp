@@ -20,24 +20,22 @@
     <body>
         <div id="topbar" class="shadow">
             <div class="wrapper">
-                <a href="./index.jsp"><img id="logo" src="./images/logo.png" height="35" alt="Tree" /></a>
-                <ul id="menu">
-                    <li><a href="./main.jsp">Trees</a></li>
-                    <li><a href="./FriendServlet">Friends</a></li>
-                    <li><a href="./index.jsp?logout=logout">Logout</a></li>
-                </ul>
+                <c:import url = "/Components/header.jsp"></c:import>
+                    <ul id="menu">
+                        <c:import url = "/Components/menu.jsp"></c:import>
+                    </ul>    
+                </div>
             </div>
-        </div>
-        <div class="wrapper">
-            <div>
-                <h1>Familytrees</h1>
-                <ul class="treelist">
+            <div class="wrapper">
+                <div>
+                    <h1>Familytrees</h1>
+                    <ul class="treelist">
                     <c:forEach var="tree" items="${trees}" varStatus="counter">
                         <a href="./TreeServlet?treeid=${tree.id}" class="itemblock"><li>
-                            <div>${tree.name}</div>
-                            <img class="privacy" src="./images/${tree.privacy}.png" alt="${tree.privacy}" />
-                        </li></a>
-                    </c:forEach>
+                                <div>${tree.name}</div>
+                                <img class="privacy" src="./images/${tree.privacy}.png" alt="${tree.privacy}" />
+                            </li></a>
+                        </c:forEach>
                 </ul>
             </div>
         </div>

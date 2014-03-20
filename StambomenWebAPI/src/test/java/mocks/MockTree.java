@@ -2,6 +2,7 @@ package mocks;
 
 import domain.Coordinate;
 import domain.Gender;
+import domain.Language;
 import domain.Person;
 import domain.Place;
 import domain.Privacy;
@@ -35,13 +36,13 @@ public class MockTree implements ITreeDAO<Tree>
         Date d3 = new Date("24/5/1992");
         coord = new Coordinate(1, 0, 0);
         place = new Place.PlaceBuilder("Zoersel")
-                    .placeId(1)
-                    .countryId(1)
-                    .placeNameId(1)
-                    .coord(coord)
-                    .country("België")
-                    .zipCode("2980")
-                    .build();
+                .placeId(1)
+                .countryId(1)
+                .placeNameId(1)
+                .coord(coord)
+                .country("België")
+                .zipCode("2980")
+                .build();
 //        Person person1 = new Person(1, "Peter", "Verreth", gm, d1, null, place, null, null);
 //        Person person2 = new Person(1, "Shirley", "Verreth", gf, d1, null, place, null, null);
 //        Person person3 = new Person(1, "Jelle", "Verreth", gm, d1, null, place, person1, person2);
@@ -51,7 +52,7 @@ public class MockTree implements ITreeDAO<Tree>
 //        person1 = person1.getPerson(1, "Peter", "Verreth", gm, d1, null, place, null, null);
 //        person2 = person2.getPerson(1, "Shirley", "Verreth", gf, d1, null, place, null, null);
 //        person3 = person3.getPerson(1, "Jelle", "Verreth", gm, d1, null, place, person1, person2);
-        user = new User(1, "Jelle", "Verreth", "en");
+        user = new User(1, "Jelle", "Verreth", Language.EN);
         List<Person> lPer = null;
 
         lPer.add(person1);

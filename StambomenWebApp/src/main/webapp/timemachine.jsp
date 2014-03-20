@@ -17,7 +17,7 @@
         <link rel="stylesheet" type="text/css" href="./css/general.css"/>
         <link rel="stylesheet" type="text/css" href="./css/timemachine.css"/>
         <link rel="stylesheet" type="text/css" href="./css/custom-theme/jquery-ui-1.10.4.custom.min.css"/>
-        
+
         <script src="./js/jquery-1.11.0.min.js"></script>
         <script src="./js/jquery-ui-1.10.4.custom.min.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvtR35KQlMs6IuWdR7Bx3bvnOEIpl1C3w&sensor=false"></script>
@@ -26,15 +26,13 @@
     <body>
         <div id="topbar" class="shadow">
             <div class="wrapper">
-                <a href="./index.jsp"><img id="logo" src="./images/logo.png" height="35" alt="Tree" /></a>
-                <ul id="menu">
-                    <li><a href="./main.jsp">Trees</a></li>
-                    <li><a href="./FriendServlet">Friends</a></li>
-                    <li><a href="./index.jsp?logout=logout">Logout</a></li>
+                <c:import url = "/Components/header.jsp"></c:import>
+                    <ul id="menu">
+                    <c:import url = "/Components/menu.jsp"></c:import>
                 </ul>
             </div>
         </div>
-        
+
         <div class="wrapper">
             <div>
                 <div id="map-canvas"></div>

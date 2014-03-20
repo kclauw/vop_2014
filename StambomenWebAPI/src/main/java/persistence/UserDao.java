@@ -1,5 +1,6 @@
 package persistence;
 
+import domain.Language;
 import domain.Privacy;
 import domain.User;
 import java.sql.Connection;
@@ -10,7 +11,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,9 +30,9 @@ public class UserDao implements IDao<User>
     private final String SENDFRIENDREQUEST = "INSERT INTO Request (friend,receiver,status) select ?,?,0 from dual where not exists ( select * from Request where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status!=2 )";
     private final String SETLANGUAGE = "UPDATE User set languageID=? where userID=?;";
     private final String GETLANGUAGE = "SELECT languageID FROM User where userID=?;";
-    private final String SETUSERPRIVACY = "UPDATE USER SET privacy = ? WHERE userID = ?";
-    private final String GETUSERPROFILE = "SELECT * FROM USER WHERE userID = ? AND privacy = ?";
-    private final String GETUSERPROFILES = "SELECT * FROM USER WHERE userID != ? AND privacy = ?";
+    private final String SETUSERPRIVACY = "UPDATE User SET privacy = ? WHERE userID = ?";
+    private final String GETUSERPROFILE = "SELECT * FROM User WHERE userID = ? AND privacy = ?";
+    private final String GETUSERPROFILES = "SELECT * FROM User WHERE userID != ? AND privacy = ?";
 
     public UserDao()
     {
@@ -67,7 +67,7 @@ public class UserDao implements IDao<User>
         }
         catch (Exception ex)
         {
-            java.util.logging.Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            logger.info("[USER DAO][SQLException][Get]Exception: " + ex.getMessage());
         }
         finally
         {
@@ -99,18 +99,16 @@ public class UserDao implements IDao<User>
             prep.setString(2, value.getPassword());
             logger.info("[USER DAO] Saving user " + prep.toString());
             prep.executeUpdate();
+
             con.close();
         }
         catch (SQLException ex)
         {
             logger.info("[USER DAO][SQLException][Save]Sql exception: " + ex.getMessage());
-            ex.printStackTrace();
         }
         catch (Exception ex)
         {
-            java.util.logging.Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
-            throw new IllegalArgumentException(ex);
+            logger.info("[USER DAO][SQLException][Save]Exception: " + ex.getMessage());
         }
         finally
         {
@@ -129,15 +127,13 @@ public class UserDao implements IDao<User>
     }
 
     @Override
-    public void update(User value
-    )
+    public void update(User value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(User value
-    )
+    public void delete(User value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -313,16 +309,15 @@ public class UserDao implements IDao<User>
             int uid = res.getInt("userID");
             String ur = res.getString("username");
             String password = res.getString("password");
-            user = new User(uid, ur, password, "en");
+            user = new User(uid, ur, password, Language.EN);
         }
         catch (SQLException ex)
         {
             logger.info("[USER DAO][SQLException][Map]Sql exception: " + ex.getMessage());
         }
-        catch (IllegalArgumentException ex)
+        catch (Exception ex)
         {
-            logger.info("[USER DAO][SQLException][Map]Illegalargument exception: " + ex.getMessage());
-            throw ex;
+            logger.info("[USER DAO][SQLException][Map]Exception: " + ex.getMessage());
         }
 
         return user;
@@ -505,13 +500,14 @@ public class UserDao implements IDao<User>
         PreparedStatement prep = null;
         try
         {
-            if (userID <= 0 && language <= 0)
+            if (userID >= 0 && language >= 0)
             {
                 con = DatabaseUtils.getConnection();
                 prep = con.prepareStatement(SETLANGUAGE);
                 prep.setInt(1, language);
                 prep.setInt(2, userID);
                 prep.executeUpdate();
+
             }
             con.close();
         }
