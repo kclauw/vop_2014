@@ -55,6 +55,7 @@ public class ImageDAO
         {
             if (exist)
             {
+                
                 return new URI(readUrl + treeID + "/" + personID + ".jpg");
             }
             else
@@ -76,7 +77,9 @@ public class ImageDAO
         {
             if (exist)
             {
-                return new URI(readUrl + "/" + personID + ".jpg");
+                System.out.println(readUrl);
+                
+                return new URI(readUrl  + personID + ".jpg");
             }
             else
             {
@@ -93,6 +96,7 @@ public class ImageDAO
 
     public void save(int personID, BufferedImage bufferedImage) throws IOException
     {
+        
         try
         {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -100,7 +104,7 @@ public class ImageDAO
             baos.flush();
             byte[] imageInByte = baos.toByteArray();
             baos.close();
-            sardine.put(url + personID + ".jpg", imageInByte);
+            sardine.put(url + "/" + personID + ".jpg", imageInByte);
         }
         catch (SardineException ex)
         {
@@ -147,6 +151,8 @@ public class ImageDAO
 
         return false;
     }
+    
+      
 
     private void setUrlPath() throws UnknownHostException
     {

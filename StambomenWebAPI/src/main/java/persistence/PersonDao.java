@@ -594,7 +594,7 @@ public class PersonDao implements IDao<Person>
             boolean pictureExists = res.getBoolean("picture");
 
             URI picture = pc.getPicture(personID, pictureExists);
-
+          
            Gender g = Gender.getGender(gender);
             Place p = pc.getPlace(res);
             person = new Person.PersonBuilder(firstName, lastName, g)

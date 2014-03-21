@@ -125,6 +125,26 @@ public class PersonService
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
         }
     }
+    
+    @POST
+    @Path("/upload/image/{personID}")
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    public Response saveImage(@PathParam("personID") int personID, InputStream bufferedImage)
+    {
+        try
+        {
+            logger.info("TRYING TO SAVE IMAGE " + bufferedImage);
+            String result = "Saving new Image for person " + personID;
+            logger.info("[SAVE][PERSONSERVICE] SAVING image for " + personID);
+            pc.savePersonImage(personID, ImageIO.read(bufferedImage));
+            return Response.status(Response.Status.OK).entity(result).build();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
+        }
+    }
 
     @GET
     @Path("/delete/images/{treeID}/{personID}")

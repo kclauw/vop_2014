@@ -115,6 +115,11 @@ public class PersonController
     {
         pc.savePersonImage(personID, bufferedImage);
     }
+    
+    public void savePersonImage( int personID, BufferedImage bufferedImage) throws IOException
+    {
+        pc.savePersonImage(personID, bufferedImage);
+    }
 
     public List<Person> getPersons(int treeID, int start, int max)
     {
