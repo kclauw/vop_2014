@@ -47,6 +47,7 @@ public class AdminPanel extends javax.swing.JPanel
   
 
     private ClientPersonController personController;
+    private FamilyTreeDetailPanel familyTreeDetailPanel;
  
     private List<PersonDTO> persons;
   
@@ -66,6 +67,8 @@ public class AdminPanel extends javax.swing.JPanel
     {
         initComponents();
         this.personController = new ClientPersonController();
+        this.familyTreeDetailPanel = new FamilyTreeDetailPanel();
+        
      
         persons = personController.getPersons(0, 100);
         
@@ -122,8 +125,12 @@ public class AdminPanel extends javax.swing.JPanel
                
                 int selectedRow  = table.getSelectedRow();
                 selectedRow = table.convertRowIndexToModel(selectedRow);
-                String val1 = (String)table.getModel().getValueAt(selectedRow, 2);
-                System.out.println(val1);
+                PersonDTO val1 = (PersonDTO)table.getModel().getValueAt(selectedRow, 3);
+                System.out.println(val1.getPersonId());
+                familyTreeDetailPanel.setPerson(val1);
+                
+                        
+                
             }
         }); 
         
@@ -142,19 +149,10 @@ public class AdminPanel extends javax.swing.JPanel
         
         status.add(l2);
         status.add(statusText);
-        
+        form.add(familyTreeDetailPanel);
         form.add(filter);
         form.add(status);
         form.add(btnTree);
-        
-        
-        
-      
-        
-       
-        
-        
-        
 
         //Whenever filterText changes, invoke newFilter.
         filterText.getDocument().addDocumentListener(
@@ -169,12 +167,9 @@ public class AdminPanel extends javax.swing.JPanel
                         newFilter();
                     }
                 });
-       
-        
-       
-        
         add(pane,BorderLayout.LINE_START);
         add(form,BorderLayout.CENTER);
+        
         //add(panel,BorderLayout.EAST);
 
      

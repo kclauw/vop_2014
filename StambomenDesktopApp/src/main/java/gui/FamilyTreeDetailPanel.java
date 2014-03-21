@@ -23,12 +23,20 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private boolean edit = false;
     private PersonDTO person;
     private FamilyTreeTotalPanel fttp;
+    private AdminPanel admin;
     private TreeController treeController;
     private boolean adding = false;
 
     public FamilyTreeDetailPanel(PersonDTO person, FamilyTreeTotalPanel fttp)
     {
         this.fttp = fttp;
+        initComponents();
+        setEditable(false);
+    }
+    
+     public FamilyTreeDetailPanel()
+    {
+        
         initComponents();
         setEditable(false);
     }
