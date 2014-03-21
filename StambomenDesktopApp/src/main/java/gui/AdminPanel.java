@@ -1,45 +1,27 @@
 package gui;
 
 import gui.controller.AdminController;
-import gui.controller.TreeOverviewController;
-import gui.controls.FamilyTreeList;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
-import javax.swing.ScrollPaneConstants;
 import dto.PersonDTO;
 import dto.PersonTableModel;
-import java.awt.ComponentOrientation;
-import java.awt.Event;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collection;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
-import javax.swing.SpringLayout;
-import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import javax.xml.bind.Marshaller.Listener;
 import service.ClientPersonController;
-import service.ClientUserController;
-import static sun.net.www.http.HttpClient.New;
 
 public class AdminPanel extends javax.swing.JPanel
 {
@@ -81,11 +63,27 @@ public class AdminPanel extends javax.swing.JPanel
         table.setFillsViewportHeight(true);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+        public void valueChanged(ListSelectionEvent event) {
+            // do some actions here, for example
+            // print first column value from selected row
+            int selectedRow  = table.getSelectedRow();
+                selectedRow = table.convertRowIndexToModel(selectedRow);
+                PersonDTO val1 = (PersonDTO)table.getModel().getValueAt(selectedRow, 3);
+                System.out.println(val1.getImage());
+                
+                familyTreeDetailPanel.setPerson(val1);
+        }
+    });
         //selection change -> provide user with row numbers for view &  model
         
         table.getSelectionModel().addListSelectionListener(
                 new ListSelectionListener() {
                     public void valueChanged(ListSelectionEvent event) {
+                        
+                        
+                
+                        
                         int viewRow = table.getSelectedRow();
                         if (viewRow < 0) {
                             //Selection got filtered away.
@@ -116,21 +114,23 @@ public class AdminPanel extends javax.swing.JPanel
         JPanel filter = new JPanel();
         JPanel status = new JPanel();
         JButton btnTree = new JButton();
+        JButton btnBlock = new JButton();
         btnTree.setText("Toon bomen van de geselecteerde persoon");
+        btnTree.setText("Blokkeer persoon");
+        
         btnTree.addActionListener(new ActionListener() {
  
             public void actionPerformed(ActionEvent e)
             {
-               // table.get(table.convertRowIndexToModel(selectedRow));
-               
-                int selectedRow  = table.getSelectedRow();
-                selectedRow = table.convertRowIndexToModel(selectedRow);
-                PersonDTO val1 = (PersonDTO)table.getModel().getValueAt(selectedRow, 3);
-                System.out.println(val1.getPersonId());
-                familyTreeDetailPanel.setPerson(val1);
-                
-                        
-                
+               // table.get(table.convertRowIndexToModel(selectedRow));     
+            }
+        }); 
+        
+        btnBlock.addActionListener(new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+               // table.get(table.convertRowIndexToModel(selectedRow));     
             }
         }); 
         

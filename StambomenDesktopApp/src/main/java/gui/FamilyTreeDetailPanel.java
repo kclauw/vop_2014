@@ -628,8 +628,9 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 textFieldCountry.setText(place.getCountry());
                 textFieldZipCode.setText(place.getZipCode());
             }
-
+            if(person.getImage() != null){
             labelPicture.setIcon(new ImageIcon(person.getImage()));
+            }
 
         }
     }

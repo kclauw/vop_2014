@@ -104,7 +104,7 @@ public class GuiController
             case ADMIN:
                 programFrame.add(adminController.show());
                 programFrame.setTitle("Admin");
-                programFrame.setSize(800, 400);
+                programFrame.setSize(1024, 600);
                 break;
         }
         programFrame.revalidate();
