@@ -72,10 +72,10 @@ public class PersonController
         pc.updatePerson(person);
     }
 
-    public Person getPerson(int id)
+    public Person getPerson(int treeID, int personID)
     {
-        logger.info("[PERSON CONTROLLER] Getting person by id " + id);
-        return pc.getPerson(id);
+        logger.info("[PERSON CONTROLLER] Getting person by id " + personID);
+        return pc.getPerson(treeID, personID);
     }
 
     public Collection<Person> getPersons(int personID)
@@ -93,7 +93,7 @@ public class PersonController
     public void addPerson(int treeID, Person person)
     {
         /*Check wheter the person exists. This should be place in a repo.*/
-        Person ps = pc.getPerson(person.getPersonId());
+        Person ps = pc.getPerson(treeID, person.getPersonId());
 
         if (ps != null)
         {

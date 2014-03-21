@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import util.PersonUtil;
 
 public class ClientTreeService
 {
@@ -79,6 +80,15 @@ public class ClientTreeService
 
         tree = client.target(url + "tree/" + treeID).request(MediaType.APPLICATION_JSON).get(TreeDTO.class);
         fixReferenceRelations(tree);
+
+        List<PersonDTO> persons = tree.getPersons();
+
+        for (PersonDTO person : persons)
+        {
+            person.setPartner(PersonUtil.getPartner(person, persons));
+            person.setChilderen(PersonUtil.getChilderen(person, persons));
+        }
+
         return tree;
     }
 
