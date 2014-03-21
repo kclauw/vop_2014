@@ -44,6 +44,7 @@ public class TreePane extends JComponent
             Rectangle2D.Double b1 = getBoundsOfNode(root);
             double x1 = b1.getCenterX();
             double y1 = b1.getCenterY();
+
             level++;
 
             for (PersonDTO child : this.treeLayout.getTree().getChildren(root))
@@ -51,11 +52,11 @@ public class TreePane extends JComponent
                 Rectangle2D.Double b2 = getBoundsOfNode(child);
                 double x2 = b2.getCenterX();
                 double y2 = b2.getCenterY();
-
-                g.drawLine((int) x1, (int) y1, (int) x1, (int) y1);
-
-                g.drawLine((int) x1, (int) y1, (int) x2, (int) y1);
-                g.drawLine((int) x2, (int) y1, (int) x2, (int) y2);
+                double line = y2 - ((y2 - y1) * 0.5);
+                System.out.println("X1: " + x1 + " AND Y1: " + y1 + " AND LINE IS" + line);
+                g.drawLine((int) x1, (int) line, (int) x1, (int) y1);
+                g.drawLine((int) x2, (int) line, (int) x2, (int) y2);
+                g.drawLine((int) x2, (int) line, (int) x1, (int) line);
 
                 //       g.drawLine((int) x1, (int) y1, (int) b2.getCenterX(),(int) b2.getCenterY());
                 paintEdges(g, child, level);
@@ -97,7 +98,7 @@ public class TreePane extends JComponent
         if (partner != null)
         {
             g.setColor(Color.PINK);
-            Rectangle2D.Double partnerBox = new Rectangle2D.Double(box.x + 75, box.y, 75, 30);
+            Rectangle2D.Double partnerBox = new Rectangle2D.Double(box.x + 66, box.y, 66, 25);
 
             g.fillRoundRect((int) partnerBox.x, (int) partnerBox.y, (int) partnerBox.width - 1,
                     (int) partnerBox.height - 1, ARC_SIZE, ARC_SIZE);
