@@ -202,21 +202,15 @@ public class AdminPanel extends javax.swing.JPanel
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
 
         setRequestFocusEnabled(false);
         setLayout(new java.awt.BorderLayout());
-
-        jButton2.setText("jButton2");
-        jPanel1.add(jButton2);
-
         add(jPanel1, java.awt.BorderLayout.CENTER);
         jPanel1.getAccessibleContext().setAccessibleName("");
         jPanel1.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
     public void setAdminController(AdminController a)
