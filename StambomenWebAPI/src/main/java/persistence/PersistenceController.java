@@ -216,10 +216,20 @@ public class PersistenceController
     {
         return imageDao.get(treeID, personID, pictureExists);
     }
+     public URI getPicture(int personID, boolean pictureExists)
+    {
+        return imageDao.get(personID, pictureExists);
+    }
 
     public List<Person> getPersons(int treeID, int start, int max)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get persons ");
         return personDao.getPersons(treeID, start, max);
+    }
+    
+     public List<Person> getPersons(int start, int max)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Get persons without tree ");
+        return personDao.getPersons(start, max);
     }
 }

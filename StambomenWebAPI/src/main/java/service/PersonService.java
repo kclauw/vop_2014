@@ -156,6 +156,18 @@ public class PersonService
 
         return persons;
     }
+    
+     @GET
+    @Path("/persons/{start}/{max}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Person> getPersons( @PathParam("start") int start, @PathParam("max") int max) throws IOException
+    {
+        logger.info("[PERSON SERVICE][GET] Getting persons");
+        System.out.println("GET - TreeServices");
+        List<Person> persons = pc.getPersons(start, max);
+
+        return persons;
+    }
 
     /*
      Voor fiddler:

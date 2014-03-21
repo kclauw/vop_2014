@@ -120,4 +120,9 @@ public class PersonController
     {
         return pc.getPersons(treeID, start, max);
     }
+    
+    public List<Person> getPersons( int start, int max)
+    {
+        return pc.getPersons(start, max);
+    }
 }

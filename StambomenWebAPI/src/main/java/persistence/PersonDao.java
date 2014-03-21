@@ -287,10 +287,54 @@ public class PersonDao implements IDao<Person>
         }
     }
 
-    @Override
-    public Collection<Person> getAll()
+    public List<Person> getPersons(int start, int max)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Person> persons = new ArrayList<Person>();
+        ResultSet res = null;
+        PreparedStatement prep = null;
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(GETPERSONS);
+            prep.setInt(1, start);
+            prep.setInt(2, max);
+            logger.info("[PERSON DAO] GET ALL PERSON " + prep.toString());
+            res = prep.executeQuery();
+
+            while (res.next())
+            {
+                Person person = map(res);
+
+                persons.add(person);
+            }
+
+            con.close();
+
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[PERSONDAOSQL][Exception][GetAll]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[PERSONDAO][Exception][GetAll]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        
+        return persons;
     }
 
     public Collection<Person> GetAll(int treeID)
@@ -478,6 +522,7 @@ public class PersonDao implements IDao<Person>
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
 
     public List<Person> getPersons(int treeID, int start, int max)
     {
@@ -530,8 +575,57 @@ public class PersonDao implements IDao<Person>
         return persons;
     }
 
+     public Person map(ResultSet res)
+    {
+       
+        Person person = null;
+
+        try
+        {
+            int personID = res.getInt("personID");
+            String firstName = res.getString("firstname");
+            String lastName = res.getString("lastname");
+            byte gender = res.getByte("gender");
+            Date birthDate = res.getDate("birthdate");
+            Date deathDate = res.getDate("deathdate");
+
+            Person father = null;
+            Person mother = null;
+            boolean pictureExists = res.getBoolean("picture");
+
+            URI picture = pc.getPicture(personID, pictureExists);
+
+           Gender g = Gender.getGender(gender);
+            Place p = pc.getPlace(res);
+            person = new Person.PersonBuilder(firstName, lastName, g)
+                    .personId(personID)
+                    .birthDate(birthDate)
+                    .deathDate(deathDate)
+                    .father(father)
+                    .mother(mother)
+                    .place(p)
+                    .picture(picture)
+                    .build();
+          
+            logger.debug("[PERSON DAO] Mapping person:" + person);
+
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[PERSONDAO][SQLException][Map]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[PERSONDAO][Exception][Map]Exception: " + ex.getMessage());
+        }
+
+        return person;
+
+    }
+    
+
     @Override
-    public Person map(ResultSet res)
+    public Collection<Person> getAll()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
