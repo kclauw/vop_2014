@@ -53,7 +53,6 @@ public class TreePane extends JComponent
                 double x2 = b2.getCenterX();
                 double y2 = b2.getCenterY();
                 double line = y2 - ((y2 - y1) * 0.5);
-                System.out.println("X1: " + x1 + " AND Y1: " + y1 + " AND LINE IS" + line);
                 g.drawLine((int) x1, (int) line, (int) x1, (int) y1);
                 g.drawLine((int) x2, (int) line, (int) x2, (int) y2);
                 g.drawLine((int) x2, (int) line, (int) x1, (int) line);
