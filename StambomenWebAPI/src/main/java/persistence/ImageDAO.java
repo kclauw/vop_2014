@@ -69,6 +69,27 @@ public class ImageDAO
 
         return null;
     }
+    
+        public URI get(int personID, boolean exist)
+    {
+        try
+        {
+            if (exist)
+            {
+                return new URI(readUrl + "/" + personID + ".jpg");
+            }
+            else
+            {
+                return new URI(readUrl + "DefaultMale.png");
+            }
+        }
+        catch (URISyntaxException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
 
     public void save(int personID, BufferedImage bufferedImage) throws IOException
     {
