@@ -1,5 +1,6 @@
 package service;
 
+import dto.LanguageDTO;
 import dto.PrivacyDTO;
 import dto.UserDTO;
 import java.util.List;
@@ -74,9 +75,20 @@ public class ClientUserController
     public void setLanguage(int language)
     {
         int userID = ClientServiceController.getInstance().getUser().getId();
-        String response;
         logger.info("[CLIENT USER CONTROLLER][SET LANGUAGE]Set language with id: " + language + " user with id: " + userID);
-        response = client.setLanguage(userID, language);
+        client.setLanguage(userID, language);
+    }
+
+    public LanguageDTO getLanguage()
+    {
+        int userID = ClientServiceController.getInstance().getUser().getId();
+        logger.info("[CLIENT USER CONTROLLER][GET LANGUAGE]Get language from user with id: " + userID);
+        return client.getLanguage(userID);
+    }
+
+    public int getCurrentUserID()
+    {
+        return ClientServiceController.getInstance().getUser().getId();
     }
 
     public void setUserPrivacy(PrivacyDTO userPrivacy)

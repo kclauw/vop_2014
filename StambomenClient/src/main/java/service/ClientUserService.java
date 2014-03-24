@@ -2,6 +2,7 @@ package service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dto.LanguageDTO;
 import dto.PrivacyDTO;
 import dto.UserDTO;
 import java.util.List;
@@ -135,11 +136,22 @@ public class ClientUserService
         Response response = client.target(url + "user/setLanguage/" + userID + "/" + languageID).request(MediaType.APPLICATION_JSON).get();
         if (response.getStatus() != 200)
         {
-// /user/setLanguage/{userID}/{languageID}
             return " " + response.readEntity(String.class);
         }
 
         return null;
+    }
+
+    public LanguageDTO getLanguage(int userID)
+    {
+        logger.info("[CLIENT USER SERVICE][GET LANGUAGE]Get language from user with id: " + userID);
+        LanguageDTO language;
+        Client client = ClientServiceController.getInstance().getClient();
+        language = client.target(url + "user/getLanguage/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<LanguageDTO>()
+        {
+        });
+
+        return language;
     }
 
     public String setUserPrivacy(int userID, PrivacyDTO userPrivacy)
