@@ -8,12 +8,15 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import javax.imageio.ImageIO;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -136,4 +139,18 @@ public class ClientPersonService
         bg.dispose();
         return bi;
     }
+
+    List<PersonDTO> getPersons(int start, int max)
+    {
+        logger.info("[CLIENT PERSON SERVICE][GET PERSONS]Getting persons ");
+
+        Client client = ClientServiceController.getInstance().getClient();
+        client.register(new JacksonFeature());
+        List<PersonDTO> persons = client.target(url + "person/persons/" + start + "/" + max).request(MediaType.APPLICATION_JSON).get(new GenericType<List<PersonDTO>>()
+        {
+        });
+
+        return persons;
+    }
+
 }

@@ -3,6 +3,7 @@ package persistence;
 import domain.Gender;
 import domain.Person;
 import domain.Place;
+import java.net.URI;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,6 +50,7 @@ public class PersonDao implements IDao<Person>
             + " where d.personID = ? "
             + " GROUP BY d.personID "
             + " ORDER BY pr.parent ASC ";
+    private final String GETPERSONS = "SELECT personID,birthplace,firstname,lastname,gender,birthdate,deathdate,picture,fbprofileif FROM Person ORDER BY lastname DESC LIMIT ?, ?";
     private PersistenceController pc;
     private final Logger logger;
     private int lastInsertedId;
@@ -142,8 +144,7 @@ public class PersonDao implements IDao<Person>
             if (res.next())
             {
                 System.out.println("[PERSON DAO][GET][FOUND A RESULT!]");
-                person = map(res, persMap);
-                person.setPicture(pc.getPicture(treeID, person.getPersonId()));
+                person = map(treeID, res, persMap);
                 mapRelations(persons, persMap);
             }
 
@@ -286,10 +287,54 @@ public class PersonDao implements IDao<Person>
         }
     }
 
-    @Override
-    public Collection<Person> getAll()
+    public List<Person> getPersons(int start, int max)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Person> persons = new ArrayList<Person>();
+        ResultSet res = null;
+        PreparedStatement prep = null;
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(GETPERSONS);
+            prep.setInt(1, start);
+            prep.setInt(2, max);
+            logger.info("[PERSON DAO] GET ALL PERSON " + prep.toString());
+            res = prep.executeQuery();
+
+            while (res.next())
+            {
+                Person person = map(res);
+
+                persons.add(person);
+            }
+
+            con.close();
+
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[PERSONDAOSQL][Exception][GetAll]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[PERSONDAO][Exception][GetAll]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        
+        return persons;
     }
 
     public Collection<Person> GetAll(int treeID)
@@ -309,8 +354,7 @@ public class PersonDao implements IDao<Person>
 
             while (res.next())
             {
-                Person person = map(res, personMap);
-                person.setPicture(pc.getPicture(treeID, person.getPersonId()));
+                Person person = map(treeID, res, personMap);
                 persons.add(person);
             }
 
@@ -343,14 +387,13 @@ public class PersonDao implements IDao<Person>
         return persons;
     }
 
-    @Override
-    public Person map(ResultSet res)
+    public Person map(int treeID, ResultSet res)
     {
         Person person = null;
 
         try
         {
-            int personId = res.getInt("personID");
+            int personID = res.getInt("personID");
             String firstName = res.getString("firstname");
             String lastName = res.getString("lastname");
             byte gender = res.getByte("gender");
@@ -359,19 +402,23 @@ public class PersonDao implements IDao<Person>
 
             Person father = null;
             Person mother = null;
+            boolean pictureExists = res.getBoolean("picture");
+
+            URI picture = pc.getPicture(treeID, personID, pictureExists);
 
             Gender g = Gender.getGender(gender);
             Place p = pc.getPlace(res);
             person = new Person.PersonBuilder(firstName, lastName, g)
-                    .personId(personId)
+                    .personId(personID)
                     .birthDate(birthDate)
                     .deathDate(deathDate)
                     .father(father)
                     .mother(mother)
                     .place(p)
+                    .picture(picture)
                     .build();
             //person = new Person(personId, firstName, lastName, g, birthDate, deathDate, p, father, mother);
-            logger.info("[PERSON DAO] Mapping person:" + person);
+            logger.debug("[PERSON DAO] Mapping person:" + person);
 
         }
         catch (SQLException ex)
@@ -387,9 +434,9 @@ public class PersonDao implements IDao<Person>
 
     }
 
-    public Person map(ResultSet res, MultiMap<Integer, Person> persMap)
+    public Person map(int treeID, ResultSet res, MultiMap<Integer, Person> persMap)
     {
-        Person person = map(res);
+        Person person = map(treeID, res);
 
         try
         {
@@ -397,17 +444,15 @@ public class PersonDao implements IDao<Person>
 
             int parentId2 = res.getInt("parent2");
 
-            logger.info("[PERSON DAO][Map parent] P1: " + parentId1 + " P2: " + parentId2);
+            logger.debug("[PERSON DAO][Map parent] P1: " + parentId1 + " P2: " + parentId2);
 
             if (parentId1 != 0)
             {
                 persMap.add(parentId1, person);
-                System.out.println("Adding parent1 " + parentId1);
             }
             if (parentId2 != 0)
             {
                 persMap.add(parentId2, person);
-                System.out.println("Adding parent2 " + parentId2);
             }
 
         }
@@ -435,15 +480,12 @@ public class PersonDao implements IDao<Person>
         System.out.println("[PERSON DAO] Number of persMAP " + persMap.keySet().size());
         for (int personId : persMap.keySet())
         {
-            System.out.println("[PERSON DAO] LOOKING FOR PERSON WITH ID " + personId);
-
             for (Person p : persons)
             {
                 if (p.getPersonId() == personId)
                 {
                     if (p.getGender() == Gender.FEMALE)
                     {
-                        System.out.println("[PERSON DAO] Setting mother " + p.getFirstName() + " for Person " + persMap.getOne(personId).getFirstName());
                         for (Person per : persMap.get(personId))
                         {
                             per.setMother(p);
@@ -452,7 +494,6 @@ public class PersonDao implements IDao<Person>
                     }
                     else if (p.getGender() == Gender.MALE)
                     {
-                        System.out.println("[PERSON DAO] Setting father " + p.getFirstName() + " for Person " + persMap.getOne(personId).getFirstName());
                         for (Person per : persMap.get(personId))
                         {
                             per.setFather(p);
@@ -478,6 +519,113 @@ public class PersonDao implements IDao<Person>
 
     @Override
     public Person get(int id)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+
+    public List<Person> getPersons(int treeID, int start, int max)
+    {
+        List<Person> persons = new ArrayList<Person>();
+        MultiMap<Integer, Person> personMap = new MultiMap<Integer, Person>();
+        ResultSet res = null;
+        PreparedStatement prep = null;
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(GETPERSONS);
+            prep.setInt(1, start);
+            prep.setInt(2, max);
+            logger.info("[PERSON DAO] GET ALL PERSON " + prep.toString());
+            res = prep.executeQuery();
+
+            while (res.next())
+            {
+                Person person = map(treeID, res, personMap);
+
+                persons.add(person);
+            }
+
+            con.close();
+
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[PERSONDAOSQL][Exception][GetAll]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[PERSONDAO][Exception][GetAll]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        mapRelations(persons, personMap);
+        return persons;
+    }
+
+     public Person map(ResultSet res)
+    {
+       
+        Person person = null;
+
+        try
+        {
+            int personID = res.getInt("personID");
+            String firstName = res.getString("firstname");
+            String lastName = res.getString("lastname");
+            byte gender = res.getByte("gender");
+            Date birthDate = res.getDate("birthdate");
+            Date deathDate = res.getDate("deathdate");
+
+            Person father = null;
+            Person mother = null;
+            boolean pictureExists = res.getBoolean("picture");
+
+            URI picture = pc.getPicture(personID, pictureExists);
+          
+           Gender g = Gender.getGender(gender);
+            Place p = pc.getPlace(res);
+            person = new Person.PersonBuilder(firstName, lastName, g)
+                    .personId(personID)
+                    .birthDate(birthDate)
+                    .deathDate(deathDate)
+                    .father(father)
+                    .mother(mother)
+                    .place(p)
+                    .picture(picture)
+                    .build();
+          
+            logger.debug("[PERSON DAO] Mapping person:" + person);
+
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[PERSONDAO][SQLException][Map]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[PERSONDAO][Exception][Map]Exception: " + ex.getMessage());
+        }
+
+        return person;
+
+    }
+    
+
+    @Override
+    public Collection<Person> getAll()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

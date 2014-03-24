@@ -13,6 +13,7 @@ public class LoginController implements IPanelController
     private LoginPanel loginPanel;
     private GuiController gui;
     private ClientUserController clientUserController;
+    private boolean admin = true;
 
     public LoginController(GuiController guiC)
     {
@@ -41,8 +42,10 @@ public class LoginController implements IPanelController
     {
         System.out.println("[LOGINCONTROLLER] login" + user.toString());
         String login = clientUserController.login(user);
-        System.out.println("REPLY FROM SERVICE:" + login);
 
+        System.out.println("REPLY FROM SERVICE:" + login);
+        goTo(Panels.LOGIN);
+//hier moet controle komen op role
         if (login != null)
         {
             this.loginPanel.setError(login);
@@ -50,8 +53,10 @@ public class LoginController implements IPanelController
         else
         {
             System.out.println("Login succes");
+
             goTo(Panels.TREEOVERVIEW);
         }
+
     }
 
 }

@@ -3,7 +3,6 @@ package gui.tree;
 import dto.PersonDTO;
 import java.util.List;
 import org.abego.treelayout.util.AbstractTreeForTreeLayout;
-import util.PersonUtil;
 
 public class PersonTreeForTreeLayout extends AbstractTreeForTreeLayout<PersonDTO>
 {
@@ -19,13 +18,26 @@ public class PersonTreeForTreeLayout extends AbstractTreeForTreeLayout<PersonDTO
     @Override
     public PersonDTO getParent(PersonDTO tn)
     {
-        return PersonUtil.getPartner(tn, persons);
+        PersonDTO father = tn.getFather();
+        PersonDTO mother = tn.getMother();
+
+        if (father != null)
+        {
+            return father;
+        }
+
+        if (mother != null)
+        {
+            return mother;
+        }
+
+        return null;
     }
 
     @Override
     public List<PersonDTO> getChildrenList(PersonDTO tn)
     {
-        return PersonUtil.getChilderen(tn, persons);
+        return tn.getChilderen();
     }
 
 }

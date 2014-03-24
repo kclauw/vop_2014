@@ -3,7 +3,9 @@ package service;
 import domain.Person;
 import domain.controller.PersonController;
 import exception.PersonAlreadyExistsException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -92,14 +94,14 @@ public class PersonService
     }
 
     @GET
-    @Path("{personID}")
+    @Path("{treeID}/{personID}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Person getPerson(@PathParam("personID") int personID)
+    public Person getPerson(@PathParam("treeID") int treeID, @PathParam("personID") int personID)
     {
         logger.info("[GET][PERSONSERVICE]" + personID);
         System.out.println("GET - PersonServices" + personID);
-        Person t = pc.getPerson(personID);
+        Person t = pc.getPerson(treeID, personID);
         System.out.println(t);
         return t;
     }
@@ -115,6 +117,26 @@ public class PersonService
             String result = "Saving new Image for person " + personID;
             logger.info("[SAVE][PERSONSERVICE] SAVING image for " + personID);
             pc.savePersonImage(personID, treeID, ImageIO.read(bufferedImage));
+            return Response.status(Response.Status.OK).entity(result).build();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
+        }
+    }
+    
+    @POST
+    @Path("/upload/image/{personID}")
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    public Response saveImage(@PathParam("personID") int personID, InputStream bufferedImage)
+    {
+        try
+        {
+            logger.info("TRYING TO SAVE IMAGE " + bufferedImage);
+            String result = "Saving new Image for person " + personID;
+            logger.info("[SAVE][PERSONSERVICE] SAVING image for " + personID);
+            pc.savePersonImage(personID, ImageIO.read(bufferedImage));
             return Response.status(Response.Status.OK).entity(result).build();
         }
         catch (Exception e)
@@ -143,6 +165,29 @@ public class PersonService
         }
     }
 
+    @GET
+    @Path("/persons/{treeID}/{start}/{max}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Person> getPersons(@PathParam("treeID") int treeID, @PathParam("start") int start, @PathParam("max") int max) throws IOException
+    {
+        logger.info("[PERSON SERVICE][GET] Getting persons");
+        System.out.println("GET - TreeServices");
+        List<Person> persons = pc.getPersons(treeID, start, max);
+
+        return persons;
+    }
+    
+     @GET
+    @Path("/persons/{start}/{max}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Person> getPersons( @PathParam("start") int start, @PathParam("max") int max) throws IOException
+    {
+        logger.info("[PERSON SERVICE][GET] Getting persons");
+        System.out.println("GET - TreeServices");
+        List<Person> persons = pc.getPersons(start, max);
+
+        return persons;
+    }
 
     /*
      Voor fiddler:

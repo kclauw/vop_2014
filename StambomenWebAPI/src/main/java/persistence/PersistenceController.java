@@ -114,7 +114,7 @@ public class PersistenceController
 
     public Place getPlace(ResultSet res)
     {
-        logger.info("[PERSISTENCE CONTROLLER] Get place based on a resultset");
+        logger.debug("[PERSISTENCE CONTROLLER] Get place based on a resultset");
         return placeDao.map(res);
     }
 
@@ -124,10 +124,10 @@ public class PersistenceController
         personDao.delete(personId);
     }
 
-    public Person getPerson(int personId)
+    public Person getPerson(int treeID, int personId)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get person with id" + personId);
-        return personDao.get(personId);
+        return personDao.get(treeID, personId);
     }
 
     public void updatePerson(Person person)
@@ -212,8 +212,24 @@ public class PersistenceController
         imageDao.save(personID, bufferedImage);
     }
 
-    public URI getPicture(int treeID, int personID)
+    public URI getPicture(int treeID, int personID, boolean pictureExists)
     {
-        return imageDao.get(treeID, personID);
+        return imageDao.get(treeID, personID, pictureExists);
+    }
+     public URI getPicture(int personID, boolean pictureExists)
+    {
+        return imageDao.get(personID, pictureExists);
+    }
+
+    public List<Person> getPersons(int treeID, int start, int max)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Get persons ");
+        return personDao.getPersons(treeID, start, max);
+    }
+    
+     public List<Person> getPersons(int start, int max)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Get persons without tree ");
+        return personDao.getPersons(start, max);
     }
 }

@@ -11,7 +11,7 @@ public class GuiController
 {
 
     private JFrame programFrame;
-
+    private AdminController adminController;
     private LoginController loginController;
     private RegisterController registerController;
     private TreeOverviewController treeControllerOverviewController;
@@ -62,6 +62,7 @@ public class GuiController
         treeController = new TreeController(this);
         addTreeController = new AddTreeController(this);
         settingsController = new SettingsController(this);
+        adminController = new AdminController(this);
     }
 
     public void goTo(Panels frame)
@@ -99,6 +100,11 @@ public class GuiController
                 programFrame.add(settingsController.show());
                 programFrame.setTitle("Settings");
                 programFrame.setSize(250, 150);
+                break;
+            case ADMIN:
+                programFrame.add(adminController.show());
+                programFrame.setTitle("Admin");
+                programFrame.setSize(1024, 600);
                 break;
         }
         programFrame.revalidate();

@@ -67,10 +67,8 @@ public class UserController
         {
             return user;
         }
-        else
-        {
-            throw new IllegalArgumentException("Invalid credentials.");
-        }
+
+        return null;
     }
 
     public User getUser(String username)

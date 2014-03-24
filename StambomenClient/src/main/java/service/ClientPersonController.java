@@ -2,6 +2,7 @@ package service;
 
 import dto.PersonDTO;
 import java.awt.Image;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +43,12 @@ public class ClientPersonController
     public String deleteImage(int treeID, int personID)
     {
         return clientPersonService.deleteImage(treeID, personID);
+    }
+
+    public List<PersonDTO> getPersons(int start, int max)
+    {
+
+        return clientPersonService.getPersons(start, max);
     }
 
 }
