@@ -94,7 +94,7 @@ public class PersistenceController
         userDao.setLanguage(userID, language);
     }
 
-    public String getLanguage(int userID)
+    public int getLanguage(int userID)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get Language for userid" + userID);
         return userDao.getLanguage(userID);

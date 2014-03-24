@@ -1,5 +1,6 @@
 package service;
 
+import domain.Language;
 import domain.Privacy;
 import domain.User;
 import domain.controller.UserController;
@@ -168,26 +169,6 @@ public class UserService
     }
 
     @GET
-    @Path("/get/language/{personId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getLanguage(@PathParam("personId") int personId)
-    {
-        org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
-        logger.info("[GET][USERSERVICE]");
-
-        try
-        {
-            String lan = uc.getLanguage(personId);
-            return lan;
-        }
-        catch (Exception ex)
-        {
-            return "en";
-        }
-
-    }
-
-    @GET
     @Path("/get/profile/setUserPrivacy/{userID}/{userPrivacy}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response setUserPrivacy(@PathParam("userID") int userID, @PathParam("userPrivacy") Privacy userPrivacy)
@@ -203,6 +184,42 @@ public class UserService
         {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
+    }
+
+    @GET
+    @Path("/getLanguage/{userID}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getLanguage(@PathParam("userID") int userID)
+    {
+        logger.info("[User Service][SET LANGUAGE]Get language from  user with id: " + userID);
+
+        Language lan;
+        try
+        {
+            int i = uc.getLanguage(userID);
+            if (i == 1)
+            {
+                lan = Language.EN;
+            }
+            else if (i == 2)
+            {
+                lan = Language.NL;
+            }
+            else if (i == 3)
+            {
+                lan = Language.FR;
+            }
+            else
+            {
+                lan = Language.NL;
+            }
+            return Response.ok(lan).build();
+        }
+        catch (Exception ex)
+        {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
+
     }
 
     @GET

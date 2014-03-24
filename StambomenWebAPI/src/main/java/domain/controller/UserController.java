@@ -105,7 +105,7 @@ public class UserController
         pc.sendFriendRequest(userID, frienduserName);
     }
 
-    public String getLanguage(int userID)
+    public int getLanguage(int userID)
     {
         return pc.getLanguage(userID);
     }
