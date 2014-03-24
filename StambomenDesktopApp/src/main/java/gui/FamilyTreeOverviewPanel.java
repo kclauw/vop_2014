@@ -5,9 +5,12 @@ import gui.controls.FamilyTreeList;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import util.Translator;
 
 public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 {
@@ -17,13 +20,14 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
     public FamilyTreeOverviewPanel()
     {
         initComponents();
+        Translator trans = new Translator();
         JMenuBar menuBar = new JMenuBar();
 
-        JMenu menu = new JMenu("Tree");
-        JMenu menuS = new JMenu("Settings");
+        JMenu menu = new JMenu(trans.translate("Tree"));
+        JMenu menuS = new JMenu(trans.translate("Settings"));
 
-        JMenuItem settingsItem = new JMenuItem("Change language");
-        JMenuItem addTreeItem = new JMenuItem("Add tree");
+        JMenuItem settingsItem = new JMenuItem(trans.translate("ChangeLanguage"));
+        JMenuItem addTreeItem = new JMenuItem(trans.translate("AddTree"));
 
         settingsItem.addActionListener(new ActionListener()
         {
