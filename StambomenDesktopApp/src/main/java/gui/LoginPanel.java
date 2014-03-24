@@ -2,20 +2,26 @@ package gui;
 
 import dto.UserDTO;
 import gui.controller.LoginController;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 public class LoginPanel extends javax.swing.JPanel
 {
 
     private LoginController loginPanel;
+    private JList menuList;
+    private JScrollPane menuScrollPane;
 
     public LoginPanel()
     {
         initComponents();
+
     }
 
     public void setLoginController(LoginController login)
     {
         this.loginPanel = login;
+
     }
 
     /**
@@ -46,7 +52,7 @@ public class LoginPanel extends javax.swing.JPanel
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         txtUsername.setDefaultText("Username");
-        txtUsername.setText("");
+        txtUsername.setText("Axl");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -56,7 +62,7 @@ public class LoginPanel extends javax.swing.JPanel
         jPanel1.add(txtUsername, gridBagConstraints);
 
         txtPassword.setDefaultText("Password");
-        txtPassword.setText("");
+        txtPassword.setText("123456789");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
