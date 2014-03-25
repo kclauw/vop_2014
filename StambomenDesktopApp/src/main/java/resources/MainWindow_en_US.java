@@ -25,13 +25,13 @@ public class MainWindow_en_US extends ListResourceBundle
             "AddTree", "Add Tree"
         },
         {
-            "exitLabel", "Exit"
+            "Admin", "Admin"
         },
         {
-            "editLabel", "Edit"
+            "PersonOverview", "Person overview"
         },
         {
-            "toolsLabel", "Tools"
+            "UserOverview", "User overview"
         },
         {
             "helpLabel", "Help"
