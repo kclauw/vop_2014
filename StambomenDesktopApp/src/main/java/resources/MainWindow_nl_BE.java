@@ -25,13 +25,13 @@ public class MainWindow_nl_BE extends ListResourceBundle
             "AddTree", "Voeg boom toe"
         },
         {
-            "exitLabel", "Exit"
+            "Admin", "Beheerder"
         },
         {
-            "editLabel", "Edit"
+            "PersonOverview", "Personen overzicht"
         },
         {
-            "toolsLabel", "Tools"
+            "UserOverview", "Gebruikers overzicht"
         },
         {
             "helpLabel", "Help"

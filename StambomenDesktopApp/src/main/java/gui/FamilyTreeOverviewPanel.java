@@ -26,12 +26,12 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
         JMenu menu = new JMenu(trans.translate("Tree"));
         JMenu menuS = new JMenu(trans.translate("Settings"));
-        JMenu menuA = new JMenu("Admin");
+        JMenu menuA = new JMenu(trans.translate("Admin"));
 
         JMenuItem settingsItem = new JMenuItem(trans.translate("ChangeLanguage"));
         JMenuItem addTreeItem = new JMenuItem(trans.translate("AddTree"));
-        JMenuItem personItem = new JMenuItem("Person overview");
-        JMenuItem userItem = new JMenuItem("User overview");
+        JMenuItem personItem = new JMenuItem(trans.translate("PersonOverview"));
+        JMenuItem userItem = new JMenuItem(trans.translate("UserOverview"));
 
         settingsItem.addActionListener(new ActionListener()
         {
