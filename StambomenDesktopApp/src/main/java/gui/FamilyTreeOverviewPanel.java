@@ -33,15 +33,6 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         JMenuItem personItem = new JMenuItem(trans.translate("PersonOverview"));
         JMenuItem userItem = new JMenuItem(trans.translate("UserOverview"));
 
-        settingsItem.addActionListener(new ActionListener()
-        {
-
-            public void actionPerformed(ActionEvent e)
-            {
-                treeController.goTo(Panels.SETTINGS);
-            }
-        });
-
         addTreeItem.addActionListener(new ActionListener()
         {
 
@@ -57,6 +48,15 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
             public void actionPerformed(ActionEvent e)
             {
                 treeController.goTo(Panels.ADMIN);
+            }
+        });
+
+        settingsItem.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                treeController.goTo(Panels.SETTINGS);
             }
         });
 

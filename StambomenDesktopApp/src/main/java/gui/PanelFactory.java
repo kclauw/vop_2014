@@ -28,6 +28,7 @@ public class PanelFactory
                 break;
             case SETTINGS:
                 panel = new SettingsPanel();
+                break;
             case ADMIN:
                 panel = new AdminPanel();
                 break;
