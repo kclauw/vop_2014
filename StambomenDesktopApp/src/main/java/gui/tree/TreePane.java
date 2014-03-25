@@ -18,7 +18,7 @@ import org.abego.treelayout.TreeLayout;
 public class TreePane extends JComponent
 {
 
-    private final static int ARC_SIZE = 15;
+    private final static int ARC_SIZE = 20;
     private final static Color BOX_COLOR = Color.orange;
     private final static Color BORDER_COLOR = Color.darkGray;
     private final static Color TEXT_COLOR = Color.black;
@@ -34,7 +34,7 @@ public class TreePane extends JComponent
         this.persons = persons;
         this.fttp = fttp;
         Dimension size = tree.getBounds().getBounds().getSize();
-        setPreferredSize(new Dimension(size.width + 500, size.height + 500));
+        setPreferredSize(new Dimension(size.width + 100, size.height + 100));
     }
 
     private void paintEdges(Graphics g, PersonDTO root, int level)

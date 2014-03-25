@@ -5,6 +5,7 @@
  */
 package gui;
 
+import dto.GenderDTO;
 import dto.PersonDTO;
 import gui.controller.TreeController;
 import gui.tree.PersonNodeExtentProvider;
@@ -12,6 +13,8 @@ import gui.tree.PersonTreeForTreeLayout;
 import gui.tree.TreePane;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -31,8 +34,7 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     private List<PersonDTO> persons;
     private TreeLayout<PersonDTO> layout;
     private int maxGapBetweenNodes = 50;
-    private int maxGapBetweenLevel = 200;
-    private int timesZoomed;
+    private int maxGapBetweenLevel = 50;
 
     /**
      * Creates new form FamilyTreeTotalPanel
@@ -98,11 +100,32 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     public void drawFamilyTree(List<PersonDTO> persons)
     {
         this.persons = persons;
-        PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), persons);
+
+        List<PersonDTO> toRemove = new ArrayList<PersonDTO>();
+
+        for (PersonDTO person : this.persons)
+        {
+            if (person.getGender() == GenderDTO.MALE)
+            {
+                PersonDTO p = person.getPartner();
+
+                if (p != null && p.getGender() == GenderDTO.FEMALE)
+                {
+                    toRemove.add(p);
+                }
+            }
+        }
+
+        for (PersonDTO p : toRemove)
+        {
+            this.persons.remove(p);
+        }
+
+        PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), this.persons);
         layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), new DefaultConfiguration<PersonDTO>(maxGapBetweenNodes, maxGapBetweenLevel, Configuration.Location.Top, Configuration.AlignmentInLevel.AwayFromRoot));
         TreePane tree;
 
-        tree = new TreePane(layout, persons, this);
+        tree = new TreePane(layout, this.persons, this);
 
         this.scroll.add(tree);
         this.scroll.setViewportView(tree);
@@ -143,7 +166,6 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
 
     public void zoomIn()
     {
-        timesZoomed++;
 
         if (this.persons != null && this.persons.size() > 0)
         {
@@ -157,7 +179,6 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     {
         try
         {
-            timesZoomed--;
 
             if (this.persons != null && this.persons.size() > 0)
             {
