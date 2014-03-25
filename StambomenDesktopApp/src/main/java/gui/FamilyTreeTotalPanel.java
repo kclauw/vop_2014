@@ -106,9 +106,6 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
 
         this.scroll.add(tree);
         this.scroll.setViewportView(tree);
-
-        repaint();
-        revalidate();
     }
 
     public void drawFamilyTree(List<PersonDTO> persons, DefaultConfiguration def)
@@ -122,9 +119,6 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
 
         this.scroll.add(tree);
         this.scroll.setViewportView(tree);
-
-        repaint();
-        revalidate();
     }
 
     public void deletePerson(PersonDTO person)

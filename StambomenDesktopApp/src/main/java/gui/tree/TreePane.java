@@ -11,9 +11,9 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JComponent;
 import org.abego.treelayout.TreeLayout;
-import util.PersonUtil;
 
 public class TreePane extends JComponent
 {
@@ -42,7 +42,7 @@ public class TreePane extends JComponent
         if (!treeLayout.getTree().isLeaf(root))
         {
             Rectangle2D.Double b1 = getBoundsOfNode(root);
-            double x1 = b1.getCenterX();
+            double x1 = b1.getMaxX();
             double y1 = b1.getCenterY();
 
             level++;
@@ -50,9 +50,9 @@ public class TreePane extends JComponent
             for (PersonDTO child : this.treeLayout.getTree().getChildren(root))
             {
                 Rectangle2D.Double b2 = getBoundsOfNode(child);
-                double x2 = b2.getCenterX();
+                double x2 = b2.getMaxX();
                 double y2 = b2.getCenterY();
-                double line = y2 - ((y2 - y1) * 0.5);
+                double line = y2 - ((y2 - y1) * 0.40);
                 g.drawLine((int) x1, (int) line, (int) x1, (int) y1);
                 g.drawLine((int) x2, (int) line, (int) x2, (int) y2);
                 g.drawLine((int) x2, (int) line, (int) x1, (int) line);
@@ -66,7 +66,7 @@ public class TreePane extends JComponent
 
     private void paintPerson(Graphics g, PersonDTO person)
     {
-        PersonDTO partner = PersonUtil.getPartner(person, persons);
+        PersonDTO partner = person.getPartner();
 
         // draw the box in the background
         if (partner == null)
@@ -114,24 +114,25 @@ public class TreePane extends JComponent
     private void drawString(Graphics g, String lines, Rectangle2D.Double box)
     {
         g.setColor(Color.BLACK);
-
         FontMetrics m = getFontMetrics(getFont());
         int x = (int) box.x + ARC_SIZE / 2;
         int y = (int) box.y + m.getAscent() + m.getLeading() + 1;
-
         g.drawString(lines, x, y);
-
     }
 
     @Override
     public void paint(Graphics g)
     {
-        removeAllCurrentEvents();
-        super.paint(g);
-        paintEdges(g, treeLayout.getTree().getRoot(), 0);
 
-        for (PersonDTO person : treeLayout.getNodeBounds().keySet())
+        removeAllCurrentEvents();
+        //  super.paint(g);
+        paintEdges(g, treeLayout.getTree().getRoot(), 0);
+        Set<PersonDTO> personKeys = treeLayout.getNodeBounds().keySet();
+
+        for (PersonDTO person : personKeys)
         {
+            PersonDTO partner = person.getPartner();
+            personKeys.remove(partner);
             paintPerson(g, person);
         }
 
@@ -162,13 +163,14 @@ public class TreePane extends JComponent
 
     private void removeAllCurrentEvents()
     {
-        if (events.size() > 0)
+
+        for (MouseAdapter adapt : events)
         {
-            for (MouseAdapter adapt : events)
-            {
-                this.removeMouseListener(adapt);
-            }
+            this.removeMouseListener(adapt);
+
         }
+
+        events.clear();
     }
 
 }
