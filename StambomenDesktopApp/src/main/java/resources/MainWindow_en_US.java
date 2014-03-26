@@ -34,7 +34,32 @@ public class MainWindow_en_US extends ListResourceBundle
             "UserOverview", "User overview"
         },
         {
-            "helpLabel", "Help"
+            "Language", "Language:"
+        },
+        {
+            "SetLanguage", "Set Language"
+        },
+        {
+            "AddATree", "Add a tree"
+        },
+        {
+            "Name", "Name"
+        },
+        {
+            "Privacy", "Privacy"
+        },
+        {
+            "OnlyFriends", "Only friends"
+        },
+        {
+            "Public", "Public"
+        },
+        {
+            "Private", "Private"
+        },
+        {
+            "Back", "Back"
         }
+
     };
 }

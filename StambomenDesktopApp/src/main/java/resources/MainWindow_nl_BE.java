@@ -34,7 +34,32 @@ public class MainWindow_nl_BE extends ListResourceBundle
             "UserOverview", "Gebruikers overzicht"
         },
         {
-            "helpLabel", "Help"
+            "Language", "Taal:"
+        },
+        {
+            "SetLanguage", "Selecteer Taal"
+        },
+        {
+            "AddATree", "Voeg een boom toe"
+        },
+        {
+            "Name", "Naam"
+        },
+        {
+            "Privacy", "Privacy"
+        },
+        {
+            "OnlyFriends", "Alleen vrienden"
+        },
+        {
+            "Public", "Publiek"
+        },
+        {
+            "Private", "Privaat"
+        },
+        {
+            "Back", "Terug"
         }
+
     };
 }
