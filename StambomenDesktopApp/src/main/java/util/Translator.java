@@ -12,14 +12,14 @@ public class Translator
 {
 
     private ResourceBundle messages;
-    private ClientUserController cclient;
+    private ClientUserController client;
     private LanguageDTO lang;
     private int id;
 
     public Translator()
     {
-        this.cclient = new ClientUserController();
-        lang = cclient.getLanguage();
+        this.client = new ClientUserController();
+        lang = client.getLanguage();
         if (lang == LanguageDTO.EN)
         {
             selectLanguage("en", "US");
