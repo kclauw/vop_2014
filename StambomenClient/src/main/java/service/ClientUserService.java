@@ -142,18 +142,6 @@ public class ClientUserService
         return null;
     }
 
-    public LanguageDTO getLanguage(int userID)
-    {
-        logger.info("[CLIENT USER SERVICE][GET LANGUAGE]Get language from user with id: " + userID);
-        LanguageDTO language;
-        Client client = ClientServiceController.getInstance().getClient();
-        language = client.target(url + "user/getLanguage/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<LanguageDTO>()
-        {
-        });
-
-        return language;
-    }
-
     public String setUserPrivacy(int userID, PrivacyDTO userPrivacy)
     {
         logger.info("[CLIENT USER SERVICE][SET USER PRIVACY]Set user privacy for user with id:" + userID + "to privacy state:" + userPrivacy);

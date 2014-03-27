@@ -68,7 +68,6 @@ public class ClientUserController
     {
         logger.info("[CLIENT USER CONTROLLER][SEND FRIEND REQUEST]Friend request naar user:" + frienduserName.toString());
         int userID = ClientServiceController.getInstance().getUser().getId();
-
         client.sendFriendRequest(userID, frienduserName);
     }
 
@@ -77,13 +76,26 @@ public class ClientUserController
         int userID = ClientServiceController.getInstance().getUser().getId();
         logger.info("[CLIENT USER CONTROLLER][SET LANGUAGE]Set language with id: " + language + " user with id: " + userID);
         client.setLanguage(userID, language);
+        LanguageDTO lan = LanguageDTO.EN;
+        if (language == 1)
+        {
+            lan = LanguageDTO.EN;
+        }
+        else if (language == 2)
+        {
+            lan = LanguageDTO.NL;
+        }
+        else if (language == 3)
+        {
+            lan = LanguageDTO.FR;
+        }
+        ClientServiceController.getInstance().getUser().setLanguage(lan);
     }
 
     public LanguageDTO getLanguage()
     {
-        int userID = ClientServiceController.getInstance().getUser().getId();
-        logger.info("[CLIENT USER CONTROLLER][GET LANGUAGE]Get language from user with id: " + userID);
-        return client.getLanguage(userID);
+        return ClientServiceController.getInstance().getUser().getLanguage();
+        //logger.info("[CLIENT USER CONTROLLER][GET LANGUAGE]Get language from user with id: " + userID);
     }
 
     public int getCurrentUserID()
