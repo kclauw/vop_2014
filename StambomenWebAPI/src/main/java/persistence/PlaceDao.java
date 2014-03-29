@@ -41,11 +41,15 @@ public class PlaceDao implements IDao<Place>
     private final String SAVECOORD = "INSERT INTO Coordinates VALUES (null,?,?);";
 
     private final String SAVEPLACE = "INSERT INTO Place VALUES (null, ?, ?, ?, ?)";
+    private final String UPDATEPLACE = "UPDATE Place SET coordinatesID = ?, countryID = ?, zipcode = ?, placenameID = ? WHERE placeID = ?";
 
     private final Logger logger;
+    private PersistenceController pc;
+    Connection con;
 
-    public PlaceDao()
+    public PlaceDao(PersistenceController pc)
     {
+        this.pc = pc;
         logger = LoggerFactory.getLogger(getClass());
     }
 
@@ -110,7 +114,6 @@ public class PlaceDao implements IDao<Place>
         int coordinateID = -1;
         PreparedStatement prep = null;
         ResultSet res = null;
-        Connection con = null;
 
         try
         {
@@ -122,13 +125,17 @@ public class PlaceDao implements IDao<Place>
             prep = con.prepareStatement(SAVEPLACE);
             Coordinate coord = place.getCoord();
 
-            //TODO!!!
             if (coord != null && coord.getId() != -1)
             {
                 coordinateID = coord.getId();
                 prep.setInt(1, coordinateID);
             }
-            else if (coord != null)
+            else if (coord == null)
+            {
+                coord = pc.getCoordinates(place);
+            }
+
+            if (coord != null && coord.getId() == -1)
             {
                 coordinateID = saveCoordinate(coord);
                 prep.setInt(1, coordinateID);
@@ -177,9 +184,80 @@ public class PlaceDao implements IDao<Place>
     }
 
     @Override
-    public void update(Place value)
+    public void update(Place place)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int countryID = -1;
+        int placeNameID = -1;
+        int coordinateID = -1;
+        PreparedStatement prep = null;
+        ResultSet res = null;
+
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            countryID = saveCountry(place);
+
+            placeNameID = savePlace(place);
+
+            prep = con.prepareStatement(UPDATEPLACE);
+            Coordinate coord = place.getCoord();
+
+            if (coord != null && coord.getId() != -1)
+            {
+                coordinateID = coord.getId();
+                prep.setInt(1, coordinateID);
+            }
+            else if (coord == null)
+            {
+                coord = pc.getCoordinates(place);
+            }
+
+            if (coord != null && coord.getId() == -1)
+            {
+                coordinateID = saveCoordinate(coord);
+                prep.setInt(1, coordinateID);
+            }
+            else
+            {
+                prep.setNull(1, Types.INTEGER);
+            }
+
+            prep.setInt(2, countryID);
+
+            String zipCode = place.getZipCode();
+
+            if (zipCode != null)
+            {
+                prep.setString(3, place.getZipCode());
+            }
+            else
+            {
+                prep.setNull(3, Types.VARCHAR);
+            }
+
+            prep.setInt(4, placeNameID);
+
+            prep.executeUpdate();
+
+        }
+        catch (Exception ex)
+        {
+            java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }
 
     @Override
@@ -289,6 +367,11 @@ public class PlaceDao implements IDao<Place>
         if (place.getPlaceId() == -1)
         {
             save(place);
+            return get(place);
+        }
+        else if (place.getCoord() == null || place.getCoord().getId() <= 0)
+        {
+            update(place);
             return get(place);
         }
         else
@@ -428,7 +511,7 @@ public class PlaceDao implements IDao<Place>
 
     private int saveCoordinate(Coordinate coord)
     {
-        int coordinateID = 0;
+        int coordinateID = -1;
         Place p = null;
         ResultSet res = null;
         PreparedStatement prep = null;

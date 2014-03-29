@@ -46,6 +46,11 @@ public class Place
         return coord;
     }
 
+    public void setCoord(Coordinate coordinate)
+    {
+        this.coord = coordinate;
+    }
+
     public String getCountry()
     {
         return country;
