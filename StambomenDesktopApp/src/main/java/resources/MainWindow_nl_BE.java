@@ -59,6 +59,30 @@ public class MainWindow_nl_BE extends ListResourceBundle
         },
         {
             "Back", "Terug"
+        },
+        {
+            "Save", "Opslaan"
+        },
+        {
+            "SaveMessage", "Bent u zeker dat u wilt opslaan?"
+        },
+        {
+            "Edit", "Aanpassen"
+        },
+        {
+            "DeleteMessage", "Bent u zeker dat u deze persoon wilt verwijderen?"
+        },
+        {
+            "ClickSave", "Klikken om op te slaan!"
+        },
+        {
+            "ImageFiles", "Bestand afbeeldingen"
+        },
+        {
+            "ImageMessage", "Je hebt geen bestand geselecteerd!"
+        },
+        {
+            "Person", "Persoon"
         }
 
     };

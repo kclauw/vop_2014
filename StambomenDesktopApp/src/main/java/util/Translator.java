@@ -41,7 +41,6 @@ public class Translator
     public void selectLanguage(String language, String country)
     {
         messages = ResourceBundle.getBundle("resources.MainWindow", new Locale(language, country));
-
     }
 
     public String translate(String message)

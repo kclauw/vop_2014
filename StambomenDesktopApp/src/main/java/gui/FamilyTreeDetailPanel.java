@@ -27,6 +27,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private AdminPanel admin;
     private TreeController treeController;
     private boolean adding = false;
+    private String title = "test";
 
     public FamilyTreeDetailPanel(PersonDTO person, FamilyTreeTotalPanel fttp)
     {
@@ -40,14 +41,22 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
         initComponents();
         setEditable(false);
+        translate();
+    }
+
+    public void translate()
+    {
+        Translator trans = new Translator();
+        btnEdit.setText(trans.translate("Save"));
+        setBorder(javax.swing.BorderFactory.createTitledBorder("test"));
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents()
     {
         java.awt.GridBagConstraints gridBagConstraints;
-        Translator trans = new Translator();
+
         buttonGroup1 = new javax.swing.ButtonGroup();
         jButton1 = new javax.swing.JButton();
         personPanel = new javax.swing.JPanel();
@@ -82,7 +91,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
         jButton1.setText("jButton1");
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder("Person"));
+        setBorder(javax.swing.BorderFactory.createTitledBorder(getTitle()));
         setLayout(new java.awt.GridBagLayout());
 
         personPanel.setLayout(new java.awt.GridBagLayout());
@@ -383,7 +392,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weighty = 1.5;
         add(detailPanel, gridBagConstraints);
-    }// </editor-fold>
+    }// </editor-fold>//GEN-END:initComponents
 
     private void textFieldFirstnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textFieldFirstnameActionPerformed
     {//GEN-HEADEREND:event_textFieldFirstnameActionPerformed
@@ -391,16 +400,17 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     }//GEN-LAST:event_textFieldFirstnameActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        Translator trans = new Translator();
         if (!edit)
         {
-            btnEdit.setText("save");
+            btnEdit.setText(trans.translate("Save"));
             this.setEditable(true);
             setButtonActive(btnEdit);
             edit = true;
         }
         else
         {
-            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to save?");
+            int confirm = JOptionPane.showConfirmDialog(null, trans.translate("SaveMessage"));
 
             if (confirm == JOptionPane.YES_OPTION)
             {
@@ -431,14 +441,15 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             }
 
             this.setEditable(false);
-            btnEdit.setText("edit");
+            btnEdit.setText(trans.translate("Edit"));
             edit = false;
             setAllButtonsActive();
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this person?");
+        Translator trans = new Translator();
+        int confirm = JOptionPane.showConfirmDialog(null, trans.translate("DeleteMessage"));
 
         if (confirm == JOptionPane.YES_OPTION)
         {
@@ -449,6 +460,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
     {//GEN-HEADEREND:event_btnAddActionPerformed
+        Translator trans = new Translator();
         if (!adding)
         {
             adding = true;
@@ -459,7 +471,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             this.textFieldZipCode.setText("");
             this.setEditable(true);
             setButtonActive(btnAdd);
-            btnAdd.setText("Click to save!");
+            btnAdd.setText(trans.translate("ClickSave"));
         }
         else if (adding)
         {
@@ -517,9 +529,9 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
     private void btnAddPictureActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddPictureActionPerformed
     {//GEN-HEADEREND:event_btnAddPictureActionPerformed
-
+        Translator trans = new Translator();
         JFileChooser fc = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(trans.translate("ImageFiles"), "jpg", "png");
         fc.addChoosableFileFilter(filter);
         fc.setAcceptAllFileFilterUsed(false);
         fc.setFileFilter(filter);
@@ -540,7 +552,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         }
         else
         {
-            JOptionPane.showMessageDialog(this, "You didn't select a file!");
+            JOptionPane.showMessageDialog(this, trans.translate("ImageMessage"));
         }
 
         fc.setSelectedFile(null);
@@ -630,6 +642,12 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             }
 
         }
+    }
+
+    private String getTitle()
+    {
+        Translator trans = new Translator();
+        return trans.translate("Person");
     }
 
     private void setButtonActive(JButton b)

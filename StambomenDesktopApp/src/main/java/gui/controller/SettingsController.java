@@ -35,7 +35,7 @@ public class SettingsController
     public void setLanguage(int language)
     {
         clientUserController.setLanguage(language);
-        this.gui.goTo(Panels.TREEOVERVIEW);
+        //this.gui.goTo(Panels.SETTINGS);
     }
 
     public void back()

@@ -39,4 +39,8 @@ public class AddTreeController implements IPanelController
         this.gui.goTo(Panels.TREEOVERVIEW);
     }
 
+    public void back()
+    {
+        this.gui.goTo(Panels.TREEOVERVIEW);
+    }
 }

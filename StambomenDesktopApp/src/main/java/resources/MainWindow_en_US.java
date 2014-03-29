@@ -59,6 +59,27 @@ public class MainWindow_en_US extends ListResourceBundle
         },
         {
             "Back", "Back"
+        },
+        {
+            "Save", "Save"
+        },
+        {
+            "SaveMessage", "Are you sure you want to save?"
+        },
+        {
+            "DeleteMessage", "Are you sure you want to delete this person?"
+        },
+        {
+            "ClickSave", "Click to save!"
+        },
+        {
+            "ImageFiles", "Image Files"
+        },
+        {
+            "ImageMessage", "You didn't select a file!"
+        },
+        {
+            "Person", "Person"
         }
 
     };
