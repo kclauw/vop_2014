@@ -13,13 +13,7 @@ public class MainWindow_nl_BE extends ListResourceBundle
     private Object[][] contents =
     {
         {
-            "Settings", "Instellingen"
-        },
-        {
-            "ChangeLanguage", "Verander taal"
-        },
-        {
-            "Tree", "Boom"
+            "AddATree", "Voeg een boom toe"
         },
         {
             "AddTree", "Voeg boom toe"
@@ -28,37 +22,73 @@ public class MainWindow_nl_BE extends ListResourceBundle
             "Admin", "Beheerder"
         },
         {
-            "PersonOverview", "Personen overzicht"
+            "Back", "Terug"
         },
         {
-            "UserOverview", "Gebruikers overzicht"
+            "ChangeLanguage", "Verander taal"
+        },
+        {
+            "City", "Postcode"
+        },
+        {
+            "ClickSave", "Klik om op te slaan!"
+        },
+        {
+            "DBirth", "Geboortedatum"
+        },
+        {
+            "DDeath", "Overlijdingsdatum"
+        },
+        {
+            "DeleteMessage", "Bent u zeker dat u deze persoon wilt verwijderen?"
+        },
+        {
+            "Female", "Vrouw"
+        },
+        {
+            "Firstname", "Voornaam"
+        },
+        {
+            "Gender", "Geslacht"
+        },
+        {
+            "ImageFiles", "Afbeeldingsbestanden"
+        },
+        {
+            "ImageMessage", "Je hebt geen bestand geselecteerd!"
         },
         {
             "Language", "Taal:"
         },
         {
-            "SetLanguage", "Selecteer Taal"
+            "Lastname", "Achternaam"
         },
         {
-            "AddATree", "Voeg een boom toe"
+            "Male", "Man"
         },
         {
             "Name", "Naam"
         },
         {
+            "OnlyFriends", "Alleen Vrienden"
+        },
+        {
+            "Person", "Persoon"
+        },
+        {
+            "PersonOverview", "Personen overzicht"
+        },
+        {
+            "Picture", "Afbeelding"
+        },
+        {
             "Privacy", "Privacy"
-        },
-        {
-            "OnlyFriends", "Alleen vrienden"
-        },
-        {
-            "Public", "Publiek"
         },
         {
             "Private", "Privaat"
         },
         {
-            "Back", "Terug"
+            "Public", "Publiek"
         },
         {
             "Save", "Opslaan"
@@ -67,22 +97,19 @@ public class MainWindow_nl_BE extends ListResourceBundle
             "SaveMessage", "Bent u zeker dat u wilt opslaan?"
         },
         {
-            "Edit", "Aanpassen"
+            "SetLanguage", "Selecteer taal"
         },
         {
-            "DeleteMessage", "Bent u zeker dat u deze persoon wilt verwijderen?"
+            "Settings", "Instellingen"
         },
         {
-            "ClickSave", "Klikken om op te slaan!"
+            "Tree", "Boom"
         },
         {
-            "ImageFiles", "Bestand afbeeldingen"
+            "UserOverview", "Gebruikers overzicht"
         },
         {
-            "ImageMessage", "Je hebt geen bestand geselecteerd!"
-        },
-        {
-            "Person", "Persoon"
+            "ZipCode", "Postcode"
         }
 
     };

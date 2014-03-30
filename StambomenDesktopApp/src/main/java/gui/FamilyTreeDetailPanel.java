@@ -49,6 +49,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         Translator trans = new Translator();
         btnEdit.setText(trans.translate("Save"));
         setBorder(javax.swing.BorderFactory.createTitledBorder("test"));
+        jLabel1.setText(trans.translate("DBirth"));
+        jLabel2.setText(trans.translate("DDeath"));
+        radioMale.setText(trans.translate("Male"));
+        radioFemale.setText(trans.translate("Female"));
     }
 
     @SuppressWarnings("unchecked")

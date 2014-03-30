@@ -13,13 +13,7 @@ public class MainWindow_en_US extends ListResourceBundle
     private Object[][] contents =
     {
         {
-            "Settings", "Settings"
-        },
-        {
-            "ChangeLanguage", "Change language"
-        },
-        {
-            "Tree", "Tree"
+            "AddATree", "Add a tree"
         },
         {
             "AddTree", "Add Tree"
@@ -28,49 +22,34 @@ public class MainWindow_en_US extends ListResourceBundle
             "Admin", "Admin"
         },
         {
-            "PersonOverview", "Person overview"
-        },
-        {
-            "UserOverview", "User overview"
-        },
-        {
-            "Language", "Language:"
-        },
-        {
-            "SetLanguage", "Set Language"
-        },
-        {
-            "AddATree", "Add a tree"
-        },
-        {
-            "Name", "Name"
-        },
-        {
-            "Privacy", "Privacy"
-        },
-        {
-            "OnlyFriends", "Only friends"
-        },
-        {
-            "Public", "Public"
-        },
-        {
-            "Private", "Private"
-        },
-        {
             "Back", "Back"
         },
         {
-            "Save", "Save"
+            "ChangeLanguage", "Change language"
         },
         {
-            "SaveMessage", "Are you sure you want to save?"
+            "City", "City"
+        },
+        {
+            "ClickSave", "Click to save!"
+        },
+        {
+            "DBirth", "Date of birth"
+        },
+        {
+            "DDeath", "Date of death"
         },
         {
             "DeleteMessage", "Are you sure you want to delete this person?"
         },
         {
-            "ClickSave", "Click to save!"
+            "Female", "Female"
+        },
+        {
+            "Firstname", "Firstname"
+        },
+        {
+            "Gender", "Gender"
         },
         {
             "ImageFiles", "Image Files"
@@ -79,8 +58,58 @@ public class MainWindow_en_US extends ListResourceBundle
             "ImageMessage", "You didn't select a file!"
         },
         {
+            "Language", "Language:"
+        },
+        {
+            "Lastname", "Lastname"
+        },
+        {
+            "Male", "Male"
+        },
+        {
+            "Name", "Name"
+        },
+        {
+            "OnlyFriends", "Only friends"
+        },
+        {
             "Person", "Person"
+        },
+        {
+            "PersonOverview", "Person overview"
+        },
+        {
+            "Picture", "Picture"
+        },
+        {
+            "Privacy", "Privacy"
+        },
+        {
+            "Private", "Private"
+        },
+        {
+            "Public", "Public"
+        },
+        {
+            "Save", "Save"
+        },
+        {
+            "SaveMessage", "Are you sure you want to save?"
+        },
+        {
+            "SetLanguage", "Set Language"
+        },
+        {
+            "Settings", "Settings"
+        },
+        {
+            "Tree", "Tree"
+        },
+        {
+            "UserOverview", "User overview"
+        },
+        {
+            "ZipCode", "Zip Code"
         }
-
     };
 }
