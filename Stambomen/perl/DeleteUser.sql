@@ -1,6 +1,6 @@
 # OPGEPAST! Deze query verwijdert alles wat aan een user gelinkt is in de database.
 # De reden waarom er verwijderd wordt op naam en niet op id, is om het risico op fouten te verlagen.
-set @username = 'Test';
+set @username = 'Lowie';
 
 
 

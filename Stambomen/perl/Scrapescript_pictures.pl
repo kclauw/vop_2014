@@ -29,7 +29,7 @@ STDOUT->autoflush(1);
 my $assets_release = 0;
 my $db_port_ownpc = 1;
 
-my @treeIDs = ( 1 ); #IDs van de trees waarvan de personen foto's moeten krijgen
+my @treeIDs = ( 9 ); #IDs van de trees waarvan de personen foto's moeten krijgen
 
 
 
@@ -41,6 +41,10 @@ my @treeIDs = ( 1 ); #IDs van de trees waarvan de personen foto's moeten krijgen
 
 #Sql-statements
 my $sql_get_treepersonIDs = "select t.personID, p.gender from PersonTree t join Person p on t.personID=p.personID where t.treeID=?";
+my $sql_update_picture = "update Person set picture=1 where personID=?";
+
+my @sql;
+my @sql_parameters;
 
 my @url_pictures_links = ("http://www.imdb.com/search/name?gender=female&sort=starmeter,asc&start=", "http://www.imdb.com/search/name?gender=male&sort=starmeter,asc&start=");
 
@@ -205,6 +209,8 @@ for (my $gender = 1; $gender >= 0; $gender--) {
 			$dav -> put("$assets_location/$treeid/$personID.jpg", file => $pictures_copy[0]);
 			shift @pictures_copy;
 
+			addtoSQL($sql_update_picture, $personID);
+
 			++$filesuploaded;
 		}
 	}
@@ -215,11 +221,74 @@ sleep 1;
 rmtree "tmp";
 
 
+#Connecteren
+my $dbh = DBI->connect("DBI:mysql:$db_name:$db_host", $db_user, $db_pass, { PrintError => 0, mysql_enable_utf8 => 1 } ) or die DBI->errstr;
+printlines("Connected to $db_host");
+
+$dbh->begin_work or die $dbh->errstr;
+printlines("Started transaction");
+
+my $progressprecision = 100;
+$progressprecision *= 10 while (@sql > $progressprecision * 1000);
+my $lastprogress = -1;
+printlinesbis("\tProgress: ");
+
+eval {
+	my $numberofstatements_total = 0+@sql;
+	my $numberofstatements_done = 0;
+
+	foreach my $statements (@sql) {
+		++$numberofstatements_done;
+		my $progress = int(($numberofstatements_done / $numberofstatements_total) * $progressprecision);
+		if ($lastprogress != $progress && $progress % 1 == 0)
+		{
+			$lastprogress = $progress;
+			printprogress("\tProgress: " . ($progress/($progressprecision/100)) . "%");
+		}
+
+		foreach my $statement (split(m/\n/x, $statements )) {
+			next if ($statement =~ m/^\s*#.*$/g || $statement =~ m/^\s*$/g);
+
+			my $numberofparameters = $statement =~ tr/?//;
+			my @parameters = splice(@sql_parameters, 0, $numberofparameters);
+
+			my $sth = $dbh->prepare( $statement ) or die $dbh->errstr;
+			$sth->execute(@parameters) or die $dbh->errstr;
+
+		}
+	}
+
+	$dbh->commit() or $dbh->errstr;
+	printlines("Commited changes");
+	1;
+} or do {
+	printlines("ERROR: " . ($@ =~ s/^\s+|\s+$//rg)) if ($@);
+    $dbh->rollback();
+	printlines("Rolledback changes");
+};
+
+$dbh->disconnect() or die $dbh->errstr;
+printlines("Disconnected from $db_host");
+
+
 
 
 # +-+-+-+-+-+-+-+
 # |G|E|N|E|R|A|L|
 # +-+-+-+-+-+-+-+
+
+sub addtoSQL {
+	my $first = 1;
+	foreach (@_) {
+		if ($first)
+		{
+			$first = 0;
+			push(@sql, $_ . ";");
+		} else {
+			push(@sql_parameters, $_);
+		}
+	}
+}
 
 sub getpictureslength {
 	my ($gender) = @_;

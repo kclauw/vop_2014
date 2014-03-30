@@ -35,15 +35,15 @@ my $writequery = 0;
 my $openwrittenfile = 0;
 #Hoe moet de boom worden ingevuld?
 #USERS
-my %users = ( "Lowie" => "123456789" ); #Users
+my %users = ( "Kenzo" => "123456789" ); #Users
 # my %users = ( "Axl" => "123456789", "Jelle" => "123456789", "Sander" => "123456789", "Lowie" => "123456789", "Kenzo" => "123456789" ); #Users
 #TREES
 my @numberoftrees = 4..8; #Variatie in aantal bomen per user
-my @maxnumberofpersons = 50..70; #Maximum aantal personen per boom
+my @maxnumberofpersons = 50..5000; #Maximum aantal personen per boom
 #PERSONS
 my @privacyoptions = 0..2; #Variatie in de privacy van een boom
 my @headyearofbirth = 1600..1800; #Variatie in geboortejaar van hoofd van familie
-my @childrenperperson = (0..6, 0..5, 0..4, 0..3, 0..2, 0..1, 0); #Variatie in aantal kinderen per persoon
+my @childrenperperson = (0..4, 0..3, 0..2, 0..1, 0);# (0..6, 0..5, 0..4, 0..3, 0..2, 0..1, 0); #Variatie in aantal kinderen per persoon
 my @personage = (70..110, 72..105, 74..100, 76..95, 78..90, 80..85); #Variatie in leeftijd van een persoon
 my @partneragedifference = (-10..10, -5..10, 0..10); #Variatie in verschil in leeftijd tussen partners
 my @parentagehavingchild = (20..40, 22..36, 24..32, 26..28); #Variatie in leeftijd waarop ouder kind krijgt

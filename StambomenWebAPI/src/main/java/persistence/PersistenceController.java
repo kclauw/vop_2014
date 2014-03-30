@@ -1,5 +1,6 @@
 package persistence;
 
+import domain.Coordinate;
 import domain.Person;
 import domain.Place;
 import domain.Privacy;
@@ -19,6 +20,7 @@ public class PersistenceController
     private UserDao userDao;
     private TreeDao treeDao;
     private PersonDao personDao;
+    private GoogleGeoDao googlegeoDao;
     private PlaceDao placeDao;
     private PersonTreeDAO persontreeDao;
     private ParentRelationDAO parentrelationDao;
@@ -31,7 +33,8 @@ public class PersistenceController
         userDao = new UserDao();
         treeDao = new TreeDao(this);
         personDao = new PersonDao(this);
-        placeDao = new PlaceDao();
+        googlegeoDao = new GoogleGeoDao();
+        placeDao = new PlaceDao(this);
         persontreeDao = new PersonTreeDAO(this);
         parentrelationDao = new ParentRelationDAO(this);
         imageDao = new ImageDAO(this);
@@ -158,6 +161,7 @@ public class PersistenceController
 
     public Place getPlace(Place place)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Get Place " + place);
         return this.placeDao.getPlaceObject(place);
     }
 
@@ -177,7 +181,6 @@ public class PersistenceController
         {
             parentrelationDao.save(treeID, person.getFather().getPersonId(), personid);
         }
-
     }
 
     public void setUserPrivacy(int userID, Privacy userPrivacy)
@@ -216,7 +219,8 @@ public class PersistenceController
     {
         return imageDao.get(treeID, personID, pictureExists);
     }
-     public URI getPicture(int personID, boolean pictureExists)
+
+    public URI getPicture(int personID, boolean pictureExists)
     {
         return imageDao.get(personID, pictureExists);
     }
@@ -226,10 +230,16 @@ public class PersistenceController
         logger.info("[PERSISTENCE CONTROLLER] Get persons ");
         return personDao.getPersons(treeID, start, max);
     }
-    
-     public List<Person> getPersons(int start, int max)
+
+    public List<Person> getPersons(int start, int max)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get persons without tree ");
         return personDao.getPersons(start, max);
+    }
+
+    public Coordinate getCoordinates(Place place)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Get coordinates ");
+        return googlegeoDao.getCoordinates(place);
     }
 }
