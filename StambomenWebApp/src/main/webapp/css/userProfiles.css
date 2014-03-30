@@ -1,0 +1,67 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 2, 2014, 9:08:56 PM
+    Author     : Lowie
+*/
+
+.userProfileList {
+    float: left;
+    width: 620px;
+    min-height: 1px;
+}
+
+.userProfileList li {
+    display: block;
+    width: 350px;
+    height: 75px;
+    margin: 15px 0px;
+}
+
+.userProfileList li div {
+    font-size: 20px;
+    float: left;
+    margin-top: 30px;
+    margin-left: 15px;
+}
+
+.friendrequestlist {
+    float: left;
+    width: 200px;
+}
+
+.userProfileList li {
+    display: block;
+    width: 200px;
+    height: 35px;
+    margin: 15px 0px;
+    cursor: pointer;
+}
+
+.userProfileList li div {
+    font-size: 16px;
+    float: left;
+    margin-top: 8px;
+    margin-left: 15px;
+}
+
+.userProfileList li .privacy {
+    top: 0px;
+    right: 0px;
+    position: relative;
+    float: right;
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    opacity: 0.5;
+}
+
+#BtnClosePopUpBox{
+    position: absolute; 
+    right: 10px; 
+    bottom: 0; 
+    width: 80px; 
+}

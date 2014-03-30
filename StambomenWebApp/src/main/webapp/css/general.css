@@ -8,6 +8,7 @@ and open the template in the editor.
     Author     : Lowie
 */
 * {
+    height: 2;
     font-family: 'Varela', sans-serif;
     margin: 0;
     padding: 0;
