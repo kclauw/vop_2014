@@ -1,8 +1,6 @@
 package service;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import dto.LanguageDTO;
 import dto.PrivacyDTO;
 import dto.UserDTO;
 import java.util.List;
@@ -50,6 +48,8 @@ public class ClientUserService
         client.register(new JacksonFeature());
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().credentials(user.getUsername(), user.getPassword()).build();
         client.register(feature);
+
+        System.out.println(url);
 
         UserDTO dto = client.target(url + "user/login/" + user.getUsername()).request("application/json").accept("application/json").get(UserDTO.class);
 

@@ -15,7 +15,7 @@ public class ClientUserController
 
     public ClientUserController()
     {
-        ServiceConstant.getInstance().setMode(0);
+        ServiceConstant.getInstance().setMode(2);
 
         this.client = new ClientUserService();
     }
