@@ -47,7 +47,7 @@
         <Component class="gui.controls.CustomTextField" name="txtUsername">
           <Properties>
             <Property name="defaultText" type="java.lang.String" value="Username"/>
-            <Property name="text" type="java.lang.String" value="Axl"/>
+            <Property name="text" type="java.lang.String" value="Default"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
