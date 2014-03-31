@@ -59,4 +59,9 @@ public class LoginController implements IPanelController
 
     }
 
+    public void setFBAuthCode(String authCode)
+    {
+        clientUserController.setFBAuthCode(authCode);
+    }
+
 }
