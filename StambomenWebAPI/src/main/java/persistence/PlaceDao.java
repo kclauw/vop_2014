@@ -364,7 +364,7 @@ public class PlaceDao implements IDao<Place>
 
     public Place getPlaceObject(Place place)
     {
-        if (place.getPlaceId() == -1)
+        if (place.getPlaceId() <= 0)
         {
             save(place);
             return get(place);
