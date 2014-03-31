@@ -14,7 +14,7 @@
     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
         <TitledBorder title="&lt;User Code&gt;">
-          <Connection PropertyName="titleX" code="getTitle()" type="code"/>
+          <Connection PropertyName="titleX" code="setTitle()" type="code"/>
         </TitledBorder>
       </Border>
     </Property>
@@ -47,7 +47,9 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Adress"/>
+            <TitledBorder title="&lt;User Code&gt;">
+              <Connection PropertyName="titleX" code="setTitleA()" type="code"/>
+            </TitledBorder>
           </Border>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -202,9 +204,12 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Picture"/>
+            <TitledBorder title="&lt;User Code&gt;">
+              <Connection PropertyName="titleX" code="setTitleP()" type="code"/>
+            </TitledBorder>
           </Border>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[150, 150]"/>
         </Property>
@@ -256,7 +261,9 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Detail"/>
+            <TitledBorder title="&lt;User Code&gt;">
+              <Connection PropertyName="titleX" code="setTitleD()" type="code"/>
+            </TitledBorder>
           </Border>
         </Property>
       </Properties>
