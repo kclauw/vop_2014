@@ -123,6 +123,7 @@ public class PlaceDao implements IDao<Place>
             placeNameID = savePlace(place);
 
             prep = con.prepareStatement(SAVEPLACE);
+
             Coordinate coord = place.getCoord();
 
             if (coord != null && coord.getId() != -1)
@@ -202,7 +203,7 @@ public class PlaceDao implements IDao<Place>
             prep = con.prepareStatement(UPDATEPLACE);
             Coordinate coord = place.getCoord();
 
-            if (coord != null && coord.getId() != -1)
+            if (coord != null && coord.getId() > 0)
             {
                 coordinateID = coord.getId();
                 prep.setInt(1, coordinateID);
@@ -212,7 +213,7 @@ public class PlaceDao implements IDao<Place>
                 coord = pc.getCoordinates(place);
             }
 
-            if (coord != null && coord.getId() == -1)
+            if (coord != null && coord.getId() <= 0)
             {
                 coordinateID = saveCoordinate(coord);
                 prep.setInt(1, coordinateID);
@@ -236,6 +237,7 @@ public class PlaceDao implements IDao<Place>
             }
 
             prep.setInt(4, placeNameID);
+            prep.setInt(5, place.getPlaceId());
 
             prep.executeUpdate();
 
@@ -366,8 +368,20 @@ public class PlaceDao implements IDao<Place>
     {
         if (place.getPlaceId() <= 0)
         {
-            save(place);
-            return get(place);
+            Place pl = get(place);
+            if (pl == null)
+            {
+                save(place);
+            }
+            else if (pl.getCoord() == null || pl.getCoord().getId() <= 0)
+            {
+                update(pl);
+            }
+            else
+            {
+                return pl;
+            }
+            return get(pl);
         }
         else if (place.getCoord() == null || place.getCoord().getId() <= 0)
         {
@@ -519,7 +533,7 @@ public class PlaceDao implements IDao<Place>
 
         try
         {
-
+            con = DatabaseUtils.getConnection();
             /*Maak plaats aan indien nodig*/
             prep = con.prepareStatement(GETCOORDSBYLONGANDLAT);
             prep.setFloat(1, coord.getLongitude());
@@ -551,6 +565,10 @@ public class PlaceDao implements IDao<Place>
             }
         }
         catch (SQLException ex)
+        {
+            java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (Exception ex)
         {
             java.util.logging.Logger.getLogger(PlaceDao.class.getName()).log(Level.SEVERE, null, ex);
         }

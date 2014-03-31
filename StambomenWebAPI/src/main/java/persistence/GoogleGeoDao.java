@@ -14,13 +14,11 @@ import com.google.api.client.http.apache.ApacheHttpTransport;
 import domain.Coordinate;
 import domain.Place;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.ws.rs.core.Request;
-import org.apache.http.client.HttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +31,7 @@ public class GoogleGeoDao
 
     private final String URLGOOGLE = "https://maps.googleapis.com/maps/api/geocode/xml?address={0}+{1},+{2}&sensor=false&key=AIzaSyAvtR35KQlMs6IuWdR7Bx3bvnOEIpl1C3w";
 
+    private HttpRequestFactory factory = null;
     private final Logger logger;
 
     public GoogleGeoDao()
@@ -47,7 +46,7 @@ public class GoogleGeoDao
             return null;
         }
 
-        if (place.getCoord() == null)
+        if (place.getCoord() == null || place.getCoord().getId() <= 0)
         {
             return getCoordinatesFromGoogle(place);
         }
@@ -89,11 +88,7 @@ public class GoogleGeoDao
         String coordxml = "";
         try
         {
-            HttpTransport transport = new ApacheHttpTransport();
-            HttpRequestFactory factory = transport.createRequestFactory();
-            HttpRequest request = factory.buildGetRequest(new GenericUrl(url));
-            HttpResponse response = request.execute();
-
+            HttpResponse response = getResponseFromURL(url);
             BufferedReader br = new BufferedReader(new InputStreamReader(response.getContent()));
             String inputline;
             while ((inputline = br.readLine()) != null)
@@ -142,6 +137,18 @@ public class GoogleGeoDao
         logger.info("[WEBAPI GOOGLEGEO DAO][GET COORDINATES]Coordinates found:" + coord.toString());
 
         return coord;
+    }
+
+    private HttpResponse getResponseFromURL(URL url) throws IOException
+    {
+        if (factory == null)
+        {
+            HttpTransport transport = new ApacheHttpTransport();
+            factory = transport.createRequestFactory();
+        }
+
+        HttpRequest request = factory.buildGetRequest(new GenericUrl(url));
+        return request.execute();
     }
 
 }
