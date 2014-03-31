@@ -5,14 +5,22 @@
  */
 package persistence;
 
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.apache.ApacheHttpTransport;
 import domain.Coordinate;
 import domain.Place;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.MediaType;
-import org.glassfish.jersey.jackson.JacksonFeature;
+import javax.ws.rs.core.Request;
+import org.apache.http.client.HttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +31,7 @@ import org.slf4j.LoggerFactory;
 public class GoogleGeoDao
 {
 
-    private final String URL = "https://maps.googleapis.com/maps/api/geocode/xml?address={0}+{1},+{2}&sensor=false&key=AIzaSyAvtR35KQlMs6IuWdR7Bx3bvnOEIpl1C3w";
+    private final String URLGOOGLE = "https://maps.googleapis.com/maps/api/geocode/xml?address={0}+{1},+{2}&sensor=false&key=AIzaSyAvtR35KQlMs6IuWdR7Bx3bvnOEIpl1C3w";
 
     private final Logger logger;
 
@@ -58,17 +66,51 @@ public class GoogleGeoDao
 
         logger.info("[WEBAPI GOOGLEGEO DAO][GET COORDINATES]Get coordinates from Google:" + place.toString());
 
-        String placeUrl = URL;
+        String placeUrl = URLGOOGLE;
         placeUrl = placeUrl.replace("{0}", place.getZipCode());
         placeUrl = placeUrl.replace("{1}", place.getPlaceName());
         placeUrl = placeUrl.replace("{2}", place.getCountry());
+        placeUrl = placeUrl.replace(" ", "+");
 
-        Client client = ClientBuilder.newClient();
-        client.register(new JacksonFeature());
+        URL url = null;
+        try
+        {
+            url = new URL(placeUrl.toString());
+        }
+        catch (java.net.MalformedURLException e)
+        {
+            logger.info("[WEBAPI GOOGLEGEO DAO][GET COORDINATES]URL-constructor threw java.net.MalformedURLException");
+        }
+        if (url == null)
+        {
+            return null;
+        }
 
-        String coordxml = client.target(placeUrl).request(MediaType.TEXT_XML).get(String.class);
+        String coordxml = "";
+        try
+        {
+            HttpTransport transport = new ApacheHttpTransport();
+            HttpRequestFactory factory = transport.createRequestFactory();
+            HttpRequest request = factory.buildGetRequest(new GenericUrl(url));
+            HttpResponse response = request.execute();
 
-        if (coordxml == null)
+            BufferedReader br = new BufferedReader(new InputStreamReader(response.getContent()));
+            String inputline;
+            while ((inputline = br.readLine()) != null)
+            {
+                coordxml += inputline;
+            }
+        }
+        catch (java.io.IOException e)
+        {
+            logger.info("[WEBAPI GOOGLEGEO DAO][GET COORDINATES]Failed to fetch coordinates: java.io.IOException");
+        }
+
+//        Client client = ClientBuilder.newClient();
+//        client.register(new JacksonFeature());
+//
+//        String coordxml = client.target(placeUrl).request(MediaType.TEXT_XML).get(String.class);
+        if (coordxml == null || coordxml.isEmpty())
         {
             logger.info("[WEBAPI GOOGLEGEO DAO][GET COORDINATES]Coordinates not found");
             return null; //return "Error";
@@ -78,15 +120,15 @@ public class GoogleGeoDao
         //  <lat>37.4219985</lat>
         //  <lng>-122.0839544</lng>
         //</location>
-        Pattern regex = Pattern.compile("<location>.*?\n.*?<lat>(.*?)</lat>*?\n.*?<lng>(.*?)</lng>.*?\n.*?</location>", Pattern.DOTALL);
+        Pattern regex = Pattern.compile("<location>\\s*?<lat>(.*?)</lat>\\s*?<lng>(.*?)</lng>\\s*?</location>", Pattern.DOTALL);
         Matcher regexMatcher = regex.matcher(coordxml);
 
         String latitude;
         String longitude;
         if (regexMatcher.find())
         {
-            latitude = regexMatcher.group(0);
-            longitude = regexMatcher.group(1);
+            latitude = regexMatcher.group(1);
+            longitude = regexMatcher.group(2);
         }
         else
         {
