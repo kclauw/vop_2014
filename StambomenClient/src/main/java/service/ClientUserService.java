@@ -162,7 +162,7 @@ public class ClientUserService
         logger.info("[CLIENT USER SERVICE][GET PUBLIC USER PROFILES]Get a public user profile");
         Client client = ClientServiceController.getInstance().getClient();
 
-        UserDTO userProfile = client.target(url + "user/profile/getPublicUserProfile/" + userProfileID).request(MediaType.APPLICATION_JSON).get(new GenericType<UserDTO>()
+        UserDTO userProfile = client.target(url + "user/get/profile/getPublicUserProfile/" + userProfileID).request(MediaType.APPLICATION_JSON).get(new GenericType<UserDTO>()
         {
         });
 
