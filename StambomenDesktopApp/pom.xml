@@ -89,6 +89,18 @@
             <version>1.1</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>net.sf.cssbox</groupId>
+            <artifactId>swingbox</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javafx</groupId>
+            <artifactId>jfxrt</artifactId>
+            <version>${java.version}</version>
+            <scope>system</scope>
+            <systemPath>${java.home}/lib/jfxrt.jar</systemPath>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

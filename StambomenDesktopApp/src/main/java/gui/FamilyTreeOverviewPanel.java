@@ -1,6 +1,5 @@
 package gui;
 
-import gui.controller.AdminController;
 import gui.controller.TreeOverviewController;
 import gui.controls.FamilyTreeList;
 import java.awt.BorderLayout;

@@ -226,7 +226,7 @@ public class PersonDTO implements java.io.Serializable, Cloneable
     @Override
     public String toString()
     {
-        return "PersonDTO{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + ", gender=" + gender + ", birthDate=" + birthDate + ", deathDate=" + deathDate + ", place=" + place + ", father=" + father + ", mother=" + mother + ", x=" + x + ", y=" + y + '}';
+        return firstName + " " + surName;
     }
 
     public String toStringPerson()

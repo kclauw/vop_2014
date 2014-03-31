@@ -93,6 +93,7 @@ public class LoginFilter implements Filter
                 session.setAttribute("serviceController", serviceController);
                 session.setAttribute("treeController", treeController);
                 session.setAttribute("userController", userController);
+                session.setAttribute("username", username);
 
                 user = serviceController.getUser();
 

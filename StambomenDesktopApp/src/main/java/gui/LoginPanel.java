@@ -2,8 +2,16 @@ package gui;
 
 import dto.UserDTO;
 import gui.controller.LoginController;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
 public class LoginPanel extends javax.swing.JPanel
 {
@@ -42,6 +50,7 @@ public class LoginPanel extends javax.swing.JPanel
         btnLogin = new javax.swing.JButton();
         lblError = new javax.swing.JLabel();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 200), new java.awt.Dimension(0, 200), new java.awt.Dimension(32767, 200));
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnRegister = new javax.swing.JButton();
 
@@ -100,11 +109,26 @@ public class LoginPanel extends javax.swing.JPanel
         jPanel1.add(lblError, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
         jPanel1.add(filler2, gridBagConstraints);
+
+        jButton1.setText("FB Login");
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
+        jPanel1.add(jButton1, gridBagConstraints);
 
         add(jPanel1);
 
@@ -122,7 +146,7 @@ public class LoginPanel extends javax.swing.JPanel
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(212, Short.MAX_VALUE)
+                .addContainerGap(54, Short.MAX_VALUE)
                 .addComponent(btnRegister)
                 .addContainerGap())
         );
@@ -131,7 +155,7 @@ public class LoginPanel extends javax.swing.JPanel
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnRegister)
-                .addContainerGap(441, Short.MAX_VALUE))
+                .addContainerGap(300, Short.MAX_VALUE))
         );
 
         add(jPanel2);
@@ -148,11 +172,43 @@ public class LoginPanel extends javax.swing.JPanel
 
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                new JFXPanel(); // this will prepare JavaFX toolkit and environment
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        //javaFX operations should go here
+
+                        Stage stage = new Stage();
+                        stage.setTitle("Web View");
+                        WebView browser = new WebView();
+                        WebEngine webEngine = browser.getEngine();
+                        Scene scene = new Scene(browser, 750, 500, Color.web("#666970"));
+                        stage.setScene(scene);
+                        webEngine.load("https://www.facebook.com/dialog/oauth?client_id=225842214289570&redirect_uri=https://www.facebook.com/connect/login_success.html");
+                        stage.show();
+                    }
+                });
+            }
+        });
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnRegister;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblError;
@@ -164,4 +220,5 @@ public class LoginPanel extends javax.swing.JPanel
     {
         this.lblError.setText(login);
     }
+
 }

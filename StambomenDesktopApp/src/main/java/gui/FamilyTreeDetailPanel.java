@@ -497,10 +497,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         {
             adding = true;
             String[] options = new String[2];
-            options[0] = new String(trans.translate("Partner"));
-            options[1] = new String(trans.translate("Child"));
+            options[0] = "Partner";
+            options[1] = "Child";
 
-            int option = JOptionPane.showOptionDialog(null, trans.translate("AddParOrChi"), trans.translate("Title"), 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+            int option = JOptionPane.showOptionDialog(null, "Wouldyou like to add partner or child?", "Parter or Child?", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
 
             if (option == 0)
             {
@@ -539,6 +539,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
             if (!partner)
             {
+                System.out.println("Selected child");
                 if (p.getGender() == GenderDTO.FEMALE)
                 {
                     p.setMother(person);
@@ -550,7 +551,22 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             }
             else
             {
+                System.out.println("Selected partner");
+
                 //Look for all childeren of this person and change their parent aswell!
+                for (PersonDTO per : this.person.getChilderen())
+                {
+                    if (radioFemale.isSelected())
+                    {
+                        per.setMother(person);
+                    }
+                    else
+                    {
+                        per.setFather(person);
+                    }
+
+                    fttp.updatePerson(per);
+                }
             }
 
             p.setBirthDate(dob.getDate());
@@ -697,6 +713,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 }
                 if (person.getPicture() != null)
                 {
+                    System.out.println("[FAMILY TREE DETAIL] Picture=" + person.getPicture());
                     Image image = ImageIO.read(person.getPicture());
                     labelPicture.setIcon(new ImageIcon(image));
                 }

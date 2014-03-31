@@ -42,7 +42,7 @@ public class TreePane extends JComponent
         if (!treeLayout.getTree().isLeaf(root))
         {
             Rectangle2D.Double b1 = getBoundsOfNode(root);
-            double x1 = b1.getMaxX();
+            double x1 = b1.getCenterX();
             double y1 = b1.getCenterY();
 
             level++;
