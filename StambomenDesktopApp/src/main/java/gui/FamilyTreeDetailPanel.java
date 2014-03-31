@@ -27,13 +27,14 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private PersonDTO person;
     private FamilyTreeTotalPanel fttp;
     private boolean adding = false;
-    private String title = "test";
+
     private boolean partner;
 
     public FamilyTreeDetailPanel(PersonDTO person, FamilyTreeTotalPanel fttp)
     {
         this.fttp = fttp;
         initComponents();
+        translate();
         setEditable(false);
     }
 
@@ -41,19 +42,44 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     {
 
         initComponents();
-        setEditable(false);
         translate();
+        setEditable(false);
+
     }
 
     public void translate()
     {
         Translator trans = new Translator();
-        btnEdit.setText(trans.translate("Save"));
-        setBorder(javax.swing.BorderFactory.createTitledBorder("test"));
+        btnEdit.setText(trans.translate("Edit"));
         jLabel1.setText(trans.translate("DBirth"));
         jLabel2.setText(trans.translate("DDeath"));
         radioMale.setText(trans.translate("Male"));
         radioFemale.setText(trans.translate("Female"));
+        btnAdd.setText(trans.translate("Add"));
+        btnAddPicture.setText(trans.translate("AddPicture"));
+        btnDeletePicture.setText(trans.translate("DeletePicture"));
+        btnZoomIn.setText(trans.translate("ZoomIn"));
+        btnZoomOut.setText(trans.translate("ZoomOut"));
+        btnDelete.setText(trans.translate("Delete"));
+        btnAdd.setText(trans.translate("Add"));
+        jLabel4.setText(trans.translate("City"));
+        jLabel5.setText(trans.translate("ZipCode"));
+        jLabel6.setText(trans.translate("Country"));
+        labelFieldFirstname.setText(trans.translate("Firstname"));
+        labelFieldLastname.setText(trans.translate("LastName"));
+        labeFieldGender.setText(trans.translate("Gender"));
+
+        //  setText(trans.translate("Gender"));
+        //    adressPanel;
+        //     btnEdit;
+        //     btnZoomIn;
+        //    btnZoomOut;
+        //    buttonGroup1;
+        //     detailPanel;
+        //    jButton1;
+        //   labelPicture;
+        //     personPanel;
+        //     picturePanel;
     }
 
     @SuppressWarnings("unchecked")
@@ -96,7 +122,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
         jButton1.setText("jButton1");
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(getTitle()));
+        setBorder(javax.swing.BorderFactory.createTitledBorder(setTitle()));
         setLayout(new java.awt.GridBagLayout());
 
         personPanel.setLayout(new java.awt.GridBagLayout());
@@ -106,7 +132,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         add(personPanel, gridBagConstraints);
 
-        adressPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Adress"));
+        adressPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(setTitleA()));
         adressPanel.setMinimumSize(new java.awt.Dimension(90, 100));
         adressPanel.setLayout(new java.awt.GridBagLayout());
 
@@ -241,7 +267,8 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints.gridy = 12;
         add(btnZoomOut, gridBagConstraints);
 
-        picturePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Picture"));
+        picturePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(setTitleP()));
+        picturePanel.setToolTipText("");
         picturePanel.setMinimumSize(new java.awt.Dimension(150, 150));
         picturePanel.setLayout(new java.awt.GridBagLayout());
 
@@ -287,7 +314,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints.weighty = 1.5;
         add(picturePanel, gridBagConstraints);
 
-        detailPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Detail"));
+        detailPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(setTitleD()));
         detailPanel.setLayout(new java.awt.GridBagLayout());
 
         labelFieldLastname.setText("Lastname:");
@@ -465,14 +492,15 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
     {//GEN-HEADEREND:event_btnAddActionPerformed
+        Translator trans = new Translator();
         if (!adding)
         {
             adding = true;
             String[] options = new String[2];
-            options[0] = new String("Partner");
-            options[1] = new String("Child");
+            options[0] = new String(trans.translate("Partner"));
+            options[1] = new String(trans.translate("Child"));
 
-            int option = JOptionPane.showOptionDialog(null, "Wouldyou like to a dd partner or child?", "Title", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+            int option = JOptionPane.showOptionDialog(null, trans.translate("AddParOrChi"), trans.translate("Title"), 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
 
             if (option == 0)
             {
@@ -492,7 +520,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             this.dod.setDate(null);
             this.setEditable(true);
             setButtonActive(btnAdd);
-            btnAdd.setText("ClickSave");
+            btnAdd.setText(trans.translate("ClickSave"));
         }
         else if (adding)
         {
@@ -628,6 +656,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
     public void setPerson(PersonDTO person)
     {
+        Translator trans = new Translator();
         this.person = person;
 
         if (person != null)
@@ -656,9 +685,9 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 PlaceDTO place = person.getPlace();
                 if (place == null)
                 {
-                    textFieldCity.setText("Undefined");
-                    textFieldCountry.setText("Undefined");
-                    textFieldZipCode.setText("Undefined");
+                    textFieldCity.setText(trans.translate("Undefined"));
+                    textFieldCountry.setText(trans.translate("Undefined"));
+                    textFieldZipCode.setText(trans.translate("Undefined"));
                 }
                 else
                 {
@@ -680,10 +709,28 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         }
     }
 
-    private String getTitle()
+    private String setTitle()
     {
         Translator trans = new Translator();
         return trans.translate("Person");
+    }
+
+    private String setTitleA()
+    {
+        Translator trans = new Translator();
+        return trans.translate("Adress");
+    }
+
+    private String setTitleD()
+    {
+        Translator trans = new Translator();
+        return trans.translate("Detail");
+    }
+
+    private String setTitleP()
+    {
+        Translator trans = new Translator();
+        return trans.translate("Picture");
     }
 
     private void setButtonActive(JButton b)
