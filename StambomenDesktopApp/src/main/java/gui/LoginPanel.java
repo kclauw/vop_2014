@@ -196,6 +196,8 @@ public class LoginPanel extends javax.swing.JPanel
                         stage.setScene(scene);
                         webEngine.load("https://www.facebook.com/dialog/oauth?client_id=225842214289570&redirect_uri=https://www.facebook.com/connect/login_success.html");
                         stage.show();
+
+                        //get the accestoke // access_token
                     }
                 });
             }

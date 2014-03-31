@@ -554,8 +554,9 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 System.out.println("Selected partner");
 
                 //Look for all childeren of this person and change their parent aswell!
-                for (PersonDTO per : this.person.getChilderen())
+                for (PersonDTO per : person.getChilderen())
                 {
+                    System.out.println("Adding parent for " + per.toString());
                     if (radioFemale.isSelected())
                     {
                         per.setMother(person);
@@ -569,6 +570,8 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 }
             }
 
+            p.setPartner(person);
+            p.setChilderen(person.getChilderen());
             p.setBirthDate(dob.getDate());
             p.setDeathDate(dob.getDate());
 
