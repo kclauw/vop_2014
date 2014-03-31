@@ -104,10 +104,6 @@ public class TreeController implements IPanelController
     {
         System.out.println("[TREE CONTROLLER] SAVING PERSON " + person.toString());
         String res = clientPersonController.savePerson(tree.getId(), person);
-        if (res != null)
-        {
-            JOptionPane.showMessageDialog(null, res);
-        }
 
         if (res == null)
         {

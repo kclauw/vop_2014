@@ -14,7 +14,6 @@ import gui.tree.TreePane;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -169,8 +168,8 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
 
         if (this.persons != null && this.persons.size() > 0)
         {
-            maxGapBetweenNodes = maxGapBetweenNodes + 50;
-            maxGapBetweenLevel = maxGapBetweenLevel + 50;
+            maxGapBetweenNodes = maxGapBetweenNodes + 25;
+            maxGapBetweenLevel = maxGapBetweenLevel + 25;
             drawFamilyTree(persons, new DefaultConfiguration(maxGapBetweenNodes, maxGapBetweenLevel));
         }
     }
@@ -182,8 +181,8 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
 
             if (this.persons != null && this.persons.size() > 0)
             {
-                maxGapBetweenNodes = maxGapBetweenNodes - 50;
-                maxGapBetweenLevel = maxGapBetweenLevel - 50;
+                maxGapBetweenNodes = maxGapBetweenNodes - 25;
+                maxGapBetweenLevel = maxGapBetweenLevel - 25;
                 drawFamilyTree(persons, new DefaultConfiguration(maxGapBetweenLevel, maxGapBetweenNodes));
             }
         }
