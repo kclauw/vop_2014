@@ -3,18 +3,20 @@ package gui;
 import dto.GenderDTO;
 import dto.PersonDTO;
 import dto.PlaceDTO;
-import gui.controller.TreeController;
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.openide.util.Exceptions;
 import util.Translator;
 
 public class FamilyTreeDetailPanel extends javax.swing.JPanel
@@ -24,10 +26,9 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private boolean edit = false;
     private PersonDTO person;
     private FamilyTreeTotalPanel fttp;
-    private AdminPanel admin;
-    private TreeController treeController;
     private boolean adding = false;
     private String title = "test";
+    private boolean partner;
 
     public FamilyTreeDetailPanel(PersonDTO person, FamilyTreeTotalPanel fttp)
     {
@@ -49,6 +50,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         Translator trans = new Translator();
         btnEdit.setText(trans.translate("Save"));
         setBorder(javax.swing.BorderFactory.createTitledBorder("test"));
+        jLabel1.setText(trans.translate("DBirth"));
+        jLabel2.setText(trans.translate("DDeath"));
+        radioMale.setText(trans.translate("Male"));
+        radioFemale.setText(trans.translate("Female"));
     }
 
     @SuppressWarnings("unchecked")
@@ -460,18 +465,34 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
     {//GEN-HEADEREND:event_btnAddActionPerformed
-        Translator trans = new Translator();
         if (!adding)
         {
             adding = true;
+            String[] options = new String[2];
+            options[0] = new String("Partner");
+            options[1] = new String("Child");
+
+            int option = JOptionPane.showOptionDialog(null, "Wouldyou like to a dd partner or child?", "Title", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+
+            if (option == 0)
+            {
+                partner = true;
+            }
+            else if (option == 1)
+            {
+                partner = false;
+            }
+
             this.textFieldCity.setText("");
             this.textFieldCountry.setText("");
             this.textFieldFirstname.setText("");
             this.textFieldLastname.setText("");
             this.textFieldZipCode.setText("");
+            this.dob.setDate(null);
+            this.dod.setDate(null);
             this.setEditable(true);
             setButtonActive(btnAdd);
-            btnAdd.setText(trans.translate("ClickSave"));
+            btnAdd.setText("ClickSave");
         }
         else if (adding)
         {
@@ -488,13 +509,20 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 p.setGender(GenderDTO.MALE);
             }
 
-            if (p.getGender() == GenderDTO.FEMALE)
+            if (!partner)
             {
-                p.setMother(person);
+                if (p.getGender() == GenderDTO.FEMALE)
+                {
+                    p.setMother(person);
+                }
+                else
+                {
+                    p.setFather(person);
+                }
             }
             else
             {
-                p.setFather(person);
+                //Look for all childeren of this person and change their parent aswell!
             }
 
             p.setBirthDate(dob.getDate());
@@ -604,41 +632,49 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
         if (person != null)
         {
-            textFieldFirstname.setText(person.getFirstName());
-            textFieldLastname.setText(person.getSurName());
+            try
+            {
+                textFieldFirstname.setText(person.getFirstName());
+                textFieldLastname.setText(person.getSurName());
 
-            GenderDTO g = person.getGender();
-            buttonGroup1.add(radioMale);
-            buttonGroup1.add(radioFemale);
+                GenderDTO g = person.getGender();
+                buttonGroup1.add(radioMale);
+                buttonGroup1.add(radioFemale);
 
-            dob.setDate(person.getBirthDate());
-            dod.setDate(person.getDeathDate());
+                dob.setDate(person.getBirthDate());
+                dod.setDate(person.getDeathDate());
 
-            if (g == GenderDTO.MALE)
-            {
-                radioMale.setSelected(true);
-            }
-            else
-            {
-                radioFemale.setSelected(true);
-            }
+                if (g == GenderDTO.MALE)
+                {
+                    radioMale.setSelected(true);
+                }
+                else
+                {
+                    radioFemale.setSelected(true);
+                }
 
-            PlaceDTO place = person.getPlace();
-            if (place == null)
-            {
-                textFieldCity.setText("Undefined");
-                textFieldCountry.setText("Undefined");
-                textFieldZipCode.setText("Undefined");
+                PlaceDTO place = person.getPlace();
+                if (place == null)
+                {
+                    textFieldCity.setText("Undefined");
+                    textFieldCountry.setText("Undefined");
+                    textFieldZipCode.setText("Undefined");
+                }
+                else
+                {
+                    textFieldCity.setText(place.getPlaceName());
+                    textFieldCountry.setText(place.getCountry());
+                    textFieldZipCode.setText(place.getZipCode());
+                }
+                if (person.getPicture() != null)
+                {
+                    Image image = ImageIO.read(person.getPicture());
+                    labelPicture.setIcon(new ImageIcon(image));
+                }
             }
-            else
+            catch (IOException ex)
             {
-                textFieldCity.setText(place.getPlaceName());
-                textFieldCountry.setText(place.getCountry());
-                textFieldZipCode.setText(place.getZipCode());
-            }
-            if (person.getImage() != null)
-            {
-                labelPicture.setIcon(new ImageIcon(person.getImage()));
+                Exceptions.printStackTrace(ex);
             }
 
         }

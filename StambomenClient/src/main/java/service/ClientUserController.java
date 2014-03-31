@@ -76,7 +76,9 @@ public class ClientUserController
         int userID = ClientServiceController.getInstance().getUser().getId();
         logger.info("[CLIENT USER CONTROLLER][SET LANGUAGE]Set language with id: " + language + " user with id: " + userID);
         client.setLanguage(userID, language);
+
         LanguageDTO lan = LanguageDTO.EN;
+
         if (language == 1)
         {
             lan = LanguageDTO.EN;

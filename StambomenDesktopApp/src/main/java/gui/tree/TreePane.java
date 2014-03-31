@@ -50,7 +50,7 @@ public class TreePane extends JComponent
             for (PersonDTO child : this.treeLayout.getTree().getChildren(root))
             {
                 Rectangle2D.Double b2 = getBoundsOfNode(child);
-                double x2 = b2.getMaxX();
+                double x2 = b2.getCenterX();
                 double y2 = b2.getCenterY();
                 double line = y2 - ((y2 - y1) * 0.40);
                 g.drawLine((int) x1, (int) line, (int) x1, (int) y1);
