@@ -14,6 +14,7 @@ public class ClientServiceController
     private static ClientServiceController instance;
     private UserDTO user;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private String authCode;
 
     public void setUser(UserDTO user)
     {
@@ -56,5 +57,10 @@ public class ClientServiceController
         client.register(feature);
         client.register(new JacksonFeature());
         return client;
+    }
+
+    public void setFbAuthCode(String authCode)
+    {
+        this.authCode = authCode;
     }
 }
