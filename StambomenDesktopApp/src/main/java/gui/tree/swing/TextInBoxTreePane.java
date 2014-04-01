@@ -30,6 +30,7 @@ public class TextInBoxTreePane extends JComponent
     private final TreeLayout<TextInBox> treeLayout;
     private FamilyTreeTotalPanel fttp;
     private List<MouseAdapter> events = new ArrayList<MouseAdapter>();
+    private List<MouseMotionListener> toolTips = new ArrayList<MouseMotionListener>();
 
     private TreeForTreeLayout<TextInBox> getTree()
     {
@@ -169,26 +170,27 @@ public class TextInBoxTreePane extends JComponent
                 }
             }
 
+        };
+
+        MouseAdapter ms = new MouseAdapter()
+        {
             @Override
             public void mouseMoved(MouseEvent e)
             {
-                if (box.contains(e.getPoint()))
+                if (box.contains(e.getPoint()) || box.contains(e.getX(), e.getY()))
                 {
-                    System.out.println("move" + e.getPoint());
                     setToolTipText(person.getFirstName() + " " + person.getSurName());
                 }
-                else
-                {
-                    setToolTipText("Outside rect");
-                }
-
-                ToolTipManager.sharedInstance().mouseMoved(e);
+                ToolTipManager.sharedInstance().setDismissDelay(1500);
+                ToolTipManager.sharedInstance().setInitialDelay(500);
             }
-
         };
 
+        this.addMouseMotionListener(ms);
         this.addMouseListener(adapt);
+
         this.events.add(adapt);
+        this.toolTips.add(ms); /// this.events.add(toolTip);
     }
 
     private void removeAllCurrentEvents()
@@ -197,8 +199,14 @@ public class TextInBoxTreePane extends JComponent
         {
             this.removeMouseListener(event);
         }
-
         events.clear();
+
+        for (MouseMotionListener ms : toolTips)
+        {
+            this.removeMouseMotionListener(ms);
+        }
+
+        toolTips.clear();
     }
 
 }
