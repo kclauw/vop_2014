@@ -8,16 +8,7 @@ public class PersonNodeExtentProvider implements NodeExtentProvider<PersonDTO>
 
     public double getWidth(PersonDTO tn)
     {
-        PersonDTO partner = tn.getPartner();
-
-        if (partner == null)
-        {
-            return 65;
-        }
-        else
-        {
-            return 130;
-        }
+        return 75;
     }
 
     public double getHeight(PersonDTO tn)

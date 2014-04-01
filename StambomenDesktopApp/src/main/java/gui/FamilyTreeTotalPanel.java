@@ -5,22 +5,24 @@
  */
 package gui;
 
-import dto.GenderDTO;
 import dto.PersonDTO;
 import gui.controller.TreeController;
+import gui.tree.AbegoTreeLayoutForNetbeansDemo;
 import gui.tree.PersonNodeExtentProvider;
 import gui.tree.PersonTreeForTreeLayout;
+import gui.tree.TreeLayoutFactory;
 import gui.tree.TreePane;
+import gui.tree.swing.SwingDemo;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import org.abego.treelayout.Configuration;
+import javax.swing.SwingUtilities;
 import org.abego.treelayout.TreeLayout;
 import org.abego.treelayout.util.DefaultConfiguration;
+import org.openide.util.Exceptions;
 import util.PersonUtil;
 
 public class FamilyTreeTotalPanel extends javax.swing.JPanel
@@ -32,8 +34,8 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     private JScrollPane scroll;
     private List<PersonDTO> persons;
     private TreeLayout<PersonDTO> layout;
-    private int maxGapBetweenNodes = 50;
-    private int maxGapBetweenLevel = 50;
+    private int maxGapBetweenNodes = 100;
+    private int maxGapBetweenLevel = 100;
 
     /**
      * Creates new form FamilyTreeTotalPanel
@@ -100,28 +102,8 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     {
         this.persons = persons;
 
-        List<PersonDTO> toRemove = new ArrayList<PersonDTO>();
-
-        for (PersonDTO person : this.persons)
-        {
-            if (person.getGender() == GenderDTO.MALE)
-            {
-                PersonDTO p = person.getPartner();
-
-                if (p != null && p.getGender() == GenderDTO.FEMALE)
-                {
-                    toRemove.add(p);
-                }
-            }
-        }
-
-        for (PersonDTO p : toRemove)
-        {
-            this.persons.remove(p);
-        }
-
         PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), this.persons);
-        layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), new DefaultConfiguration<PersonDTO>(maxGapBetweenNodes, maxGapBetweenLevel, Configuration.Location.Top, Configuration.AlignmentInLevel.AwayFromRoot));
+        layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), new DefaultConfiguration<PersonDTO>(maxGapBetweenNodes, maxGapBetweenLevel));
         TreePane tree;
 
         tree = new TreePane(layout, this.persons, this);
@@ -133,11 +115,14 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     public void drawFamilyTree(List<PersonDTO> persons, DefaultConfiguration def)
     {
         this.persons = persons;
+
         PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), persons);
+        TreeLayoutFactory tlf = new TreeLayoutFactory();
         TreeLayout<PersonDTO> layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), def);
+        TreeLayout<PersonDTO> treeLayout = new TreeLayout<PersonDTO>(tlf.createSampleTreePerson(layout), null, def);
         TreePane tree;
 
-        tree = new TreePane(layout, persons, this);
+        tree = new TreePane(treeLayout, persons, this);
 
         this.scroll.add(tree);
         this.scroll.setViewportView(tree);
@@ -146,11 +131,6 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     public void deletePerson(PersonDTO person)
     {
         this.treeController.deletePerson(person);
-    }
-
-    public void setViewPort(int width, int i)
-    {
-        this.scroll.getHorizontalScrollBar().setValue(width / 2);
     }
 
     public void updatePerson(PersonDTO person)
@@ -189,8 +169,8 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         catch (IllegalArgumentException ex)
         {
             JOptionPane.showMessageDialog(null, "Cannot zoom out further!");
-            maxGapBetweenLevel = 25;
-            maxGapBetweenNodes = 25;
+            maxGapBetweenLevel = 40;
+            maxGapBetweenNodes = 40;
         }
     }
 
@@ -202,5 +182,30 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     public void deleteImage(PersonDTO person)
     {
         treeController.deleteImage(person);
+    }
+
+    public void drawFamilyTree2()
+    {
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    AbegoTreeLayoutForNetbeansDemo.Start(persons, layout);
+                }
+                catch (Exception ex)
+                {
+                    Exceptions.printStackTrace(ex);
+                }
+            }
+        });        // TODO add your handling code here:    }
+    }
+
+    public void drawFamilyTree3()
+    {
+        SwingDemo.startUp(layout);
+
     }
 }

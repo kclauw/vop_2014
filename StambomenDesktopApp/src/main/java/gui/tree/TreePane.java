@@ -11,8 +11,8 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import javax.swing.JComponent;
+import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.TreeLayout;
 
 public class TreePane extends JComponent
@@ -33,19 +33,19 @@ public class TreePane extends JComponent
         this.treeLayout = tree;
         this.persons = persons;
         this.fttp = fttp;
-        Dimension size = tree.getBounds().getBounds().getSize();
-        setPreferredSize(new Dimension(size.width + 100, size.height + 100));
+        Dimension size = treeLayout.getBounds().getBounds().getSize();
+        System.out.println("[DRAW] Dimensions:" + size.toString());
+        setPreferredSize(size);
+        setMinimumSize(size);
     }
 
-    private void paintEdges(Graphics g, PersonDTO root, int level)
+    private void paintEdges(Graphics g, PersonDTO root)
     {
         if (!treeLayout.getTree().isLeaf(root))
         {
             Rectangle2D.Double b1 = getBoundsOfNode(root);
             double x1 = b1.getCenterX();
             double y1 = b1.getCenterY();
-
-            level++;
 
             for (PersonDTO child : this.treeLayout.getTree().getChildren(root))
             {
@@ -58,7 +58,7 @@ public class TreePane extends JComponent
                 g.drawLine((int) x2, (int) line, (int) x1, (int) line);
 
                 //       g.drawLine((int) x1, (int) y1, (int) b2.getCenterX(),(int) b2.getCenterY());
-                paintEdges(g, child, level);
+                paintEdges(g, child);
             }
 
         }
@@ -77,32 +77,30 @@ public class TreePane extends JComponent
         {
             g.setColor(Color.CYAN);
         }
-
+//
         Rectangle2D.Double box = getBoundsOfNode(person);
-        g.fillRoundRect((int) box.x, (int) box.y, (int) box.width - 1,
+        g.fillRoundRect(((int) box.x), (int) box.y, (int) box.width - 1,
                 (int) box.height - 1, ARC_SIZE, ARC_SIZE);
         g.setColor(BORDER_COLOR);
-        g.drawRoundRect((int) box.x, (int) box.y, (int) box.width - 1,
+        g.drawRoundRect(((int) box.x), (int) box.y, (int) box.width - 1,
                 (int) box.height - 1, ARC_SIZE, ARC_SIZE);
 
         // draw the text on top of the box (possibly multiple lines)
         g.setColor(TEXT_COLOR);
 
         addListener(box, person);
-
         String name = person.getFirstName() + " " + person.getSurName().charAt(0) + ".";
 
         drawString(g, name, box);
-
         if (partner != null)
         {
             g.setColor(Color.PINK);
-            Rectangle2D.Double partnerBox = new Rectangle2D.Double(box.x + 66, box.y, 66, 25);
+            Rectangle2D.Double partnerBox = new Rectangle2D.Double((box.x + 100), box.y, 75, 25);
 
-            g.fillRoundRect((int) partnerBox.x, (int) partnerBox.y, (int) partnerBox.width - 1,
+            g.fillRoundRect(((int) partnerBox.x), (int) partnerBox.y, (int) partnerBox.width - 1,
                     (int) partnerBox.height - 1, ARC_SIZE, ARC_SIZE);
             g.setColor(BORDER_COLOR);
-            g.drawRoundRect((int) partnerBox.x, (int) partnerBox.y, (int) partnerBox.width - 1,
+            g.drawRoundRect(((int) partnerBox.x), (int) partnerBox.y, (int) partnerBox.width - 1,
                     (int) partnerBox.height - 1, ARC_SIZE, ARC_SIZE);
 
             addListener(partnerBox, partner);
@@ -123,24 +121,12 @@ public class TreePane extends JComponent
     @Override
     public void paint(Graphics g)
     {
-
+        TreeForTreeLayout<PersonDTO> tree = getTree();
         removeAllCurrentEvents();
-        //  super.paint(g);
-        paintEdges(g, treeLayout.getTree().getRoot(), 0);
-        Set<PersonDTO> personKeys = treeLayout.getNodeBounds().keySet();
-
-        for (PersonDTO person : personKeys)
-        {
-            PersonDTO partner = person.getPartner();
-            personKeys.remove(partner);
-            paintPerson(g, person);
-        }
-
-    }
-
-    private Rectangle2D.Double getBoundsOfNode(PersonDTO node)
-    {
-        return treeLayout.getNodeBounds().get(node);
+        super.paint(g);
+        paintEdges(g, tree.getRoot());
+        paintPerson(g, tree.getRoot());
+        paintPersons(g, tree.getChildren(tree.getRoot()), 0);
     }
 
     private void addListener(final Rectangle2D.Double box, final PersonDTO person)
@@ -173,4 +159,40 @@ public class TreePane extends JComponent
         events.clear();
     }
 
+    private void paintPersons(Graphics g, Iterable<PersonDTO> children, int level)
+    {
+        level++;
+
+        for (PersonDTO p : children)
+        {
+            System.out.println("[DRAW] FIRST=");
+
+            for (int i = 0; i < level; i++)
+            {
+                System.out.print("%");
+            }
+
+            System.out.print(p.getFirstName());
+
+            paintPerson(g, p);
+            paintEdges(g, p);
+            paintPersons(g, treeLayout.getTree().getChildren(p), level);
+        }
+    }
+
+    /*Help methods:*/
+    private TreeForTreeLayout<PersonDTO> getTree()
+    {
+        return treeLayout.getTree();
+    }
+
+    private Iterable<PersonDTO> getChildren(PersonDTO parent)
+    {
+        return getTree().getChildren(parent);
+    }
+
+    private Rectangle2D.Double getBoundsOfNode(PersonDTO node)
+    {
+        return treeLayout.getNodeBounds().get(node);
+    }
 }
