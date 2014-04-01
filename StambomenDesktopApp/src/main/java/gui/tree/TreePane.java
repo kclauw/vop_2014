@@ -8,10 +8,14 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.List;
 import javax.swing.JComponent;
+import javax.swing.ToolTipManager;
 import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.TreeLayout;
 
@@ -26,7 +30,7 @@ public class TreePane extends JComponent
     private final TreeLayout<PersonDTO> treeLayout;
     private List<PersonDTO> persons;
     private FamilyTreeTotalPanel fttp;
-    private List<MouseAdapter> events = new ArrayList<MouseAdapter>();
+    private List<EventListener> events = new ArrayList<EventListener>();
 
     public TreePane(TreeLayout<PersonDTO> tree, List<PersonDTO> persons, FamilyTreeTotalPanel fttp)
     {
@@ -143,17 +147,50 @@ public class TreePane extends JComponent
             }
         };
 
+        MouseMotionListener ms = new MouseMotionListener()
+        {
+            @Override
+            public void mouseMoved(MouseEvent e)
+            {
+                if (box.contains(e.getPoint()))
+                {
+                    System.out.println("Inside rect");
+                    setToolTipText("Inside rect");
+                }
+                else
+                {
+                    setToolTipText("Outside rect");
+                }
+
+                ToolTipManager.sharedInstance().mouseMoved(e);
+            }
+
+            public void mouseDragged(MouseEvent e)
+            {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+        };
+
         this.addMouseListener(adapt);
+        this.addMouseMotionListener(ms);
         this.events.add(adapt);
+        this.events.add(ms);
     }
 
     private void removeAllCurrentEvents()
     {
 
-        for (MouseAdapter adapt : events)
+        for (EventListener event : events)
         {
-            this.removeMouseListener(adapt);
-
+            if (event instanceof MouseMotionListener)
+            {
+                this.removeMouseMotionListener((MouseMotionListener) event);
+            }
+            else
+            {
+                this.removeMouseListener((MouseListener) event);
+            }
         }
 
         events.clear();

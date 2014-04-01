@@ -8,10 +8,14 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.List;
 import javax.swing.JComponent;
+import javax.swing.ToolTipManager;
 import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.TreeLayout;
 
@@ -153,6 +157,7 @@ public class TextInBoxTreePane extends JComponent
 
     private void addListener(final Rectangle2D.Double box, final PersonDTO person)
     {
+
         MouseAdapter adapt = new MouseAdapter()
         {
             @Override
@@ -163,6 +168,23 @@ public class TextInBoxTreePane extends JComponent
                     fttp.setPerson(person);
                 }
             }
+
+            @Override
+            public void mouseMoved(MouseEvent e)
+            {
+                if (box.contains(e.getPoint()))
+                {
+                    System.out.println("move" + e.getPoint());
+                    setToolTipText(person.getFirstName() + " " + person.getSurName());
+                }
+                else
+                {
+                    setToolTipText("Outside rect");
+                }
+
+                ToolTipManager.sharedInstance().mouseMoved(e);
+            }
+
         };
 
         this.addMouseListener(adapt);
@@ -171,11 +193,9 @@ public class TextInBoxTreePane extends JComponent
 
     private void removeAllCurrentEvents()
     {
-
-        for (MouseAdapter adapt : events)
+        for (MouseAdapter event : events)
         {
-            this.removeMouseListener(adapt);
-
+            this.removeMouseListener(event);
         }
 
         events.clear();

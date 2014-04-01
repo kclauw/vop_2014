@@ -50,8 +50,6 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     {
         initComponents();
         this.treeController = treeController;
-        //    this.familyTreePanel = new FamilyTreePanel(treeController, this);
-
         this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
     }
 
