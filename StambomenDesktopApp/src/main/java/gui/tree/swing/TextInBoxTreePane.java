@@ -1,10 +1,16 @@
 package gui.tree.swing;
 
+import dto.PersonDTO;
+import gui.FamilyTreeTotalPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JComponent;
 import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.TreeLayout;
@@ -18,6 +24,8 @@ public class TextInBoxTreePane extends JComponent
 {
 
     private final TreeLayout<TextInBox> treeLayout;
+    private FamilyTreeTotalPanel fttp;
+    private List<MouseAdapter> events = new ArrayList<MouseAdapter>();
 
     private TreeForTreeLayout<TextInBox> getTree()
     {
@@ -40,8 +48,9 @@ public class TextInBoxTreePane extends JComponent
      *
      * @param treeLayout
      */
-    public TextInBoxTreePane(TreeLayout<TextInBox> treeLayout)
+    public TextInBoxTreePane(FamilyTreeTotalPanel fttp, TreeLayout<TextInBox> treeLayout)
     {
+        this.fttp = fttp;
         this.treeLayout = treeLayout;
         Dimension size = treeLayout.getBounds().getBounds().getSize();
         setPreferredSize(size);
@@ -78,8 +87,17 @@ public class TextInBoxTreePane extends JComponent
 
     private void paintBox(Graphics g, TextInBox textInBox)
     {
-        // draw the box in the background
-        g.setColor(BOX_COLOR);
+        PersonDTO partner = textInBox.getPerson().getPartner();
+
+        if (partner == null)
+        {
+            g.setColor(BOX_COLOR);
+        }
+        else
+        {
+            g.setColor(Color.CYAN);
+        }
+
         Rectangle2D.Double box = getBoundsOfNode(textInBox);
         g.fillRoundRect((int) box.x, (int) box.y, (int) box.width - 1,
                 (int) box.height - 1, ARC_SIZE, ARC_SIZE);
@@ -87,31 +105,80 @@ public class TextInBoxTreePane extends JComponent
         g.drawRoundRect((int) box.x, (int) box.y, (int) box.width - 1,
                 (int) box.height - 1, ARC_SIZE, ARC_SIZE);
 
-        // draw the text on top of the box (possibly multiple lines)
         g.setColor(TEXT_COLOR);
-        String[] lines = textInBox.text.split("\n");
         FontMetrics m = getFontMetrics(getFont());
         int x = (int) box.x + ARC_SIZE / 2;
         int y = (int) box.y + m.getAscent() + m.getLeading() + 1;
+        drawString(g, textInBox.text, box);
+        addListener(box, textInBox.getPerson());
 
-        for (int i = 0; i < lines.length; i++)
+        if (partner != null)
         {
-            g.drawString(lines[i], x, y);
-            y += m.getHeight();
+            g.setColor(Color.PINK);
+            Rectangle2D.Double partnerBox = new Rectangle2D.Double((box.x + 50), box.y, 75, 25);
+
+            g.fillRoundRect(((int) partnerBox.x), (int) partnerBox.y, (int) partnerBox.width - 1,
+                    (int) partnerBox.height - 1, ARC_SIZE, ARC_SIZE);
+            g.setColor(BORDER_COLOR);
+            g.drawRoundRect(((int) partnerBox.x), (int) partnerBox.y, (int) partnerBox.width - 1,
+                    (int) partnerBox.height - 1, ARC_SIZE, ARC_SIZE);
+
+            addListener(partnerBox, partner);
+            drawString(g, partner.getFirstName(), partnerBox);
         }
+    }
+
+    private void drawString(Graphics g, String lines, Rectangle2D.Double box)
+    {
+        g.setColor(Color.BLACK);
+        FontMetrics m = getFontMetrics(getFont());
+        int x = (int) box.x + ARC_SIZE / 2;
+        int y = (int) box.y + m.getAscent() + m.getLeading() + 1;
+        g.drawString(lines, x, y);
     }
 
     @Override
     public void paint(Graphics g)
     {
         super.paint(g);
+        removeAllCurrentEvents();
 
         paintEdges(g, getTree().getRoot());
 
-        // paint the boxes
         for (TextInBox textInBox : treeLayout.getNodeBounds().keySet())
         {
             paintBox(g, textInBox);
         }
     }
+
+    private void addListener(final Rectangle2D.Double box, final PersonDTO person)
+    {
+        MouseAdapter adapt = new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent me)
+            {
+                if (box.contains(me.getPoint()))
+                {
+                    fttp.setPerson(person);
+                }
+            }
+        };
+
+        this.addMouseListener(adapt);
+        this.events.add(adapt);
+    }
+
+    private void removeAllCurrentEvents()
+    {
+
+        for (MouseAdapter adapt : events)
+        {
+            this.removeMouseListener(adapt);
+
+        }
+
+        events.clear();
+    }
+
 }

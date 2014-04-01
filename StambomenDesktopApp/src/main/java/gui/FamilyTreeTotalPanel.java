@@ -12,7 +12,10 @@ import gui.tree.PersonNodeExtentProvider;
 import gui.tree.PersonTreeForTreeLayout;
 import gui.tree.TreeLayoutFactory;
 import gui.tree.TreePane;
-import gui.tree.swing.SwingDemo;
+import gui.tree.swing.SampleTreeFactory;
+import gui.tree.swing.TextInBox;
+import gui.tree.swing.TextInBoxNodeExtentProvider;
+import gui.tree.swing.TextInBoxTreePane;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.util.List;
@@ -20,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
+import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.TreeLayout;
 import org.abego.treelayout.util.DefaultConfiguration;
 import org.openide.util.Exceptions;
@@ -34,8 +38,8 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     private JScrollPane scroll;
     private List<PersonDTO> persons;
     private TreeLayout<PersonDTO> layout;
-    private int maxGapBetweenNodes = 100;
-    private int maxGapBetweenLevel = 100;
+    private int maxGapBetweenNodes = 40;
+    private int maxGapBetweenLevel = 60;
 
     /**
      * Creates new form FamilyTreeTotalPanel
@@ -102,14 +106,16 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     {
         this.persons = persons;
 
+        DefaultConfiguration def = new DefaultConfiguration<PersonDTO>(maxGapBetweenNodes, maxGapBetweenLevel);
         PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), this.persons);
-        layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), new DefaultConfiguration<PersonDTO>(maxGapBetweenNodes, maxGapBetweenLevel));
-        TreePane tree;
+        layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), def);
+        TreeForTreeLayout<TextInBox> tr = getSampleTree(layout);
+        TextInBoxNodeExtentProvider nodeExtentProvider = new TextInBoxNodeExtentProvider();
+        TreeLayout<TextInBox> trLayout = new TreeLayout<TextInBox>(tr, nodeExtentProvider, def);
+        TextInBoxTreePane panel = new TextInBoxTreePane(this, trLayout);
 
-        tree = new TreePane(layout, this.persons, this);
-
-        this.scroll.add(tree);
-        this.scroll.setViewportView(tree);
+        this.scroll.add(panel);
+        this.scroll.setViewportView(panel);
     }
 
     public void drawFamilyTree(List<PersonDTO> persons, DefaultConfiguration def)
@@ -117,15 +123,20 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         this.persons = persons;
 
         PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), persons);
-        TreeLayoutFactory tlf = new TreeLayoutFactory();
         TreeLayout<PersonDTO> layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), def);
-        TreeLayout<PersonDTO> treeLayout = new TreeLayout<PersonDTO>(tlf.createSampleTreePerson(layout), null, def);
-        TreePane tree;
+        TreeForTreeLayout<TextInBox> tr = getSampleTree(layout);
+        TreeLayout<TextInBox> trLayout = new TreeLayout<TextInBox>(tr, new TextInBoxNodeExtentProvider(), def);
+        TextInBoxTreePane panel = new TextInBoxTreePane(this, trLayout);
 
-        tree = new TreePane(treeLayout, persons, this);
+        this.scroll.add(panel);
+        this.scroll.setViewportView(panel);
+    }
 
-        this.scroll.add(tree);
-        this.scroll.setViewportView(tree);
+    private static TreeForTreeLayout<TextInBox> getSampleTree(TreeLayout<PersonDTO> tree)
+    {
+        TreeForTreeLayout<TextInBox> tr;
+        tr = SampleTreeFactory.createSampleTreePerson(tree);
+        return tr;
     }
 
     public void deletePerson(PersonDTO person)
@@ -201,11 +212,5 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
                 }
             }
         });        // TODO add your handling code here:    }
-    }
-
-    public void drawFamilyTree3()
-    {
-        SwingDemo.startUp(layout);
-
     }
 }
