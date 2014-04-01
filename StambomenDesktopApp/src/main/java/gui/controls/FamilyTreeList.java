@@ -7,6 +7,7 @@ package gui.controls;
 
 import dto.TreeDTO;
 import gui.controller.TreeOverviewController;
+import util.Translator;
 
 /**
  *
@@ -21,11 +22,19 @@ public class FamilyTreeList extends javax.swing.JPanel
     {
         this.treeController = tc;
         initComponents();
+        translate();
     }
 
     public void openFamilyTree(TreeDTO tree)
     {
         this.treeController.showTree(tree);
+    }
+
+    public void translate()
+    {
+        Translator trans = new Translator();
+        jLabel2.setText(trans.translate("AllTrees"));
+
     }
 
     @SuppressWarnings("unchecked")
