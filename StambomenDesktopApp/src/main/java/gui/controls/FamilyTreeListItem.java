@@ -6,6 +6,7 @@
 package gui.controls;
 
 import dto.TreeDTO;
+import util.Translator;
 
 public class FamilyTreeListItem extends javax.swing.JPanel
 {
@@ -51,21 +52,22 @@ public class FamilyTreeListItem extends javax.swing.JPanel
 
     private void setPrivacy(int privacy)
     {
+        Translator trans = new Translator();
         this.privacy = privacy;
 
         switch (privacy)
         {
             case 2:
-                lblPrivacy.setText("Public");
+                lblPrivacy.setText(trans.translate("Public"));
                 break;
             case 1:
-                lblPrivacy.setText("Shared");
+                lblPrivacy.setText(trans.translate("Shared"));
                 break;
             case 0:
-                lblPrivacy.setText("Private");
+                lblPrivacy.setText(trans.translate("Private"));
                 break;
             default:
-                lblPrivacy.setText("Unknown (<0 || >2)");
+                lblPrivacy.setText(trans.translate("Unknown") + " (<0 || >2)");
                 break;
         }
     }
@@ -112,7 +114,7 @@ public class FamilyTreeListItem extends javax.swing.JPanel
         setRequestFocusEnabled(false);
         setLayout(new java.awt.GridBagLayout());
 
-        btnOpen.setLabel("O");
+        btnOpen.setText("Open");
         btnOpen.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)

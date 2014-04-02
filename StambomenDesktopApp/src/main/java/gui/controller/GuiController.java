@@ -40,16 +40,23 @@ public class GuiController
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent)
             {
-                int confirm = JOptionPane.showConfirmDialog(programFrame, "Are you sure you want to close?");
-                if (confirm == JOptionPane.YES_OPTION)
+                if (currentPanel == Panels.SETTINGS)
                 {
-                    if (currentPanel == Panels.TREE)
+                    goTo(Panels.TREEOVERVIEW);
+                }
+                else
+                {
+                    int confirm = JOptionPane.showConfirmDialog(programFrame, "Are you sure you want to close?");
+                    if (confirm == JOptionPane.YES_OPTION)
                     {
-                        goTo(Panels.TREEOVERVIEW);
-                    }
-                    else
-                    {
-                        programFrame.dispose();
+                        if (currentPanel == Panels.TREE)
+                        {
+                            goTo(Panels.TREEOVERVIEW);
+                        }
+                        else
+                        {
+                            programFrame.dispose();
+                        }
                         System.exit(0);
                     }
                 }
