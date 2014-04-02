@@ -115,8 +115,8 @@ public class PersonController
     {
         pc.savePersonImage(personID, bufferedImage);
     }
-    
-    public void savePersonImage( int personID, BufferedImage bufferedImage) throws IOException
+
+    public void savePersonImage(int personID, BufferedImage bufferedImage) throws IOException
     {
         pc.savePersonImage(personID, bufferedImage);
     }
@@ -125,9 +125,14 @@ public class PersonController
     {
         return pc.getPersons(treeID, start, max);
     }
-    
-    public List<Person> getPersons( int start, int max)
+
+    public List<Person> getPersons(int start, int max)
     {
         return pc.getPersons(start, max);
+    }
+
+    public List<Person> searchPerson(int userID, String firstname, String lastname)
+    {
+        return pc.searchPerson(userID, firstname, lastname);
     }
 }

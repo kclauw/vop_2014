@@ -242,4 +242,9 @@ public class PersistenceController
         logger.info("[PERSISTENCE CONTROLLER] Get coordinates ");
         return googlegeoDao.getCoordinates(place);
     }
+
+    public List<Person> searchPerson(int userID, String firstname, String lastname)
+    {
+        return personDao.searchPersonFirstAndLastname(userID, firstname, lastname);
+    }
 }
