@@ -87,11 +87,18 @@ function init() {
         {
             //Start timer
             $(this).attr("src", "./images/pause.png");
+            
+            var currentdate = new Date($('#datepicker').datepicker('getDate'));
+            if (currentdate >= maxdate) {
+                $( "#datepicker" ).datepicker("setDate", mindate);
+                setMarkers(mindate);
+                updateSlider(mindate, mindate);
+            }
+            
             intervalID = window.setInterval(function() {
                 var date = new Date($('#datepicker').datepicker('getDate'));
                 
                 if (date >= maxdate) {
-                    console.log("zdzdzqdzd");
                     $('#timecontrol #play').attr("src", "./images/play.png");
                     window.clearInterval(intervalID);
                     intervalID = -1;

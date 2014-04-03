@@ -22,6 +22,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.ClientPersonController;
+import service.ClientTreeController;
+import service.ClientUserController;
 
 /**
  *
@@ -140,6 +142,12 @@ public class TimemachineServlet extends HttpServlet
         while (index < personstack.size())
         {
             PersonDTO parent = personstack.get(index);
+            PersonDTO partner = parent.getPartner();
+            if (partner != null)
+            {
+                personstack.add(index, partner);
+                ++index;
+            }
             personstack.addAll(parent.getChilderen());
             ++index;
         }
@@ -155,6 +163,13 @@ public class TimemachineServlet extends HttpServlet
             {
                 ClientPersonController personController = (ClientPersonController) session.getAttribute("personController");
                 personController.updatePerson(person);
+
+                PersonDTO personupdated = personController.getPerson(tree.getId(), person.getPersonId());
+                if (personupdated != null)
+                {
+                    person = personupdated;
+                    personstack.set(i, person);
+                }
 
                 if (person.getPlace() == null || person.getPlace().getCoord() == null || (person.getPlace().getCoord().getLatitude() == 0 && person.getPlace().getCoord().getLongitude() == 0))
                 {

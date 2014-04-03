@@ -154,6 +154,22 @@ public class ClientPersonService
         return persons;
     }
 
+    public PersonDTO getPerson(int treeId, int personId)
+    {
+        logger.info("[CLIENT ADMIN SERVICE][GET PERSON]Getting person ");
+        System.out.println("URL");
+        System.out.println(url + "person/");
+        System.out.println("-------------------");
+        Client client = ClientServiceController.getInstance().getClient();
+        client.register(new JacksonFeature());
+
+        PersonDTO person = client.target(url + "person/" + treeId + "/" + personId).request(MediaType.APPLICATION_JSON).get(new GenericType<PersonDTO>()
+        {
+        });
+
+        return person;
+    }
+
     public List<PersonDTO> getPersonsBySearch(String firstname, String lastname)
     {
         int userID = ClientServiceController.getInstance().getUser().getId();

@@ -51,6 +51,11 @@ public class ClientPersonController
         return clientPersonService.getPersons(start, max);
     }
 
+    public PersonDTO getPerson(int treeId, int personId)
+    {
+        return clientPersonService.getPerson(treeId, personId);
+    }
+
     public List<PersonDTO> getPersonsBySearch(String firstname, String lastname)
     {
         return clientPersonService.getPersonsBySearch(firstname, lastname);
