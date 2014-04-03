@@ -2,9 +2,6 @@ package gui;
 
 import dto.UserDTO;
 import dto.UserTableModel;
-import dto.UserDTO;
-import dto.UserTableModel;
-import gui.controller.UserOverviewController;
 import gui.controller.UserOverviewController;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -24,7 +21,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
-import service.ClientUserController;
 import service.ClientUserController;
 
 public class UserOverviewPanel extends javax.swing.JPanel
@@ -184,7 +180,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
-    public void setAdminController(UserOverviewController u)
+    public void setUserOverviewController(UserOverviewController u)
     {
         this.useroverviewController = u;
     }

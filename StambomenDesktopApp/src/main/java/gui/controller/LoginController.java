@@ -15,7 +15,7 @@ public class LoginController implements IPanelController
     private GuiController gui;
     private ClientUserController clientUserController;
     private boolean admin = true;
-    private String login;
+    private ClientFacebookController clientFacebookController;
 
     public LoginController(GuiController guiC)
     {
@@ -46,7 +46,7 @@ public class LoginController implements IPanelController
     {
         System.out.println("[LOGINCONTROLLER] login" + user.toString());
 
-        login = clientUserController.login(user);
+        String login = clientUserController.login(user);
 
         gui.setLogin(login);
         System.out.println("REPLY FROM SERVICE:" + login);
@@ -78,11 +78,6 @@ public class LoginController implements IPanelController
     {
         clientUserController.setFBAuthCode(authCode);
         clientFacebookController.verify(authCode);
-    }
-
-    public String getLogin()
-    {
-        return login;
     }
 
 }
