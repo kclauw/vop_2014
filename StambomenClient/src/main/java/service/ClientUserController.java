@@ -127,6 +127,11 @@ public class ClientUserController
         return userProfiles;
     }
 
+    public List<UserDTO> getUsers()
+    {
+        return client.getUsers();
+    }
+
     public void setFBAuthCode(String authCode)
     {
         ClientServiceController.getInstance().setFbAuthCode(authCode);

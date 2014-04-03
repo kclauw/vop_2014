@@ -7,6 +7,7 @@ public class UserDTO implements java.io.Serializable
     private String username;
     private String password;
     private LanguageDTO language;
+    private String role;
 
     public UserDTO()
     {
@@ -18,6 +19,15 @@ public class UserDTO implements java.io.Serializable
         this.username = username;
         this.password = password;
         this.language = language;
+    }
+
+    public UserDTO(int id, String username, String password, LanguageDTO language, String role)
+    {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.language = language;
+        this.role = role;
     }
 
     public UserDTO(int id, String username)
@@ -66,10 +76,20 @@ public class UserDTO implements java.io.Serializable
         this.password = password;
     }
 
+    public String getRole()
+    {
+        return role;
+    }
+
+    public void setRole(String role)
+    {
+        this.role = role;
+    }
+
     @Override
     public String toString()
     {
-        return "UserDTO{" + "id=" + id + ", username=" + username + ", password=" + password + '}';
+        return "UserDTO{" + "id=" + id + ", username=" + username + ", password=" + password + "role : " + role + '}';
     }
 
 }

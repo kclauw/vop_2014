@@ -10,6 +10,7 @@ public class ClientPersonController
 {
 
     private ClientPersonService clientPersonService;
+    private ClientAdminService clientAdminService;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public ClientPersonController()
@@ -48,6 +49,11 @@ public class ClientPersonController
     public List<PersonDTO> getPersons(int start, int max)
     {
         return clientPersonService.getPersons(start, max);
+    }
+
+    public PersonDTO getPerson(int treeId, int personId)
+    {
+        return clientPersonService.getPerson(treeId, personId);
     }
 
     public List<PersonDTO> getPersonsBySearch(String firstname, String lastname)

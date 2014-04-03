@@ -128,16 +128,43 @@ public class ClientPersonService
         return null;
     }
 
+    public static BufferedImage imageToBufferedImage(Image im)
+    {
+        BufferedImage bi = new BufferedImage(im.getWidth(null), im.getHeight(null), BufferedImage.TYPE_INT_RGB);
+        Graphics bg = bi.getGraphics();
+        bg.drawImage(im, 0, 0, null);
+        bg.dispose();
+        return bi;
+    }
+
     public List<PersonDTO> getPersons(int start, int max)
     {
-        logger.info("[CLIENT PERSON SERVICE][GET PERSONS]Getting persons ");
+        logger.info("[CLIENT ADMIN SERVICE][GET PERSONS]Getting persons ");
 
         Client client = ClientServiceController.getInstance().getClient();
-        List<PersonDTO> persons = client.target(url + "person/persons/" + start + "/" + max).request(MediaType.APPLICATION_JSON).get(new GenericType<List<PersonDTO>>()
+        client.register(new JacksonFeature());
+
+        List<PersonDTO> persons = client.target(url + "admin/persons/" + start + "/" + max).request(MediaType.APPLICATION_JSON).get(new GenericType<List<PersonDTO>>()
         {
         });
 
         return persons;
+    }
+
+    public PersonDTO getPerson(int treeId, int personId)
+    {
+        logger.info("[CLIENT ADMIN SERVICE][GET PERSON]Getting person ");
+        System.out.println("URL");
+        System.out.println(url + "person/");
+        System.out.println("-------------------");
+        Client client = ClientServiceController.getInstance().getClient();
+        client.register(new JacksonFeature());
+
+        PersonDTO person = client.target(url + "person/" + treeId + "/" + personId).request(MediaType.APPLICATION_JSON).get(new GenericType<PersonDTO>()
+        {
+        });
+
+        return person;
     }
 
     public List<PersonDTO> getPersonsBySearch(String firstname, String lastname)
@@ -150,15 +177,6 @@ public class ClientPersonService
         });
 
         return persons;
-    }
-
-    public static BufferedImage imageToBufferedImage(Image im)
-    {
-        BufferedImage bi = new BufferedImage(im.getWidth(null), im.getHeight(null), BufferedImage.TYPE_INT_RGB);
-        Graphics bg = bi.getGraphics();
-        bg.drawImage(im, 0, 0, null);
-        bg.dispose();
-        return bi;
     }
 
 }
