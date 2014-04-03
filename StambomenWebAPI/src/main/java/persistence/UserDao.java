@@ -160,12 +160,9 @@ public class UserDao implements IDao<User>
                 users.add(user);
 
             }
-            for (User item : users)
-            {
-                System.out.println("item : " + item);
-            }
 
             con.close();
+            return users;
         }
         catch (SQLException ex)
         {
