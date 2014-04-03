@@ -145,7 +145,7 @@ public class UserDao implements IDao<User>
     {
         ResultSet res = null;
         Statement stat = null;
-        List<User> users = null;
+        List<User> users = new ArrayList<User>();
         try
         {
             con = DatabaseUtils.getConnection();
@@ -156,16 +156,14 @@ public class UserDao implements IDao<User>
             while (res.next())
             {
                 User user = map(res);
-
+                System.out.println("USER : " + user);
                 users.add(user);
+                System.out.println("USER : " + users.get(0));
 
-            }
-            for (User item : users)
-            {
-                System.out.println("item : " + item);
             }
 
             con.close();
+
         }
         catch (SQLException ex)
         {
