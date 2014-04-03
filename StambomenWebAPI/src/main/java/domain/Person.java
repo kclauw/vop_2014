@@ -1,9 +1,6 @@
 package domain;
 
 import exception.InvalidParentException;
-import exception.PersonFirstNameCannotBeEmptyException;
-import exception.PersonLastNameCannotBeEmptyException;
-import exception.PersonMustHaveAGender;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
@@ -183,7 +180,7 @@ public class Person
             }
             else
             {
-                throw new PersonFirstNameCannotBeEmptyException();
+                this.firstName = "Unknown";
             }
 
             if (!StringValidation.emptyString(surName))
@@ -192,7 +189,7 @@ public class Person
             }
             else
             {
-                throw new PersonLastNameCannotBeEmptyException();
+                this.surName = "Unknown";
             }
 
             if (!(gender == null))
@@ -201,7 +198,7 @@ public class Person
             }
             else
             {
-                throw new PersonMustHaveAGender();
+                this.gender = null;
             }
 
         }
@@ -226,7 +223,16 @@ public class Person
 
         public PersonBuilder place(Place place)
         {
-            this.place = place;
+            if (place == null)
+            {
+                Place p = new Place.PlaceBuilder("Unknown").country("Unknown").zipCode("Unknown").build();
+                this.place = p;
+            }
+            else
+            {
+                this.place = place;
+            }
+
             return this;
         }
 
