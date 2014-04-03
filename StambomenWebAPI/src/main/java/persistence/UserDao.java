@@ -21,7 +21,9 @@ public class UserDao implements IDao<User>
     private final Logger logger;
     private final String GETALLUSER = "SELECT userID, username, password FROM User";
     private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
-    private final String GETUSER = "SELECT userID, username, password, languageID FROM User WHERE username = ?";
+    private final String GETUSER = "SELECT userID, username, password, languageID  FROM User WHERE username = ?";
+    private final String GETUSERROLEBYNAME = "SELECT u.userID AS userID, u.username AS username, u.password AS PASSWORD, u.languageID AS languageID,r.role as role FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.username = ?";
+    private final String GETROLE = "SELECT userID, username, password, languageID  FROM User WHERE username = ?";
     private final String GETUSERBYID = "SELECT userID, username, password, languageID  FROM User WHERE userID = ?";
     private final String GETFRIENDSBYID = "SELECT friend, receiver, status FROM Request WHERE (receiver=? or friend=?) AND status = 1";
     private final String GETFRIENDREQUESTBYID = "SELECT friend, receiver, status FROM Request WHERE receiver=? AND status = 0";
@@ -139,7 +141,7 @@ public class UserDao implements IDao<User>
     }
 
     @Override
-    public Collection<User> getAll()
+    public List<User> getAll()
     {
         ResultSet res = null;
         Statement stat = null;
@@ -261,7 +263,7 @@ public class UserDao implements IDao<User>
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(GETUSER);
+            prep = con.prepareStatement(GETUSERROLEBYNAME);
             prep.setString(1, username);
             res = prep.executeQuery();
 
@@ -310,6 +312,9 @@ public class UserDao implements IDao<User>
             String ur = res.getString("username");
             String password = res.getString("password");
             int lan = res.getInt("languageID");
+
+            String role = res.getString("role");
+
             Language lang;
             if (lan == 1)
             {
@@ -323,7 +328,7 @@ public class UserDao implements IDao<User>
             {
                 lang = Language.FR;
             }
-            user = new User(uid, ur, password, lang);
+            user = new User(uid, ur, password, lang, role);
         }
         catch (SQLException ex)
         {
@@ -731,5 +736,10 @@ public class UserDao implements IDao<User>
             }
         }
         return userProfiles;
+    }
+
+    List<User> getUsers(int start, int max)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

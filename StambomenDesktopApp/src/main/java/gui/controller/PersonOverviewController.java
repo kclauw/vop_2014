@@ -1,7 +1,7 @@
 package gui.controller;
 
 import dto.PersonDTO;
-import gui.AdminPanel;
+import gui.PersonOverviewPanel;
 import gui.PanelFactory;
 import gui.Panels;
 import java.util.Collection;
@@ -9,14 +9,14 @@ import java.util.List;
 import javax.swing.JPanel;
 import service.ClientPersonController;
 
-public class AdminController implements IPanelController
+public class PersonOverviewController implements IPanelController
 {
 
-    private AdminPanel AdminPanel;
+    private PersonOverviewPanel personoverviewPanel;
     private GuiController gui;
     private ClientPersonController pc;
 
-    public AdminController(GuiController gui)
+    public PersonOverviewController(GuiController gui)
     {
 
         this.pc = new ClientPersonController();
@@ -41,9 +41,9 @@ public class AdminController implements IPanelController
     public JPanel show()
     {
         System.out.println("SHOW ADMINCONTROLLER");
-        AdminPanel = (AdminPanel) PanelFactory.makePanel(Panels.ADMIN);
-        AdminPanel.setAdminController(this);
-        return AdminPanel;
+        personoverviewPanel = (PersonOverviewPanel) PanelFactory.makePanel(Panels.PERSONOVERVIEW);
+        personoverviewPanel.setAdminController(this);
+        return personoverviewPanel;
     }
 
 }

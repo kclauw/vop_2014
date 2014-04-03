@@ -44,10 +44,16 @@ public class BasicAuthFilter implements ContainerRequestFilter
 
         User authentificationResult = new UserController().login(userCredentials);
 
+        System.out.println(authentificationResult.getRole());;
+
         if (authentificationResult == null)
         {
             containerRequest.abortWith(Response.status(Status.UNAUTHORIZED).build());
         }
+        /*  else if (path.equals("/admin") && !authentificationResult.getRole().equals("Admin"))
+         {
+         containerRequest.abortWith(Response.status(Status.UNAUTHORIZED).build());
+         }*/
 
     }
 

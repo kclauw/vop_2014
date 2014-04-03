@@ -10,6 +10,7 @@ public class ClientPersonController
 {
 
     private ClientPersonService clientPersonService;
+    private ClientAdminService clientAdminService;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public ClientPersonController()

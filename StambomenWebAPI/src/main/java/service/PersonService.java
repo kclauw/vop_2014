@@ -163,26 +163,6 @@ public class PersonService
         return persons;
     }
 
-    @GET
-    @Path("/persons/{start}/{max}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Person> getPersons(@PathParam("start") int start, @PathParam("max") int max) throws IOException
-    {
-        logger.info("[PERSON SERVICE][GET] Getting persons");
-        List<Person> persons = pc.getPersons(start, max);
-        return persons;
-    }
-
-    @GET
-    @Path("/search/{userID}/{firstname}/{lastname}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Person> getPersonsBySearch(@PathParam("userID") int userID, @PathParam("firstname") String firstname, @PathParam("lastname") String lastname)
-    {
-        logger.info("[PERSON SERVICE][GET] Getting persons");
-        List<Person> persons = pc.searchPerson(userID, firstname, lastname);
-        return persons;
-    }
-
     /*
      Voor fiddler:
      {"id":5,"username":"A11xl","passsword":"l11ol"}

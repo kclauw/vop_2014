@@ -29,8 +29,11 @@ public class PanelFactory
             case SETTINGS:
                 panel = new SettingsPanel();
                 break;
-            case ADMIN:
-                panel = new AdminPanel();
+            case PERSONOVERVIEW:
+                panel = new PersonOverviewPanel();
+                break;
+            case USEROVERVIEW:
+                panel = new UserOverviewPanel();
                 break;
 
         }

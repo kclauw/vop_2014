@@ -14,6 +14,7 @@ public class LoginController implements IPanelController
     private GuiController gui;
     private ClientUserController clientUserController;
     private boolean admin = true;
+    private String login;
 
     public LoginController(GuiController guiC)
     {
@@ -35,33 +36,46 @@ public class LoginController implements IPanelController
 
     public void goTo(Panels frame)
     {
+
         gui.goTo(frame);
     }
 
     public void login(UserDTO user)
     {
         System.out.println("[LOGINCONTROLLER] login" + user.toString());
-        String login = clientUserController.login(user);
 
+        login = clientUserController.login(user);
+
+        gui.setLogin(login);
         System.out.println("REPLY FROM SERVICE:" + login);
         goTo(Panels.LOGIN);
-//hier moet controle komen op role
-        if (login != null)
+
+        if ("Error".equals(login))
         {
+
             this.loginPanel.setError(login);
         }
+        /*
+         else if (login.equals("Admin"))
+         {
+         System.out.println("Login admin succes");
+
+         goTo(Panels.ADMIN);
+
+         }*/
+
         else
         {
-            System.out.println("Login succes");
+            System.out.println("Login user succes");
 
             goTo(Panels.TREEOVERVIEW);
         }
 
     }
 
-    public void setFBAuthCode(String authCode)
+    public String getLogin()
     {
-        clientUserController.setFBAuthCode(authCode);
+        return login;
     }
 
 }

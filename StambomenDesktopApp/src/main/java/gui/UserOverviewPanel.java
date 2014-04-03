@@ -1,8 +1,11 @@
 package gui;
 
-import dto.PersonDTO;
-import dto.PersonTableModel;
-import gui.controller.AdminController;
+import dto.UserDTO;
+import dto.UserTableModel;
+import dto.UserDTO;
+import dto.UserTableModel;
+import gui.controller.UserOverviewController;
+import gui.controller.UserOverviewController;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -21,32 +24,34 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
-import service.ClientPersonController;
+import service.ClientUserController;
+import service.ClientUserController;
 
 public class UserOverviewPanel extends javax.swing.JPanel
 {
 
-    private ClientPersonController personController;
+    private ClientUserController userController;
 
-    private List<PersonDTO> persons;
+    private List<UserDTO> users;
 
-    private TableRowSorter<PersonTableModel> sorter;
+    private TableRowSorter<UserTableModel> sorter;
     private boolean DEBUG = false;
     private JTable table;
     private JTextField filterText;
     private JTextField statusText;
-    private AdminController admin;
+    private UserOverviewController useroverviewController;
 
     public UserOverviewPanel()
     {
-        initComponents();
-        this.personController = new ClientPersonController();
 
-        persons = personController.getPersons(0, 100);
+        initComponents();
+        this.userController = new ClientUserController();
+
+        users = userController.getUsers();
 
         //create table
-        final PersonTableModel model = new PersonTableModel(persons);
-        sorter = new TableRowSorter<PersonTableModel>(model);
+        final UserTableModel model = new UserTableModel(users);
+        sorter = new TableRowSorter<UserTableModel>(model);
         final JTable table = new JTable(model);
         table.setRowSorter(sorter);
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
@@ -149,7 +154,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
 
     private void newFilter()
     {
-        RowFilter<PersonTableModel, Object> rf = null;
+        RowFilter<UserTableModel, Object> rf = null;
         //If current expression doesn't parse, don't update.
         try
         {
@@ -179,8 +184,8 @@ public class UserOverviewPanel extends javax.swing.JPanel
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
-    public void setAdminController(AdminController a)
+    public void setAdminController(UserOverviewController u)
     {
-        this.admin = a;
+        this.useroverviewController = u;
     }
 }

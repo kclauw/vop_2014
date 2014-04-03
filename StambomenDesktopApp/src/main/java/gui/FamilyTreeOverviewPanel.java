@@ -1,5 +1,7 @@
 package gui;
 
+import gui.controller.GuiController;
+import gui.controller.LoginController;
 import gui.controller.TreeOverviewController;
 import gui.controls.FamilyTreeList;
 import java.awt.BorderLayout;
@@ -8,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import service.ClientUserController;
 import util.Translator;
 
 public class FamilyTreeOverviewPanel extends javax.swing.JPanel
@@ -15,20 +18,28 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
     private TreeOverviewController treeController;
 
+    private String login;
+    private JMenu menu;
+    private JMenu menuS;
+    private JMenu menuA;
+    private JMenuItem settingsItem;
+    private JMenuItem addTreeItem;
+    private JMenuItem personItem;
+    private JMenuItem userItem;
+    private Translator trans;
+    private JMenuBar menuBar;
+
     public FamilyTreeOverviewPanel()
     {
+
         initComponents();
-        Translator trans = new Translator();
-        JMenuBar menuBar = new JMenuBar();
+        trans = new Translator();
+        menuBar = new JMenuBar();
+        menu = new JMenu(trans.translate("Tree"));
+        menuS = new JMenu(trans.translate("Settings"));
 
-        JMenu menu = new JMenu(trans.translate("Tree"));
-        JMenu menuS = new JMenu(trans.translate("Settings"));
-        JMenu menuA = new JMenu(trans.translate("Admin"));
-
-        JMenuItem settingsItem = new JMenuItem(trans.translate("ChangeLanguage"));
-        JMenuItem addTreeItem = new JMenuItem(trans.translate("AddTree"));
-        JMenuItem personItem = new JMenuItem(trans.translate("PersonOverview"));
-        JMenuItem userItem = new JMenuItem(trans.translate("UserOverview"));
+        settingsItem = new JMenuItem(trans.translate("ChangeLanguage"));
+        addTreeItem = new JMenuItem(trans.translate("AddTree"));
 
         addTreeItem.addActionListener(new ActionListener()
         {
@@ -36,15 +47,6 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
             public void actionPerformed(ActionEvent e)
             {
                 treeController.goTo(Panels.ADDTREE);
-            }
-        });
-
-        personItem.addActionListener(new ActionListener()
-        {
-
-            public void actionPerformed(ActionEvent e)
-            {
-                treeController.goTo(Panels.ADMIN);
             }
         });
 
@@ -58,14 +60,39 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         });
 
         menuS.add(settingsItem);
-        menuA.add(personItem);
-        menuA.add(userItem);
-        menu.add(addTreeItem);
 
+        menu.add(addTreeItem);
         menuBar.add(menu);
         menuBar.add(menuS);
-        menuBar.add(menuA);
+
         this.add(menuBar, BorderLayout.NORTH);
+    }
+
+    public void addAdmin()
+    {
+        menuA = new JMenu(trans.translate("Admin"));
+        personItem = new JMenuItem(trans.translate("PersonOverview"));
+        personItem.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                treeController.goTo(Panels.PERSONOVERVIEW);
+            }
+        });
+        userItem = new JMenuItem(trans.translate("UserOverview"));
+        userItem.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                treeController.goTo(Panels.USEROVERVIEW);
+            }
+        });
+        menuA.add(personItem);
+        menuA.add(userItem);
+        menuBar.add(menuA);
+
     }
 
     public void addFamilyTreeList(FamilyTreeList fam)
@@ -92,6 +119,8 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
     public void setTreeController(TreeOverviewController treeController)
     {
         this.treeController = treeController;
+        this.login = treeController.getLogin();
+
     }
 
 }

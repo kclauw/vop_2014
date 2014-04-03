@@ -24,6 +24,10 @@
         <servlet-name>UserProfileServlet</servlet-name>
         <servlet-class>servlet.UserProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TimemachineServlet</servlet-name>
+        <servlet-class>servlet.TimemachineServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TreeServlet</servlet-name>
         <url-pattern>/TreeServlet</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>UserProfileServlet</servlet-name>
         <url-pattern>/UserProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TimemachineServlet</servlet-name>
+        <url-pattern>/TimemachineServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
