@@ -19,7 +19,7 @@ public class UserDao implements IDao<User>
 
     private Connection con;
     private final Logger logger;
-    private final String GETALLUSER = "SELECT userID, username, password FROM User";
+    private final String GETALLUSER = "SELECT u.userID AS userID, u.username AS username, u.password AS password, u.languageID AS languageID,r.role AS role FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID";
     private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
     private final String GETUSER = "SELECT userID, username, password, languageID  FROM User WHERE username = ?";
     private final String GETUSERROLEBYNAME = "SELECT u.userID AS userID, u.username AS username, u.password AS PASSWORD, u.languageID AS languageID,r.role as role FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.username = ?";
@@ -156,7 +156,13 @@ public class UserDao implements IDao<User>
             while (res.next())
             {
                 User user = map(res);
+
                 users.add(user);
+
+            }
+            for (User item : users)
+            {
+                System.out.println("item : " + item);
             }
 
             con.close();
@@ -329,6 +335,7 @@ public class UserDao implements IDao<User>
                 lang = Language.FR;
             }
             user = new User(uid, ur, password, lang, role);
+            System.out.println(uid + ur + password + role);
         }
         catch (SQLException ex)
         {

@@ -73,6 +73,7 @@ public class GuiController
         addTreeController = new AddTreeController(this);
         settingsController = new SettingsController(this);
         personoverviewController = new PersonOverviewController(this);
+        useroverviewController = new UserOverviewController(this);
     }
 
     public void goTo(Panels frame)
@@ -114,6 +115,10 @@ public class GuiController
                 programFrame.add(useroverviewController.show());
                 programFrame.setTitle("User Overview");
                 break;
+            case USEROVERVIEW:
+                programFrame.add(useroverviewController.show());
+                programFrame.setTitle("User Overview");
+                programFrame.setSize(800, 400);
         }
         programFrame.revalidate();
     }
