@@ -106,7 +106,7 @@ public class GuiController
             case SETTINGS:
                 programFrame.add(settingsController.show());
                 programFrame.setTitle("Settings");
-                programFrame.setSize(250, 150);
+                programFrame.setSize(300, 150);
                 break;
             case ADMIN:
                 programFrame.add(adminController.show());
