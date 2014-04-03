@@ -29,7 +29,14 @@ STDOUT->autoflush(1);
 my $assets_release = 0;
 my $db_port_ownpc = 1;
 
-my @treeIDs = ( 9 ); #IDs van de trees waarvan de personen foto's moeten krijgen
+my @treeIDs = ( 1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8 ); #IDs van de trees waarvan de personen foto's moeten krijgen
 
 
 
@@ -84,10 +91,12 @@ foreach my $treeid (@treeIDs) {
 		my $sth = $dbh->prepare( $sql_get_treepersonIDs ) or die $dbh->errstr;
 		$sth->execute($treeid) or die $dbh->errstr;
 
+		my $count = 0;
 		while ( my ($personID, $gender) = $sth->fetchrow_array() ) {
 		    push(@{$personIDs{$treeid}[$gender]}, $personID);
+		    ++$count;
 		}
-		printlines("\tFetched PersonIDs for tree with ID: $treeid");
+		printlines("\tFetched $count PersonIDs for tree with ID: $treeid");
 		1;
 	} or do {
 		printlines("\tERROR: " . ($@ =~ s/^\s+|\s+$//rg)) if ($@);
@@ -150,7 +159,6 @@ for (my $gender = 1; $gender >= 0; $gender--) {
 	}
 
 	printprogress("\tProgress: 100%");
-	print "\n";
 }
 
 
@@ -215,14 +223,13 @@ for (my $gender = 1; $gender >= 0; $gender--) {
 		}
 	}
 	printprogress("\tProgress: 100%");
-	print "\n";
 }
 sleep 1;
 rmtree "tmp";
 
 
 #Connecteren
-my $dbh = DBI->connect("DBI:mysql:$db_name:$db_host", $db_user, $db_pass, { PrintError => 0, mysql_enable_utf8 => 1 } ) or die DBI->errstr;
+$dbh = DBI->connect("DBI:mysql:$db_name:$db_host", $db_user, $db_pass, { PrintError => 0, mysql_enable_utf8 => 1 } ) or die DBI->errstr;
 printlines("Connected to $db_host");
 
 $dbh->begin_work or die $dbh->errstr;
