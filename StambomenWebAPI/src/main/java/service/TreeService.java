@@ -1,5 +1,6 @@
 package service;
 
+import domain.Person;
 import domain.Tree;
 import domain.controller.TreeController;
 import exception.TreeAlreadyExistsException;

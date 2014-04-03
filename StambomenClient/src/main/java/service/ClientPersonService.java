@@ -156,4 +156,25 @@ public class ClientPersonService
         return persons;
     }
 
+    public List<PersonDTO> getPersonsBySearch(String firstname, String lastname)
+    {
+        int userID = ClientServiceController.getInstance().getUser().getId();
+        Client client = ClientServiceController.getInstance().getClient();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
+        List<PersonDTO> persons = client.target(url + "/search/" + userID + "/" + firstname + "/" + lastname).request(MediaType.APPLICATION_JSON).get(new GenericType<List<PersonDTO>>()
+        {
+        });
+
+        return persons;
+    }
+
+    public static BufferedImage imageToBufferedImage(Image im)
+    {
+        BufferedImage bi = new BufferedImage(im.getWidth(null), im.getHeight(null), BufferedImage.TYPE_INT_RGB);
+        Graphics bg = bi.getGraphics();
+        bg.drawImage(im, 0, 0, null);
+        bg.dispose();
+        return bi;
+    }
+
 }

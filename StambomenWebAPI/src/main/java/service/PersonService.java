@@ -24,16 +24,6 @@ public class PersonService
 
     private PersonController pc = new PersonController();
     private final Logger logger = LoggerFactory.getLogger(getClass());
-//    @GET
-//    @Path("/get")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<User> getUsernames()
-//    {       /*Test voor te zien of dit werkt*/
-//        org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
-//        logger.info("[GET][USERSERVICE]");
-//        return uc.getUsers();
-//    }
-//
 
     @POST
     @Path("/{treeID}/post")
@@ -68,8 +58,6 @@ public class PersonService
         catch (Exception e)
         {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
-            //   return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
-
         }
     }
 
@@ -100,9 +88,7 @@ public class PersonService
     public Person getPerson(@PathParam("treeID") int treeID, @PathParam("personID") int personID)
     {
         logger.info("[GET][PERSONSERVICE]" + personID);
-        System.out.println("GET - PersonServices" + personID);
         Person t = pc.getPerson(treeID, personID);
-        System.out.println(t);
         return t;
     }
 

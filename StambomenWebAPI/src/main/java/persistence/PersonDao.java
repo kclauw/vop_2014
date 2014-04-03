@@ -22,7 +22,7 @@ public class PersonDao implements IDao<Person>
 {
 
     private Connection con;
-    private final String GETPERSONSBYTREEID = "SELECT d.*, e.*,h.name as countryname,g.name as placename, pr.parent as parent1, pr2.parent as parent2,g.*,f.* FROM Tree t "
+    private final String GET_PERSONS_BY_TREEID = "SELECT d.*, e.*,h.name as countryname,g.name as placename, pr.parent as parent1, pr2.parent as parent2,g.*,f.* FROM Tree t "
             + " JOIN PersonTree c ON c.treeID = t.treeID "
             + " JOIN Person d on c.personID = d.personID "
             + " LEFT OUTER JOIN Place e on d.birthplace=e.placeID "
@@ -35,10 +35,10 @@ public class PersonDao implements IDao<Person>
             + " GROUP BY d.personID "
             + " ORDER BY pr.parent ASC ";
 
-    private final String SAVEPERSON = "INSERT INTO Person (birthplace, firstname,lastname,gender,birthdate,deathdate) VALUES (?,?,?,?,?,?)";
-    private final String UPDATEPERSON = "UPDATE Person SET birthplace = ? , firstname = ? , lastname = ?, gender = ? , birthdate = ? , deathdate = ? WHERE personID = ?";
-    private final String DELETEPERSON = "DELETE FROM Person WHERE personID = ?";
-    private final String GETPERSONBYID = "SELECT d.*,e.*,h.name as countryname,g.name as placename, pr.parent as parent1, pr2.parent as parent2,g.*,f.* FROM Tree t "
+    private final String SAVE_PERSON = "INSERT INTO Person (birthplace, firstname,lastname,gender,birthdate,deathdate) VALUES (?,?,?,?,?,?)";
+    private final String UPDATE_PERSON = "UPDATE Person SET birthplace = ? , firstname = ? , lastname = ?, gender = ? , birthdate = ? , deathdate = ? WHERE personID = ?";
+    private final String DELETE_PERSON = "DELETE FROM Person WHERE personID = ?";
+    private final String GET_PERSON_BY_ID = "SELECT d.*,e.*,h.name as countryname,g.name as placename, pr.parent as parent1, pr2.parent as parent2,g.*,f.* FROM Tree t "
             + " JOIN PersonTree c ON c.treeID = t.treeID "
             + " JOIN Person d on c.personID = d.personID "
             + " LEFT OUTER JOIN Place e on d.birthplace=e.placeID "
@@ -50,7 +50,14 @@ public class PersonDao implements IDao<Person>
             + " where d.personID = ? "
             + " GROUP BY d.personID "
             + " ORDER BY pr.parent ASC ";
-    private final String GETPERSONS = "SELECT personID,birthplace,firstname,lastname,gender,birthdate,deathdate,picture,fbprofileif FROM Person ORDER BY lastname DESC LIMIT ?, ?";
+    private final String GET_PERSONS = "SELECT personID,birthplace,firstname,lastname,gender,birthdate,deathdate,picture,fbprofileif FROM Person ORDER BY lastname DESC LIMIT ?, ?";
+
+    private final String GET_PERSONS_BY_SEARCH_FIRST_AND_LASTNAME = "SELECT * FROM Person p "
+            + " JOIN PersonTree ps on ps.personID = p.personID "
+            + " JOIN Request r on r.friend = ? /*var*/ and r.status = 2 /*public*/"
+            + " JOIN Tree t on t.treeID = ps.treeID or t.ownerID = r.receiver or t.ownerID = ?"
+            + " WHERE (t.privacy = 2 or (t.privacy=1 and t.ownerID = r.receiver)) and firstname like \"?%\" and lastname like \"?%\"";
+
     private PersistenceController pc;
     private final Logger logger;
     private int lastInsertedId;
@@ -67,7 +74,7 @@ public class PersonDao implements IDao<Person>
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(SAVEPERSON);
+            prep = con.prepareStatement(SAVE_PERSON);
 
             Place pl = pc.getPlace(person.getPlace());
             if (pl != null)
@@ -136,7 +143,7 @@ public class PersonDao implements IDao<Person>
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(GETPERSONBYID);
+            prep = con.prepareStatement(GET_PERSON_BY_ID);
             prep.setInt(1, personID);
             logger.info("[PERSON DAO] Getting person by id" + prep.toString());
             res = prep.executeQuery();
@@ -186,7 +193,7 @@ public class PersonDao implements IDao<Person>
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(UPDATEPERSON);
+            prep = con.prepareStatement(UPDATE_PERSON);
 
             Place place;
 
@@ -259,7 +266,7 @@ public class PersonDao implements IDao<Person>
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(DELETEPERSON);
+            prep = con.prepareStatement(DELETE_PERSON);
             prep.setInt(1, personId);
             prep.executeUpdate();
             logger.info("[PERSON DAO] Deleting person " + prep.toString());
@@ -295,7 +302,7 @@ public class PersonDao implements IDao<Person>
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(GETPERSONS);
+            prep = con.prepareStatement(GET_PERSONS);
             prep.setInt(1, start);
             prep.setInt(2, max);
             logger.info("[PERSON DAO] GET ALL PERSON " + prep.toString());
@@ -346,7 +353,7 @@ public class PersonDao implements IDao<Person>
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(GETPERSONSBYTREEID);
+            prep = con.prepareStatement(GET_PERSONS_BY_TREEID);
             prep.setInt(1, treeID);
             logger.info("[PERSON DAO] GET ALL PERSON BY TREEID" + prep.toString());
             res = prep.executeQuery();
@@ -531,7 +538,7 @@ public class PersonDao implements IDao<Person>
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(GETPERSONS);
+            prep = con.prepareStatement(GET_PERSONS);
             prep.setInt(1, start);
             prep.setInt(2, max);
             logger.info("[PERSON DAO] GET ALL PERSON " + prep.toString());
@@ -573,6 +580,7 @@ public class PersonDao implements IDao<Person>
         return persons;
     }
 
+    @Override
     public Person map(ResultSet res)
     {
 
@@ -627,4 +635,44 @@ public class PersonDao implements IDao<Person>
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * This method searches for persons in the users's tree, all public trees
+     * and all trees of his/her friends It uses the first and lastname of the
+     * param person.
+     *
+     * @param userID
+     * @param person
+     * @return List<Person> that matches! check size!
+     */
+    public List<Person> searchPersonFirstAndLastname(int userID, String firstname, String lastname)
+    {
+        List<Person> persons = new ArrayList<Person>();
+        try
+        {
+
+            con = DatabaseUtils.getConnection();
+            PreparedStatement prep = con.prepareStatement(GET_PERSONS_BY_SEARCH_FIRST_AND_LASTNAME);
+            prep.setInt(1, userID);
+            prep.setInt(2, userID);
+            prep.setString(3, firstname);
+            prep.setString(4, lastname);
+            ResultSet res = prep.executeQuery();
+
+            Person p = null;
+
+            while (res.next())
+            {
+                p = map(res);
+            }
+
+            persons.add(p);
+
+        }
+        catch (Exception ex)
+        {
+            java.util.logging.Logger.getLogger(PersonDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return persons;
+
+    }
 }

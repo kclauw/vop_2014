@@ -3,6 +3,9 @@ package gui;
 import dto.UserDTO;
 import gui.controller.LoginController;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker.State;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -187,16 +190,33 @@ public class LoginPanel extends javax.swing.JPanel
                     @Override
                     public void run()
                     {
-                        //javaFX operations should go here
-
-                        Stage stage = new Stage();
+                        final Stage stage = new Stage();
                         stage.setTitle("Web View");
                         WebView browser = new WebView();
-                        WebEngine webEngine = browser.getEngine();
+                        final WebEngine webEngine = browser.getEngine();
+                        webEngine.getLoadWorker().stateProperty().addListener(
+                                new ChangeListener<State>()
+                                {
+                                    public void changed(ObservableValue ov, State oldState, State newState)
+                                    {
+                                        if (newState == State.SUCCEEDED)
+                                        {
+                                            String url = webEngine.getLocation();
+
+                                            if (url.contains("login_succes"))
+                                            {
+                                                String authCode = url.replace("https://www.facebook.com/connect/login_success.html?code=", "");
+                                                loginPanel.setFBAuthCode(authCode);
+                                            }
+                                        }
+                                    }
+                                });
                         Scene scene = new Scene(browser, 750, 500, Color.web("#666970"));
                         stage.setScene(scene);
                         webEngine.load("https://www.facebook.com/dialog/oauth?client_id=225842214289570&redirect_uri=https://www.facebook.com/connect/login_success.html");
                         stage.show();
+
+                        //get the accestoke // access_token
                     }
                 });
             }

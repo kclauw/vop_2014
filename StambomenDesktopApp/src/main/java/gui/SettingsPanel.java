@@ -46,22 +46,30 @@ public class SettingsPanel extends javax.swing.JPanel
         setLayout(new java.awt.GridBagLayout());
 
         jLabel2.setText("Language:");
+        jLabel2.setMaximumSize(new java.awt.Dimension(120, 23));
+        jLabel2.setMinimumSize(new java.awt.Dimension(120, 23));
+        jLabel2.setPreferredSize(new java.awt.Dimension(120, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(jLabel2, gridBagConstraints);
 
         cbxLanguage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "English", "Nederlands" }));
+        cbxLanguage.setMaximumSize(new java.awt.Dimension(100, 23));
+        cbxLanguage.setMinimumSize(new java.awt.Dimension(100, 23));
+        cbxLanguage.setPreferredSize(new java.awt.Dimension(100, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 17;
         add(cbxLanguage, gridBagConstraints);
 
         jButton1.setText("Back");
+        jButton1.setMaximumSize(new java.awt.Dimension(120, 23));
+        jButton1.setMinimumSize(new java.awt.Dimension(120, 23));
+        jButton1.setPreferredSize(new java.awt.Dimension(120, 23));
         jButton1.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -70,11 +78,14 @@ public class SettingsPanel extends javax.swing.JPanel
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         add(jButton1, gridBagConstraints);
 
         jButton3.setText("Set Language");
+        jButton3.setMaximumSize(new java.awt.Dimension(120, 23));
+        jButton3.setMinimumSize(new java.awt.Dimension(120, 23));
+        jButton3.setPreferredSize(new java.awt.Dimension(120, 23));
         jButton3.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -85,7 +96,6 @@ public class SettingsPanel extends javax.swing.JPanel
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
         add(jButton3, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 

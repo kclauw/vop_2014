@@ -48,8 +48,12 @@ public class ClientPersonController
 
     public List<PersonDTO> getPersons(int start, int max)
     {
-
         return clientPersonService.getPersons(start, max);
+    }
+
+    public List<PersonDTO> getPersonsBySearch(String firstname, String lastname)
+    {
+        return clientPersonService.getPersonsBySearch(firstname, lastname);
     }
 
 }

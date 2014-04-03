@@ -119,6 +119,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         labeFieldGender = new javax.swing.JLabel();
         dod = new com.toedter.calendar.JDateChooser();
         dob = new com.toedter.calendar.JDateChooser();
+        jButton2 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -424,6 +425,19 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weighty = 1.5;
         add(detailPanel, gridBagConstraints);
+
+        jButton2.setText("Alternative Layout 1");
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 12;
+        add(jButton2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textFieldFirstnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textFieldFirstnameActionPerformed
@@ -554,8 +568,9 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 System.out.println("Selected partner");
 
                 //Look for all childeren of this person and change their parent aswell!
-                for (PersonDTO per : this.person.getChilderen())
+                for (PersonDTO per : person.getChilderen())
                 {
+                    System.out.println("Adding parent for " + per.toString());
                     if (radioFemale.isSelected())
                     {
                         per.setMother(person);
@@ -569,6 +584,8 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 }
             }
 
+            p.setPartner(person);
+            p.setChilderen(person.getChilderen());
             p.setBirthDate(dob.getDate());
             p.setDeathDate(dob.getDate());
 
@@ -636,6 +653,11 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         fttp.deleteImage(person);
     }//GEN-LAST:event_btnDeletePictureActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        fttp.drawFamilyTree2();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel adressPanel;
     private javax.swing.JButton btnAdd;
@@ -650,6 +672,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private com.toedter.calendar.JDateChooser dob;
     private com.toedter.calendar.JDateChooser dod;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
