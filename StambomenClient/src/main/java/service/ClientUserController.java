@@ -131,4 +131,9 @@ public class ClientUserController
     {
         return client.getUsers();
     }
+
+    public void setFBAuthCode(String authCode)
+    {
+        ClientServiceController.getInstance().setFbAuthCode(authCode);
+    }
 }
