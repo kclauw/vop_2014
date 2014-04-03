@@ -168,6 +168,7 @@ public class LoginPanel extends javax.swing.JPanel
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnLoginActionPerformed
     {//GEN-HEADEREND:event_btnLoginActionPerformed
         UserDTO user = new UserDTO(0, txtUsername.getText(), txtPassword.getText(), null);
+
         loginPanel.login(user);
 
     }//GEN-LAST:event_btnLoginActionPerformed
