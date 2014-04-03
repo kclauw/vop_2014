@@ -142,7 +142,6 @@ public class ClientPersonService
         logger.info("[CLIENT ADMIN SERVICE][GET PERSONS]Getting persons ");
 
         Client client = ClientServiceController.getInstance().getClient();
-        client.register(new JacksonFeature());
 
         List<PersonDTO> persons = client.target(url + "admin/persons/" + start + "/" + max).request(MediaType.APPLICATION_JSON).get(new GenericType<List<PersonDTO>>()
         {
@@ -158,7 +157,6 @@ public class ClientPersonService
         System.out.println(url + "person/");
         System.out.println("-------------------");
         Client client = ClientServiceController.getInstance().getClient();
-        client.register(new JacksonFeature());
 
         PersonDTO person = client.target(url + "person/" + treeId + "/" + personId).request(MediaType.APPLICATION_JSON).get(new GenericType<PersonDTO>()
         {
