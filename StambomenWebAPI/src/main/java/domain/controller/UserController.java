@@ -3,6 +3,7 @@ package domain.controller;
 import domain.Privacy;
 import domain.User;
 import exception.UserAlreadyExistsException;
+import java.util.Collection;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -130,5 +131,12 @@ public class UserController
         List<User> userProfiles = pc.getUserProfiles(userProfileID, userPrivacy);
 
         return userProfiles;
+    }
+
+    public List<User> getUsers()
+    {
+        List<User> users = pc.getUsers();
+
+        return users;
     }
 }

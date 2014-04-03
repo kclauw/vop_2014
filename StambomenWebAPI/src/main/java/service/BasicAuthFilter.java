@@ -3,6 +3,8 @@ package service;
 import domain.User;
 import domain.controller.UserController;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
@@ -43,8 +45,14 @@ public class BasicAuthFilter implements ContainerRequestFilter
         }
 
         User authentificationResult = new UserController().login(userCredentials);
-
+        //if (authentificationResult.contains("admin"))
+        Pattern pattern = Pattern.compile("^/admin");
+        Matcher matcher = pattern.matcher(path);
         if (authentificationResult == null)
+        {
+            containerRequest.abortWith(Response.status(Status.UNAUTHORIZED).build());
+        }
+        else if (path.contains("admin") && !authentificationResult.getRole().equals("Admin"))
         {
             containerRequest.abortWith(Response.status(Status.UNAUTHORIZED).build());
         }
