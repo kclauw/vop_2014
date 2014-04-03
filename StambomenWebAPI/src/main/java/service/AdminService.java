@@ -1,7 +1,9 @@
 package service;
 
 import domain.Person;
+import domain.User;
 import domain.controller.PersonController;
+import domain.controller.UserController;
 import exception.PersonAlreadyExistsException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +25,7 @@ public class AdminService
 {
 
     private PersonController pc = new PersonController();
+    private UserController uc = new UserController();
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @GET
@@ -35,6 +38,17 @@ public class AdminService
         List<Person> persons = pc.getPersons(start, max);
 
         return persons;
+    }
+
+    @GET
+    @Path("/users")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<User> getUsers() throws IOException
+    {
+        logger.info("[USER SERVICE][GET] Getting users");
+        List<User> users = uc.getUsers();
+
+        return users;
     }
 
 }

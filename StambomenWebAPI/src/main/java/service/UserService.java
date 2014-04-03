@@ -261,15 +261,4 @@ public class UserService
         }
     }
 
-    @GET
-    @Path("/users/{start}/{max}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<User> getUsers(@PathParam("start") int start, @PathParam("max") int max) throws IOException
-    {
-        logger.info("[PERSON SERVICE][GET] Getting persons");
-        System.out.println("GET - TreeServices");
-        List<User> users = uc.getUsers(start, max);
-
-        return users;
-    }
 }

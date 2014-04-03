@@ -133,9 +133,9 @@ public class UserController
         return userProfiles;
     }
 
-    public List<User> getUsers(int start, int max)
+    public List<User> getUsers()
     {
-        List<User> users = pc.getUsers(start, max);
+        List<User> users = pc.getUsers();
 
         return users;
     }

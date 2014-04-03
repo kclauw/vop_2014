@@ -143,9 +143,7 @@ public class ClientPersonService
     public List<PersonDTO> getPersons(int start, int max)
     {
         logger.info("[CLIENT ADMIN SERVICE][GET PERSONS]Getting persons ");
-        System.out.println("URL");
-        System.out.println(url + "admin/persons/");
-        System.out.println("-------------------");
+
         Client client = ClientServiceController.getInstance().getClient();
         client.register(new JacksonFeature());
 
