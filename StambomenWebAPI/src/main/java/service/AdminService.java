@@ -41,13 +41,12 @@ public class AdminService
     }
 
     @GET
-    @Path("/users/{start}/{max}")
+    @Path("/users")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<User> getUsers(@PathParam("start") int start, @PathParam("max") int max) throws IOException
+    public List<User> getUsers() throws IOException
     {
-        logger.info("[PERSON SERVICE][GET] Getting persons");
-        System.out.println("GET - TreeServices");
-        List<User> users = uc.getUsers(start, max);
+        logger.info("[USER SERVICE][GET] Getting users");
+        List<User> users = uc.getUsers();
 
         return users;
     }
