@@ -8,16 +8,16 @@ package dto;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-public class PersonTableModel extends AbstractTableModel
+public class UserTableModel extends AbstractTableModel
 {
 
-    private List<PersonDTO> list;
+    private List<UserDTO> list;
     private String[] columnNames =
     {
-        "Voornaam", "Naam"
+        "User", "Language"
     };
 
-    public PersonTableModel(List<PersonDTO> l)
+    public UserTableModel(List<UserDTO> l)
     {
         list = l;
     }
@@ -44,15 +44,15 @@ public class PersonTableModel extends AbstractTableModel
 
         if (columnIndex == 0)
         {
-            return list.get(rowIndex).getFirstName();
+            return list.get(rowIndex).getUsername();
         }
         if (columnIndex == 1)
         {
-            return list.get(rowIndex).getSurName();
+            return list.get(rowIndex).getLanguage();
         }
         if (columnIndex == 2)
         {
-            return list.get(rowIndex).getPersonId();
+            return list.get(rowIndex).getRole();
         }
 
         if (columnIndex == 3)
