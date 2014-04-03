@@ -52,18 +52,45 @@ body > .wrapper > div, #map-canvas {
     margin-left: 15px;
     margin-top: 17px;
     float: left;
-    width: 70px;
+    width: 50px;
 }
 
 #datepicker {
     margin-top: 15px;
+    margin-right: 25px;
     float: left;
     width: 100px;
 }
 
-#slider {
+.wrapper > .slider {
     margin-top: 19px;
-    margin-right: 15px;
-    float: right;
-    width: 660px;
+    margin-right: 50px;
+    float: left;
+    width: 395px;
+}
+
+#timecontrol {
+    float: left;
+}
+#timecontrol img {
+    float: left;
+}
+#timecontrol .slider {
+    margin-top: 19px;
+    float: left;
+    width: 100px;
+    margin-left: 15px;
+    margin-right:17px;
+}
+
+#timecontrol #play {
+    margin-right:20px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+#timecontrol #faster {
+    margin-top:14px;
+}
+#timecontrol #slower {
+    margin-top:11px;
 }

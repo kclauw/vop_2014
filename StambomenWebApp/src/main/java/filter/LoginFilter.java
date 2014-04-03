@@ -24,6 +24,7 @@ import service.ClientTreeController;
 import service.ClientUserController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import service.ClientPersonController;
 
 /**
  *
@@ -90,7 +91,9 @@ public class LoginFilter implements Filter
 
                 ClientServiceController serviceController = ClientServiceController.getInstance();
                 ClientTreeController treeController = new ClientTreeController();
+                ClientPersonController personController = new ClientPersonController();
                 session.setAttribute("serviceController", serviceController);
+                session.setAttribute("personController", personController);
                 session.setAttribute("treeController", treeController);
                 session.setAttribute("userController", userController);
                 session.setAttribute("username", username);
