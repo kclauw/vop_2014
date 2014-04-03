@@ -85,7 +85,7 @@ public class LoginFilter implements Filter
                 logger.info("[LOGIN FILTER][DO FILTER] NEW USER:" + username.toString());
             }
             String loginResponse = userController.login(user);
-            if (loginResponse == null)
+            if (!loginResponse.equals("Error"))
             {
                 session = request.getSession();
 
