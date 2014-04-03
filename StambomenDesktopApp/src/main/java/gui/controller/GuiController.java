@@ -11,7 +11,7 @@ public class GuiController
 {
 
     private JFrame programFrame;
-    private AdminController adminController;
+    private PersonOverviewController personoverviewController;
     private LoginController loginController;
     private RegisterController registerController;
     private TreeOverviewController treeControllerOverviewController;
@@ -19,6 +19,9 @@ public class GuiController
     private AddTreeController addTreeController;
     private Panels currentPanel;
     private SettingsController settingsController;
+    private UserOverviewController useroverviewController;
+
+    private String login;
 
     public GuiController()
     {
@@ -69,12 +72,13 @@ public class GuiController
         treeController = new TreeController(this);
         addTreeController = new AddTreeController(this);
         settingsController = new SettingsController(this);
-        adminController = new AdminController(this);
+        personoverviewController = new PersonOverviewController(this);
     }
 
     public void goTo(Panels frame)
     {
         currentPanel = frame;
+
         programFrame.getContentPane().removeAll();
         switch (frame)
         {
@@ -102,9 +106,13 @@ public class GuiController
                 programFrame.add(settingsController.show());
                 programFrame.setTitle("Settings");
                 break;
-            case ADMIN:
-                programFrame.add(adminController.show());
-                programFrame.setTitle("Admin");
+            case PERSONOVERVIEW:
+                programFrame.add(personoverviewController.show());
+                programFrame.setTitle("Person overview");
+                break;
+            case USEROVERVIEW:
+                programFrame.add(useroverviewController.show());
+                programFrame.setTitle("User Overview");
                 break;
         }
         programFrame.revalidate();
@@ -116,4 +124,14 @@ public class GuiController
         treeController.setTree(tree);
     }
 
+    public void setLogin(String login)
+    {
+        this.login = login;
+        treeControllerOverviewController.setLogin(login);
+    }
+
+    public String getLogin()
+    {
+        return login;
+    }
 }

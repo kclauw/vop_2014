@@ -1,6 +1,6 @@
 package gui;
 
-import gui.controller.AdminController;
+import gui.controller.PersonOverviewController;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JPanel;
@@ -23,37 +23,28 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 import service.ClientPersonController;
 
-public class AdminPanel extends javax.swing.JPanel
+public class PersonOverviewPanel extends javax.swing.JPanel
 {
-
-  
 
     private ClientPersonController personController;
     private FamilyTreeDetailPanel familyTreeDetailPanel;
- 
+
     private List<PersonDTO> persons;
-  
- 
-    
+
     private TableRowSorter<PersonTableModel> sorter;
-      private boolean DEBUG = false;
+    private boolean DEBUG = false;
     private JTable table;
     private JTextField filterText;
     private JTextField statusText;
-    private AdminController admin;
-    
-   
- 
+    private PersonOverviewController admin;
 
-    public AdminPanel()
+    public PersonOverviewPanel()
     {
         initComponents();
         this.personController = new ClientPersonController();
         this.familyTreeDetailPanel = new FamilyTreeDetailPanel();
-        
-     
+
         persons = personController.getPersons(0, 100);
-        
         //create table
         final PersonTableModel model = new PersonTableModel(persons);
         sorter = new TableRowSorter<PersonTableModel>(model);
@@ -62,52 +53,48 @@ public class AdminPanel extends javax.swing.JPanel
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-        public void valueChanged(ListSelectionEvent event) {
-            // do some actions here, for example
-            // print first column value from selected row
-            int selectedRow  = table.getSelectedRow();
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener()
+        {
+            public void valueChanged(ListSelectionEvent event)
+            {
+                int selectedRow = table.getSelectedRow();
                 selectedRow = table.convertRowIndexToModel(selectedRow);
-                PersonDTO val1 = (PersonDTO)table.getModel().getValueAt(selectedRow, 3);
-                System.out.println(val1.getImage());
-                
+                PersonDTO val1 = (PersonDTO) table.getModel().getValueAt(selectedRow, 3);
+                System.out.println(val1);
                 familyTreeDetailPanel.setPerson(val1);
-        }
-    });
+
+            }
+        });
         //selection change -> provide user with row numbers for view &  model
-        
+
         table.getSelectionModel().addListSelectionListener(
-                new ListSelectionListener() {
-                    public void valueChanged(ListSelectionEvent event) {
-                        
-                        
-                
-                        
+                new ListSelectionListener()
+                {
+                    public void valueChanged(ListSelectionEvent event)
+                    {
+
                         int viewRow = table.getSelectedRow();
-                        if (viewRow < 0) {
+                        if (viewRow < 0)
+                        {
                             //Selection got filtered away.
                             statusText.setText("");
-                        } else {
-                            int modelRow = 
-                                table.convertRowIndexToModel(viewRow);
+                        }
+                        else
+                        {
+                            int modelRow
+                            = table.convertRowIndexToModel(viewRow);
                             statusText.setText(
-                                String.format("Selected Row in view: %d. " +
-                                    "Selected Row in model: %d.", 
-                                    viewRow, modelRow));
+                                    String.format("Selected Row in view: %d. "
+                                            + "Selected Row in model: %d.",
+                                            viewRow, modelRow));
                         }
                     }
                 }
         );
-        
-        
-        
-        
-        
-        
-        //items 
+
+        //items
         JScrollPane pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        
+
         JLabel l1 = new JLabel("Filter Text:");
         JLabel l2 = new JLabel("Status:");
         JPanel form = new JPanel();
@@ -115,38 +102,37 @@ public class AdminPanel extends javax.swing.JPanel
         JPanel status = new JPanel();
         JButton btnTree = new JButton();
         JButton btnBlock = new JButton();
-        btnTree.setText("Toon bomen van de geselecteerde persoon");
-        btnTree.setText("Blokkeer persoon");
-        
-        btnTree.addActionListener(new ActionListener() {
- 
+        btnTree.setText("Toon de boom van de geselecteerde persoon");
+        btnBlock.setText("Blokkeer persoon");
+
+        btnTree.addActionListener(new ActionListener()
+        {
+
             public void actionPerformed(ActionEvent e)
             {
-               // table.get(table.convertRowIndexToModel(selectedRow));     
+                // table.get(table.convertRowIndexToModel(selectedRow));
             }
-        }); 
-        
-        btnBlock.addActionListener(new ActionListener() {
- 
+        });
+
+        btnBlock.addActionListener(new ActionListener()
+        {
+
             public void actionPerformed(ActionEvent e)
             {
-               // table.get(table.convertRowIndexToModel(selectedRow));     
+                // table.get(table.convertRowIndexToModel(selectedRow));
             }
-        }); 
-        
-        
-       
+        });
+
         filterText = new JTextField();
         statusText = new JTextField();
-        filterText.setPreferredSize(new Dimension(50,20));
-        statusText.setPreferredSize(new Dimension(50,20));
+        filterText.setPreferredSize(new Dimension(50, 20));
+        statusText.setPreferredSize(new Dimension(50, 20));
         l1.setLabelFor(filterText);
         l2.setLabelFor(statusText);
-        
-       
+
         filter.add(l1);
         filter.add(filterText);
-        
+
         status.add(l2);
         status.add(statusText);
         form.add(familyTreeDetailPanel);
@@ -156,37 +142,41 @@ public class AdminPanel extends javax.swing.JPanel
 
         //Whenever filterText changes, invoke newFilter.
         filterText.getDocument().addDocumentListener(
-                new DocumentListener() {
-                    public void changedUpdate(DocumentEvent e) {
+                new DocumentListener()
+                {
+                    public void changedUpdate(DocumentEvent e)
+                    {
                         newFilter();
                     }
-                    public void insertUpdate(DocumentEvent e) {
+
+                    public void insertUpdate(DocumentEvent e)
+                    {
                         newFilter();
                     }
-                    public void removeUpdate(DocumentEvent e) {
+
+                    public void removeUpdate(DocumentEvent e)
+                    {
                         newFilter();
                     }
                 });
-        add(pane,BorderLayout.LINE_START);
-        add(form,BorderLayout.CENTER);
-        
+        add(pane, BorderLayout.LINE_START);
+        add(form, BorderLayout.CENTER);
+
         //add(panel,BorderLayout.EAST);
-
-     
-       
-
         setVisible(true);
 
     }
-    
-    
-    
-     private void newFilter() {
+
+    private void newFilter()
+    {
         RowFilter<PersonTableModel, Object> rf = null;
         //If current expression doesn't parse, don't update.
-        try {
+        try
+        {
             rf = RowFilter.regexFilter(filterText.getText(), 0);
-        } catch (java.util.regex.PatternSyntaxException e) {
+        }
+        catch (java.util.regex.PatternSyntaxException e)
+        {
             return;
         }
         sorter.setRowFilter(rf);
@@ -194,7 +184,8 @@ public class AdminPanel extends javax.swing.JPanel
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
 
@@ -208,7 +199,7 @@ public class AdminPanel extends javax.swing.JPanel
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-    public void setAdminController(AdminController a)
+    public void setAdminController(PersonOverviewController a)
     {
         this.admin = a;
 

@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import service.ClientTreeController;
+import service.ClientUserController;
 
 public class TreeOverviewController implements IPanelController
 {
@@ -17,18 +18,27 @@ public class TreeOverviewController implements IPanelController
     private FamilyTreeOverviewPanel treeOverviewPanel;
     private GuiController gui;
     private ClientTreeController serv;
+    private ClientUserController user;
+    private String login = "test";
 
     public TreeOverviewController(GuiController gui)
     {
         this.gui = gui;
+
         this.serv = new ClientTreeController();
+
     }
 
     public JPanel show()
     {
+
         treeOverviewPanel = (FamilyTreeOverviewPanel) PanelFactory.makePanel(Panels.TREEOVERVIEW);
         treeOverviewPanel.setTreeController(this);
-        System.out.println("[TREE OVERVIEW CONTROLLER] Showing trees");
+        if (gui.getLogin().equals("Admin"))
+        {
+            treeOverviewPanel.addAdmin();
+        }
+
         getTrees(-1);
         return treeOverviewPanel;
     }
@@ -63,6 +73,16 @@ public class TreeOverviewController implements IPanelController
     {
         TreeDTO t = serv.getTree(tree.getId());
         gui.showTree(t);
+    }
+
+    public String getLogin()
+    {
+        return gui.getLogin();
+    }
+
+    public void setLogin(String login)
+    {
+        this.login = gui.getLogin();
     }
 
 }
