@@ -140,13 +140,16 @@ public class ClientPersonService
         return bi;
     }
 
-    List<PersonDTO> getPersons(int start, int max)
+    public List<PersonDTO> getPersons(int start, int max)
     {
-        logger.info("[CLIENT PERSON SERVICE][GET PERSONS]Getting persons ");
-
+        logger.info("[CLIENT ADMIN SERVICE][GET PERSONS]Getting persons ");
+        System.out.println("URL");
+        System.out.println(url + "admin/persons/");
+        System.out.println("-------------------");
         Client client = ClientServiceController.getInstance().getClient();
         client.register(new JacksonFeature());
-        List<PersonDTO> persons = client.target(url + "person/persons/" + start + "/" + max).request(MediaType.APPLICATION_JSON).get(new GenericType<List<PersonDTO>>()
+
+        List<PersonDTO> persons = client.target(url + "admin/persons/" + start + "/" + max).request(MediaType.APPLICATION_JSON).get(new GenericType<List<PersonDTO>>()
         {
         });
 

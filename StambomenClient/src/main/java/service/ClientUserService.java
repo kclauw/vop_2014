@@ -49,10 +49,9 @@ public class ClientUserService
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().credentials(user.getUsername(), user.getPassword()).build();
         client.register(feature);
 
-        System.out.println(url);
-
+        //   System.out.println(url);
         UserDTO dto = client.target(url + "user/login/" + user.getUsername()).request("application/json").accept("application/json").get(UserDTO.class);
-
+        System.out.println("UserDTO output : " + dto.getRole());
         if (dto == null)
         {
             System.out.println("USER NOT FOUND");
@@ -61,7 +60,7 @@ public class ClientUserService
         logger.info("[CLIENT USER SERVICE][LOGIN]User dto found" + dto);
 
         ClientServiceController.getInstance().setUser(dto);
-        return null;
+        return dto.getRole();
     }
 
     public List<UserDTO> getFriends(int userID)
@@ -179,5 +178,15 @@ public class ClientUserService
         });
 
         return userProfiles;
+    }
+
+    List<UserDTO> getUsers()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    List<UserDTO> getUsers(int min, int max)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -126,4 +126,9 @@ public class ClientUserController
 
         return userProfiles;
     }
+
+    public List<UserDTO> getUsers()
+    {
+        return client.getUsers();
+    }
 }

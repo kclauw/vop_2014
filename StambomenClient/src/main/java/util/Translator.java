@@ -25,7 +25,7 @@ public class Translator
         }
         else if (lang == LanguageDTO.NL)
         {
-            selectLanguage("nl", "NL");
+            selectLanguage("nl", "BE");
         }
         else if (lang == LanguageDTO.FR)
         {
