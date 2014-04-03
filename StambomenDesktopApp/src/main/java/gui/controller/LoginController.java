@@ -70,7 +70,7 @@ public class LoginController implements IPanelController
         {
             System.out.println("Login user succes");
 
-            goTo(Panels.TREEOVERVIEW);
+            goTo(Panels.USEROVERVIEW);
         }
     }
 
