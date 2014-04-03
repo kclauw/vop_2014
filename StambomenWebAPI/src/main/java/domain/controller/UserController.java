@@ -64,10 +64,6 @@ public class UserController
     {
         User user = pc.getUser(userCredentials[0]);
 
-        System.out.println("GRMBLBLBBLBLBLBLBLB  :");;
-        System.out.println(user.getRole());;
-        System.out.println("--------------");;
-
         if (user != null && user.getPassword().equals(userCredentials[1]))
         {
             return user;
