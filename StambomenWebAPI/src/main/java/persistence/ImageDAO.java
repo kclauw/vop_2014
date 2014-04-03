@@ -55,7 +55,7 @@ public class ImageDAO
         {
             if (exist)
             {
-                
+
                 return new URI(readUrl + treeID + "/" + personID + ".jpg");
             }
             else
@@ -70,16 +70,15 @@ public class ImageDAO
 
         return null;
     }
-    
-        public URI get(int personID, boolean exist)
+
+    public URI get(int personID, boolean exist)
     {
         try
         {
             if (exist)
             {
-                System.out.println(readUrl);
-                
-                return new URI(readUrl  + personID + ".jpg");
+
+                return new URI(readUrl + personID + ".jpg");
             }
             else
             {
@@ -96,7 +95,7 @@ public class ImageDAO
 
     public void save(int personID, BufferedImage bufferedImage) throws IOException
     {
-        
+
         try
         {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -151,8 +150,6 @@ public class ImageDAO
 
         return false;
     }
-    
-      
 
     private void setUrlPath() throws UnknownHostException
     {
