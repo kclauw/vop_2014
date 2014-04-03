@@ -289,7 +289,11 @@ public class PlaceDao implements IDao<Place>
 
                 if (placeId != 0 && countryId != 0 && placeNameId != 0)
                 {
-                    Coordinate coord = new Coordinate(longi, lat, coordId);
+                    Coordinate coord = null;
+                    if (coordId != 0)
+                    {
+                        coord = new Coordinate(longi, lat, coordId);
+                    }
                     //place = new Place(placeId, countryId, placeNameId, coord, country, zip, placeName);
                     place = new Place.PlaceBuilder(placeName)
                             .placeId(placeId)

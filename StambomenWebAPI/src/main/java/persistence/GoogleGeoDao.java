@@ -136,7 +136,14 @@ public class GoogleGeoDao
         coord.setLongitude(Float.parseFloat(longitude));
         logger.info("[WEBAPI GOOGLEGEO DAO][GET COORDINATES]Coordinates found:" + coord.toString());
 
-        return coord;
+        if (coord.getLatitude() != 0 && coord.getLongitude() != 0)
+        {
+            return coord;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     private HttpResponse getResponseFromURL(URL url) throws IOException
