@@ -82,7 +82,7 @@ public class PersonService
     }
 
     @GET
-    @Path("{treeID}/{personID}")
+    @Path("/{treeID}/{personID}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Person getPerson(@PathParam("treeID") int treeID, @PathParam("personID") int personID)
