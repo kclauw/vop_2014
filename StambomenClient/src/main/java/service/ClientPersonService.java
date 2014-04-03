@@ -16,7 +16,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.glassfish.jersey.jackson.JacksonFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,9 +30,7 @@ public class ClientPersonService
         logger.info("[CLIENT PERSON SERVICE][SAVE PERSON]:" + person.toString());
         Client client = ClientServiceController.getInstance().getClient();
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd").create();
-
         String json = gson.toJson(person);
-        System.out.println("Person in json: " + json);
         Response response = client.target(url + "person/" + treeID + "/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() != 200)
