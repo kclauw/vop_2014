@@ -24,6 +24,7 @@ import service.ClientTreeController;
 import service.ClientUserController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import service.ClientPersonController;
 
 /**
  *
@@ -84,13 +85,15 @@ public class LoginFilter implements Filter
                 logger.info("[LOGIN FILTER][DO FILTER] NEW USER:" + username.toString());
             }
             String loginResponse = userController.login(user);
-            if (loginResponse == null)
+            if (!loginResponse.equals("Error"))
             {
                 session = request.getSession();
 
                 ClientServiceController serviceController = ClientServiceController.getInstance();
                 ClientTreeController treeController = new ClientTreeController();
+                ClientPersonController personController = new ClientPersonController();
                 session.setAttribute("serviceController", serviceController);
+                session.setAttribute("personController", personController);
                 session.setAttribute("treeController", treeController);
                 session.setAttribute("userController", userController);
                 session.setAttribute("username", username);

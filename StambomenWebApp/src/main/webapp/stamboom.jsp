@@ -31,6 +31,7 @@
                     <p id="place"></p>
                     <p id="country"></p>
                     <form method="post" action="./TreeServlet"><input id="refpersonid" name="refpersonid" value="" type="hidden"/><input class="submit" type="submit" value="Set as referenceperson"/></form>
+                    <form method="post" action="./TimemachineServlet"><input id="refpersonid" name="refpersonid" value="" type="hidden"/><input class="submit" type="submit" value="Show in timemachine"/></form>
                 </div>
             </div>
             <div></div>
