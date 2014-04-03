@@ -64,7 +64,7 @@ public class LoginPanel extends javax.swing.JPanel
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         txtUsername.setDefaultText("Username");
-        txtUsername.setText("Default");
+        txtUsername.setText("Moderator");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;

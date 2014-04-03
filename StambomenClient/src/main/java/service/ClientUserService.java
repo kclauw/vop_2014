@@ -182,7 +182,16 @@ public class ClientUserService
 
     List<UserDTO> getUsers()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        logger.info("[CLIENT ADMIN SERVICE][GET USERS]Getting users ");
+
+        Client client = ClientServiceController.getInstance().getClient();
+        client.register(new JacksonFeature());
+
+        List<UserDTO> users = client.target(url + "admin/users").request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
+        {
+        });
+
+        return users;
     }
 
     List<UserDTO> getUsers(int min, int max)

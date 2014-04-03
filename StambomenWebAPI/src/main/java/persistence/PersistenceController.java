@@ -52,7 +52,7 @@ public class PersistenceController
     public List<User> getUsers()
     {
         logger.info("[PERSISTENCE CONTROLLER] Get all users");
-        return (List<User>) userDao.getAll();
+        return userDao.getAll();
     }
 
     public User getUser(String username)

@@ -43,7 +43,7 @@ public class UserOverviewController implements IPanelController
     {
         System.out.println("SHOW USEROVERVIEWCONTROLLER");
         useroverviewPanel = (UserOverviewPanel) PanelFactory.makePanel(Panels.USEROVERVIEW);
-        useroverviewPanel.setAdminController(this);
+        useroverviewPanel.setUserOverviewController(this);
         return useroverviewPanel;
     }
 

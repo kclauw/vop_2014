@@ -73,6 +73,7 @@ public class GuiController
         addTreeController = new AddTreeController(this);
         settingsController = new SettingsController(this);
         personoverviewController = new PersonOverviewController(this);
+        useroverviewController = new UserOverviewController(this);
     }
 
     public void goTo(Panels frame)
