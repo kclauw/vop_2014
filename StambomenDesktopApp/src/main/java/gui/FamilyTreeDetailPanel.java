@@ -68,18 +68,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         labelFieldFirstname.setText(trans.translate("Firstname"));
         labelFieldLastname.setText(trans.translate("LastName"));
         labeFieldGender.setText(trans.translate("Gender"));
-
-        //  setText(trans.translate("Gender"));
-        //    adressPanel;
-        //     btnEdit;
-        //     btnZoomIn;
-        //    btnZoomOut;
-        //    buttonGroup1;
-        //     detailPanel;
-        //    jButton1;
-        //   labelPicture;
-        //     personPanel;
-        //     picturePanel;
     }
 
     @SuppressWarnings("unchecked")
@@ -514,7 +502,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             options[0] = "Partner";
             options[1] = "Child";
 
-            int option = JOptionPane.showOptionDialog(null, "Wouldyou like to add partner or child?", "Parter or Child?", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+            int option = JOptionPane.showOptionDialog(null, "Would you like to add partner or child?", "Parter or Child?", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
 
             if (option == 0)
             {
@@ -553,42 +541,28 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
             if (!partner)
             {
-                System.out.println("Selected child");
+                PersonDTO part = person.getPartner();
                 if (p.getGender() == GenderDTO.FEMALE)
                 {
                     p.setMother(person);
+                    if (part != null)
+                    {
+                        p.setFather(part);
+                    }
                 }
                 else
                 {
                     p.setFather(person);
-                }
-            }
-            else
-            {
-                System.out.println("Selected partner");
-
-                //Look for all childeren of this person and change their parent aswell!
-                for (PersonDTO per : person.getChilderen())
-                {
-                    System.out.println("Adding parent for " + per.toString());
-                    if (radioFemale.isSelected())
+                    if (part != null)
                     {
-                        per.setMother(person);
+                        p.setMother(part);
                     }
-                    else
-                    {
-                        per.setFather(person);
-                    }
-
-                    fttp.updatePerson(per);
                 }
             }
 
-            p.setPartner(person);
             p.setChilderen(person.getChilderen());
             p.setBirthDate(dob.getDate());
             p.setDeathDate(dob.getDate());
-
             p.setPlace(new PlaceDTO.PlaceDTOBuilder(textFieldCity.getText())
                     .placeId(-1)
                     .countryId(-1)
@@ -599,6 +573,29 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                     .build());
             adding = false;
             fttp.addPerson(p);
+
+            if (partner)
+            {
+                //Look for all childeren of this person and change their parent aswell!
+                if (person.getChilderen().size() > 0)
+                {
+                    for (PersonDTO per : person.getChilderen())
+                    {
+                        System.out.println("Adding partner for " + per.toString());
+                        if (radioFemale.isSelected())
+                        {
+                            per.setMother(p);
+                        }
+                        else
+                        {
+                            per.setFather(p);
+                        }
+
+                        fttp.updatePerson(per);
+                    }
+                }
+            }
+
             setAllButtonsActive();
             this.setEditable(false);
             btnAdd.setText("Add");
@@ -740,6 +737,23 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                     Image image = ImageIO.read(person.getPicture());
                     labelPicture.setIcon(new ImageIcon(image));
                 }
+
+//                if (person.getPartner() != null)
+//                {
+//                    try
+//                    {
+//                        System.out.println("person=" + person.getFirstName());
+//                        System.out.println(person.getFather().toString());
+//                        System.out.println(person.getMother().toString());
+//                        System.out.println("person=" + person.getPartner().getFirstName().toString());
+//                        System.out.println(person.getPartner().getMother().toString());
+//                        System.out.println(person.getPartner().getFather().toString());
+//                    }
+//                    catch (NullPointerException e)
+//                    {
+//                        System.out.println("NULL");
+//                    }
+//                }
             }
             catch (IOException ex)
             {

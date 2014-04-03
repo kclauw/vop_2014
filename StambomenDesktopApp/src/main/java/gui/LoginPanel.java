@@ -183,14 +183,14 @@ public class LoginPanel extends javax.swing.JPanel
             @Override
             public void run()
             {
-                new JFXPanel(); // this will prepare JavaFX toolkit and environment
+                new JFXPanel();
                 Platform.runLater(new Runnable()
                 {
                     @Override
                     public void run()
                     {
                         final Stage stage = new Stage();
-                        stage.setTitle("Web View");
+                        stage.setTitle("Faceboook Login");
                         WebView browser = new WebView();
                         final WebEngine webEngine = browser.getEngine();
                         webEngine.getLoadWorker().stateProperty().addListener(
@@ -214,7 +214,6 @@ public class LoginPanel extends javax.swing.JPanel
                         stage.setScene(scene);
                         webEngine.load("https://www.facebook.com/dialog/oauth?client_id=225842214289570&redirect_uri=https://www.facebook.com/connect/login_success.html");
                         stage.show();
-
                         //get the accestoke // access_token
                     }
                 });

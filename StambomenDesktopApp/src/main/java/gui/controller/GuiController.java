@@ -56,8 +56,8 @@ public class GuiController
                         else
                         {
                             programFrame.dispose();
+                            System.exit(0);
                         }
-                        System.exit(0);
                     }
                 }
             }
@@ -81,8 +81,6 @@ public class GuiController
             case LOGIN:
                 programFrame.add(loginController.show());
                 programFrame.setTitle("Login");
-                programFrame.setSize(350, 300);
-
                 break;
             case REGISTER:
                 programFrame.add(registerController.show());
@@ -91,27 +89,22 @@ public class GuiController
             case TREEOVERVIEW:
                 programFrame.add(treeControllerOverviewController.show());
                 programFrame.setTitle("Tree Overview");
-                programFrame.setSize(800, 400);
                 break;
             case TREE:
                 programFrame.add(treeController.show());
                 programFrame.setTitle("Tree");
-                programFrame.setSize(1024, 600);
                 break;
             case ADDTREE:
                 programFrame.add(addTreeController.show());
                 programFrame.setTitle("Adding a tree");
-                programFrame.setSize(400, 300);
                 break;
             case SETTINGS:
                 programFrame.add(settingsController.show());
                 programFrame.setTitle("Settings");
-                programFrame.setSize(250, 150);
                 break;
             case ADMIN:
                 programFrame.add(adminController.show());
                 programFrame.setTitle("Admin");
-                programFrame.setSize(1024, 600);
                 break;
         }
         programFrame.revalidate();

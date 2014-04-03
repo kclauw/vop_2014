@@ -5,6 +5,7 @@ import gui.LoginPanel;
 import gui.PanelFactory;
 import gui.Panels;
 import javax.swing.JPanel;
+import service.ClientFacebookController;
 import service.ClientUserController;
 
 public class LoginController implements IPanelController
@@ -14,11 +15,13 @@ public class LoginController implements IPanelController
     private GuiController gui;
     private ClientUserController clientUserController;
     private boolean admin = true;
+    private ClientFacebookController clientFacebookController;
 
     public LoginController(GuiController guiC)
     {
         this.gui = guiC;
         this.clientUserController = new ClientUserController();
+        this.clientFacebookController = new ClientFacebookController();
     }
 
     public LoginPanel getLoginFrame()
@@ -62,6 +65,7 @@ public class LoginController implements IPanelController
     public void setFBAuthCode(String authCode)
     {
         clientUserController.setFBAuthCode(authCode);
+        clientFacebookController.verify(authCode);
     }
 
 }

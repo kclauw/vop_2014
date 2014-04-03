@@ -1,5 +1,6 @@
 package gui.tree.swing;
 
+import dto.GenderDTO;
 import dto.PersonDTO;
 import gui.FamilyTreeTotalPanel;
 import java.awt.Color;
@@ -8,11 +9,9 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.ToolTipManager;
@@ -31,6 +30,8 @@ public class TextInBoxTreePane extends JComponent
     private FamilyTreeTotalPanel fttp;
     private List<MouseAdapter> events = new ArrayList<MouseAdapter>();
     private List<MouseMotionListener> toolTips = new ArrayList<MouseMotionListener>();
+    private final Color FEMALE_COLOR = Color.PINK;
+    private final Color MALE_COLOR = Color.CYAN;
 
     private TreeForTreeLayout<TextInBox> getTree()
     {
@@ -94,20 +95,27 @@ public class TextInBoxTreePane extends JComponent
     {
         PersonDTO partner = textInBox.getPerson().getPartner();
 
-        if (partner == null)
-        {
-            g.setColor(BOX_COLOR);
-        }
-        else
-        {
-            g.setColor(Color.CYAN);
-        }
-
         Rectangle2D.Double box = getBoundsOfNode(textInBox);
+        g.setColor(BOX_COLOR);
         g.fillRoundRect((int) box.x, (int) box.y, (int) box.width - 1,
                 (int) box.height - 1, ARC_SIZE, ARC_SIZE);
         g.setColor(BORDER_COLOR);
         g.drawRoundRect((int) box.x, (int) box.y, (int) box.width - 1,
+                (int) box.height - 1, ARC_SIZE, ARC_SIZE);
+
+        if (textInBox.getPerson().getGender() == GenderDTO.FEMALE)
+        {
+            g.setColor(FEMALE_COLOR);
+        }
+        else
+        {
+            g.setColor(MALE_COLOR);
+        }
+
+        g.fillRoundRect((int) box.x, (int) box.y, 10,
+                (int) box.height - 1, ARC_SIZE, ARC_SIZE);
+        g.setColor(BORDER_COLOR);
+        g.drawRoundRect((int) box.x, (int) box.y, 10,
                 (int) box.height - 1, ARC_SIZE, ARC_SIZE);
 
         g.setColor(TEXT_COLOR);
@@ -119,13 +127,29 @@ public class TextInBoxTreePane extends JComponent
 
         if (partner != null)
         {
-            g.setColor(Color.PINK);
-            Rectangle2D.Double partnerBox = new Rectangle2D.Double((box.x + 50), box.y, 75, 25);
 
+            Rectangle2D.Double partnerBox = new Rectangle2D.Double((box.x + 60), box.y, 75, 25);
+
+            g.setColor(BOX_COLOR);
             g.fillRoundRect(((int) partnerBox.x), (int) partnerBox.y, (int) partnerBox.width - 1,
                     (int) partnerBox.height - 1, ARC_SIZE, ARC_SIZE);
             g.setColor(BORDER_COLOR);
             g.drawRoundRect(((int) partnerBox.x), (int) partnerBox.y, (int) partnerBox.width - 1,
+                    (int) partnerBox.height - 1, ARC_SIZE, ARC_SIZE);
+
+            if (partner.getGender() == GenderDTO.FEMALE)
+            {
+                g.setColor(FEMALE_COLOR);
+            }
+            else
+            {
+                g.setColor(MALE_COLOR);
+            }
+
+            g.fillRoundRect(((int) partnerBox.x), (int) partnerBox.y, 10,
+                    (int) partnerBox.height - 1, ARC_SIZE, ARC_SIZE);
+            g.setColor(BORDER_COLOR);
+            g.drawRoundRect(((int) partnerBox.x), (int) partnerBox.y, 10,
                     (int) partnerBox.height - 1, ARC_SIZE, ARC_SIZE);
 
             addListener(partnerBox, partner);
@@ -137,7 +161,7 @@ public class TextInBoxTreePane extends JComponent
     {
         g.setColor(Color.BLACK);
         FontMetrics m = getFontMetrics(getFont());
-        int x = (int) box.x + ARC_SIZE / 2;
+        int x = (int) box.x + ARC_SIZE / 2 + 11;
         int y = (int) box.y + m.getAscent() + m.getLeading() + 1;
         g.drawString(lines, x, y);
     }
