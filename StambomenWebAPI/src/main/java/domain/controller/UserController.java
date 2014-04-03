@@ -3,6 +3,7 @@ package domain.controller;
 import domain.Privacy;
 import domain.User;
 import exception.UserAlreadyExistsException;
+import java.util.Collection;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,6 +63,10 @@ public class UserController
     public User login(String[] userCredentials)
     {
         User user = pc.getUser(userCredentials[0]);
+
+        System.out.println("GRMBLBLBBLBLBLBLBLB  :");;
+        System.out.println(user.getRole());;
+        System.out.println("--------------");;
 
         if (user != null && user.getPassword().equals(userCredentials[1]))
         {
@@ -130,5 +135,12 @@ public class UserController
         List<User> userProfiles = pc.getUserProfiles(userProfileID, userPrivacy);
 
         return userProfiles;
+    }
+
+    public List<User> getUsers(int start, int max)
+    {
+        List<User> users = pc.getUsers(start, max);
+
+        return users;
     }
 }

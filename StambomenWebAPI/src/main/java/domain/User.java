@@ -17,6 +17,7 @@ public class User
     private int id;
     private String username;
     private String password;
+    private String role;
     private Language language;
     private final int MAX_SIZE_USERNAME = 50;
     private final int MAX_SIZE_PASSWORD = 50;
@@ -32,6 +33,15 @@ public class User
         setPasssword(password);
         setId(id);
         setLanguage(language);
+    }
+
+    public User(int id, String username, String password, Language language, String role)
+    {
+        setUsername(username);
+        setPasssword(password);
+        setId(id);
+        setLanguage(language);
+        setRole(role);
     }
 
     public int getId()
@@ -120,6 +130,16 @@ public class User
     public String toString()
     {
         return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", language=" + language + ", MAX_SIZE_USERNAME=" + MAX_SIZE_USERNAME + '}';
+    }
+
+    private void setRole(String role)
+    {
+        this.role = role;
+    }
+
+    public String getRole()
+    {
+        return role;
     }
 
 }

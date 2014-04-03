@@ -333,7 +333,6 @@ public class PersonDao implements IDao<Person>
             }
         }
 
-        
         return persons;
     }
 
@@ -522,7 +521,6 @@ public class PersonDao implements IDao<Person>
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 
     public List<Person> getPersons(int treeID, int start, int max)
     {
@@ -575,9 +573,9 @@ public class PersonDao implements IDao<Person>
         return persons;
     }
 
-     public Person map(ResultSet res)
+    public Person map(ResultSet res)
     {
-       
+
         Person person = null;
 
         try
@@ -594,8 +592,8 @@ public class PersonDao implements IDao<Person>
             boolean pictureExists = res.getBoolean("picture");
 
             URI picture = pc.getPicture(personID, pictureExists);
-          
-           Gender g = Gender.getGender(gender);
+
+            Gender g = Gender.getGender(gender);
             Place p = pc.getPlace(res);
             person = new Person.PersonBuilder(firstName, lastName, g)
                     .personId(personID)
@@ -606,7 +604,7 @@ public class PersonDao implements IDao<Person>
                     .place(p)
                     .picture(picture)
                     .build();
-          
+
             logger.debug("[PERSON DAO] Mapping person:" + person);
 
         }
@@ -622,7 +620,6 @@ public class PersonDao implements IDao<Person>
         return person;
 
     }
-    
 
     @Override
     public Collection<Person> getAll()

@@ -8,6 +8,7 @@ import exception.EmptyPasswordException;
 import exception.EmptyUsernameException;
 import exception.InvalidPasswordException;
 import exception.UserAlreadyExistsException;
+import java.io.IOException;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -258,5 +259,17 @@ public class UserService
         {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
+    }
+
+    @GET
+    @Path("/users/{start}/{max}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<User> getUsers(@PathParam("start") int start, @PathParam("max") int max) throws IOException
+    {
+        logger.info("[PERSON SERVICE][GET] Getting persons");
+        System.out.println("GET - TreeServices");
+        List<User> users = uc.getUsers(start, max);
+
+        return users;
     }
 }
