@@ -139,4 +139,15 @@ public class UserController
 
         return users;
     }
+
+    public void updateUser(User user)
+    {
+        pc.updateUser(user);
+
+    }
+
+    public void blockUser(int userID, Boolean block)
+    {
+        pc.blockUser(userID, block);
+    }
 }

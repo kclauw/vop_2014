@@ -51,4 +51,44 @@ public class AdminService
         return users;
     }
 
+    @POST
+    @Path("/update")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateUser(User user)
+    {
+        try
+        {
+            logger.info("[USER SERVICE][UPDATE] UPDATE USER " + user.toString());
+            String result = "User updated:" + user.toString();
+            uc.updateUser(user);
+            return Response.status(Response.Status.OK).entity(result).build();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
+
+        }
+    }
+
+    @POST
+    @Path("/blockuser/{userid}/{block}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response blockUser(@PathParam("userid") int userid, @PathParam("block") boolean block)
+    {
+        try
+        {
+            logger.info("[USER SERVICE][UPDATE] BLOCK USER ");
+            String result = "User block:" + userid + " block : " + block;
+            uc.blockUser(userid, block);
+            return Response.status(Response.Status.OK).entity(result).build();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
+
+        }
+    }
+
 }

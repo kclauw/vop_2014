@@ -50,6 +50,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
         sorter = new TableRowSorter<UserTableModel>(model);
         final JTable table = new JTable(model);
         table.setRowSorter(sorter);
+
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -87,9 +88,10 @@ public class UserOverviewPanel extends javax.swing.JPanel
         JPanel form = new JPanel();
         JPanel filter = new JPanel();
         JPanel status = new JPanel();
-        JButton btnTree = new JButton();
-        btnTree.setText("Toon bomen van de geselecteerde persoon");
-        btnTree.addActionListener(new ActionListener()
+        JButton btnBlock = new JButton();
+        btnBlock.setText("Blokeer user");
+
+        btnBlock.addActionListener(new ActionListener()
         {
 
             public void actionPerformed(ActionEvent e)
@@ -98,8 +100,17 @@ public class UserOverviewPanel extends javax.swing.JPanel
 
                 int selectedRow = table.getSelectedRow();
                 selectedRow = table.convertRowIndexToModel(selectedRow);
-                String val1 = (String) table.getModel().getValueAt(selectedRow, 3);
-                System.out.println(val1);
+                UserDTO user = (UserDTO) table.getModel().getValueAt(selectedRow, 3);
+                System.out.println("block before : " + user.getBlock());
+                if (user.getBlock())
+                {
+                    useroverviewController.blockUser(user.getId(), false);
+                }
+                else
+                {
+                    useroverviewController.blockUser(user.getId(), true);
+                }
+
             }
         });
 
@@ -118,7 +129,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
 
         form.add(filter);
         form.add(status);
-        form.add(btnTree);
+        form.add(btnBlock);
 
         //Whenever filterText changes, invoke newFilter.
         filterText.getDocument().addDocumentListener(

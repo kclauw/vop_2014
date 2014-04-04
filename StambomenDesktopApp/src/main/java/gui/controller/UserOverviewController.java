@@ -15,12 +15,12 @@ public class UserOverviewController implements IPanelController
 
     private UserOverviewPanel useroverviewPanel;
     private GuiController gui;
-    private ClientUserController pc;
+    private ClientUserController uc;
 
     public UserOverviewController(GuiController gui)
     {
 
-        this.pc = new ClientUserController();
+        this.uc = new ClientUserController();
         this.gui = gui;
     }
 
@@ -33,9 +33,16 @@ public class UserOverviewController implements IPanelController
     public List<UserDTO> getUsers(int start, int max)
     {
 
-        List<UserDTO> t = pc.getUsers();
+        List<UserDTO> t = uc.getUsers();
 
         return t;
+
+    }
+
+    public void updateUser(UserDTO user)
+    {
+
+        uc.updateUser(user);
 
     }
 
@@ -45,6 +52,11 @@ public class UserOverviewController implements IPanelController
         useroverviewPanel = (UserOverviewPanel) PanelFactory.makePanel(Panels.USEROVERVIEW);
         useroverviewPanel.setUserOverviewController(this);
         return useroverviewPanel;
+    }
+
+    public void blockUser(int userid, Boolean block)
+    {
+        uc.blockUser(userid, block);
     }
 
 }

@@ -19,12 +19,12 @@ public class UserDao implements IDao<User>
 
     private Connection con;
     private final Logger logger;
-    private final String GETALLUSER = "SELECT u.userID AS userID, u.username AS username, u.password AS password, u.languageID AS languageID,r.role AS role FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID";
+    private final String GETALLUSER = "SELECT u.userID AS userID, u.username AS username, u.password AS password, u.languageID AS languageID,r.role AS role,u.block as block FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID";
     private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
-    private final String GETUSER = "SELECT userID, username, password, languageID  FROM User WHERE username = ?";
-    private final String GETUSERROLEBYNAME = "SELECT u.userID AS userID, u.username AS username, u.password AS PASSWORD, u.languageID AS languageID,r.role as role FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.username = ?";
-    private final String GETROLE = "SELECT userID, username, password, languageID  FROM User WHERE username = ?";
-    private final String GETUSERBYID = "SELECT userID, username, password, languageID  FROM User WHERE userID = ?";
+    private final String GETUSER = "SELECT userID, username, password, languageID,block  FROM User WHERE username = ?";
+    private final String GETUSERROLEBYNAME = "SELECT u.userID AS userID, u.username AS username, u.password AS PASSWORD, u.languageID AS languageID,r.role as role,u.block as block FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.username = ?";
+
+    private final String GETUSERBYID = "SELECT userID, username, password, languageID,block  FROM User WHERE userID = ?";
     private final String GETFRIENDSBYID = "SELECT friend, receiver, status FROM Request WHERE (receiver=? or friend=?) AND status = 1";
     private final String GETFRIENDREQUESTBYID = "SELECT friend, receiver, status FROM Request WHERE receiver=? AND status = 0";
     private final String DELETEFRIENDBYIDS = "DELETE from Request where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status=1";
@@ -34,7 +34,9 @@ public class UserDao implements IDao<User>
     private final String GETLANGUAGE = "SELECT languageID FROM User where userID=?;";
     private final String SETUSERPRIVACY = "UPDATE User SET privacy = ? WHERE userID = ?";
     private final String GETUSERPROFILE = "SELECT * FROM User WHERE userID = ? AND privacy = ?";
+    private final String SETUSERBLOCK = "UPDATE User SET block = ? WHERE userID = ?";
     private final String GETUSERPROFILES = "SELECT * FROM User WHERE userID != ? AND privacy = ?";
+    private final String UPDATEUSER = "UPDATE User SET username = ?,password = ?,block = ? WHERE userID = ?";
 
     public UserDao()
     {
@@ -131,7 +133,43 @@ public class UserDao implements IDao<User>
     @Override
     public void update(User value)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PreparedStatement prep = null;
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(UPDATEUSER);
+
+            prep.setString(1, value.getUsername());
+            prep.setString(2, value.getPassword());
+            prep.setBoolean(3, value.getBlock());
+            prep.setInt(4, value.getId());
+            logger.info("[USER DAO] Update user " + prep.toString());
+            prep.executeUpdate();
+
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[USER DAO][SQLException][Save]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[USER DAO][SQLException][Save]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                ex.printStackTrace();
+            }
+
+        }
     }
 
     @Override
@@ -156,9 +194,8 @@ public class UserDao implements IDao<User>
             while (res.next())
             {
                 User user = map(res);
-                System.out.println("USER : " + user);
+
                 users.add(user);
-                System.out.println("USER : " + users.get(0));
 
             }
 
@@ -318,7 +355,7 @@ public class UserDao implements IDao<User>
             int lan = res.getInt("languageID");
 
             String role = res.getString("role");
-
+            Boolean block = res.getBoolean("block");
             Language lang;
             if (lan == 1)
             {
@@ -332,8 +369,8 @@ public class UserDao implements IDao<User>
             {
                 lang = Language.FR;
             }
-            user = new User(uid, ur, password, lang, role);
-            System.out.println(uid + ur + password + role);
+            user = new User(uid, ur, password, lang, role, block);
+
         }
         catch (SQLException ex)
         {
@@ -743,8 +780,42 @@ public class UserDao implements IDao<User>
         return userProfiles;
     }
 
-    List<User> getUsers(int start, int max)
+    public void block(int userid, Boolean value)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PreparedStatement prep = null;
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(SETUSERBLOCK);
+
+            prep.setBoolean(1, value);
+            prep.setInt(2, userid);
+            logger.info("[USER DAO] Block user " + prep.toString());
+            prep.executeUpdate();
+
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[USER DAO][SQLException][Block]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[USER DAO][SQLException][Block]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                ex.printStackTrace();
+            }
+
+        }
     }
 }

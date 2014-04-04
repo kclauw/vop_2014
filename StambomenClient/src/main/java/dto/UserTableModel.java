@@ -60,6 +60,11 @@ public class UserTableModel extends AbstractTableModel
             return list.get(rowIndex);
         }
 
+        if (columnIndex == 4)
+        {
+            return list.get(rowIndex).getId();
+        }
+
         return null;
     }
 

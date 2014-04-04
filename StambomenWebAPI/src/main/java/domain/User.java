@@ -19,6 +19,7 @@ public class User
     private String password;
     private String role;
     private Language language;
+    private Boolean block;
     private final int MAX_SIZE_USERNAME = 50;
     private final int MAX_SIZE_PASSWORD = 50;
     private final int MIN_SIZE_PASSWORD = 8;
@@ -42,6 +43,16 @@ public class User
         setId(id);
         setLanguage(language);
         setRole(role);
+    }
+
+    public User(int id, String username, String password, Language language, String role, Boolean block)
+    {
+        setUsername(username);
+        setPasssword(password);
+        setId(id);
+        setLanguage(language);
+        setRole(role);
+        setBlock(block);
     }
 
     public int getId()
@@ -140,6 +151,16 @@ public class User
     public String getRole()
     {
         return role;
+    }
+
+    private void setBlock(Boolean block)
+    {
+        this.block = block;
+    }
+
+    public Boolean getBlock()
+    {
+        return block;
     }
 
 }

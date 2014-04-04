@@ -136,4 +136,9 @@ public class ClientUserController
     {
         ClientServiceController.getInstance().setFbAuthCode(authCode);
     }
+
+    public void updateUser(UserDTO user)
+    {
+        client.updateUser(user);
+    }
 }

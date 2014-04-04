@@ -255,4 +255,14 @@ public class PersistenceController
         return personDao.searchPersonFirstAndLastname(userID, firstname, lastname);
     }
 
+    public void updateUser(User user)
+    {
+        userDao.update(user);
+    }
+
+    public void blockUser(int userid, Boolean value)
+    {
+        userDao.block(userid, value);
+    }
+
 }

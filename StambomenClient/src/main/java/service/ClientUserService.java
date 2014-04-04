@@ -183,11 +183,39 @@ public class ClientUserService
 
     List<UserDTO> getUsers()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        logger.info("[CLIENT ADMIN SERVICE][GET USERS]Getting users ");
+
+        Client client = ClientServiceController.getInstance().getClient();
+        client.register(new JacksonFeature());
+
+        List<UserDTO> users = client.target(url + "admin/users").request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
+        {
+        });
+
+        return users;
     }
 
-    List<UserDTO> getUsers(int min, int max)
+    public String updateUser(UserDTO user)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        logger.info("[CLIENT USER SERVICE][UPDATE PERSON]:" + user.toString());
+        Client client = ClientServiceController.getInstance().getClient();
+        client.register(new JacksonFeature());
+
+        String json = new Gson().toJson(user);
+
+        System.out.println("JSON:" + json);
+        Response response = client.target(url + "admin/update").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
+        System.out.println("[CLIENT USER SERVICE] UPDATING USER " + user.toString());
+
+        if (response.getStatus() != 200)
+        {
+            String resp = response.readEntity(String.class);
+            System.out.println("[CLIENT USER SERVICE] UPDATE ERROR :" + resp);
+
+            return " " + resp;
+        }
+
+        return null;
     }
+
 }
