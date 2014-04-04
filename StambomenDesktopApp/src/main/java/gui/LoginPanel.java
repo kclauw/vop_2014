@@ -12,27 +12,21 @@ import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 public class LoginPanel extends javax.swing.JPanel
 {
 
     private LoginController loginPanel;
-    private JList menuList;
-    private JScrollPane menuScrollPane;
 
     public LoginPanel()
     {
         initComponents();
-
     }
 
     public void setLoginController(LoginController login)
     {
         this.loginPanel = login;
-
     }
 
     /**
@@ -64,7 +58,7 @@ public class LoginPanel extends javax.swing.JPanel
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         txtUsername.setDefaultText("Username");
-        txtUsername.setText("Moderator");
+        txtUsername.setText("default");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -171,9 +165,7 @@ public class LoginPanel extends javax.swing.JPanel
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnLoginActionPerformed
     {//GEN-HEADEREND:event_btnLoginActionPerformed
         UserDTO user = new UserDTO(0, txtUsername.getText(), txtPassword.getText(), null);
-
         loginPanel.login(user);
-
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
