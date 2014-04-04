@@ -183,11 +183,11 @@ public class ClientUserService
 
     List<UserDTO> getUsers()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 
     List<UserDTO> getUsers(int min, int max)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 }
