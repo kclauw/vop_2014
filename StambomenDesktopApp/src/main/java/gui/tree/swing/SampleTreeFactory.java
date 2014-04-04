@@ -23,7 +23,7 @@ public class SampleTreeFactory
         SampleTreeFactory.treeLayout = tree;
         PersonDTO rt = treeLayout.getTree().getRoot();
         Rectangle2D.Double box = getBoundsOfNode(rt);
-        TextInBox root = new TextInBox(getTree().getRoot().getFirstName(), 75, 25, rt);
+        TextInBox root = new TextInBox(getTree().getRoot().getFirstName(), 125, 25, rt);
         tr = new DefaultTreeForTreeLayout<TextInBox>(root);
         addChilds(tr, getTree().getRoot(), root);
         return tr;
@@ -48,7 +48,7 @@ public class SampleTreeFactory
     {
         for (PersonDTO person : root.getChilderen())
         {
-            int x = 50;
+            int x = 125;
 
             if (person.getPartner() != null)
             {
