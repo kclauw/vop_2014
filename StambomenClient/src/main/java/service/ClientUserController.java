@@ -141,4 +141,9 @@ public class ClientUserController
     {
         client.updateUser(user);
     }
+
+    public void blockUser(int userid, boolean block)
+    {
+        client.blockUser(userid, block);
+    }
 }

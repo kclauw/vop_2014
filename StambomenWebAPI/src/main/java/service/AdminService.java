@@ -80,7 +80,8 @@ public class AdminService
         {
             logger.info("[USER SERVICE][UPDATE] BLOCK USER ");
             String result = "User block:" + userid + " block : " + block;
-            uc.blockUser(userid, block);
+            System.out.println("block");
+            //uc.blockUser(userid, block);
             return Response.status(Response.Status.OK).entity(result).build();
         }
         catch (Exception e)

@@ -14,7 +14,7 @@ public class UserTableModel extends AbstractTableModel
     private List<UserDTO> list;
     private String[] columnNames =
     {
-        "User", "Language"
+        "User", "Block"
     };
 
     public UserTableModel(List<UserDTO> l)
@@ -48,7 +48,7 @@ public class UserTableModel extends AbstractTableModel
         }
         if (columnIndex == 1)
         {
-            return list.get(rowIndex).getLanguage();
+            return list.get(rowIndex).getBlock();
         }
         if (columnIndex == 2)
         {

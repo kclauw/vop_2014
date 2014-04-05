@@ -56,11 +56,13 @@ public class LoginController implements IPanelController
         {
             this.loginPanel.setError(login);
         }
-        else if (login.equals("Admin"))
-        {
-            System.out.println("Login admin succes");
-            goTo(Panels.PERSONOVERVIEW);
-        }
+        // 
+        /*
+         else if (login.equals("Admin"))
+         {
+         System.out.println("Login admin succes");
+         goTo(Panels.PERSONOVERVIEW);
+         }*/
         else
         {
             System.out.println("Login user succes");

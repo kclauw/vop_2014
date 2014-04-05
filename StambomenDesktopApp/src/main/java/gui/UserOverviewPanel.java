@@ -55,39 +55,14 @@ public class UserOverviewPanel extends javax.swing.JPanel
         table.setFillsViewportHeight(true);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        //selection change -> provide user with row numbers for view &  model
-        table.getSelectionModel().addListSelectionListener(
-                new ListSelectionListener()
-                {
-                    public void valueChanged(ListSelectionEvent event)
-                    {
-                        int viewRow = table.getSelectedRow();
-                        if (viewRow < 0)
-                        {
-                            //Selection got filtered away.
-                            statusText.setText("");
-                        }
-                        else
-                        {
-                            int modelRow
-                            = table.convertRowIndexToModel(viewRow);
-                            statusText.setText(
-                                    String.format("Selected Row in view: %d. "
-                                            + "Selected Row in model: %d.",
-                                            viewRow, modelRow));
-                        }
-                    }
-                }
-        );
-
         //items
         JScrollPane pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         JLabel l1 = new JLabel("Filter Text:");
-        JLabel l2 = new JLabel("Status:");
+
         JPanel form = new JPanel();
         JPanel filter = new JPanel();
-        JPanel status = new JPanel();
+
         JButton btnBlock = new JButton();
         btnBlock.setText("Blokeer user");
 
@@ -101,7 +76,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 int selectedRow = table.getSelectedRow();
                 selectedRow = table.convertRowIndexToModel(selectedRow);
                 UserDTO user = (UserDTO) table.getModel().getValueAt(selectedRow, 3);
-                System.out.println("block before : " + user.getBlock());
+
                 if (user.getBlock())
                 {
                     useroverviewController.blockUser(user.getId(), false);
@@ -110,6 +85,8 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 {
                     useroverviewController.blockUser(user.getId(), true);
                 }
+                model.fireTableDataChanged();
+                table.repaint();
 
             }
         });
@@ -119,16 +96,11 @@ public class UserOverviewPanel extends javax.swing.JPanel
         filterText.setPreferredSize(new Dimension(100, 50));
         statusText.setPreferredSize(new Dimension(100, 50));
         l1.setLabelFor(filterText);
-        l2.setLabelFor(statusText);
 
         filter.add(l1);
         filter.add(filterText);
 
-        status.add(l2);
-        status.add(statusText);
-
         form.add(filter);
-        form.add(status);
         form.add(btnBlock);
 
         //Whenever filterText changes, invoke newFilter.
