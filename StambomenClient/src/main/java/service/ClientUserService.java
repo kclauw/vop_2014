@@ -223,7 +223,7 @@ public class ClientUserService
         logger.info("[CLIENT USER SERVICE][BLOCK USER]Block user with id:" + userid + "to block state:" + block);
         Client client = ClientServiceController.getInstance().getClient();
         client.register(new JacksonFeature());
-        Response response = client.target(url + "admin/blockuser/" + userid + "/" + block).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "admin/blockuser/" + userid + "/" + block).request(MediaType.APPLICATION_JSON).post(Entity.entity(block, MediaType.APPLICATION_JSON));
         if (response.getStatus() != 200)
         {
             String resp = response.readEntity(String.class);
@@ -232,6 +232,8 @@ public class ClientUserService
         }
 
         return null;
+    
+
 
     }
 
