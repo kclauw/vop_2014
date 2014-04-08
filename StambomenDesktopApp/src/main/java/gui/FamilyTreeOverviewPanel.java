@@ -7,11 +7,14 @@ import gui.controls.FamilyTreeList;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import service.ClientUserController;
 import util.Translator;
+import util.GedcomUtil;
 
 public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 {
@@ -26,6 +29,8 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
     private JMenuItem addTreeItem;
     private JMenuItem personItem;
     private JMenuItem userItem;
+    private JMenuItem importGedcomItem;
+    private JMenuItem exportGedcomItem;
     private Translator trans;
     private JMenuBar menuBar;
 
@@ -40,7 +45,8 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
         settingsItem = new JMenuItem(trans.translate("ChangeLanguage"));
         addTreeItem = new JMenuItem(trans.translate("AddTree"));
-
+        importGedcomItem = new JMenuItem("Import gedcom");
+        exportGedcomItem = new JMenuItem("Export gedcom");
         addTreeItem.addActionListener(new ActionListener()
         {
 
@@ -58,9 +64,32 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                 treeController.goTo(Panels.SETTINGS);
             }
         });
+        
+        importGedcomItem.addActionListener(new ActionListener()
+        {
 
+            public void actionPerformed(ActionEvent e)
+            {
+                JFileChooser fc = new JFileChooser();
+		fc.setMultiSelectionEnabled(false);
+		File File = fc.getSelectedFile();
+                int option = fc.showOpenDialog(FamilyTreeOverviewPanel.this);
+         
+	
+                
+            }
+        });
+        exportGedcomItem.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                
+            }
+        });
         menuS.add(settingsItem);
-
+        menuS.add(importGedcomItem);
+        menuS.add(exportGedcomItem);
         menu.add(addTreeItem);
         menuBar.add(menu);
         menuBar.add(menuS);

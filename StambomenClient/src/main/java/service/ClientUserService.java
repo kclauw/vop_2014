@@ -58,6 +58,11 @@ public class ClientUserService
             System.out.println("USER NOT FOUND");
             return "Error";
         }
+        
+        if(dto.getBlock()){
+            System.out.println("USER BLOCKED");
+            return "Block";
+        }
         logger.info("[CLIENT USER SERVICE][LOGIN]User dto found" + dto);
 
         ClientServiceController.getInstance().setUser(dto);

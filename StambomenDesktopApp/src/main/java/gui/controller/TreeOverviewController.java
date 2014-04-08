@@ -17,9 +17,10 @@ public class TreeOverviewController implements IPanelController
 
     private FamilyTreeOverviewPanel treeOverviewPanel;
     private GuiController gui;
+    
     private ClientTreeController serv;
     private ClientUserController user;
-    private String login = "test";
+    private String login;
 
     public TreeOverviewController(GuiController gui)
     {

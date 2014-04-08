@@ -30,7 +30,7 @@ public class PersonOverviewPanel extends javax.swing.JPanel
     private FamilyTreeDetailPanel familyTreeDetailPanel;
 
     private List<PersonDTO> persons;
-
+    
     private TableRowSorter<PersonTableModel> sorter;
     private boolean DEBUG = false;
     private JTable table;

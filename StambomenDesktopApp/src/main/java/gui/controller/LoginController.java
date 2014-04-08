@@ -4,6 +4,7 @@ import dto.UserDTO;
 import gui.LoginPanel;
 import gui.PanelFactory;
 import gui.Panels;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import service.ClientFacebookController;
 import service.ClientUserController;
@@ -55,7 +56,11 @@ public class LoginController implements IPanelController
         if ("Error".equals(login))
         {
             this.loginPanel.setError(login);
-        }
+        }else if (login.equals("Block"))
+         {
+        
+         JOptionPane.showMessageDialog(loginPanel, user);
+         }
         // 
         /*
          else if (login.equals("Admin"))
