@@ -12,6 +12,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import org.gedcom4j.writer.GedcomWriterException;
+import org.openide.util.Exceptions;
 import service.ClientUserController;
 import util.Translator;
 import util.GedcomUtil;
@@ -70,10 +72,33 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
             public void actionPerformed(ActionEvent e)
             {
+                
                 JFileChooser fc = new JFileChooser();
-		fc.setMultiSelectionEnabled(false);
-		File File = fc.getSelectedFile();
-                int option = fc.showOpenDialog(FamilyTreeOverviewPanel.this);
+                File file = null;
+                
+                fc.setMultiSelectionEnabled(false);
+                int returnVal = fc.showOpenDialog(FamilyTreeOverviewPanel.this);
+
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    try {  
+                        file = fc.getSelectedFile();
+                        String path = file.getAbsolutePath();
+                        System.out.println("Opening: " + file.getName() + ".");
+                        GedcomUtil.addGedcom(path); 
+                    } catch (GedcomWriterException ex) {
+                        Exceptions.printStackTrace(ex);
+                    }
+} 
+                else {System.out.println("Error opening file");}
+                
+    
+                
+		
+		
+               
+              
+                
+                
          
 	
                 
@@ -84,6 +109,12 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
             public void actionPerformed(ActionEvent e)
             {
+                try {
+                    GedcomUtil.Create();
+                } catch (GedcomWriterException ex) {
+                    Exceptions.printStackTrace(ex);
+                }
+                
                 
             }
         });

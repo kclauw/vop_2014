@@ -33,20 +33,25 @@ public class GedcomUtil
 
     private static int individualCounter;
 
-    public void addGedcom(String file) throws GedcomWriterException
+    public static void addGedcom(String file) throws GedcomWriterException
     {
 
         try
         {
             GedcomParser gp = new GedcomParser();
-
+            System.out.println(file);
             gp.load(file);
-            Create();
+           // Create();
             Gedcom g = gp.gedcom;
 
             for (Individual i : g.individuals.values())
             {
-                System.out.println(i.formattedName());
+                System.out.println("Invididuals : " + i.formattedName());
+            }
+            
+           for (Family i : g.families.values())
+            {
+                System.out.println("Families children : " + i.children);
             }
 
             // System.out.printf(gp.gedcom.header.date.value.toString());
@@ -61,7 +66,7 @@ public class GedcomUtil
         }
     }
 
-    private void Create() throws GedcomWriterException
+    public static void  Create() throws GedcomWriterException
     {
         Gedcom g = new Gedcom();
 
