@@ -8,12 +8,10 @@ package persistence;
 
 import java.sql.ResultSet;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
-/**
- *
- * @author Jelle
- */
-public interface IPlaceDAO<T> {
+public interface ITreeDao<T> {
     public T get(int id);
 
     public void save(T value);
@@ -25,4 +23,6 @@ public interface IPlaceDAO<T> {
     public Collection<T> getAll();
 
     public T map(ResultSet res);
+    
+    public List<T> getAll(int userid);
 }

@@ -9,19 +9,19 @@ import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PersonTreeDAO implements IDao
+public class PersonTreeDao implements IDao
 {
 
     private Connection con;
 
-    private final String SAVEPERSONTREE = "INSERT INTO PersonTree (TreeID,PersonID) VALUES (?,?)";
-    private final String UPDATEPERSONTREE = "UPDATE PersonTree SET TreeID = ?,PersonID = ? WHERE personID = ? and TreeID = ?";
-    private final String DELETEPERSONTREE = "DELETE FROM PersonTree WHERE personID = ? and TreeID = ?";
+    private final String SAVE_PERSON_TREE = "INSERT INTO PersonTree (TreeID,PersonID) VALUES (?,?)";
+    private final String UPDATE_PERSON_TREE = "UPDATE PersonTree SET TreeID = ?,PersonID = ? WHERE personID = ? and TreeID = ?";
+    private final String DELETE_PERSON_TREE = "DELETE FROM PersonTree WHERE personID = ? and TreeID = ?";
 
     private PersistenceController pc;
     private final Logger logger;
 
-    public PersonTreeDAO(PersistenceController pc)
+    public PersonTreeDao(PersistenceController pc)
     {
         this.pc = pc;
         logger = LoggerFactory.getLogger(getClass());
@@ -33,7 +33,7 @@ public class PersonTreeDAO implements IDao
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(SAVEPERSONTREE);
+            prep = con.prepareStatement(SAVE_PERSON_TREE);
             prep.setInt(1, treeId);
             prep.setInt(2, personId);
             logger.info("[PERSONTREE DAO] Saving persontree " + prep.toString());
@@ -70,7 +70,7 @@ public class PersonTreeDAO implements IDao
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(UPDATEPERSONTREE);
+            prep = con.prepareStatement(UPDATE_PERSON_TREE);
             prep.setInt(1, personId);
             prep.setInt(2, treeId);
             logger.info("[PERSON DAO] Updating person " + prep.toString());
@@ -107,7 +107,7 @@ public class PersonTreeDAO implements IDao
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(DELETEPERSONTREE);
+            prep = con.prepareStatement(DELETE_PERSON_TREE);
             prep.setInt(1, personId);
             prep.setInt(2, treeId);
             prep.executeUpdate();

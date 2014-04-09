@@ -10,9 +10,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import persistence.IPersonDAO;
+import persistence.IPersonDao;
 
-public class MockPerson implements IPersonDAO<Person>
+public class MockPerson implements IPersonDao<Person>
 {
 
     public List<Person> persons;

@@ -4,10 +4,11 @@ import domain.Logging;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Collection;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LoggingDAO implements IDao<Logging>
+public class LoggingDao implements IDao<Logging>
 {
 
     private Connection con;
@@ -15,7 +16,7 @@ public class LoggingDAO implements IDao<Logging>
     private final String GETLOGGING = "Select ";
     private final String SETLOGGING = "Insert ";
 
-    public LoggingDAO()
+    public LoggingDao()
     {
         logger = LoggerFactory.getLogger(getClass());
     }
@@ -52,6 +53,11 @@ public class LoggingDAO implements IDao<Logging>
 
     @Override
     public Logging map(ResultSet res)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Logging> getAll(int id)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

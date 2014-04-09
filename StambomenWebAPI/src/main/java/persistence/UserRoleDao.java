@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UserRoleDAO implements IDao
+public class UserRoleDao implements IDao
 {
 
     private Connection con;
@@ -21,7 +21,7 @@ public class UserRoleDAO implements IDao
     private PersistenceController pc;
     private final Logger logger;
 
-    public UserRoleDAO(PersistenceController pc)
+    public UserRoleDao(PersistenceController pc)
     {
         this.pc = pc;
         logger = LoggerFactory.getLogger(getClass());
