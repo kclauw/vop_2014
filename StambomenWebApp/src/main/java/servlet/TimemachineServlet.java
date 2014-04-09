@@ -162,7 +162,7 @@ public class TimemachineServlet extends HttpServlet
             else if (person.getPlace() == null || person.getPlace().getCoord() == null || (person.getPlace().getCoord().getLatitude() == 0 && person.getPlace().getCoord().getLongitude() == 0))
             {
                 ClientPersonController personController = (ClientPersonController) session.getAttribute("personController");
-                personController.updatePerson(person);
+                personController.updatePerson(tree.getId(), person);
 
                 PersonDTO personupdated = personController.getPerson(tree.getId(), person.getPersonId());
                 if (personupdated != null)
