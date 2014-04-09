@@ -72,17 +72,31 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
             public void actionPerformed(ActionEvent e)
             {
-                JFileChooser fc = new JFileChooser();
-		fc.setMultiSelectionEnabled(false);
-		File file = fc.getSelectedFile();
-                int option = fc.showOpenDialog(FamilyTreeOverviewPanel.this);
-                String path = file.getAbsolutePath();
                 
-                try {
-                    GedcomUtil.addGedcom(path);
-                } catch (GedcomWriterException ex) {
-                    Exceptions.printStackTrace(ex);
-                }
+                JFileChooser fc = new JFileChooser();
+                File file = null;
+                
+                fc.setMultiSelectionEnabled(false);
+                int returnVal = fc.showOpenDialog(FamilyTreeOverviewPanel.this);
+
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    try {  
+                        file = fc.getSelectedFile();
+                        String path = file.getAbsolutePath();
+                        System.out.println("Opening: " + file.getName() + ".");
+                        GedcomUtil.addGedcom(path); 
+                    } catch (GedcomWriterException ex) {
+                        Exceptions.printStackTrace(ex);
+                    }
+} 
+                else {System.out.println("Error opening file");}
+                
+    
+                
+		
+		
+               
+              
                 
                 
          
