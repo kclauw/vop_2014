@@ -1,6 +1,7 @@
 package persistence;
 
 import domain.Coordinate;
+import domain.Logging;
 import domain.Person;
 import domain.Place;
 import domain.enums.Privacy;
@@ -26,6 +27,7 @@ public class PersistenceController
     private PersonTreeDAO persontreeDao;
     private ParentRelationDAO parentrelationDao;
     private ImageDAO imageDao;
+    private LoggingDao loggingDao;
 
     private final Logger logger;
 
@@ -39,6 +41,7 @@ public class PersistenceController
         persontreeDao = new PersonTreeDAO(this);
         parentrelationDao = new ParentRelationDAO(this);
         imageDao = new ImageDAO(this);
+        loggingDao = new LoggingDao();
         logger = LoggerFactory.getLogger(getClass());
 
     }
@@ -280,6 +283,11 @@ public class PersistenceController
     public void blockUser(int userid, Boolean value)
     {
         userDao.block(userid, value);
+    }
+
+    public List<Logging> getAll(int id)
+    {
+        return loggingDao.getAll(id);
     }
 
 }
