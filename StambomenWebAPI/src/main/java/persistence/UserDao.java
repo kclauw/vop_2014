@@ -1,7 +1,7 @@
 package persistence;
 
-import domain.Language;
-import domain.Privacy;
+import domain.enums.Language;
+import domain.enums.Privacy;
 import domain.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,7 +1,7 @@
 package persistence;
 
 import domain.Person;
-import domain.Privacy;
+import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
 import java.sql.Connection;

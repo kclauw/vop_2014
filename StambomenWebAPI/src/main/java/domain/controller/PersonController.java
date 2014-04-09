@@ -2,6 +2,8 @@ package domain.controller;
 
 import domain.Person;
 import domain.Tree;
+import domain.enums.Gender;
+import domain.enums.PersonAdd;
 import exception.CannotDeletePersonsWithChidrenException;
 import exception.PersonAlreadyExistsException;
 import java.awt.image.BufferedImage;
@@ -66,10 +68,10 @@ public class PersonController
         logger.info("====================================================================");
     }
 
-    public void updatePerson(Person person)
+    public void updatePerson(int treeID, Person person)
     {
         logger.info("[PERSON CONTROLLER] Updating person " + person);
-        pc.updatePerson(person);
+        pc.updatePerson(treeID, person);
     }
 
     public Person getPerson(int treeID, int personID)
@@ -88,10 +90,13 @@ public class PersonController
      * PersonAlreadyExistsException otherwise.
      *
      * @param treeID
+     * @param personAdd
      * @param person
+     * @param personLinkID
      */
-    public void addPerson(int treeID, Person person)
+    public void addPerson(int treeID, PersonAdd personAdd, Person person, int personLinkID)
     {
+        System.out.println("[ADDING PERSON] " + treeID + " " + personAdd.ordinal() + " " + personLinkID);
         /*Check wheter the person exists. This should be place in a repo.*/
         Person ps = pc.getPerson(treeID, person.getPersonId());
 
@@ -101,9 +106,25 @@ public class PersonController
         }
         else
         {
-            logger.info("[PERSON CONTROLLER] Adding person: " + person);
-            pc.addPerson(treeID, person);
+            switch (personAdd)
+            {
+                case CHILD:
+                    addChild(treeID, person);
+                    break;
+                case PARENT:
+                    addParent(treeID, person, personLinkID);
+                    break;
+                case PARTNER:
+                    addPartner(treeID, person, personLinkID);
+                    break;
+            }
+
         };
+    }
+
+    public void addChild(int treeID, Person person)
+    {
+        pc.addPerson(treeID, person);
     }
 
     public void deletePersonImage(int treeID, int personID)
@@ -134,5 +155,58 @@ public class PersonController
     public List<Person> searchPerson(int userID, String firstname, String lastname)
     {
         return pc.searchPerson(userID, firstname, lastname);
+    }
+
+    /**
+     * PersonLinkID here is something else completely. It is the id of the child
+     * that gets a new parent.
+     */
+    private void addParent(int treeID, Person person, int personLinkID)
+    {
+        int id = pc.addPerson(treeID, person);
+        Person parent = pc.getPerson(treeID, id);
+        Person child = pc.getPerson(treeID, personLinkID);
+
+        if (parent.getGender() == Gender.FEMALE)
+        {
+            child.setMother(parent);
+        }
+        else
+        {
+            child.setFather(parent);
+        }
+
+        pc.updatePerson(treeID, child);
+
+    }
+
+    /**
+     * PersonLinkID here is the other partner. So if we have X - Y then x will
+     * be use to find out the childeren.
+     *
+     * @param treeID
+     * @param person
+     * @param personLinkID
+     */
+    private void addPartner(int treeID, Person person, int personLinkID)
+    {
+        int id = pc.addPerson(treeID, person);
+        Person newPartner = pc.getPerson(treeID, id);
+        List<Person> childeren = pc.getPerson(treeID, personLinkID).getChilderen(pc.getPersons(treeID));
+
+        for (Person child : childeren)
+        {
+            if (person.getGender() == Gender.FEMALE)
+            {
+                child.setMother(newPartner);
+            }
+            else
+            {
+                child.setFather(newPartner);
+            }
+
+            pc.updatePerson(treeID, child);
+        }
+
     }
 }

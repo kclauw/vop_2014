@@ -1,5 +1,6 @@
 package domain;
 
+import domain.enums.Language;
 import exception.EmptyPasswordException;
 import exception.EmptyUsernameException;
 import exception.InvalidPasswordException;

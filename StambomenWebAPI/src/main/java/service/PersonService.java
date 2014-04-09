@@ -2,6 +2,7 @@ package service;
 
 import domain.Person;
 import domain.controller.PersonController;
+import domain.enums.PersonAdd;
 import exception.PersonAlreadyExistsException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,14 +27,15 @@ public class PersonService
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @POST
-    @Path("/{treeID}/post")
+    @Path("/{treeID}/{addType}/{personLinkID}/post")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addPerson(@PathParam("treeID") int treeID, Person person)
+    public Response addPerson(@PathParam("treeID") int treeID, @PathParam("addType") int addType, @PathParam("personLinkID") int personLinkID, Person person)
     {
         try
         {
+            PersonAdd personAdd = PersonAdd.getAddMethod(addType);
             String result = "Person added:" + person.toString();
-            pc.addPerson(treeID, person);
+            pc.addPerson(treeID, personAdd, person, personLinkID);
             return Response.status(Response.Status.OK).entity(result).build();
         }
         catch (PersonAlreadyExistsException ex)
@@ -62,15 +64,15 @@ public class PersonService
     }
 
     @POST
-    @Path("/update")
+    @Path("/update/{treeID}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updatePerson(Person person)
+    public Response updatePerson(@PathParam("treeID") int treeID, Person person)
     {
         try
         {
             logger.info("[PERSON SERVICE][UPDATE] UPDATING PERSON " + person.toString());
             String result = "Person updated:" + person.toString();
-            pc.updatePerson(person);
+            pc.updatePerson(treeID, person);
             return Response.status(Response.Status.OK).entity(result).build();
         }
         catch (Exception e)

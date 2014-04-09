@@ -1,11 +1,11 @@
 package mocks;
 
 import domain.Coordinate;
-import domain.Gender;
-import domain.Language;
+import domain.enums.Gender;
+import domain.enums.Language;
 import domain.Person;
 import domain.Place;
-import domain.Privacy;
+import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
 import java.sql.ResultSet;

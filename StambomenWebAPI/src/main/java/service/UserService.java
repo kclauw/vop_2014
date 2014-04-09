@@ -1,7 +1,7 @@
 package service;
 
-import domain.Language;
-import domain.Privacy;
+import domain.enums.Language;
+import domain.enums.Privacy;
 import domain.User;
 import domain.controller.UserController;
 import exception.EmptyPasswordException;

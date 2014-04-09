@@ -1,5 +1,6 @@
 package domain;
 
+import domain.enums.Privacy;
 import java.util.List;
 
 public class Tree

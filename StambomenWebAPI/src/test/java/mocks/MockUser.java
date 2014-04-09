@@ -1,6 +1,6 @@
 package mocks;
 
-import domain.Language;
+import domain.enums.Language;
 import domain.User;
 import java.sql.ResultSet;
 import java.util.Collection;
