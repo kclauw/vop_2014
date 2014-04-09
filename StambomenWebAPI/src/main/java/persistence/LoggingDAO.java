@@ -12,8 +12,8 @@ public class LoggingDAO implements IDao<Logging>
 
     private Connection con;
     private final Logger logger;
-    private final String GETLOGGING = "Select";
-    private final String SETLOGGING = "Insert";
+    private final String GETLOGGING = "Select ";
+    private final String SETLOGGING = "Insert ";
 
     public LoggingDAO()
     {
