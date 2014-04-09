@@ -25,6 +25,7 @@ import org.gedcom4j.validate.GedcomValidationFinding;
 import org.gedcom4j.validate.GedcomValidator;
 import org.gedcom4j.writer.GedcomWriter;
 import org.gedcom4j.writer.GedcomWriterException;
+import sun.misc.Regexp;
 
 /**
  *
@@ -37,6 +38,7 @@ public class GedcomUtil
 
     public static void addGedcom(String file) throws GedcomWriterException
     {
+        String[] temp = null;
 
         try
         {
@@ -54,7 +56,14 @@ public class GedcomUtil
                     if(f.family.husband != null )
                     System.out.println("Dad :" + f.family.husband.formattedName());
                     if(f.family.wife != null )
-                    System.out.println("Mom : " + f.family.wife.formattedName());
+                    
+                    temp = f.family.wife.formattedName().split("/");
+                    String firstname = temp[0];
+                    String surname;
+             
+                    surname = temp[1];
+                    
+                    System.out.println("Mom : " + firstname + surname);
                 }
                 for(FamilySpouse s : i.familiesWhereSpouse){
                     if(s.family.husband != null &&  !s.family.husband.formattedName().equals(i.formattedName()))
