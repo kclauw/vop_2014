@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.gedcom4j.model.Family;
+import org.gedcom4j.model.FamilyChild;
+import org.gedcom4j.model.FamilySpouse;
 import org.gedcom4j.model.Gedcom;
 import org.gedcom4j.model.Individual;
 import org.gedcom4j.model.IndividualEvent;
@@ -43,16 +45,45 @@ public class GedcomUtil
             gp.load(file);
            // Create();
             Gedcom g = gp.gedcom;
-
-            for (Individual i : g.individuals.values())
+            
+              for (Individual i : g.individuals.values())
             {
-                System.out.println("Invididuals : " + i.formattedName());
+                System.out.println(i.formattedName());
+                System.out.println("Sex  : " + i.sex.toString());
+                for(FamilyChild f : i.familiesWhereChild){
+                    if(f.family.husband != null )
+                    System.out.println("Dad :" + f.family.husband.formattedName());
+                    if(f.family.wife != null )
+                    System.out.println("Mom : " + f.family.wife.formattedName());
+                }
+                for(FamilySpouse s : i.familiesWhereSpouse){
+                    if(s.family.husband != null &&  !s.family.husband.formattedName().equals(i.formattedName()))
+                    System.out.println("Parent of :" + s.family.husband.formattedName());
+                    if(s.family.wife != null &&  !s.family.wife.formattedName().equals(i.formattedName()))
+                    System.out.println("Parent of : " + s.family.wife.formattedName());
+                }
+                
+                System.out.println(" ");
+               
+                 
             }
+              
+           
+            
+          
+              
+           
+          
             
            for (Family i : g.families.values())
             {
-                System.out.println("Families children : " + i.children);
+                
+               //System.out.println("Families children : " + i.children); 
+               
+    
             }
+           
+           
 
             // System.out.printf(gp.gedcom.header.date.value.toString());
         }
