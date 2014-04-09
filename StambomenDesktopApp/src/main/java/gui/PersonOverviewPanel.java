@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import dto.PersonDTO;
 import dto.PersonTableModel;
+import dto.TreeDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -22,16 +23,20 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 import service.ClientPersonController;
+import service.ClientTreeController;
 
 public class PersonOverviewPanel extends javax.swing.JPanel
 {
 
     private ClientPersonController personController;
+    private ClientTreeController treeController;
     private FamilyTreeDetailPanel familyTreeDetailPanel;
 
     private List<PersonDTO> persons;
+    private List<TreeDTO> trees;
     
     private TableRowSorter<PersonTableModel> sorter;
+    
     private boolean DEBUG = false;
     private JTable table;
     private JTextField filterText;
@@ -45,6 +50,8 @@ public class PersonOverviewPanel extends javax.swing.JPanel
         this.familyTreeDetailPanel = new FamilyTreeDetailPanel();
 
         persons = personController.getPersons(0, 100);
+        
+        
         //create table
         final PersonTableModel model = new PersonTableModel(persons);
         sorter = new TableRowSorter<PersonTableModel>(model);
