@@ -1,6 +1,7 @@
 package gui;
 
 import dto.GenderDTO;
+import dto.PersonAddDTO;
 import dto.PersonDTO;
 import dto.PlaceDTO;
 import java.awt.AlphaComposite;
@@ -450,28 +451,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
             if (confirm == JOptionPane.YES_OPTION)
             {
-                person.setFirstName(textFieldFirstname.getText());
-                person.setSurName(textFieldLastname.getText());
-                person.setBirthDate(dob.getDate());
-                person.setDeathDate(dod.getDate());
-
-                if (radioFemale.isSelected())
-                {
-                    person.setGender(GenderDTO.FEMALE);
-                }
-                else
-                {
-                    person.setGender(GenderDTO.MALE);
-                }
-
-                person.setPlace(new PlaceDTO.PlaceDTOBuilder(textFieldCity.getText())
-                        .placeId(-1)
-                        .countryId(-1)
-                        .placeNameId(-1)
-                        .coord(null)
-                        .country(textFieldCountry.getText())
-                        .zipCode(textFieldZipCode.getText())
-                        .build());
+                person = getCurrentPersonFromInput();
                 fttp.updatePerson(person);
 
             }
@@ -498,7 +478,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     {//GEN-HEADEREND:event_btnAddActionPerformed
         Translator trans = new Translator();
 
-        String[] options = new String[2];
+        String[] options = new String[3];
         options[0] = "Partner";
         options[1] = "Child";
         options[2] = "Parent";
@@ -543,22 +523,29 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         else if (adding)
         {
             PersonDTO p = null;
+            PersonAddDTO add = null;
+            int link = -1;
 
             if (parent)
             {
                 p = addParent();
+                add = PersonAddDTO.PARENT;
+                link = person.getPersonId();
             }
             else if (partner)
             {
                 p = addPartner();
+                add = PersonAddDTO.PARTNER;
+                link = person.getPersonId();
             }
             else if (child)
             {
                 p = addChild();
+                add = PersonAddDTO.CHILD;
             }
 
             adding = false;
-            fttp.addPerson(p);
+            fttp.addPerson(add, p, link);
             setAllButtonsActive();
             this.setEditable(false);
             btnAdd.setText("Add");
@@ -815,12 +802,14 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
     private PersonDTO addPartner()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PersonDTO p = getCurrentPersonFromInput();
+        return p;
     }
 
     private PersonDTO addChild()
     {
         PersonDTO p = getCurrentPersonFromInput();
+
         PersonDTO partner = person.getPartner();
 
         if (person.getGender() == GenderDTO.FEMALE)
@@ -841,12 +830,12 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         }
 
         return p;
-
     }
 
     private PersonDTO addParent()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PersonDTO p = getCurrentPersonFromInput();
+        return p;
     }
 
     private PersonDTO getCurrentPersonFromInput()

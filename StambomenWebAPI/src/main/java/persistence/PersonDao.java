@@ -1,6 +1,6 @@
 package persistence;
 
-import domain.Gender;
+import domain.enums.Gender;
 import domain.Person;
 import domain.Place;
 import java.net.URI;
@@ -88,11 +88,24 @@ public class PersonDao implements IDao<Person>
             prep.setString(2, person.getFirstName());
             prep.setString(3, person.getSurName());
             prep.setByte(4, person.getGender().getGenderId());
-            //T0D0 //FIXME
-            // prep.setDate(5, (java.sql.Date) (person.getBirthDate());
-            // prep.setDate(6, (java.sql.Date) person.getDeathDate());
-            prep.setNull(5, Types.DATE);
-            prep.setNull(6, Types.DATE);
+
+            if (person.getBirthDate() != null)
+            {
+                prep.setDate(5, (java.sql.Date) (person.getBirthDate()));
+            }
+            else
+            {
+                prep.setNull(5, Types.DATE);
+            }
+
+            if (person.getDeathDate() != null)
+            {
+                prep.setDate(6, (java.sql.Date) person.getDeathDate());
+            }
+            else
+            {
+                prep.setNull(6, Types.DATE);
+            }
             logger.info("[PERSON DAO] Saving person " + prep.toString());
             prep.executeUpdate();
             ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
@@ -232,6 +245,7 @@ public class PersonDao implements IDao<Person>
             }
 
             prep.setInt(7, person.getPersonId());
+
             logger.info("[PERSON DAO] Updating person " + prep.toString());
             prep.executeUpdate();
             con.close();

@@ -3,7 +3,7 @@ package persistence;
 import domain.Coordinate;
 import domain.Person;
 import domain.Place;
-import domain.Privacy;
+import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
 import java.awt.image.BufferedImage;
@@ -134,10 +134,20 @@ public class PersistenceController
         return personDao.get(treeID, personId);
     }
 
-    public void updatePerson(Person person)
+    public void updatePerson(int treeID, Person person)
     {
         logger.info("[PERSISTENCE CONTROLLER] Update person " + person);
+        //also change the parentRelation table!
         personDao.update(person);
+
+        if (person.getMother() != null)
+        {
+            addParentRelation(treeID, person.getMother().getPersonId(), person.getPersonId());
+        }
+        else if (person.getFather() != null)
+        {
+            addParentRelation(treeID, person.getFather().getPersonId(), person.getPersonId());
+        }
     }
 
     public List<User> getFriendRequest(int userID)
@@ -166,7 +176,7 @@ public class PersistenceController
         return this.placeDao.getPlaceObject(place);
     }
 
-    public void addPerson(int treeID, Person person)
+    public int addPerson(int treeID, Person person)
     {
         /*Logica voor het wegschrijven van een boom */
         logger.info("[PERSISTENCE CONTROLLER] Add person " + person);
@@ -176,12 +186,19 @@ public class PersistenceController
 
         if (person.getMother() != null)
         {
-            parentrelationDao.save(treeID, person.getMother().getPersonId(), personid);
+            addParentRelation(treeID, person.getMother().getPersonId(), personid);
         }
         else if (person.getFather() != null)
         {
-            parentrelationDao.save(treeID, person.getFather().getPersonId(), personid);
+            addParentRelation(treeID, person.getFather().getPersonId(), personid);
         }
+
+        return personid;
+    }
+
+    public void addParentRelation(int treeID, int parentID, int childID)
+    {
+        parentrelationDao.save(treeID, parentID, childID);
     }
 
     public void setUserPrivacy(int userID, Privacy userPrivacy)

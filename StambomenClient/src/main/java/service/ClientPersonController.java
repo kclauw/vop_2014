@@ -1,5 +1,6 @@
 package service;
 
+import dto.PersonAddDTO;
 import dto.PersonDTO;
 import java.awt.Image;
 import java.util.List;
@@ -18,10 +19,10 @@ public class ClientPersonController
         this.clientPersonService = new ClientPersonService();
     }
 
-    public String savePerson(int treeID, PersonDTO person)
+    public String savePerson(int treeID, PersonAddDTO personAdd, PersonDTO person, int link)
     {
         logger.info("[CLIENT PERSON CONTROLLER][SAVE PERSON]:" + person.toString());
-        return clientPersonService.savePerson(treeID, person);
+        return clientPersonService.savePerson(treeID, personAdd, person, link);
     }
 
     public String deletePerson(int treeID, int personID)
@@ -30,10 +31,10 @@ public class ClientPersonController
         return clientPersonService.deletePerson(treeID, personID);
     }
 
-    public String updatePerson(PersonDTO person)
+    public String updatePerson(int treeID, PersonDTO person)
     {
         logger.info("[CLIENT PERSON CONTROLLER][Updating PERSON]:" + person.toString());
-        return clientPersonService.updatePerson(person);
+        return clientPersonService.updatePerson(treeID, person);
     }
 
     public String saveImage(int treeID, int personID, Image image)

@@ -1,7 +1,7 @@
 package mocks;
 
 import domain.Coordinate;
-import domain.Gender;
+import domain.enums.Gender;
 import domain.Person;
 import domain.Place;
 import java.sql.ResultSet;

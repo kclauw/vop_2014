@@ -1,6 +1,6 @@
 package domain.controller;
 
-import domain.Privacy;
+import domain.enums.Privacy;
 import domain.User;
 import exception.UserAlreadyExistsException;
 import java.util.Collection;

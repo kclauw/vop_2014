@@ -5,6 +5,7 @@
  */
 package gui;
 
+import dto.PersonAddDTO;
 import dto.PersonDTO;
 import gui.controller.TreeController;
 import gui.tree.AbegoTreeLayoutForNetbeansDemo;
@@ -147,9 +148,9 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         this.treeController.updatePerson(person);
     }
 
-    public void addPerson(PersonDTO person)
+    public void addPerson(PersonAddDTO personAdd, PersonDTO person, int link)
     {
-        this.treeController.addPerson(person);
+        this.treeController.addPerson(personAdd, person, link);
     }
 
     public void zoomIn()

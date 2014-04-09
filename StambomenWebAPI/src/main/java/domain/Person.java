@@ -1,5 +1,6 @@
 package domain;
 
+import domain.enums.Gender;
 import exception.InvalidParentException;
 import java.net.URI;
 import java.util.ArrayList;

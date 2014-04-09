@@ -1,5 +1,6 @@
 package gui.controller;
 
+import dto.PersonAddDTO;
 import dto.PersonDTO;
 import dto.TreeDTO;
 import gui.FamilyTreeTotalPanel;
@@ -92,7 +93,7 @@ public class TreeController implements IPanelController
     public void updatePerson(PersonDTO person)
     {
         System.out.println("[TREE CONTROLLER] UPDATING PERSON " + person.toString());
-        String res = clientPersonController.updatePerson(person);
+        String res = clientPersonController.updatePerson(tree.getId(), person);
 
         if (res == null)
         {
@@ -100,10 +101,10 @@ public class TreeController implements IPanelController
         }
     }
 
-    public void addPerson(PersonDTO person)
+    public void addPerson(PersonAddDTO personAdd, PersonDTO person, int link)
     {
         System.out.println("[TREE CONTROLLER] SAVING PERSON " + person.toString());
-        String res = clientPersonController.savePerson(tree.getId(), person);
+        String res = clientPersonController.savePerson(tree.getId(), personAdd, person, link);
 
         if (res == null)
         {
