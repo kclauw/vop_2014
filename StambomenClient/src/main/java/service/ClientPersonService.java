@@ -36,9 +36,9 @@ public class ClientPersonService
 
         if (response.getStatus() != 200)
         {
-            System.out.println("Error occured" + response.toString() + "  " + response.readEntity(String.class));
-
-            return " " + response.readEntity(String.class);
+            String resp = response.readEntity(String.class);
+            System.out.println("[CLIENT PERSON SERVICE] Error occured" + resp);
+            return resp;
         }
 
         return null;
