@@ -101,7 +101,7 @@ public class TreeController implements IPanelController
         }
     }
 
-    public void addPerson(PersonAddDTO personAdd, PersonDTO person, int link)
+    public String addPerson(PersonAddDTO personAdd, PersonDTO person, int link)
     {
         System.out.println("[TREE CONTROLLER] SAVING PERSON " + person.toString());
         String res = clientPersonController.savePerson(tree.getId(), personAdd, person, link);
@@ -109,6 +109,11 @@ public class TreeController implements IPanelController
         if (res == null)
         {
             updateView();
+            return null;
+        }
+        else
+        {
+            return res;
         }
 
     }

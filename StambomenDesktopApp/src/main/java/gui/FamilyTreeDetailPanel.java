@@ -545,10 +545,20 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             }
 
             adding = false;
-            fttp.addPerson(add, p, link);
-            setAllButtonsActive();
-            this.setEditable(false);
-            btnAdd.setText("Add");
+            String result = fttp.addPerson(add, p, link);
+            if (result == null)
+            {
+                setAllButtonsActive();
+                this.setEditable(false);
+                btnAdd.setText("Add");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, result);
+                this.setEditable(false);
+                this.setEnabled(true);
+                this.clearInputFields();
+            }
         }
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -643,56 +653,64 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     public void setPerson(PersonDTO person)
     {
         Translator trans = new Translator();
-        this.person = person;
 
-        if (person != null)
+        if (!add && !edit)
         {
-            try
+            this.person = person;
+
+            if (person != null)
             {
-                textFieldFirstname.setText(person.getFirstName());
-                textFieldLastname.setText(person.getSurName());
+                try
+                {
+                    textFieldFirstname.setText(person.getFirstName());
+                    textFieldLastname.setText(person.getSurName());
 
-                GenderDTO g = person.getGender();
-                buttonGroup1.add(radioMale);
-                buttonGroup1.add(radioFemale);
+                    GenderDTO g = person.getGender();
+                    buttonGroup1.add(radioMale);
+                    buttonGroup1.add(radioFemale);
 
-                dob.setDate(person.getBirthDate());
-                dod.setDate(person.getDeathDate());
+                    dob.setDate(person.getBirthDate());
+                    dod.setDate(person.getDeathDate());
 
-                if (g == GenderDTO.MALE)
-                {
-                    radioMale.setSelected(true);
+                    if (g == GenderDTO.MALE)
+                    {
+                        radioMale.setSelected(true);
+                    }
+                    else
+                    {
+                        radioFemale.setSelected(true);
+                    }
+
+                    PlaceDTO place = person.getPlace();
+                    if (place == null)
+                    {
+                        textFieldCity.setText(trans.translate("Undefined"));
+                        textFieldCountry.setText(trans.translate("Undefined"));
+                        textFieldZipCode.setText(trans.translate("Undefined"));
+                    }
+                    else
+                    {
+                        textFieldCity.setText(place.getPlaceName());
+                        textFieldCountry.setText(place.getCountry());
+                        textFieldZipCode.setText(place.getZipCode());
+                    }
+                    if (person.getPicture() != null)
+                    {
+                        System.out.println("[FAMILY TREE DETAIL] Picture=" + person.getPicture());
+                        Image image = ImageIO.read(person.getPicture());
+                        labelPicture.setIcon(new ImageIcon(image));
+                    }
                 }
-                else
+                catch (IOException ex)
                 {
-                    radioFemale.setSelected(true);
+                    Exceptions.printStackTrace(ex);
                 }
 
-                PlaceDTO place = person.getPlace();
-                if (place == null)
-                {
-                    textFieldCity.setText(trans.translate("Undefined"));
-                    textFieldCountry.setText(trans.translate("Undefined"));
-                    textFieldZipCode.setText(trans.translate("Undefined"));
-                }
-                else
-                {
-                    textFieldCity.setText(place.getPlaceName());
-                    textFieldCountry.setText(place.getCountry());
-                    textFieldZipCode.setText(place.getZipCode());
-                }
-                if (person.getPicture() != null)
-                {
-                    System.out.println("[FAMILY TREE DETAIL] Picture=" + person.getPicture());
-                    Image image = ImageIO.read(person.getPicture());
-                    labelPicture.setIcon(new ImageIcon(image));
-                }
             }
-            catch (IOException ex)
-            {
-                Exceptions.printStackTrace(ex);
-            }
-
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Cannot select another person while you are adding or edditing the tree.");
         }
     }
 
@@ -864,4 +882,16 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 .build());
         return p;
     }
+
+    private void clearInputFields()
+    {
+        textFieldFirstname.setText("");
+        textFieldLastname.setText("");
+        textFieldCity.setText("");
+        textFieldCountry.setText("");
+        textFieldZipCode.setText("");
+        dob.setDate(null);
+        dod.setDate(null);
+    }
+
 }

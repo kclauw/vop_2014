@@ -148,9 +148,9 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         this.treeController.updatePerson(person);
     }
 
-    public void addPerson(PersonAddDTO personAdd, PersonDTO person, int link)
+    public String addPerson(PersonAddDTO personAdd, PersonDTO person, int link)
     {
-        this.treeController.addPerson(personAdd, person, link);
+        return this.treeController.addPerson(personAdd, person, link);
     }
 
     public void zoomIn()
@@ -212,4 +212,5 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
             }
         });        // TODO add your handling code here:    }
     }
+
 }
