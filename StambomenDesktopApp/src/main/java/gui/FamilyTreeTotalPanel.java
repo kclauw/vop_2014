@@ -11,15 +11,16 @@ import gui.controller.TreeController;
 import gui.tree.AbegoTreeLayoutForNetbeansDemo;
 import gui.tree.PersonNodeExtentProvider;
 import gui.tree.PersonTreeForTreeLayout;
-import gui.tree.TreeLayoutFactory;
-import gui.tree.TreePane;
 import gui.tree.swing.SampleTreeFactory;
 import gui.tree.swing.TextInBox;
 import gui.tree.swing.TextInBoxNodeExtentProvider;
 import gui.tree.swing.TextInBoxTreePane;
+import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -63,8 +64,6 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         initComponents();
         this.setSize(1200, 400);
         this.treeController = treeController;
-        this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
-        this.familyTreeDetailPanel.validate();
         scroll = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         this.scroll.setVisible(true);
 
@@ -75,15 +74,20 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         c.weightx = 20;
         c.weighty = 20;
         this.add(scroll, c);
-        c.gridx = 1;
-        c.gridy = 0;
-        c.fill = 1;
-        c.gridx = 10;
-        c.weightx = 1;
-        c.weighty = 20;
-        this.add(familyTreeDetailPanel, c);
-
+        addDetailPanel();
         this.validate();
+    }
+
+    public void addDetailPanel()
+    {
+        JFrame j = new JFrame();
+        this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
+        this.familyTreeDetailPanel.validate();
+        j.add(familyTreeDetailPanel);
+        j.setPreferredSize(new Dimension(500, 1000));
+        j.setMinimumSize(new Dimension(500, 1000));
+        j.setVisible(true);
+        j.setLocationRelativeTo(this);
     }
 
     @SuppressWarnings("unchecked")
