@@ -1,5 +1,6 @@
 package domain;
 
+import domain.enums.Event;
 import java.util.Date;
 
 public class Logging
@@ -7,18 +8,18 @@ public class Logging
 
     private Event event;
     private String name;
-    private User user;
+    private int userID;
     private java.util.Date date;
 
     public Logging()
     {
     }
 
-    public Logging(Event event, String name, User user, Date date)
+    public Logging(Event event, String name, int userID, Date date)
     {
         this.event = event;
         this.name = name;
-        this.user = user;
+        this.userID = userID;
         this.date = date;
     }
 
@@ -42,14 +43,14 @@ public class Logging
         this.name = name;
     }
 
-    public User getUser()
+    public int getUserID()
     {
-        return user;
+        return userID;
     }
 
-    public void setUser(User user)
+    public void setUserID(int userID)
     {
-        this.user = user;
+        this.userID = userID;
     }
 
     public Date getDate()
