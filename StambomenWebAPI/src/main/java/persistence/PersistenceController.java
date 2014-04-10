@@ -216,6 +216,14 @@ public class PersistenceController
         userDao.setUserPrivacy(userID, userPrivacy);
     }
 
+    public Privacy getUserPrivacy(int userID)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Get privacy for userid" + userID);
+        Privacy privacy = userDao.getUserPrivacy(userID);
+
+        return privacy;
+    }
+
     public User getUserProfile(int userProfileID, Privacy userPrivacy)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get User profile" + userProfileID);

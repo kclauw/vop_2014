@@ -188,6 +188,24 @@ public class UserService
     }
 
     @GET
+    @Path("/get/profile/getUserPrivacy/{userID}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getUserPrivacy(@PathParam("userID") int userID)
+    {
+        try
+        {
+            Privacy privacy = uc.getUserPrivacy(userID);
+
+            return Response.ok(privacy).build();
+
+        }
+        catch (Exception ex)
+        {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
+    }
+
+    @GET
     @Path("/getLanguage/{userID}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getLanguage(@PathParam("userID") int userID)

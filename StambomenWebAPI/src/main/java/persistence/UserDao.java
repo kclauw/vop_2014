@@ -35,9 +35,10 @@ public class UserDao implements IDao<User>
     private final String SETLANGUAGE = "UPDATE User set languageID=? where userID=?;";
     private final String GETLANGUAGE = "SELECT languageID FROM User where userID=?;";
     private final String SETUSERPRIVACY = "UPDATE User SET privacy = ? WHERE userID = ?";
-    private final String GETUSERPROFILE = "SELECT * FROM User WHERE userID = ? AND privacy = ?";
+    private final String GETUSERPRIVACY = "SELECT privacy FROM USER WHERE userID = userID";
+    private final String GETUSERPROFILE = "SELECT * FROM User u  LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID = ? AND u.privacy = ?";
+    private final String GETUSERPROFILES = "SELECT * FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID != ? AND u.privacy = ?";
     private final String SETUSERBLOCK = "UPDATE User SET block = ? WHERE userID = ?";
-    private final String GETUSERPROFILES = "SELECT * FROM User WHERE userID != ? AND privacy = ?";
     private final String UPDATEUSER = "UPDATE User SET username = ?,password = ?,block = ? WHERE userID = ?";
     private PersistenceController pc;
 
@@ -644,6 +645,52 @@ public class UserDao implements IDao<User>
                 ex.printStackTrace();
             }
         }
+    }
+
+    public Privacy getUserPrivacy(int userID)
+    {
+        PreparedStatement prep = null;
+        ResultSet res = null;
+        Privacy privacy = null;
+
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(GETUSERPRIVACY);
+
+            prep.setInt(1, userID);
+            res = prep.executeQuery();
+
+            while (res.next())
+            {
+                privacy = Privacy.getPrivacy(res.getInt("privacy"));
+            }
+
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[USER DAO][SQLEXCEPTION][GETUSERPRIVACY]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[USER DAO][EXCEPTION][GETUSERPRIVACY]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                logger.info("[USER DAO][SQLEXCEPTION][GETUSERPROFILE]Sql exception: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+        return privacy;
     }
 
     public int getLanguage(int userID)
