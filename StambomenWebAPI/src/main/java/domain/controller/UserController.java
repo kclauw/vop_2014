@@ -1,9 +1,12 @@
 package domain.controller;
 
+import domain.Activity;
 import domain.enums.Privacy;
 import domain.User;
+import domain.enums.Event;
 import exception.UserAlreadyExistsException;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +18,7 @@ import persistence.PersistenceController;
 public class UserController
 {
 
+    private ActivityController ac;
     private PersistenceController pc;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -97,6 +101,13 @@ public class UserController
     public void allowDenyFriendRequest(int userID, int frienduserID, boolean allow)
     {
         pc.allowDenyFriendRequest(userID, frienduserID, allow);
+        if (allow == false)
+        {
+            Date date = new Date();
+            Activity act = new Activity(Event.ADDFRIEND, String.valueOf(frienduserID), userID, date);
+
+        }
+
     }
 
     public void sendFriendRequest(int userID, String frienduserName)
@@ -117,6 +128,13 @@ public class UserController
     public void setUserPrivacy(int userID, Privacy userPrivacy)
     {
         pc.setUserPrivacy(userID, userPrivacy);
+    }
+
+    public Privacy getUserPrivacy(int userID)
+    {
+        Privacy privacy = pc.getUserPrivacy(userID);
+
+        return privacy;
     }
 
     public User getUserProfile(int userProfileID, Privacy userPrivacy)

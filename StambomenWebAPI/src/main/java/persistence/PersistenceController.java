@@ -4,6 +4,7 @@ import domain.Coordinate;
 import domain.Activity;
 import domain.Person;
 import domain.Place;
+import domain.Theme;
 import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
@@ -24,6 +25,7 @@ public class PersistenceController
     private UserDao userDao;
     private TreeDao treeDao;
     private PersonDao personDao;
+    private ThemeDao themeDao;
     private GoogleGeoDao googlegeoDao;
     private PlaceDao placeDao;
     private PersonTreeDao persontreeDao;
@@ -35,9 +37,10 @@ public class PersistenceController
 
     public PersistenceController()
     {
-        userDao = new UserDao();
+        userDao = new UserDao(this);
         treeDao = new TreeDao(this);
         personDao = new PersonDao(this);
+        themeDao = new ThemeDao(this);
         googlegeoDao = new GoogleGeoDao();
         placeDao = new PlaceDao(this);
         persontreeDao = new PersonTreeDao(this);
@@ -213,6 +216,14 @@ public class PersistenceController
         userDao.setUserPrivacy(userID, userPrivacy);
     }
 
+    public Privacy getUserPrivacy(int userID)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Get privacy for userid" + userID);
+        Privacy privacy = userDao.getUserPrivacy(userID);
+
+        return privacy;
+    }
+
     public User getUserProfile(int userProfileID, Privacy userPrivacy)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get User profile" + userProfileID);
@@ -293,9 +304,14 @@ public class PersistenceController
         return activityDao.getAll(userID);
     }
 
-    public void addActivity(Activity act, int userID)
+    public void addActivity(Activity act)
     {
-        activityDao.addActivity(act, userID);
+        activityDao.addActivity(act);
+    }
+
+    public Theme getTheme(int themeID)
+    {
+        return themeDao.get(themeID);
     }
 
 }

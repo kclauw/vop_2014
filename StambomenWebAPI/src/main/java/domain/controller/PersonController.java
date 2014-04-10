@@ -119,11 +119,11 @@ public class PersonController
             {
                 case CHILD:
                     addChild(treeID, person);
-                    ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
+                    ac.addActivity(act);
                     break;
                 case PARENT:
                     addParent(treeID, person, personLinkID);
-                    ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
+                    ac.addActivity(act);
                     break;
             }
 
@@ -135,7 +135,7 @@ public class PersonController
         Date date = new Date();
         Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
         pc.addPerson(treeID, person);
-        ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
+        ac.addActivity(act);
     }
 
     public void deletePersonImage(int treeID, int personID)
@@ -204,7 +204,7 @@ public class PersonController
             }
 
             pc.updatePerson(treeID, child);
-            ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
+            ac.addActivity(act);
         }
 
     }

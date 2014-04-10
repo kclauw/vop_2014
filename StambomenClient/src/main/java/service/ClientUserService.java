@@ -58,8 +58,9 @@ public class ClientUserService
             System.out.println("USER NOT FOUND");
             return "Error";
         }
-        
-        if(dto.getBlock()){
+
+        if (dto.getBlock())
+        {
             System.out.println("USER BLOCKED");
             return "Block";
         }
@@ -162,6 +163,18 @@ public class ClientUserService
         return null;
     }
 
+    public PrivacyDTO getUserPrivacy(int userID)
+    {
+        logger.info("[CLIENT USER SERVICE][GET USER PRIVACY]Get user privacy for user with id:" + userID);
+        Client client = ClientServiceController.getInstance().getClient();
+
+        PrivacyDTO privacy = client.target(url + "user/get/profile/getUserPrivacy/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<PrivacyDTO>()
+        {
+        });
+
+        return privacy;
+    }
+
     public UserDTO getPublicUserProfile(int userProfileID)
     {
         logger.info("[CLIENT USER SERVICE][GET PUBLIC USER PROFILES]Get a public user profile");
@@ -237,8 +250,6 @@ public class ClientUserService
         }
 
         return null;
-    
-
 
     }
 

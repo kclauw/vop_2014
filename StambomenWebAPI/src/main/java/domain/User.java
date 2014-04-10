@@ -1,6 +1,5 @@
 package domain;
 
-import domain.enums.Language;
 import exception.EmptyPasswordException;
 import exception.EmptyUsernameException;
 import exception.InvalidPasswordException;
@@ -19,7 +18,7 @@ public class User
     private String username;
     private String password;
     private String role;
-    private Language language;
+    private UserSettings userSettings;
     private Boolean block;
     private final int MAX_SIZE_USERNAME = 50;
     private final int MAX_SIZE_PASSWORD = 50;
@@ -29,29 +28,29 @@ public class User
     {
     }
 
-    public User(int id, String username, String password, Language language)
+    public User(int id, String username, String password, UserSettings userSettings)
     {
         setUsername(username);
         setPasssword(password);
         setId(id);
-        setLanguage(language);
+        setUserSettings(userSettings);
     }
 
-    public User(int id, String username, String password, Language language, String role)
+    public User(int id, String username, String password, UserSettings userSettings, String role)
     {
         setUsername(username);
         setPasssword(password);
         setId(id);
-        setLanguage(language);
+        setUserSettings(userSettings);
         setRole(role);
     }
 
-    public User(int id, String username, String password, Language language, String role, Boolean block)
+    public User(int id, String username, String password, UserSettings userSettings, String role, Boolean block)
     {
         setUsername(username);
         setPasssword(password);
         setId(id);
-        setLanguage(language);
+        setUserSettings(userSettings);
         setRole(role);
         setBlock(block);
     }
@@ -61,14 +60,14 @@ public class User
         return id;
     }
 
-    public Language getLanguage()
+    public UserSettings getUserSettings()
     {
-        return language;
+        return userSettings;
     }
 
-    public void setLanguage(Language language)
+    public void setUserSettings(UserSettings userSettings)
     {
-        this.language = language;
+        this.userSettings = userSettings;
     }
 
     private void setId(int id)
@@ -141,7 +140,7 @@ public class User
     @Override
     public String toString()
     {
-        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", language=" + language + ", MAX_SIZE_USERNAME=" + MAX_SIZE_USERNAME + '}';
+        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", userSettings=" + userSettings + ", MAX_SIZE_USERNAME=" + MAX_SIZE_USERNAME + '}';
     }
 
     private void setRole(String role)

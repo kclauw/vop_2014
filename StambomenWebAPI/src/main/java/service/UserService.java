@@ -50,7 +50,7 @@ public class UserService
         try
         {
             logger.info("[REGISTER REQUEST] USER;" + userInc);
-            User user = new User(-1, userInc.getUsername(), userInc.getPassword(), userInc.getLanguage());
+            User user = new User(-1, userInc.getUsername(), userInc.getPassword(), userInc.getUserSettings());
             String result = "User added:" + user.toString();
             uc.addUser(user);
             return Response.status(Response.Status.OK).entity(result).build();
@@ -179,6 +179,24 @@ public class UserService
             String result = "privacy set:" + userPrivacy;
             uc.setUserPrivacy(userID, userPrivacy);
             return Response.ok(result).build();
+
+        }
+        catch (Exception ex)
+        {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("/get/profile/getUserPrivacy/{userID}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getUserPrivacy(@PathParam("userID") int userID)
+    {
+        try
+        {
+            Privacy privacy = uc.getUserPrivacy(userID);
+
+            return Response.ok(privacy).build();
 
         }
         catch (Exception ex)
