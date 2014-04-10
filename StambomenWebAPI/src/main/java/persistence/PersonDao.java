@@ -1,5 +1,6 @@
 package persistence;
 
+import persistence.interfaces.IDao;
 import domain.enums.Gender;
 import domain.Person;
 import domain.Place;

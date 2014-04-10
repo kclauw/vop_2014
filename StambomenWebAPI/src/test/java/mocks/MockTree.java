@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import persistence.ITreeDao;
+import persistence.interfaces.ITreeDao;
 
 public class MockTree implements ITreeDao<Tree>
 {

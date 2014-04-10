@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package persistence;
+package persistence.interfaces;
 
 import java.sql.ResultSet;
 import java.util.Collection;

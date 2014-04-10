@@ -1,5 +1,6 @@
 package persistence;
 
+import persistence.interfaces.IDao;
 import domain.Coordinate;
 import domain.Place;
 import java.sql.Connection;

@@ -1,5 +1,6 @@
 package persistence;
 
+import persistence.interfaces.IDao;
 import domain.Person;
 import domain.enums.Privacy;
 import domain.Tree;

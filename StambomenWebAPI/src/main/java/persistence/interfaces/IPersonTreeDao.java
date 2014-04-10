@@ -4,17 +4,15 @@
  * and open the template in the editor.
  */
 
-package persistence;
+package persistence.interfaces;
 
-import java.sql.ResultSet;
-import java.util.Collection;
 
 /**
  *
  * @author Jelle
  */
-public interface IPlaceDao<T> {
-    public T get(int id);
+public interface IPersonTreeDao<T> {
+    
 
     public void save(T value);
 
@@ -22,7 +20,4 @@ public interface IPlaceDao<T> {
 
     public void delete(T value);
 
-    public Collection<T> getAll();
-
-    public T map(ResultSet res);
 }

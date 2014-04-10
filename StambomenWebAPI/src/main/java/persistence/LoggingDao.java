@@ -1,5 +1,6 @@
 package persistence;
 
+import persistence.interfaces.IDao;
 import domain.Logging;
 import java.sql.Connection;
 import java.sql.ResultSet;

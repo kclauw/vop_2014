@@ -5,6 +5,7 @@
  */
 package persistence;
 
+import persistence.interfaces.IDao;
 import java.sql.ResultSet;
 import java.util.Collection;
 
