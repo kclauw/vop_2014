@@ -29,7 +29,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private FamilyTreeTotalPanel fttp;
     private boolean adding = false;
 
-    private boolean partner;
     private boolean child;
     private boolean parent;
 
@@ -61,8 +60,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         btnAdd.setText(trans.translate("Add"));
         btnAddPicture.setText(trans.translate("AddPicture"));
         btnDeletePicture.setText(trans.translate("DeletePicture"));
-        btnZoomIn.setText(trans.translate("ZoomIn"));
-        btnZoomOut.setText(trans.translate("ZoomOut"));
         btnDelete.setText(trans.translate("Delete"));
         btnAdd.setText(trans.translate("Add"));
         jLabel4.setText(trans.translate("City"));
@@ -92,8 +89,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         btnDelete = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
-        btnZoomIn = new javax.swing.JButton();
-        btnZoomOut = new javax.swing.JButton();
         picturePanel = new javax.swing.JPanel();
         btnAddPicture = new javax.swing.JButton();
         labelPicture = new javax.swing.JLabel();
@@ -231,33 +226,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints.gridy = 9;
         gridBagConstraints.weightx = 0.1;
         add(btnEdit, gridBagConstraints);
-
-        btnZoomIn.setText("Zoom In");
-        btnZoomIn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                btnZoomInActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.weightx = 0.1;
-        add(btnZoomIn, gridBagConstraints);
-
-        btnZoomOut.setText("Zoom out");
-        btnZoomOut.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                btnZoomOutActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 12;
-        add(btnZoomOut, gridBagConstraints);
 
         picturePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(setTitleP()));
         picturePanel.setToolTipText("");
@@ -478,32 +446,23 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     {//GEN-HEADEREND:event_btnAddActionPerformed
         Translator trans = new Translator();
 
-        String[] options = new String[3];
-        options[0] = "Partner";
-        options[1] = "Child";
-        options[2] = "Parent";
+        String[] options = new String[2];
+        options[0] = "Child";
+        options[1] = "Parent";
 
         if (!adding)
         {
             adding = true;
 
-            int option = JOptionPane.showOptionDialog(null, "Would you like to add partner or child?", "Who would you liek to add?", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+            int option = JOptionPane.showOptionDialog(null, "Would you like to add parent or child?", "Who would you liek to add?", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
 
             if (option == 0)
             {
-                partner = true;
-                child = false;
+                child = true;
                 parent = false;
             }
             else if (option == 1)
             {
-                partner = false;
-                child = true;
-                parent = false;
-            }
-            else if (option == 2)
-            {
-                partner = false;
                 child = false;
                 parent = true;
             }
@@ -532,12 +491,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 add = PersonAddDTO.PARENT;
                 link = person.getPersonId();
             }
-            else if (partner)
-            {
-                p = addPartner();
-                add = PersonAddDTO.PARTNER;
-                link = person.getPersonId();
-            }
             else if (child)
             {
                 p = addChild();
@@ -562,16 +515,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         }
 
     }//GEN-LAST:event_btnAddActionPerformed
-
-    private void btnZoomInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnZoomInActionPerformed
-    {//GEN-HEADEREND:event_btnZoomInActionPerformed
-        fttp.zoomIn();
-    }//GEN-LAST:event_btnZoomInActionPerformed
-
-    private void btnZoomOutActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnZoomOutActionPerformed
-    {//GEN-HEADEREND:event_btnZoomOutActionPerformed
-        fttp.zoomOut();
-    }//GEN-LAST:event_btnZoomOutActionPerformed
 
     private void btnAddPictureActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddPictureActionPerformed
     {//GEN-HEADEREND:event_btnAddPictureActionPerformed
@@ -622,8 +565,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDeletePicture;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnZoomIn;
-    private javax.swing.JButton btnZoomOut;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel detailPanel;
     private com.toedter.calendar.JDateChooser dob;
@@ -816,12 +757,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         g.dispose();
 
         return resizedImage;
-    }
-
-    private PersonDTO addPartner()
-    {
-        PersonDTO p = getCurrentPersonFromInput();
-        return p;
     }
 
     private PersonDTO addChild()

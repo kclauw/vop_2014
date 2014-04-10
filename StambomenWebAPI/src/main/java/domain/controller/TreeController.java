@@ -1,8 +1,11 @@
 package domain.controller;
 
+import domain.Activity;
 import domain.Tree;
+import domain.enums.Event;
 import exception.TreeAlreadyExistsException;
 import exception.TreeNameAlreadyExistsException;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +14,7 @@ import persistence.PersistenceController;
 public class TreeController
 {
 
+    private ActivityController ac;
     private PersistenceController pc;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -22,6 +26,8 @@ public class TreeController
     public void addTree(Tree tree)
     {
         System.out.println("[TREE CONTROLLER] ADDING A TREE" + tree);
+        Date date = new Date();
+        Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
 
         if (tree.getId() == -1)
         {
@@ -38,6 +44,7 @@ public class TreeController
             }
 
             pc.addTree(tree);
+            ac.addActivity(act);
         }
         else
         {
@@ -59,6 +66,7 @@ public class TreeController
                     }
                 }
                 pc.addTree(tree);
+                ac.addActivity(act);
             };
         }
     }

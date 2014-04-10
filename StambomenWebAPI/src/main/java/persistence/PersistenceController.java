@@ -1,17 +1,20 @@
 package persistence;
 
 import domain.Coordinate;
-import domain.Logging;
+import domain.Activity;
 import domain.Person;
 import domain.Place;
 import domain.Theme;
 import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
+import domain.enums.Event;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.ResultSet;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +31,7 @@ public class PersistenceController
     private PersonTreeDao persontreeDao;
     private ParentRelationDao parentrelationDao;
     private ImageDao imageDao;
-    private LoggingDao loggingDao;
+    private ActivityDao activityDao;
 
     private final Logger logger;
 
@@ -43,7 +46,7 @@ public class PersistenceController
         persontreeDao = new PersonTreeDao(this);
         parentrelationDao = new ParentRelationDao(this);
         imageDao = new ImageDao(this);
-        loggingDao = new LoggingDao();
+        activityDao = new ActivityDao();
         logger = LoggerFactory.getLogger(getClass());
 
     }
@@ -82,6 +85,7 @@ public class PersistenceController
     {
         logger.info("[PERSISTENCE CONTROLLER] Add tree : " + tree);
         treeDao.save(tree);
+
     }
 
     public Place getPlace(int placeId)
@@ -287,9 +291,14 @@ public class PersistenceController
         userDao.block(userid, value);
     }
 
-    public List<Logging> getAll(int id)
+    public List<Activity> getAll(int userID)
     {
-        return loggingDao.getAll(id);
+        return activityDao.getAll(userID);
+    }
+
+    public void addActivity(Activity act)
+    {
+        activityDao.addActivity(act);
     }
 
     public Theme getTheme(int themeID)
