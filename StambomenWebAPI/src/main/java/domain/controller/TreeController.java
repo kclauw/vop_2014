@@ -21,6 +21,7 @@ public class TreeController
     public TreeController()
     {
         pc = new PersistenceController();
+        ac = new ActivityController(pc);
     }
 
     public void addTree(Tree tree)

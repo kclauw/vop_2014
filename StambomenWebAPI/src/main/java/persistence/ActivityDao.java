@@ -110,7 +110,7 @@ public class ActivityDao implements IDao<Activity>
             prep.setInt(1, act.getEvent().getEventId());
             prep.setInt(2, act.getUserID());
             prep.setString(3, act.getName());
-            logger.info("[ACTIVITY DAO] Saving activity" + prep);
+            logger.info("[ACTIVITY DAO] Adding activity" + prep);
             prep.executeUpdate();
 
             con.close();
