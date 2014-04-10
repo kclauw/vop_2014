@@ -16,8 +16,8 @@ public class ActivityController
         pc = new PersistenceController();
     }
 
-    public void addActivity(Activity act, int userID)
+    public void addActivity(Activity act)
     {
-        pc.addActivity(act, userID);
+        pc.addActivity(act);
     }
 }

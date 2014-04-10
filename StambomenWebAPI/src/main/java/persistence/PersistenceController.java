@@ -1,16 +1,20 @@
 package persistence;
 
-import domain.Activity;
 import domain.Coordinate;
+import domain.Activity;
 import domain.Person;
 import domain.Place;
+import domain.Theme;
+import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
-import domain.enums.Privacy;
+import domain.enums.Event;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.ResultSet;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +25,7 @@ public class PersistenceController
     private UserDao userDao;
     private TreeDao treeDao;
     private PersonDao personDao;
+    private ThemeDao themeDao;
     private GoogleGeoDao googlegeoDao;
     private PlaceDao placeDao;
     private PersonTreeDao persontreeDao;
@@ -32,9 +37,10 @@ public class PersistenceController
 
     public PersistenceController()
     {
-        userDao = new UserDao();
+        userDao = new UserDao(this);
         treeDao = new TreeDao(this);
         personDao = new PersonDao(this);
+        themeDao = new ThemeDao(this);
         googlegeoDao = new GoogleGeoDao();
         placeDao = new PlaceDao(this);
         persontreeDao = new PersonTreeDao(this);
@@ -145,12 +151,10 @@ public class PersistenceController
 
         if (person.getMother() != null)
         {
-            System.out.println("[CHANGE] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             addParentRelation(treeID, person.getMother().getPersonId(), person.getPersonId());
         }
         else if (person.getFather() != null)
         {
-            System.out.println("[CHANGE] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             addParentRelation(treeID, person.getFather().getPersonId(), person.getPersonId());
         }
     }
@@ -210,6 +214,14 @@ public class PersistenceController
     {
         logger.info("[PERSISTENCE CONTROLLER] Set privacy for userid" + userID);
         userDao.setUserPrivacy(userID, userPrivacy);
+    }
+
+    public Privacy getUserPrivacy(int userID)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Get privacy for userid" + userID);
+        Privacy privacy = userDao.getUserPrivacy(userID);
+
+        return privacy;
     }
 
     public User getUserProfile(int userProfileID, Privacy userPrivacy)
@@ -292,9 +304,14 @@ public class PersistenceController
         return activityDao.getAll(userID);
     }
 
-    public void addActivity(Activity act, int userID)
+    public void addActivity(Activity act)
     {
-        activityDao.addActivity(act, userID);
+        activityDao.addActivity(act);
+    }
+
+    public Theme getTheme(int themeID)
+    {
+        return themeDao.get(themeID);
     }
 
 }

@@ -44,7 +44,7 @@ public class TreeController
             }
 
             pc.addTree(tree);
-            ac.addActivity(act, tree.getOwner().getId());
+            ac.addActivity(act);
         }
         else
         {
@@ -66,7 +66,7 @@ public class TreeController
                     }
                 }
                 pc.addTree(tree);
-                ac.addActivity(act, tree.getOwner().getId());
+                ac.addActivity(act);
             };
         }
     }
