@@ -118,6 +118,14 @@ public class ClientUserController
         client.setUserPrivacy(userID, userPrivacy);
     }
 
+    public PrivacyDTO getUserPrivacy()
+    {
+        int userID = ClientServiceController.getInstance().getUser().getId();
+        PrivacyDTO privacyDTO = client.getUserPrivacy(userID);
+
+        return privacyDTO;
+    }
+
     public UserDTO getPublicUserProfile(int userProfileID)
     {
         UserDTO user = client.getPublicUserProfile(userProfileID);
