@@ -20,7 +20,7 @@ public class ActivityDao implements IDao<Activity>
     private Connection con;
     private final Logger logger;
     private final String GETLOGGING = "SELECT name,dateTime,userID,eventID FROM UserEvent x join Event y on x.eventID = y.eventID where x.userID in (select z.friend FROM Request z where z.receiver = ? and z.status=1 union select a.receiver FROM Request a where a.friend = ? and a.status= 1);";
-    private final String SETLOGGING = "INSERT INTO UserEvent (eventID, userID, name, dateTime) VALUES (?, ?,?,?)";
+    private final String SETLOGGING = "INSERT INTO UserEvent (eventID, userID, name, dateTime) VALUES (?, ?,?,NOW())";
 
     public ActivityDao()
     {
@@ -110,7 +110,6 @@ public class ActivityDao implements IDao<Activity>
             prep.setInt(1, act.getEvent().getEventId());
             prep.setInt(2, act.getUserID());
             prep.setString(3, act.getName());
-            prep.setDate(4, (Date) act.getDate());
             logger.info("[ACTIVITY DAO] Saving activity" + prep);
             prep.executeUpdate();
 
