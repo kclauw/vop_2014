@@ -50,7 +50,7 @@ public class UserService
         try
         {
             logger.info("[REGISTER REQUEST] USER;" + userInc);
-            User user = new User(-1, userInc.getUsername(), userInc.getPassword(), userInc.getLanguage());
+            User user = new User(-1, userInc.getUsername(), userInc.getPassword(), userInc.getUserSettings());
             String result = "User added:" + user.toString();
             uc.addUser(user);
             return Response.status(Response.Status.OK).entity(result).build();

@@ -4,6 +4,7 @@ import domain.Coordinate;
 import domain.Logging;
 import domain.Person;
 import domain.Place;
+import domain.Theme;
 import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
@@ -11,7 +12,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.ResultSet;
-import java.util.Collection;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +22,7 @@ public class PersistenceController
     private UserDao userDao;
     private TreeDao treeDao;
     private PersonDao personDao;
+    private ThemeDao themeDao;
     private GoogleGeoDao googlegeoDao;
     private PlaceDao placeDao;
     private PersonTreeDao persontreeDao;
@@ -33,9 +34,10 @@ public class PersistenceController
 
     public PersistenceController()
     {
-        userDao = new UserDao();
+        userDao = new UserDao(this);
         treeDao = new TreeDao(this);
         personDao = new PersonDao(this);
+        themeDao = new ThemeDao(this);
         googlegeoDao = new GoogleGeoDao();
         placeDao = new PlaceDao(this);
         persontreeDao = new PersonTreeDao(this);
@@ -288,6 +290,11 @@ public class PersistenceController
     public List<Logging> getAll(int id)
     {
         return loggingDao.getAll(id);
+    }
+
+    public Theme getTheme(int themeID)
+    {
+        return themeDao.get(themeID);
     }
 
 }

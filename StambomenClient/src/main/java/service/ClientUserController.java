@@ -2,6 +2,7 @@ package service;
 
 import dto.LanguageDTO;
 import dto.PrivacyDTO;
+import dto.ThemeDTO;
 import dto.UserDTO;
 import java.util.List;
 import org.slf4j.Logger;
@@ -91,13 +92,18 @@ public class ClientUserController
         {
             lan = LanguageDTO.FR;
         }
-        ClientServiceController.getInstance().getUser().setLanguage(lan);
+        ClientServiceController.getInstance().getUser().getUserSettings().setLanguage(lan);
     }
 
     public LanguageDTO getLanguage()
     {
-        return ClientServiceController.getInstance().getUser().getLanguage();
+        return ClientServiceController.getInstance().getUser().getUserSettings().getLanguage();
         //logger.info("[CLIENT USER CONTROLLER][GET LANGUAGE]Get language from user with id: " + userID);
+    }
+
+    public ThemeDTO getTheme()
+    {
+        return ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
     }
 
     public int getCurrentUserID()
