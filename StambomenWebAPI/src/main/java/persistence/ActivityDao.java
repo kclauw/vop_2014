@@ -19,7 +19,7 @@ public class ActivityDao implements IDao<Activity>
 
     private Connection con;
     private final Logger logger;
-    private final String GETLOGGING = "SELECT name,dateTime,eventID FROM UserEvent x join Event y on x.eventID = y.eventID where x.userID in (select z.friend FROM Request z where z.receiver = ? and z.status=1 union select a.receiver FROM Request a where a.friend = ? and a.status= 1);";
+    private final String GETLOGGING = "SELECT name,dateTime,userID,eventID FROM UserEvent x join Event y on x.eventID = y.eventID where x.userID in (select z.friend FROM Request z where z.receiver = ? and z.status=1 union select a.receiver FROM Request a where a.friend = ? and a.status= 1);";
     private final String SETLOGGING = "INSERT INTO UserEvent (eventID, userID, name, dateTime) VALUES (?, ?,?,?)";
 
     public ActivityDao()
@@ -44,7 +44,7 @@ public class ActivityDao implements IDao<Activity>
 
             if (res.next())
             {
-                activity = map(res, id);
+                activity = mapList(res);
             }
 
             con.close();
@@ -99,7 +99,7 @@ public class ActivityDao implements IDao<Activity>
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void addActivity(Activity act, int userID)
+    public void addActivity(Activity act)
     {
         PreparedStatement prep = null;
         //eventID, userID, name, dateTime
@@ -108,7 +108,7 @@ public class ActivityDao implements IDao<Activity>
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(SETLOGGING);
             prep.setInt(1, act.getEvent().getEventId());
-            prep.setInt(2, userID);
+            prep.setInt(2, act.getUserID());
             prep.setString(3, act.getName());
             prep.setDate(4, (Date) act.getDate());
             logger.info("[ACTIVITY DAO] Saving activity" + prep);
@@ -139,13 +139,14 @@ public class ActivityDao implements IDao<Activity>
         }
     }
 
-    public List<Activity> map(ResultSet res, int userID)
+    public List<Activity> mapList(ResultSet res)
     {
         List<Activity> activity = null;
         try
         {
             String name = res.getString("name");
             java.util.Date date = res.getDate("dateTime");
+            int userID = res.getInt("userID");
             int lan = res.getInt("eventID");
             Event even;
             switch (lan)
@@ -175,6 +176,7 @@ public class ActivityDao implements IDao<Activity>
                     even = null;
                     break;
             }
+
             Activity lg = new Activity(even, name, userID, date);
             activity.add(lg);
 
@@ -192,13 +194,13 @@ public class ActivityDao implements IDao<Activity>
     }
 
     @Override
-    public Activity map(ResultSet res)
+    public Activity get(int id)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Activity get(int id)
+    public Activity map(ResultSet res)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

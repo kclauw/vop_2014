@@ -293,9 +293,9 @@ public class PersistenceController
         return activityDao.getAll(userID);
     }
 
-    public void addActivity(Activity act, int userID)
+    public void addActivity(Activity act)
     {
-        activityDao.addActivity(act, userID);
+        activityDao.addActivity(act);
     }
 
 }
