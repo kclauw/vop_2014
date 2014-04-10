@@ -1,7 +1,7 @@
 package persistence;
 
 import persistence.interfaces.IDao;
-import domain.Logging;
+import domain.Activity;
 import domain.User;
 import domain.enums.Event;
 import java.sql.Connection;
@@ -13,7 +13,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LoggingDao implements IDao<Logging>
+public class ActivityDao implements IDao<Activity>
 {
 
     private Connection con;
@@ -21,14 +21,14 @@ public class LoggingDao implements IDao<Logging>
     private final String GETLOGGING = "SELECT name,dateTime,eventID FROM UserEvent x join Event y on x.eventID = y.eventID where x.userID in (select z.friend FROM Request z where z.receiver = ? union select a.receiver FROM Request a where a.friend = ?);";
     private final String SETLOGGING = "INSERT INTO UserEvent (eventID, userID, name, dateTime) VALUES (?, ?,?,?)";
 
-    public LoggingDao()
+    public ActivityDao()
     {
         logger = LoggerFactory.getLogger(getClass());
     }
 
-    public List<Logging> getAll(int id)
+    public List<Activity> getAll(int id)
     {
-        List<Logging> logging = null;
+        List<Activity> activity = null;
         PreparedStatement prep = null;
         ResultSet res = null;
 
@@ -38,23 +38,23 @@ public class LoggingDao implements IDao<Logging>
             prep = con.prepareStatement(GETLOGGING);
             prep.setInt(1, id);
             prep.setInt(2, id);
-            logger.info("[LOGGING DAO] Getting by id " + prep.toString());
+            logger.info("[ACTIVITY DAO] Getting by id " + prep.toString());
             res = prep.executeQuery();
 
             if (res.next())
             {
-                logging = map(res, id);
+                activity = map(res, id);
             }
 
             con.close();
         }
         catch (SQLException ex)
         {
-            logger.info("[USER DAO][SQLException][Get]Sql exception: " + ex.getMessage());
+            logger.info("[ACTIVITY DAO][SQLException][Get]Sql exception: " + ex.getMessage());
         }
         catch (Exception ex)
         {
-            logger.info("[USER DAO][SQLException][Get]Exception: " + ex.getMessage());
+            logger.info("[ACTIVITY DAO][SQLException][Get]Exception: " + ex.getMessage());
         }
         finally
         {
@@ -71,36 +71,36 @@ public class LoggingDao implements IDao<Logging>
 
         }
 
-        return logging;
+        return activity;
     }
 
     @Override
-    public void save(Logging value)
+    public void save(Activity value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Logging value)
+    public void update(Activity value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Logging value)
+    public void delete(Activity value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Collection<Logging> getAll()
+    public Collection<Activity> getAll()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public List<Logging> map(ResultSet res, int userID)
+    public List<Activity> map(ResultSet res, int userID)
     {
-        List<Logging> logging = null;
+        List<Activity> activity = null;
         try
         {
             String name = res.getString("name");
@@ -134,30 +134,30 @@ public class LoggingDao implements IDao<Logging>
                     even = null;
                     break;
             }
-            Logging lg = new Logging(even, name, userID, date);
-            logging.add(lg);
+            Activity lg = new Activity(even, name, userID, date);
+            activity.add(lg);
 
         }
         catch (SQLException ex)
         {
-            logger.info("[USER DAO][SQLException][Map]Sql exception: " + ex.getMessage());
+            logger.info("[ACTIVITY DAO][SQLException][Map]Sql exception: " + ex.getMessage());
         }
         catch (Exception ex)
         {
-            logger.info("[USER DAO][SQLException][Map]Exception: " + ex.getMessage());
+            logger.info("[ACTIVITY DAO][SQLException][Map]Exception: " + ex.getMessage());
         }
 
-        return logging;
+        return activity;
     }
 
     @Override
-    public Logging map(ResultSet res)
+    public Activity map(ResultSet res)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Logging get(int id)
+    public Activity get(int id)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

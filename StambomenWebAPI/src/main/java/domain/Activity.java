@@ -3,7 +3,7 @@ package domain;
 import domain.enums.Event;
 import java.util.Date;
 
-public class Logging
+public class Activity
 {
 
     private Event event;
@@ -11,11 +11,11 @@ public class Logging
     private int userID;
     private java.util.Date date;
 
-    public Logging()
+    public Activity()
     {
     }
 
-    public Logging(Event event, String name, int userID, Date date)
+    public Activity(Event event, String name, int userID, Date date)
     {
         this.event = event;
         this.name = name;
