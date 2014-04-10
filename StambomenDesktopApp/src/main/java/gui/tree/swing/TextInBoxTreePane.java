@@ -21,7 +21,6 @@ import javax.swing.JComponent;
 import javax.swing.ToolTipManager;
 import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.TreeLayout;
-import org.openide.util.Exceptions;
 
 /**
  * A JComponent displaying a tree of TextInBoxes, given by a {@link TreeLayout}.
@@ -35,8 +34,14 @@ public class TextInBoxTreePane extends JComponent
     private FamilyTreeTotalPanel fttp;
     private List<MouseAdapter> events = new ArrayList<MouseAdapter>();
     private List<MouseMotionListener> toolTips = new ArrayList<MouseMotionListener>();
-    private final Color FEMALE_COLOR = Color.PINK;
-    private final Color MALE_COLOR = Color.CYAN;
+    // -------------------------------------------------------------------
+    // painting
+    private final static int ARC_SIZE = 0;
+    private final static Color BOX_COLOR = Color.WHITE;
+    private final static Color BORDER_COLOR = Color.darkGray;
+    private final static Color TEXT_COLOR = Color.decode("#252525");
+    private final Color FEMALE_COLOR = Color.decode("#B03A3A");
+    private final Color MALE_COLOR = Color.decode("#334455");
     private Image maleImage;
     private Image femaleImage;
     private BufferedImage bg;
@@ -84,13 +89,6 @@ public class TextInBoxTreePane extends JComponent
         size = treeLayout.getBounds().getBounds().getSize();
         setPreferredSize(size);
     }
-
-    // -------------------------------------------------------------------
-    // painting
-    private final static int ARC_SIZE = 0;
-    private final static Color BOX_COLOR = Color.WHITE;
-    private final static Color BORDER_COLOR = Color.darkGray;
-    private final static Color TEXT_COLOR = Color.black;
 
     private void paintEdges(Graphics g, TextInBox parent)
     {
