@@ -130,6 +130,13 @@ public class UserController
         pc.setUserPrivacy(userID, userPrivacy);
     }
 
+    public Privacy getUserPrivacy(int userID)
+    {
+        Privacy privacy = pc.getUserPrivacy(userID);
+
+        return privacy;
+    }
+
     public User getUserProfile(int userProfileID, Privacy userPrivacy)
     {
         User userProfile = pc.getUserProfile(userProfileID, userPrivacy);

@@ -1,7 +1,9 @@
 package mocks;
 
+import domain.Theme;
 import domain.enums.Language;
 import domain.User;
+import domain.UserSettings;
 import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.List;
@@ -16,14 +18,16 @@ public class MockUser implements IUserDao<User>
 
     MockUser()
     {
-        User user1 = new User(1, "Jelle", "Verreth", Language.EN);
-        User user2 = new User(2, "Lowie", "Verreth", Language.EN);
-        User user3 = new User(3, "Axl", "Verreth", Language.EN);
-        User user4 = new User(4, "Sander", "Verreth", Language.EN);
-        User user5 = new User(5, "God", "Verdomme", Language.EN);
-        User user6 = new User(6, "Jezus", "Jebroer", Language.EN);
-        User user7 = new User(7, "Damien", "Rice", Language.EN);
-        User user8 = new User(8, "Achmed", "Van Borgerhout", Language.EN);
+        Theme theme = new Theme(1, "Default", "Valera", "FFFFFF", "252525", "334455", "B03A3A");
+
+        User user1 = new User(1, "Jelle", "Verreth", new UserSettings(Language.EN, theme));
+        User user2 = new User(2, "Lowie", "Verreth", new UserSettings(Language.EN, theme));
+        User user3 = new User(3, "Axl", "Verreth", new UserSettings(Language.EN, theme));
+        User user4 = new User(4, "Sander", "Verreth", new UserSettings(Language.EN, theme));
+        User user5 = new User(5, "God", "Verdomme", new UserSettings(Language.EN, theme));
+        User user6 = new User(6, "Jezus", "Jebroer", new UserSettings(Language.EN, theme));
+        User user7 = new User(7, "Damien", "Rice", new UserSettings(Language.EN, theme));
+        User user8 = new User(8, "Achmed", "Van Borgerhout", new UserSettings(Language.EN, theme));
         users.add(user1);
         users.add(user2);
         users.add(user3);

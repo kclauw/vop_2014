@@ -5,9 +5,11 @@ import domain.enums.Gender;
 import domain.enums.Language;
 import domain.Person;
 import domain.Place;
+import domain.Theme;
 import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
+import domain.UserSettings;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,7 +54,8 @@ public class MockTree implements ITreeDao<Tree>
 //        person1 = person1.getPerson(1, "Peter", "Verreth", gm, d1, null, place, null, null);
 //        person2 = person2.getPerson(1, "Shirley", "Verreth", gf, d1, null, place, null, null);
 //        person3 = person3.getPerson(1, "Jelle", "Verreth", gm, d1, null, place, person1, person2);
-        user = new User(1, "Jelle", "Verreth", Language.EN);
+        Theme theme = new Theme(1, "Default", "Valera", "FFFFFF", "252525", "334455", "B03A3A");
+        user = new User(1, "Jelle", "Verreth", new UserSettings(Language.EN, theme));
         List<Person> lPer = null;
 
         lPer.add(person1);

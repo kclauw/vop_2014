@@ -66,6 +66,7 @@ public class TreeOverviewController implements IPanelController
             }
         }
         treeOverviewPanel.addFamilyTreeList(familyTreeList);
+
     }
 
     public void showTree(TreeDTO tree)
@@ -82,6 +83,11 @@ public class TreeOverviewController implements IPanelController
     public void setLogin(String login)
     {
         this.login = gui.getLogin();
+    }
+
+    public void setAdminframe(JPanel panel)
+    {
+        gui.setAdminframe(panel);
     }
 
 }
