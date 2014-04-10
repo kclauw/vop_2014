@@ -17,7 +17,7 @@ public class TreeOverviewController implements IPanelController
 
     private FamilyTreeOverviewPanel treeOverviewPanel;
     private GuiController gui;
-    
+
     private ClientTreeController serv;
     private ClientUserController user;
     private String login;
@@ -25,9 +25,7 @@ public class TreeOverviewController implements IPanelController
     public TreeOverviewController(GuiController gui)
     {
         this.gui = gui;
-
         this.serv = new ClientTreeController();
-
     }
 
     public JPanel show()
