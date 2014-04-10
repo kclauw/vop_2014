@@ -214,7 +214,7 @@ public class PersonController
             //check other childeren!
             for (Person p : pers)
             {
-                if (p.getGender() == Gender.FEMALE)
+                if (parent.getGender() == Gender.FEMALE)
                 {
                     child.setMother(p);
                 }
