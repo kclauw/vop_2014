@@ -24,9 +24,9 @@ public class PersistenceController
     private PersonDao personDao;
     private GoogleGeoDao googlegeoDao;
     private PlaceDao placeDao;
-    private PersonTreeDAO persontreeDao;
-    private ParentRelationDAO parentrelationDao;
-    private ImageDAO imageDao;
+    private PersonTreeDao persontreeDao;
+    private ParentRelationDao parentrelationDao;
+    private ImageDao imageDao;
     private LoggingDao loggingDao;
 
     private final Logger logger;
@@ -38,9 +38,9 @@ public class PersistenceController
         personDao = new PersonDao(this);
         googlegeoDao = new GoogleGeoDao();
         placeDao = new PlaceDao(this);
-        persontreeDao = new PersonTreeDAO(this);
-        parentrelationDao = new ParentRelationDAO(this);
-        imageDao = new ImageDAO(this);
+        persontreeDao = new PersonTreeDao(this);
+        parentrelationDao = new ParentRelationDao(this);
+        imageDao = new ImageDao(this);
         loggingDao = new LoggingDao();
         logger = LoggerFactory.getLogger(getClass());
 

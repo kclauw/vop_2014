@@ -5,7 +5,9 @@ import domain.Tree;
 import domain.enums.Gender;
 import domain.enums.PersonAdd;
 import exception.CannotDeletePersonsWithChidrenException;
+import exception.InvalidGenderException;
 import exception.PersonAlreadyExistsException;
+import exception.PersonAlreadyHasTwoParents;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -167,16 +169,31 @@ public class PersonController
         Person parent = pc.getPerson(treeID, id);
         Person child = pc.getPerson(treeID, personLinkID);
 
-        if (parent.getGender() == Gender.FEMALE)
+        if (child.getFather() != null && child.getMother() != null)
         {
-            child.setMother(parent);
+            throw new PersonAlreadyHasTwoParents();
+        }
+        else if (child.getFather() != null && child.getFather().getGender() == person.getGender())
+        {
+            throw new InvalidGenderException();
+        }
+        else if (child.getMother() != null && child.getMother().getGender() == person.getGender())
+        {
+            throw new InvalidGenderException();
         }
         else
         {
-            child.setFather(parent);
-        }
+            if (parent.getGender() == Gender.FEMALE)
+            {
+                child.setMother(parent);
+            }
+            else
+            {
+                child.setFather(parent);
+            }
 
-        pc.updatePerson(treeID, child);
+            pc.updatePerson(treeID, child);
+        }
 
     }
 
@@ -192,20 +209,37 @@ public class PersonController
     {
         int id = pc.addPerson(treeID, person);
         Person newPartner = pc.getPerson(treeID, id);
-        List<Person> childeren = pc.getPerson(treeID, personLinkID).getChilderen(pc.getPersons(treeID));
+        Person current = pc.getPerson(treeID, personLinkID);
+        List<Person> childeren = current.getChilderen(pc.getPersons(treeID));
 
-        for (Person child : childeren)
+        if (newPartner.getGender() != current.getGender())
         {
-            if (person.getGender() == Gender.FEMALE)
-            {
-                child.setMother(newPartner);
-            }
-            else
-            {
-                child.setFather(newPartner);
-            }
 
-            pc.updatePerson(treeID, child);
+            for (Person child : childeren)
+            {
+
+                if (child.getFather() != null && child.getMother() != null)
+                {
+                    throw new PersonAlreadyHasTwoParents(" " + child.getFirstName() + " already has 2 parents!");
+                }
+                else
+                {
+                    if (person.getGender() == Gender.FEMALE)
+                    {
+                        child.setMother(newPartner);
+                    }
+                    else
+                    {
+                        child.setFather(newPartner);
+                    }
+
+                    pc.updatePerson(treeID, child);
+                }
+            }
+        }
+        else
+        {
+            throw new InvalidGenderException();
         }
 
     }

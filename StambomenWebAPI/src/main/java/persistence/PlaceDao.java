@@ -1,5 +1,6 @@
 package persistence;
 
+import persistence.interfaces.IDao;
 import domain.Coordinate;
 import domain.Place;
 import java.sql.Connection;
@@ -15,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class PlaceDao implements IDao<Place>
 {
 
-    private final String GETPLACEBYID = "SELECT placeID as placeID, zipcode, c.coordinatesID, "
+    private final String GET_PLACE_BY_ID = "SELECT placeID as placeID, zipcode, c.coordinatesID, "
             + " p.countryID,c.latitude, c.longitude, coun.name as countryname, "
             + " pla.placenameID, pla.name as placename FROM Place as p "
             + " LEFT JOIN Coordinates c on c.coordinatesID = p.coordinatesID "
@@ -23,7 +24,7 @@ public class PlaceDao implements IDao<Place>
             + " JOIN Placename pla on pla.placenameID = p.placenameID "
             + " WHERE p.placeID = ?";
 
-    private final String GETPLACEBYPLACE = "SELECT placeID as placeID, zipcode, c.coordinatesID, "
+    private final String GET_PLACE_BY_PLACE = "SELECT placeID as placeID, zipcode, c.coordinatesID, "
             + "             p.countryID,c.latitude, c.longitude, coun.name as countryname, "
             + "            pla.placenameID, pla.name as placename FROM Place as p \n"
             + "             LEFT JOIN Coordinates c on c.coordinatesID = p.coordinatesID "
@@ -31,17 +32,17 @@ public class PlaceDao implements IDao<Place>
             + "			JOIN Placename pla on pla.placenameID = p.placenameID "
             + "             WHERE coun.name = ? and pla.name = ? and zipcode = ?";
 
-    private final String GETCOUNTRIDBYNAME = "SELECT countryID FROM Country where name = ?";
-    private final String SAVECOUNTRY = "INSERT INTO Country VALUES (null,?);";
+    private final String GET_COUNTRY_BY_NAME = "SELECT countryID FROM Country where name = ?";
+    private final String SAVE_COUNTRY = "INSERT INTO Country VALUES (null,?);";
 
-    private final String GETPLACENAMEIDBYNAME = "SELECT placeNameID FROM Placename where name = ?";
-    private final String SAVEPLACENAME = "INSERT INTO Placename VALUES (null,?);";
+    private final String GET_PLACENAMEID_BY_NAME = "SELECT placeNameID FROM Placename where name = ?";
+    private final String SAVE_PLACENAME = "INSERT INTO Placename VALUES (null,?);";
 
-    private final String GETCOORDSBYLONGANDLAT = "SELECT * FROM Coordinates WHERE longitude = ? AND latitude = ?";
-    private final String SAVECOORD = "INSERT INTO Coordinates VALUES (null,?,?);";
+    private final String GET_COORDS_BY_LONG_AN_DLAT = "SELECT * FROM Coordinates WHERE longitude = ? AND latitude = ?";
+    private final String SAVE_COORD = "INSERT INTO Coordinates VALUES (null,?,?);";
 
-    private final String SAVEPLACE = "INSERT INTO Place VALUES (null, ?, ?, ?, ?)";
-    private final String UPDATEPLACE = "UPDATE Place SET coordinatesID = ?, countryID = ?, zipcode = ?, placenameID = ? WHERE placeID = ?";
+    private final String SAVE_PLACE = "INSERT INTO Place VALUES (null, ?, ?, ?, ?)";
+    private final String UPDATE_PLACE = "UPDATE Place SET coordinatesID = ?, countryID = ?, zipcode = ?, placenameID = ? WHERE placeID = ?";
 
     private final Logger logger;
     private PersistenceController pc;
@@ -63,7 +64,7 @@ public class PlaceDao implements IDao<Place>
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(GETPLACEBYID);
+            prep = con.prepareStatement(GET_PLACE_BY_ID);
             prep.setInt(1, placeId);
             logger.info("[PLACE DAO] Get place by id" + prep.toString());
             res = prep.executeQuery();
@@ -122,7 +123,7 @@ public class PlaceDao implements IDao<Place>
 
             placeNameID = savePlace(place);
 
-            prep = con.prepareStatement(SAVEPLACE);
+            prep = con.prepareStatement(SAVE_PLACE);
 
             Coordinate coord = place.getCoord();
 
@@ -200,7 +201,7 @@ public class PlaceDao implements IDao<Place>
 
             placeNameID = savePlace(place);
 
-            prep = con.prepareStatement(UPDATEPLACE);
+            prep = con.prepareStatement(UPDATE_PLACE);
             Coordinate coord = place.getCoord();
 
             if (coord != null && coord.getId() > 0)
@@ -336,7 +337,7 @@ public class PlaceDao implements IDao<Place>
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(GETPLACEBYPLACE);
+            prep = con.prepareStatement(GET_PLACE_BY_PLACE);
             prep.setString(1, place.getCountry());
             prep.setString(2, place.getPlaceName());
             prep.setString(3, place.getZipCode());
@@ -409,7 +410,7 @@ public class PlaceDao implements IDao<Place>
         {
             con = DatabaseUtils.getConnection();
             /*Maak country aan indien nodig:*/
-            prep = con.prepareStatement(GETCOUNTRIDBYNAME);
+            prep = con.prepareStatement(GET_COUNTRY_BY_NAME);
             prep.setString(1, place.getCountry());
             res = prep.executeQuery();
 
@@ -419,7 +420,7 @@ public class PlaceDao implements IDao<Place>
             }
             else
             {
-                prep = con.prepareStatement(SAVECOUNTRY);
+                prep = con.prepareStatement(SAVE_COUNTRY);
                 prep.setString(1, place.getCountry());
                 prep.executeUpdate();
 
@@ -474,7 +475,7 @@ public class PlaceDao implements IDao<Place>
 
             /*Maak plaats aan indien nodig*/
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(GETPLACENAMEIDBYNAME);
+            prep = con.prepareStatement(GET_PLACENAMEID_BY_NAME);
             prep.setString(1, place.getPlaceName());
             res = prep.executeQuery();
 
@@ -484,7 +485,7 @@ public class PlaceDao implements IDao<Place>
             }
             else
             {
-                prep = con.prepareStatement(SAVEPLACENAME);
+                prep = con.prepareStatement(SAVE_PLACENAME);
                 prep.setString(1, place.getPlaceName());
                 prep.executeUpdate();
 
@@ -539,7 +540,7 @@ public class PlaceDao implements IDao<Place>
         {
             con = DatabaseUtils.getConnection();
             /*Maak plaats aan indien nodig*/
-            prep = con.prepareStatement(GETCOORDSBYLONGANDLAT);
+            prep = con.prepareStatement(GET_COORDS_BY_LONG_AN_DLAT);
             prep.setFloat(1, coord.getLongitude());
             prep.setFloat(2, coord.getLatitude());
             res = prep.executeQuery();
@@ -550,7 +551,7 @@ public class PlaceDao implements IDao<Place>
             }
             else
             {
-                prep = con.prepareStatement(SAVECOORD);
+                prep = con.prepareStatement(SAVE_COORD);
                 prep.setFloat(1, coord.getLongitude());
                 prep.setFloat(2, coord.getLatitude());
                 prep.executeUpdate();

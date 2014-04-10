@@ -5,6 +5,7 @@
  */
 package persistence;
 
+import persistence.interfaces.IDao;
 import java.sql.ResultSet;
 import java.util.Collection;
 
@@ -12,7 +13,7 @@ import java.util.Collection;
  *
  * @author admin
  */
-public class RoleDAO implements IDao
+public class RoleDao implements IDao
 {
 
     private final String GETUSERROLEBYID = "SELECT r.name from Roles r left join RoleUser ru on r.roleID = ru.roleID left join User u on u.userID = ru.userID WHERE u.userID = ?";

@@ -3,21 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package persistence;
-
+package persistence.interfaces;
 
 /**
  *
- * @author Jelle
+ * @author Axl
  */
-public interface IPersonTreeDAO<T> {
-    
-
-    public void save(T value);
-
-    public void update(T value);
-
-    public void delete(T value);
+public class IPersonDao
+{
 
 }

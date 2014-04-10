@@ -1,16 +1,15 @@
-package persistence;
 
+package persistence.interfaces;
+
+import domain.User;
 import java.sql.ResultSet;
 import java.util.Collection;
+import java.util.Map;
 
-/**
- * This is a generic interface for all db entities. Offering the most common sql
- * operation; select, update, insert.
- */
-public interface IDao<T>
-{
 
-    public T get(int id);
+public interface IUserDao<T> {
+
+   public T get(int id);
 
     public void save(T value);
 
@@ -21,4 +20,11 @@ public interface IDao<T>
     public Collection<T> getAll();
 
     public T map(ResultSet res);
+
+    Map<String, Integer> GetFriends(int userID);
+
+    public User get(String username);
+    
+ 
+
 }

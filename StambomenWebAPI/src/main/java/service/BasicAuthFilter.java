@@ -23,7 +23,7 @@ public class BasicAuthFilter implements ContainerRequestFilter
         String path = containerRequest.getUriInfo().getPath();
         System.out.println("DECODING REQUEST METHOD= " + method + " PATH=" + path);
 
-        if (method.equals("POST") && (path.equals("/user/post")))
+        if (method.equals("POST") && (path.equals("/user/post")) || (path.contains("/facebook/")))
         {
             System.out.println("User is register no auth.");
             return;

@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 
-package persistence;
+package persistence.interfaces;
 
-import java.sql.ResultSet;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
-public interface ITreeDAO<T> {
-    public T get(int id);
+/**
+ *
+ * @author Jelle
+ */
+public interface IPersonTreeDao<T> {
+    
 
     public void save(T value);
 
@@ -20,9 +20,4 @@ public interface ITreeDAO<T> {
 
     public void delete(T value);
 
-    public Collection<T> getAll();
-
-    public T map(ResultSet res);
-    
-    public List<T> getAll(int userid);
 }

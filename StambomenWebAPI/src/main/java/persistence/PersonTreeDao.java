@@ -1,5 +1,6 @@
 package persistence;
 
+import persistence.interfaces.IDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,114 +10,77 @@ import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UserRoleDAO implements IDao
+public class PersonTreeDao implements IDao
 {
 
     private Connection con;
-    private final String GETUSERROLE = "SELECT r.name from User u left join RoleUser ru on u.userID = ru.userID left join Roles r on r.roleID = ru.roleID WHERE u.userID = ?";
-    private final String SAVEUSERROLE = "INSERT INTO UserRole (userID,roleID) VALUES (?,?)";
-    private final String UPDATEUSERROLE = "UPDATE UserRole SET userID = ?,roleID = ? WHERE userID = ? and roleID = ?";
-    private final String DELETEUSERROLE = "DELETE FROM UserRole WHERE userID = ? and roleID = ?";
+
+    private final String SAVE_PERSON_TREE = "INSERT INTO PersonTree (TreeID,PersonID) VALUES (?,?)";
+    private final String UPDATE_PERSON_TREE = "UPDATE PersonTree SET TreeID = ?,PersonID = ? WHERE personID = ? and TreeID = ?";
+    private final String DELETE_PERSON_TREE = "DELETE FROM PersonTree WHERE personID = ? and TreeID = ?";
 
     private PersistenceController pc;
     private final Logger logger;
 
-    public UserRoleDAO(PersistenceController pc)
+    public PersonTreeDao(PersistenceController pc)
     {
         this.pc = pc;
         logger = LoggerFactory.getLogger(getClass());
     }
 
-    public void getRole(int personId)
+    public void save(int personId, int treeId)
     {
         PreparedStatement prep = null;
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(GETUSERROLE);
+            prep = con.prepareStatement(SAVE_PERSON_TREE);
+            prep.setInt(1, treeId);
+            prep.setInt(2, personId);
+            logger.info("[PERSONTREE DAO] Saving persontree " + prep.toString());
+            prep.executeUpdate();
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[PERSON DAO][SQLException][Save] Sql exception: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        catch (Exception ex)
+        {
+            logger.info("[PERSON DAO][Exception][Save] Exception: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void update(int personId, int treeId)
+    {
+        PreparedStatement prep = null;
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(UPDATE_PERSON_TREE);
             prep.setInt(1, personId);
-
-            logger.info("[USERROLE DAO] Get userrole " + prep.toString());
+            prep.setInt(2, treeId);
+            logger.info("[PERSON DAO] Updating person " + prep.toString());
             prep.executeUpdate();
             con.close();
         }
         catch (SQLException ex)
         {
-            logger.info("[USERROLE DAO][SQLException][Save] Sql exception: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-        catch (Exception ex)
-        {
-            logger.info("[USERROLE DAO][Exception][Save] Exception: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                DatabaseUtils.closeQuietly(prep);
-                DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
-                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    public void save(int userId, int roleId)
-    {
-        PreparedStatement prep = null;
-        try
-        {
-            con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(SAVEUSERROLE);
-            prep.setInt(1, userId);
-            prep.setInt(2, roleId);
-            logger.info("[USERROLE DAO] Saving userrole " + prep.toString());
-            prep.executeUpdate();
-            con.close();
-        }
-        catch (SQLException ex)
-        {
-            logger.info("[USERROLE DAO][SQLException][Save] Sql exception: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-        catch (Exception ex)
-        {
-            logger.info("[USERROLE DAO][Exception][Save] Exception: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                DatabaseUtils.closeQuietly(prep);
-                DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
-                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    public void update(int userId, int roleId)
-    {
-        PreparedStatement prep = null;
-        try
-        {
-            con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(UPDATEUSERROLE);
-            prep.setInt(1, userId);
-            prep.setInt(2, roleId);
-            logger.info("[USERROLE DAO] Updating person " + prep.toString());
-            prep.executeUpdate();
-            con.close();
-        }
-        catch (SQLException ex)
-        {
-            logger.info("[USERROLEDAO][SQLException][Update] Sql exception: " + ex.getMessage());
+            logger.info("[PERSONDAO][SQLException][Update] Sql exception: " + ex.getMessage());
             ex.printStackTrace();
         }
         catch (Exception ex)
@@ -138,17 +102,17 @@ public class UserRoleDAO implements IDao
         }
     }
 
-    public void delete(int userId, int roleId)
+    public void delete(int personId, int treeId)
     {
         PreparedStatement prep = null;
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(DELETEUSERROLE);
-            prep.setInt(1, userId);
-            prep.setInt(2, roleId);
+            prep = con.prepareStatement(DELETE_PERSON_TREE);
+            prep.setInt(1, personId);
+            prep.setInt(2, treeId);
             prep.executeUpdate();
-            logger.info("[USERROLE DAO] Deleting person " + prep.toString());
+            logger.info("[PERSON DAO] Deleting person " + prep.toString());
             con.close();
         }
         catch (SQLException ex)

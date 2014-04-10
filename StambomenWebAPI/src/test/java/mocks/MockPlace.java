@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import persistence.IPlaceDAO;
+import persistence.interfaces.IPlaceDao;
 
-public class MockPlace implements IPlaceDAO<Place> {
+public class MockPlace implements IPlaceDao<Place> {
 
     public List<Place> places;
     public Place place;

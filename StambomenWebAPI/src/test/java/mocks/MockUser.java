@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import persistence.IUserDao;
+import persistence.interfaces.IUserDao;
 
 public class MockUser implements IUserDao<User>
 {

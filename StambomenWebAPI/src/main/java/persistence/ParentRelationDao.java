@@ -1,5 +1,6 @@
 package persistence;
 
+import persistence.interfaces.IDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +10,7 @@ import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ParentRelationDAO implements IDao
+public class ParentRelationDao implements IDao
 {
 
     private Connection con;
@@ -19,7 +20,7 @@ public class ParentRelationDAO implements IDao
     private PersistenceController pc;
     private final Logger logger;
 
-    public ParentRelationDAO(PersistenceController pc)
+    public ParentRelationDao(PersistenceController pc)
     {
         this.pc = pc;
         logger = LoggerFactory.getLogger(getClass());

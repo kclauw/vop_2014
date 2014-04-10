@@ -1,5 +1,6 @@
 package persistence;
 
+import persistence.interfaces.IDao;
 import domain.Logging;
 import domain.User;
 import domain.enums.Event;

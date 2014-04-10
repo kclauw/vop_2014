@@ -21,7 +21,7 @@ import javax.imageio.ImageIO;
  then they would have being stored as blobs in the database.
  Since each person has an id, we will use that ID as identifier for the images.
  */
-public class ImageDAO
+public class ImageDao
 {
 
     private String url;
@@ -30,7 +30,7 @@ public class ImageDAO
     private PersistenceController persistenceController = null;
     private Sardine sardine;
 
-    public ImageDAO(PersistenceController per)
+    public ImageDao(PersistenceController per)
     {
         try
         {
@@ -41,11 +41,11 @@ public class ImageDAO
         }
         catch (UnknownHostException ex)
         {
-            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (SardineException ex)
         {
-            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -129,7 +129,7 @@ public class ImageDAO
         }
         catch (SardineException ex)
         {
-            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -145,7 +145,7 @@ public class ImageDAO
         }
         catch (IOException ex)
         {
-            Logger.getLogger(ImageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return false;

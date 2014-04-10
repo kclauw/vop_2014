@@ -1,5 +1,6 @@
 package persistence;
 
+import persistence.interfaces.IDao;
 import domain.enums.Gender;
 import domain.Person;
 import domain.Place;
@@ -57,6 +58,8 @@ public class PersonDao implements IDao<Person>
             + " JOIN Request r on r.friend = ? /*var*/ and r.status = 2 /*public*/"
             + " JOIN Tree t on t.treeID = ps.treeID or t.ownerID = r.receiver or t.ownerID = ?"
             + " WHERE (t.privacy = 2 or (t.privacy=1 and t.ownerID = r.receiver)) and firstname like \"?%\" and lastname like \"?%\"";
+
+    private final String GET_PERSON = "SELECT * FROM Person WHERE personID = ?";
 
     private PersistenceController pc;
     private final Logger logger;
@@ -152,7 +155,6 @@ public class PersonDao implements IDao<Person>
         ResultSet res = null;
         PreparedStatement prep = null;
         MultiMap<Integer, Person> persMap = new MultiMap<Integer, Person>();
-        List<Person> persons = new ArrayList<Person>();
         try
         {
             con = DatabaseUtils.getConnection();
@@ -165,10 +167,21 @@ public class PersonDao implements IDao<Person>
             {
                 System.out.println("[PERSON DAO][GET][FOUND A RESULT!]");
                 person = map(treeID, res, persMap);
-                mapRelations(persons, persMap);
-            }
 
-            persons.add(person);
+                for (int personId : persMap.keySet())
+                {
+                    Person p = get(personId);
+
+                    if (p.getGender() == Gender.FEMALE)
+                    {
+                        person.setMother(p);
+                    }
+                    else
+                    {
+                        person.setFather(p);
+                    }
+                }
+            }
 
             con.close();
         }
@@ -540,7 +553,29 @@ public class PersonDao implements IDao<Person>
     @Override
     public Person get(int id)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Person p = null;
+
+        try
+        {
+            ResultSet res = null;
+            PreparedStatement prep = null;
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(GET_PERSON);
+            prep.setInt(1, id);
+            res = prep.executeQuery();
+
+            if (res.next())
+            {
+                p = map(res);
+            }
+        }
+        catch (Exception ex)
+        {
+            java.util.logging.Logger.getLogger(PersonDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return p;
+
     }
 
     public List<Person> getPersons(int treeID, int start, int max)

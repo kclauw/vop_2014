@@ -1,18 +1,16 @@
 package mocks;
 
 import domain.Coordinate;
-import domain.enums.Gender;
 import domain.Person;
 import domain.Place;
+import domain.enums.Gender;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import persistence.IPersonDAO;
 
-public class MockPerson implements IPersonDAO<Person>
+public class MockPerson
 {
 
     public List<Person> persons;
@@ -30,14 +28,14 @@ public class MockPerson implements IPersonDAO<Person>
         Date d3 = new Date("24/5/1992");
         coord = new Coordinate(1, 0, 0);
         place = new Place.PlaceBuilder("Zoersel")
-                    .placeId(1)
-                    .countryId(1)
-                    .placeNameId(1)
-                    .coord(coord)
-                    .country("België")
-                    .zipCode("2980")
-                    .build();
-        
+                .placeId(1)
+                .countryId(1)
+                .placeNameId(1)
+                .coord(coord)
+                .country("België")
+                .zipCode("2980")
+                .build();
+
 //        Person person1 = new Person(1, "Peter", "Verreth", gm, d1, null, place, null, null);
 //        Person person2 = new Person(1, "Shirley", "Verreth", gf, d1, null, place, null, null);
 //        Person person3 = new Person(1, "Jelle", "Verreth", gm, d1, null, place, person1, person2);
@@ -53,7 +51,6 @@ public class MockPerson implements IPersonDAO<Person>
         persons.add(person3);
     }
 
-    @Override
     public Person get(int id)
     {
         Person p = null;
@@ -69,7 +66,6 @@ public class MockPerson implements IPersonDAO<Person>
         return p;
     }
 
-    @Override
     public void update(Person value)
     {
         Person p = null;
@@ -82,37 +78,31 @@ public class MockPerson implements IPersonDAO<Person>
         }
     }
 
-    @Override
     public void delete(Person value)
     {
         persons.remove(value);
     }
 
-    @Override
     public Collection<Person> getAll()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public Person map(ResultSet res)
     {
         return persons.get(2);
     }
 
-    @Override
     public Person map(ResultSet res, Map<Integer, Person> persMap)
     {
         return persons.get(2);
     }
 
-    @Override
     public Collection<Person> GetAll(int treeId)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public void mapRelations(List<Person> persons, Map<Integer, Person> persMap)
     {
         for (int personId : persMap.keySet())
@@ -134,7 +124,6 @@ public class MockPerson implements IPersonDAO<Person>
         }
     }
 
-    @Override
     public Person get(String firstname, String surname)
     {
         Person p = null;
@@ -150,7 +139,6 @@ public class MockPerson implements IPersonDAO<Person>
         return p;
     }
 
-    @Override
     public int save(Person value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

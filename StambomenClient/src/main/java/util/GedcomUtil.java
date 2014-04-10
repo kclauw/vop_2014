@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.gedcom4j.model.Family;
+import org.gedcom4j.model.FamilyChild;
+import org.gedcom4j.model.FamilySpouse;
 import org.gedcom4j.model.Gedcom;
 import org.gedcom4j.model.Individual;
 import org.gedcom4j.model.IndividualEvent;
@@ -23,6 +25,7 @@ import org.gedcom4j.validate.GedcomValidationFinding;
 import org.gedcom4j.validate.GedcomValidator;
 import org.gedcom4j.writer.GedcomWriter;
 import org.gedcom4j.writer.GedcomWriterException;
+import sun.misc.Regexp;
 
 /**
  *
@@ -35,6 +38,7 @@ public class GedcomUtil
 
     public static void addGedcom(String file) throws GedcomWriterException
     {
+        String[] temp = null;
 
         try
         {
@@ -43,16 +47,52 @@ public class GedcomUtil
             gp.load(file);
            // Create();
             Gedcom g = gp.gedcom;
-
-            for (Individual i : g.individuals.values())
+            
+              for (Individual i : g.individuals.values())
             {
-                System.out.println("Invididuals : " + i.formattedName());
+                System.out.println(i.formattedName());
+                System.out.println("Sex  : " + i.sex.toString());
+                for(FamilyChild f : i.familiesWhereChild){
+                    if(f.family.husband != null )
+                    System.out.println("Dad :" + f.family.husband.formattedName());
+                    if(f.family.wife != null )
+                    
+                    temp = f.family.wife.formattedName().split("/");
+                    String firstname = temp[0];
+                    String surname;
+             
+                    surname = temp[1];
+                    
+                    System.out.println("Mom : " + firstname + surname);
+                }
+                for(FamilySpouse s : i.familiesWhereSpouse){
+                    if(s.family.husband != null &&  !s.family.husband.formattedName().equals(i.formattedName()))
+                    System.out.println("Parent of :" + s.family.husband.formattedName());
+                    if(s.family.wife != null &&  !s.family.wife.formattedName().equals(i.formattedName()))
+                    System.out.println("Parent of : " + s.family.wife.formattedName());
+                }
+                
+                System.out.println(" ");
+               
+                 
             }
+              
+           
+            
+          
+              
+           
+          
             
            for (Family i : g.families.values())
             {
-                System.out.println("Families children : " + i.children);
+                
+               //System.out.println("Families children : " + i.children); 
+               
+    
             }
+           
+           
 
             // System.out.printf(gp.gedcom.header.date.value.toString());
         }
