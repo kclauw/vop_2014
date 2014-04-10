@@ -29,7 +29,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private FamilyTreeTotalPanel fttp;
     private boolean adding = false;
 
-    private boolean partner;
     private boolean child;
     private boolean parent;
 
@@ -447,32 +446,23 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     {//GEN-HEADEREND:event_btnAddActionPerformed
         Translator trans = new Translator();
 
-        String[] options = new String[3];
-        options[0] = "Partner";
-        options[1] = "Child";
-        options[2] = "Parent";
+        String[] options = new String[2];
+        options[0] = "Child";
+        options[1] = "Parent";
 
         if (!adding)
         {
             adding = true;
 
-            int option = JOptionPane.showOptionDialog(null, "Would you like to add partner or child?", "Who would you liek to add?", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+            int option = JOptionPane.showOptionDialog(null, "Would you like to add parent or child?", "Who would you liek to add?", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
 
             if (option == 0)
             {
-                partner = true;
-                child = false;
+                child = true;
                 parent = false;
             }
             else if (option == 1)
             {
-                partner = false;
-                child = true;
-                parent = false;
-            }
-            else if (option == 2)
-            {
-                partner = false;
                 child = false;
                 parent = true;
             }
@@ -499,12 +489,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             {
                 p = addParent();
                 add = PersonAddDTO.PARENT;
-                link = person.getPersonId();
-            }
-            else if (partner)
-            {
-                p = addPartner();
-                add = PersonAddDTO.PARTNER;
                 link = person.getPersonId();
             }
             else if (child)
@@ -773,12 +757,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         g.dispose();
 
         return resizedImage;
-    }
-
-    private PersonDTO addPartner()
-    {
-        PersonDTO p = getCurrentPersonFromInput();
-        return p;
     }
 
     private PersonDTO addChild()
