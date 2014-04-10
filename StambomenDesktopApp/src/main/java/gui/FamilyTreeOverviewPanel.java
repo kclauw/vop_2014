@@ -1,7 +1,5 @@
 package gui;
 
-import gui.controller.GuiController;
-import gui.controller.LoginController;
 import gui.controller.TreeOverviewController;
 import gui.controls.FamilyTreeList;
 import java.awt.BorderLayout;
@@ -14,7 +12,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import org.gedcom4j.writer.GedcomWriterException;
 import org.openide.util.Exceptions;
-import service.ClientUserController;
 import util.Translator;
 import util.GedcomUtil;
 
@@ -66,42 +63,38 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                 treeController.goTo(Panels.SETTINGS);
             }
         });
-        
+
         importGedcomItem.addActionListener(new ActionListener()
         {
 
             public void actionPerformed(ActionEvent e)
             {
-                
+
                 JFileChooser fc = new JFileChooser();
                 File file = null;
-                
+
                 fc.setMultiSelectionEnabled(false);
                 int returnVal = fc.showOpenDialog(FamilyTreeOverviewPanel.this);
 
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    try {  
+                if (returnVal == JFileChooser.APPROVE_OPTION)
+                {
+                    try
+                    {
                         file = fc.getSelectedFile();
                         String path = file.getAbsolutePath();
                         System.out.println("Opening: " + file.getName() + ".");
-                        GedcomUtil.addGedcom(path); 
-                    } catch (GedcomWriterException ex) {
+                        GedcomUtil.addGedcom(path);
+                    }
+                    catch (GedcomWriterException ex)
+                    {
                         Exceptions.printStackTrace(ex);
                     }
-} 
-                else {System.out.println("Error opening file");}
-                
-    
-                
-		
-		
-               
-              
-                
-                
-         
-	
-                
+                }
+                else
+                {
+                    System.out.println("Error opening file");
+                }
+
             }
         });
         exportGedcomItem.addActionListener(new ActionListener()
@@ -109,13 +102,15 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
             public void actionPerformed(ActionEvent e)
             {
-                try {
+                try
+                {
                     GedcomUtil.Create();
-                } catch (GedcomWriterException ex) {
+                }
+                catch (GedcomWriterException ex)
+                {
                     Exceptions.printStackTrace(ex);
                 }
-                
-                
+
             }
         });
         menuS.add(settingsItem);
