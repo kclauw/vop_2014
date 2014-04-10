@@ -116,9 +116,6 @@ public class PersonController
                 case PARENT:
                     addParent(treeID, person, personLinkID);
                     break;
-                case PARTNER:
-                    addPartner(treeID, person, personLinkID);
-                    break;
             }
 
         };
@@ -193,53 +190,6 @@ public class PersonController
             }
 
             pc.updatePerson(treeID, child);
-        }
-
-    }
-
-    /**
-     * PersonLinkID here is the other partner. So if we have X - Y then x will
-     * be use to find out the childeren.
-     *
-     * @param treeID
-     * @param person
-     * @param personLinkID
-     */
-    private void addPartner(int treeID, Person person, int personLinkID)
-    {
-        int id = pc.addPerson(treeID, person);
-        Person newPartner = pc.getPerson(treeID, id);
-        Person current = pc.getPerson(treeID, personLinkID);
-        List<Person> childeren = current.getChilderen(pc.getPersons(treeID));
-
-        if (newPartner.getGender() != current.getGender())
-        {
-
-            for (Person child : childeren)
-            {
-
-                if (child.getFather() != null && child.getMother() != null)
-                {
-                    throw new PersonAlreadyHasTwoParents(" " + child.getFirstName() + " already has 2 parents!");
-                }
-                else
-                {
-                    if (person.getGender() == Gender.FEMALE)
-                    {
-                        child.setMother(newPartner);
-                    }
-                    else
-                    {
-                        child.setFather(newPartner);
-                    }
-
-                    pc.updatePerson(treeID, child);
-                }
-            }
-        }
-        else
-        {
-            throw new InvalidGenderException();
         }
 
     }
