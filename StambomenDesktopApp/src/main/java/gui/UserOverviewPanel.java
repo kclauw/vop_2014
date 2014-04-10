@@ -2,6 +2,7 @@ package gui;
 
 import dto.UserDTO;
 import dto.UserTableModel;
+import gui.controller.TreeOverviewController;
 import gui.controller.UserOverviewController;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -9,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -36,6 +38,8 @@ public class UserOverviewPanel extends javax.swing.JPanel
     private JTextField filterText;
     private JTextField statusText;
     private UserOverviewController useroverviewController;
+    private ClientUserController clientUserController;
+    private TreeOverviewController treeoverviewController;
 
     public UserOverviewPanel()
     {
@@ -64,7 +68,38 @@ public class UserOverviewPanel extends javax.swing.JPanel
         JPanel filter = new JPanel();
 
         JButton btnBlock = new JButton();
-        btnBlock.setText("Blokeer user");
+        btnBlock.setText("Block user");
+        JButton btnUser = new JButton();
+        btnUser.setText("Goto user");
+
+        btnUser.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                // table.get(table.convertRowIndexToModel(selectedRow));
+
+                int selectedRow = table.getSelectedRow();
+                selectedRow = table.convertRowIndexToModel(selectedRow);
+                UserDTO user = (UserDTO) table.getModel().getValueAt(selectedRow, 3);
+                System.out.println("USER : " + user);
+
+                useroverviewController.setLogin("Admin");
+
+                treeoverviewController = new TreeOverviewController(useroverviewController.getGui());
+
+                JFrame frame = new JFrame();
+                frame.add(treeoverviewController.show());
+                treeoverviewController.getTrees(user.getId());
+                frame.setVisible(true);
+                frame.setSize(new Dimension(800, 500));
+                // useroverviewController.goTo(Panels.ADMIN);
+
+                model.fireTableDataChanged();
+                table.repaint();
+
+            }
+        });
 
         btnBlock.addActionListener(new ActionListener()
         {
@@ -87,6 +122,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 }
                 model.fireTableDataChanged();
                 table.repaint();
+                table.revalidate();
 
             }
         });
@@ -102,7 +138,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
 
         form.add(filter);
         form.add(btnBlock);
-
+        form.add(btnUser);
         //Whenever filterText changes, invoke newFilter.
         filterText.getDocument().addDocumentListener(
                 new DocumentListener()
