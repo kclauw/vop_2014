@@ -2,6 +2,7 @@ package gui;
 
 import dto.UserDTO;
 import dto.UserTableModel;
+import gui.controller.TreeController;
 import gui.controller.TreeOverviewController;
 import gui.controller.UserOverviewController;
 import java.awt.BorderLayout;
@@ -23,6 +24,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
+import service.ClientTreeController;
 import service.ClientUserController;
 
 public class UserOverviewPanel extends javax.swing.JPanel
@@ -40,6 +42,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
     private UserOverviewController useroverviewController;
     private ClientUserController clientUserController;
     private TreeOverviewController treeoverviewController;
+    private TreeController treeController;
 
     public UserOverviewPanel()
     {
@@ -87,13 +90,12 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 useroverviewController.setLogin("Admin");
 
                 treeoverviewController = new TreeOverviewController(useroverviewController.getGui());
+                treeController = new TreeController(useroverviewController.getGui());
 
-                JFrame frame = new JFrame();
-                frame.add(treeoverviewController.show());
+                JPanel panel = new JPanel();
+                panel = treeoverviewController.show();
                 treeoverviewController.getTrees(user.getId());
-                frame.setVisible(true);
-                frame.setSize(new Dimension(800, 500));
-                // useroverviewController.goTo(Panels.ADMIN);
+                treeoverviewController.setAdminframe(panel);
 
                 model.fireTableDataChanged();
                 table.repaint();
