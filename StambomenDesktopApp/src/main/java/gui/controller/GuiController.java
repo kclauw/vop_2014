@@ -5,6 +5,7 @@ import gui.Panels;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 public class GuiController
@@ -115,7 +116,17 @@ public class GuiController
                 programFrame.add(useroverviewController.show());
                 programFrame.setTitle("User Overview");
                 break;
+
         }
+        programFrame.revalidate();
+    }
+
+    public void setAdminframe(JPanel panel)
+    {
+
+        programFrame.getContentPane().removeAll();
+        programFrame.add(panel);
+        programFrame.setTitle("Admin");
         programFrame.revalidate();
     }
 

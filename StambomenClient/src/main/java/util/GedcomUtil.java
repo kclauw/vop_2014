@@ -38,61 +38,68 @@ public class GedcomUtil
 
     public static void addGedcom(String file) throws GedcomWriterException
     {
-        String[] temp = null;
+        String[] temp = new String[1];
 
         try
         {
             GedcomParser gp = new GedcomParser();
             System.out.println(file);
             gp.load(file);
-           // Create();
+            // Create();
             Gedcom g = gp.gedcom;
-            
-              for (Individual i : g.individuals.values())
+
+            for (Individual i : g.individuals.values())
             {
                 System.out.println(i.formattedName());
                 System.out.println("Sex  : " + i.sex.toString());
-                for(FamilyChild f : i.familiesWhereChild){
-                    if(f.family.husband != null )
-                    System.out.println("Dad :" + f.family.husband.formattedName());
-                    if(f.family.wife != null )
-                    
-                    temp = f.family.wife.formattedName().split("/");
+                for (FamilyChild f : i.familiesWhereChild)
+                {
+                    if (f.family.husband != null)
+                    {
+                        System.out.println("Dad :" + f.family.husband.formattedName());
+                    }
+                    if (f.family.wife != null)
+
+                    {
+                        temp = f.family.wife.formattedName().split("/");
+                    }
+
                     String firstname = temp[0];
-                    String surname;
-             
-                    surname = temp[1];
-                    
-                    System.out.println("Mom : " + firstname + surname);
+
+                    try
+                    {
+                        String surname = temp[1];
+                        System.out.println("Mom : " + firstname + surname);
+                    }
+                    catch (IndexOutOfBoundsException E)
+                    {
+
+                        System.out.println("Mom : " + firstname);
+
+                    }
+
                 }
-                for(FamilySpouse s : i.familiesWhereSpouse){
-                    if(s.family.husband != null &&  !s.family.husband.formattedName().equals(i.formattedName()))
-                    System.out.println("Parent of :" + s.family.husband.formattedName());
-                    if(s.family.wife != null &&  !s.family.wife.formattedName().equals(i.formattedName()))
-                    System.out.println("Parent of : " + s.family.wife.formattedName());
+                for (FamilySpouse s : i.familiesWhereSpouse)
+                {
+                    if (s.family.husband != null && !s.family.husband.formattedName().equals(i.formattedName()))
+                    {
+                        System.out.println("Parent of :" + s.family.husband.formattedName());
+                    }
+                    if (s.family.wife != null && !s.family.wife.formattedName().equals(i.formattedName()))
+                    {
+                        System.out.println("Parent of : " + s.family.wife.formattedName());
+                    }
                 }
-                
+
                 System.out.println(" ");
-               
-                 
+
             }
-              
-           
-            
-          
-              
-           
-          
-            
-           for (Family i : g.families.values())
+
+            for (Family i : g.families.values())
             {
-                
-               //System.out.println("Families children : " + i.children); 
-               
-    
+
+                //System.out.println("Families children : " + i.children);
             }
-           
-           
 
             // System.out.printf(gp.gedcom.header.date.value.toString());
         }
@@ -106,7 +113,7 @@ public class GedcomUtil
         }
     }
 
-    public static void  Create() throws GedcomWriterException
+    public static void Create() throws GedcomWriterException
     {
         Gedcom g = new Gedcom();
 
