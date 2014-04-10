@@ -20,8 +20,8 @@
                     <div>
                         <h1>Login</h1>
                         <form method="post">
-                            <input name="username" type="text" placeholder="Username" />
-                            <input name="password" type="password" placeholder="Password" />
+                            <input name="username" type="text" placeholder="Username" value="default" />
+                            <input name="password" type="password" placeholder="Password" value="123456789" />
                             <label class="error">${errormessage}</label>
                             <input class="submit" type="submit" value="Login"/>
                         </form>
