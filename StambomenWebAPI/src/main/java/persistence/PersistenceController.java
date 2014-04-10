@@ -1,19 +1,16 @@
 package persistence;
 
-import domain.Coordinate;
 import domain.Activity;
+import domain.Coordinate;
 import domain.Person;
 import domain.Place;
-import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
-import domain.enums.Event;
+import domain.enums.Privacy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.ResultSet;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -148,10 +145,12 @@ public class PersistenceController
 
         if (person.getMother() != null)
         {
+            System.out.println("[CHANGE] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             addParentRelation(treeID, person.getMother().getPersonId(), person.getPersonId());
         }
         else if (person.getFather() != null)
         {
+            System.out.println("[CHANGE] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             addParentRelation(treeID, person.getFather().getPersonId(), person.getPersonId());
         }
     }

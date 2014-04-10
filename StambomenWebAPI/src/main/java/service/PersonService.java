@@ -40,17 +40,12 @@ public class PersonService
         }
         catch (PersonAlreadyExistsException ex)
         {
-            System.out.println(ex.getMessage());
+            System.out.println("[EX]" + ex.getMessage());
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
         catch (IllegalArgumentException ex)
         {
-            System.out.println(ex.getMessage());
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex.getMessage());
+            System.out.println("[EX]" + ex.getMessage());
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
     }

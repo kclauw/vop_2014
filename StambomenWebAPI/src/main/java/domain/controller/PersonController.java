@@ -1,9 +1,7 @@
 package domain.controller;
 
-import domain.Activity;
 import domain.Person;
 import domain.Tree;
-import domain.enums.Event;
 import domain.enums.Gender;
 import domain.enums.PersonAdd;
 import exception.CannotDeletePersonsWithChidrenException;
@@ -14,7 +12,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,9 +100,9 @@ public class PersonController
      */
     public void addPerson(int treeID, PersonAdd personAdd, Person person, int personLinkID)
     {
-        Date date = new Date();
-        Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
-        System.out.println("[ADDING PERSON] " + treeID + " " + personAdd.ordinal() + " " + personLinkID);
+        //Date date = new Date();
+        //     Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
+        System.out.println("[ADDING PERSON] " + treeID + " " + personAdd.getId() + " " + personLinkID);
         /*Check wheter the person exists. This should be place in a repo.*/
         Person ps = pc.getPerson(treeID, person.getPersonId());
 
@@ -118,12 +115,14 @@ public class PersonController
             switch (personAdd)
             {
                 case CHILD:
+                    System.out.println("ADDING CHILD");
                     addChild(treeID, person);
-                    ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
+                    //          ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
                     break;
                 case PARENT:
+                    System.out.println("ADDING PARENT");
                     addParent(treeID, person, personLinkID);
-                    ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
+                    //            ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
                     break;
             }
 
@@ -132,10 +131,10 @@ public class PersonController
 
     public void addChild(int treeID, Person person)
     {
-        Date date = new Date();
-        Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
+        //   Date date = new Date();
+        //      Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
         pc.addPerson(treeID, person);
-        ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
+        //   ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
     }
 
     public void deletePersonImage(int treeID, int personID)
@@ -174,11 +173,13 @@ public class PersonController
      */
     private void addParent(int treeID, Person person, int personLinkID)
     {
-        Date date = new Date();
-        Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
+        //   Date date = new Date();
+        //      Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
+        List<Person> pers = new ArrayList<Person>();
         int id = pc.addPerson(treeID, person);
         Person parent = pc.getPerson(treeID, id);
         Person child = pc.getPerson(treeID, personLinkID);
+        System.out.println("ADDING PARENT IN TREE " + treeID + " " + parent.getFirstName() + " " + parent.getPersonId() + " WITH AS CHILD " + child.getFirstName() + " " + child.getPersonId());
 
         if (child.getFather() != null && child.getMother() != null)
         {
@@ -186,14 +187,19 @@ public class PersonController
         }
         else if (child.getFather() != null && child.getFather().getGender() == person.getGender())
         {
+            pers = child.getFather().getChilderen(pc.getPersons(treeID));
             throw new InvalidGenderException();
         }
         else if (child.getMother() != null && child.getMother().getGender() == person.getGender())
         {
+            pers = child.getMother().getChilderen(pc.getPersons(treeID));
+
             throw new InvalidGenderException();
+
         }
         else
         {
+
             if (parent.getGender() == Gender.FEMALE)
             {
                 child.setMother(parent);
@@ -204,7 +210,22 @@ public class PersonController
             }
 
             pc.updatePerson(treeID, child);
-            ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
+
+            //check other childeren!
+            for (Person p : pers)
+            {
+                if (p.getGender() == Gender.FEMALE)
+                {
+                    child.setMother(p);
+                }
+                else
+                {
+                    child.setFather(p);
+                }
+
+                pc.updatePerson(treeID, p);
+
+            }
         }
 
     }
