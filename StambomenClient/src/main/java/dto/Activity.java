@@ -2,7 +2,7 @@ package dto;
 
 import java.util.Date;
 
-public class LoggingDTO
+public class Activity
 {
 
     private EventDTO event;
@@ -10,11 +10,11 @@ public class LoggingDTO
     private int userID;
     private java.util.Date date;
 
-    public LoggingDTO()
+    public Activity()
     {
     }
 
-    public LoggingDTO(EventDTO event, String name, int userID, Date date)
+    public Activity(EventDTO event, String name, int userID, Date date)
     {
         this.event = event;
         this.name = name;
