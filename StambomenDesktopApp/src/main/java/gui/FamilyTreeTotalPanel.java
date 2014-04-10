@@ -75,6 +75,17 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
             detailFrame.setMinimumSize(new Dimension(500, 1000));
             detailFrame.setVisible(true);
             detailFrame.setLocationRelativeTo(this);
+            detailFrame.addWindowListener(new java.awt.event.WindowAdapter()
+            {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent windowEvent)
+                {
+                    detailFrame.setVisible(false);
+                    detailFrame.dispose();
+                    detailFrame = null;
+                }
+            });
+
         }
         else
         {

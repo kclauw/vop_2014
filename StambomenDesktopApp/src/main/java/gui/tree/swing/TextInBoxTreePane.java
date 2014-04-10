@@ -2,6 +2,7 @@ package gui.tree.swing;
 
 import dto.GenderDTO;
 import dto.PersonDTO;
+import dto.PlaceDTO;
 import gui.FamilyTreeTotalPanel;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,11 +23,6 @@ import javax.swing.ToolTipManager;
 import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.TreeLayout;
 
-/**
- * A JComponent displaying a tree of TextInBoxes, given by a {@link TreeLayout}.
- *
- * @author Udo Borkowski (ub@abego.org)
- */
 public class TextInBoxTreePane extends JComponent
 {
 
@@ -42,6 +38,7 @@ public class TextInBoxTreePane extends JComponent
     private final static Color TEXT_COLOR = Color.decode("#252525");
     private final Color FEMALE_COLOR = Color.decode("#B03A3A");
     private final Color MALE_COLOR = Color.decode("#334455");
+    private final Color TREE_LINE = Color.decode("#cccccc");
     private Image maleImage;
     private Image femaleImage;
     private BufferedImage bg;
@@ -88,6 +85,8 @@ public class TextInBoxTreePane extends JComponent
         this.treeLayout = treeLayout;
         size = treeLayout.getBounds().getBounds().getSize();
         setPreferredSize(size);
+        ToolTipManager.sharedInstance().setDismissDelay(1500);
+        ToolTipManager.sharedInstance().setInitialDelay(100);
     }
 
     private void paintEdges(Graphics g, TextInBox parent)
@@ -103,7 +102,7 @@ public class TextInBoxTreePane extends JComponent
                 double x2 = b2.getCenterX();
                 double y2 = b2.getCenterY();
 
-                g.setColor(Color.YELLOW);
+                g.setColor(TREE_LINE);
                 double line = y2 - ((y2 - y1) * 0.40);
                 g.drawLine((int) x1, (int) line, (int) x1, (int) y1);
                 g.drawLine((int) x2, (int) line, (int) x2, (int) y2);
@@ -165,8 +164,8 @@ public class TextInBoxTreePane extends JComponent
     {
         g.setColor(c);
         g.fillRoundRect(((int) box.x), (int) box.y, width, height, ARC_SIZE, ARC_SIZE);
-        g.setColor(BORDER_COLOR);
-        g.drawRoundRect(((int) box.x), (int) box.y, width, height, ARC_SIZE, ARC_SIZE);
+        // g.setColor(BORDER_COLOR);
+        //  g.drawRoundRect(((int) box.x), (int) box.y, width, height, ARC_SIZE, ARC_SIZE);
     }
 
     private void drawString(Graphics g, String lines, Rectangle2D.Double box)
@@ -210,15 +209,29 @@ public class TextInBoxTreePane extends JComponent
 
         MouseAdapter ms = new MouseAdapter()
         {
+
             @Override
             public void mouseMoved(MouseEvent e)
             {
-                if (box.contains(e.getPoint()) || box.contains(e.getX(), e.getY()))
+                if (box.contains(e.getPoint()))
                 {
-                    setToolTipText(person.getFirstName() + " " + person.getSurName());
+                    PlaceDTO place = person.getPlace();
+                    setToolTipText("<html><p>" + person.getFirstName() + " " + person.getSurName() + " </p>"
+                            + "<p> Date of birth:" + person.getBirthDate() + "</p>"
+                            + "<p> Date of death:" + person.getDeathDate() + "</p>"
+                            + "<p>" + place.getPlaceName() + " " + place.getZipCode() + ", " + place.getCountry() + "</p>"
+                            + "<p><img src='" + person.getPicture() + "'></p></html>");
+                    ToolTipManager.sharedInstance().mouseMoved(e);
+                    ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
+                    ToolTipManager.sharedInstance().setInitialDelay(100);
                 }
-                ToolTipManager.sharedInstance().setDismissDelay(1500);
-                ToolTipManager.sharedInstance().setInitialDelay(500);
+                else
+                {
+                    setToolTipText("");
+                    ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
+                    ToolTipManager.sharedInstance().setInitialDelay(100);
+                }
+
             }
         };
 
