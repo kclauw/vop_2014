@@ -3,7 +3,7 @@ package dto;
 public enum PersonAddDTO
 {
 
-    CHILD(0), PARTNER(1), PARENT(2);
+    CHILD(0), PARENT(1);
 
     private int id;
 
