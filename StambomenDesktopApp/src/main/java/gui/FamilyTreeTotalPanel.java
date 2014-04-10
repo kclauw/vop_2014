@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import dto.PersonAddDTO;
@@ -15,9 +10,8 @@ import gui.tree.swing.SampleTreeFactory;
 import gui.tree.swing.TextInBox;
 import gui.tree.swing.TextInBoxNodeExtentProvider;
 import gui.tree.swing.TextInBoxTreePane;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GraphicsEnvironment;
-import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.util.List;
 import javax.swing.JFrame;
@@ -42,19 +36,14 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     private TreeLayout<PersonDTO> layout;
     private int maxGapBetweenNodes = 40;
     private int maxGapBetweenLevel = 60;
+    private TreeOptionsPanel treeOptionsPanel;
+    private JFrame detailFrame = null;
 
     /**
      * Creates new form FamilyTreeTotalPanel
      *
      * @param treeController
      */
-    public FamilyTreeTotalPanel(TreeController treeController)
-    {
-        initComponents();
-        this.treeController = treeController;
-        this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
-    }
-
     public FamilyTreeTotalPanel()
     {
     }
@@ -64,30 +53,44 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         initComponents();
         this.setSize(1200, 400);
         this.treeController = treeController;
+        this.treeOptionsPanel = new TreeOptionsPanel(this);
         scroll = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         this.scroll.setVisible(true);
-
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 0;
-        c.gridy = 0;
-        c.fill = 1;
-        c.weightx = 20;
-        c.weighty = 20;
-        this.add(scroll, c);
+        this.setLayout(new BorderLayout());
+        this.add(scroll, BorderLayout.CENTER);
+        this.add(treeOptionsPanel, BorderLayout.SOUTH);
         addDetailPanel();
         this.validate();
     }
 
     public void addDetailPanel()
     {
-        JFrame j = new JFrame();
-        this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
-        this.familyTreeDetailPanel.validate();
-        j.add(familyTreeDetailPanel);
-        j.setPreferredSize(new Dimension(500, 1000));
-        j.setMinimumSize(new Dimension(500, 1000));
-        j.setVisible(true);
-        j.setLocationRelativeTo(this);
+        if (this.detailFrame == null)
+        {
+            this.detailFrame = new JFrame();
+            this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
+            this.familyTreeDetailPanel.validate();
+            detailFrame.add(familyTreeDetailPanel);
+            detailFrame.setPreferredSize(new Dimension(500, 1000));
+            detailFrame.setMinimumSize(new Dimension(500, 1000));
+            detailFrame.setVisible(true);
+            detailFrame.setLocationRelativeTo(this);
+            detailFrame.addWindowListener(new java.awt.event.WindowAdapter()
+            {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent windowEvent)
+                {
+                    detailFrame.setVisible(false);
+                    detailFrame.dispose();
+                    detailFrame = null;
+                }
+            });
+
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "You already have a detail panel open!");
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -95,7 +98,7 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     private void initComponents()
     {
 
-        setLayout(new java.awt.GridBagLayout());
+        setLayout(new java.awt.BorderLayout());
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -108,7 +111,6 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     public void drawFamilyTree(List<PersonDTO> persons)
     {
         this.persons = persons;
-
         DefaultConfiguration def = new DefaultConfiguration<PersonDTO>(maxGapBetweenNodes, maxGapBetweenLevel);
         PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), this.persons);
         layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), def);
@@ -116,7 +118,6 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         TextInBoxNodeExtentProvider nodeExtentProvider = new TextInBoxNodeExtentProvider();
         TreeLayout<TextInBox> trLayout = new TreeLayout<TextInBox>(tr, nodeExtentProvider, def);
         TextInBoxTreePane panel = new TextInBoxTreePane(this, trLayout);
-
         this.scroll.add(panel);
         this.scroll.setViewportView(panel);
     }
@@ -124,13 +125,11 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     public void drawFamilyTree(List<PersonDTO> persons, DefaultConfiguration def)
     {
         this.persons = persons;
-
         PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), persons);
         TreeLayout<PersonDTO> layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), def);
         TreeForTreeLayout<TextInBox> tr = getSampleTree(layout);
         TreeLayout<TextInBox> trLayout = new TreeLayout<TextInBox>(tr, new TextInBoxNodeExtentProvider(), def);
         TextInBoxTreePane panel = new TextInBoxTreePane(this, trLayout);
-
         this.scroll.add(panel);
         this.scroll.setViewportView(panel);
     }
@@ -214,7 +213,7 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
                     Exceptions.printStackTrace(ex);
                 }
             }
-        });        // TODO add your handling code here:    }
+        });
     }
 
 }

@@ -6,11 +6,6 @@ import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.TreeLayout;
 import org.abego.treelayout.util.DefaultTreeForTreeLayout;
 
-/**
- * Creates "Sample" trees, e.g. to be used in demonstrations.
- *
- * @author Udo Borkowski (ub@abego.org)
- */
 public class SampleTreeFactory
 {
 

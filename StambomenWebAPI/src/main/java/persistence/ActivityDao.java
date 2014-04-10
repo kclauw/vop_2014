@@ -2,14 +2,15 @@ package persistence;
 
 import persistence.interfaces.IDao;
 import domain.Activity;
-import domain.User;
 import domain.enums.Event;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +19,7 @@ public class ActivityDao implements IDao<Activity>
 
     private Connection con;
     private final Logger logger;
-    private final String GETLOGGING = "SELECT name,dateTime,eventID FROM UserEvent x join Event y on x.eventID = y.eventID where x.userID in (select z.friend FROM Request z where z.receiver = ? union select a.receiver FROM Request a where a.friend = ?);";
+    private final String GETLOGGING = "SELECT name,dateTime,eventID FROM UserEvent x join Event y on x.eventID = y.eventID where x.userID in (select z.friend FROM Request z where z.receiver = ? and z.status=1 union select a.receiver FROM Request a where a.friend = ? and a.status= 1);";
     private final String SETLOGGING = "INSERT INTO UserEvent (eventID, userID, name, dateTime) VALUES (?, ?,?,?)";
 
     public ActivityDao()
@@ -96,6 +97,46 @@ public class ActivityDao implements IDao<Activity>
     public Collection<Activity> getAll()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void addActivity(Activity act, int userID)
+    {
+        PreparedStatement prep = null;
+        //eventID, userID, name, dateTime
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(SETLOGGING);
+            prep.setInt(1, act.getEvent().getEventId());
+            prep.setInt(2, userID);
+            prep.setString(3, act.getName());
+            prep.setDate(4, (Date) act.getDate());
+            logger.info("[ACTIVITY DAO] Saving activity" + prep);
+            prep.executeUpdate();
+
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[ACTIVITY DAO][SQLException][Save]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[ACTIVITY DAO][Exception][Save]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }
 
     public List<Activity> map(ResultSet res, int userID)
