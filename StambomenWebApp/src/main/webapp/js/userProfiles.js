@@ -14,9 +14,6 @@ function closePopUpBox() {
 }
 
 function getUserProfileInPopUpBox(userID) {
-    var baseURL = window.location.origin;
-    var url = baseURL + "/UserProfileServlet";
-
     $.ajax({
         type: "GET",
         url: "UserProfileServlet",
