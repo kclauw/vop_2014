@@ -26,7 +26,15 @@ public class ClientTreeController
     public List<TreeDTO> getTrees(int i)
     {
         logger.info("[CLIENT TREE CONTROLLER][GET TREES]Get trees with id: " + i);
-        return client.getTrees(ClientServiceController.getInstance().getUser().getId());
+        if (i == -1)
+        {
+            return client.getTrees(ClientServiceController.getInstance().getUser().getId());
+        }
+        else
+        {
+            return client.getTrees(i);
+        }
+
     }
 
     public TreeDTO getTree(int id)
