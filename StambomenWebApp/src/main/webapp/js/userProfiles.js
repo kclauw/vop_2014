@@ -18,7 +18,7 @@ function getUserProfileInPopUpBox(userID) {
         type: "GET",
         url: "UserProfileServlet",
         data: "userID=" + userID,
-        dataType: "json",
+        dataType: "json"
     }).success(function(data) {
         addContentToPopUpBox(data);
     });

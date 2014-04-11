@@ -25,16 +25,29 @@
             </div>
             <div class = "wrapper">
                 <div>
-                    <div>
+                    <div id="privacySetting">
                         <h1>Account settings</h1>
                         <h2>Privacy</h2>
-                        <select id="privacySetting">
+                        <select id="privacyOptions">
                         <c:forEach var="item" items="${privacyList}">
-                            <option value="${item.getPrivacyId()}" ${item == item? "selected" : ""}>${item}</option>
+                            <option value="${item.getPrivacyId()}" ${item == privacy? "selected" : ""}>${item}</option>
                         </c:forEach>
                     </select>
                     <input id = "btnSavePrivacy" type = "button"  onclick = "savePrivacy();" value = "Save" disabled/>
                 </div>
+
+                <div id="languageSettings">
+                    <h1>Language settings</h1>
+                    <h2>Language</h2>
+                    <select id="languageOptions">
+                        <c:forEach var="item" items="${languages}">
+                            <option value="${item.getLanguageId()}" ${item == language? "selected" : ""}>${item}</option>
+                        </c:forEach>
+                    </select>
+                    <input id = "btnSaveLanguage" type = "button"  onclick = "saveLanguage();" value = "Save" disabled/>
+                </div>
+
+                <input id = "btnSaveAll" type = "button"  onclick = "saveAll();" value = "Save all" disabled/>
             </div>
         </div>
     </body>
