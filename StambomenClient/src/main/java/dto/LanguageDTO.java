@@ -3,16 +3,16 @@ package dto;
 public enum LanguageDTO
 {
 
-    EN(0), NL(1), FR(2);
+    EN(1), NL(2), FR(3);
 
     private int languageId;
 
-    LanguageDTO(int languageId)
+    private LanguageDTO(int languageId)
     {
         this.languageId = languageId;
     }
 
-    int getLanguageId()
+    public int getLanguageId()
     {
         return this.languageId;
     }

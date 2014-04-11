@@ -3,16 +3,16 @@ package dto;
 public enum PrivacyDTO
 {
 
-    PUBLIC(0), PRIVATE(1), FRIENDS(2);
+    PRIVATE(0), FRIENDS(1), PUBLIC(2);
 
     private int privacyId;
 
-    PrivacyDTO(int privacyId)
+    private PrivacyDTO(int privacyId)
     {
         this.privacyId = privacyId;
     }
 
-    int getPrivacyId()
+    public int getPrivacyId()
     {
         return this.privacyId;
     }

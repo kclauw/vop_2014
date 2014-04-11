@@ -148,12 +148,12 @@ public class ClientUserService
         return null;
     }
 
-    public String setUserPrivacy(int userID, PrivacyDTO userPrivacy)
+    public String setUserPrivacy(int userID, int privacyID)
     {
-        logger.info("[CLIENT USER SERVICE][SET USER PRIVACY]Set user privacy for user with id:" + userID + "to privacy state:" + userPrivacy);
+        logger.info("[CLIENT USER SERVICE][SET USER PRIVACY]Set user privacy for user with id:" + userID + "to privacy state:" + privacyID);
         Client client = ClientServiceController.getInstance().getClient();
 
-        Response response = client.target(url + "user/profile/setUserPrivacy/" + userID + "/" + userPrivacy).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "user/get/profile/setUserPrivacy/" + userID + "/" + privacyID).request(MediaType.APPLICATION_JSON).get();
         if (response.getStatus() != 200)
         {
 
