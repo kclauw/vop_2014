@@ -35,7 +35,7 @@ public class UserDao implements IDao<User>
     private final String SETLANGUAGE = "UPDATE User set languageID=? where userID=?;";
     private final String GETLANGUAGE = "SELECT languageID FROM User where userID=?;";
     private final String SETUSERPRIVACY = "UPDATE User SET privacy = ? WHERE userID = ?";
-    private final String GETUSERPRIVACY = "SELECT privacy FROM USER WHERE userID = userID";
+    private final String GETUSERPRIVACY = "SELECT privacy FROM User WHERE userID = ?";
     private final String GETUSERPROFILE = "SELECT * FROM User u  LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID = ? AND u.privacy = ?";
     private final String GETUSERPROFILES = "SELECT * FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID != ? AND u.privacy = ?";
     private final String SETUSERBLOCK = "UPDATE User SET block = ? WHERE userID = ?";
@@ -566,19 +566,20 @@ public class UserDao implements IDao<User>
         }
     }
 
-    public void setLanguage(int userID, int language)
+    public void setLanguage(int userID, Language language)
     {
         PreparedStatement prep = null;
+        int languageID = language.getLanguageId();
+
         try
         {
-            if (userID >= 0 && language >= 0)
+            if (userID >= 0 && languageID >= 0)
             {
                 con = DatabaseUtils.getConnection();
                 prep = con.prepareStatement(SETLANGUAGE);
-                prep.setInt(1, language);
+                prep.setInt(1, languageID);
                 prep.setInt(2, userID);
                 prep.executeUpdate();
-
             }
             con.close();
         }
@@ -602,7 +603,6 @@ public class UserDao implements IDao<User>
                 logger.info("[USER DAO][SQLEXCEPTION][SETLANGUAGE]Sql exception: " + ex.getMessage());
                 ex.printStackTrace();
             }
-
         }
     }
 
@@ -612,13 +612,14 @@ public class UserDao implements IDao<User>
 
         try
         {
-            if (userID <= 0 && userPrivacy.getPrivacyId() <= 2)
+            if (userID >= 0 && userPrivacy.getPrivacyId() <= 2)
             {
                 con = DatabaseUtils.getConnection();
                 prep = con.prepareStatement(SETUSERPRIVACY);
 
-                prep.setInt(1, userID);
-                prep.setInt(2, userPrivacy.getPrivacyId());
+                prep.setInt(1, userPrivacy.getPrivacyId());
+                prep.setInt(2, userID);
+
                 prep.execute();
             }
 
@@ -693,11 +694,12 @@ public class UserDao implements IDao<User>
         return privacy;
     }
 
-    public int getLanguage(int userID)
+    public Language getLanguage(int userID)
     {
         PreparedStatement prep = null;
         ResultSet res = null;
-        int lang = 0;
+        Language language = null;
+
         try
         {
             con = DatabaseUtils.getConnection();
@@ -707,7 +709,7 @@ public class UserDao implements IDao<User>
 
             while (res.next())
             {
-                lang = res.getInt("languageID");
+                language = language.getLanguageId(res.getInt("languageID"));
             }
 
             con.close();
@@ -736,7 +738,7 @@ public class UserDao implements IDao<User>
 
         }
 
-        return lang;
+        return language;
     }
 
     public User getUserProfile(int userProfileID, Privacy userPrivacy)
@@ -758,6 +760,7 @@ public class UserDao implements IDao<User>
             {
                 userProfile = map(res);
             }
+            userProfile.clearPassword();
 
             con.close();
         }
@@ -805,6 +808,7 @@ public class UserDao implements IDao<User>
             {
                 User user;
                 user = map(res);
+                user.clearPassword();
 
                 userProfiles.add(user);
             }

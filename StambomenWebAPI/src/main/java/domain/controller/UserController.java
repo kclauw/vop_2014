@@ -4,6 +4,7 @@ import domain.Activity;
 import domain.enums.Privacy;
 import domain.User;
 import domain.enums.Event;
+import domain.enums.Language;
 import exception.UserAlreadyExistsException;
 import java.util.Collection;
 import java.util.Date;
@@ -115,12 +116,12 @@ public class UserController
         pc.sendFriendRequest(userID, frienduserName);
     }
 
-    public int getLanguage(int userID)
+    public Language getLanguage(int userID)
     {
         return pc.getLanguage(userID);
     }
 
-    public void setLanguage(int userID, int language)
+    public void setLanguage(int userID, Language language)
     {
         pc.setLanguage(userID, language);
     }

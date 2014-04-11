@@ -153,38 +153,48 @@ public class UserService
     @Produces(MediaType.APPLICATION_JSON)
     public Response setLanguage(@PathParam("userID") int userID, @PathParam("languageID") int languageID)
     {
-        logger.info("[User Service][SET LANGUAGE]Set language with id: " + languageID + " user with id: " + userID);
+        logger.info("[User Service][SET LANGUAGE]Set language with id: " + languageID + " for user with id: " + userID);
+        Response rp = null;
         try
         {
             System.out.println("userID: " + userID + " languageID: " + languageID);
             String result = "Language set:" + languageID;
-            uc.setLanguage(userID, languageID);
-            return Response.status(Response.Status.OK).entity(result).build();
+
+            Language language = Language.getLanguageId(languageID);
+            uc.setLanguage(userID, language);
+            rp = Response.status(Response.Status.OK).entity(result).build();
 
         }
         catch (Exception ex)
         {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-
+            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
+
+        return rp;
     }
 
     @GET
-    @Path("/get/profile/setUserPrivacy/{userID}/{userPrivacy}")
+    @Path("/get/profile/setUserPrivacy/{userID}/{PrivacyID}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response setUserPrivacy(@PathParam("userID") int userID, @PathParam("userPrivacy") Privacy userPrivacy)
+    public Response setUserPrivacy(@PathParam("userID") int userID, @PathParam("PrivacyID") int PrivacyID)
     {
+        logger.info("[User Service][SET USERPRIVACY]Set privacy with id: " + PrivacyID + " for user with id: " + userID);
+
+        Response rp = null;
         try
         {
-            String result = "privacy set:" + userPrivacy;
-            uc.setUserPrivacy(userID, userPrivacy);
-            return Response.ok(result).build();
+            String result = "privacy set:" + PrivacyID;
+            Privacy privacy = Privacy.getPrivacy(PrivacyID);
+            uc.setUserPrivacy(userID, privacy);
 
+            rp = Response.ok(result).build();
         }
         catch (Exception ex)
         {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
+
+        return rp;
     }
 
     @GET
@@ -192,17 +202,21 @@ public class UserService
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getUserPrivacy(@PathParam("userID") int userID)
     {
+        logger.info("[User Service][GET LANGUAGE]Get privacy from  user with id: " + userID);
+
+        Response rp = null;
+
         try
         {
             Privacy privacy = uc.getUserPrivacy(userID);
-
-            return Response.ok(privacy).build();
-
+            rp = Response.ok(privacy).build();
         }
         catch (Exception ex)
         {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
+
+        return rp;
     }
 
     @GET
@@ -210,35 +224,21 @@ public class UserService
     @Produces(MediaType.APPLICATION_JSON)
     public Response getLanguage(@PathParam("userID") int userID)
     {
-        logger.info("[User Service][SET LANGUAGE]Get language from  user with id: " + userID);
+        logger.info("[User Service][GET LANGUAGE]Get language from  user with id: " + userID);
 
-        Language lan;
+        Language language = uc.getLanguage(userID);
+        Response rp = null;
+
         try
         {
-            int i = uc.getLanguage(userID);
-            if (i == 1)
-            {
-                lan = Language.EN;
-            }
-            else if (i == 2)
-            {
-                lan = Language.NL;
-            }
-            else if (i == 3)
-            {
-                lan = Language.FR;
-            }
-            else
-            {
-                lan = Language.NL;
-            }
-            return Response.ok(lan).build();
+            rp = Response.ok(language).build();
         }
         catch (Exception ex)
         {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
 
+        return rp;
     }
 
     @GET
@@ -247,17 +247,19 @@ public class UserService
     public Response getPublicUserProfile(@PathParam("userProfileID") int userProfileID)
     {
         Privacy userPrivacy = Privacy.PUBLIC;
-
+        Response rp = null;
         try
         {
             User userProfile = uc.getUserProfile(userProfileID, userPrivacy);
 
-            return Response.ok(userProfile).build();
+            rp = Response.ok(userProfile).build();
         }
         catch (Exception ex)
         {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
+
+        return rp;
     }
 
     @GET
@@ -266,17 +268,18 @@ public class UserService
     public Response getPublicUserProfiles(@PathParam("userID") int userID)
     {
         Privacy userPrivacy = Privacy.PUBLIC;
-
+        Response rp;
         try
         {
             List<User> userProfiles = uc.getUserProfiles(userID, userPrivacy);
 
-            return Response.ok(userProfiles).build();
+            rp = Response.ok(userProfiles).build();
         }
         catch (Exception ex)
         {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
-    }
 
+        return rp;
+    }
 }

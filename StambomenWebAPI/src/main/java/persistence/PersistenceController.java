@@ -9,6 +9,7 @@ import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
 import domain.enums.Event;
+import domain.enums.Language;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
@@ -101,16 +102,18 @@ public class PersistenceController
         return p;
     }
 
-    public void setLanguage(int userID, int language)
+    public void setLanguage(int userID, Language language)
     {
         logger.info("[PERSISTENCE CONTROLLER] Set Language for userid" + userID);
         userDao.setLanguage(userID, language);
     }
 
-    public int getLanguage(int userID)
+    public Language getLanguage(int userID)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get Language for userid" + userID);
-        return userDao.getLanguage(userID);
+        Language language = userDao.getLanguage(userID);
+
+        return language;
     }
 
     public List<Tree> getTrees(int userId)

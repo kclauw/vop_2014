@@ -31,7 +31,7 @@ public class User
     public User(int id, String username, String password, UserSettings userSettings)
     {
         setUsername(username);
-        setPasssword(password);
+        setPassword(password);
         setId(id);
         setUserSettings(userSettings);
     }
@@ -39,7 +39,7 @@ public class User
     public User(int id, String username, String password, UserSettings userSettings, String role)
     {
         setUsername(username);
-        setPasssword(password);
+        setPassword(password);
         setId(id);
         setUserSettings(userSettings);
         setRole(role);
@@ -48,7 +48,7 @@ public class User
     public User(int id, String username, String password, UserSettings userSettings, String role, Boolean block)
     {
         setUsername(username);
-        setPasssword(password);
+        setPassword(password);
         setId(id);
         setUserSettings(userSettings);
         setRole(role);
@@ -117,7 +117,7 @@ public class User
      *
      * @param password
      */
-    private void setPasssword(String password)
+    private void setPassword(String password)
     {
         if (StringValidation.emptyString(password))
         {
@@ -135,6 +135,11 @@ public class User
         }
 
         this.password = password;
+    }
+
+    public void clearPassword()
+    {
+        password = "";
     }
 
     @Override
