@@ -1,7 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
-
+<!DOCTYPE HTML>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -20,8 +18,8 @@
                     <div>
                         <h1>Login</h1>
                         <form method="post">
-                            <input name="username" type="text" placeholder="Username" value="default" />
-                            <input name="password" type="password" placeholder="Password" value="123456789" />
+                            <input name="username" type="text" placeholder="Username" value="${empty param.username?"default":param.username}" />
+                            <input name="password" type="password" placeholder="Password" value="${empty param.password?"123456789": param.password}" />
                             <label class="error">${errormessage}</label>
                             <input class="submit" type="submit" value="Login"/>
                         </form>

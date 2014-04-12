@@ -51,7 +51,7 @@ public class LoginFilter implements Filter
         //check logout
         if (logout != null && session != null)
         {
-            logger.info("[LOGIN FILTER][DO FILTER]" + logout.toString() + " " + session.toString());
+            logger.info("[LOGIN FILTER][DO FILTER]" + logout + " " + session.toString());
 
             session = removeSession(session);
         }
@@ -63,7 +63,7 @@ public class LoginFilter implements Filter
             {
                 session = removeSession(session);
             }
-            logger.info("[LOGIN FILTER][DO FILTER] NEW USER:" + username.toString());
+            logger.info("[LOGIN FILTER][DO FILTER] NEW USER:" + username);
 
             //create new user
             ClientUserController uC = new ClientUserController();
@@ -75,14 +75,14 @@ public class LoginFilter implements Filter
 
         //check fileAccess
         boolean allowed = checkFileAccess(requesturi);
-        String path = "";
-        if (allowed || (session != null && session.getAttribute("user") != null) || requesturi.endsWith(contextpath + "/login.jsp"))
+        String path = contextpath + "/login.jsp";
+        if (allowed || (session != null && session.getAttribute("user") != null) || requesturi.endsWith(path))
         {
             path = contextpath + "/index.jsp";
             if (requesturi.endsWith(path))
             {
                 path = contextpath + "/main.jsp";
-                response.sendRedirect(contextpath + "/main.jsp");
+                response.sendRedirect(path);
             }
             else
             {
