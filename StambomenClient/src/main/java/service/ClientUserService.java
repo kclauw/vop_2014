@@ -4,12 +4,15 @@ import com.google.gson.Gson;
 import dto.PrivacyDTO;
 import dto.UserDTO;
 import java.util.List;
+import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import jdk.nashorn.internal.ir.SwitchNode;
+import org.apache.http.HttpStatus;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.slf4j.Logger;
@@ -43,31 +46,52 @@ public class ClientUserService
 
     public String login(UserDTO user)
     {
+        String result = "";
         logger.info("[CLIENT USER SERVICE][LOGIN]Login of user:" + user.toString());
+
         Client client = ClientBuilder.newClient();
         client.register(new JacksonFeature());
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().credentials(user.getUsername(), user.getPassword()).build();
         client.register(feature);
 
-        //   System.out.println(url);
-        UserDTO dto = client.target(url + "user/login/" + user.getUsername()).request("application/json").accept("application/json").get(UserDTO.class);
-        System.out.println("UserDTO output : " + dto.getRole());
+        Response response = client.target(url + "user/login/" + user.getUsername()).request("application/json").accept("application/json").get();
 
-        if (dto == null)
+        UserDTO userDTO = null;
+        switch (response.getStatus())
         {
-            System.out.println("USER NOT FOUND");
-            return "Error";
+            case HttpStatus.SC_OK:
+            {
+                userDTO = response.readEntity(UserDTO.class);
+
+                System.out.println("UserDTO output : " + userDTO.getRole());
+                result = userDTO.getRole();
+
+                logger.info("[CLIENT USER SERVICE][LOGIN]User userDTO found" + userDTO);
+                ClientServiceController.getInstance().setUser(userDTO);
+                break;
+            }
+            default:
+            {
+                //check user exists
+                if (userDTO == null)
+                {
+                    logger.info("[CLIENT USER SERVICE][LOGIN]User userDTO not found");
+
+                    System.out.println("USER NOT FOUND");
+                    result = "Error";
+                }
+                //check userblock
+                else if (userDTO.getBlock())
+                {
+                    logger.info("[CLIENT USER SERVICE][LOGIN]User block: " + userDTO.getBlock());
+
+                    System.out.println("USER BLOCKED");
+                    result = "Block";
+                }
+            }
         }
 
-        if (dto.getBlock())
-        {
-            System.out.println("USER BLOCKED");
-            return "Block";
-        }
-        logger.info("[CLIENT USER SERVICE][LOGIN]User dto found" + dto);
-
-        ClientServiceController.getInstance().setUser(dto);
-        return dto.getRole();
+        return result;
     }
 
     public List<UserDTO> getFriends(int userID)
