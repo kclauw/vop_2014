@@ -62,14 +62,25 @@ public class ClientUserService
             case HttpStatus.SC_OK:
             {
                 userDTO = response.readEntity(UserDTO.class);
-
-                System.out.println("UserDTO output : " + userDTO.getRole());
-                result = userDTO.getRole();
-
-                logger.info("[CLIENT USER SERVICE][LOGIN]User userDTO found" + userDTO);
+                logger.info("[CLIENT USER SERVICE][LOGIN]User userDTO found " + userDTO);
                 ClientServiceController.getInstance().setUser(userDTO);
+
+                //check userblock
+                if (userDTO.getBlock())
+                {
+                    logger.info("[CLIENT USER SERVICE][LOGIN]User block: " + userDTO.getBlock());
+
+                    System.out.println("USER BLOCKED");
+                    result = "Block";
+                }
+                else
+                {
+                    System.out.println("UserDTO output : " + userDTO.getRole());
+                    result = userDTO.getRole();
+                }
                 break;
             }
+
             default:
             {
                 //check user exists
@@ -79,14 +90,6 @@ public class ClientUserService
 
                     System.out.println("USER NOT FOUND");
                     result = "Error";
-                }
-                //check userblock
-                else if (userDTO.getBlock())
-                {
-                    logger.info("[CLIENT USER SERVICE][LOGIN]User block: " + userDTO.getBlock());
-
-                    System.out.println("USER BLOCKED");
-                    result = "Block";
                 }
             }
         }
@@ -122,10 +125,12 @@ public class ClientUserService
         logger.info("[CLIENT USER SERVICE][DELETE FRIEND]Delete friend with id:" + frienduserID + " for user with id: " + userID);
         Client client = ClientServiceController.getInstance().getClient();
         Response response = client.target(url + "user/friends/delete/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+
         if (response.getStatus() != 200)
         {
 
-            return " " + response.readEntity(String.class);
+            return " " + response.readEntity(String.class
+            );
         }
 
         return null;
@@ -136,10 +141,12 @@ public class ClientUserService
         logger.info("[CLIENT USER SERVICE][ALLOW DENY FRIEND REQUEST]Allow deny friendrequest for friend with id:" + frienduserID + " for user with id: " + userID);
         Client client = ClientServiceController.getInstance().getClient();
         Response response = client.target(url + "user/friends/requests/" + (allow ? "allow" : "deny") + "/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+
         if (response.getStatus() != 200)
         {
 
-            return " " + response.readEntity(String.class);
+            return " " + response.readEntity(String.class
+            );
         }
 
         return null;
@@ -150,10 +157,12 @@ public class ClientUserService
         logger.info("[CLIENT USER SERVICE][SEND FRIEND REQUEST]Send friendrequest to user with id:" + userID + " to friend user with name" + frienduserName);
         Client client = ClientServiceController.getInstance().getClient();
         Response response = client.target(url + "user/friends/requests/send/" + userID + "/" + frienduserName).request(MediaType.APPLICATION_JSON).get();
+
         if (response.getStatus() != 200)
         {
 
-            return " " + response.readEntity(String.class);
+            return " " + response.readEntity(String.class
+            );
         }
 
         return null;
@@ -164,9 +173,11 @@ public class ClientUserService
         logger.info("[CLIENT USER SERVICE][SET LANGUAGE]Set language with id: " + languageID + " user with id: " + userID);
         Client client = ClientServiceController.getInstance().getClient();
         Response response = client.target(url + "user/setLanguage/" + userID + "/" + languageID).request(MediaType.APPLICATION_JSON).get();
+
         if (response.getStatus() != 200)
         {
-            return " " + response.readEntity(String.class);
+            return " " + response.readEntity(String.class
+            );
         }
 
         return null;
@@ -178,10 +189,12 @@ public class ClientUserService
         Client client = ClientServiceController.getInstance().getClient();
 
         Response response = client.target(url + "user/get/profile/setUserPrivacy/" + userID + "/" + privacyID).request(MediaType.APPLICATION_JSON).get();
+
         if (response.getStatus() != 200)
         {
 
-            return " " + response.readEntity(String.class);
+            return " " + response.readEntity(String.class
+            );
         }
 
         return null;
@@ -251,8 +264,10 @@ public class ClientUserService
 
         if (response.getStatus() != 200)
         {
-            String resp = response.readEntity(String.class);
-            System.out.println("[CLIENT USER SERVICE] UPDATE ERROR :" + resp);
+            String resp = response.readEntity(String.class
+            );
+            System.out.println(
+                    "[CLIENT USER SERVICE] UPDATE ERROR :" + resp);
 
             return " " + resp;
         }
@@ -266,11 +281,15 @@ public class ClientUserService
         Client client = ClientServiceController.getInstance().getClient();
         client.register(new JacksonFeature());
         Response response = client.target(url + "admin/blockuser/" + userid + "/" + block).request(MediaType.APPLICATION_JSON).post(Entity.entity(block, MediaType.APPLICATION_JSON));
+
         if (response.getStatus() != 200)
         {
-            String resp = response.readEntity(String.class);
-            System.out.println("[CLIENT USER SERVICE] BLOCK ERROR :" + resp);
-            return " " + response.readEntity(String.class);
+            String resp = response.readEntity(String.class
+            );
+            System.out.println(
+                    "[CLIENT USER SERVICE] BLOCK ERROR :" + resp);
+            return " " + response.readEntity(String.class
+            );
         }
 
         return null;

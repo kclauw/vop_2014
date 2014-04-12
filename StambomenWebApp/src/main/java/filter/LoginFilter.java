@@ -22,28 +22,28 @@ import service.ClientPersonController;
 
 public class LoginFilter implements Filter
 {
-
+    
     private final Logger logger = LoggerFactory.getLogger(getClass());
-
+    
     @Override
     public void init(FilterConfig config) throws ServletException
     {
         // If you have any <init-param> in web.xml, then you could get them
         // here by config.getInitParameter("name") and assign it as field.
     }
-
+    
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException
     {
         logger.info("[LOGIN FILTER][DO FILTER]:" + req.toString() + " " + res.toString() + " " + chain.toString());
-
+        
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession(false);
-
+        
         String requesturi = request.getRequestURI();
         String contextpath = request.getContextPath();
-
+        
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String logout = request.getParameter("logout");
@@ -52,7 +52,7 @@ public class LoginFilter implements Filter
         if (logout != null && session != null)
         {
             logger.info("[LOGIN FILTER][DO FILTER]" + logout + " " + session.toString());
-
+            
             session = removeSession(session);
         }
         //check login
@@ -95,35 +95,35 @@ public class LoginFilter implements Filter
             response.sendRedirect(path);
         }
     }
-
+    
     private HttpSession removeSession(HttpSession session)
     {
         session.invalidate();
         session = null;
-
+        
         return session;
     }
-
+    
     private void doLogin(ClientUserController uC, HttpSession session, HttpServletRequest request, HttpServletResponse response, String contextpath, UserDTO user) throws IOException
     {
         String loginResponse = uC.login(user);
-        if (!loginResponse.equals("Error"))
+        if (!loginResponse.equals("Error") && !loginResponse.equals("Block"))
         {
             session = request.getSession();
-
+            
             ClientServiceController serviceController = ClientServiceController.getInstance();
             ClientTreeController treeController = new ClientTreeController();
             ClientPersonController personController = new ClientPersonController();
             user = serviceController.getUser();
-
+            
             session.setAttribute("serviceController", serviceController);
             session.setAttribute("personController", personController);
             session.setAttribute("treeController", treeController);
             session.setAttribute("userController", uC);
             session.setAttribute("user", user);
-
+            
             initUserData(session, user);
-
+            
             response.sendRedirect(contextpath + "/main.jsp");
         }
         else
@@ -131,17 +131,17 @@ public class LoginFilter implements Filter
             request.setAttribute("errormessage", loginResponse);
         }
     }
-
+    
     private boolean checkFileAccess(String requesturi)
     {
         boolean allowed = false;
-
+        
         List<String> allowedExtensions = new ArrayList<String>();
         allowedExtensions.add("css");
         allowedExtensions.add("js");
         allowedExtensions.add("png");
         allowedExtensions.add("jpg");
-
+        
         for (String ext : allowedExtensions)
         {
             if (requesturi.endsWith("." + ext))
@@ -150,17 +150,17 @@ public class LoginFilter implements Filter
                 break;
             }
         }
-
+        
         return allowed;
     }
-
+    
     @Override
     public void destroy()
     {
         // If you have assigned any expensive resources as field of
         // this Filter class, then you could clean/close them here.
     }
-
+    
     private void initUserData(HttpSession session, UserDTO user)
     {
         if (session != null && user != null)
