@@ -187,15 +187,11 @@ public class PersonController
         }
         else if (child.getFather() != null && child.getFather().getGender() == person.getGender())
         {
-            pers = child.getFather().getChilderen(pc.getPersons(treeID));
             throw new InvalidGenderException();
         }
         else if (child.getMother() != null && child.getMother().getGender() == person.getGender())
         {
-            pers = child.getMother().getChilderen(pc.getPersons(treeID));
-
             throw new InvalidGenderException();
-
         }
         else
         {
@@ -203,15 +199,18 @@ public class PersonController
             if (parent.getGender() == Gender.FEMALE)
             {
                 child.setMother(parent);
+                pers = child.getFather().getChilderen(pc.getPersons(treeID));
+
             }
             else
             {
                 child.setFather(parent);
+                pers = child.getMother().getChilderen(pc.getPersons(treeID));
             }
 
             pc.updatePerson(treeID, child);
 
-            //check other childeren!
+//check other childeren!
             for (Person p : pers)
             {
                 if (parent.getGender() == Gender.FEMALE)
