@@ -228,4 +228,38 @@ public class PersonController
         }
 
     }
+
+    /**
+     * This method will move a person based on the params. TreeID is the tree of
+     * the person. PersonAdd here will tell us wheter the person(personID) is
+     * now a child or a parent in reference to the personMoveID.
+     *
+     * @param treeID
+     * @param personAdd
+     * @param personID
+     * @param personMoveID
+     * @return
+     */
+    public String movePerson(int treeID, PersonAdd personAdd, int personID, int personMoveID)
+    {
+        Person person = pc.getPerson(treeID, personID);
+        Person referencePerson = pc.getPerson(treeID, personMoveID);
+
+        if (personAdd == PersonAdd.CHILD)
+        {
+            if (referencePerson.getGender() == Gender.FEMALE)
+            {
+                person.setMother(referencePerson);
+
+            }
+            else
+            {
+                person.setFather(referencePerson);
+            }
+
+            pc.updatePerson(treeID, person);
+        }
+
+        return null;
+    }
 }

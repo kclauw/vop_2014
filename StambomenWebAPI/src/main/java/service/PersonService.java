@@ -51,6 +51,15 @@ public class PersonService
     }
 
     @GET
+    @Path("/{treeID}/{addType}/{personID}/{personMoveID}")
+    public Response movePerson(@PathParam("treeID") int treeID, @PathParam("addType") int addType, @PathParam("personID") int personID, @PathParam("personMoveID") int personMoveID)
+    {
+        PersonAdd personAdd = PersonAdd.getAddMethod(addType);
+        String result = pc.movePerson(treeID, personAdd, personID, personMoveID);
+        return Response.status(Response.Status.OK).entity(result).build();
+    }
+
+    @GET
     @Path("/delete/{treeID}/{personId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deletePerson(@PathParam("treeID") int treeID, @PathParam("personId") int personId)
