@@ -872,11 +872,11 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
         if (option == 0)
         {
-
+            fttp.movePerson(PersonAddDTO.CHILD, this.person.getPersonId(), person.getPersonId());
         }
         else if (option == 1)
         {
-
+            fttp.movePerson(PersonAddDTO.PARENT, this.person.getPersonId(), person.getPersonId());
         }
 
     }
