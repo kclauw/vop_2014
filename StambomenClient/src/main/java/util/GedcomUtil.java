@@ -25,7 +25,6 @@ import org.gedcom4j.validate.GedcomValidationFinding;
 import org.gedcom4j.validate.GedcomValidator;
 import org.gedcom4j.writer.GedcomWriter;
 import org.gedcom4j.writer.GedcomWriterException;
-import sun.misc.Regexp;
 
 /**
  *
