@@ -114,7 +114,7 @@ public class PersistenceController
 
     public List<Tree> getTrees(int userId)
     {
-        logger.info("[PERSISTENCE CONTROLLER] Get trees from user " + userId);
+        logger.debug("[PERSISTENCE CONTROLLER] Get trees from user " + userId);
         return treeDao.getAll(userId);
     }
 

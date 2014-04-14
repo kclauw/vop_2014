@@ -40,7 +40,7 @@ public class UserDao implements IDao<User>
     private final String GETUSERPROFILES = "SELECT * FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID != ? AND u.privacy = ?";
     private final String SETUSERBLOCK = "UPDATE User SET block = ? WHERE userID = ?";
     private final String UPDATEUSER = "UPDATE User SET username = ?,password = ?,block = ? WHERE userID = ?";
-    private PersistenceController pc;
+    private final PersistenceController pc;
 
     public UserDao(PersistenceController pc)
     {

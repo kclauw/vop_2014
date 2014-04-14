@@ -46,6 +46,8 @@ public class BasicAuthFilter implements ContainerRequestFilter
             abortRequest(containerRequest, Status.UNAUTHORIZED);
         }
 
+        System.out.println("[AUTH FILTER] LOGIN:");
+
         User authentificationResult = userController.login(userCredentials);
 
         if (authentificationResult == null)
