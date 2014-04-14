@@ -34,14 +34,14 @@ public class BasicAuthFilter implements ContainerRequestFilter
 
         if (authorization == null || authorization.isEmpty())
         {
-            containerRequest.abortWith(Response.status(Status.UNAUTHORIZED).build());
+            abortRequest(containerRequest, Status.UNAUTHORIZED);
         }
 
         String[] userCredentials = BasicAuthentication.decode(authorization);
 
         if (userCredentials == null || userCredentials.length != 2)
         {
-            containerRequest.abortWith(Response.status(Status.UNAUTHORIZED).build());
+            abortRequest(containerRequest, Status.UNAUTHORIZED);
         }
 
         User authentificationResult = new UserController().login(userCredentials);
@@ -50,13 +50,16 @@ public class BasicAuthFilter implements ContainerRequestFilter
         Matcher matcher = pattern.matcher(path);
         if (authentificationResult == null)
         {
-            containerRequest.abortWith(Response.status(Status.UNAUTHORIZED).build());
+            abortRequest(containerRequest, Status.UNAUTHORIZED);
         }
         else if (path.contains("admin") && !authentificationResult.getRole().equals("Admin"))
         {
-            containerRequest.abortWith(Response.status(Status.UNAUTHORIZED).build());
+            abortRequest(containerRequest, Status.UNAUTHORIZED);
         }
-
     }
 
+    private void abortRequest(ContainerRequestContext containerRequest, Status status)
+    {
+        containerRequest.abortWith(Response.status(status).build());
+    }
 }

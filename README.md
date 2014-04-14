@@ -113,7 +113,7 @@ The stambomen folder contains the [DB-script][dbS] and the [perlscript][pS]
 
 ## login details ##
 * username: default
-* password: 12345
+* password: 123456789
 
 
 
