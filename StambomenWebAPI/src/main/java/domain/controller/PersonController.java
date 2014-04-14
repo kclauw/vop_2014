@@ -175,7 +175,7 @@ public class PersonController
     {
         //   Date date = new Date();
         //      Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
-        List<Person> pers = new ArrayList<Person>();
+        List<Person> pers;
         int id = pc.addPerson(treeID, person);
         Person parent = pc.getPerson(treeID, id);
         Person child = pc.getPerson(treeID, personLinkID);
@@ -215,11 +215,11 @@ public class PersonController
             {
                 if (parent.getGender() == Gender.FEMALE)
                 {
-                    child.setMother(p);
+                    p.setMother(parent);
                 }
                 else
                 {
-                    child.setFather(p);
+                    p.setFather(parent);
                 }
 
                 pc.updatePerson(treeID, p);
