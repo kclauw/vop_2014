@@ -70,17 +70,20 @@ public class GedcomUtil
             tree = new TreeDTO();
             System.out.println(file);
             gp.load(file);
-            
+           
             Gedcom g = gp.gedcom;
-            /*tree.setName(g.header.fileName.toString());
+            tree.setName(g.header.fileName.toString());
+            System.out.println("Make Tree : " + g.header.fileName.toString());
             treeController.makeTree(tree);
             
             trees = treeController.getTrees(userid);
-            int treeid = trees.get(0).getId();*/
-            System.out.println("GEDCOM TREE ID : ");
+            int treeid = trees.get(0).getId();
+            System.out.println("GEDCOM TREE ID : " + treeid);
         
           SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+          SimpleDateFormat parser = new SimpleDateFormat("dd MM yyyy");
           Date birthdate = null,deathdate = null;
+          String output1,output2;
              for (Individual i : g.individuals.values()){
                   if (i.formattedName() != null)
                     {
@@ -93,22 +96,25 @@ public class GedcomUtil
                         }
                         
                         try{
-                        birthdate = formatter.parse(i.events.get(0).date.toString());                  
+                        birthdate = parser.parse(i.events.get(0).date.toString());
+                        output1 = formatter.format(birthdate);
                         }
                         catch(IndexOutOfBoundsException e){
-                          birthdate = formatter.parse("");
+                          output1 = "";
                         }
 
                         try{
-                         deathdate = formatter.parse(i.events.get(1).date.toString());
+                         deathdate = parser.parse(i.events.get(1).date.toString());
+                         output2 = formatter.format(deathdate);
                         }
                         catch(IndexOutOfBoundsException e){
-                          deathdate = formatter.parse("");
+                          output2 = "";
                         }
-                        System.out.println("Individual :" + firstname + " " +  surname + " birthdate : " + birthdate + " deathdate : "+ deathdate );
+                       
+                        System.out.println("Individual :" + firstname + " " +  surname + " birthdate : " + output1 + " deathdate : "+ output2 );
                     }  
                     
-              /*   PersonDTO person;
+                 PersonDTO person;
                  GenderDTO gender;
                  if(i.sex.toString().equals("M")){
                      gender = GenderDTO.MALE;
@@ -129,7 +135,7 @@ public class GedcomUtil
                 .zipCode(null)
                 .build());
                  person = new PersonDTO(p);
-                 personController.savePerson(treeid, PersonAddDTO.CHILD, person, treeid);*/
+                 personController.savePerson(treeid, PersonAddDTO.CHILD, person, treeid);
             };
             
 
@@ -269,7 +275,9 @@ public class GedcomUtil
     {
         Individual i = new Individual();
 
-     
+        /*
+         * Individuals, like most objects, need xref values. They begin and end with @-signs, and need to be unique
+         */
         individualCounter++;
         i.xref = "@I" + individualCounter + "@";
 
