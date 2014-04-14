@@ -16,6 +16,8 @@ import javax.ws.rs.ext.Provider;
 public class BasicAuthFilter implements ContainerRequestFilter
 {
 
+    private final UserController userController = new UserController();
+
     @Override
     public void filter(ContainerRequestContext containerRequest) throws IOException
     {
@@ -44,10 +46,8 @@ public class BasicAuthFilter implements ContainerRequestFilter
             abortRequest(containerRequest, Status.UNAUTHORIZED);
         }
 
-        User authentificationResult = new UserController().login(userCredentials);
-        //if (authentificationResult.contains("admin"))
-        Pattern pattern = Pattern.compile("^/admin");
-        Matcher matcher = pattern.matcher(path);
+        User authentificationResult = userController.login(userCredentials);
+
         if (authentificationResult == null)
         {
             abortRequest(containerRequest, Status.UNAUTHORIZED);

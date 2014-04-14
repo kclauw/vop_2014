@@ -175,7 +175,7 @@ public class PersonController
     {
         //   Date date = new Date();
         //      Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
-        List<Person> pers;
+        List<Person> pers = null;
         int id = pc.addPerson(treeID, person);
         Person parent = pc.getPerson(treeID, id);
         Person child = pc.getPerson(treeID, personLinkID);
@@ -199,13 +199,21 @@ public class PersonController
             if (parent.getGender() == Gender.FEMALE)
             {
                 child.setMother(parent);
-                pers = child.getFather().getChilderen(pc.getPersons(treeID));
+
+                if (child.getFather() != null)
+                {
+                    pers = child.getFather().getChilderen(pc.getPersons(treeID));
+                }
 
             }
             else
             {
                 child.setFather(parent);
-                pers = child.getMother().getChilderen(pc.getPersons(treeID));
+
+                if (child.getMother() != null)
+                {
+                    pers = child.getMother().getChilderen(pc.getPersons(treeID));
+                }
             }
 
             pc.updatePerson(treeID, child);
@@ -245,16 +253,31 @@ public class PersonController
         Person person = pc.getPerson(treeID, personID);
         Person referencePerson = pc.getPerson(treeID, personMoveID);
 
+        pc.removeRelations(treeID, personID);
+
         if (personAdd == PersonAdd.CHILD)
         {
+            Person partner = referencePerson.getPartner(pc.getPersons(treeID));
+
             if (referencePerson.getGender() == Gender.FEMALE)
             {
                 person.setMother(referencePerson);
+                //partner
+
+                if (partner != null)
+                {
+                    person.setFather(partner);
+                }
 
             }
             else
             {
                 person.setFather(referencePerson);
+                //partner
+                if (partner != null)
+                {
+                    person.setMother(partner);
+                }
             }
 
             pc.updatePerson(treeID, person);

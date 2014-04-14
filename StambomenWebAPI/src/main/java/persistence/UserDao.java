@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,8 +24,7 @@ public class UserDao implements IDao<User>
     private final Logger logger;
     private final String GETALLUSER = "SELECT u.userID AS userID, u.username AS username, u.password AS password, u.languageID AS languageID, u.themeID AS themeID, r.role AS role,u.block as block FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID";
     private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
-    private final String GETUSER = "SELECT userID, username, password, languageID, themeID, block  FROM User WHERE username = ?";
-    private final String GETUSERROLEBYNAME = "SELECT u.userID AS userID, u.username AS username, u.password AS PASSWORD, u.languageID AS languageID, u.themeID AS themeID,r.role as role,u.block as block FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.username = ?";
+    private final String GETUSER = "SELECT u.userID AS userID, u.username AS username, u.password AS PASSWORD, u.languageID AS languageID, u.themeID AS themeID,r.role as role,u.block as block FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.username = ?";
 
     private final String GETUSERBYID = "SELECT u.userID AS userID, u.username AS username, u.password AS password, u.languageID AS languageID, u.themeID AS themeID,r.role AS role,u.block as block FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID = ?";
     private final String GETFRIENDSBYID = "SELECT friend, receiver, status FROM Request WHERE (receiver=? or friend=?) AND status = 1";
@@ -309,7 +309,7 @@ public class UserDao implements IDao<User>
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(GETUSERROLEBYNAME);
+            prep = con.prepareStatement(GETUSER);
             prep.setString(1, username);
             res = prep.executeQuery();
 
@@ -362,19 +362,8 @@ public class UserDao implements IDao<User>
 
             String role = res.getString("role");
             Boolean block = res.getBoolean("block");
-            Language lang;
-            if (lan == 1)
-            {
-                lang = Language.EN;
-            }
-            else if (lan == 2)
-            {
-                lang = Language.NL;
-            }
-            else
-            {
-                lang = Language.FR;
-            }
+            Language lang = Language.getLanguageId(lan);
+
             Theme theme = pc.getTheme(themeID);
 
             UserSettings settings = new UserSettings(lang, theme);
@@ -877,5 +866,33 @@ public class UserDao implements IDao<User>
             }
 
         }
+    }
+
+    /**
+     * A dummed down version of the user mapping, with as only goal to map the
+     * user for login.
+     *
+     * @param res
+     * @return
+     */
+    private User loginMap(ResultSet res)
+    {
+        User user = null;
+
+        try
+        {
+            int uid = res.getInt("userID");
+            String ur = res.getString("username");
+            String password = res.getString("password");
+            String role = res.getString("role");
+            Boolean block = res.getBoolean("block");
+            user = new User(uid, ur, password, null, role, block);
+        }
+        catch (SQLException ex)
+        {
+            java.util.logging.Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return user;
     }
 }

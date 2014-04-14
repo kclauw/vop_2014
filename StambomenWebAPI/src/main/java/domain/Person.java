@@ -122,6 +122,28 @@ public class Person
         return "Person{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + ", gender=" + gender + ", birthDate=" + birthDate + ", deathDate=" + deathDate + ", place=" + place + ", father=" + father + ", mother=" + mother + ", picture=" + picture + '}';
     }
 
+    public Person getPartner(List<Person> persons)
+    {
+
+        boolean g = getGender() == Gender.FEMALE;
+
+        for (Person p : persons)
+        {
+            if (p.getFather() != null && p.getFather().compareTo(this) == 0 || p.getMother() != null && p.getMother().compareTo(this) == 0)
+            {
+                if (g)
+                {
+                    return p.getFather();
+                }
+                else
+                {
+                    return p.getMother();
+                }
+            }
+        }
+        return null;
+    }
+
     public List<Person> getChilderen(List<Person> persons)
     {
 

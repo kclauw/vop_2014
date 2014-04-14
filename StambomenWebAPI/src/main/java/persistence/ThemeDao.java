@@ -26,8 +26,8 @@ public class ThemeDao implements IDao<Theme>
     private final String GET_THEME_BY_ID = "select themeID, name, font, bgColor, textColor, maleColor, femaleColor from Theme where themeID=?";
 
     private final Logger logger;
-    private PersistenceController pc;
-    Connection con;
+    private final PersistenceController pc;
+    private Connection con;
 
     public ThemeDao(PersistenceController pc)
     {
@@ -49,12 +49,9 @@ public class ThemeDao implements IDao<Theme>
             logger.info("[THEMEDAO] Get theme by id" + prep.toString());
             res = prep.executeQuery();
 
-            if (res != null)
+            if (res.next())
             {
-                if (res.next())
-                {
-                    theme = map(res);
-                }
+                theme = map(res);
             }
 
             con.close();
@@ -137,10 +134,6 @@ public class ThemeDao implements IDao<Theme>
         catch (SQLException ex)
         {
             logger.info("[THEMEDAO][SQLException][Map]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
-            logger.info("[THEMEDAO][Exception][Map]Exception: " + ex.getMessage());
         }
 
         return theme;
