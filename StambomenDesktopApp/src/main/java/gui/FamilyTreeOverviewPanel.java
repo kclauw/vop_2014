@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.ParseException;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -35,6 +36,7 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
     public FamilyTreeOverviewPanel()
     {
+        
 
         initComponents();
         trans = new Translator();
@@ -82,11 +84,16 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                     {
                         file = fc.getSelectedFile();
                         String path = file.getAbsolutePath();
-                        System.out.println("Opening: " + file.getName() + ".");
+                        System.out.println("Opening: " + file.getName());
+                        
+                        GedcomUtil.setUserid(treeController.getUserid());
                         GedcomUtil.addGedcom(path);
+                        
                     }
                     catch (GedcomWriterException ex)
                     {
+                        Exceptions.printStackTrace(ex);
+                    } catch (ParseException ex) {
                         Exceptions.printStackTrace(ex);
                     }
                 }
@@ -176,6 +183,10 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         this.treeController = treeController;
         this.login = treeController.getLogin();
 
+    }
+    
+    public TreeOverviewController getTreeoverviewcontroller(){
+        return treeController;
     }
 
 }

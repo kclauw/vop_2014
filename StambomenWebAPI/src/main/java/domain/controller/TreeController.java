@@ -46,6 +46,7 @@ public class TreeController
 
             pc.addTree(tree);
             ac.addActivity(act);
+            
         }
         else
         {
