@@ -10,9 +10,11 @@ import exception.PersonAlreadyExistsException;
 import exception.PersonAlreadyHasTwoParents;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.gedcom4j.parser.GedcomParserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.PersistenceController;
@@ -37,7 +39,7 @@ public class PersonController
      * Delete person wil check if a person has children. If not it will delete
      * the person on a certain tree!
      *
-     * @param treeID
+     * @para m treeID
      * @param personID
      */
     public void deletePerson(int treeID, int personID)
@@ -228,4 +230,12 @@ public class PersonController
         }
 
     }
+
+    public void importGedcom(int userID, InputStream input) throws IOException, GedcomParserException
+    {
+        GedcomController gc = new GedcomController(this);
+        gc.importGedcom(userID, input);
+
+    }
+
 }

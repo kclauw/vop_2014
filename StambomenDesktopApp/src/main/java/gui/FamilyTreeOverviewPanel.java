@@ -6,6 +6,8 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -13,8 +15,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import org.gedcom4j.writer.GedcomWriterException;
 import org.openide.util.Exceptions;
+import service.ClientPersonController;
 import util.Translator;
-import util.GedcomUtil;
 
 public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 {
@@ -36,7 +38,6 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
     public FamilyTreeOverviewPanel()
     {
-        
 
         initComponents();
         trans = new Translator();
@@ -80,22 +81,24 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
                 if (returnVal == JFileChooser.APPROVE_OPTION)
                 {
+
+                    file = fc.getSelectedFile();
+                    System.out.println("Opening: " + file.getName());
+
+                    ClientPersonController personController = new ClientPersonController();
                     try
                     {
-                        file = fc.getSelectedFile();
-                        String path = file.getAbsolutePath();
-                        System.out.println("Opening: " + file.getName());
-                        
-                        GedcomUtil.setUserid(treeController.getUserid());
-                        GedcomUtil.addGedcom(path);
-                        
+                        personController.importGedcom(treeController.getUserid(), file);
                     }
-                    catch (GedcomWriterException ex)
+                    catch (FileNotFoundException ex)
                     {
                         Exceptions.printStackTrace(ex);
-                    } catch (ParseException ex) {
+                    }
+                    catch (IOException ex)
+                    {
                         Exceptions.printStackTrace(ex);
                     }
+
                 }
                 else
                 {
@@ -109,14 +112,6 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
             public void actionPerformed(ActionEvent e)
             {
-                try
-                {
-                    GedcomUtil.Create();
-                }
-                catch (GedcomWriterException ex)
-                {
-                    Exceptions.printStackTrace(ex);
-                }
 
             }
         });
@@ -184,8 +179,9 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         this.login = treeController.getLogin();
 
     }
-    
-    public TreeOverviewController getTreeoverviewcontroller(){
+
+    public TreeOverviewController getTreeoverviewcontroller()
+    {
         return treeController;
     }
 

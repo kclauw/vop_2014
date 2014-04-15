@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.commons.io.IOUtils;
 
 @Path("/person")
 public class PersonService
@@ -97,6 +98,26 @@ public class PersonService
         logger.info("[GET][PERSONSERVICE]" + personID);
         Person t = pc.getPerson(treeID, personID);
         return t;
+    }
+
+    @GET
+    @Path("/import/gedcom/{userID}")
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    public Response importGedcom(@PathParam("userID") int userID, InputStream bufferedFile)
+    {
+        try
+        {
+            logger.info("TRYING TO UPLOAD FILE " + bufferedFile);
+            String result = "Importing new Gedcom for user " + userID;
+            logger.info("[SAVE][PERSONSERVICE] SAVING image for " + userID);
+            pc.importGedcom(userID, bufferedFile);
+            return Response.status(Response.Status.OK).entity(result).build();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
+        }
     }
 
     @POST

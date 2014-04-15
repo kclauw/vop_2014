@@ -7,11 +7,18 @@ import dto.PersonDTO;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Level;
 import javax.imageio.ImageIO;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
@@ -19,6 +26,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.commons.io.IOUtils;
 
 public class ClientPersonService
 {
@@ -178,9 +186,28 @@ public class ClientPersonService
         return persons;
     }
 
-    List<PersonDTO> getPersonByTree(int treeid)
+    public String importGedcom(int userid, File file) throws FileNotFoundException, IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        Client client = ClientServiceController.getInstance().getClient();
+        InputStream input = new FileInputStream(file);
+        //BufferedInputStream bis = new BufferedInputStream(input);
 
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int read = 0;
+        while ((read = input.read(buffer, 0, buffer.length)) != -1)
+        {
+            bos.write(buffer, 0, read);
+        }
+        bos.flush();
+        byte[] f = bos.toByteArray();
+
+        Response response = client.target(url + "person/import/gedcom/" + userid).request(MediaType.APPLICATION_JSON).post(Entity.entity(f, MediaType.APPLICATION_OCTET_STREAM_TYPE));
+        if (response.getStatus() != 200)
+        {
+            System.out.println("Error occured" + response.toString() + "  " + response.readEntity(String.class));
+            return " " + response.readEntity(String.class);
+        }
+        return null;
+    }
 }

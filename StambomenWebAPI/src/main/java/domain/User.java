@@ -28,6 +28,11 @@ public class User
     {
     }
 
+    public User(int id)
+    {
+        setId(id);
+    }
+
     public User(int id, String username, String password, UserSettings userSettings)
     {
         setUsername(username);
