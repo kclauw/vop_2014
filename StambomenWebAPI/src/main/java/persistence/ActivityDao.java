@@ -18,12 +18,14 @@ public class ActivityDao implements IDao<Activity>
 {
 
     private Connection con;
+    private PersistenceController pc;
     private final Logger logger;
     private final String GETLOGGING = "SELECT name,dateTime,userID,eventID FROM UserEvent x join Event y on x.eventID = y.eventID where x.userID in (select z.friend FROM Request z where z.receiver = ? and z.status=1 union select a.receiver FROM Request a where a.friend = ? and a.status= 1);";
     private final String SETLOGGING = "INSERT INTO UserEvent (eventID, userID, name, dateTime) VALUES (?, ?,?,NOW())";
 
-    public ActivityDao()
+    public ActivityDao(PersistenceController pc)
     {
+        this.pc = pc;
         logger = LoggerFactory.getLogger(getClass());
     }
 
