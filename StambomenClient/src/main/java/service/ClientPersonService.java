@@ -191,4 +191,9 @@ public class ClientPersonService
         return persons;
     }
 
+    List<PersonDTO> getPersonByTree(int treeid)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

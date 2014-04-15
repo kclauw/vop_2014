@@ -95,6 +95,7 @@ public class GuiController
             case TREEOVERVIEW:
                 programFrame.add(treeControllerOverviewController.show());
                 programFrame.setTitle("Tree Overview");
+                
                 break;
             case TREE:
                 programFrame.add(treeController.show());
@@ -145,5 +146,9 @@ public class GuiController
     public String getLogin()
     {
         return login;
+    }
+    
+    public void setUserid(int userid){
+    this.treeControllerOverviewController.setUserid(userid);
     }
 }
