@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.io.IOUtils;
+import org.gedcom4j.parser.GedcomParserException;
 
 @Path("/person")
 public class PersonService
@@ -109,20 +110,24 @@ public class PersonService
         return t;
     }
 
-    @GET
+    @POST
     @Path("/import/gedcom/{userID}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-    public Response importGedcom(@PathParam("userID") int userID, InputStream bufferedFile)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response importGedcom(@PathParam("userID") int userID, InputStream inp)
     {
         try
         {
-            logger.info("TRYING TO UPLOAD FILE " + bufferedFile);
             String result = "Importing new Gedcom for user " + userID;
-            logger.info("[SAVE][PERSONSERVICE] SAVING image for " + userID);
-            pc.importGedcom(userID, bufferedFile);
+            pc.importGedcom(userID, inp);
             return Response.status(Response.Status.OK).entity(result).build();
         }
-        catch (Exception e)
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
+        }
+        catch (GedcomParserException e)
         {
             e.printStackTrace();
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();

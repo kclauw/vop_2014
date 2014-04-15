@@ -241,7 +241,7 @@ public class PersonController
         }
         else if (personAdd == PersonAdd.PARENT)
         {
-           // checkParentRelations(person, referencePerson);
+            // checkParentRelations(person, referencePerson);
             //  setParentRelation(treeID, person, referencePerson);
         }
 
@@ -314,7 +314,6 @@ public class PersonController
     {
         GedcomController gc = new GedcomController(this);
         gc.importGedcom(userID, input);
-
     }
 
 }
