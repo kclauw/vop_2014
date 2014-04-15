@@ -179,61 +179,11 @@ public class PersonController
         int id = pc.addPerson(treeID, person);
         Person parent = pc.getPerson(treeID, id);
         Person child = pc.getPerson(treeID, personLinkID);
-        System.out.println("ADDING PARENT IN TREE " + treeID + " " + parent.getFirstName() + " " + parent.getPersonId() + " WITH AS CHILD " + child.getFirstName() + " " + child.getPersonId());
 
-        if (child.getFather() != null && child.getMother() != null)
-        {
-            throw new PersonAlreadyHasTwoParents();
-        }
-        else if (child.getFather() != null && child.getFather().getGender() == person.getGender())
-        {
-            throw new InvalidGenderException();
-        }
-        else if (child.getMother() != null && child.getMother().getGender() == person.getGender())
-        {
-            throw new InvalidGenderException();
-        }
-        else
-        {
+        logger.info("ADDING PARENT IN TREE " + treeID + " " + parent.getFirstName() + " " + parent.getPersonId() + " WITH AS CHILD " + child.getFirstName() + " " + child.getPersonId());
 
-            if (parent.getGender() == Gender.FEMALE)
-            {
-                child.setMother(parent);
-
-                if (child.getFather() != null)
-                {
-                    pers = child.getFather().getChilderen(pc.getPersons(treeID));
-                }
-
-            }
-            else
-            {
-                child.setFather(parent);
-
-                if (child.getMother() != null)
-                {
-                    pers = child.getMother().getChilderen(pc.getPersons(treeID));
-                }
-            }
-
-            pc.updatePerson(treeID, child);
-
-//check other childeren!
-            for (Person p : pers)
-            {
-                if (parent.getGender() == Gender.FEMALE)
-                {
-                    p.setMother(parent);
-                }
-                else
-                {
-                    p.setFather(parent);
-                }
-
-                pc.updatePerson(treeID, p);
-
-            }
-        }
+        checkParentRelations(child, person);
+        setParentRelation(treeID, child, parent);
 
     }
 
@@ -268,7 +218,6 @@ public class PersonController
                 {
                     person.setFather(partner);
                 }
-
             }
             else
             {
@@ -282,7 +231,74 @@ public class PersonController
 
             pc.updatePerson(treeID, person);
         }
+        else if (personAdd == PersonAdd.PARENT)
+        {
+           // checkParentRelations(person, referencePerson);
+            //  setParentRelation(treeID, person, referencePerson);
+        }
 
         return null;
+    }
+
+    private void checkParentRelations(Person child, Person person)
+    {
+        if (child.getFather() != null && child.getMother() != null)
+        {
+            throw new PersonAlreadyHasTwoParents();
+        }
+        else if (child.getFather() != null && child.getFather().getGender() == person.getGender())
+        {
+            throw new InvalidGenderException();
+        }
+        else if (child.getMother() != null && child.getMother().getGender() == person.getGender())
+        {
+            throw new InvalidGenderException();
+        }
+    }
+
+    private void setParentRelation(int treeID, Person child, Person parent)
+    {
+        List<Person> pers = new ArrayList<Person>();
+
+        if (parent.getGender() == Gender.FEMALE)
+        {
+            child.setMother(parent);
+
+            if (child.getFather() != null)
+            {
+                pers = child.getFather().getChilderen(pc.getPersons(treeID));
+            }
+
+        }
+        else
+        {
+            child.setFather(parent);
+
+            if (child.getMother() != null)
+            {
+                pers = child.getMother().getChilderen(pc.getPersons(treeID));
+            }
+        }
+
+        pc.updatePerson(treeID, child);
+
+//check other childeren!
+        if (pers.size() > 0)
+        {
+            for (Person p : pers)
+            {
+                if (parent.getGender() == Gender.FEMALE)
+                {
+                    p.setMother(parent);
+                }
+                else
+                {
+                    p.setFather(parent);
+                }
+
+                pc.updatePerson(treeID, p);
+
+            }
+        }
     }
 }
