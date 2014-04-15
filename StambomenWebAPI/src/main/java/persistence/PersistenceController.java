@@ -44,7 +44,7 @@ public class PersistenceController
         persontreeDao = new PersonTreeDao(this);
         parentrelationDao = new ParentRelationDao(this);
         imageDao = new ImageDao(this);
-        activityDao = new ActivityDao();
+        activityDao = new ActivityDao(this);
         logger = LoggerFactory.getLogger(getClass());
     }
 
@@ -305,6 +305,7 @@ public class PersistenceController
 
     public void addActivity(Activity act)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Add Activity " + act.toString());
         activityDao.addActivity(act);
     }
 

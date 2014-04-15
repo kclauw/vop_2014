@@ -1,7 +1,9 @@
 package domain.controller;
 
+import domain.Activity;
 import domain.Person;
 import domain.Tree;
+import domain.enums.Event;
 import domain.enums.Gender;
 import domain.enums.PersonAdd;
 import exception.CannotDeletePersonsWithChidrenException;
@@ -12,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +34,7 @@ public class PersonController
     public PersonController()
     {
         pc = new PersistenceController();
+        ac = new ActivityController(pc);
     }
 
     /**
@@ -49,7 +53,8 @@ public class PersonController
         Tree tree = pc.getTree(treeID);
         List<Person> persons = tree.getPersons();
         List<Person> children = new ArrayList<Person>();
-
+        Date date = new Date();
+        Activity act = new Activity(Event.ADDPER, getPerson(treeID, personID).getFirstName() + " " + getPerson(treeID, personID).getSurName(), tc.getTree(treeID).getOwner().getId(), date);
         for (Person p : persons)
         {
             if (p.getPersonId() == personID)
@@ -67,6 +72,7 @@ public class PersonController
         {
             System.out.println("[PERSON CONTROLLER] DELETING PERSON " + personID);
             pc.deletePerson(personID);
+            ac.addActivity(act);
         }
 
         logger.info("====================================================================");
