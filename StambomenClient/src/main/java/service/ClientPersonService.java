@@ -204,22 +204,12 @@ public class ClientPersonService
         Client client = ClientServiceController.getInstance().getClient();
         InputStream input = new FileInputStream(file);
         //BufferedInputStream bis = new BufferedInputStream(input);
-
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int read = 0;
-        while ((read = input.read(buffer, 0, buffer.length)) != -1)
-        {
-            bos.write(buffer, 0, read);
-        }
-        bos.flush();
-        byte[] f = bos.toByteArray();
-
-        Response response = client.target(url + "person/import/gedcom/" + userid).request(MediaType.APPLICATION_JSON).post(Entity.entity(f, MediaType.APPLICATION_OCTET_STREAM_TYPE));
+        Response response = client.target(url + "person/import/gedcom/" + userid).request(MediaType.APPLICATION_JSON).post(Entity.entity(input, MediaType.APPLICATION_OCTET_STREAM_TYPE));
         if (response.getStatus() != 200)
         {
-            System.out.println("Error occured" + response.toString() + "  " + response.readEntity(String.class));
-            return " " + response.readEntity(String.class);
+            String resp = response.readEntity(String.class);
+            System.out.println("Error occured" + response.toString() + "  " + resp);
+            return " " + resp;
         }
         return null;
     }
