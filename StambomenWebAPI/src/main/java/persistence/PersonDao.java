@@ -261,7 +261,6 @@ public class PersonDao implements IDao<Person>
 
             logger.info("[PERSON DAO] Updating person " + prep.toString());
             prep.executeUpdate();
-            con.close();
         }
         catch (SQLException ex)
         {

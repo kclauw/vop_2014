@@ -145,17 +145,8 @@ public class PersistenceController
     public void updatePerson(int treeID, Person person)
     {
         logger.info("[PERSISTENCE CONTROLLER] Update person " + person);
-        //also change the parentRelation table!
         personDao.update(person);
-
-        if (person.getMother() != null)
-        {
-            addParentRelation(treeID, person.getMother().getPersonId(), person.getPersonId());
-        }
-        else if (person.getFather() != null)
-        {
-            addParentRelation(treeID, person.getFather().getPersonId(), person.getPersonId());
-        }
+        updatePersonRelations(treeID, person);
     }
 
     public List<User> getFriendRequest(int userID)
@@ -317,6 +308,18 @@ public class PersistenceController
     public void removeRelations(int treeID, int personID)
     {
         parentrelationDao.delete(personID, treeID);
+    }
+
+    public void updatePersonRelations(int treeID, Person person)
+    {
+        if (person.getMother() != null)
+        {
+            addParentRelation(treeID, person.getMother().getPersonId(), person.getPersonId());
+        }
+        else if (person.getFather() != null)
+        {
+            addParentRelation(treeID, person.getFather().getPersonId(), person.getPersonId());
+        }
     }
 
 }

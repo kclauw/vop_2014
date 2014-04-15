@@ -212,6 +212,8 @@ public class PersonController
         Person referencePerson = pc.getPerson(treeID, personMoveID);
 
         pc.removeRelations(treeID, personID);
+        person.setFather(null);
+        person.setMother(null);
 
         if (personAdd == PersonAdd.CHILD)
         {
@@ -237,12 +239,14 @@ public class PersonController
                 }
             }
 
-            pc.updatePerson(treeID, person);
+            pc.updatePersonRelations(treeID, person);
         }
         else if (personAdd == PersonAdd.PARENT)
         {
-            // checkParentRelations(person, referencePerson);
-            //  setParentRelation(treeID, person, referencePerson);
+            /*Person here is the person that is getting moved
+             Reference person is the 'new' child of the person moved. */
+            checkParentRelations(referencePerson, person);
+            setParentRelation(treeID, referencePerson, person);
         }
 
         return null;
@@ -270,8 +274,6 @@ public class PersonController
 
         if (parent.getGender() == Gender.FEMALE)
         {
-            child.setMother(parent);
-
             if (child.getFather() != null)
             {
                 pers = child.getFather().getChilderen(pc.getPersons(treeID));
@@ -280,21 +282,18 @@ public class PersonController
         }
         else
         {
-            child.setFather(parent);
-
             if (child.getMother() != null)
             {
                 pers = child.getMother().getChilderen(pc.getPersons(treeID));
             }
         }
-
-        pc.updatePerson(treeID, child);
-
 //check other childeren!
         if (pers.size() > 0)
         {
             for (Person p : pers)
             {
+                pc.removeRelations(treeID, p.getPersonId());
+
                 if (parent.getGender() == Gender.FEMALE)
                 {
                     p.setMother(parent);
@@ -304,8 +303,7 @@ public class PersonController
                     p.setFather(parent);
                 }
 
-                pc.updatePerson(treeID, p);
-
+                pc.updatePersonRelations(treeID, p);
             }
         }
     }

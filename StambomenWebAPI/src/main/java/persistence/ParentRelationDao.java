@@ -14,7 +14,6 @@ public class ParentRelationDao implements IDao
 {
 
     private Connection con;
-
     private final String SAVE_PARENT_RELATION = "INSERT INTO ParentRelation(TreeID,parent,child) VALUES (?,?,?)";
     private final String DELETE_PARENT_RELATION = "DELETE FROM ParentRelation WHERE child = ? AND treeID = ?";
 
@@ -39,7 +38,6 @@ public class ParentRelationDao implements IDao
             prep.setInt(3, childId);
             logger.info("[PARENTRELATION DAO] Saving parentrelation " + prep.toString());
             prep.executeUpdate();
-            con.close();
         }
         catch (SQLException ex)
         {
@@ -75,9 +73,10 @@ public class ParentRelationDao implements IDao
 
     public void delete(int personId, int treeId)
     {
+        PreparedStatement prep = null;
+
         try
         {
-            PreparedStatement prep = null;
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(DELETE_PARENT_RELATION);
             prep.setInt(1, personId);
@@ -88,6 +87,18 @@ public class ParentRelationDao implements IDao
         catch (Exception ex)
         {
             java.util.logging.Logger.getLogger(ParentRelationDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
