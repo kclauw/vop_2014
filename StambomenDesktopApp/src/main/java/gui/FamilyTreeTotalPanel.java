@@ -216,4 +216,9 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         });
     }
 
+    public void movePerson(PersonAddDTO personAddDTO, int personId, int personMoveID)
+    {
+        treeController.movePerson(personAddDTO, personId, personMoveID);
+    }
+
 }

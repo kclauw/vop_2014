@@ -264,12 +264,7 @@ public class TreeDao implements IDao<Tree>
 
             Privacy priv = Privacy.getPrivacy(privacy);
             User user = per.getUser(ownerID);
-            //        List<Person> pers = per.getPersons(id);
-            //         System.out.println(pers);
-
-            /*We halen nu de tree in zijn gehelen niet meer op!*/
             tree = new Tree(id, user, priv, name, null);
-            System.out.println(tree);
         }
         catch (SQLException ex)
         {

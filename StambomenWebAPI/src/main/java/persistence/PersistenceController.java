@@ -8,14 +8,11 @@ import domain.Theme;
 import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
-import domain.enums.Event;
 import domain.enums.Language;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.ResultSet;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,16 +20,16 @@ import org.slf4j.LoggerFactory;
 public class PersistenceController
 {
 
-    private UserDao userDao;
-    private TreeDao treeDao;
-    private PersonDao personDao;
-    private ThemeDao themeDao;
-    private GoogleGeoDao googlegeoDao;
-    private PlaceDao placeDao;
-    private PersonTreeDao persontreeDao;
-    private ParentRelationDao parentrelationDao;
-    private ImageDao imageDao;
-    private ActivityDao activityDao;
+    private final UserDao userDao;
+    private final TreeDao treeDao;
+    private final PersonDao personDao;
+    private final ThemeDao themeDao;
+    private final GoogleGeoDao googlegeoDao;
+    private final PlaceDao placeDao;
+    private final PersonTreeDao persontreeDao;
+    private final ParentRelationDao parentrelationDao;
+    private final ImageDao imageDao;
+    private final ActivityDao activityDao;
 
     private final Logger logger;
 
@@ -47,9 +44,8 @@ public class PersistenceController
         persontreeDao = new PersonTreeDao(this);
         parentrelationDao = new ParentRelationDao(this);
         imageDao = new ImageDao(this);
-        activityDao = new ActivityDao();
+        activityDao = new ActivityDao(this);
         logger = LoggerFactory.getLogger(getClass());
-
     }
 
     public void addUser(User user)
@@ -118,7 +114,7 @@ public class PersistenceController
 
     public List<Tree> getTrees(int userId)
     {
-        logger.info("[PERSISTENCE CONTROLLER] Get trees from user " + userId);
+        logger.debug("[PERSISTENCE CONTROLLER] Get trees from user " + userId);
         return treeDao.getAll(userId);
     }
 
@@ -309,12 +305,18 @@ public class PersistenceController
 
     public void addActivity(Activity act)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Add Activity " + act.toString());
         activityDao.addActivity(act);
     }
 
     public Theme getTheme(int themeID)
     {
         return themeDao.get(themeID);
+    }
+
+    public void removeRelations(int treeID, int personID)
+    {
+        parentrelationDao.delete(personID, treeID);
     }
 
 }

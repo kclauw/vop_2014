@@ -52,6 +52,21 @@ public class ClientPersonService
         return null;
     }
 
+    public String movePerson(int treeID, PersonAddDTO personAdd, int personID, int personMoveID)
+    {
+        Client client = ClientServiceController.getInstance().getClient();
+        Response response = client.target(url + "person/" + treeID + "/" + personAdd.getId() + "/" + personID + "/" + personMoveID).request(MediaType.APPLICATION_JSON).get();
+
+        if (response.getStatus() != 200)
+        {
+            String resp = response.readEntity(String.class);
+            System.out.println("[CLIENT PERSON SERVICE] MOVE ERROR :" + resp);
+            return " " + resp;
+        }
+
+        return null;
+    }
+
     public String updatePerson(int treeID, PersonDTO person)
     {
         logger.info("[CLIENT PERSON SERVICE][UPDATE PERSON]:" + person.toString());
@@ -59,9 +74,7 @@ public class ClientPersonService
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(person);
-        System.out.println("JSON:" + json);
         Response response = client.target(url + "person/update/" + treeID).request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
-        System.out.println("[CLIENT PERSON SERVICE] UPDATING PERSON " + person.toString());
 
         if (response.getStatus() != 200)
         {

@@ -10,7 +10,6 @@ import java.awt.Image;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import service.ClientPersonController;
-import service.ClientPersonService;
 import service.ClientTreeController;
 
 public class TreeController implements IPanelController
@@ -21,14 +20,11 @@ public class TreeController implements IPanelController
     private TreeDTO tree;
     private ClientTreeController clientTreeController;
     private ClientPersonController clientPersonController;
-    private ClientPersonService clientPersonService;
 
     public TreeController(GuiController guiController)
     {
         this.gui = guiController;
-
         this.clientTreeController = new ClientTreeController();
-        this.clientPersonService = new ClientPersonService();
         this.clientPersonController = new ClientPersonController();
     }
 
@@ -155,6 +151,22 @@ public class TreeController implements IPanelController
         {
             updateView();
         }
+    }
+
+    public void movePerson(PersonAddDTO personAddDTO, int personId, int personMoveID)
+    {
+        String res = clientPersonController.movePerson(tree.getId(), personAddDTO, personId, personMoveID);
+
+        if (res != null)
+        {
+            JOptionPane.showMessageDialog(null, res);
+        }
+
+        if (res == null)
+        {
+            updateView();
+        }
+
     }
 
 }

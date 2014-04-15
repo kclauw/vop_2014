@@ -28,9 +28,8 @@ public class ClientTreeController
         logger.info("[CLIENT TREE CONTROLLER][GET TREES]Get trees with id: " + i);
         if (i == -1)
         {
-
+            System.out.println("ClienTreeController :  " + i);
             return client.getTrees(ClientServiceController.getInstance().getUser().getId());
-
         }
         else
         {
