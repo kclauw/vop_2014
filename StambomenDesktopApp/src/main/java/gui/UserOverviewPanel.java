@@ -43,13 +43,14 @@ public class UserOverviewPanel extends javax.swing.JPanel
     private ClientUserController clientUserController;
     private TreeOverviewController treeoverviewController;
     private TreeController treeController;
+    private UserDetailPanel userDetailpanel;
 
     public UserOverviewPanel()
     {
 
         initComponents();
         this.userController = new ClientUserController();
-
+        this.userDetailpanel = new UserDetailPanel();
         users = userController.getUsers();
 
         //create table
@@ -57,7 +58,18 @@ public class UserOverviewPanel extends javax.swing.JPanel
         sorter = new TableRowSorter<UserTableModel>(model);
         final JTable table = new JTable(model);
         table.setRowSorter(sorter);
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener()
+        {
+            public void valueChanged(ListSelectionEvent event)
+            {
+                int selectedRow = table.getSelectedRow();
+                selectedRow = table.convertRowIndexToModel(selectedRow);
+                UserDTO user = (UserDTO) table.getModel().getValueAt(selectedRow, 3);
+                System.out.println(user);
+                userDetailpanel.setUser(user);
 
+            }
+        });
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -137,7 +149,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
 
         filter.add(l1);
         filter.add(filterText);
-
+        form.add(userDetailpanel);
         form.add(filter);
         form.add(btnBlock);
         form.add(btnUser);
@@ -204,5 +216,15 @@ public class UserOverviewPanel extends javax.swing.JPanel
     public void setUserOverviewController(UserOverviewController u)
     {
         this.useroverviewController = u;
+    }
+
+    void deleteUser(UserDTO user)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void updateUser(UserDTO user)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

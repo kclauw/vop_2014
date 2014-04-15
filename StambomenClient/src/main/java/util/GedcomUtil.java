@@ -9,6 +9,7 @@ import dto.GenderDTO;
 import dto.PersonAddDTO;
 import dto.PersonDTO;
 import dto.PlaceDTO;
+import dto.PrivacyDTO;
 import dto.TreeDTO;
 import java.io.IOException;
 import java.text.ParseException;
@@ -48,164 +49,182 @@ public class GedcomUtil
     private static int individualCounter;
     private static int userid;
     private static List<TreeDTO> trees;
-    
-    
-    
-    
-    
+    private static int treeid;
 
-        
     public static void addGedcom(String file) throws GedcomWriterException, ParseException
     {
-     
-            String[] temp = new String[1];
-            String firstname = null;
-            String surname = null;
-            ClientPersonController personController = null;
-            ClientTreeController treeController = new ClientTreeController();
-            TreeDTO tree;
+
+        String[] temp = new String[1];
+        String firstname = null;
+        String surname = null;
+        ClientPersonController personController = new ClientPersonController();
+        ClientTreeController treeController = new ClientTreeController();
+        TreeDTO tree;
         try
         {
             GedcomParser gp = new GedcomParser();
             tree = new TreeDTO();
             System.out.println(file);
             gp.load(file);
-           
+
             Gedcom g = gp.gedcom;
             tree.setName(g.header.fileName.toString());
-            System.out.println("Make Tree : " + g.header.fileName.toString());
-            treeController.makeTree(tree);
-            
-            trees = treeController.getTrees(userid);
-            int treeid = trees.get(0).getId();
-            System.out.println("GEDCOM TREE ID : " + treeid);
-        
-          SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
-          SimpleDateFormat parser = new SimpleDateFormat("dd MM yyyy");
-          Date birthdate = null,deathdate = null;
-          String output1,output2;
-             for (Individual i : g.individuals.values()){
-                  if (i.formattedName() != null)
-                    {
-                        temp = i.formattedName().split("/"); 
-                        firstname = temp[0];
-                        try{
-                        surname = temp[1];}
-                        catch (IndexOutOfBoundsException E){
-                        surname = "Unknown";
-                        }
-                        
-                        try{
-                        birthdate = parser.parse(i.events.get(0).date.toString());
-                        output1 = formatter.format(birthdate);
-                        }
-                        catch(IndexOutOfBoundsException e){
-                          output1 = "";
-                        }
+            tree.setPrivacy(PrivacyDTO.PUBLIC);
+            System.out.println("Make Tree : " + "Gedcomtest");
 
-                        try{
-                         deathdate = parser.parse(i.events.get(1).date.toString());
-                         output2 = formatter.format(deathdate);
-                        }
-                        catch(IndexOutOfBoundsException e){
-                          output2 = "";
-                        }
-                       
-                        System.out.println("Individual :" + firstname + " " +  surname + " birthdate : " + output1 + " deathdate : "+ output2 );
-                    }  
-                    
-                 PersonDTO person;
-                 GenderDTO gender;
-                 if(i.sex.toString().equals("M")){
-                     gender = GenderDTO.MALE;
-                 }else{
-                     gender = GenderDTO.FEMALE;
-                 }
-                             
-                 PersonDTO.PersonDTOBuilder p = new PersonDTO.PersonDTOBuilder(firstname,surname,gender);
-                
-                 p.birthDate(birthdate);
-                 p.deathDate(deathdate);
-                 p.place(new PlaceDTO.PlaceDTOBuilder(null)
-                .placeId(-1)
-                .countryId(-1)
-                .placeNameId(-1)
-                .coord(null)
-                .country(null)
-                .zipCode(null)
-                .build());
-                 person = new PersonDTO(p);
-                 personController.savePerson(treeid, PersonAddDTO.CHILD, person, treeid);
+            System.out.println("TREE MADE " + treeController.makeTree(tree));
+            trees = treeController.getTrees(userid);
+            treeid = trees.get(0).getId();
+            System.out.println("GEDCOM TREE ID : " + treeid);
+
+            SimpleDateFormat formatter = new SimpleDateFormat("dd mm yyyy");
+
+            Date birthdate = null, deathdate = null;
+            String output1, output2;
+
+            for (Individual i : g.individuals.values())
+            {
+
+                if (i.formattedName() != null)
+                {
+                    temp = i.formattedName().split("/");
+                    firstname = temp[0];
+                    try
+                    {
+                        surname = temp[1];
+                    }
+                    catch (IndexOutOfBoundsException E)
+                    {
+                        surname = "Unknown";
+                    }
+
+                    try
+                    {
+                        //  birthdate = formatter.parse(i.events.get(0).date.toString());
+
+                    }
+                    catch (IndexOutOfBoundsException e)
+                    {
+                        birthdate = null;
+                    }
+
+                    try
+                    {
+                        //   deathdate = formatter.parse(i.events.get(1).date.toString());
+
+                    }
+                    catch (IndexOutOfBoundsException e)
+                    {
+                        deathdate = null;
+                    }
+
+                    System.out.println("Individual :" + firstname + " " + surname + " birthdate : " + birthdate + " deathdate : " + deathdate);
+                }
+
+                PersonDTO person;
+                GenderDTO gender;
+                if (i.sex.toString().equals("M"))
+                {
+                    gender = GenderDTO.MALE;
+                }
+                else
+                {
+                    gender = GenderDTO.FEMALE;
+                }
+
+                PersonDTO p = new PersonDTO.PersonDTOBuilder(firstname, surname, gender).build();
+                p.setBirthDate(birthdate);
+                p.setDeathDate(deathdate);
+                p.setPlace(new PlaceDTO.PlaceDTOBuilder("test")
+                        .placeId(-1)
+                        .countryId(-1)
+                        .placeNameId(-1)
+                        .coord(null)
+                        .country(null)
+                        .zipCode(null)
+                        .build());
+
+                personController.savePerson(treeid, PersonAddDTO.CHILD, p, treeid);
             };
-            
+            List<PersonDTO> personstree = personController.getPersonsByTree(treeid);
 
             for (Individual i : g.individuals.values())
             {
                 System.out.println("Child : " + i.formattedName());
                 System.out.println("Sex  : " + i.sex.toString());
-                
                 for (FamilyChild f : i.familiesWhereChild)
                 {
                     if (f.family.husband != null)
                     {
-                        temp = f.family.husband.formattedName().split("/"); 
+                        temp = f.family.husband.formattedName().split("/");
+
                         firstname = temp[0];
-                        try{
-                        surname = temp[1];}
-                        catch (IndexOutOfBoundsException E){
-                        System.out.println("Dad :" + firstname + " Unkown");    
+                        try
+                        {
+                            surname = temp[1];
                         }
-                        System.out.println("Dad :" + firstname + " " +  surname);      
-                    }   
-                    
-                    
-                    if (f.family.wife != null){
-                        temp = f.family.wife.formattedName().split("/"); 
-                        firstname = temp[0];
-                        try{
-                        surname = temp[1];}
-                        catch (IndexOutOfBoundsException E){
-                        System.out.println("Mom :" + firstname + " Unkown");    
+                        catch (IndexOutOfBoundsException E)
+                        {
+                            System.out.println("Dad :" + firstname + "Unkn own" + " ID : " + f.family.husband.recIdNumber.value.toString());
+
                         }
-                        System.out.println("Mom :" + firstname + " " +  surname);     
-                 
+                        System.out.println("Dad :" + firstname + " " + surname + " ID : " + f.family.husband.recIdNumber.value.toString());
+
                     }
 
+                    if (f.family.wife != null)
+                    {
+                        temp = f.family.wife.formattedName().split("/");
+                        firstname = temp[0];
+                        try
+                        {
+                            surname = temp[1];
+                        }
+                        catch (IndexOutOfBoundsException E)
+                        {
+                            System.out.println("Mom :" + firstname + " Unkown" + " ID : " + f.family.wife.recIdNumber.value.toString());
+                        }
+                        System.out.println("Mom :" + firstname + " " + surname + " ID : " + f.family.wife.recIdNumber.value.toString());
+
+                    }
 
                 }
-               
+
                 for (FamilySpouse s : i.familiesWhereSpouse)
                 {
                     if (s.family.husband != null && !s.family.husband.formattedName().equals(i.formattedName()))
                     {
                         temp = s.family.husband.formattedName().split("/");
                         firstname = temp[0];
-                        try{
-                        surname = temp[1];}
-                        catch (IndexOutOfBoundsException E){
-                        System.out.println("Wife of  :" + firstname + " Unkown");    
+                        try
+                        {
+                            surname = temp[1];
                         }
-                        System.out.println("Wife of :" + firstname + " " +  surname);     
-                        
+                        catch (IndexOutOfBoundsException E)
+                        {
+                            System.out.println("Wife of  :" + firstname + " Unkown");
+                        }
+                        System.out.println("Wife of :" + firstname + " " + surname);
+
                     }
                     if (s.family.wife != null && !s.family.wife.formattedName().equals(i.formattedName()))
                     {
                         temp = s.family.wife.formattedName().split("/");
                         firstname = temp[0];
-                        try{
-                        surname = temp[1];}
-                        catch (IndexOutOfBoundsException E){
-                        System.out.println("Husband of  :" + firstname + " Unkown");    
+                        try
+                        {
+                            surname = temp[1];
                         }
-                        System.out.println("Husband of :" + firstname + " " +  surname); 
+                        catch (IndexOutOfBoundsException E)
+                        {
+                            System.out.println("Husband of  :" + firstname + " Unkown");
+                        }
+                        System.out.println("Husband of :" + firstname + " " + surname);
                     }
                 }
-                System.out.println(" "); 
+                System.out.println(" ");
             }
-            for (Family i : g.families.values()){
-                
-                
-            }
+
         }
         catch (IOException ex)
         {
@@ -216,7 +235,7 @@ public class GedcomUtil
             Logger.getLogger(GedcomUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static void Create() throws GedcomWriterException
     {
         Gedcom g = new Gedcom();
