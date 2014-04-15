@@ -61,5 +61,9 @@ public class ClientPersonController
     {
         return clientPersonService.getPersonsBySearch(firstname, lastname);
     }
+    public List<PersonDTO> getPersonsByTree(int treeid)
+    {
+        return clientPersonService.getPersonByTree(treeid);
+    }
 
 }
