@@ -305,6 +305,7 @@ public class PersistenceController
 
     public void addActivity(Activity act)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Add Activity " + act.toString());
         activityDao.addActivity(act);
     }
 

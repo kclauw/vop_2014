@@ -18,6 +18,7 @@ public class ActivityController
 
     public void addActivity(Activity act)
     {
+        logger.info("[ACTIVITY CONTROLLER] ADD ACTIVITY");
         pc.addActivity(act);
     }
 }
