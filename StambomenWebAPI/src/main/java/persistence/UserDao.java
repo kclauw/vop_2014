@@ -730,26 +730,26 @@ public class UserDao implements IDao<User>
         return language;
     }
 
-    public User getUserProfile(int userProfileID, Privacy userPrivacy)
+    public User getUserProfile(int userID, Privacy userPrivacy)
     {
         PreparedStatement prep = null;
         ResultSet res = null;
-        User userProfile = null;
+        User user = null;
 
         try
         {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(GETUSERPROFILE);
 
-            prep.setInt(1, userProfileID);
+            prep.setInt(1, userID);
             prep.setInt(2, userPrivacy.getPrivacyId());
             res = prep.executeQuery();
 
             while (res.next())
             {
-                userProfile = map(res);
+                user = map(res);
             }
-            userProfile.clearPassword();
+            user.clearPassword();
 
             con.close();
         }
@@ -775,21 +775,21 @@ public class UserDao implements IDao<User>
                 ex.printStackTrace();
             }
         }
-        return userProfile;
+        return user;
     }
 
-    public List<User> getUserProfiles(int userProfileID, Privacy userPrivacy)
+    public List<User> getUserProfiles(int userID, Privacy userPrivacy)
     {
         PreparedStatement prep = null;
         ResultSet res = null;
-        List<User> userProfiles = new ArrayList<User>();
+        List<User> users = new ArrayList<User>();
 
         try
         {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(GETUSERPROFILES);
 
-            prep.setInt(1, userProfileID);
+            prep.setInt(1, userID);
             prep.setInt(2, userPrivacy.getPrivacyId());
             res = prep.executeQuery();
 
@@ -799,7 +799,7 @@ public class UserDao implements IDao<User>
                 user = map(res);
                 user.clearPassword();
 
-                userProfiles.add(user);
+                users.add(user);
             }
 
             con.close();
@@ -826,7 +826,7 @@ public class UserDao implements IDao<User>
                 ex.printStackTrace();
             }
         }
-        return userProfiles;
+        return users;
     }
 
     public void block(int userid, Boolean value)

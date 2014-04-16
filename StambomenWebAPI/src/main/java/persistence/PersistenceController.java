@@ -214,20 +214,20 @@ public class PersistenceController
         return privacy;
     }
 
-    public User getUserProfile(int userProfileID, Privacy userPrivacy)
+    public User getUserProfile(int userID, Privacy userPrivacy)
     {
-        logger.info("[PERSISTENCE CONTROLLER] Get User profile" + userProfileID);
-        User userProfile = userDao.getUserProfile(userProfileID, userPrivacy);
+        logger.info("[PERSISTENCE CONTROLLER] Get User profile" + userID);
+        User user = userDao.getUserProfile(userID, userPrivacy);
 
-        return userProfile;
+        return user;
     }
 
-    public List<User> getUserProfiles(int userProfileID, Privacy userPrivacy)
+    public List<User> getUserProfiles(int userID, Privacy userPrivacy)
     {
-        logger.info("[PERSISTENCE CONTROLLER] Get User profiles" + userProfileID);
-        List<User> userProfiles = userDao.getUserProfiles(userProfileID, userPrivacy);
+        logger.info("[PERSISTENCE CONTROLLER] Get User profiles" + userID);
+        List<User> users = userDao.getUserProfiles(userID, userPrivacy);
 
-        return userProfiles;
+        return users;
     }
 
     public void deletePersonImage(int treeID, int personID)

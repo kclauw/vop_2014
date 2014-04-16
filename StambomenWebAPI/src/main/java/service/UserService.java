@@ -242,17 +242,17 @@ public class UserService
     }
 
     @GET
-    @Path("/get/profile/getPublicUserProfile/{userProfileID}")
+    @Path("/get/profile/getPublicUserProfile/{userID}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPublicUserProfile(@PathParam("userProfileID") int userProfileID)
+    public Response getPublicUserProfile(@PathParam("userID") int userID)
     {
         Privacy userPrivacy = Privacy.PUBLIC;
         Response rp = null;
         try
         {
-            User userProfile = uc.getUserProfile(userProfileID, userPrivacy);
+            User user = uc.getUserProfile(userID, userPrivacy);
 
-            rp = Response.ok(userProfile).build();
+            rp = Response.ok(user).build();
         }
         catch (Exception ex)
         {
@@ -271,9 +271,9 @@ public class UserService
         Response rp;
         try
         {
-            List<User> userProfiles = uc.getUserProfiles(userID, userPrivacy);
+            List<User> user = uc.getUserProfiles(userID, userPrivacy);
 
-            rp = Response.ok(userProfiles).build();
+            rp = Response.ok(user).build();
         }
         catch (Exception ex)
         {
