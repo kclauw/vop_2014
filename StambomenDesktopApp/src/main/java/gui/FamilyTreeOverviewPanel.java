@@ -15,6 +15,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import org.gedcom4j.writer.GedcomWriterException;
 import org.openide.util.Exceptions;
+import service.ClientGedcomController;
 import service.ClientPersonController;
 import util.Translator;
 
@@ -85,10 +86,10 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                     file = fc.getSelectedFile();
                     System.out.println("Opening: " + file.getName());
 
-                    ClientPersonController personController = new ClientPersonController();
+                    ClientGedcomController gedcomController = new ClientGedcomController();
                     try
                     {
-                        personController.importGedcom(treeController.getUserid(), file);
+                        gedcomController.importGedcom(treeController.getUserid(), file);
                     }
                     catch (FileNotFoundException ex)
                     {

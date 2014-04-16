@@ -199,18 +199,4 @@ public class ClientPersonService
         return persons;
     }
 
-    public String importGedcom(int userid, File file) throws FileNotFoundException, IOException
-    {
-        Client client = ClientServiceController.getInstance().getClient();
-        InputStream input = new FileInputStream(file);
-        //BufferedInputStream bis = new BufferedInputStream(input);
-        Response response = client.target(url + "person/import/gedcom/" + userid).request(MediaType.APPLICATION_JSON).post(Entity.entity(input, MediaType.APPLICATION_OCTET_STREAM_TYPE));
-        if (response.getStatus() != 200)
-        {
-            String resp = response.readEntity(String.class);
-            System.out.println("Error occured" + response.toString() + "  " + resp);
-            return " " + resp;
-        }
-        return null;
-    }
 }

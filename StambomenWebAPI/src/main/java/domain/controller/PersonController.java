@@ -308,10 +308,4 @@ public class PersonController
         }
     }
 
-    public void importGedcom(int userID, InputStream input) throws IOException, GedcomParserException
-    {
-        GedcomController gc = new GedcomController(this);
-        gc.importGedcom(userID, input);
-    }
-
 }

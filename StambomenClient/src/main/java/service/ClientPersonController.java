@@ -65,11 +65,6 @@ public class ClientPersonController
         return clientPersonService.getPersonsBySearch(firstname, lastname);
     }
 
-    public String importGedcom(int userid, File file) throws FileNotFoundException, IOException
-    {
-        return clientPersonService.importGedcom(userid, file);
-    }
-
     public String movePerson(int treeID, PersonAddDTO personAdd, int personID, int personMoveID)
     {
         return clientPersonService.movePerson(treeID, personAdd, personID, personMoveID);

@@ -111,30 +111,6 @@ public class PersonService
     }
 
     @POST
-    @Path("/import/gedcom/{userID}")
-    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response importGedcom(@PathParam("userID") int userID, InputStream inp)
-    {
-        try
-        {
-            String result = "Importing new Gedcom for user " + userID;
-            pc.importGedcom(userID, inp);
-            return Response.status(Response.Status.OK).entity(result).build();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
-        }
-        catch (GedcomParserException e)
-        {
-            e.printStackTrace();
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
-        }
-    }
-
-    @POST
     @Path("/upload/image/{treeID}/{personID}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     public Response saveImage(@PathParam("personID") int personID, @PathParam("treeID") int treeID, InputStream bufferedImage)
