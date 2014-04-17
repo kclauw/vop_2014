@@ -3,17 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gui;
 
 import gui.controller.RegisterController;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author Lowie
  */
-public class RegisterPanel extends javax.swing.JPanel {
-
+public class RegisterPanel extends javax.swing.JPanel
+{
 
     private RegisterController reg;
 
@@ -26,7 +36,7 @@ public class RegisterPanel extends javax.swing.JPanel {
     {
         this.reg = reg;
     }
-    
+
     public void setError(String error)
     {
         lblError.setText(error);
@@ -51,6 +61,7 @@ public class RegisterPanel extends javax.swing.JPanel {
         btnRegister = new javax.swing.JButton();
         txtPasswordConfirm = new gui.controls.CustomFormField();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnLogin = new javax.swing.JButton();
 
@@ -125,6 +136,19 @@ public class RegisterPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 0.1;
         jPanel1.add(filler3, gridBagConstraints);
 
+        jButton1.setText("FB register");
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        jPanel1.add(jButton1, gridBagConstraints);
+
         add(jPanel1);
 
         btnLogin.setText("Login");
@@ -141,7 +165,7 @@ public class RegisterPanel extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(243, Short.MAX_VALUE)
+                .addContainerGap(102, Short.MAX_VALUE)
                 .addComponent(btnLogin)
                 .addContainerGap())
         );
@@ -164,12 +188,60 @@ public class RegisterPanel extends javax.swing.JPanel {
         reg.goTo(Panels.LOGIN);
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                new JFXPanel();
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        final Stage stage = new Stage();
+                        stage.setTitle("Faceboook Login");
+                        WebView browser = new WebView();
+                        final WebEngine webEngine = browser.getEngine();
+                        webEngine.getLoadWorker().stateProperty().addListener(
+                                new ChangeListener<Worker.State>()
+                                {
+                                    public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState)
+                                    {
+                                        if (newState == Worker.State.SUCCEEDED)
+                                        {
+                                            String url = webEngine.getLocation();
+
+                                            System.out.println("URL :" + url);
+
+                                            if (url.contains("https://www.facebook.com/connect/login_success.html#"))
+                                            {
+                                                String authCode = url.replace("https://www.facebook.com/connect/login_success.html#access_token=", "");
+                                                System.out.println("[AUTH CODE] " + authCode);
+                                                reg.registerWithFB(authCode);
+                                            }
+                                        }
+                                    }
+                                });
+                        Scene scene = new Scene(browser, 750, 500, Color.web("#666970"));
+                        stage.setScene(scene);
+                        webEngine.load("https://www.facebook.com/dialog/oauth?client_id=225842214289570&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=basic_info,email,user_location,user_hometown,user_birthday");
+                        stage.show();
+                    }
+                });
+            }
+        });
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnRegister;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler3;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblError;

@@ -291,9 +291,12 @@ public class LoginPanel extends javax.swing.JPanel
                                         {
                                             String url = webEngine.getLocation();
 
-                                            if (url.contains("login_succes"))
+                                            System.out.println("URL :" + url);
+
+                                            if (url.contains("https://www.facebook.com/connect/login_success.html#"))
                                             {
-                                                String authCode = url.replace("https://www.facebook.com/connect/login_success.html?code=", "");
+                                                String authCode = url.replace("https://www.facebook.com/connect/login_success.html#access_token=", "");
+                                                System.out.println("[AUTH CODE] " + authCode);
                                                 loginPanel.setFBAuthCode(authCode);
                                             }
                                         }
@@ -301,9 +304,8 @@ public class LoginPanel extends javax.swing.JPanel
                                 });
                         Scene scene = new Scene(browser, 750, 500, Color.web("#666970"));
                         stage.setScene(scene);
-                        webEngine.load("https://www.facebook.com/dialog/oauth?client_id=225842214289570&redirect_uri=https://www.facebook.com/connect/login_success.html");
+                        webEngine.load("https://www.facebook.com/dialog/oauth?client_id=225842214289570&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=basic_info,email,user_location,user_hometown,user_birthday");
                         stage.show();
-                        //get the accestoke // access_token
                     }
                 });
             }

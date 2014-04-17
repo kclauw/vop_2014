@@ -6,6 +6,7 @@ import gui.Panels;
 import gui.RegisterPanel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import service.ClientFacebookController;
 import service.ClientUserController;
 
 public class RegisterController implements IPanelController
@@ -13,6 +14,7 @@ public class RegisterController implements IPanelController
 
     private RegisterPanel registerPanel;
     private ClientUserController uc;
+    private ClientFacebookController cfbc;
     private GuiController gui;
 
     public RegisterController(GuiController gui)
@@ -55,4 +57,8 @@ public class RegisterController implements IPanelController
         gui.goTo(frame);
     }
 
+    public void registerWithFB(String authCode)
+    {
+        this.cfbc.registerWithFB(authCode);
+    }
 }
