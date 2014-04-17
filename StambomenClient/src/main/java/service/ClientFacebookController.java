@@ -12,10 +12,13 @@ public class ClientFacebookController
 
     public void verify(String code)
     {
-        if (code != null)
-        {
-            clientFacebook.verify(code);
-        }
+        System.out.println("CLIENT FB CONTROLLER");
+        clientFacebook.verify(code);
+    }
+
+    public void registerWithFB(String authCode)
+    {
+        clientFacebook.registerWithFB(authCode);
     }
 
 }

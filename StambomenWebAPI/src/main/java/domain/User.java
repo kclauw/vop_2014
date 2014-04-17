@@ -23,6 +23,7 @@ public class User
     private final int MAX_SIZE_USERNAME = 50;
     private final int MAX_SIZE_PASSWORD = 50;
     private final int MIN_SIZE_PASSWORD = 8;
+    private String facebookProfileID;
 
     public User()
     {
@@ -58,6 +59,16 @@ public class User
         setUserSettings(userSettings);
         setRole(role);
         setBlock(block);
+    }
+
+    public String getFacebookProfileID()
+    {
+        return facebookProfileID;
+    }
+
+    public void setFacebookProfileID(String facebookProfileID)
+    {
+        this.facebookProfileID = facebookProfileID;
     }
 
     public int getId()

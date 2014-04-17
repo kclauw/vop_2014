@@ -17,4 +17,9 @@ public class FacebookController
         return fe.verify(code);
     }
 
+    public void registerWithFB(String authCode)
+    {
+        fe.register(authCode);
+    }
+
 }
