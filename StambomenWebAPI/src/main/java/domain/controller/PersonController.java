@@ -279,17 +279,31 @@ public class PersonController
     private void setParentRelation(int treeID, Person child, Person parent, List<Person> persons)
     {
         List<Person> pers = new ArrayList<Person>();
-        Person partner = parent.getPartner(persons);
+        Person partner = null;
 
-        if (partner != null)
+        if (parent.getGender() == Gender.FEMALE)
         {
-            pers = partner.getChilderen(persons);
+            if (child.getFather() != null)
+            {
+                pers = child.getFather().getChilderen(pc.getPersons(treeID));
+                partner = child.getFather();
+            }
+        }
+        else
+        {
+            if (child.getMother() != null)
+            {
+                pers = child.getMother().getChilderen(pc.getPersons(treeID));
+                partner = child.getMother();
+            }
         }
 //check other childeren!
         if (pers.size() > 0)
         {
             for (Person p : pers)
             {
+                p.setFather(null);
+                p.setMother(null);
                 pc.removeRelations(treeID, p.getPersonId());
 
                 if (parent.getGender() == Gender.FEMALE)
