@@ -9,6 +9,8 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.IdentityHashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import org.gedcom4j.model.Gedcom;
 import org.gedcom4j.model.Individual;
@@ -50,6 +52,9 @@ public class GedcomController
         String firstname = null;
         String surname = null;
         Date birthdate = null, deathdate = null;
+        Map persons = new IdentityHashMap();
+        
+
         for (Individual i : g.individuals.values())
         {
             if (i.formattedName() != null)
@@ -101,11 +106,14 @@ public class GedcomController
                     .picture(null)
                     .build();
                 personid = pc.addPerson(tree.getId(), PersonAdd.CHILD, person, user.getId());
+                
+                persons.put(i.recIdNumber.value.toString(), personid);
                 System.out.println("Person :" + firstname + " " + surname + " birthdate : " + birthdate + " deathdate : " + deathdate);
-            }
+            }    
         }
-       
+        
+        System.out.println("Person size :: " +  persons.keySet().size());
+        
 
-    }
-
+}
 }
