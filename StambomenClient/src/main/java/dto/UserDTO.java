@@ -9,6 +9,7 @@ public class UserDTO implements java.io.Serializable
     private UserSettingsDTO userSettings;
     private String role;
     private Boolean block;
+    private String facebookProfileID;
 
     public UserDTO()
     {
@@ -39,6 +40,16 @@ public class UserDTO implements java.io.Serializable
         this.userSettings = userSettings;
         this.role = role;
         this.block = block;
+    }
+
+    public String getFacebookProfileID()
+    {
+        return facebookProfileID;
+    }
+
+    public void setFacebookProfileID(String facebookProfileID)
+    {
+        this.facebookProfileID = facebookProfileID;
     }
 
     public UserDTO(int id, String username)
