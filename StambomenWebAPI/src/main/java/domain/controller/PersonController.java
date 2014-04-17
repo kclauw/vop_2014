@@ -54,8 +54,8 @@ public class PersonController
         Tree tree = pc.getTree(treeID);
         List<Person> persons = tree.getPersons();
         List<Person> children = new ArrayList<Person>();
-        Date date = new Date();
-        Activity act = new Activity(Event.ADDPER, getPerson(treeID, personID).getFirstName() + " " + getPerson(treeID, personID).getSurName(), tc.getTree(treeID).getOwner().getId(), date);
+        //Date date = new Date();
+        Activity act = new Activity(Event.DELPER, getPerson(treeID, personID).getFirstName() + " " + getPerson(treeID, personID).getSurName(), tc.getTree(treeID).getOwner().getId(), null);
         for (Person p : persons)
         {
             if (p.getPersonId() == personID)
@@ -81,8 +81,10 @@ public class PersonController
 
     public void updatePerson(int treeID, Person person)
     {
+        Activity act = new Activity(Event.DELPER, person.getFirstName() + " " + person.getSurName(), treeID, null);
         logger.info("[PERSON CONTROLLER] Updating person " + person);
         pc.updatePerson(treeID, person);
+        ac.addActivity(act);
     }
 
     public Person getPerson(int treeID, int personID)
@@ -108,7 +110,7 @@ public class PersonController
     public int addPerson(int treeID, PersonAdd personAdd, Person person, int personLinkID)
     {
         //Date date = new Date();
-        //     Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
+        Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), null);
         System.out.println("[ADDING PERSON] " + treeID + " " + personAdd.getId() + " " + personLinkID);
         /*Check wheter the person exists. This should be place in a repo.*/
         Person ps = pc.getPerson(treeID, person.getPersonId());
@@ -125,12 +127,12 @@ public class PersonController
                 case CHILD:
                     System.out.println("ADDING CHILD");
                     id = addChild(treeID, person);
-                    //          ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
+                    ac.addActivity(act);
                     break;
                 case PARENT:
                     System.out.println("ADDING PARENT");
                     id = addParent(treeID, person, personLinkID);
-                    //            ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
+                    ac.addActivity(act);
                     break;
             }
 
@@ -140,10 +142,8 @@ public class PersonController
 
     public int addChild(int treeID, Person person)
     {
-        //   Date date = new Date();
-        //      Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
         return pc.addPerson(treeID, person);
-        //   ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
+
     }
 
     public void deletePersonImage(int treeID, int personID)
@@ -182,8 +182,6 @@ public class PersonController
      */
     private int addParent(int treeID, Person person, int personLinkID)
     {
-        //   Date date = new Date();
-        //      Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
         List<Person> pers = pc.getPersons(treeID);
         int id = pc.addPerson(treeID, person);
         Person parent = pc.getPerson(treeID, id);
