@@ -1,6 +1,8 @@
 package service;
 
 import domain.Person;
+import domain.Tree;
+import domain.User;
 import domain.controller.GedcomController;
 import domain.controller.PersonController;
 import domain.enums.PersonAdd;
@@ -32,15 +34,15 @@ public class GedcomService
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @POST
-    @Path("/import/{userID}")
+    @Path("/import/{user}/{tree}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response importGedcom(@PathParam("userID") int userID, InputStream inp) throws IOException, GedcomParserException
+    public Response importGedcom(@PathParam("user") User user,@PathParam("tree") Tree tree, InputStream inp) throws IOException, GedcomParserException
     {
 
-        String result = "Importing new Gedcom for user " + userID;
+        String result = "Importing new Gedcom for user " + user + " for tree : " + tree;
         System.out.println(result);
-        gc.importGedcom(userID, inp);
+        gc.importGedcom(user,tree, inp);
         return Response.status(Response.Status.OK).entity(result).build();
 
     }
