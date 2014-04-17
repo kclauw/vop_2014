@@ -26,6 +26,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 import service.ClientTreeController;
 import service.ClientUserController;
+import util.Translator;
 
 public class UserOverviewPanel extends javax.swing.JPanel
 {
@@ -49,6 +50,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
     {
 
         initComponents();
+        Translator trans = new Translator();
         this.userController = new ClientUserController();
         this.userDetailpanel = new UserDetailPanel();
         users = userController.getUsers();
@@ -77,15 +79,15 @@ public class UserOverviewPanel extends javax.swing.JPanel
         //items
         JScrollPane pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-        JLabel l1 = new JLabel("Filter Text:");
+        JLabel l1 = new JLabel(trans.translate("FilterText") + ":");
 
         JPanel form = new JPanel();
         JPanel filter = new JPanel();
 
         JButton btnBlock = new JButton();
-        btnBlock.setText("Block user");
+        btnBlock.setText(trans.translate("BlockUser"));
         JButton btnUser = new JButton();
-        btnUser.setText("Goto user");
+        btnUser.setText(trans.translate("GotoUser"));
 
         btnUser.addActionListener(new ActionListener()
         {

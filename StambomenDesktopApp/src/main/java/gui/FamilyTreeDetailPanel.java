@@ -59,10 +59,12 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         radioMale.setText(trans.translate("Male"));
         radioFemale.setText(trans.translate("Female"));
         btnAdd.setText(trans.translate("Add"));
+        jButton2.setText(trans.translate("AlternativeLayout"));
         btnAddPicture.setText(trans.translate("AddPicture"));
         btnDeletePicture.setText(trans.translate("DeletePicture"));
         btnDelete.setText(trans.translate("Delete"));
         btnAdd.setText(trans.translate("Add"));
+        btnMove.setText(trans.translate("Move"));
         jLabel4.setText(trans.translate("City"));
         jLabel5.setText(trans.translate("ZipCode"));
         jLabel6.setText(trans.translate("Country"));
