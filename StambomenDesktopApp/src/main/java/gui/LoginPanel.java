@@ -106,7 +106,7 @@ public class LoginPanel extends javax.swing.JPanel
         pnlLogin.add(btnLogin, gridBagConstraints);
 
         lblError.setForeground(new java.awt.Color(255, 0, 0));
-        lblError.setText("General Error");
+        lblError.setText(" ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
