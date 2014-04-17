@@ -73,9 +73,9 @@ public class LoginPanel extends javax.swing.JPanel
 
         pnlLogin.setBackground(new java.awt.Color(255, 255, 255));
         pnlLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        pnlLogin.setMaximumSize(new java.awt.Dimension(355, 320));
-        pnlLogin.setMinimumSize(new java.awt.Dimension(355, 320));
-        pnlLogin.setPreferredSize(new java.awt.Dimension(355, 320));
+        pnlLogin.setMaximumSize(new java.awt.Dimension(355, 375));
+        pnlLogin.setMinimumSize(new java.awt.Dimension(355, 375));
+        pnlLogin.setPreferredSize(new java.awt.Dimension(355, 375));
         pnlLogin.setLayout(new java.awt.GridBagLayout());
 
         txtUsername.setDefaultText("Username");
@@ -106,7 +106,7 @@ public class LoginPanel extends javax.swing.JPanel
         pnlLogin.add(btnLogin, gridBagConstraints);
 
         lblError.setForeground(new java.awt.Color(255, 0, 0));
-        lblError.setText("General Error");
+        lblError.setText(" ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;

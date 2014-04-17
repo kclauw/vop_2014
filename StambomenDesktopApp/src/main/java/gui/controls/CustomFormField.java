@@ -13,52 +13,62 @@ import javax.swing.border.Border;
  *
  * @author Lowie
  */
-public class CustomFormField extends javax.swing.JPanel {
+public class CustomFormField extends javax.swing.JPanel
+{
 
     private Border defaultBorder;
     private Border errorBorder;
-    
-    public String getTitle() {
+
+    public String getTitle()
+    {
         return lblTitle.getText();
     }
-    
-    public void setTitle(String title) {
+
+    public void setTitle(String title)
+    {
         lblTitle.setText(title);
     }
-    
-    public String getText() {
+
+    public String getText()
+    {
         return txtField.getText();
     }
-    
-    public void setText(String text) {
+
+    public void setText(String text)
+    {
         txtField.setText(text);
     }
-    
-    public String getError() {
+
+    public String getError()
+    {
         return lblError.getText();
     }
-    
-    public void setError(String error) {
+
+    public void setError(String error)
+    {
         lblError.setText(error);
-        
+
         if (error.isEmpty())
         {
             txtField.setBorder(defaultBorder);
-        } else {
+        }
+        else
+        {
             txtField.setBorder(errorBorder);
         }
     }
-    
-    
-    public CustomFormField() {
+
+    public CustomFormField()
+    {
         initComponents();
         init();
     }
 
-    private void init() {
+    private void init()
+    {
         defaultBorder = txtField.getBorder();
         errorBorder = BorderFactory.createLineBorder(Color.red);
-        
+
         setError("");
     }
 
@@ -69,7 +79,8 @@ public class CustomFormField extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         lblTitle = new javax.swing.JLabel();
@@ -77,6 +88,7 @@ public class CustomFormField extends javax.swing.JPanel {
         lblError = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(1, 0), new java.awt.Dimension(1, 0), new java.awt.Dimension(1, 32767));
 
+        setOpaque(false);
         setLayout(new java.awt.GridBagLayout());
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -88,8 +100,10 @@ public class CustomFormField extends javax.swing.JPanel {
         gridBagConstraints.weightx = 0.1;
         add(lblTitle, gridBagConstraints);
 
-        txtField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        txtField.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 txtFieldActionPerformed(evt);
             }
         });
@@ -124,7 +138,6 @@ public class CustomFormField extends javax.swing.JPanel {
     private void txtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;

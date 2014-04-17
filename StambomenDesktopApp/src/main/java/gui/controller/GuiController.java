@@ -41,8 +41,8 @@ public class GuiController
     private void init()
     {
         programFrame = new JFrame();
-        programFrame.setSize(new Dimension(800, 400));
-        programFrame.setPreferredSize(new Dimension(800, 400));
+        programFrame.setSize(new Dimension(900, 550));
+        programFrame.setPreferredSize(new Dimension(900, 550));
         programFrame.setLocationRelativeTo(null);
         programFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -109,7 +109,7 @@ public class GuiController
             case TREEOVERVIEW:
                 content = treeControllerOverviewController.show();
                 programFrame.setTitle("Tree Overview");
-                
+
                 break;
             case TREE:
                 content = treeController.show();
@@ -163,8 +163,9 @@ public class GuiController
     {
         return login;
     }
-    
-    public void setUserid(int userid){
-    this.treeControllerOverviewController.setUserid(userid);
+
+    public void setUserid(int userid)
+    {
+        this.treeControllerOverviewController.setUserid(userid);
     }
 }
