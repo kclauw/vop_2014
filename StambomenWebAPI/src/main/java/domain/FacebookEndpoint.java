@@ -3,9 +3,10 @@ package domain;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.exception.FacebookException;
+import domain.controller.UserController;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import persistence.PersistenceController;
 
 public class FacebookEndpoint
 {
@@ -13,11 +14,11 @@ public class FacebookEndpoint
     private final String APP_ID = "225842214289570";
     private final String APP_SECRET = "cae31b2f0a830c383d5132b0714bc704";
     private final String CLIENT_SECRET = "f603ec45090e12a9f7fed1c51e9f18bd";
-    private final PersistenceController persistenceController;
+    private final UserController userController;
 
     public FacebookEndpoint()
     {
-        this.persistenceController = new PersistenceController();
+        this.userController = new UserController();
     }
 
     public boolean verify(String code)
@@ -81,8 +82,9 @@ public class FacebookEndpoint
     {
         FacebookClient facebookClient = new DefaultFacebookClient(authCode, APP_SECRET);
         com.restfb.types.User user = facebookClient.fetchObject("me", com.restfb.types.User.class);
-        User newUser = new User(-1, user.getEmail(), "", null);
+        User newUser = new User(-1, user.getEmail(), user.getId() + new Date().toString(), null);
         newUser.setFacebookProfileID(user.getId());
-        persistenceController.addUser(newUser);
+        System.out.println("Made new fb user: " + newUser.toString());
+        userController.addUser(newUser);
     }
 }

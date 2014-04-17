@@ -51,6 +51,7 @@ public class FacebookService
     {
         try
         {
+            System.out.println("[FB REGISTER] " + authCode);
             fbController.registerWithFB(authCode);
             String resp = "Succesfully registered!";
             return Response.status(Response.Status.OK).entity(resp).build();
@@ -58,6 +59,7 @@ public class FacebookService
         }
         catch (Exception e)
         {
+            System.out.println("EXCEPTION!:" + e.getMessage());
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
         }
     }

@@ -161,7 +161,7 @@ public class User
     @Override
     public String toString()
     {
-        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", userSettings=" + userSettings + ", MAX_SIZE_USERNAME=" + MAX_SIZE_USERNAME + '}';
+        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + ", userSettings=" + userSettings + ", block=" + block + ", MAX_SIZE_USERNAME=" + MAX_SIZE_USERNAME + ", MAX_SIZE_PASSWORD=" + MAX_SIZE_PASSWORD + ", MIN_SIZE_PASSWORD=" + MIN_SIZE_PASSWORD + ", facebookProfileID=" + facebookProfileID + '}';
     }
 
     private void setRole(String role)
