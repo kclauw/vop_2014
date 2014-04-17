@@ -7,17 +7,15 @@ import domain.enums.Event;
 import domain.enums.Gender;
 import domain.enums.PersonAdd;
 import exception.CannotDeletePersonsWithChidrenException;
+import exception.CannotMovePersonThatHasChildren;
 import exception.InvalidGenderException;
-import exception.PersonAlreadyExistsException;
 import exception.PersonAlreadyHasTwoParents;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import org.gedcom4j.parser.GedcomParserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.PersistenceController;
@@ -116,7 +114,7 @@ public class PersonController
         Person ps = pc.getPerson(treeID, person.getPersonId());
 
         if (ps != null)
-        {   
+        {
             return ps.getPersonId();
             //throw new PersonAlreadyExistsException();
         }
@@ -186,7 +184,7 @@ public class PersonController
     {
         //   Date date = new Date();
         //      Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
-        List<Person> pers = null;
+        List<Person> pers = pc.getPersons(treeID);
         int id = pc.addPerson(treeID, person);
         Person parent = pc.getPerson(treeID, id);
         Person child = pc.getPerson(treeID, personLinkID);
@@ -194,7 +192,7 @@ public class PersonController
         logger.info("ADDING PARENT IN TREE " + treeID + " " + parent.getFirstName() + " " + parent.getPersonId() + " WITH AS CHILD " + child.getFirstName() + " " + child.getPersonId());
 
         checkParentRelations(child, person);
-        setParentRelation(treeID, child, parent);
+        setParentRelation(treeID, child, parent, pers);
         return id;
     }
 
@@ -213,19 +211,25 @@ public class PersonController
     {
         Person person = pc.getPerson(treeID, personID);
         Person referencePerson = pc.getPerson(treeID, personMoveID);
+        List<Person> persons = pc.getPersons(treeID);
 
         pc.removeRelations(treeID, personID);
-        person.setFather(null);
-        person.setMother(null);
+
+        if (person.getChilderen(persons).size() > 0)
+        {
+            throw new CannotMovePersonThatHasChildren();
+        }
 
         if (personAdd == PersonAdd.CHILD)
         {
+            person.setFather(null);
+            person.setMother(null);
+
             Person partner = referencePerson.getPartner(pc.getPersons(treeID));
 
             if (referencePerson.getGender() == Gender.FEMALE)
             {
                 person.setMother(referencePerson);
-                //partner
 
                 if (partner != null)
                 {
@@ -235,7 +239,7 @@ public class PersonController
             else
             {
                 person.setFather(referencePerson);
-                //partner
+
                 if (partner != null)
                 {
                     person.setMother(partner);
@@ -243,13 +247,14 @@ public class PersonController
             }
 
             pc.updatePersonRelations(treeID, person);
+
         }
         else if (personAdd == PersonAdd.PARENT)
         {
             /*Person here is the person that is getting moved
              Reference person is the 'new' child of the person moved. */
             checkParentRelations(referencePerson, person);
-            setParentRelation(treeID, referencePerson, person);
+            setParentRelation(treeID, referencePerson, person, persons);
         }
 
         return null;
@@ -271,24 +276,14 @@ public class PersonController
         }
     }
 
-    private void setParentRelation(int treeID, Person child, Person parent)
+    private void setParentRelation(int treeID, Person child, Person parent, List<Person> persons)
     {
         List<Person> pers = new ArrayList<Person>();
+        Person partner = parent.getPartner(persons);
 
-        if (parent.getGender() == Gender.FEMALE)
+        if (partner != null)
         {
-            if (child.getFather() != null)
-            {
-                pers = child.getFather().getChilderen(pc.getPersons(treeID));
-            }
-
-        }
-        else
-        {
-            if (child.getMother() != null)
-            {
-                pers = child.getMother().getChilderen(pc.getPersons(treeID));
-            }
+            pers = partner.getChilderen(persons);
         }
 //check other childeren!
         if (pers.size() > 0)
@@ -300,14 +295,20 @@ public class PersonController
                 if (parent.getGender() == Gender.FEMALE)
                 {
                     p.setMother(parent);
+                    p.setFather(partner);
                 }
                 else
                 {
                     p.setFather(parent);
+                    p.setMother(partner);
                 }
 
                 pc.updatePersonRelations(treeID, p);
             }
+        }
+        else if (partner == null)
+        {
+
         }
     }
 

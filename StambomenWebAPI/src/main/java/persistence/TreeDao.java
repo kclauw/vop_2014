@@ -1,10 +1,9 @@
 package persistence;
 
-import persistence.interfaces.IDao;
 import domain.Person;
-import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
+import domain.enums.Privacy;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import persistence.interfaces.IDao;
 
 public class TreeDao implements IDao<Tree>
 {
@@ -140,7 +140,6 @@ public class TreeDao implements IDao<Tree>
         return trees;
     }
 
-    
     public void save(Tree tree)
     {
         PreparedStatement prep = null;
@@ -154,18 +153,7 @@ public class TreeDao implements IDao<Tree>
             prep.setString(3, tree.getName());
             logger.info("[TREE DAO] Saving tree" + prep);
             prep.executeUpdate();
-            ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
-            if (getKeyRs != null)
-            {
 
-                if (getKeyRs.next())
-                {
-                    lastInsertedId = getKeyRs.getInt(1);
-                }
-                getKeyRs.close();
-            }
-            con.close();
-            
         }
         catch (SQLException ex)
         {
@@ -188,24 +176,18 @@ public class TreeDao implements IDao<Tree>
             }
 
         }
-      
     }
-    
-    
-     public int saveTree(Tree tree)
+
+    public int saveTree(Tree tree)
     {
-        PreparedStatement prep = null;
+        lastInsertedId = -1;
 
         try
         {
-            con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(SAVETREE);
-            prep.setInt(1, tree.getOwner().getId());
-            prep.setInt(2, tree.getPrivacy().getPrivacyId());
-            prep.setString(3, tree.getName());
-            logger.info("[TREE DAO] Saving tree" + prep);
-            prep.executeUpdate();
+            PreparedStatement prep = null;
+            save(tree);
             ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
+
             if (getKeyRs != null)
             {
 
@@ -215,31 +197,12 @@ public class TreeDao implements IDao<Tree>
                 }
                 getKeyRs.close();
             }
-
-            con.close();
-            
         }
         catch (SQLException ex)
         {
-            logger.info("[TREE DAO][SQLException][Save]Sql exception: " + ex.getMessage());
+            java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (Exception ex)
-        {
-            logger.info("[TREE DAO][Exception][Save]Exception: " + ex.getMessage());
-        }
-        finally
-        {
-            try
-            {
-                DatabaseUtils.closeQuietly(prep);
-                DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
-                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
-        }
         return lastInsertedId;
     }
 
@@ -287,8 +250,5 @@ public class TreeDao implements IDao<Tree>
 
         return tree;
     }
-
-  
-
 
 }

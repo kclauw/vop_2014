@@ -77,13 +77,18 @@ public class PersistenceController
         return treeDao.get(id);
     }
 
-    public void addTree(Tree tree)
+    public int addTree(Tree tree)
     {
         logger.info("[PERSISTENCE CONTROLLER] Add tree : " + tree);
-        treeDao.save(tree);
-
+        return treeDao.saveTree(tree);
     }
 
+//    public void addTree(Tree tree)
+//    {
+//        logger.info("[PERSISTENCE CONTROLLER] Add tree : " + tree);
+//        treeDao.save(tree);
+//
+//    }
     public Place getPlace(int placeId)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get place with id " + placeId);
