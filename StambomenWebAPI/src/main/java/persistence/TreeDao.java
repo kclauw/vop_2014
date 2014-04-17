@@ -154,6 +154,16 @@ public class TreeDao implements IDao<Tree>
             prep.setString(3, tree.getName());
             logger.info("[TREE DAO] Saving tree" + prep);
             prep.executeUpdate();
+            ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
+            if (getKeyRs != null)
+            {
+
+                if (getKeyRs.next())
+                {
+                    lastInsertedId = getKeyRs.getInt(1);
+                }
+                getKeyRs.close();
+            }
             con.close();
             
         }

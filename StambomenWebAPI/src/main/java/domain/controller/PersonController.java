@@ -32,6 +32,7 @@ public class PersonController
     private ActivityController ac;
     private PersistenceController pc;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private int id;
 
     public PersonController()
     {
@@ -106,7 +107,7 @@ public class PersonController
      * @param person
      * @param personLinkID
      */
-    public void addPerson(int treeID, PersonAdd personAdd, Person person, int personLinkID)
+    public int addPerson(int treeID, PersonAdd personAdd, Person person, int personLinkID)
     {
         //Date date = new Date();
         //     Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
@@ -115,8 +116,9 @@ public class PersonController
         Person ps = pc.getPerson(treeID, person.getPersonId());
 
         if (ps != null)
-        {
-            throw new PersonAlreadyExistsException();
+        {   
+            return ps.getPersonId();
+            //throw new PersonAlreadyExistsException();
         }
         else
         {
@@ -124,24 +126,25 @@ public class PersonController
             {
                 case CHILD:
                     System.out.println("ADDING CHILD");
-                    addChild(treeID, person);
+                    id = addChild(treeID, person);
                     //          ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
                     break;
                 case PARENT:
                     System.out.println("ADDING PARENT");
-                    addParent(treeID, person, personLinkID);
+                    id = addParent(treeID, person, personLinkID);
                     //            ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
                     break;
             }
 
         };
+        return id;
     }
 
-    public void addChild(int treeID, Person person)
+    public int addChild(int treeID, Person person)
     {
         //   Date date = new Date();
         //      Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
-        pc.addPerson(treeID, person);
+        return pc.addPerson(treeID, person);
         //   ac.addActivity(act, tc.getTree(treeID).getOwner().getId());
     }
 
@@ -179,7 +182,7 @@ public class PersonController
      * PersonLinkID here is something else completely. It is the id of the child
      * that gets a new parent.
      */
-    private void addParent(int treeID, Person person, int personLinkID)
+    private int addParent(int treeID, Person person, int personLinkID)
     {
         //   Date date = new Date();
         //      Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), date);
@@ -192,7 +195,7 @@ public class PersonController
 
         checkParentRelations(child, person);
         setParentRelation(treeID, child, parent);
-
+        return id;
     }
 
     /**
