@@ -3,12 +3,17 @@ package gui;
 import gui.controller.TreeOverviewController;
 import gui.controls.FamilyTreeList;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -43,13 +48,13 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         initComponents();
         trans = new Translator();
         menuBar = new JMenuBar();
-        menu = new JMenu(trans.translate("Tree"));
-        menuS = new JMenu(trans.translate("Settings"));
+        menu = new JMenu("   " + trans.translate("Tree") + "   ");
+        menuS = new JMenu("   " + trans.translate("Settings") + "   ");
 
-        settingsItem = new JMenuItem(trans.translate("ChangeLanguage"));
-        addTreeItem = new JMenuItem(trans.translate("AddTree"));
-        importGedcomItem = new JMenuItem("Import gedcom");
-        exportGedcomItem = new JMenuItem("Export gedcom");
+        settingsItem = new JMenuItem("   " + trans.translate("ChangeLanguage") + "   ");
+        addTreeItem = new JMenuItem("   " + trans.translate("AddTree") + "   ");
+        importGedcomItem = new JMenuItem("   Import gedcom   ");
+        exportGedcomItem = new JMenuItem("   Export gedcom   ");
         addTreeItem.addActionListener(new ActionListener()
         {
 
@@ -123,7 +128,23 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         menuBar.add(menu);
         menuBar.add(menuS);
 
-        this.add(menuBar, BorderLayout.NORTH);
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 1;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.BOTH;
+        c.anchor = GridBagConstraints.EAST;
+        pnlMenu.add(menuBar, c);
+
+        initGui();
+    }
+
+    private void initGui()
+    {
+        lblLogo.setIcon(new ImageIcon(this.getClass().getClassLoader().getResource("images/logoSmall.png")));
+        menuBar.setBackground(Color.white);
+        menuBar.setMinimumSize(new Dimension(menuBar.getMinimumSize().width, 50));
+        menuBar.setPreferredSize(new Dimension(menuBar.getPreferredSize().width, 50));
+        menuBar.setMaximumSize(new Dimension(menuBar.getMaximumSize().width, 50));
     }
 
     public void addAdmin()
@@ -155,23 +176,75 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
     public void addFamilyTreeList(FamilyTreeList fam)
     {
-        this.add(fam);
+        pnlMain.add(fam);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents()
     {
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        jPanel2 = new javax.swing.JPanel();
+        pnlMenu = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
         pnlMain = new javax.swing.JPanel();
 
+        setOpaque(false);
         setPreferredSize(new java.awt.Dimension(800, 400));
-        setLayout(new java.awt.BorderLayout());
-        add(pnlMain, java.awt.BorderLayout.CENTER);
+        setLayout(new java.awt.GridBagLayout());
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setMaximumSize(new java.awt.Dimension(32767, 50));
+        jPanel2.setMinimumSize(new java.awt.Dimension(0, 50));
+        jPanel2.setPreferredSize(new java.awt.Dimension(900, 50));
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
+        pnlMenu.setMaximumSize(new java.awt.Dimension(900, 32767));
+        pnlMenu.setMinimumSize(new java.awt.Dimension(900, 24));
+        pnlMenu.setOpaque(false);
+        pnlMenu.setPreferredSize(new java.awt.Dimension(900, 100));
+        pnlMenu.setLayout(new java.awt.GridBagLayout());
+
+        lblLogo.setText(" ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        pnlMenu.add(lblLogo, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        jPanel2.add(pnlMenu, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        add(jPanel2, gridBagConstraints);
+
+        pnlMain.setMaximumSize(new java.awt.Dimension(900, 2147483647));
+        pnlMain.setMinimumSize(new java.awt.Dimension(900, 0));
+        pnlMain.setOpaque(false);
+        pnlMain.setPreferredSize(new java.awt.Dimension(900, 0));
+        pnlMain.setLayout(new java.awt.BorderLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(40, 10, 10, 10);
+        add(pnlMain, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JPanel pnlMain;
+    private javax.swing.JPanel pnlMenu;
     // End of variables declaration//GEN-END:variables
 
     public void setTreeController(TreeOverviewController treeController)
