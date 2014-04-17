@@ -25,6 +25,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
     private boolean add = false;
     private boolean edit = false;
+    private boolean move = false;
     private PersonDTO person;
     private FamilyTreeTotalPanel fttp;
     private boolean adding = false;
@@ -58,10 +59,12 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         radioMale.setText(trans.translate("Male"));
         radioFemale.setText(trans.translate("Female"));
         btnAdd.setText(trans.translate("Add"));
+        jButton2.setText(trans.translate("AlternativeLayout"));
         btnAddPicture.setText(trans.translate("AddPicture"));
         btnDeletePicture.setText(trans.translate("DeletePicture"));
         btnDelete.setText(trans.translate("Delete"));
         btnAdd.setText(trans.translate("Add"));
+        btnMove.setText(trans.translate("Move"));
         jLabel4.setText(trans.translate("City"));
         jLabel5.setText(trans.translate("ZipCode"));
         jLabel6.setText(trans.translate("Country"));
@@ -106,6 +109,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         dod = new com.toedter.calendar.JDateChooser();
         dob = new com.toedter.calendar.JDateChooser();
         jButton2 = new javax.swing.JButton();
+        btnMove = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -116,6 +120,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         add(personPanel, gridBagConstraints);
 
@@ -176,7 +181,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridwidth = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weighty = 1.0;
         add(adressPanel, gridBagConstraints);
@@ -267,7 +272,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.gridwidth = 6;
         gridBagConstraints.gridheight = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
@@ -380,7 +385,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridwidth = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weighty = 1.5;
         add(detailPanel, gridBagConstraints);
@@ -394,9 +399,23 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 6;
         add(jButton2, gridBagConstraints);
+
+        btnMove.setText("Move");
+        btnMove.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnMoveActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 9;
+        add(btnMove, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textFieldFirstnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textFieldFirstnameActionPerformed
@@ -558,6 +577,15 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         fttp.drawFamilyTree2();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btnMoveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnMoveActionPerformed
+    {//GEN-HEADEREND:event_btnMoveActionPerformed
+        //for a move operation the user will need to select 2 things
+        //1. where to move and wether to move as parent or as child.
+        move = true;
+
+        JOptionPane.showMessageDialog(null, "Select where you want to move this person.");
+    }//GEN-LAST:event_btnMoveActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel adressPanel;
     private javax.swing.JButton btnAdd;
@@ -565,6 +593,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDeletePicture;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnMove;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel detailPanel;
     private com.toedter.calendar.JDateChooser dob;
@@ -595,7 +624,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     {
         Translator trans = new Translator();
 
-        if (!add && !edit)
+        if (!add && !edit && !move)
         {
             this.person = person;
 
@@ -648,6 +677,11 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 }
 
             }
+        }
+        else if (move)
+        {
+            movePerson(person);
+            move = false;
         }
         else
         {
@@ -827,6 +861,26 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         textFieldZipCode.setText("");
         dob.setDate(null);
         dod.setDate(null);
+    }
+
+    private void movePerson(PersonDTO person)
+    {
+
+        String[] options = new String[2];
+        options[0] = "Child";
+        options[1] = "Parent";
+
+        int option = JOptionPane.showOptionDialog(null, "Would you like to add " + person.getFirstName() + " " + person.getSurName() + " as parent or as child?", "Who would you liek to add?", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+
+        if (option == 0)
+        {
+            fttp.movePerson(PersonAddDTO.CHILD, this.person.getPersonId(), person.getPersonId());
+        }
+        else if (option == 1)
+        {
+            fttp.movePerson(PersonAddDTO.PARENT, this.person.getPersonId(), person.getPersonId());
+        }
+
     }
 
 }

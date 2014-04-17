@@ -25,6 +25,10 @@
         <servlet-class>servlet.UserProfileServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AccountServlet</servlet-name>
+        <servlet-class>servlet.AccountServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>TimemachineServlet</servlet-name>
         <servlet-class>servlet.TimemachineServlet</servlet-class>
     </servlet>
@@ -43,6 +47,10 @@
     <servlet-mapping>
         <servlet-name>UserProfileServlet</servlet-name>
         <url-pattern>/UserProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountServlet</servlet-name>
+        <url-pattern>/AccountServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TimemachineServlet</servlet-name>

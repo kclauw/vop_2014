@@ -109,6 +109,7 @@ public class GuiController
             case TREEOVERVIEW:
                 content = treeControllerOverviewController.show();
                 programFrame.setTitle("Tree Overview");
+                
                 break;
             case TREE:
                 content = treeController.show();
@@ -130,9 +131,19 @@ public class GuiController
                 content = useroverviewController.show();
                 programFrame.setTitle("User Overview");
                 break;
+
         }
         content.setBackground(new Color(0, 0, 0, 0));
         programFrame.add(content);
+        programFrame.revalidate();
+    }
+
+    public void setAdminframe(JPanel panel)
+    {
+
+        programFrame.getContentPane().removeAll();
+        programFrame.add(panel);
+        programFrame.setTitle("Admin");
         programFrame.revalidate();
     }
 
@@ -151,5 +162,9 @@ public class GuiController
     public String getLogin()
     {
         return login;
+    }
+    
+    public void setUserid(int userid){
+    this.treeControllerOverviewController.setUserid(userid);
     }
 }

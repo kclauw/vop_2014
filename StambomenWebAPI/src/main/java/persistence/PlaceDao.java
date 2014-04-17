@@ -332,7 +332,6 @@ public class PlaceDao implements IDao<Place>
         Place p = null;
         ResultSet res = null;
         PreparedStatement prep = null;
-        Connection con = null;
 
         try
         {
@@ -356,7 +355,7 @@ public class PlaceDao implements IDao<Place>
         {
             try
             {
-                //Cannot close res here!
+                DatabaseUtils.closeQuietly(res);
                 DatabaseUtils.closeQuietly(prep);
                 DatabaseUtils.closeQuietly(con);
             }

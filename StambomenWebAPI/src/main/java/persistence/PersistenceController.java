@@ -1,20 +1,18 @@
 package persistence;
 
-import domain.Coordinate;
 import domain.Activity;
+import domain.Coordinate;
 import domain.Person;
 import domain.Place;
 import domain.Theme;
-import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
-import domain.enums.Event;
+import domain.enums.Language;
+import domain.enums.Privacy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.ResultSet;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,17 +20,16 @@ import org.slf4j.LoggerFactory;
 public class PersistenceController
 {
 
-    private UserDao userDao;
-    private TreeDao treeDao;
-    private PersonDao personDao;
-    private ThemeDao themeDao;
-    private GoogleGeoDao googlegeoDao;
-    private PlaceDao placeDao;
-    private PersonTreeDao persontreeDao;
-    private ParentRelationDao parentrelationDao;
-    private ImageDao imageDao;
-    private ActivityDao activityDao;
-
+    private final UserDao userDao;
+    private final TreeDao treeDao;
+    private final PersonDao personDao;
+    private final ThemeDao themeDao;
+    private final GoogleGeoDao googlegeoDao;
+    private final PlaceDao placeDao;
+    private final PersonTreeDao persontreeDao;
+    private final ParentRelationDao parentrelationDao;
+    private final ImageDao imageDao;
+    private final ActivityDao activityDao;
     private final Logger logger;
 
     public PersistenceController()
@@ -46,9 +43,8 @@ public class PersistenceController
         persontreeDao = new PersonTreeDao(this);
         parentrelationDao = new ParentRelationDao(this);
         imageDao = new ImageDao(this);
-        activityDao = new ActivityDao();
+        activityDao = new ActivityDao(this);
         logger = LoggerFactory.getLogger(getClass());
-
     }
 
     public void addUser(User user)
@@ -81,13 +77,18 @@ public class PersistenceController
         return treeDao.get(id);
     }
 
-    public void addTree(Tree tree)
+    public int addTree(Tree tree)
     {
         logger.info("[PERSISTENCE CONTROLLER] Add tree : " + tree);
-        treeDao.save(tree);
-
+        return treeDao.saveTree(tree);
     }
 
+//    public void addTree(Tree tree)
+//    {
+//        logger.info("[PERSISTENCE CONTROLLER] Add tree : " + tree);
+//        treeDao.save(tree);
+//
+//    }
     public Place getPlace(int placeId)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get place with id " + placeId);
@@ -101,21 +102,23 @@ public class PersistenceController
         return p;
     }
 
-    public void setLanguage(int userID, int language)
+    public void setLanguage(int userID, Language language)
     {
         logger.info("[PERSISTENCE CONTROLLER] Set Language for userid" + userID);
         userDao.setLanguage(userID, language);
     }
 
-    public int getLanguage(int userID)
+    public Language getLanguage(int userID)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get Language for userid" + userID);
-        return userDao.getLanguage(userID);
+        Language language = userDao.getLanguage(userID);
+
+        return language;
     }
 
     public List<Tree> getTrees(int userId)
     {
-        logger.info("[PERSISTENCE CONTROLLER] Get trees from user " + userId);
+        logger.debug("[PERSISTENCE CONTROLLER] Get trees from user " + userId);
         return treeDao.getAll(userId);
     }
 
@@ -146,36 +149,31 @@ public class PersistenceController
     public void updatePerson(int treeID, Person person)
     {
         logger.info("[PERSISTENCE CONTROLLER] Update person " + person);
-        //also change the parentRelation table!
         personDao.update(person);
-
-        if (person.getMother() != null)
-        {
-            addParentRelation(treeID, person.getMother().getPersonId(), person.getPersonId());
-        }
-        else if (person.getFather() != null)
-        {
-            addParentRelation(treeID, person.getFather().getPersonId(), person.getPersonId());
-        }
+        updatePersonRelations(treeID, person);
     }
 
     public List<User> getFriendRequest(int userID)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Get Friend Requests for userID: " + userID);
         return userDao.getFriendRequest(userID);
     }
 
     public void deleteFriend(int userID, int frienduserID)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Delete friend, userID: " + userID + ", frienduserID: " + frienduserID);
         userDao.deleteFriend(userID, frienduserID);
     }
 
     public void allowDenyFriendRequest(int userID, int frienduserID, boolean allow)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Allow Deny Friend Request from user: " + userID + " and friend user " + frienduserID + " allow: " + allow);
         userDao.allowDenyFriendRequest(userID, frienduserID, allow);
     }
 
     public void sendFriendRequest(int userID, String frienduserName)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Send Friend Request " + userID + " " + frienduserName);
         userDao.sendFriendRequest(userID, frienduserName);
     }
 
@@ -216,6 +214,14 @@ public class PersistenceController
         userDao.setUserPrivacy(userID, userPrivacy);
     }
 
+    public Privacy getUserPrivacy(int userID)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Get privacy for userid" + userID);
+        Privacy privacy = userDao.getUserPrivacy(userID);
+
+        return privacy;
+    }
+
     public User getUserProfile(int userProfileID, Privacy userPrivacy)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get User profile" + userProfileID);
@@ -234,21 +240,25 @@ public class PersistenceController
 
     public void deletePersonImage(int treeID, int personID)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Delete Picture of person " + personID + " and tree " + treeID);
         imageDao.delete(treeID, personID);
     }
 
     public void savePersonImage(int personID, BufferedImage bufferedImage) throws IOException
     {
+        logger.info("[PERSISTENCE CONTROLLER] Save Person Image from person " + personID);
         imageDao.save(personID, bufferedImage);
     }
 
     public URI getPicture(int treeID, int personID, boolean pictureExists)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Get Picture of person " + personID + " from tree" + treeID);
         return imageDao.get(treeID, personID, pictureExists);
     }
 
     public URI getPicture(int personID, boolean pictureExists)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Get Picture of person " + personID);
         return imageDao.get(personID, pictureExists);
     }
 
@@ -278,32 +288,61 @@ public class PersistenceController
 
     public List<Person> searchPerson(int userID, String firstname, String lastname)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Search Person " + userID + " " + firstname + " " + lastname);
         return personDao.searchPersonFirstAndLastname(userID, firstname, lastname);
     }
 
     public void updateUser(User user)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Update User " + user.toString());
         userDao.update(user);
     }
 
     public void blockUser(int userid, Boolean value)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Block User " + userid + " boolean: " + value);
         userDao.block(userid, value);
     }
 
     public List<Activity> getAll(int userID)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Get all activities with userid: " + userID);
         return activityDao.getAll(userID);
     }
 
-    public void addActivity(Activity act)
+    public void save(Activity act)
     {
-        activityDao.addActivity(act);
+        logger.info("[PERSISTENCE CONTROLLER] Save Activity " + act.toString());
+        activityDao.save(act);
     }
 
     public Theme getTheme(int themeID)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Get Theme " + themeID);
         return themeDao.get(themeID);
+    }
+
+    public void removeRelations(int treeID, int personID)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Remove Relations from tree " + treeID + " and person " + personID);
+        parentrelationDao.delete(personID, treeID);
+    }
+
+    public void updatePersonRelations(int treeID, Person person)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Update Person relations from tree " + treeID + " and person " + person.toString());
+
+        if (person.getMother() != null)
+        {
+            System.out.println("MOTHER " + person.getMother());
+            addParentRelation(treeID, person.getMother().getPersonId(), person.getPersonId());
+        }
+
+        if (person.getFather() != null)
+        {
+            System.out.println("FATHER " + person.getFather());
+            addParentRelation(treeID, person.getFather().getPersonId(), person.getPersonId());
+        }
     }
 
 }

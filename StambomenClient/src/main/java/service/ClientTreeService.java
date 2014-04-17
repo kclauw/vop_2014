@@ -31,13 +31,14 @@ public class ClientTreeService
         {
             return " " + response.readEntity(String.class);
         }
+        
 
         return null;
     }
 
     public List<TreeDTO> getTrees(int userId)
     {
-        userId = ClientServiceController.getInstance().getUser().getId();
+
         logger.info("[CLIENT TREE SERVICE][GET TREE]Getting trees from user with userid:" + userId);
         Client client = ClientServiceController.getInstance().getClient();
 

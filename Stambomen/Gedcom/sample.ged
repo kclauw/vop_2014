@@ -65,7 +65,7 @@
 2 DATE 16 FEB 1930
 2 PLAC Stirling,Alberta,Canada
 1 BURI
-2 DATE FEB 1930
+2 DATE 17 FEB 1930
 2 PLAC Stirling,Alberta,Canada
 1 AFN 17J0-C2
 1 FAMS @F661@
@@ -80,7 +80,7 @@
 1 NAME Margaret /Stewart/
 1 SEX F
 1 BIRT
-2 DATE Abt 1835
+2 DATE 11 AUG 1835
 1 AFN 596T-26
 1 FAMS @F671@
 1 NOTE We understand Margaret was a school teacher in England, and left William 
@@ -92,7 +92,7 @@
 1 NAME David /Hartley/
 1 SEX M
 1 BIRT
-2 DATE Abt 1807
+2 DATE 11 FEB 1807
 1 AFN D2CZ-JF
 1 FAMS @F796@
 1 CHAN
@@ -127,7 +127,7 @@
 2 DATE 22 OCT 1922
 2 PLAC Pleasant Green,Salt Lake,Utah
 1 BURI
-2 DATE OCT 1922
+2 DATE 31 OCT 1922
 2 PLAC Pleasant Green,Salt Lake,Utah
 1 AFN 17HZ-NH
 1 FAMS @F673@
@@ -139,7 +139,7 @@
 1 NAME James /Dearden/
 1 SEX M
 1 BIRT
-2 DATE Abt 1812
+2 DATE 11 FEB 1812
 1 CHR
 2 DATE 27 FEB 1807
 2 PLAC Soyland,Ripponden,Yorkshire,England
@@ -153,7 +153,7 @@
 1 NAME Nancy /Finney/
 1 SEX F
 1 BIRT
-2 DATE Abt 1816
+2 DATE 11 FEB 1816
 1 CHR
 2 DATE 24 NOV 1816
 2 PLAC St. James,Whitehaven,Cumberland,Eng
@@ -167,7 +167,7 @@
 1 NAME Susy /Dearden/
 1 SEX F
 1 BIRT
-2 DATE Abt 1785
+2 DATE 13 FEB 1785
 1 AFN BDFT-5S
 1 FAMS @F679@
 1 CHAN
@@ -177,7 +177,7 @@
 1 NAME Thomas /Finney/
 1 SEX M
 1 BIRT
-2 DATE Abt 1790
+2 DATE 15 FEB 1790
 1 AFN BDFT-60
 1 FAMS @F680@
 1 CHAN
@@ -187,7 +187,7 @@
 1 NAME Eleanor /Hope/
 1 SEX F
 1 BIRT
-2 DATE Abt 1794
+2 DATE 16 FEB 1794
 1 AFN BDFT-75
 1 FAMS @F680@
 1 CHAN
@@ -205,7 +205,7 @@
 2 DATE 7 SEP 1878
 2 PLAC Pleasant Green,Salt Lake,Utah
 1 BURI
-2 DATE SEP 1878
+2 DATE 18 SEP 1878
 2 PLAC City Cemetery,Salt Lake City,Utah
 1 AFN 1N8L-G4
 1 FAMS @F681@
@@ -217,7 +217,7 @@
 1 NAME Charlotte /Brook/
 1 SEX F
 1 BIRT
-2 DATE MAR 1818
+2 DATE 17 MAR 1818
 2 PLAC Stainland,Yorkshire,England
 1 DEAT
 2 DATE 28 JUN 1880
@@ -234,7 +234,7 @@
 1 NAME Abraham /Hirst/
 1 SEX M
 1 BIRT
-2 DATE OCT 1779
+2 DATE 12 OCT 1779
 2 PLAC Yorkshire,England
 1 DEAT
 2 DATE 31 MAR 1836
@@ -249,7 +249,7 @@
 1 NAME Nancy /Sykes/
 1 SEX F
 1 BIRT
-2 DATE 1781
+2 DATE 15 FEB 1781
 2 PLAC Yorkshire,Eng.
 1 CHR
 2 DATE 1 FEB 1788
@@ -266,7 +266,7 @@
 1 NAME John /Hirst/
 1 SEX M
 1 BIRT
-2 DATE Abt 1753
+2 DATE 15 MART 1753
 1 AFN CD97-GH
 1 FAMS @F693@
 1 CHAN
@@ -276,7 +276,7 @@
 1 NAME Mary //
 1 SEX F
 1 BIRT
-2 DATE Abt 1757
+2 DATE 15 MAR 1757
 1 AFN CD97-HN
 1 FAMS @F693@
 1 CHAN
@@ -286,7 +286,7 @@
 1 NAME James /Sykes/
 1 SEX M
 1 BIRT
-2 DATE Abt 1755
+2 DATE 16 MAR 1755
 1 AFN CD97-JT
 1 FAMS @F694@
 1 CHAN
@@ -296,7 +296,7 @@
 1 NAME Ann /Blyth/
 1 SEX F
 1 BIRT
-2 DATE Abt 1759
+2 DATE 12 FEB 1759
 1 AFN CD97-K1
 1 FAMS @F694@
 1 CHAN
@@ -321,7 +321,7 @@
 1 NAME Hannah /Bottomley/
 1 SEX F
 1 BIRT
-2 DATE Abt 1782
+2 DATE 12 SEP 1782
 2 PLAC Stainland,York,England
 1 DEAT
 2 DATE 18 MAY 1845
@@ -335,7 +335,7 @@
 1 NAME William /Brook/
 1 SEX M
 1 BIRT
-2 DATE Abt 1760
+2 DATE 12 AUG 1760
 1 AFN CD97-L6
 1 FAMS @F696@
 1 CHAN
@@ -345,7 +345,7 @@
 1 NAME Mary //
 1 SEX F
 1 BIRT
-2 DATE Abt 1764
+2 DATE 12 AUG 1764
 1 AFN CD97-MC
 1 FAMS @F696@
 1 CHAN
@@ -372,7 +372,7 @@
 1 NAME Janet /Maculiam/
 1 SEX F
 1 BIRT
-2 DATE 1811
+2 DATE 15 AUG 1811
 2 PLAC Wigton,Scotland
 1 DEAT
 2 DATE 16 DEC 1898

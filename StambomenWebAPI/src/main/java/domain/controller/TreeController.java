@@ -21,11 +21,13 @@ public class TreeController
     public TreeController()
     {
         pc = new PersistenceController();
+        ac = new ActivityController(pc);
     }
 
-    public void addTree(Tree tree)
+    public int addTree(Tree tree)
     {
         System.out.println("[TREE CONTROLLER] ADDING A TREE" + tree);
+        int id;
         Date date = new Date();
         Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
 
@@ -43,8 +45,9 @@ public class TreeController
                 }
             }
 
-            pc.addTree(tree);
+            id = pc.addTree(tree);
             ac.addActivity(act);
+            
         }
         else
         {
@@ -65,10 +68,11 @@ public class TreeController
                         throw new TreeNameAlreadyExistsException();
                     }
                 }
-                pc.addTree(tree);
+               id =  pc.addTree(tree);
                 ac.addActivity(act);
             };
         }
+        return id;
     }
 
     public Tree getTree(int id)

@@ -16,6 +16,8 @@ import javax.ws.rs.ext.Provider;
 public class BasicAuthFilter implements ContainerRequestFilter
 {
 
+    private final UserController userController = new UserController();
+
     @Override
     public void filter(ContainerRequestContext containerRequest) throws IOException
     {
@@ -34,29 +36,32 @@ public class BasicAuthFilter implements ContainerRequestFilter
 
         if (authorization == null || authorization.isEmpty())
         {
-            containerRequest.abortWith(Response.status(Status.UNAUTHORIZED).build());
+            abortRequest(containerRequest, Status.UNAUTHORIZED);
         }
 
         String[] userCredentials = BasicAuthentication.decode(authorization);
 
         if (userCredentials == null || userCredentials.length != 2)
         {
-            containerRequest.abortWith(Response.status(Status.UNAUTHORIZED).build());
+            abortRequest(containerRequest, Status.UNAUTHORIZED);
         }
 
-        User authentificationResult = new UserController().login(userCredentials);
-        //if (authentificationResult.contains("admin"))
-        Pattern pattern = Pattern.compile("^/admin");
-        Matcher matcher = pattern.matcher(path);
+        System.out.println("[AUTH FILTER] LOGIN:");
+
+        User authentificationResult = userController.login(userCredentials);
+
         if (authentificationResult == null)
         {
-            containerRequest.abortWith(Response.status(Status.UNAUTHORIZED).build());
+            abortRequest(containerRequest, Status.UNAUTHORIZED);
         }
         else if (path.contains("admin") && !authentificationResult.getRole().equals("Admin"))
         {
-            containerRequest.abortWith(Response.status(Status.UNAUTHORIZED).build());
+            abortRequest(containerRequest, Status.UNAUTHORIZED);
         }
-
     }
 
+    private void abortRequest(ContainerRequestContext containerRequest, Status status)
+    {
+        containerRequest.abortWith(Response.status(status).build());
+    }
 }

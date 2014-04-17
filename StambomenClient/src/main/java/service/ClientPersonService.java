@@ -7,11 +7,18 @@ import dto.PersonDTO;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Level;
 import javax.imageio.ImageIO;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
@@ -19,6 +26,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.commons.io.IOUtils;
 
 public class ClientPersonService
 {
@@ -44,6 +52,21 @@ public class ClientPersonService
         return null;
     }
 
+    public String movePerson(int treeID, PersonAddDTO personAdd, int personID, int personMoveID)
+    {
+        Client client = ClientServiceController.getInstance().getClient();
+        Response response = client.target(url + "person/" + treeID + "/" + personAdd.getId() + "/" + personID + "/" + personMoveID).request(MediaType.APPLICATION_JSON).get();
+
+        if (response.getStatus() != 200)
+        {
+            String resp = response.readEntity(String.class);
+            System.out.println("[CLIENT PERSON SERVICE] MOVE ERROR :" + resp);
+            return " " + resp;
+        }
+
+        return null;
+    }
+
     public String updatePerson(int treeID, PersonDTO person)
     {
         logger.info("[CLIENT PERSON SERVICE][UPDATE PERSON]:" + person.toString());
@@ -51,9 +74,7 @@ public class ClientPersonService
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(person);
-        System.out.println("JSON:" + json);
         Response response = client.target(url + "person/update/" + treeID).request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
-        System.out.println("[CLIENT PERSON SERVICE] UPDATING PERSON " + person.toString());
 
         if (response.getStatus() != 200)
         {

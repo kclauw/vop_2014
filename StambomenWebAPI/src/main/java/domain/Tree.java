@@ -24,6 +24,14 @@ public class Tree
         setName(name);
         setPersons(persons);
     }
+    
+     public Tree(User owner,String name)
+    {
+     
+        setOwner(owner);
+        setName(name);
+       
+    }
 
     public List<Person> getPersons()
     {

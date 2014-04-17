@@ -14,31 +14,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.ClientUserController;
 
-/**
- *
- * @author Sander
- */
 public class UserProfileServlet extends HttpServlet
 {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
-        logger.info("[USERPROFILE SERVLET][PROCESS REQUEST]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -53,29 +33,7 @@ public class UserProfileServlet extends HttpServlet
     {
         logger.info("[USERPROFILE SERVLET][DO GET]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
 
-        String getPublicProfileUserID = request.getParameter("userID");
-        if (getPublicProfileUserID != null)
-        {
-            HttpSession session = request.getSession(false);
-            ClientUserController userController = (ClientUserController) session.getAttribute("userController");
-            Integer publicProfileUserID = Integer.parseInt(getPublicProfileUserID);
-
-            UserDTO uDTO = userController.getPublicUserProfile(publicProfileUserID);
-
-            //empty password
-            uDTO.setPassword("");
-            String json = new Gson().toJson(uDTO);
-
-            response.setContentType("application/json");
-            response.setCharacterEncoding("utf-8");
-            response.getWriter().write(json);
-        }
-        else
-        {
-            getDefault(request, response);
-        }
-
-        //  response.sendRedirect(request.getContextPath() + "/userProfiles.jsp");
+        doPost(request, response);
     }
 
     /**
@@ -91,55 +49,31 @@ public class UserProfileServlet extends HttpServlet
             throws ServletException, IOException
     {
         logger.info("[USERPROFILE SERVLET][DO POST]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
-        String setUserPrivacy = request.getParameter("setuserprivacy");
 
-        if (setUserPrivacy != null)
+        String getUserID = request.getParameter("userID");
+        if (getUserID != null)
         {
-            setUserPrivacy(request, response, setUserPrivacy);
+            HttpSession session = request.getSession(false);
+            ClientUserController uC = (ClientUserController) session.getAttribute("userController");
+            Integer UserID = Integer.parseInt(getUserID);
+
+            getUser(uC, UserID, response);
         }
         else
         {
-
+            getDefault(request, response);
         }
     }
 
-    private void setUserPrivacy(HttpServletRequest request, HttpServletResponse response, String setUserPrivacyPar) throws IOException
+    private void getUser(ClientUserController uC, int UserID, HttpServletResponse response) throws IOException
     {
-        logger.info("[USERPROFILE SERVLET][SET USER PRIVACY]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
+        UserDTO uDTO = uC.getPublicUserProfile(UserID);
 
-        if (setUserPrivacyPar != null)
-        {
-            logger.info("[USERPROFILE SERVLET][SET USER PRIVACY]SET USER PRIVACY:" + setUserPrivacyPar);
-        }
+        String json = new Gson().toJson(uDTO);
 
-        int setUserPrivacy = Integer.parseInt(setUserPrivacyPar);
-        HttpSession session = request.getSession(false);
-        request.removeAttribute("setUserPrivacy");
-
-        PrivacyDTO pDTO = null;
-        switch (setUserPrivacy)
-        {
-            case (0):
-            {
-                pDTO = PrivacyDTO.PRIVATE;
-                break;
-            }
-            case (1):
-            {
-                pDTO = PrivacyDTO.PUBLIC;
-                break;
-            }
-            case (2):
-            {
-                pDTO = PrivacyDTO.FRIENDS;
-                break;
-            }
-        }
-
-        ClientUserController userController = (ClientUserController) session.getAttribute("userController");
-        userController.setUserPrivacy(pDTO);
-
-        response.sendRedirect(request.getContextPath() + "/UserProfileServlet");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        response.getWriter().write(json);
     }
 
     private void getDefault(HttpServletRequest request, HttpServletResponse response) throws IOException
@@ -183,6 +117,6 @@ public class UserProfileServlet extends HttpServlet
     @Override
     public String getServletInfo()
     {
-        return "Short description";
+        return "UserProfileServlet";
     }// </editor-fold>
 }

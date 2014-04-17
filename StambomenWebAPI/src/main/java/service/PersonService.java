@@ -18,6 +18,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.commons.io.IOUtils;
+import org.gedcom4j.parser.GedcomParserException;
 
 @Path("/person")
 public class PersonService
@@ -40,19 +42,23 @@ public class PersonService
         }
         catch (PersonAlreadyExistsException ex)
         {
-            System.out.println(ex.getMessage());
+            System.out.println("[EX]" + ex.getMessage());
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
         catch (IllegalArgumentException ex)
         {
-            System.out.println(ex.getMessage());
+            System.out.println("[EX]" + ex.getMessage());
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
-        catch (Exception ex)
-        {
-            System.out.println(ex.getMessage());
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        }
+    }
+
+    @GET
+    @Path("/{treeID}/{addType}/{personID}/{personMoveID}")
+    public Response movePerson(@PathParam("treeID") int treeID, @PathParam("addType") int addType, @PathParam("personID") int personID, @PathParam("personMoveID") int personMoveID)
+    {
+        PersonAdd personAdd = PersonAdd.getAddMethod(addType);
+        String result = pc.movePerson(treeID, personAdd, personID, personMoveID);
+        return Response.status(Response.Status.OK).entity(result).build();
     }
 
     @GET

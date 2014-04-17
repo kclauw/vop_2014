@@ -111,11 +111,19 @@ public class ClientUserController
         return ClientServiceController.getInstance().getUser().getId();
     }
 
-    public void setUserPrivacy(PrivacyDTO userPrivacy)
+    public void setUserPrivacy(int userPrivacy)
     {
         int userID = ClientServiceController.getInstance().getUser().getId();
 
         client.setUserPrivacy(userID, userPrivacy);
+    }
+
+    public PrivacyDTO getUserPrivacy()
+    {
+        int userID = ClientServiceController.getInstance().getUser().getId();
+        PrivacyDTO privacyDTO = client.getUserPrivacy(userID);
+
+        return privacyDTO;
     }
 
     public UserDTO getPublicUserProfile(int userProfileID)

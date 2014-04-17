@@ -3,11 +3,11 @@ package domain.enums;
 public enum Language
 {
 
-    EN(0), NL(1), FR(2);
+    EN(1), NL(2), FR(3);
 
     private int languageId;
 
-    Language(int languageId)
+    private Language(int languageId)
     {
         this.languageId = languageId;
     }

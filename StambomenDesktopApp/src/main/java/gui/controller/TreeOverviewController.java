@@ -21,6 +21,7 @@ public class TreeOverviewController implements IPanelController
     private ClientTreeController serv;
     private ClientUserController user;
     private String login;
+    private int userid;
 
     public TreeOverviewController(GuiController gui)
     {
@@ -33,6 +34,8 @@ public class TreeOverviewController implements IPanelController
 
         treeOverviewPanel = (FamilyTreeOverviewPanel) PanelFactory.makePanel(Panels.TREEOVERVIEW);
         treeOverviewPanel.setTreeController(this);
+        
+        
         if (gui.getLogin().equals("Admin"))
         {
             treeOverviewPanel.addAdmin();
@@ -66,22 +69,38 @@ public class TreeOverviewController implements IPanelController
             }
         }
         treeOverviewPanel.addFamilyTreeList(familyTreeList);
+
     }
 
     public void showTree(TreeDTO tree)
     {
         TreeDTO t = serv.getTree(tree.getId());
         gui.showTree(t);
+        
     }
+    
 
     public String getLogin()
     {
         return gui.getLogin();
     }
+    
+    public void setUserid(int userid){
+        this.userid = userid;
+    }
 
     public void setLogin(String login)
     {
         this.login = gui.getLogin();
+    }
+
+    public void setAdminframe(JPanel panel)
+    {
+        gui.setAdminframe(panel);
+    }
+
+    public int getUserid() {
+        return userid;
     }
 
 }

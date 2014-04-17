@@ -13,11 +13,12 @@ public class ActivityController
 
     public ActivityController(PersistenceController pc)
     {
-        pc = new PersistenceController();
+        this.pc = pc;
     }
 
     public void addActivity(Activity act)
     {
-        pc.addActivity(act);
+        logger.info("[ACTIVITY CONTROLLER] ADD ACTIVITY");
+        pc.save(act);
     }
 }

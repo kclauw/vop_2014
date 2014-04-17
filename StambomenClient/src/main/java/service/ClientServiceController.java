@@ -15,6 +15,13 @@ public class ClientServiceController
     private UserDTO user;
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private String authCode;
+    private Client client;
+
+    private ClientServiceController()
+    {
+        client = ClientBuilder.newClient();
+        client.register(new JacksonFeature());
+    }
 
     public void setUser(UserDTO user)
     {
@@ -52,10 +59,7 @@ public class ClientServiceController
 
     public Client getClient()
     {
-        HttpAuthenticationFeature feature = ClientServiceController.getInstance().getHttpCredentials();
-        Client client = ClientBuilder.newClient();
-        client.register(feature);
-        client.register(new JacksonFeature());
+        client.register(getHttpCredentials());
         return client;
     }
 

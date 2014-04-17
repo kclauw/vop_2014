@@ -14,8 +14,8 @@ public class ParentRelationDao implements IDao
 {
 
     private Connection con;
-
-    private final String SAVEPARENTRELATION = "INSERT INTO ParentRelation(TreeID,parent,child) VALUES (?,?,?)";
+    private final String SAVE_PARENT_RELATION = "INSERT INTO ParentRelation(TreeID,parent,child) VALUES (?,?,?)";
+    private final String DELETE_PARENT_RELATION = "DELETE FROM ParentRelation WHERE child = ? AND treeID = ?";
 
     private PersistenceController pc;
     private final Logger logger;
@@ -32,13 +32,12 @@ public class ParentRelationDao implements IDao
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(SAVEPARENTRELATION);
+            prep = con.prepareStatement(SAVE_PARENT_RELATION);
             prep.setInt(1, treeId);
             prep.setInt(2, parentId);
             prep.setInt(3, childId);
             logger.info("[PARENTRELATION DAO] Saving parentrelation " + prep.toString());
             prep.executeUpdate();
-            con.close();
         }
         catch (SQLException ex)
         {
@@ -68,10 +67,39 @@ public class ParentRelationDao implements IDao
     {
 
     }
+    /*
+     * Delete the relation of a certain child (PERSONID) in a certain tree.
+     */
 
     public void delete(int personId, int treeId)
     {
+        PreparedStatement prep = null;
 
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(DELETE_PARENT_RELATION);
+            prep.setInt(1, personId);
+            prep.setInt(2, treeId);
+            int ex = prep.executeUpdate();
+            System.out.println("[PARENT RELATION] DELETE " + ex + " rows!");
+        }
+        catch (Exception ex)
+        {
+            java.util.logging.Logger.getLogger(ParentRelationDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override

@@ -1,10 +1,9 @@
 package persistence;
 
-import persistence.interfaces.IDao;
 import domain.Person;
-import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
+import domain.enums.Privacy;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import persistence.interfaces.IDao;
 
 public class TreeDao implements IDao<Tree>
 {
@@ -25,6 +25,7 @@ public class TreeDao implements IDao<Tree>
     private final String GETTREEBYUSERID = "SELECT treeID, name, ownerID, privacy FROM Tree WHERE ownerID = ?";
     private PersistenceController per;
     private final Logger logger;
+    private int lastInsertedId;
 
     public TreeDao(PersistenceController per)
     {
@@ -153,7 +154,6 @@ public class TreeDao implements IDao<Tree>
             logger.info("[TREE DAO] Saving tree" + prep);
             prep.executeUpdate();
 
-            con.close();
         }
         catch (SQLException ex)
         {
@@ -176,6 +176,41 @@ public class TreeDao implements IDao<Tree>
             }
 
         }
+    }
+
+    public int saveTree(Tree tree)
+    {
+        lastInsertedId = -1;
+
+        try
+        {
+            save(tree);
+            con = DatabaseUtils.getConnection();
+            PreparedStatement prep = null;
+            prep = con.prepareStatement("SELECT LAST_INSERT_ID()");
+
+            ResultSet getKeyRs = prep.executeQuery();
+
+            if (getKeyRs != null)
+            {
+
+                if (getKeyRs.next())
+                {
+                    lastInsertedId = getKeyRs.getInt(1);
+                }
+                getKeyRs.close();
+            }
+        }
+        catch (SQLException ex)
+        {
+            java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (Exception ex)
+        {
+            java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return lastInsertedId;
     }
 
     @Override
@@ -209,12 +244,7 @@ public class TreeDao implements IDao<Tree>
 
             Privacy priv = Privacy.getPrivacy(privacy);
             User user = per.getUser(ownerID);
-            //        List<Person> pers = per.getPersons(id);
-            //         System.out.println(pers);
-
-            /*We halen nu de tree in zijn gehelen niet meer op!*/
             tree = new Tree(id, user, priv, name, null);
-            System.out.println(tree);
         }
         catch (SQLException ex)
         {

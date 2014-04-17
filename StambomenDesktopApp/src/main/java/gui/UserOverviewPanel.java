@@ -2,6 +2,8 @@ package gui;
 
 import dto.UserDTO;
 import dto.UserTableModel;
+import gui.controller.TreeController;
+import gui.controller.TreeOverviewController;
 import gui.controller.UserOverviewController;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -9,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -21,7 +24,9 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
+import service.ClientTreeController;
 import service.ClientUserController;
+import util.Translator;
 
 public class UserOverviewPanel extends javax.swing.JPanel
 {
@@ -36,13 +41,18 @@ public class UserOverviewPanel extends javax.swing.JPanel
     private JTextField filterText;
     private JTextField statusText;
     private UserOverviewController useroverviewController;
+    private ClientUserController clientUserController;
+    private TreeOverviewController treeoverviewController;
+    private TreeController treeController;
+    private UserDetailPanel userDetailpanel;
 
     public UserOverviewPanel()
     {
 
         initComponents();
+        Translator trans = new Translator();
         this.userController = new ClientUserController();
-
+        this.userDetailpanel = new UserDetailPanel();
         users = userController.getUsers();
 
         //create table
@@ -50,7 +60,18 @@ public class UserOverviewPanel extends javax.swing.JPanel
         sorter = new TableRowSorter<UserTableModel>(model);
         final JTable table = new JTable(model);
         table.setRowSorter(sorter);
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener()
+        {
+            public void valueChanged(ListSelectionEvent event)
+            {
+                int selectedRow = table.getSelectedRow();
+                selectedRow = table.convertRowIndexToModel(selectedRow);
+                UserDTO user = (UserDTO) table.getModel().getValueAt(selectedRow, 3);
+                System.out.println(user);
+                userDetailpanel.setUser(user);
 
+            }
+        });
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -58,13 +79,43 @@ public class UserOverviewPanel extends javax.swing.JPanel
         //items
         JScrollPane pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-        JLabel l1 = new JLabel("Filter Text:");
+        JLabel l1 = new JLabel(trans.translate("FilterText") + ":");
 
         JPanel form = new JPanel();
         JPanel filter = new JPanel();
 
         JButton btnBlock = new JButton();
-        btnBlock.setText("Blokeer user");
+        btnBlock.setText(trans.translate("BlockUser"));
+        JButton btnUser = new JButton();
+        btnUser.setText(trans.translate("GotoUser"));
+
+        btnUser.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                // table.get(table.convertRowIndexToModel(selectedRow));
+
+                int selectedRow = table.getSelectedRow();
+                selectedRow = table.convertRowIndexToModel(selectedRow);
+                UserDTO user = (UserDTO) table.getModel().getValueAt(selectedRow, 3);
+                System.out.println("USER : " + user);
+
+                useroverviewController.setLogin("Admin");
+
+                treeoverviewController = new TreeOverviewController(useroverviewController.getGui());
+                treeController = new TreeController(useroverviewController.getGui());
+
+                JPanel panel = new JPanel();
+                panel = treeoverviewController.show();
+                treeoverviewController.getTrees(user.getId());
+                treeoverviewController.setAdminframe(panel);
+
+                model.fireTableDataChanged();
+                table.repaint();
+
+            }
+        });
 
         btnBlock.addActionListener(new ActionListener()
         {
@@ -87,6 +138,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 }
                 model.fireTableDataChanged();
                 table.repaint();
+                table.revalidate();
 
             }
         });
@@ -99,10 +151,10 @@ public class UserOverviewPanel extends javax.swing.JPanel
 
         filter.add(l1);
         filter.add(filterText);
-
+        form.add(userDetailpanel);
         form.add(filter);
         form.add(btnBlock);
-
+        form.add(btnUser);
         //Whenever filterText changes, invoke newFilter.
         filterText.getDocument().addDocumentListener(
                 new DocumentListener()
@@ -166,5 +218,15 @@ public class UserOverviewPanel extends javax.swing.JPanel
     public void setUserOverviewController(UserOverviewController u)
     {
         this.useroverviewController = u;
+    }
+
+    void deleteUser(UserDTO user)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void updateUser(UserDTO user)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

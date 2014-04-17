@@ -4,6 +4,7 @@ import domain.Activity;
 import domain.enums.Privacy;
 import domain.User;
 import domain.enums.Event;
+import domain.enums.Language;
 import exception.UserAlreadyExistsException;
 import java.util.Collection;
 import java.util.Date;
@@ -19,7 +20,7 @@ public class UserController
 {
 
     private ActivityController ac;
-    private PersistenceController pc;
+    private final PersistenceController pc;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public UserController()
@@ -66,7 +67,8 @@ public class UserController
      */
     public User login(String[] userCredentials)
     {
-        User user = pc.getUser(userCredentials[0]);
+        logger.debug("LOGIN of user " + userCredentials[0]);
+        User user = getUser(userCredentials[0]);
 
         if (user != null && user.getPassword().equals(userCredentials[1]))
         {
@@ -78,6 +80,8 @@ public class UserController
 
     public User getUser(String username)
     {
+        logger.debug("Get of user " + username);
+
         User user = pc.getUser(username);
 
         if (user != null)
@@ -105,7 +109,7 @@ public class UserController
         {
             Date date = new Date();
             Activity act = new Activity(Event.ADDFRIEND, String.valueOf(frienduserID), userID, date);
-
+            ac.addActivity(act);
         }
 
     }
@@ -115,12 +119,12 @@ public class UserController
         pc.sendFriendRequest(userID, frienduserName);
     }
 
-    public int getLanguage(int userID)
+    public Language getLanguage(int userID)
     {
         return pc.getLanguage(userID);
     }
 
-    public void setLanguage(int userID, int language)
+    public void setLanguage(int userID, Language language)
     {
         pc.setLanguage(userID, language);
     }
@@ -128,6 +132,13 @@ public class UserController
     public void setUserPrivacy(int userID, Privacy userPrivacy)
     {
         pc.setUserPrivacy(userID, userPrivacy);
+    }
+
+    public Privacy getUserPrivacy(int userID)
+    {
+        Privacy privacy = pc.getUserPrivacy(userID);
+
+        return privacy;
     }
 
     public User getUserProfile(int userProfileID, Privacy userPrivacy)
@@ -147,7 +158,6 @@ public class UserController
     public List<User> getUsers()
     {
         List<User> users = pc.getUsers();
-
         return users;
     }
 
