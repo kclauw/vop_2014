@@ -13,7 +13,7 @@ public class ActivityController
 
     public ActivityController(PersistenceController pc)
     {
-        pc = new PersistenceController();
+        this.pc = pc;
     }
 
     public void addActivity(Activity act)

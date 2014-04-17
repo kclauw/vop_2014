@@ -184,9 +184,12 @@ public class TreeDao implements IDao<Tree>
 
         try
         {
-            PreparedStatement prep = null;
             save(tree);
-            ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
+            con = DatabaseUtils.getConnection();
+            PreparedStatement prep = null;
+            prep = con.prepareStatement("SELECT LAST_INSERT_ID()");
+
+            ResultSet getKeyRs = prep.executeQuery();
 
             if (getKeyRs != null)
             {
@@ -199,6 +202,10 @@ public class TreeDao implements IDao<Tree>
             }
         }
         catch (SQLException ex)
+        {
+            java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (Exception ex)
         {
             java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
         }
