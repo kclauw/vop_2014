@@ -1,14 +1,14 @@
 package persistence;
 
-import domain.Coordinate;
 import domain.Activity;
+import domain.Coordinate;
 import domain.Person;
 import domain.Place;
 import domain.Theme;
-import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
 import domain.enums.Language;
+import domain.enums.Privacy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
@@ -331,12 +331,16 @@ public class PersistenceController
     public void updatePersonRelations(int treeID, Person person)
     {
         logger.info("[PERSISTENCE CONTROLLER] Update Person relations from tree " + treeID + " and person " + person.toString());
+
         if (person.getMother() != null)
         {
+            System.out.println("MOTHER " + person.getMother());
             addParentRelation(treeID, person.getMother().getPersonId(), person.getPersonId());
         }
-        else if (person.getFather() != null)
+
+        if (person.getFather() != null)
         {
+            System.out.println("FATHER " + person.getFather());
             addParentRelation(treeID, person.getFather().getPersonId(), person.getPersonId());
         }
     }
