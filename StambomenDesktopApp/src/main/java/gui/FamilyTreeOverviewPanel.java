@@ -102,31 +102,27 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                     PrivacyDTO p;
                     if (privacy == 0)
                     {
-                    p = PrivacyDTO.PRIVATE;
+                        p = PrivacyDTO.PRIVATE;
                     }
                     else if (privacy == 1)
                     {
-                    p = PrivacyDTO.FRIENDS;
+                        p = PrivacyDTO.FRIENDS;
                     }
                     else if (privacy == 2)
                     {
-                    p = PrivacyDTO.PUBLIC;
+                        p = PrivacyDTO.PUBLIC;
                     }
                     else
                     {
-                    p = null;
-                    }
-                    
-                    String name = JOptionPane.showInputDialog("Gelieve een naam voor de boom in te voeren");
-                    
-                    TreeDTO tree = new TreeDTO(treeoverviewController.getUser(),p,name);
-                    treeController.makeTree(tree);
-                    try {
-                        gedcomController.importGedcom(treeoverviewController.getUser(),tree, file);
-                    } catch (IOException ex) {
-                        Exceptions.printStackTrace(ex);
+                        p = null;
                     }
 
+                    String name = JOptionPane.showInputDialog("Gelieve een naam voor de boom in te voeren");
+
+                    TreeDTO tree = new TreeDTO(treeoverviewController.getUser(), p, name);
+                    treeController.makeTree(tree);
+
+                        //gedcomController.importGedcom(treeoverviewController.getUser(),tree, file);
                 }
                 else
                 {

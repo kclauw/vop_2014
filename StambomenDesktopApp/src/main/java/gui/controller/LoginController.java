@@ -50,7 +50,8 @@ public class LoginController implements IPanelController
         String login = clientUserController.login(user);
 
         gui.setLogin(login);
-        gui.setUser(clientUserController.getUser());
+        System.out.print(clientUserController.getUser());
+        //gui.setUser(clientUserController.getUser());
 
         System.out.println("REPLY FROM SERVICE:" + login);
         goTo(Panels.LOGIN);
