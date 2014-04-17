@@ -151,21 +151,25 @@ public class PersistenceController
 
     public List<User> getFriendRequest(int userID)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Get Friend Requests for userID: " + userID);
         return userDao.getFriendRequest(userID);
     }
 
     public void deleteFriend(int userID, int frienduserID)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Delete friend, userID: " + userID + ", frienduserID: " + frienduserID);
         userDao.deleteFriend(userID, frienduserID);
     }
 
     public void allowDenyFriendRequest(int userID, int frienduserID, boolean allow)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Allow Deny Friend Request from user: " + userID + " and friend user " + frienduserID + " allow: " + allow);
         userDao.allowDenyFriendRequest(userID, frienduserID, allow);
     }
 
     public void sendFriendRequest(int userID, String frienduserName)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Send Friend Request " + userID + " " + frienduserName);
         userDao.sendFriendRequest(userID, frienduserName);
     }
 
@@ -232,21 +236,25 @@ public class PersistenceController
 
     public void deletePersonImage(int treeID, int personID)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Delete Picture of person " + personID + " and tree " + treeID);
         imageDao.delete(treeID, personID);
     }
 
     public void savePersonImage(int personID, BufferedImage bufferedImage) throws IOException
     {
+        logger.info("[PERSISTENCE CONTROLLER] Save Person Image from person " + personID);
         imageDao.save(personID, bufferedImage);
     }
 
     public URI getPicture(int treeID, int personID, boolean pictureExists)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Get Picture of person " + personID + " from tree" + treeID);
         return imageDao.get(treeID, personID, pictureExists);
     }
 
     public URI getPicture(int personID, boolean pictureExists)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Get Picture of person " + personID);
         return imageDao.get(personID, pictureExists);
     }
 
@@ -276,42 +284,49 @@ public class PersistenceController
 
     public List<Person> searchPerson(int userID, String firstname, String lastname)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Search Person " + userID + " " + firstname + " " + lastname);
         return personDao.searchPersonFirstAndLastname(userID, firstname, lastname);
     }
 
     public void updateUser(User user)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Update User " + user.toString());
         userDao.update(user);
     }
 
     public void blockUser(int userid, Boolean value)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Block User " + userid + " boolean: " + value);
         userDao.block(userid, value);
     }
 
     public List<Activity> getAll(int userID)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Get all activities with userid: " + userID);
         return activityDao.getAll(userID);
     }
 
-    public void addActivity(Activity act)
+    public void save(Activity act)
     {
-        logger.info("[PERSISTENCE CONTROLLER] Add Activity " + act.toString());
-        activityDao.addActivity(act);
+        logger.info("[PERSISTENCE CONTROLLER] Save Activity " + act.toString());
+        activityDao.save(act);
     }
 
     public Theme getTheme(int themeID)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Get Theme " + themeID);
         return themeDao.get(themeID);
     }
 
     public void removeRelations(int treeID, int personID)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Remove Relations from tree " + treeID + " and person " + personID);
         parentrelationDao.delete(personID, treeID);
     }
 
     public void updatePersonRelations(int treeID, Person person)
     {
+        logger.info("[PERSISTENCE CONTROLLER] Update Person relations from tree " + treeID + " and person " + person.toString());
         if (person.getMother() != null)
         {
             addParentRelation(treeID, person.getMother().getPersonId(), person.getPersonId());

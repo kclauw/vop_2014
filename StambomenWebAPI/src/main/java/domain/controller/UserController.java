@@ -109,7 +109,7 @@ public class UserController
         {
             Date date = new Date();
             Activity act = new Activity(Event.ADDFRIEND, String.valueOf(frienduserID), userID, date);
-
+            ac.addActivity(act);
         }
 
     }
