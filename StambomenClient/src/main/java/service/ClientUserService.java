@@ -210,16 +210,16 @@ public class ClientUserService
         return privacy;
     }
 
-    public UserDTO getPublicUserProfile(int userProfileID)
+    public UserDTO getPublicUserProfile(int userID)
     {
         logger.info("[CLIENT USER SERVICE][GET PUBLIC USER PROFILES]Get a public user profile");
         Client client = ClientServiceController.getInstance().getClient();
 
-        UserDTO userProfile = client.target(url + "user/get/profile/getPublicUserProfile/" + userProfileID).request(MediaType.APPLICATION_JSON).get(new GenericType<UserDTO>()
+        UserDTO user = client.target(url + "user/get/profile/getPublicUserProfile/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<UserDTO>()
         {
         });
 
-        return userProfile;
+        return user;
     }
 
     public List<UserDTO> getPublicUserProfiles(int userID)
@@ -227,11 +227,11 @@ public class ClientUserService
         logger.info("[CLIENT USER SERVICE][GET PUBLIC USER PROFILES]Get all public user profiles");
         Client client = ClientServiceController.getInstance().getClient();
 
-        List<UserDTO> userProfiles = client.target(url + "user/get/profile/getPublicUserProfiles/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
+        List<UserDTO> users = client.target(url + "user/get/profile/getPublicUserProfiles/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
         {
         });
 
-        return userProfiles;
+        return users;
     }
 
     List<UserDTO> getUsers()
