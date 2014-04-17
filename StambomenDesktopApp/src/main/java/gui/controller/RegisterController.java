@@ -20,6 +20,7 @@ public class RegisterController implements IPanelController
     public RegisterController(GuiController gui)
     {
         uc = new ClientUserController();
+        cfbc = new ClientFacebookController();
         this.gui = gui;
     }
 
