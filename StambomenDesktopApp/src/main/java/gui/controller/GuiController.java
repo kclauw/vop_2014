@@ -1,6 +1,7 @@
 package gui.controller;
 
 import dto.TreeDTO;
+import dto.UserDTO;
 import gui.Panels;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -164,8 +165,8 @@ public class GuiController
         return login;
     }
 
-    public void setUserid(int userid)
+    public void setUser(UserDTO user)
     {
-        this.treeControllerOverviewController.setUserid(userid);
+        this.treeControllerOverviewController.setUser(user);
     }
 }

@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.PersonAddDTO;
 import dto.PersonDTO;
+import dto.TreeDTO;
+import dto.UserDTO;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -34,14 +36,14 @@ public class ClientGedcomService
     private final String url = ServiceConstant.getInstance().getURL();
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public String importGedcom(int userid, File file) throws FileNotFoundException, IOException
+    public String importGedcom(UserDTO user,TreeDTO tree, File file) throws FileNotFoundException, IOException
     {
         Client client = ClientServiceController.getInstance().getClient();
         InputStream input = new FileInputStream(file);
         BufferedInputStream bis = new BufferedInputStream(input);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        Response response = client.target(url + "gedcom/import/" + userid).request(MediaType.APPLICATION_JSON).post(Entity.entity(bis, MediaType.APPLICATION_OCTET_STREAM_TYPE));
+        Response response = client.target(url + "gedcom/import/" + user + "/" + tree).request(MediaType.APPLICATION_JSON).post(Entity.entity(bis, MediaType.APPLICATION_OCTET_STREAM_TYPE));
         if (response.getStatus() != 200)
         {
             String resp = response.readEntity(String.class);

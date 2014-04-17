@@ -1,5 +1,7 @@
 package gui;
 
+import dto.PrivacyDTO;
+import dto.TreeDTO;
 import gui.controller.TreeOverviewController;
 import gui.controls.FamilyTreeList;
 import java.awt.BorderLayout;
@@ -14,20 +16,24 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import org.gedcom4j.writer.GedcomWriterException;
 import org.openide.util.Exceptions;
 import service.ClientGedcomController;
 import service.ClientPersonController;
+import service.ClientTreeController;
 import util.Translator;
 
 public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 {
 
-    private TreeOverviewController treeController;
+    private TreeOverviewController treeoverviewController;
+    private ClientTreeController treeController;
 
     private String login;
     private JMenu menu;
@@ -41,6 +47,7 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
     private JMenuItem exportGedcomItem;
     private Translator trans;
     private JMenuBar menuBar;
+    private JComboBox cbxPrivacy;
 
     public FamilyTreeOverviewPanel()
     {
@@ -60,7 +67,7 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
             public void actionPerformed(ActionEvent e)
             {
-                treeController.goTo(Panels.ADDTREE);
+                treeoverviewController.goTo(Panels.ADDTREE);
             }
         });
 
@@ -69,7 +76,7 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
             public void actionPerformed(ActionEvent e)
             {
-                treeController.goTo(Panels.SETTINGS);
+                treeoverviewController.goTo(Panels.SETTINGS);
             }
         });
 
@@ -90,18 +97,33 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
                     file = fc.getSelectedFile();
                     System.out.println("Opening: " + file.getName());
-
                     ClientGedcomController gedcomController = new ClientGedcomController();
-                    try
+                    int privacy = cbxPrivacy.getSelectedIndex();
+                    PrivacyDTO p;
+                    if (privacy == 0)
                     {
-                        gedcomController.importGedcom(treeController.getUserid(), file);
+                    p = PrivacyDTO.PRIVATE;
                     }
-                    catch (FileNotFoundException ex)
+                    else if (privacy == 1)
                     {
-                        Exceptions.printStackTrace(ex);
+                    p = PrivacyDTO.FRIENDS;
                     }
-                    catch (IOException ex)
+                    else if (privacy == 2)
                     {
+                    p = PrivacyDTO.PUBLIC;
+                    }
+                    else
+                    {
+                    p = null;
+                    }
+                    
+                    String name = JOptionPane.showInputDialog("Gelieve een naam voor de boom in te voeren");
+                    
+                    TreeDTO tree = new TreeDTO(treeoverviewController.getUser(),p,name);
+                    treeController.makeTree(tree);
+                    try {
+                        gedcomController.importGedcom(treeoverviewController.getUser(),tree, file);
+                    } catch (IOException ex) {
                         Exceptions.printStackTrace(ex);
                     }
 
@@ -156,7 +178,7 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
             public void actionPerformed(ActionEvent e)
             {
-                treeController.goTo(Panels.PERSONOVERVIEW);
+                treeoverviewController.goTo(Panels.PERSONOVERVIEW);
             }
         });
         userItem = new JMenuItem(trans.translate("UserOverview"));
@@ -165,7 +187,7 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
             public void actionPerformed(ActionEvent e)
             {
-                treeController.goTo(Panels.USEROVERVIEW);
+                treeoverviewController.goTo(Panels.USEROVERVIEW);
             }
         });
         menuA.add(personItem);
@@ -249,14 +271,14 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
     public void setTreeController(TreeOverviewController treeController)
     {
-        this.treeController = treeController;
+        this.treeoverviewController = treeController;
         this.login = treeController.getLogin();
 
     }
 
     public TreeOverviewController getTreeoverviewcontroller()
     {
-        return treeController;
+        return treeoverviewController;
     }
 
 }

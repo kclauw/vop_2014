@@ -1,6 +1,7 @@
 package gui.controller;
 
 import dto.TreeDTO;
+import dto.UserDTO;
 import gui.FamilyTreeOverviewPanel;
 import gui.PanelFactory;
 import gui.Panels;
@@ -19,7 +20,7 @@ public class TreeOverviewController implements IPanelController
     private GuiController gui;
 
     private ClientTreeController serv;
-    private ClientUserController user;
+    private UserDTO user;
     private String login;
     private int userid;
 
@@ -85,8 +86,8 @@ public class TreeOverviewController implements IPanelController
         return gui.getLogin();
     }
     
-    public void setUserid(int userid){
-        this.userid = userid;
+    public void setUser(UserDTO user){
+        this.user = user;
     }
 
     public void setLogin(String login)
@@ -99,8 +100,8 @@ public class TreeOverviewController implements IPanelController
         gui.setAdminframe(panel);
     }
 
-    public int getUserid() {
-        return userid;
+    public UserDTO getUser() {
+        return user;
     }
 
 }

@@ -106,9 +106,9 @@ public class ClientUserController
         return ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
     }
 
-    public int getCurrentUserID()
+    public UserDTO getUser()
     {
-        return ClientServiceController.getInstance().getUser().getId();
+        return ClientServiceController.getInstance().getUser();
     }
 
     public void setUserPrivacy(int userPrivacy)
