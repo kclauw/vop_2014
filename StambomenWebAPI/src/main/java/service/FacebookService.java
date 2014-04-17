@@ -24,6 +24,7 @@ public class FacebookService
     {
         try
         {
+            System.out.println("[FACEBOOK SERVICE] VERIFY " + code.substring(0, 10));
             logger.info("[FACEBOOK SERVICE] VERIFY " + code.substring(0, 10));
 
             if (fbController.verify(code))
@@ -36,6 +37,24 @@ public class FacebookService
             }
 
             //
+        }
+        catch (Exception e)
+        {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("/register/{code}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response registerWithFB(@PathParam("code") String authCode)
+    {
+        try
+        {
+            fbController.registerWithFB(authCode);
+            String resp = "Succesfully registered!";
+            return Response.status(Response.Status.OK).entity(resp).build();
+
         }
         catch (Exception e)
         {

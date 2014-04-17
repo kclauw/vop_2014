@@ -1,21 +1,22 @@
 package persistence;
 
 import domain.Theme;
-import persistence.interfaces.IDao;
-import domain.enums.Language;
-import domain.enums.Privacy;
 import domain.User;
 import domain.UserSettings;
+import domain.enums.Language;
+import domain.enums.Privacy;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import persistence.interfaces.IDao;
 
 public class UserDao implements IDao<User>
 {
@@ -23,7 +24,7 @@ public class UserDao implements IDao<User>
     private Connection con;
     private final Logger logger;
     private final String GETALLUSER = "SELECT u.userID AS userID, u.username AS username, u.password AS password, u.languageID AS languageID, u.themeID AS themeID, r.role AS role,u.block as block FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID";
-    private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
+    private final String SAVEUSER = "INSERT INTO User (username, password, fbprofileid) VALUES (?, ?, ?)";
     private final String GETUSER = "SELECT u.userID AS userID, u.username AS username, u.password AS PASSWORD, u.languageID AS languageID, u.themeID AS themeID,r.role as role,u.block as block FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.username = ?";
 
     private final String GETUSERBYID = "SELECT u.userID AS userID, u.username AS username, u.password AS password, u.languageID AS languageID, u.themeID AS themeID,r.role AS role,u.block as block FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID = ?";
@@ -106,10 +107,21 @@ public class UserDao implements IDao<User>
             prep = con.prepareStatement(SAVEUSER);
             prep.setString(1, value.getUsername());
             prep.setString(2, value.getPassword());
-            logger.info("[USER DAO] Saving user " + prep.toString());
-            prep.executeUpdate();
 
-            con.close();
+            String fbID = value.getFacebookProfileID();
+
+            if (fbID == null || fbID.equals(""))
+            {
+                prep.setNull(3, Types.VARCHAR);
+            }
+            else
+            {
+                prep.setString(3, fbID);
+            }
+
+            logger.info("[USER DAO] Saving user " + prep.toString());
+
+            prep.executeUpdate();
         }
         catch (SQLException ex)
         {
