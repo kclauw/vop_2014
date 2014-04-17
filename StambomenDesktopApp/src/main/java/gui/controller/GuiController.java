@@ -2,9 +2,17 @@ package gui.controller;
 
 import dto.TreeDTO;
 import gui.Panels;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.LayoutManager;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 public class GuiController
@@ -66,6 +74,12 @@ public class GuiController
             }
         });
 
+        programFrame.setLayout(new BorderLayout());
+        ClassLoader clientClassLoader = this.getClass().getClassLoader();
+        ImageIcon img = new ImageIcon(clientClassLoader.getResource("images/bg.jpg"));
+        programFrame.setContentPane(new JLabel(img));
+        programFrame.setLayout(new BorderLayout());
+
         loginController = new LoginController(this);
         registerController = new RegisterController(this);
         treeControllerOverviewController = new TreeOverviewController(this);
@@ -81,41 +95,44 @@ public class GuiController
         currentPanel = frame;
 
         programFrame.getContentPane().removeAll();
+        JPanel content = null;
         switch (frame)
         {
             case LOGIN:
-                programFrame.add(loginController.show());
+                content = loginController.show();
                 programFrame.setTitle("Login");
                 break;
             case REGISTER:
-                programFrame.add(registerController.show());
+                content = registerController.show();
                 programFrame.setTitle("Register");
                 break;
             case TREEOVERVIEW:
-                programFrame.add(treeControllerOverviewController.show());
+                content = treeControllerOverviewController.show();
                 programFrame.setTitle("Tree Overview");
                 break;
             case TREE:
-                programFrame.add(treeController.show());
+                content = treeController.show();
                 programFrame.setTitle("Tree");
                 break;
             case ADDTREE:
-                programFrame.add(addTreeController.show());
+                content = addTreeController.show();
                 programFrame.setTitle("Adding a tree");
                 break;
             case SETTINGS:
-                programFrame.add(settingsController.show());
+                content = settingsController.show();
                 programFrame.setTitle("Settings");
                 break;
             case PERSONOVERVIEW:
-                programFrame.add(personoverviewController.show());
+                content = personoverviewController.show();
                 programFrame.setTitle("Person overview");
                 break;
             case USEROVERVIEW:
-                programFrame.add(useroverviewController.show());
+                content = useroverviewController.show();
                 programFrame.setTitle("User Overview");
                 break;
         }
+        content.setBackground(new Color(0, 0, 0, 0));
+        programFrame.add(content);
         programFrame.revalidate();
     }
 
