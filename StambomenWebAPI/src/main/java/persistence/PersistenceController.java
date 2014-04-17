@@ -1,14 +1,14 @@
 package persistence;
 
-import domain.Coordinate;
 import domain.Activity;
+import domain.Coordinate;
 import domain.Person;
 import domain.Place;
 import domain.Theme;
-import domain.enums.Privacy;
 import domain.Tree;
 import domain.User;
 import domain.enums.Language;
+import domain.enums.Privacy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
@@ -78,11 +78,10 @@ public class PersistenceController
         return treeDao.get(id);
     }
 
-    public void addTree(Tree tree)
+    public int addTree(Tree tree)
     {
         logger.info("[PERSISTENCE CONTROLLER] Add tree : " + tree);
-        treeDao.save(tree);
-
+        return treeDao.saveTree(tree);
     }
 
     public Place getPlace(int placeId)
