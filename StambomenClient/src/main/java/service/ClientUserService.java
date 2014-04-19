@@ -175,8 +175,7 @@ public class ClientUserService
 
         if (response.getStatus() != 200)
         {
-            return " " + response.readEntity(String.class
-            );
+            return " " + response.readEntity(String.class);
         }
 
         return null;
