@@ -1,6 +1,7 @@
 package gui.controller;
 
 import dto.TreeDTO;
+import dto.UserDTO;
 import gui.Panels;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -51,8 +52,8 @@ public class GuiController {
 
     private void createFrame() {
         programFrame = new JFrame();
-        programFrame.setSize(new Dimension(800, 400));
-        programFrame.setPreferredSize(new Dimension(800, 400));
+        programFrame.setSize(new Dimension(900, 550));
+        programFrame.setPreferredSize(new Dimension(900, 550));
         programFrame.setLocationRelativeTo(null);
         programFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -123,7 +124,7 @@ public class GuiController {
                 break;
 
         }
-        
+
         programFrame.add(content);
         programFrame.revalidate();
     }
@@ -150,7 +151,7 @@ public class GuiController {
         return login;
     }
 
-    public void setUserid(int userid) {
-        this.treeControllerOverviewController.setUserid(userid);
+    public void setUser(UserDTO user) {
+        this.treeControllerOverviewController.setUser(user);
     }
 }
