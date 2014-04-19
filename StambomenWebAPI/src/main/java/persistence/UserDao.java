@@ -42,11 +42,11 @@ public class UserDao implements IDao<User>
     private final String GETUSERPROFILES = "SELECT * FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID != ? AND u.privacy = ?";
     private final String SETUSERBLOCK = "UPDATE User SET block = ? WHERE userID = ?";
     private final String UPDATEUSER = "UPDATE User SET username = ?,password = ?,block = ? WHERE userID = ?";
-    private final PersistenceController pc;
+    // private final PersistenceController pc;
 
     public UserDao(PersistenceController pc)
     {
-        this.pc = pc;
+        //    this.pc = new PersistenceController();
         logger = LoggerFactory.getLogger(getClass());
     }
 
@@ -330,8 +330,6 @@ public class UserDao implements IDao<User>
             {
                 user = map(res);
             }
-
-            con.close();
         }
         catch (SQLException ex)
         {
@@ -363,6 +361,7 @@ public class UserDao implements IDao<User>
     @Override
     public User map(ResultSet res)
     {
+        PersistenceController pc = new PersistenceController();
         User user = null;
 
         try
@@ -382,6 +381,8 @@ public class UserDao implements IDao<User>
             UserSettings settings = new UserSettings(lang, theme);
 
             user = new User(uid, ur, password, settings, role, block);
+
+            System.out.println("MAPPING A USER " + ur);
 
         }
         catch (SQLException ex)

@@ -81,10 +81,9 @@ public class UserService
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/login/{username}")
-    public User login(@PathParam("username") String username)
+    public Response login(@PathParam("username") String username)
     {
-        System.out.println("[SERVICE][LOGIN]");
-        return uc.getUser(username);
+        return null;
     }
 
     @GET

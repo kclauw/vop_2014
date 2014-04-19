@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.Provider;
@@ -49,6 +50,11 @@ public class BasicAuthFilter implements ContainerRequestFilter
         System.out.println("[AUTH FILTER] LOGIN:");
 
         User authentificationResult = userController.login(userCredentials);
+
+        if (path.contains("/user/login/"))
+        {
+            containerRequest.abortWith(Response.ok(authentificationResult, MediaType.APPLICATION_JSON).build());
+        }
 
         if (authentificationResult == null)
         {
