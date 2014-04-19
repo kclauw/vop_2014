@@ -1,3 +1,5 @@
+<%@page import="dto.ThemeDTO"%>
+<%@page import="dto.UserDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,44 +12,81 @@
         <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="./css/general.css"/>
         <link rel="stylesheet" type="text/css" href="./css/account.css"/>
+        <style>
+            <%
+                ThemeDTO theme = ((UserDTO)request.getSession().getAttribute("user")).getUserSettings().getTheme();
+            %>
+
+            *, #topbar a:link, #topbar a:visited, #topbar a:active {
+                font-family: '<%= theme.getFont() %>', sans-serif;
+                color: #<%= theme.getTextColor() %>;
+            }
+            .themeBgColor, .itemblock, #topbar{
+                background-color: #<%= theme.getBgColor() %>;
+            }
+            .themeMaleColor {
+                background-color: #<%= theme.getMaleColor() %>;
+            }
+            .itemblock {
+                border-left-color: #<%= theme.getMaleColor() %>;
+            }
+            .themeFemaleColor {
+                background-color: #<%= theme.getFemaleColor() %>;
+            }
+        </style>
 
         <script src="./js/jquery-1.11.0.min.js"></script>
-        <script src="./js/account.js"></script>
     </head>
     <body>
         <div id = "topbar" class = "shadow">
             <div class = "wrapper">
                 <c:import url = "/Components/header.jsp"></c:import>
-                    <ul id = "menu">
-                    <c:import url = "/Components/menu.jsp"></c:import>
-                    </ul>
-                </div>
+                <ul id = "menu">
+                <c:import url = "/Components/menu.jsp"></c:import>
+                </ul>
             </div>
-            <div class = "wrapper">
-                <div>
-                    <div id="privacySetting">
-                        <h1>Account settings</h1>
-                        <h2>Privacy</h2>
-                        <select id="privacyOptions">
-                        <c:forEach var="item" items="${privacyList}">
-                            <option value="${item.getPrivacyId()}" ${item == privacy? "selected" : ""}>${item}</option>
-                        </c:forEach>
-                    </select>
-                    <input id = "btnSavePrivacy" type = "button"  onclick = "savePrivacy();" value = "Save" disabled/>
+        </div>
+        <div class = "wrapper">
+            <div>
+                <div id="privacySetting">
+                    <h1>Account settings</h1>
+                    <h2>Privacy</h2>
+                    <form method="post" action="./AccountServlet">
+                        <select name="savePrivacy">
+                            <c:forEach var="item" items="${privacyList}">
+                                <option value="${item.getPrivacyId()}" ${item == userPrivacy? "selected" : ""}>${item}</option>
+                            </c:forEach>
+                        </select>
+                        <input type="submit" value="Save"/>
+                    </form>
                 </div>
 
                 <div id="languageSettings">
                     <h1>Language settings</h1>
                     <h2>Language</h2>
-                    <select id="languageOptions">
-                        <c:forEach var="item" items="${languages}">
-                            <option value="${item.getLanguageId()}" ${item == language? "selected" : ""}>${item}</option>
-                        </c:forEach>
-                    </select>
-                    <input id = "btnSaveLanguage" type = "button"  onclick = "saveLanguage();" value = "Save" disabled/>
+                    <form method="post" action="./AccountServlet">
+                        <select name="saveLanguage">
+                            <c:forEach var="item" items="${languageList}">
+                                <option value="${item.getLanguageId()}" ${item == userLanguage? "selected" : ""}>${item}</option>
+                            </c:forEach>
+                        </select>
+                        <input type="submit" value="Save"/>
+                    </form>
                 </div>
 
-                <input id = "btnSaveAll" type = "button"  onclick = "saveAll();" value = "Save all" disabled/>
+                <div id="themeSettings">
+                    <h1>Theme settings</h1>
+                    <h2>Theme</h2>
+                    <form method="post" action="./AccountServlet">
+                        <select name="saveTheme">
+                            <c:forEach var="item" items="${themeList}">
+                                <option value="${item.getThemeID()}" ${item == userTheme? "selected" : ""}>${item.getName()}</option>
+                            </c:forEach>
+                        </select>
+                        <input type="submit" value="Save"/>
+                    </form>
+                </div>
+                
             </div>
         </div>
     </body>

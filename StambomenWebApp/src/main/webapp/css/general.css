@@ -1,9 +1,7 @@
 * {
     height: 2;
-    font-family: 'Varela', sans-serif;
     margin: 0;
     padding: 0;
-    color: #252525;
     font-size: 11pt;
 }
 
@@ -32,7 +30,6 @@ body {
 
 #topbar {
     height: 50px;
-    background-color: white;
     font-size: 14pt;
     position: fixed;
     top: 0px;
@@ -43,10 +40,7 @@ body {
 #topbar a {
     text-decoration: none;
 }
-#topbar a:link {color:#252525;}
-#topbar a:visited {color:#252525;}
 #topbar a:hover {color:#363636;}
-#topbar a:active{color:#252525;}
 
 #logo {
     margin: 7px 15px;
@@ -63,7 +57,6 @@ body {
     width:  70px;
     line-height: 17px;
     text-align: center;
-
 }
 
 #menu li:last-child{
@@ -71,8 +64,7 @@ body {
 }
 
 .itemblock {
-    background: white;
-    border-left: 5px solid #334455;
+    border-left: 5px solid;
 }
 form .error {
     color: red;

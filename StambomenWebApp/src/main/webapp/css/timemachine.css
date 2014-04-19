@@ -31,8 +31,6 @@ body > .wrapper > div, #map-canvas {
 }
 
 #datewindow {
-    background-color: white;
-    
     position: absolute;
     height: 50px;
     

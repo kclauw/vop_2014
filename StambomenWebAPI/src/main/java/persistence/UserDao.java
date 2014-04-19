@@ -34,6 +34,7 @@ public class UserDao implements IDao<User>
     private final String ALLOWDENYFRIENDREQUESTBYIDS = "Update Request set status=? where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status=0";
     private final String SENDFRIENDREQUEST = "INSERT INTO Request (friend,receiver,status) select ?,?,0 from dual where not exists ( select * from Request where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status!=2 )";
     private final String SETLANGUAGE = "UPDATE User set languageID=? where userID=?;";
+    private final String SETTHEME = "UPDATE User set themeID=? where userID=?;";
     private final String GETLANGUAGE = "SELECT languageID FROM User where userID=?;";
     private final String SETUSERPRIVACY = "UPDATE User SET privacy = ? WHERE userID = ?";
     private final String GETUSERPRIVACY = "SELECT privacy FROM User WHERE userID = ?";
@@ -602,6 +603,45 @@ public class UserDao implements IDao<User>
             catch (SQLException ex)
             {
                 logger.info("[USER DAO][SQLEXCEPTION][SETLANGUAGE]Sql exception: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public void setTheme(int userID, int themeID)
+    {
+        PreparedStatement prep = null;
+
+        try
+        {
+            if (userID >= 0 && themeID >= 0)
+            {
+                con = DatabaseUtils.getConnection();
+                prep = con.prepareStatement(SETTHEME);
+                prep.setInt(1, themeID);
+                prep.setInt(2, userID);
+                prep.executeUpdate();
+            }
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[USER DAO][SQLEXCEPTION][SETTHEME]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[USER DAO][EXCEPTION][SETTHEME]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                logger.info("[USER DAO][SQLEXCEPTION][SETTHEME]Sql exception: " + ex.getMessage());
                 ex.printStackTrace();
             }
         }

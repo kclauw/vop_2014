@@ -2,6 +2,7 @@ package service;
 
 import com.google.gson.Gson;
 import dto.PrivacyDTO;
+import dto.ThemeDTO;
 import dto.UserDTO;
 import java.util.List;
 import javax.ws.rs.client.Client;
@@ -181,6 +182,21 @@ public class ClientUserService
         return null;
     }
 
+    public String setTheme(int userID, int themeID)
+    {
+        logger.info("[CLIENT USER SERVICE][SET THEME]Set theme with id: " + themeID + " user with id: " + userID);
+        Client client = ClientServiceController.getInstance().getClient();
+        Response response = client.target(url + "user/setTheme/" + userID + "/" + themeID).request(MediaType.APPLICATION_JSON).get();
+
+        if (response.getStatus() != 200)
+        {
+            return " " + response.readEntity(String.class
+            );
+        }
+
+        return null;
+    }
+
     public String setUserPrivacy(int userID, int privacyID)
     {
         logger.info("[CLIENT USER SERVICE][SET USER PRIVACY]Set user privacy for user with id:" + userID + "to privacy state:" + privacyID);
@@ -292,6 +308,18 @@ public class ClientUserService
 
         return null;
 
+    }
+
+    public List<ThemeDTO> getThemes()
+    {
+        logger.info("[CLIENT USER SERVICE][GET THEMES]Getting themes");
+
+        Client client = ClientServiceController.getInstance().getClient();
+        List<ThemeDTO> themes = client.target(url + "user/themes").request(MediaType.APPLICATION_JSON).get(new GenericType<List<ThemeDTO>>()
+        {
+        });
+
+        return themes;
     }
 
 }
