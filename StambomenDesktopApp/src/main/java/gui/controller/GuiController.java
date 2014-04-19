@@ -3,6 +3,14 @@ package gui.controller;
 import dto.TreeDTO;
 import dto.UserDTO;
 import gui.Panels;
+import static gui.Panels.ADDTREE;
+import static gui.Panels.LOGIN;
+import static gui.Panels.PERSONOVERVIEW;
+import static gui.Panels.REGISTER;
+import static gui.Panels.SETTINGS;
+import static gui.Panels.TREE;
+import static gui.Panels.TREEOVERVIEW;
+import static gui.Panels.USEROVERVIEW;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 public class GuiController
@@ -134,6 +143,11 @@ public class GuiController
         content.setBackground(new Color(0, 0, 0, 0));
         programFrame.add(content);
         programFrame.revalidate();
+
+        if (SwingUtilities.isEventDispatchThread())
+        {
+            System.out.println("EDT thread ");
+        }
     }
 
     public void setAdminframe(JPanel panel)

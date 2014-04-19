@@ -10,6 +10,7 @@ import gui.controls.FamilyTreeListItem;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import service.ClientTreeController;
 import service.ClientUserController;
 
@@ -35,8 +36,7 @@ public class TreeOverviewController implements IPanelController
 
         treeOverviewPanel = (FamilyTreeOverviewPanel) PanelFactory.makePanel(Panels.TREEOVERVIEW);
         treeOverviewPanel.setTreeController(this);
-        
-        
+
         if (gui.getLogin().equals("Admin"))
         {
             treeOverviewPanel.addAdmin();
@@ -77,16 +77,16 @@ public class TreeOverviewController implements IPanelController
     {
         TreeDTO t = serv.getTree(tree.getId());
         gui.showTree(t);
-        
+
     }
-    
 
     public String getLogin()
     {
         return gui.getLogin();
     }
-    
-    public void setUser(UserDTO user){
+
+    public void setUser(UserDTO user)
+    {
         this.user = user;
     }
 
@@ -100,7 +100,8 @@ public class TreeOverviewController implements IPanelController
         gui.setAdminframe(panel);
     }
 
-    public UserDTO getUser() {
+    public UserDTO getUser()
+    {
         return user;
     }
 

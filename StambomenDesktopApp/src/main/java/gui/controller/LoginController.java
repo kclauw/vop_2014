@@ -6,6 +6,7 @@ import gui.PanelFactory;
 import gui.Panels;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import service.ClientFacebookController;
 import service.ClientUserController;
 
@@ -45,6 +46,11 @@ public class LoginController implements IPanelController
 
     public void login(UserDTO user)
     {
+        if (SwingUtilities.isEventDispatchThread())
+        {
+            System.out.println("EDT thread ");
+        }
+
         System.out.println("[LOGINCONTROLLER] login" + user.toString());
 
         String login = clientUserController.login(user);
