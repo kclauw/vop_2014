@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.ResultSet;
+import java.util.Collection;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -322,6 +323,18 @@ public class PersistenceController
         return themeDao.get(themeID);
     }
 
+    public List<Theme> getThemes()
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Get all Themes");
+        return themeDao.getAll();
+    }
+
+    public void setTheme(int userID, int themeID)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Set Theme for userid" + userID);
+        userDao.setTheme(userID, themeID);
+    }
+
     public void removeRelations(int treeID, int personID)
     {
         logger.info("[PERSISTENCE CONTROLLER] Remove Relations from tree " + treeID + " and person " + personID);
@@ -344,5 +357,4 @@ public class PersistenceController
             addParentRelation(treeID, person.getFather().getPersonId(), person.getPersonId());
         }
     }
-
 }

@@ -1,21 +1,22 @@
 package persistence;
 
 import domain.Theme;
-import persistence.interfaces.IDao;
-import domain.enums.Language;
-import domain.enums.Privacy;
 import domain.User;
 import domain.UserSettings;
+import domain.enums.Language;
+import domain.enums.Privacy;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import persistence.interfaces.IDao;
 
 public class UserDao implements IDao<User>
 {
@@ -23,7 +24,7 @@ public class UserDao implements IDao<User>
     private Connection con;
     private final Logger logger;
     private final String GETALLUSER = "SELECT u.userID AS userID, u.username AS username, u.password AS password, u.languageID AS languageID, u.themeID AS themeID, r.role AS role,u.block as block FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID";
-    private final String SAVEUSER = "INSERT INTO User (username, password) VALUES (?, ?)";
+    private final String SAVEUSER = "INSERT INTO User (username, password, fbprofileid) VALUES (?, ?, ?)";
     private final String GETUSER = "SELECT u.userID AS userID, u.username AS username, u.password AS PASSWORD, u.languageID AS languageID, u.themeID AS themeID,r.role as role,u.block as block FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.username = ?";
 
     private final String GETUSERBYID = "SELECT u.userID AS userID, u.username AS username, u.password AS password, u.languageID AS languageID, u.themeID AS themeID,r.role AS role,u.block as block FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID = ?";
@@ -33,6 +34,7 @@ public class UserDao implements IDao<User>
     private final String ALLOWDENYFRIENDREQUESTBYIDS = "Update Request set status=? where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status=0";
     private final String SENDFRIENDREQUEST = "INSERT INTO Request (friend,receiver,status) select ?,?,0 from dual where not exists ( select * from Request where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status!=2 )";
     private final String SETLANGUAGE = "UPDATE User set languageID=? where userID=?;";
+    private final String SETTHEME = "UPDATE User set themeID=? where userID=?;";
     private final String GETLANGUAGE = "SELECT languageID FROM User where userID=?;";
     private final String SETUSERPRIVACY = "UPDATE User SET privacy = ? WHERE userID = ?";
     private final String GETUSERPRIVACY = "SELECT privacy FROM User WHERE userID = ?";
@@ -106,10 +108,21 @@ public class UserDao implements IDao<User>
             prep = con.prepareStatement(SAVEUSER);
             prep.setString(1, value.getUsername());
             prep.setString(2, value.getPassword());
-            logger.info("[USER DAO] Saving user " + prep.toString());
-            prep.executeUpdate();
 
-            con.close();
+            String fbID = value.getFacebookProfileID();
+
+            if (fbID == null || fbID.equals(""))
+            {
+                prep.setNull(3, Types.VARCHAR);
+            }
+            else
+            {
+                prep.setString(3, fbID);
+            }
+
+            logger.info("[USER DAO] Saving user " + prep.toString());
+
+            prep.executeUpdate();
         }
         catch (SQLException ex)
         {
@@ -590,6 +603,45 @@ public class UserDao implements IDao<User>
             catch (SQLException ex)
             {
                 logger.info("[USER DAO][SQLEXCEPTION][SETLANGUAGE]Sql exception: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public void setTheme(int userID, int themeID)
+    {
+        PreparedStatement prep = null;
+
+        try
+        {
+            if (userID >= 0 && themeID >= 0)
+            {
+                con = DatabaseUtils.getConnection();
+                prep = con.prepareStatement(SETTHEME);
+                prep.setInt(1, themeID);
+                prep.setInt(2, userID);
+                prep.executeUpdate();
+            }
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[USER DAO][SQLEXCEPTION][SETTHEME]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[USER DAO][EXCEPTION][SETTHEME]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                logger.info("[USER DAO][SQLEXCEPTION][SETTHEME]Sql exception: " + ex.getMessage());
                 ex.printStackTrace();
             }
         }

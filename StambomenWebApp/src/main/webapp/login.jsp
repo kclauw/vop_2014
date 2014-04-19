@@ -9,6 +9,27 @@
         <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="./css/general.css"/>
         <link rel="stylesheet" type="text/css" href="./css/login.css"/>
+        <style>
+            *, #topbar a:link, #topbar a:visited, #topbar a:active {
+                font-family: 'Varela', sans-serif;
+                color: #252525;
+            }
+            .themeBgColor, .itemblock, #topbar{
+                background-color: #FFFFFF;
+            }
+            .themeMaleColor {
+                background-color: #334455;
+            }
+            .itemblock {
+                border-left-color: #334455;
+            }
+            .itemblockFemale {
+                border-left-color: #B03A3A;
+            }
+            .themeFemaleColor {
+                background-color: #B03A3A;
+            }
+        </style>
     </head>
     <body id="body">
         <div class="wrapper">

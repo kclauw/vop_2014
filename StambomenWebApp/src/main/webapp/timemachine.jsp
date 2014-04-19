@@ -4,6 +4,8 @@
     Author     : Lowie
 --%>
 
+<%@page import="dto.ThemeDTO"%>
+<%@page import="dto.UserDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,7 +19,29 @@
         <link rel="stylesheet" type="text/css" href="./css/general.css"/>
         <link rel="stylesheet" type="text/css" href="./css/timemachine.css"/>
         <link rel="stylesheet" type="text/css" href="./css/custom-theme/jquery-ui-1.10.4.custom.min.css"/>
+        <style>
+            <%
+                ThemeDTO theme = ((UserDTO)request.getSession().getAttribute("user")).getUserSettings().getTheme();
+            %>
 
+            *, #topbar a:link, #topbar a:visited, #topbar a:active {
+                font-family: '<%= theme.getFont() %>', sans-serif;
+                color: #<%= theme.getTextColor() %>;
+            }
+            .themeBgColor, .itemblock, #topbar, #datewindow{
+                background-color: #<%= theme.getBgColor() %>;
+            }
+            .themeMaleColor {
+                background-color: #<%= theme.getMaleColor() %>;
+            }
+            .itemblock {
+                border-left-color: #<%= theme.getMaleColor() %>;
+            }
+            .themeFemaleColor {
+                background-color: #<%= theme.getFemaleColor() %>;
+            }
+        </style>
+        
         <script src="./js/jquery-1.11.0.min.js"></script>
         <script src="./js/jquery-ui-1.10.4.custom.min.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvtR35KQlMs6IuWdR7Bx3bvnOEIpl1C3w&sensor=false"></script>

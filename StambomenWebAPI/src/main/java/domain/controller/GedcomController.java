@@ -9,6 +9,8 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.IdentityHashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import org.gedcom4j.model.Gedcom;
 import org.gedcom4j.model.Individual;
@@ -37,28 +39,22 @@ public class GedcomController
 
     }
 
-    public void importGedcom(int userID, InputStream input) throws IOException, GedcomParserException
+    public void importGedcom(User user,Tree tree, InputStream input) throws IOException, GedcomParserException
     {
-
+        System.out.println("USER GEDCOMCONTROLLER : " + user);
+        System.out.println("TREE GEDCOMCONTROLLER : " + tree);
         GedcomParser gp = new GedcomParser();
         //IOUtils.copy(input, System.out);
         BufferedInputStream buf = new BufferedInputStream(input);
-        System.out.println("BUFFERED INPUT STREAM OUTPUT : ");
         gp.load(buf);
-        System.out.println("LOAD INPUT");
         Gedcom g = gp.gedcom;
         String[] temp = new String[1];
         String firstname = null;
         String surname = null;
         Date birthdate = null, deathdate = null;
-        User u = new User(userID);
+        Map persons = new IdentityHashMap();
         
-        String name = JOptionPane.showInputDialog("Gelieve een naam voor de stamboom in te voeren");
-        Tree tree = new Tree(u,name);
-        int treeid = tc.addTree(tree);
-        
-        
-       
+
         for (Individual i : g.individuals.values())
         {
             if (i.formattedName() != null)
@@ -109,12 +105,15 @@ public class GedcomController
                     .place(null)
                     .picture(null)
                     .build();
-                personid = pc.addPerson(treeid, PersonAdd.CHILD, person, userID);
+                personid = pc.addPerson(tree.getId(), PersonAdd.CHILD, person, user.getId());
+                
+                persons.put(i.recIdNumber.value.toString(), personid);
                 System.out.println("Person :" + firstname + " " + surname + " birthdate : " + birthdate + " deathdate : " + deathdate);
-            }
+            }    
         }
-       
+        
+        System.out.println("Person size :: " +  persons.keySet().size());
+        
 
-    }
-
+}
 }

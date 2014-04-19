@@ -23,6 +23,7 @@ public class User
     private final int MAX_SIZE_USERNAME = 50;
     private final int MAX_SIZE_PASSWORD = 50;
     private final int MIN_SIZE_PASSWORD = 8;
+    private String facebookProfileID;
 
     public User()
     {
@@ -58,6 +59,16 @@ public class User
         setUserSettings(userSettings);
         setRole(role);
         setBlock(block);
+    }
+
+    public String getFacebookProfileID()
+    {
+        return facebookProfileID;
+    }
+
+    public void setFacebookProfileID(String facebookProfileID)
+    {
+        this.facebookProfileID = facebookProfileID;
     }
 
     public int getId()
@@ -150,7 +161,7 @@ public class User
     @Override
     public String toString()
     {
-        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", userSettings=" + userSettings + ", MAX_SIZE_USERNAME=" + MAX_SIZE_USERNAME + '}';
+        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + ", userSettings=" + userSettings + ", block=" + block + ", MAX_SIZE_USERNAME=" + MAX_SIZE_USERNAME + ", MAX_SIZE_PASSWORD=" + MAX_SIZE_PASSWORD + ", MIN_SIZE_PASSWORD=" + MIN_SIZE_PASSWORD + ", facebookProfileID=" + facebookProfileID + '}';
     }
 
     private void setRole(String role)

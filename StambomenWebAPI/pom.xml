@@ -84,9 +84,9 @@
             <version>146</version>
         </dependency>
         <dependency>
-            <groupId>org.facebook4j</groupId>
-            <artifactId>facebook4j-core</artifactId>
-            <version>2.0.5</version>
+            <groupId>com.restfb</groupId>
+            <artifactId>restfb</artifactId>
+            <version>1.6.14</version>
         </dependency>
         <dependency>
             <groupId>com.google.apis</groupId>

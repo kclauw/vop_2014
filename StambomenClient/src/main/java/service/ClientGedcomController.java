@@ -2,6 +2,8 @@ package service;
 
 import dto.PersonAddDTO;
 import dto.PersonDTO;
+import dto.TreeDTO;
+import dto.UserDTO;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,9 +24,9 @@ public class ClientGedcomController
         this.clientGedcomservice = new ClientGedcomService();
     }
 
-    public String importGedcom(int userid, File file) throws FileNotFoundException, IOException
+    public String importGedcom(UserDTO user,TreeDTO tree, File file) throws FileNotFoundException, IOException
     {
-        return clientGedcomservice.importGedcom(userid, file);
+        return clientGedcomservice.importGedcom(user,tree, file);
     }
 
 }

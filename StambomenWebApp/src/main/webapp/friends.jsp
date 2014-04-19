@@ -3,6 +3,8 @@
     Created on : Mar 2, 2014, 9:08:09 PM
     Author     : Lowie
 --%>
+<%@page import="dto.ThemeDTO"%>
+<%@page import="dto.UserDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,6 +17,28 @@
         <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="./css/general.css"/>
         <link rel="stylesheet" type="text/css" href="./css/friends.css"/>
+        <style>
+            <%
+                ThemeDTO theme = ((UserDTO)request.getSession().getAttribute("user")).getUserSettings().getTheme();
+            %>
+
+            *, #topbar a:link, #topbar a:visited, #topbar a:active {
+                font-family: '<%= theme.getFont() %>', sans-serif;
+                color: #<%= theme.getTextColor() %>;
+            }
+            .themeBgColor, .itemblock, #topbar{
+                background-color: #<%= theme.getBgColor() %>;
+            }
+            .themeMaleColor {
+                background-color: #<%= theme.getMaleColor() %>;
+            }
+            .itemblock {
+                border-left-color: #<%= theme.getMaleColor() %>;
+            }
+            .themeFemaleColor {
+                background-color: #<%= theme.getFemaleColor() %>;
+            }
+        </style>
 
         <script src="./js/jquery-1.11.0.min.js"></script>
         <script src="./js/friends.js"></script>

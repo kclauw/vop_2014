@@ -23,6 +23,14 @@ public class TreeDTO implements java.io.Serializable
         this.name = name;
         this.persons = persons;
     }
+      public TreeDTO(UserDTO owner, PrivacyDTO privacy, String name)
+    {
+        
+        this.owner = owner;
+        this.privacy = privacy;
+        this.name = name;
+   
+    }
 
     public List<PersonDTO> getPersons()
     {

@@ -12,50 +12,61 @@ import javax.swing.border.Border;
  *
  * @author Lowie
  */
-public class CustomTextField extends javax.swing.JPanel {
+public class CustomTextField extends javax.swing.JPanel
+{
 
     private String defaultText;
-    
-    public String getDefaultText() {
+
+    public String getDefaultText()
+    {
         return defaultText;
     }
 
-    public void setDefaultText(String defaultText) {
+    public void setDefaultText(String defaultText)
+    {
         this.defaultText = defaultText;
-        
+
         textFieldCheck();
     }
 
-    public String getText() {
+    public String getText()
+    {
         return txtField.getText();
     }
 
-    public void setText(String text) {
+    public void setText(String text)
+    {
         txtField.setText(text);
-        
+
         textFieldCheck();
     }
 
-    public Border getTextBorder() {
+    public Border getTextBorder()
+    {
         return txtField.getBorder();
     }
 
-    public void setTextBorder(Border border) {
+    public void setTextBorder(Border border)
+    {
         txtField.setBorder(border);
     }
 
-    public CustomTextField() {
+    public CustomTextField()
+    {
         initComponents();
     }
 
-    private void textFieldCheck() {
+    private void textFieldCheck()
+    {
         String text = getText();
         if (!text.isEmpty() && !text.equals(defaultText))
         {
 //            if (text.isEmpty())
 //                setText(defaultText);
             txtField.setForeground(Color.black);
-        } else {
+        }
+        else
+        {
             txtField.setForeground(Color.gray);
         }
     }
@@ -67,13 +78,18 @@ public class CustomTextField extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         txtField = new javax.swing.JTextField();
 
+        setOpaque(false);
+
         txtField.setText("CustomTextField");
-        txtField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+        txtField.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
                 txtFieldKeyReleased(evt);
             }
         });
@@ -93,7 +109,6 @@ public class CustomTextField extends javax.swing.JPanel {
     private void txtFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldKeyReleased
         textFieldCheck();
     }//GEN-LAST:event_txtFieldKeyReleased
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField txtField;

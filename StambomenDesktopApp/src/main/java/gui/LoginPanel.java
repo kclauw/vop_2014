@@ -73,9 +73,9 @@ public class LoginPanel extends javax.swing.JPanel
 
         pnlLogin.setBackground(new java.awt.Color(255, 255, 255));
         pnlLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        pnlLogin.setMaximumSize(new java.awt.Dimension(355, 320));
-        pnlLogin.setMinimumSize(new java.awt.Dimension(355, 320));
-        pnlLogin.setPreferredSize(new java.awt.Dimension(355, 320));
+        pnlLogin.setMaximumSize(new java.awt.Dimension(355, 375));
+        pnlLogin.setMinimumSize(new java.awt.Dimension(355, 375));
+        pnlLogin.setPreferredSize(new java.awt.Dimension(355, 375));
         pnlLogin.setLayout(new java.awt.GridBagLayout());
 
         txtUsername.setDefaultText("Username");
@@ -106,7 +106,7 @@ public class LoginPanel extends javax.swing.JPanel
         pnlLogin.add(btnLogin, gridBagConstraints);
 
         lblError.setForeground(new java.awt.Color(255, 0, 0));
-        lblError.setText("General Error");
+        lblError.setText(" ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
@@ -291,9 +291,12 @@ public class LoginPanel extends javax.swing.JPanel
                                         {
                                             String url = webEngine.getLocation();
 
-                                            if (url.contains("login_succes"))
+                                            System.out.println("URL :" + url);
+
+                                            if (url.contains("https://www.facebook.com/connect/login_success.html#"))
                                             {
-                                                String authCode = url.replace("https://www.facebook.com/connect/login_success.html?code=", "");
+                                                String authCode = url.replace("https://www.facebook.com/connect/login_success.html#access_token=", "");
+                                                System.out.println("[AUTH CODE] " + authCode);
                                                 loginPanel.setFBAuthCode(authCode);
                                             }
                                         }
@@ -301,9 +304,8 @@ public class LoginPanel extends javax.swing.JPanel
                                 });
                         Scene scene = new Scene(browser, 750, 500, Color.web("#666970"));
                         stage.setScene(scene);
-                        webEngine.load("https://www.facebook.com/dialog/oauth?client_id=225842214289570&redirect_uri=https://www.facebook.com/connect/login_success.html");
+                        webEngine.load("https://www.facebook.com/dialog/oauth?client_id=225842214289570&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=basic_info,email,user_location,user_hometown,user_birthday");
                         stage.show();
-                        //get the accestoke // access_token
                     }
                 });
             }

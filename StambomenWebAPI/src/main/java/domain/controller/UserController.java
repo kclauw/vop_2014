@@ -1,6 +1,7 @@
 package domain.controller;
 
 import domain.Activity;
+import domain.Theme;
 import domain.enums.Privacy;
 import domain.User;
 import domain.enums.Event;
@@ -170,5 +171,15 @@ public class UserController
     public void blockUser(int userID, Boolean block)
     {
         pc.blockUser(userID, block);
+    }
+
+    public List<Theme> getThemes()
+    {
+        return pc.getThemes();
+    }
+
+    public void setTheme(int userID, int themeID)
+    {
+        pc.setTheme(userID, themeID);
     }
 }

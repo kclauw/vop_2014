@@ -10,7 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,7 @@ import persistence.interfaces.IDao;
 public class ThemeDao implements IDao<Theme>
 {
 
+    private final String GET_THEMES = "select themeID, name, font, bgColor, textColor, maleColor, femaleColor from Theme";
     private final String GET_THEME_BY_ID = "select themeID, name, font, bgColor, textColor, maleColor, femaleColor from Theme where themeID=?";
 
     private final Logger logger;
@@ -81,7 +84,6 @@ public class ThemeDao implements IDao<Theme>
         }
 
         return theme;
-
     }
 
     @Override
@@ -103,9 +105,50 @@ public class ThemeDao implements IDao<Theme>
     }
 
     @Override
-    public Collection<Theme> getAll()
+    public List<Theme> getAll()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Theme> themes = new ArrayList<Theme>();
+        ResultSet res = null;
+        PreparedStatement prep = null;
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(GET_THEMES);
+            logger.info("[THEMEDAO] Get all themes");
+            res = prep.executeQuery();
+
+            while (res.next())
+            {
+                themes.add(map(res));
+            }
+
+            con.close();
+
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[SQLException][THEMEDAO][Get]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[Exception][THEMEDAO][Get]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        return themes;
     }
 
     @Override

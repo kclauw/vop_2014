@@ -1,5 +1,6 @@
 package service;
 
+import domain.Theme;
 import domain.enums.Language;
 import domain.enums.Privacy;
 import domain.User;
@@ -8,7 +9,6 @@ import exception.EmptyPasswordException;
 import exception.EmptyUsernameException;
 import exception.InvalidPasswordException;
 import exception.UserAlreadyExistsException;
-import java.io.IOException;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -274,6 +274,39 @@ public class UserService
             List<User> user = uc.getUserProfiles(userID, userPrivacy);
 
             rp = Response.ok(user).build();
+        }
+        catch (Exception ex)
+        {
+            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
+
+        return rp;
+    }
+
+    @GET
+    @Path("/themes")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getThemes()
+    {
+        List<Theme> request = uc.getThemes();
+        return Response.ok(request).build();
+    }
+
+    @GET
+    @Path("/setTheme/{userID}/{themeID}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response setTheme(@PathParam("userID") int userID, @PathParam("themeID") int themeID)
+    {
+        logger.info("[User Service][SET THEME]Set theme with id: " + themeID + " for user with id: " + userID);
+        Response rp = null;
+        try
+        {
+            System.out.println("userID: " + userID + " themeID: " + themeID);
+            String result = "Theme set:" + themeID;
+
+            uc.setTheme(userID, themeID);
+            rp = Response.status(Response.Status.OK).entity(result).build();
+
         }
         catch (Exception ex)
         {

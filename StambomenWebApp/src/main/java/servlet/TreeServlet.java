@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import dto.GenderDTO;
 import dto.PersonDTO;
 import dto.TreeDTO;
 import java.io.IOException;
@@ -203,7 +204,7 @@ public class TreeServlet extends HttpServlet
 
         if (person != null)
         {
-            html = "<a style=\"background-image: url('./images/" + person.getGender().toString() + ".png');\" class=\"itemblock\" ";
+            html = "<a style=\"background-image: url('./images/" + person.getGender().toString() + ".png');\" class=\"" + ((person.getGender() == GenderDTO.FEMALE) ? "itemblockFemale " : "") + "itemblock\" ";
 
             html += "data-id=\"" + person.getPersonId() + "\" ";
             html += "data-firstname=\"" + getString(person.getFirstName()) + "\" ";

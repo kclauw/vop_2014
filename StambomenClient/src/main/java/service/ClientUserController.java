@@ -95,6 +95,15 @@ public class ClientUserController
         ClientServiceController.getInstance().getUser().getUserSettings().setLanguage(lan);
     }
 
+    public void setTheme(ThemeDTO theme)
+    {
+        int userID = ClientServiceController.getInstance().getUser().getId();
+        logger.info("[CLIENT USER CONTROLLER][SET THEME]Set theme with id: " + theme.getThemeID() + " user with id: " + userID);
+        client.setTheme(userID, theme.getThemeID());
+
+        ClientServiceController.getInstance().getUser().getUserSettings().setTheme(theme);
+    }
+
     public LanguageDTO getLanguage()
     {
         return ClientServiceController.getInstance().getUser().getUserSettings().getLanguage();
@@ -106,9 +115,9 @@ public class ClientUserController
         return ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
     }
 
-    public int getCurrentUserID()
+    public UserDTO getUser()
     {
-        return ClientServiceController.getInstance().getUser().getId();
+        return ClientServiceController.getInstance().getUser();
     }
 
     public void setUserPrivacy(int userPrivacy)
@@ -159,5 +168,12 @@ public class ClientUserController
     public void blockUser(int userid, boolean block)
     {
         client.blockUser(userid, block);
+    }
+
+    public List<ThemeDTO> getThemes()
+    {
+        logger.info("[CLIENT USER CONTROLLER][GET THEMES]");
+
+        return client.getThemes();
     }
 }
