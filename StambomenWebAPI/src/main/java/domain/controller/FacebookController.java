@@ -1,6 +1,7 @@
 package domain.controller;
 
 import domain.FacebookEndpoint;
+import domain.User;
 
 public class FacebookController
 {
@@ -12,9 +13,9 @@ public class FacebookController
         fe = new FacebookEndpoint();
     }
 
-    public boolean verify(String code)
+    public User loginWithFB(String code)
     {
-        return fe.verify(code);
+        return fe.loginWithFB(code);
     }
 
     public void registerWithFB(String authCode)

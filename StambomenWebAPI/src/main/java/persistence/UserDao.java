@@ -25,7 +25,7 @@ public class UserDao implements IDao<User>
     private final Logger logger;
     private final String GETALLUSER = "SELECT u.userID AS userID, u.username AS username, u.password AS password, u.languageID AS languageID, u.themeID AS themeID, r.role AS role,u.block as block FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID";
     private final String SAVEUSER = "INSERT INTO User (username, password, fbprofileid) VALUES (?, ?, ?)";
-    private final String GETUSER = "SELECT u.userID AS userID, u.username AS username, u.password AS PASSWORD, u.languageID AS languageID, u.themeID AS themeID,r.role as role,u.block as block FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.username = ?";
+    private final String GETUSER = "SELECT u.userID AS userID, u.username AS username, u.password AS PASSWORD, u.languageID AS languageID, u.themeID AS themeID,r.role as role,u.block as block, fbprofileid as fb FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.username = ?";
 
     private final String GETUSERBYID = "SELECT u.userID AS userID, u.username AS username, u.password AS password, u.languageID AS languageID, u.themeID AS themeID,r.role AS role,u.block as block FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID = ?";
     private final String GETFRIENDSBYID = "SELECT friend, receiver, status FROM Request WHERE (receiver=? or friend=?) AND status = 1";
@@ -371,7 +371,7 @@ public class UserDao implements IDao<User>
             String password = res.getString("password");
             int lan = res.getInt("languageID");
             int themeID = res.getInt("themeID");
-
+            String fb = res.getString("fb");
             String role = res.getString("role");
             Boolean block = res.getBoolean("block");
             Language lang = Language.getLanguageId(lan);
@@ -381,6 +381,7 @@ public class UserDao implements IDao<User>
             UserSettings settings = new UserSettings(lang, theme);
 
             user = new User(uid, ur, password, settings, role, block);
+            user.setFacebookProfileID(fb);
 
             System.out.println("MAPPING A USER " + ur);
 

@@ -53,7 +53,14 @@ public class BasicAuthFilter implements ContainerRequestFilter
 
         if (path.contains("/user/login/"))
         {
-            containerRequest.abortWith(Response.ok(authentificationResult, MediaType.APPLICATION_JSON).build());
+            if (authentificationResult != null)
+            {
+                containerRequest.abortWith(Response.ok(authentificationResult, MediaType.APPLICATION_JSON).build());
+            }
+            else
+            {
+                abortRequest(containerRequest, Status.UNAUTHORIZED);
+            }
         }
 
         if (authentificationResult == null)
@@ -64,6 +71,7 @@ public class BasicAuthFilter implements ContainerRequestFilter
         {
             abortRequest(containerRequest, Status.UNAUTHORIZED);
         }
+
     }
 
     private void abortRequest(ContainerRequestContext containerRequest, Status status)

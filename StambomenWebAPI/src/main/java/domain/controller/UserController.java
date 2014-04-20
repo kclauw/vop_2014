@@ -71,7 +71,13 @@ public class UserController
         logger.debug("LOGIN of user " + userCredentials[0]);
         User user = getUser(userCredentials[0]);
 
-        if (user != null && user.getPassword().equals(userCredentials[1]))
+        if (user.getFacebookProfileID() != null)
+        {
+            FacebookController fb = new FacebookController();
+            return fb.loginWithFB(userCredentials[1]);
+        }
+
+        if (user.getPassword().equals(userCredentials[1]))
         {
             return user;
         }

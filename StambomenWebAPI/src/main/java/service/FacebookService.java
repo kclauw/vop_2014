@@ -1,5 +1,6 @@
 package service;
 
+import domain.User;
 import domain.controller.FacebookController;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -18,25 +19,14 @@ public class FacebookService
     private FacebookController fbController = new FacebookController();
 
     @GET
-    @Path("/verify/{code}")
+    @Path("/login/{code}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response verifyInitalAuthCode(@PathParam("code") String code)
+    public Response loginWithFB(@PathParam("code") String code)
     {
         try
         {
-            System.out.println("[FACEBOOK SERVICE] VERIFY " + code.substring(0, 10));
-            logger.info("[FACEBOOK SERVICE] VERIFY " + code.substring(0, 10));
-
-            if (fbController.verify(code))
-            {
-                return Response.status(Response.Status.OK).entity("Logged into Facebook and verified!").build();
-            }
-            else
-            {
-                return Response.status(Response.Status.NOT_ACCEPTABLE).entity("Couldn't verify Facebook.").build();
-            }
-
-            //
+            User user = fbController.loginWithFB(code);
+            return Response.status(Response.Status.OK).entity(user).build();
         }
         catch (Exception e)
         {
