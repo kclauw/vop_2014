@@ -54,7 +54,15 @@ public class ClientServiceController
     public HttpAuthenticationFeature getHttpCredentials()
     {
         logger.info("[CLIENT SERVICE CONTROLLER][HTTP AUTHENTICATION FEATURE]Building request for user :" + user.getUsername());
-        return HttpAuthenticationFeature.basicBuilder().credentials(user.getUsername(), user.getPassword()).build();
+
+        if (authCode == null)
+        {
+            return HttpAuthenticationFeature.basicBuilder().credentials(user.getUsername(), user.getPassword()).build();
+        }
+        else
+        {
+            return HttpAuthenticationFeature.basicBuilder().credentials(user.getUsername(), authCode).build();
+        }
     }
 
     public Client getClient()

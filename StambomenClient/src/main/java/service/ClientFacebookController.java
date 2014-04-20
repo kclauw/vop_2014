@@ -10,10 +10,9 @@ public class ClientFacebookController
         clientFacebook = new ClientFacebookService();
     }
 
-    public void verify(String code)
+    public String loginWithFB(String authCode)
     {
-        System.out.println("CLIENT FB CONTROLLER");
-        clientFacebook.verify(code);
+        return clientFacebook.loginWithFB(authCode);
     }
 
     public void registerWithFB(String authCode)
