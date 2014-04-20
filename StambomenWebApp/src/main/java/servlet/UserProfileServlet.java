@@ -67,7 +67,7 @@ public class UserProfileServlet extends HttpServlet
 
     private void getUser(ClientUserController uC, int UserID, HttpServletResponse response) throws IOException
     {
-        UserDTO uDTO = uC.getPublicUserProfile(UserID);
+        UserDTO uDTO = uC.getPublicUser(UserID);
 
         String json = new Gson().toJson(uDTO);
 
@@ -78,31 +78,31 @@ public class UserProfileServlet extends HttpServlet
 
     private void getDefault(HttpServletRequest request, HttpServletResponse response) throws IOException
     {
-        logger.info("[USERPROFILE SERVLET][GET DEFAULT]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
+        logger.info("[USER SERVLET][GET DEFAULT]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
         HttpSession session = request.getSession(false);
 
         ClientUserController userController = (ClientUserController) session.getAttribute("userController");
-        List<UserDTO> publicUserProfiles = userController.getPublicUserProfiles();
+        List<UserDTO> publicUsers = userController.getPublicUsers();
 
-        String publicUserProfileshtml = "";
-        for (UserDTO publicUserProfile : publicUserProfiles)
+        String publicUsershtml = "";
+        for (UserDTO publicUser : publicUsers)
         {
-            publicUserProfileshtml += getPublicUserProfilesHTML(publicUserProfile);
+            publicUsershtml += getPublicUsersHTML(publicUser);
         }
-        session.setAttribute("publicUserProfileshtml", publicUserProfileshtml);
+        session.setAttribute("publicUserProfileshtml", publicUsershtml);
 
         response.sendRedirect(request.getContextPath() + "/userProfiles.jsp");
     }
 
-    private String getPublicUserProfilesHTML(UserDTO userProfile)
+    private String getPublicUsersHTML(UserDTO user)
     {
         String html = "";
-        if (userProfile != null)
+        if (user != null)
         {
-            logger.info("[USERPROFILE SERVLET][GET PUBLICUSERPROFILE HTML]USERDTO:" + userProfile.toString());
+            logger.info("[USERPROFILE SERVLET][GET PUBLICUSERs HTML]USERDTO:" + user.toString());
 
-            html += "<li class=\"itemblock\" id=\"" + userProfile.getId() + "\">";
-            html += "\n<div>" + userProfile.getUsername() + "</div>";
+            html += "<li class=\"itemblock\" id=\"" + user.getId() + "\">";
+            html += "\n<div>" + user.getUsername() + "</div>";
             html += "<img class=\"privacy\" src=\"./images/PUBLIC.png\" alt=\"PUBLIC\">";
             html += "\n</li>";
         }
