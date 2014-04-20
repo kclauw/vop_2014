@@ -5,6 +5,7 @@ import gui.controller.LoginController;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
 import javafx.concurrent.Worker.State;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
@@ -283,11 +284,11 @@ public class LoginPanel extends javax.swing.JPanel
                         WebView browser = new WebView();
                         final WebEngine webEngine = browser.getEngine();
                         webEngine.getLoadWorker().stateProperty().addListener(
-                                new ChangeListener<State>()
+                                new ChangeListener<Worker.State>()
                                 {
-                                    public void changed(ObservableValue ov, State oldState, State newState)
+                                    public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState)
                                     {
-                                        if (newState == State.SUCCEEDED)
+                                        if (newState == Worker.State.SUCCEEDED)
                                         {
                                             String url = webEngine.getLocation();
 
@@ -297,7 +298,7 @@ public class LoginPanel extends javax.swing.JPanel
                                             {
                                                 String authCode = url.replace("https://www.facebook.com/connect/login_success.html#access_token=", "");
                                                 System.out.println("[AUTH CODE] " + authCode);
-                                                loginPanel.setFBAuthCode(authCode);
+                                                loginPanel.loginWithFB(authCode);
                                             }
                                         }
                                     }

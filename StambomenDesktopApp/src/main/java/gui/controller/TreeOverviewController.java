@@ -37,11 +37,10 @@ public class TreeOverviewController implements IPanelController
         treeOverviewPanel = (FamilyTreeOverviewPanel) PanelFactory.makePanel(Panels.TREEOVERVIEW);
         treeOverviewPanel.setTreeController(this);
 
-        if (gui.getLogin().equals("Admin"))
-        {
-            treeOverviewPanel.addAdmin();
-        }
-
+//        if (gui.getLogin().equals("Admin"))
+//        {
+//            treeOverviewPanel.addAdmin();
+//        }
         getTrees(-1);
         return treeOverviewPanel;
     }

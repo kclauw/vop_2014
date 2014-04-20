@@ -85,11 +85,20 @@ public class LoginController implements IPanelController
         }
     }
 
-    public void setFBAuthCode(String authCode)
+    public void loginWithFB(String authCode)
     {
         System.out.println("[LOGIN CONTROLLER] AUTHCODE");
         clientUserController.setFBAuthCode(authCode);
-        clientFacebookController.verify(authCode);
+        String result = clientFacebookController.loginWithFB(authCode);
+
+        if (result == null)
+        {
+            goTo(Panels.TREEOVERVIEW);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Error with login to FB.");
+        }
     }
 
 }
