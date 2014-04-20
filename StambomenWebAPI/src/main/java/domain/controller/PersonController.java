@@ -30,12 +30,12 @@ public class PersonController
     private ActivityController ac;
     private PersistenceController pc;
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    private int id;
 
     public PersonController()
     {
         pc = new PersistenceController();
         ac = new ActivityController(pc);
+        tc = new TreeController();
     }
 
     /**
@@ -109,8 +109,10 @@ public class PersonController
      */
     public int addPerson(int treeID, PersonAdd personAdd, Person person, int personLinkID)
     {
+        int id = -1;
+        Tree tree = tc.getTree(treeID);
         //Date date = new Date();
-        Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tc.getTree(treeID).getOwner().getId(), null);
+        Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tree.getOwner().getId(), null);
         System.out.println("[ADDING PERSON] " + treeID + " " + personAdd.getId() + " " + personLinkID);
         /*Check wheter the person exists. This should be place in a repo.*/
         Person ps = pc.getPerson(treeID, person.getPersonId());
