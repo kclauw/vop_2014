@@ -2,14 +2,19 @@
 import gui.controller.GuiController;
 import javax.swing.SwingUtilities;
 
-public class StartUp {
+public class StartUp
+{
 
-    public static void main(String args[]) {
-        SwingUtilities.invokeLater(new Runnable() {
+    public static void main(String args[])
+    {
+        SwingUtilities.invokeLater(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 new GuiController();
             }
         });
+
     }
 }

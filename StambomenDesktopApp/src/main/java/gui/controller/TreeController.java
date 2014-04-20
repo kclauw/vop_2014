@@ -59,7 +59,7 @@ public class TreeController implements IPanelController
         else if (tree.getPersons().isEmpty())
         {
             System.out.println("[TREE CONTROLLER] Tree is empty!");
-            JOptionPane.showMessageDialog(familyTreeTotalPanel, "Error no persons in tree!");
+            JOptionPane.showMessageDialog(familyTreeTotalPanel, "Error no persons in tree! Please add a root person.");
         }
         else
         {
@@ -99,6 +99,13 @@ public class TreeController implements IPanelController
 
     public String addPerson(PersonAddDTO personAdd, PersonDTO person, int link)
     {
+        if (tree.getPersons().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "Adding this person as root person!");
+            personAdd = PersonAddDTO.CHILD;
+            link = -1;
+        }
+
         System.out.println("[TREE CONTROLLER] SAVING PERSON " + person.toString());
         String res = clientPersonController.savePerson(tree.getId(), personAdd, person, link);
 
@@ -167,6 +174,11 @@ public class TreeController implements IPanelController
             updateView();
         }
 
+    }
+
+    public boolean isTreeEmpty()
+    {
+        return this.tree.getPersons().isEmpty();
     }
 
 }

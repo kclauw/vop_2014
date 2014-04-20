@@ -14,8 +14,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.openide.util.Exceptions;
 import util.Translator;
@@ -29,7 +31,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private PersonDTO person;
     private FamilyTreeTotalPanel fttp;
     private boolean adding = false;
-
     private boolean child;
     private boolean parent;
 
@@ -473,14 +474,20 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         {
             adding = true;
 
-            int option = JOptionPane.showOptionDialog(null, "Would you like to add parent or child?", "Who would you liek to add?", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+            String option = null;
+            JOptionPane dialog = new JOptionPane("Would you like to add parent or child?", JOptionPane.QUESTION_MESSAGE, 0, null, options, null);
+            JDialog d = dialog.createDialog("Add a parent or child");
+            d.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+            d.setVisible(true);
 
-            if (option == 0)
+            option = (String) dialog.getValue();
+
+            if (option.equals("Child"))
             {
                 child = true;
                 parent = false;
             }
-            else if (option == 1)
+            else if (option.equals("Parent"))
             {
                 child = false;
                 parent = true;
@@ -504,7 +511,13 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
             PersonAddDTO add = null;
             int link = -1;
 
-            if (parent)
+            if (this.fttp.isTreeEmpty())
+            {
+                p = getCurrentPersonFromInput();
+                add = PersonAddDTO.CHILD;
+                link = -1;
+            }
+            else if (parent)
             {
                 p = addParent();
                 add = PersonAddDTO.PARENT;
@@ -796,8 +809,9 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private PersonDTO addChild()
     {
         PersonDTO p = getCurrentPersonFromInput();
+        PersonDTO partner = null;
 
-        PersonDTO partner = person.getPartner();
+        partner = person.getPartner();
 
         if (person.getGender() == GenderDTO.FEMALE)
         {

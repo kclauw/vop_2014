@@ -221,4 +221,9 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         treeController.movePerson(personAddDTO, personId, personMoveID);
     }
 
+    public boolean isTreeEmpty()
+    {
+        return treeController.isTreeEmpty();
+    }
+
 }
