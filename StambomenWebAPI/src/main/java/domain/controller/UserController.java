@@ -148,18 +148,18 @@ public class UserController
         return privacy;
     }
 
-    public User getUserProfile(int userProfileID, Privacy userPrivacy)
+    public User getUserWithPrivacy(int userProfileID, Privacy userPrivacy)
     {
-        User userProfile = pc.getUserProfile(userProfileID, userPrivacy);
+        User user = pc.getUserWithPrivacy(userProfileID, userPrivacy);
 
-        return userProfile;
+        return user;
     }
 
-    public List<User> getUserProfiles(int userProfileID, Privacy userPrivacy)
+    public List<User> getUsersWithPrivacy(int userProfileID, Privacy userPrivacy)
     {
-        List<User> userProfiles = pc.getUserProfiles(userProfileID, userPrivacy);
+        List<User> users = pc.getUsersWithPrivacy(userProfileID, userPrivacy);
 
-        return userProfiles;
+        return users;
     }
 
     public List<User> getUsers()

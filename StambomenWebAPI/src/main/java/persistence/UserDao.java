@@ -38,8 +38,8 @@ public class UserDao implements IDao<User>
     private final String GETLANGUAGE = "SELECT languageID FROM User where userID=?;";
     private final String SETUSERPRIVACY = "UPDATE User SET privacy = ? WHERE userID = ?";
     private final String GETUSERPRIVACY = "SELECT privacy FROM User WHERE userID = ?";
-    private final String GETUSERPROFILE = "SELECT * FROM User u  LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID = ? AND u.privacy = ?";
-    private final String GETUSERPROFILES = "SELECT * FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID != ? AND u.privacy = ?";
+    private final String GETUSERWITHPRIVACY = "SELECT * FROM User u  LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID = ? AND u.privacy = ?";
+    private final String GETUSERSWITHPRIVACY = "SELECT *, fbprofileid as fb FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID != ? AND u.privacy = ?";
     private final String SETUSERBLOCK = "UPDATE User SET block = ? WHERE userID = ?";
     private final String UPDATEUSER = "UPDATE User SET username = ?,password = ?,block = ? WHERE userID = ?";
     // private final PersistenceController pc;
@@ -784,7 +784,7 @@ public class UserDao implements IDao<User>
         return language;
     }
 
-    public User getUserProfile(int userID, Privacy userPrivacy)
+    public User getUserWithPrivacy(int userID, Privacy userPrivacy)
     {
         PreparedStatement prep = null;
         ResultSet res = null;
@@ -793,7 +793,7 @@ public class UserDao implements IDao<User>
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(GETUSERPROFILE);
+            prep = con.prepareStatement(GETUSERWITHPRIVACY);
 
             prep.setInt(1, userID);
             prep.setInt(2, userPrivacy.getPrivacyId());
@@ -809,11 +809,11 @@ public class UserDao implements IDao<User>
         }
         catch (SQLException ex)
         {
-            logger.info("[USER DAO][SQLEXCEPTION][GETUSERPROFILE]Sql exception: " + ex.getMessage());
+            logger.info("[USER DAO][SQLEXCEPTION][getUserWithPrivacy]Sql exception: " + ex.getMessage());
         }
         catch (Exception ex)
         {
-            logger.info("[USER DAO][EXCEPTION][GETUSERPROFILE]Exception: " + ex.getMessage());
+            logger.info("[USER DAO][EXCEPTION][getUserWithPrivacy]Exception: " + ex.getMessage());
         }
         finally
         {
@@ -825,14 +825,14 @@ public class UserDao implements IDao<User>
             }
             catch (SQLException ex)
             {
-                logger.info("[USER DAO][SQLEXCEPTION][GETUSERPROFILE]Sql exception: " + ex.getMessage());
+                logger.info("[USER DAO][SQLEXCEPTION][getUserWithPrivacy]Sql exception: " + ex.getMessage());
                 ex.printStackTrace();
             }
         }
         return user;
     }
 
-    public List<User> getUserProfiles(int userID, Privacy userPrivacy)
+    public List<User> getUsersWithPrivacy(int userID, Privacy userPrivacy)
     {
         PreparedStatement prep = null;
         ResultSet res = null;
@@ -841,7 +841,7 @@ public class UserDao implements IDao<User>
         try
         {
             con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(GETUSERPROFILES);
+            prep = con.prepareStatement(GETUSERSWITHPRIVACY);
 
             prep.setInt(1, userID);
             prep.setInt(2, userPrivacy.getPrivacyId());
@@ -860,11 +860,11 @@ public class UserDao implements IDao<User>
         }
         catch (SQLException ex)
         {
-            logger.info("[USER DAO][SQLEXCEPTION][getUserProfiles]Sql exception: " + ex.getMessage());
+            logger.info("[USER DAO][SQLEXCEPTION][getUsersWithPrivacy]Sql exception: " + ex.getMessage());
         }
         catch (Exception ex)
         {
-            logger.info("[USER DAO][EXCEPTION][getUserProfiles]Exception: " + ex.getMessage());
+            logger.info("[USER DAO][EXCEPTION][getUsersWithPrivacy]Exception: " + ex.getMessage());
         }
         finally
         {
@@ -876,7 +876,7 @@ public class UserDao implements IDao<User>
             }
             catch (SQLException ex)
             {
-                logger.info("[USER DAO][SQLEXCEPTION][getUserProfiles]Sql exception: " + ex.getMessage());
+                logger.info("[USER DAO][SQLEXCEPTION][getUsersWithPrivacy]Sql exception: " + ex.getMessage());
                 ex.printStackTrace();
             }
         }
