@@ -135,19 +135,19 @@ public class ClientUserController
         return privacyDTO;
     }
 
-    public UserDTO getPublicUserProfile(int userProfileID)
+    public UserDTO getPublicUser(int userID)
     {
-        UserDTO user = client.getPublicUserProfile(userProfileID);
+        UserDTO user = client.getPublicUser(userID);
 
         return user;
     }
 
-    public List<UserDTO> getPublicUserProfiles()
+    public List<UserDTO> getPublicUsers()
     {
         int userID = ClientServiceController.getInstance().getUser().getId();
-        List<UserDTO> userProfiles = client.getPublicUserProfiles(userID);
+        List<UserDTO> users = client.getPublicUsers(userID);
 
-        return userProfiles;
+        return users;
     }
 
     public List<UserDTO> getUsers()
