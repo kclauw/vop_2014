@@ -110,9 +110,11 @@ public class PersonController
     public int addPerson(int treeID, PersonAdd personAdd, Person person, int personLinkID)
     {
         int id = -1;
-        Tree tree = tc.getTree(treeID);
+        System.out.println("GETTING TREE IN ADD PERSON ");
+        //Tree tree = tc.getTree(treeID);
+     
         //Date date = new Date();
-        Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tree.getOwner().getId(), null);
+      //  Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tree.getOwner().getId(), null);
         System.out.println("[ADDING PERSON] " + treeID + " " + personAdd.getId() + " " + personLinkID);
         /*Check wheter the person exists. This should be place in a repo.*/
         Person ps = pc.getPerson(treeID, person.getPersonId());
@@ -129,12 +131,12 @@ public class PersonController
                 case CHILD:
                     System.out.println("ADDING CHILD");
                     id = addChild(treeID, person);
-                    ac.addActivity(act);
+                    //ac.addActivity(act);
                     break;
                 case PARENT:
                     System.out.println("ADDING PARENT");
                     id = addParent(treeID, person, personLinkID);
-                    ac.addActivity(act);
+                    //ac.addActivity(act);
                     break;
             }
 
@@ -167,6 +169,11 @@ public class PersonController
     {
         return pc.getPersons(treeID, start, max);
     }
+    
+      public List<Person> getPersonsByTree(int treeID)
+    {
+        return pc.getPersonsByTree(treeID);
+    }
 
     public List<Person> getPersons(int start, int max)
     {
@@ -182,7 +189,7 @@ public class PersonController
      * PersonLinkID here is something else completely. It is the id of the child
      * that gets a new parent.
      */
-    private int addParent(int treeID, Person person, int personLinkID)
+    public int addParent(int treeID, Person person, int personLinkID)
     {
         List<Person> pers = pc.getPersons(treeID);
         int id = pc.addPerson(treeID, person);
@@ -195,6 +202,8 @@ public class PersonController
         setParentRelation(treeID, child, parent, pers);
         return id;
     }
+    
+
 
     /**
      * This method will move a person based on the params. TreeID is the tree of

@@ -32,7 +32,6 @@ import service.ClientPersonController;
 import service.ClientServiceController;
 import service.ClientTreeController;
 import service.ClientUserController;
-import service.ClientUserService;
 import util.Translator;
 
 public class FamilyTreeOverviewPanel extends javax.swing.JPanel
@@ -40,6 +39,9 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
     private TreeOverviewController treeoverviewController;
     private ClientTreeController treeController;
+    private ClientUserController userController;
+    private ClientGedcomController gedcomController;
+    
 
     private String login;
     private JMenu menu;
@@ -57,6 +59,11 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
     public FamilyTreeOverviewPanel()
     {
+        gedcomController = new ClientGedcomController();
+        treeController = new ClientTreeController();
+        userController = new ClientUserController();
+        cbxPrivacy = new JComboBox();
+        
         initComponents();
         trans = new Translator();
         menuBar = new JMenuBar();
@@ -100,10 +107,17 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                 if (returnVal == JFileChooser.APPROVE_OPTION)
                 {
 
+                    
                     file = fc.getSelectedFile();
                     System.out.println("Opening: " + file.getName());
-                    ClientGedcomController gedcomController = new ClientGedcomController();
+                    
+                    cbxPrivacy.setModel(new javax.swing.DefaultComboBoxModel(new String[]
+                    {
+                       trans.translate("Private"), trans.translate("OnlyFriends"), trans.translate("Public")
+                     }));
                     int privacy = cbxPrivacy.getSelectedIndex();
+                    cbxPrivacy.setVisible(true);
+                    JOptionPane.showMessageDialog(null, cbxPrivacy);
                     PrivacyDTO p;
                     if (privacy == 0)
                     {
@@ -121,13 +135,31 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                     {
                         p = null;
                     }
+                    
+                    
 
                     String name = JOptionPane.showInputDialog("Gelieve een naam voor de boom in te voeren");
-
-                    TreeDTO tree = new TreeDTO(treeoverviewController.getUser(), p, name);
-                    treeController.makeTree(tree);
-
-                    //gedcomController.importGedcom(treeoverviewController.getUser(),tree, file);
+                    
+                   // TreeDTO tree = new TreeDTO(-1,userController.getUser().getId(), p,name,null);
+                    //treeController.makeTree(tree);
+                    
+                 //   System.out.println("ADDING TREE : " + treeController.makeTree(tree));     
+                   /* while(addTree.equals("exists")){
+                    tree.setName(name = JOptionPane.showInputDialog("Boom bestaat al gelieve een andere naam in te voeren"));
+                    addTree = treeController.makeTree(tree);
+                    };*/
+                   
+                    try {
+                        gedcomController.importGedcom(p.getPrivacyId(),userController.getUser().getId(),name, file);
+                         repaint();
+                    revalidate();
+                    } catch (IOException ex) {
+                        
+                        Exceptions.printStackTrace(ex);
+                    }
+                        
+                    
+                    
                 }
                 else
                 {

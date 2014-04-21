@@ -7,10 +7,12 @@ public enum Privacy
 
     private int privacyId;
 
-    private Privacy(int privacyId)
+    Privacy(int privacyId)
     {
         this.privacyId = privacyId;
     }
+
+   
 
     public int getPrivacyId()
     {
