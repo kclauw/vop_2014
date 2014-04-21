@@ -7,6 +7,7 @@ import exception.TreeAlreadyExistsException;
 import exception.TreeNameAlreadyExistsException;
 import java.util.Date;
 import java.util.List;
+import javax.ws.rs.PathParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.PersistenceController;
@@ -47,7 +48,7 @@ public class TreeController
 
             id = pc.addTree(tree);
             ac.addActivity(act);
-            
+
         }
         else
         {
@@ -68,7 +69,7 @@ public class TreeController
                         throw new TreeNameAlreadyExistsException();
                     }
                 }
-               id =  pc.addTree(tree);
+                id = pc.addTree(tree);
                 ac.addActivity(act);
             };
         }
@@ -83,5 +84,10 @@ public class TreeController
     public List<Tree> getTrees(int userId)
     {
         return pc.getTrees(userId);
+    }
+
+    public List<Tree> getPublicTreesByName(int userId, String name)
+    {
+        return pc.getPublicTreesByName(userId, name);
     }
 }

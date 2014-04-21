@@ -1,6 +1,7 @@
 package gui;
 
 import dto.PrivacyDTO;
+import dto.ThemeDTO;
 import dto.TreeDTO;
 import gui.controller.TreeOverviewController;
 import gui.controls.FamilyTreeList;
@@ -15,6 +16,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -26,7 +29,10 @@ import org.gedcom4j.writer.GedcomWriterException;
 import org.openide.util.Exceptions;
 import service.ClientGedcomController;
 import service.ClientPersonController;
+import service.ClientServiceController;
 import service.ClientTreeController;
+import service.ClientUserController;
+import service.ClientUserService;
 import util.Translator;
 
 public class FamilyTreeOverviewPanel extends javax.swing.JPanel
@@ -51,7 +57,6 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
     public FamilyTreeOverviewPanel()
     {
-
         initComponents();
         trans = new Translator();
         menuBar = new JMenuBar();
@@ -122,7 +127,7 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                     TreeDTO tree = new TreeDTO(treeoverviewController.getUser(), p, name);
                     treeController.makeTree(tree);
 
-                        //gedcomController.importGedcom(treeoverviewController.getUser(),tree, file);
+                    //gedcomController.importGedcom(treeoverviewController.getUser(),tree, file);
                 }
                 else
                 {
@@ -158,8 +163,22 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
     private void initGui()
     {
+        ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
+        Color bgColor = ThemeDTO.toColor(theme.getBgColor());
+        Color textColor = ThemeDTO.toColor(theme.getTextColor());
+
+        pnlMenuBg.setBackground(bgColor);
+        menuBar.setBackground(bgColor);
+        for (int i = 0; i < menuBar.getMenuCount(); i++)
+        {
+            for (int j = 0; j < menuBar.getMenu(i).getItemCount(); j++)
+            {
+                menuBar.getMenu(i).getItem(j).setBackground(bgColor);
+            }
+            menuBar.getMenu(i).setBackground(bgColor);
+        }
+
         lblLogo.setIcon(new ImageIcon(this.getClass().getClassLoader().getResource("images/logoSmall.png")));
-        menuBar.setBackground(Color.white);
         menuBar.setMinimumSize(new Dimension(menuBar.getMinimumSize().width, 50));
         menuBar.setPreferredSize(new Dimension(menuBar.getPreferredSize().width, 50));
         menuBar.setMaximumSize(new Dimension(menuBar.getMaximumSize().width, 50));
@@ -203,7 +222,7 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
     {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel2 = new javax.swing.JPanel();
+        pnlMenuBg = new javax.swing.JPanel();
         pnlMenu = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
         pnlMain = new javax.swing.JPanel();
@@ -212,11 +231,12 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         setPreferredSize(new java.awt.Dimension(800, 400));
         setLayout(new java.awt.GridBagLayout());
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setMaximumSize(new java.awt.Dimension(32767, 50));
-        jPanel2.setMinimumSize(new java.awt.Dimension(0, 50));
-        jPanel2.setPreferredSize(new java.awt.Dimension(900, 50));
-        jPanel2.setLayout(new java.awt.GridBagLayout());
+        pnlMenuBg.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMenuBg.setToolTipText("");
+        pnlMenuBg.setMaximumSize(new java.awt.Dimension(32767, 50));
+        pnlMenuBg.setMinimumSize(new java.awt.Dimension(0, 50));
+        pnlMenuBg.setPreferredSize(new java.awt.Dimension(900, 50));
+        pnlMenuBg.setLayout(new java.awt.GridBagLayout());
 
         pnlMenu.setMaximumSize(new java.awt.Dimension(900, 32767));
         pnlMenu.setMinimumSize(new java.awt.Dimension(900, 24));
@@ -237,12 +257,12 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
-        jPanel2.add(pnlMenu, gridBagConstraints);
+        pnlMenuBg.add(pnlMenu, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
-        add(jPanel2, gridBagConstraints);
+        add(pnlMenuBg, gridBagConstraints);
 
         pnlMain.setMaximumSize(new java.awt.Dimension(900, 2147483647));
         pnlMain.setMinimumSize(new java.awt.Dimension(900, 0));
@@ -259,10 +279,10 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JPanel pnlMain;
     private javax.swing.JPanel pnlMenu;
+    private javax.swing.JPanel pnlMenuBg;
     // End of variables declaration//GEN-END:variables
 
     public void setTreeController(TreeOverviewController treeController)

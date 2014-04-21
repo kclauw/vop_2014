@@ -5,6 +5,8 @@
  */
 package dto;
 
+import java.awt.Color;
+
 /**
  *
  * @author Lowie
@@ -109,6 +111,11 @@ public class ThemeDTO
     public String toString()
     {
         return "ThemeDTO{" + "id=" + themeID + ", name=" + name + ", font=" + font + ", bgColor=" + bgColor + ", textColor=" + textColor + ", maleColor=" + maleColor + ", femaleColor=" + femaleColor + '}';
+    }
+
+    public static Color toColor(String color)
+    {
+        return new Color(Integer.parseInt(color, 16));
     }
 
 }

@@ -123,6 +123,12 @@ public class PersistenceController
         return treeDao.getAll(userId);
     }
 
+    public List<Tree> getPublicTreesByName(int userId, String name)
+    {
+        logger.debug("[PERSISTENCE CONTROLLER] Get public trees for user " + userId + " with name like " + name);
+        return treeDao.getPublicByName(userId, name);
+    }
+
     public List<User> getFriends(int userID)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get friends from user " + userID);

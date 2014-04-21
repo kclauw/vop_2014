@@ -23,6 +23,7 @@ public class TreeDao implements IDao<Tree>
     private final String SAVETREE = "INSERT INTO Tree (ownerID, privacy,name) VALUES (?,?,?)";
     private final String GETTREE = "SELECT treeID, name, ownerID, privacy FROM Tree WHERE treeID = ?";
     private final String GETTREEBYUSERID = "SELECT treeID, name, ownerID, privacy FROM Tree WHERE ownerID = ?";
+    private final String GETPUBLICTREESBYNAME = "select * from Tree where (privacy = 2 or (privacy=1 and ownerID in ( select case friend when ? then receiver else friend end from Request where (friend = ? or receiver = ?) and status = 1))) and ownerID!=? and name like ?";
     private PersistenceController per;
     private final Logger logger;
     private int lastInsertedId;
@@ -86,6 +87,62 @@ public class TreeDao implements IDao<Tree>
         }
 
         return tree;
+    }
+
+    public List<Tree> getPublicByName(int userId, String name)
+    {
+        List<Tree> trees = new ArrayList<Tree>();
+        PreparedStatement prep = null;
+        ResultSet res = null;
+        try
+        {
+
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(GETPUBLICTREESBYNAME);
+            prep.setInt(1, userId);
+            prep.setInt(2, userId);
+            prep.setInt(3, userId);
+            prep.setInt(4, userId);
+            prep.setString(5, "%" + name + "%");
+            logger.info("[TREE DAO] GET ALL USERID " + prep.toString());
+            res = prep.executeQuery();
+
+            while (res.next())
+            {
+                Tree tree = map(res);
+
+                if (tree != null)
+                {
+                    trees.add(tree);
+                }
+            }
+
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[TREE DAO][SQLException][GetAll]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[TREE DAO][Exception][GetAll]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        return trees;
     }
 
     public List<Tree> getAll(int userid)

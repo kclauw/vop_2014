@@ -39,11 +39,13 @@
                 background-color: #<%= theme.getFemaleColor() %>;
             }
         </style>
+        
+        <script src="./js/jquery-1.11.0.min.js"></script>
     </head>
     <body>
-        <div id="topbar" class="shadow">
-            <div class="wrapper">
-                <c:import url = "/Components/header.jsp"></c:import>
+            <div id="topbar" class="shadow">
+                <div class="wrapper">
+                    <c:import url = "/Components/header.jsp"></c:import>
                     <ul id="menu">
                         <c:import url = "/Components/menu.jsp"></c:import>
                     </ul>    
@@ -51,14 +53,32 @@
             </div>
             <div class="wrapper">
                 <div>
-                    <h1>Familytrees</h1>
-                    <ul class="treelist">
-                    <c:forEach var="tree" items="${trees}" varStatus="counter">
-                        <a href="./TreeServlet?treeid=${tree.id}" class="itemblock"><li>
-                                <div>${tree.name}</div>
-                                <img class="privacy" src="./images/${tree.privacy}.png" alt="${tree.privacy}" />
-                            </li></a>
-                        </c:forEach>
+                    <div class="treegroup">
+                        <h1>Familytrees</h1>
+                        <ul class="treelist">
+                            <c:forEach var="tree" items="${trees}" varStatus="counter">
+                                <a href="./TreeServlet?treeid=${tree.id}" class="itemblock"><li>
+                                    <div>${tree.name}</div>
+                                    <img class="privacy" src="./images/${tree.privacy}.png" alt="${tree.privacy}" />
+                                </li></a>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                    <div class="treegroup">
+                        <h1>Public trees</h1>
+                        <form method="get" action="./TreeServlet">
+                            <input name="publictreename" value="${publictreename}" />
+                            <input type="submit" value="Search" />
+                        </form>
+                        <ul class="treelist">
+                            <c:forEach var="tree" items="${publictrees}" varStatus="counter">
+                                <a href="./TreeServlet?treeid=${tree.id}" class="itemblock"><li>
+                                    <div>${tree.name}</div>
+                                    <img class="privacy" src="./images/${tree.privacy}.png" alt="${tree.privacy}" />
+                                </li></a>
+                            </c:forEach>
+                        </ul>
+                    </div>
                 </ul>
             </div>
         </div>

@@ -36,3 +36,22 @@ and open the template in the editor.
     margin: 10px;
     opacity: 0.5;
 }
+
+.treegroup {
+    float: left;
+    width: 410px;
+}
+
+form {
+    margin-top: 15px;
+}
+
+input[type="submit"] {
+    width: 75px;
+    height: 29px;
+}
+
+input {
+    width: 200px;
+    height: 25px;
+}
