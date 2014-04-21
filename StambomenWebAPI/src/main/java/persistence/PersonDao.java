@@ -369,7 +369,7 @@ public class PersonDao implements IDao<Person>
         return persons;
     }
 
-    public Collection<Person> GetAll(int treeID)
+    public List<Person> GetAll(int treeID)
     {
 
         List<Person> persons = new ArrayList<Person>();

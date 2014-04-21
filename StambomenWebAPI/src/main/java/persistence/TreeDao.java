@@ -25,6 +25,7 @@ public class TreeDao implements ITreeDao<Tree>
     private final String GETTREE = "SELECT treeID, name, ownerID, privacy FROM Tree WHERE treeID = ?";
     private final String GETTREEBYUSERID = "SELECT treeID, name, ownerID, privacy FROM Tree WHERE ownerID = ?";
     private final String GETPUBLICTREESBYNAME = "select * from Tree where (privacy = 2 or (privacy=1 and ownerID in ( select case friend when ? then receiver else friend end from Request where (friend = ? or receiver = ?) and status = 1))) and ownerID!=? and name like ?";
+    private final String GETTREEBYNAME = "SELECT treeID, name, ownerID, privacy FROM Tree WHERE name = ?";
     private PersistenceController per;
     private final Logger logger;
     private int lastInsertedId;
@@ -56,7 +57,7 @@ public class TreeDao implements ITreeDao<Tree>
             System.out.println("OWNER : " + tree.getOwner());
 
             List<Person> pers = per.getPersons(id);
-               
+
             if (tree != null && pers == null)
             {
                 tree.setPersons(pers);
@@ -90,7 +91,7 @@ public class TreeDao implements ITreeDao<Tree>
 
         return tree;
     }
-    
+
     public Tree getByName(String name)
     {
         Tree tree = null;
@@ -136,7 +137,6 @@ public class TreeDao implements ITreeDao<Tree>
 
         return tree;
     }
-    
 
     public List<Tree> getPublicByName(int userId, String name)
     {
@@ -296,8 +296,6 @@ public class TreeDao implements ITreeDao<Tree>
         }
         return lastInsertedId;
     }
-
-   
 
     @Override
     public void update(Tree value)
