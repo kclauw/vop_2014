@@ -54,13 +54,13 @@ public class TreeDao implements ITreeDao<Tree>
                 tree = map(res);
             }
             System.out.println("OWNER : " + tree.getOwner());
-/*
-            //List<Person> pers = per.getPersons(id);
-                List<Person> pers = null;
+
+            List<Person> pers = per.getPersons(id);
+               
             if (tree != null && pers == null)
             {
                 tree.setPersons(pers);
-            }*/
+            }
 
             con.close();
 

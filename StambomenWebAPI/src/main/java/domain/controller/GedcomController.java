@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.ws.rs.core.Response.Status.Family;
@@ -84,6 +85,7 @@ public class GedcomController
 
         for (Individual i : g.individuals.values())
         {
+            
            for (FamilyChild fa : i.familiesWhereChild){
                try{
                    
@@ -171,6 +173,8 @@ public class GedcomController
         
         for (Individual i : g.individuals.values())
             {
+               Person person = pc.getPerson(treeId, persons.get(i.xref));
+               
                
                /* System.out.println("Child : " + i.formattedName());
                 System.out.println("Sex  : " + i.sex.toString());
@@ -194,6 +198,9 @@ public class GedcomController
                         
                         
                         per.addParentRelation(treeId,persons.get(f.family.husband.xref),persons.get(i.xref));
+                        Person father = pc.getPerson(treeId, persons.get(f.family.husband.xref));
+                        person.setFather(father);
+                        
                     }
 
                     if (f.family.wife != null)
@@ -211,6 +218,8 @@ public class GedcomController
                         }
                       //  System.out.println("Mom :" + firstname + " " + surname + " ID : " + f.family.wife.xref + "database id : " + persons.get(f.family.wife.xref));
                         per.addParentRelation(treeId,persons.get(f.family.wife.xref),persons.get(i.xref));
+                        Person mother = pc.getPerson(treeId, persons.get(f.family.wife.xref));
+                        person.setMother(mother);
                     }
 
                 }
@@ -231,7 +240,6 @@ public class GedcomController
                         }
                        // System.out.println("Wife of :" + firstname + " " + surname + " ID : " + s.family.wife.xref + "database id : " + persons.get(s.family.husband.xref));
                         per.addParentRelation(treeId,persons.get(s.family.wife.xref),persons.get(i.xref));
-
                     }
                     if (s.family.wife != null && !s.family.wife.xref.equals(i.xref))
                     {
@@ -252,6 +260,10 @@ public class GedcomController
                 }
                // System.out.println(" ");
             }
+        Tree t = tc.getTree(treeId);
+        t.setPersons(pc.getPersonsByTree(treeId));
+        pc.updatePerson(treeId, person);
+       
         System.out.println("Gedcome file added");
     }
 }

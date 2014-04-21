@@ -274,6 +274,12 @@ public class PersistenceController
         logger.info("[PERSISTENCE CONTROLLER] Get persons ");
         return personDao.getPersons(treeID, start, max);
     }
+    
+     public List<Person> getPersonsByTree(int treeID)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Get persons by tree");
+        return personDao.GetAll(treeID);
+    }
 
     public List<Person> getPersons(int start, int max)
     {

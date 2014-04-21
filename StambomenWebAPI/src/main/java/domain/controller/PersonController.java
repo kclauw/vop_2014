@@ -169,6 +169,11 @@ public class PersonController
     {
         return pc.getPersons(treeID, start, max);
     }
+    
+      public List<Person> getPersonsByTree(int treeID)
+    {
+        return pc.getPersonsByTree(treeID);
+    }
 
     public List<Person> getPersons(int start, int max)
     {
@@ -197,6 +202,8 @@ public class PersonController
         setParentRelation(treeID, child, parent, pers);
         return id;
     }
+    
+
 
     /**
      * This method will move a person based on the params. TreeID is the tree of
