@@ -77,11 +77,15 @@ public class PersistenceController
         logger.info("[PERSISTENCE CONTROLLER] Get tree with id:" + id);
         return treeDao.get(id);
     }
-
+    public Tree getTreeByName(String name)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Get tree with name:" + name);
+        return treeDao.getByName(name);
+    }
     public int addTree(Tree tree)
     {
         logger.info("[PERSISTENCE CONTROLLER] Add tree : " + tree);
-        return treeDao.saveTree(tree);
+        return treeDao.save(tree);
     }
 
 //    public void addTree(Tree tree)
@@ -189,7 +193,9 @@ public class PersistenceController
         /*Logica voor het wegschrijven van een boom */
         logger.info("[PERSISTENCE CONTROLLER] Add person " + person);
 
+        
         int personid = personDao.savePerson(person);
+       
         persontreeDao.save(personid, treeID);
 
         if (person.getMother() != null)

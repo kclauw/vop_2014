@@ -87,10 +87,11 @@ public class MockTree implements ITreeDao<Tree>
         return p;
     }
 
-    @Override
-    public void save(Tree value)
+  
+    public int save(Tree value)
     {
         trees.add(value);
+        return 0;
     }
 
     @Override
@@ -130,5 +131,7 @@ public class MockTree implements ITreeDao<Tree>
         }
         return tr;
     }
+
+   
 
 }

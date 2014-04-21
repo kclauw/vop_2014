@@ -24,9 +24,9 @@ public class ClientGedcomController
         this.clientGedcomservice = new ClientGedcomService();
     }
 
-    public String importGedcom(UserDTO user,TreeDTO tree, File file) throws FileNotFoundException, IOException
+    public String importGedcom(int privacy,int user,String name, File file) throws FileNotFoundException, IOException
     {
-        return clientGedcomservice.importGedcom(user,tree, file);
+        return clientGedcomservice.importGedcom(privacy,user,name, file);
     }
 
 }
