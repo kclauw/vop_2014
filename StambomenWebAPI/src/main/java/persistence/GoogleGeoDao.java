@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence;
 
 import com.google.api.client.http.GenericUrl;
@@ -23,6 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * This class doesn't not communicate with the Stambomen DB! The only purpose of
+ * this class is to get the coordinates from the Google Geo API based on a
+ * place.
  *
  * @author Lowie
  */
