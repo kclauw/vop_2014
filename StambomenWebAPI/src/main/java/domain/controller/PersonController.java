@@ -81,7 +81,7 @@ public class PersonController
 
     public void updatePerson(int treeID, Person person)
     {
-        Activity act = new Activity(Event.DELPER, person.getFirstName() + " " + person.getSurName(), treeID, null);
+        Activity act = new Activity(Event.CHAPER, person.getFirstName() + " " + person.getSurName(), pc.getTree(treeID).getOwner().getId(), null);
         logger.info("[PERSON CONTROLLER] Updating person " + person);
         pc.updatePerson(treeID, person);
         ac.addActivity(act);

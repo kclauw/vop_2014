@@ -371,7 +371,7 @@ public class UserDao implements IDao<User>
             String password = res.getString("password");
             int lan = res.getInt("languageID");
             int themeID = res.getInt("themeID");
-            String fb = res.getString("fb");
+            //String fb = res.getString("fb");
             String role = res.getString("role");
             Boolean block = res.getBoolean("block");
             Language lang = Language.getLanguageId(lan);
@@ -381,7 +381,7 @@ public class UserDao implements IDao<User>
             UserSettings settings = new UserSettings(lang, theme);
 
             user = new User(uid, ur, password, settings, role, block);
-            user.setFacebookProfileID(fb);
+            user.setFacebookProfileID(null);
 
             System.out.println("MAPPING A USER " + ur);
 
