@@ -77,7 +77,7 @@ public class GedcomController
         Privacy.getPrivacy(privacy);
         Tree tree = new Tree(-1, user, Privacy.getPrivacy(privacy), name, null);
         treeId = tc.addTree(tree);
-        DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        DateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
 
         for (Individual i : g.individuals.values())
         {
@@ -107,9 +107,12 @@ public class GedcomController
                 }
                 try
                 {
-                    String s1 = i.events.get(0).date.toString();
+                    String birth = i.events.get(0).date.toString();
 
-                    // birthdate = df.parse(s1.toLowerCase().trim());
+                    String month = i.events.get(0).date.toString().toLowerCase().replaceAll("[0-9]", "");
+                    birth.replaceAll("[A-Z]", Character.toUpperCase(month.charAt(0)) + month.substring(1));
+                    System.out.println("MONTH BEFORE : " + month + "MONTH AFTER : " + Character.toUpperCase(month.charAt(0)) + month.substring(1) + " BIRTH : " + birth);
+
                 }
                 catch (IndexOutOfBoundsException e)
                 {
@@ -118,9 +121,7 @@ public class GedcomController
 
                 try
                 {
-                    String s2 = i.events.get(1).date.toString();
-
-                    //deathdate = df.parse(s2.toLowerCase().trim());
+                    //  deathdate = df.parse(i.events.get(1).date.toString().toLowerCase());
                 }
                 catch (IndexOutOfBoundsException e)
                 {
@@ -137,7 +138,8 @@ public class GedcomController
                 }
                 try
                 {
-                    country = i.address.country.toString();
+                    country = i.address.country.customTags.get(0).value.toString();
+
                 }
                 catch (NullPointerException e)
                 {
