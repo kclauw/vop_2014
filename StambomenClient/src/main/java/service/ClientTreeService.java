@@ -18,6 +18,7 @@ public class ClientTreeService
 
     private final String url = ServiceConstant.getInstance().getURL();
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private ClientPersonController pc = new ClientPersonController();
 
     public String makeTree(TreeDTO treeDTO)
     {
@@ -74,6 +75,7 @@ public class ClientTreeService
         Client client = ClientServiceController.getInstance().getClient();
 
         tree = client.target(url + "tree/" + treeID).request(MediaType.APPLICATION_JSON).get(TreeDTO.class);
+
         fixReferenceRelations(tree);
 
         List<PersonDTO> persons = tree.getPersons();

@@ -49,16 +49,14 @@ public class TreeDao implements ITreeDao<Tree>
             prep.setInt(1, id);
             logger.info("[TREE DAO] Get tree by id " + prep.toString());
             res = prep.executeQuery();
-
             if (res.next())
             {
                 tree = map(res);
             }
-            System.out.println("OWNER : " + tree.getOwner());
 
             List<Person> pers = per.getPersons(id);
 
-            if (tree != null && pers == null)
+            if (tree != null && pers != null)
             {
                 tree.setPersons(pers);
             }

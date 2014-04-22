@@ -141,7 +141,7 @@ public class GedcomController
                 }
                 catch (NullPointerException e)
                 {
-                    country = null;
+                    country = "Unknown";
                 }
                 try
                 {
@@ -149,7 +149,7 @@ public class GedcomController
                 }
                 catch (NullPointerException e)
                 {
-                    zip = null;
+                    zip = "Unknown";
                 }
                 Place p = new Place.PlaceBuilder("Unknown").country(country).zipCode(zip).build();
                 person = new Person.PersonBuilder(firstname, surname, gender)
@@ -160,7 +160,7 @@ public class GedcomController
                 personid = pc.addPerson(treeId, PersonAdd.CHILD, person, -1);
                 persons.put(i.xref.toString(), personid);
                 //System.out.println("Gedcom ID : " + i.xref.toString() + " Person :" + firstname + " " + surname + " birthdate : " + birthdate + " deathdate : " + deathdate + "Treeid :" + treeId);
-
+                System.out.println("ZIP : " + zip + "COUNTRY : " + country);
             }
         }
 
