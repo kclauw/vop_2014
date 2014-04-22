@@ -63,20 +63,9 @@ public class ClientUserService
                 userDTO = response.readEntity(UserDTO.class);
                 logger.info("[CLIENT USER SERVICE][LOGIN]User userDTO found " + userDTO);
                 ClientServiceController.getInstance().setUser(userDTO);
-
-                //check userblock
-                if (userDTO.getBlock())
-                {
-                    logger.info("[CLIENT USER SERVICE][LOGIN]User block: " + userDTO.getBlock());
-
-                    System.out.println("USER BLOCKED");
-                    result = "Block";
-                }
-                else
-                {
-                    System.out.println("UserDTO output : " + userDTO.getRole());
-                    result = userDTO.getRole();
-                }
+                
+                result = "";
+                
                 break;
             }
 
@@ -86,7 +75,6 @@ public class ClientUserService
                 if (userDTO == null)
                 {
                     logger.info("[CLIENT USER SERVICE][LOGIN]User userDTO not found");
-
                     System.out.println("USER NOT FOUND");
                     result = "Error";
                 }

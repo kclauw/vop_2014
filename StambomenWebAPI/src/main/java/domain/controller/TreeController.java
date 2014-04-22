@@ -7,6 +7,7 @@ import exception.TreeAlreadyExistsException;
 import exception.TreeNameAlreadyExistsException;
 import java.util.Date;
 import java.util.List;
+import javax.ws.rs.PathParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.PersistenceController;
@@ -29,7 +30,7 @@ public class TreeController
         System.out.println("[TREE CONTROLLER] ADDING A TREE" + tree);
         int id;
         Date date = new Date();
-        Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
+       // Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
 
         if (tree.getId() == -1)
         {
@@ -41,12 +42,13 @@ public class TreeController
             {
                 if (t.getName().equals(tree.getName()))
                 {
+                    System.out.println("IER IST PROBLEEM");
                     throw new TreeNameAlreadyExistsException();
                 }
             }
 
             id = pc.addTree(tree);
-            ac.addActivity(act);
+            //ac.addActivity(act);
             
         }
         else
@@ -69,7 +71,7 @@ public class TreeController
                     }
                 }
                id =  pc.addTree(tree);
-                ac.addActivity(act);
+                //ac.addActivity(act);
             };
         }
         return id;
@@ -79,9 +81,19 @@ public class TreeController
     {
         return pc.getTree(id);
     }
+    
+     public Tree getTree(String name)
+    {
+        return pc.getTreeByName(name);
+    }
 
     public List<Tree> getTrees(int userId)
     {
         return pc.getTrees(userId);
+    }
+
+    public List<Tree> getPublicTreesByName(int userId, String name)
+    {
+        return pc.getPublicTreesByName(userId, name);
     }
 }

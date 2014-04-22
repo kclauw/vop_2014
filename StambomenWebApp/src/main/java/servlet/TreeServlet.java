@@ -8,10 +8,12 @@ package servlet;
 import dto.GenderDTO;
 import dto.PersonDTO;
 import dto.TreeDTO;
+import dto.UserDTO;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -64,6 +66,7 @@ public class TreeServlet extends HttpServlet
 
         String streeid = request.getParameter("treeid");
         String srebuildtree = request.getParameter("rebuildtree");
+        String publictreename = request.getParameter("publictreename");
 
         if (streeid != null)
         {
@@ -72,6 +75,10 @@ public class TreeServlet extends HttpServlet
         else if (srebuildtree != null)
         {
             rebuildTree(request, response);
+        }
+        else if (publictreename != null)
+        {
+            getPublicTrees(request, response, publictreename);
         }
         else
         {
@@ -321,5 +328,19 @@ public class TreeServlet extends HttpServlet
         logger.info("[TREE SERVLET][GET SERVLET INFO]");
         return "Short description";
     }// </editor-fold>
+
+    private void getPublicTrees(HttpServletRequest request, HttpServletResponse response, String publictreename) throws IOException
+    {
+        HttpSession session = request.getSession(false);
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        ClientTreeController treecontroller = (ClientTreeController) session.getAttribute("treeController");
+
+        List<TreeDTO> trees = treecontroller.getPublicTreesByName(user.getId(), publictreename);
+
+        session.setAttribute("publictrees", trees);
+        session.setAttribute("publictreename", publictreename);
+
+        response.sendRedirect(request.getContextPath() + "/main.jsp");
+    }
 
 }

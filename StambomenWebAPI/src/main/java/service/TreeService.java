@@ -64,4 +64,14 @@ public class TreeService
 
     }
 
+    @GET
+    @Path("user/{userId}/treename/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Tree> getPublicTreesByName(@PathParam("userId") int userId, @PathParam("name") String name)
+    {
+        logger.info("[TREE SERVICE][GET] Getting public trees for userid: " + userId + " with name like: %" + name + "%");
+        List<Tree> t = tc.getPublicTreesByName(userId, name);
+        return t;
+    }
+
 }

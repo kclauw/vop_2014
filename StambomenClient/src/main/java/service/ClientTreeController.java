@@ -43,6 +43,10 @@ public class ClientTreeController
     {
         return client.getTree(id);
     }
-    
-    
+
+    public List<TreeDTO> getPublicTreesByName(int userId, String name)
+    {
+        return client.getPublicTreesByName(userId, name);
+    }
+
 }

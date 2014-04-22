@@ -25,7 +25,7 @@ function getUserProfileInPopUpBox(userID) {
 }
 
 function addContentToPopUpBox(data) {
-    var content = "<h2>" + data.username + "</h2>";
+    var content = "<h1>" + data.username + "</h1>";
 
     $(".popupboxContent").empty();
     $(".popupboxContent").append(content);

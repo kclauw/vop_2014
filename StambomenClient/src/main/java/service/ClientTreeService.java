@@ -31,7 +31,6 @@ public class ClientTreeService
         {
             return " " + response.readEntity(String.class);
         }
-        
 
         return null;
     }
@@ -86,6 +85,18 @@ public class ClientTreeService
         }
 
         return tree;
+    }
+
+    public List<TreeDTO> getPublicTreesByName(int userId, String name)
+    {
+        logger.info("[CLIENT TREE SERVICE][GET PUBLIC TREES BY NAME]Getting public trees for user with userid:" + userId + " with name like: %" + name + "%");
+        Client client = ClientServiceController.getInstance().getClient();
+
+        List<TreeDTO> list = client.target(url + "tree/user/" + userId + "/treename/" + name).request(MediaType.APPLICATION_JSON).get(new GenericType<List<TreeDTO>>()
+        {
+        });
+
+        return list;
     }
 
     private void fixReferenceRelations(TreeDTO tree)

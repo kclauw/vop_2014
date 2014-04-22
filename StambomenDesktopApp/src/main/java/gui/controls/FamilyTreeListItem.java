@@ -5,9 +5,12 @@
  */
 package gui.controls;
 
+import dto.ThemeDTO;
 import dto.TreeDTO;
+import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.border.MatteBorder;
+import service.ClientServiceController;
 import util.Translator;
 
 public class FamilyTreeListItem extends javax.swing.JPanel
@@ -87,7 +90,13 @@ public class FamilyTreeListItem extends javax.swing.JPanel
 
     private void initGui()
     {
-        this.setBorder(new MatteBorder(0, 5, 0, 0, new java.awt.Color(51, 68, 85)));
+        ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
+        Color bgColor = ThemeDTO.toColor(theme.getBgColor());
+        Color maleColor = ThemeDTO.toColor(theme.getMaleColor());
+
+        pnlBg.setBackground(bgColor);
+
+        this.setBorder(new MatteBorder(0, 5, 0, 0, maleColor));
     }
 
     public FamilyTreeListItem(String name, int privacy, FamilyTreeList famTreeList, TreeDTO tree)
@@ -110,7 +119,7 @@ public class FamilyTreeListItem extends javax.swing.JPanel
     {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
+        pnlBg = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
         lblPrivacy = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
@@ -123,20 +132,20 @@ public class FamilyTreeListItem extends javax.swing.JPanel
         setRequestFocusEnabled(false);
         setLayout(new java.awt.GridBagLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.setMaximumSize(new java.awt.Dimension(350, 75));
-        jPanel1.setMinimumSize(new java.awt.Dimension(150, 75));
-        jPanel1.setPreferredSize(new java.awt.Dimension(350, 75));
-        jPanel1.setRequestFocusEnabled(false);
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter()
+        pnlBg.setBackground(new java.awt.Color(255, 255, 255));
+        pnlBg.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlBg.setMaximumSize(new java.awt.Dimension(350, 75));
+        pnlBg.setMinimumSize(new java.awt.Dimension(150, 75));
+        pnlBg.setPreferredSize(new java.awt.Dimension(350, 75));
+        pnlBg.setRequestFocusEnabled(false);
+        pnlBg.addMouseListener(new java.awt.event.MouseAdapter()
         {
             public void mouseClicked(java.awt.event.MouseEvent evt)
             {
-                jPanel1formMouseClicked(evt);
+                pnlBgformMouseClicked(evt);
             }
         });
-        jPanel1.setLayout(new java.awt.GridBagLayout());
+        pnlBg.setLayout(new java.awt.GridBagLayout());
 
         lblName.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         lblName.setText("Family Tree Name");
@@ -148,7 +157,7 @@ public class FamilyTreeListItem extends javax.swing.JPanel
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(0, 11, 0, 0);
-        jPanel1.add(lblName, gridBagConstraints);
+        pnlBg.add(lblName, gridBagConstraints);
 
         lblPrivacy.setText(" ");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -156,28 +165,28 @@ public class FamilyTreeListItem extends javax.swing.JPanel
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 10);
-        jPanel1.add(lblPrivacy, gridBagConstraints);
+        pnlBg.add(lblPrivacy, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        add(jPanel1, gridBagConstraints);
+        add(pnlBg, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         add(filler1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPanel1formMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanel1formMouseClicked
-    {//GEN-HEADEREND:event_jPanel1formMouseClicked
+    private void pnlBgformMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_pnlBgformMouseClicked
+    {//GEN-HEADEREND:event_pnlBgformMouseClicked
         this.familyTreeList.openFamilyTree(tree);
-    }//GEN-LAST:event_jPanel1formMouseClicked
+    }//GEN-LAST:event_pnlBgformMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrivacy;
+    private javax.swing.JPanel pnlBg;
     // End of variables declaration//GEN-END:variables
 
 }
