@@ -41,7 +41,6 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
     private ClientTreeController treeController;
     private ClientUserController userController;
     private ClientGedcomController gedcomController;
-    
 
     private String login;
     private JMenu menu;
@@ -63,7 +62,7 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         treeController = new ClientTreeController();
         userController = new ClientUserController();
         cbxPrivacy = new JComboBox();
-        
+
         initComponents();
         trans = new Translator();
         menuBar = new JMenuBar();
@@ -107,14 +106,13 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                 if (returnVal == JFileChooser.APPROVE_OPTION)
                 {
 
-                    
                     file = fc.getSelectedFile();
                     System.out.println("Opening: " + file.getName());
-                    
+
                     cbxPrivacy.setModel(new javax.swing.DefaultComboBoxModel(new String[]
                     {
-                       trans.translate("Private"), trans.translate("OnlyFriends"), trans.translate("Public")
-                     }));
+                        trans.translate("Private"), trans.translate("OnlyFriends"), trans.translate("Public")
+                    }));
                     int privacy = cbxPrivacy.getSelectedIndex();
                     cbxPrivacy.setVisible(true);
                     JOptionPane.showMessageDialog(null, cbxPrivacy);
@@ -135,31 +133,29 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                     {
                         p = null;
                     }
-                    
-                    
 
                     String name = JOptionPane.showInputDialog("Gelieve een naam voor de boom in te voeren");
-                    
-                   // TreeDTO tree = new TreeDTO(-1,userController.getUser().getId(), p,name,null);
+
+                    // TreeDTO tree = new TreeDTO(-1,userController.getUser().getId(), p,name,null);
                     //treeController.makeTree(tree);
-                    
-                 //   System.out.println("ADDING TREE : " + treeController.makeTree(tree));     
+                    //   System.out.println("ADDING TREE : " + treeController.makeTree(tree));
                    /* while(addTree.equals("exists")){
-                    tree.setName(name = JOptionPane.showInputDialog("Boom bestaat al gelieve een andere naam in te voeren"));
-                    addTree = treeController.makeTree(tree);
-                    };*/
-                   
-                    try {
-                        gedcomController.importGedcom(p.getPrivacyId(),userController.getUser().getId(),name, file);
-                         repaint();
-                    revalidate();
-                    } catch (IOException ex) {
-                        
+                     tree.setName(name = JOptionPane.showInputDialog("Boom bestaat al gelieve een andere naam in te voeren"));
+                     addTree = treeController.makeTree(tree);
+                     };*/
+                    try
+                    {
+                        gedcomController.importGedcom(p.getPrivacyId(), userController.getUser().getId(), name, file);
+                        repaint();
+                        revalidate();
+                        treeoverviewController.show();
+                    }
+                    catch (IOException ex)
+                    {
+
                         Exceptions.printStackTrace(ex);
                     }
-                        
-                    
-                    
+
                 }
                 else
                 {
