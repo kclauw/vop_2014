@@ -44,8 +44,12 @@ public class LoginFilter implements Filter
         String requesturi = request.getRequestURI();
         String contextpath = request.getContextPath();
 
+        String login = request.getParameter("login");
+        String register = request.getParameter("register");
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String passwordconfirm = request.getParameter("passwordconfirm");
         String logout = request.getParameter("logout");
 
         //check logout
@@ -55,15 +59,49 @@ public class LoginFilter implements Filter
 
             session = removeSession(session);
         }
-        //check login
-        else if (username != null && password != null)
+        //check regist
+        else if (register != null)
         {
             //empty session if not empty
             if (session != null)
             {
                 session = removeSession(session);
             }
-            logger.info("[LOGIN FILTER][DO FILTER] NEW USER:" + username);
+            logger.info("[LOGIN FILTER][DO FILTER] REGISTER USER:" + username);
+
+            if (username != "" && password != "" && passwordconfirm != "")
+            {
+                if (password.equals(passwordconfirm))
+                {
+                    ClientUserController uC = new ClientUserController();
+                    UserDTO user = new UserDTO(-1, username, password, null);
+
+                    String registerResponse = uC.makeUser(user);
+                    if (registerResponse == null)
+                    {
+                        request.setAttribute("username", username);
+                        request.setAttribute("errormessage", registerResponse);
+                    }
+                }
+                else
+                {
+                    request.setAttribute("errormessage", "Passwoorden zijn niet gelijk.");
+                }
+            }
+            else
+            {
+                request.setAttribute("errormessage", "Gelieve alle velden in te vullen.");
+            }
+        }
+        //check login
+        else if (login != null)
+        {
+            //empty session if not empty
+            if (session != null)
+            {
+                session = removeSession(session);
+            }
+            logger.info("[LOGIN FILTER][DO FILTER] LOGIN USER:" + username);
 
             //create new user
             ClientUserController uC = new ClientUserController();
@@ -85,8 +123,8 @@ public class LoginFilter implements Filter
 
         //check fileAccess
         boolean allowed = checkFileAccess(requesturi);
-        String path = contextpath + "/login.jsp";
-        if (allowed || (session != null && session.getAttribute("user") != null) || requesturi.endsWith(path))
+        String path;
+        if (allowed || (session != null && session.getAttribute("user") != null) || requesturi.endsWith(contextpath + "/login.jsp") || requesturi.endsWith(contextpath + "/register.jsp"))
         {
             path = contextpath + "/index.jsp";
             if (requesturi.endsWith(path))
@@ -101,7 +139,14 @@ public class LoginFilter implements Filter
         }
         else
         {
-            path = contextpath + "/login.jsp";
+            if (passwordconfirm != null && request.getAttribute("errormessage") == null)
+            {
+                path = contextpath + "/register.jsp";
+            }
+            else
+            {
+                path = contextpath + "/login.jsp";
+            }
             response.sendRedirect(path);
         }
     }

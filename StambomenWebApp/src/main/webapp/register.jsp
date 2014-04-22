@@ -4,7 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
-        <title>Tree - Login</title>
+        <title>Tree - Register</title>
 
         <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="./css/general.css"/>
@@ -37,16 +37,17 @@
                 <div class="popupbox itemblock">
                     <a href="./"><img id="logo" src="./images/logo.png" height="35" alt="Tree" /></a>
                     <div>
-                        <h1>Login</h1>
+                        <h1>Registreren</h1>
                         <form method="post">
-                            <input name="login" type="hidden" value="login" />
-                            <input name="username" type="text" placeholder="Username" value="${empty param.username?"default":param.username}" />
-                            <input name="password" type="password" placeholder="Password" value="${empty param.password?"123456789": param.password}" />
+                            <input name="register" type="hidden" value="register" />
+                            <input name="username" type="text" placeholder="Username" value="${param.username}" />
+                            <input name="password" type="password" placeholder="Password" />
+                            <input name="passwordconfirm" type="password" placeholder="Confirm password" />
                             <label class="error">${errormessage}</label>
-                            <input class="submit" type="submit" value="Login"/>
-                        </form>
-                        <form method="post" action="./register.jsp">
                             <input class="submit" type="submit" value="Registreren"/>
+                        </form>
+                        <form method="post" action="./login.jsp">
+                            <input class="submit" type="submit" value="Login"/>
                         </form>
                     </div>
                 </div>
