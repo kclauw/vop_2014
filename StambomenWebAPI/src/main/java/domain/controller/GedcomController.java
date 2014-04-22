@@ -28,7 +28,7 @@ import org.gedcom4j.parser.GedcomParser;
 import org.gedcom4j.parser.GedcomParserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import persistence.PersistenceController;
+import persistence.PersistenceFacade;
 
 /**
  * This class is the facade to all person interaction.
@@ -38,7 +38,7 @@ public class GedcomController
 
     private PersonController pc;
     private TreeController tc;
-    private PersistenceController per;
+    private PersistenceFacade per;
     
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private Person person;
@@ -59,7 +59,7 @@ public class GedcomController
     {
         this.pc = new PersonController();
         this.tc = new TreeController();
-        this.per = new PersistenceController();
+        this.per = new PersistenceFacade();
         
 
     }

@@ -26,11 +26,11 @@ public class TreeDao implements ITreeDao<Tree>
     private final String GETTREEBYUSERID = "SELECT treeID, name, ownerID, privacy FROM Tree WHERE ownerID = ?";
     private final String GETPUBLICTREESBYNAME = "select * from Tree where (privacy = 2 or (privacy=1 and ownerID in ( select case friend when ? then receiver else friend end from Request where (friend = ? or receiver = ?) and status = 1))) and ownerID!=? and name like ?";
     private final String GETTREEBYNAME = "SELECT treeID, name, ownerID, privacy FROM Tree WHERE name = ?";
-    private PersistenceController per;
+    private PersistenceFacade per;
     private final Logger logger;
     private int lastInsertedId;
 
-    public TreeDao(PersistenceController per)
+    public TreeDao(PersistenceFacade per)
     {
         this.per = per;
         logger = LoggerFactory.getLogger(getClass());

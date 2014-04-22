@@ -10,18 +10,18 @@ import java.util.List;
 import javax.ws.rs.PathParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import persistence.PersistenceController;
+import persistence.PersistenceFacade;
 
 public class TreeController
 {
 
     private ActivityController ac;
-    private PersistenceController pc;
+    private PersistenceFacade pc;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public TreeController()
     {
-        pc = new PersistenceController();
+        pc = new PersistenceFacade();
         ac = new ActivityController(pc);
     }
 

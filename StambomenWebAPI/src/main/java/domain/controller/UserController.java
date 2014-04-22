@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import persistence.PersistenceController;
+import persistence.PersistenceFacade;
 
 /**
  * This class is the facade to all user interaction.
@@ -21,12 +21,12 @@ public class UserController
 {
 
     private ActivityController ac;
-    private final PersistenceController pc;
+    private final PersistenceFacade pc;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public UserController()
     {
-        pc = new PersistenceController();
+        pc = new PersistenceFacade();
     }
 
     /**

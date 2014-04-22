@@ -19,10 +19,10 @@ public class UserRoleDao implements IDao
     private final String UPDATEUSERROLE = "UPDATE UserRole SET userID = ?,roleID = ? WHERE userID = ? and roleID = ?";
     private final String DELETEUSERROLE = "DELETE FROM UserRole WHERE userID = ? and roleID = ?";
 
-    private PersistenceController pc;
+    private PersistenceFacade pc;
     private final Logger logger;
 
-    public UserRoleDao(PersistenceController pc)
+    public UserRoleDao(PersistenceFacade pc)
     {
         this.pc = pc;
         logger = LoggerFactory.getLogger(getClass());

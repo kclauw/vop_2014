@@ -44,7 +44,7 @@ public class UserDao implements IDao<User>
     private final String UPDATEUSER = "UPDATE User SET username = ?,password = ?,block = ? WHERE userID = ?";
     // private final PersistenceController pc;
 
-    public UserDao(PersistenceController pc)
+    public UserDao(PersistenceFacade pc)
     {
         //    this.pc = new PersistenceController();
         logger = LoggerFactory.getLogger(getClass());
@@ -361,7 +361,7 @@ public class UserDao implements IDao<User>
     @Override
     public User map(ResultSet res)
     {
-        PersistenceController pc = new PersistenceController();
+        PersistenceFacade pc = new PersistenceFacade();
         User user = null;
 
         try
