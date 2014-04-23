@@ -54,14 +54,7 @@ public class LoginController implements IPanelController
         System.out.println("[LOGINCONTROLLER] login" + user.toString());
 
         String login = clientUserController.login(user);
-
         
-        // System.out.print(clientUserController.getUser());
-        //   gui.setUser(clientUserController.getUser());
-
-        System.out.println("REPLY FROM SERVICE:" + user);
-        // goTo(Panels.LOGIN);
-
         if ("Error".equals(login))
         {
             this.loginPanel.setError(login);
@@ -70,13 +63,6 @@ public class LoginController implements IPanelController
         {
             JOptionPane.showMessageDialog(loginPanel, user);
         }
-        //
-        /*
-         else if (login.equals("Admin"))
-         {
-         System.out.println("Login admin succes");
-         goTo(Panels.PERSONOVERVIEW);
-         }*/
         else
         {
             System.out.println("Login user succes");

@@ -4,24 +4,24 @@ import dto.TreeDTO;
 import dto.UserDTO;
 import gui.Panels;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.LayoutManager;
-import java.io.BufferedInputStream;
+import java.awt.FontFormatException;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import org.openide.util.Exceptions;
+import service.ClientServiceController;
 
 public class GuiController
 {
@@ -62,7 +62,30 @@ public class GuiController
 
     private void createFrame()
     {
+
         programFrame = new JFrame();
+
+        try
+        {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        }
+        catch (ClassNotFoundException ex)
+        {
+            Exceptions.printStackTrace(ex);
+        }
+        catch (InstantiationException ex)
+        {
+            Exceptions.printStackTrace(ex);
+        }
+        catch (IllegalAccessException ex)
+        {
+            Exceptions.printStackTrace(ex);
+        }
+        catch (UnsupportedLookAndFeelException ex)
+        {
+            Exceptions.printStackTrace(ex);
+        }
+
         programFrame.setSize(new Dimension(900, 550));
         programFrame.setPreferredSize(new Dimension(900, 550));
         programFrame.setLocationRelativeTo(null);
@@ -103,22 +126,32 @@ public class GuiController
         programFrame.setLayout(new BorderLayout());
     }
 
-    public static void setUIFont(String fontName)
+    public void setUIFont(String fontName)
     {
         Font font = null;
         try
         {
-            InputStream myStream = GuiController.class.getResourceAsStream("gui/font/" + fontName + ".ttf");
-            font = Font.createFont(Font.TRUETYPE_FONT, myStream);
+            ClassLoader clientClassLoader = GuiController.class.getClassLoader();
+            URI ur = clientClassLoader.getResource("gui/font/" + fontName + ".ttf").toURI();
+            File f = new File(ur);
+            font = Font.createFont(Font.PLAIN, f);
         }
-        catch (Exception ex)
+        catch (FontFormatException ex)
+        {
+            Exceptions.printStackTrace(ex);
+        }
+        catch (IOException ex)
+        {
+            Exceptions.printStackTrace(ex);
+        }
+        catch (URISyntaxException ex)
         {
             Exceptions.printStackTrace(ex);
         }
 
         if (font != null)
         {
-            javax.swing.plaf.FontUIResource f = new javax.swing.plaf.FontUIResource(font);
+            javax.swing.plaf.FontUIResource f = new javax.swing.plaf.FontUIResource(font.deriveFont(Font.PLAIN, 12f));
             java.util.Enumeration keys = UIManager.getDefaults().keys();
             while (keys.hasMoreElements())
             {
@@ -130,6 +163,11 @@ public class GuiController
                 }
             }
         }
+    }
+
+    public void setDefaultFont()
+    {
+        setUIFont(ClientServiceController.getInstance().getUser().getUserSettings().getTheme().getFont());
     }
 
     public void goTo(Panels frame)
@@ -151,31 +189,38 @@ public class GuiController
             case TREEOVERVIEW:
                 content = treeControllerOverviewController.show();
                 programFrame.setTitle("Tree Overview");
+                setDefaultFont();
                 break;
             case TREE:
                 content = treeController.show();
                 programFrame.setTitle("Tree");
+                setDefaultFont();
                 break;
             case ADDTREE:
                 content = addTreeController.show();
                 programFrame.setTitle("Adding a tree");
+                setDefaultFont();
                 break;
             case SETTINGS:
                 content = settingsController.show();
                 programFrame.setTitle("Settings");
+                setDefaultFont();
                 break;
             case PERSONOVERVIEW:
                 content = personoverviewController.show();
                 programFrame.setTitle("Person overview");
+                setDefaultFont();
                 break;
             case USEROVERVIEW:
                 content = useroverviewController.show();
                 programFrame.setTitle("User Overview");
+                setDefaultFont();
                 break;
         }
 
         programFrame.add(content);
         programFrame.revalidate();
+        programFrame.repaint();
     }
 
     public void setAdminframe(JPanel panel)
@@ -191,21 +236,5 @@ public class GuiController
     {
         goTo(Panels.TREE);
         treeController.setTree(tree);
-    }
-
-    public void setLogin(String login)
-    {
-        this.login = login;
-        treeControllerOverviewController.setLogin(login);
-    }
-
-    public String getLogin()
-    {
-        return login;
-    }
-
-    public void setUser(UserDTO user)
-    {
-        this.treeControllerOverviewController.setUser(user);
     }
 }
