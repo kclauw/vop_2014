@@ -128,26 +128,7 @@ public class GuiController
 
     public void setUIFont(String fontName)
     {
-        Font font = null;
-        try
-        {
-            ClassLoader clientClassLoader = GuiController.class.getClassLoader();
-            URI ur = clientClassLoader.getResource("gui/font/" + fontName + ".ttf").toURI();
-            File f = new File(ur);
-            font = Font.createFont(Font.PLAIN, f);
-        }
-        catch (FontFormatException ex)
-        {
-            Exceptions.printStackTrace(ex);
-        }
-        catch (IOException ex)
-        {
-            Exceptions.printStackTrace(ex);
-        }
-        catch (URISyntaxException ex)
-        {
-            Exceptions.printStackTrace(ex);
-        }
+        Font font = ClientServiceController.getInstance().getUser().getUserSettings().getTheme().getDefaultFont();
 
         if (font != null)
         {
@@ -163,6 +144,8 @@ public class GuiController
                 }
             }
         }
+
+        SwingUtilities.updateComponentTreeUI(programFrame);
     }
 
     public void setDefaultFont()

@@ -8,6 +8,7 @@ package gui.controls;
 import dto.ThemeDTO;
 import dto.TreeDTO;
 import java.awt.Color;
+import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.border.MatteBorder;
 import service.ClientServiceController;
@@ -94,6 +95,7 @@ public class FamilyTreeListItem extends javax.swing.JPanel
         Color bgColor = ThemeDTO.toColor(theme.getBgColor());
         Color maleColor = ThemeDTO.toColor(theme.getMaleColor());
 
+        this.lblName.setFont(ClientServiceController.getInstance().getUser().getUserSettings().getTheme().getDefaultFont());
         pnlBg.setBackground(bgColor);
 
         this.setBorder(new MatteBorder(0, 5, 0, 0, maleColor));
