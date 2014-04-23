@@ -31,18 +31,14 @@ public class PersonOverviewController implements IPanelController
 
     public List<PersonDTO> getPersons(int start, int max)
     {
-
         List<PersonDTO> t = pc.getPersons(start, max);
-
         return t;
-
     }
 
     public JPanel show()
     {
         System.out.println("SHOW ADMINCONTROLLER");
         personoverviewPanel = (PersonOverviewPanel) PanelFactory.makePanel(Panels.PERSONOVERVIEW);
-        personoverviewPanel.setAdminController(this);
         return personoverviewPanel;
     }
 

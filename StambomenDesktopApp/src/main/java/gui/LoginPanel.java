@@ -1,18 +1,12 @@
 package gui;
 
+import dto.ImageTypeDTO;
 import dto.UserDTO;
-import gui.controller.GuiController;
 import gui.controller.LoginController;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
-import java.io.File;
-import java.io.IOException;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
-import javafx.concurrent.Worker.State;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -22,9 +16,9 @@ import javafx.stage.Stage;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.MatteBorder;
 import org.openide.util.Exceptions;
+import service.ServiceConstant;
 
 public class LoginPanel extends javax.swing.JPanel
 {
@@ -47,8 +41,8 @@ public class LoginPanel extends javax.swing.JPanel
         {
             Exceptions.printStackTrace(ex);
         }
-        
-        lblIcon.setIcon(new ImageIcon(this.getClass().getClassLoader().getResource("images/logo.png")));
+
+        lblIcon.setIcon(new ImageIcon(ServiceConstant.getInstance().getApplicationImage(ImageTypeDTO.LOGO)));
         pnlLogin.setBorder(new MatteBorder(0, 5, 0, 0, new java.awt.Color(51, 68, 85)));
     }
 

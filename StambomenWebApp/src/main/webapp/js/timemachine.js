@@ -145,7 +145,7 @@ function setMarkers(date) {
 function constructMarker(latitude, longitude, treeid, id, firstname, lastname, zipcode, placename, country, birthdate, deathdate) {
     if (markers[id] !== undefined) return;
     
-    var myLatlng = new google.maps.LatLng(longitude, latitude);
+    var myLatlng = new google.maps.LatLng(latitude, longitude);
     
     var marker = new google.maps.Marker({
         position: myLatlng,

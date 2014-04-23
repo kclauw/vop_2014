@@ -34,14 +34,13 @@ public class PersonOverviewPanel extends javax.swing.JPanel
 
     private List<PersonDTO> persons;
     private List<TreeDTO> trees;
-    
+
     private TableRowSorter<PersonTableModel> sorter;
-    
+
     private boolean DEBUG = false;
     private JTable table;
     private JTextField filterText;
     private JTextField statusText;
-    private PersonOverviewController admin;
 
     public PersonOverviewPanel()
     {
@@ -50,8 +49,7 @@ public class PersonOverviewPanel extends javax.swing.JPanel
         this.familyTreeDetailPanel = new FamilyTreeDetailPanel();
 
         persons = personController.getPersons(0, 100);
-        
-        
+
         //create table
         final PersonTableModel model = new PersonTableModel(persons);
         sorter = new TableRowSorter<PersonTableModel>(model);
@@ -196,8 +194,11 @@ public class PersonOverviewPanel extends javax.swing.JPanel
 
         jPanel1 = new javax.swing.JPanel();
 
+        setOpaque(false);
         setRequestFocusEnabled(false);
         setLayout(new java.awt.BorderLayout());
+
+        jPanel1.setOpaque(false);
         add(jPanel1, java.awt.BorderLayout.CENTER);
         jPanel1.getAccessibleContext().setAccessibleName("");
         jPanel1.getAccessibleContext().setAccessibleDescription("");
@@ -206,9 +207,5 @@ public class PersonOverviewPanel extends javax.swing.JPanel
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-    public void setAdminController(PersonOverviewController a)
-    {
-        this.admin = a;
 
-    }
 }

@@ -1,24 +1,16 @@
 package gui;
 
+import dto.ImageTypeDTO;
 import dto.PrivacyDTO;
 import dto.ThemeDTO;
-import dto.TreeDTO;
-import gui.controller.GuiController;
 import gui.controller.TreeOverviewController;
 import gui.controls.FamilyTreeList;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -26,13 +18,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import org.gedcom4j.writer.GedcomWriterException;
 import org.openide.util.Exceptions;
 import service.ClientGedcomController;
-import service.ClientPersonController;
 import service.ClientServiceController;
 import service.ClientTreeController;
 import service.ClientUserController;
+import service.ServiceConstant;
 import util.Translator;
 
 public class FamilyTreeOverviewPanel extends javax.swing.JPanel
@@ -55,6 +46,7 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
     private Translator trans;
     private JMenuBar menuBar;
     private JComboBox cbxPrivacy;
+    private JMenuItem style;
 
     public FamilyTreeOverviewPanel()
     {
@@ -191,11 +183,10 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
     private void initGui()
     {
-        lblLogo.setIcon(new ImageIcon(this.getClass().getClassLoader().getResource("images/logo.png")));
+        lblLogo.setIcon(new ImageIcon(ServiceConstant.getInstance().getApplicationImage(ImageTypeDTO.LOGO)));
 
         ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
         Color bgColor = ThemeDTO.toColor(theme.getBgColor());
-        String font = theme.getFont();
 
         pnlMenuBg.setBackground(bgColor);
         menuBar.setBackground(bgColor);
@@ -230,8 +221,18 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                 treeoverviewController.goTo(Panels.USEROVERVIEW);
             }
         });
+        style = new JMenuItem(trans.translate("Theme"));
+        style.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                treeoverviewController.goTo(Panels.ADMINTHEME);
+            }
+        });
         menuA.add(personItem);
         menuA.add(userItem);
+        menuA.add(style);
         menuBar.add(menuA);
 
     }

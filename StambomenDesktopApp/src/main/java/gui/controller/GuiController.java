@@ -1,16 +1,11 @@
 package gui.controller;
 
+import dto.ImageTypeDTO;
 import dto.TreeDTO;
-import dto.UserDTO;
 import gui.Panels;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontFormatException;
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,6 +17,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import org.openide.util.Exceptions;
 import service.ClientServiceController;
+import service.ServiceConstant;
 
 public class GuiController
 {
@@ -36,8 +32,7 @@ public class GuiController
     private Panels currentPanel;
     private SettingsController settingsController;
     private UserOverviewController useroverviewController;
-
-    private String login;
+    private AdminThemeController adminThemeController;
 
     public GuiController()
     {
@@ -49,7 +44,6 @@ public class GuiController
     private void init()
     {
         createFrame();
-
         loginController = new LoginController(this);
         registerController = new RegisterController(this);
         treeControllerOverviewController = new TreeOverviewController(this);
@@ -58,6 +52,7 @@ public class GuiController
         settingsController = new SettingsController(this);
         personoverviewController = new PersonOverviewController(this);
         useroverviewController = new UserOverviewController(this);
+        adminThemeController = new AdminThemeController(this);
     }
 
     private void createFrame()
@@ -120,34 +115,14 @@ public class GuiController
         });
 
         programFrame.setLayout(new BorderLayout());
-        ClassLoader clientClassLoader = this.getClass().getClassLoader();
-        ImageIcon img = new ImageIcon(clientClassLoader.getResource("images/bg.jpg"));
+        ImageIcon img = new ImageIcon(ServiceConstant.getInstance().getApplicationImage(ImageTypeDTO.BACKGROUND));
         programFrame.setContentPane(new JLabel(img));
         programFrame.setLayout(new BorderLayout());
     }
 
     public void setUIFont(String fontName)
     {
-        Font font = null;
-        try
-        {
-            ClassLoader clientClassLoader = GuiController.class.getClassLoader();
-            URI ur = clientClassLoader.getResource("gui/font/" + fontName + ".ttf").toURI();
-            File f = new File(ur);
-            font = Font.createFont(Font.PLAIN, f);
-        }
-        catch (FontFormatException ex)
-        {
-            Exceptions.printStackTrace(ex);
-        }
-        catch (IOException ex)
-        {
-            Exceptions.printStackTrace(ex);
-        }
-        catch (URISyntaxException ex)
-        {
-            Exceptions.printStackTrace(ex);
-        }
+        Font font = ClientServiceController.getInstance().getUser().getUserSettings().getTheme().getDefaultFont();
 
         if (font != null)
         {
@@ -163,6 +138,8 @@ public class GuiController
                 }
             }
         }
+
+        SwingUtilities.updateComponentTreeUI(programFrame);
     }
 
     public void setDefaultFont()
@@ -216,6 +193,11 @@ public class GuiController
                 programFrame.setTitle("User Overview");
                 setDefaultFont();
                 break;
+            case ADMINTHEME:
+                content = adminThemeController.show();
+                programFrame.setTitle("Theme");
+                setDefaultFont();
+                break;
         }
 
         programFrame.add(content);
@@ -225,7 +207,6 @@ public class GuiController
 
     public void setAdminframe(JPanel panel)
     {
-
         programFrame.getContentPane().removeAll();
         programFrame.add(panel);
         programFrame.setTitle("Admin");

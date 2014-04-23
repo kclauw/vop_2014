@@ -2,6 +2,7 @@ package service;
 
 import domain.Person;
 import domain.User;
+import domain.controller.ApplicationController;
 import domain.controller.PersonController;
 import domain.controller.UserController;
 import exception.PersonAlreadyExistsException;
@@ -26,6 +27,7 @@ public class AdminService
 
     private PersonController pc = new PersonController();
     private UserController uc = new UserController();
+    private ApplicationController ac = new ApplicationController();
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @GET
@@ -89,6 +91,42 @@ public class AdminService
             e.printStackTrace();
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
 
+        }
+    }
+
+    @POST
+    @Path("theme/upload/backgroundImage/")
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    public Response uploadBackgroundImage(InputStream imageInputStream)
+    {
+        try
+        {
+            String result = "New background image set succesfully";
+            ac.uploadBackgroundImage(ImageIO.read(imageInputStream));
+            return Response.status(Response.Status.OK).entity(result).build();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
+        }
+    }
+
+    @POST
+    @Path("theme/upload/logoImage/")
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    public Response uploadLogomage(InputStream imageInputStream)
+    {
+        try
+        {
+            String result = "New background image set succesfully";
+            ac.uploadLogoImage(ImageIO.read(imageInputStream));
+            return Response.status(Response.Status.OK).entity(result).build();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
         }
     }
 

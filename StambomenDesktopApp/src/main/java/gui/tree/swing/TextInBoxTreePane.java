@@ -1,6 +1,7 @@
 package gui.tree.swing;
 
 import dto.GenderDTO;
+import dto.ImageTypeDTO;
 import dto.PersonDTO;
 import dto.PlaceDTO;
 import gui.FamilyTreeTotalPanel;
@@ -22,6 +23,7 @@ import javax.swing.JComponent;
 import javax.swing.ToolTipManager;
 import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.TreeLayout;
+import service.ServiceConstant;
 
 public class TextInBoxTreePane extends JComponent
 {
@@ -72,7 +74,7 @@ public class TextInBoxTreePane extends JComponent
         {
             this.maleImage = ImageIO.read(this.getClass().getClassLoader().getResource("images/Male.png"));
             this.femaleImage = ImageIO.read(this.getClass().getClassLoader().getResource("images/Female.png"));
-            this.bg = ImageIO.read(this.getClass().getClassLoader().getResource("images/bg.jpg"));
+            this.bg = (BufferedImage) ServiceConstant.getInstance().getApplicationImage(ImageTypeDTO.BACKGROUND);
         }
         catch (IOException ex)
         {

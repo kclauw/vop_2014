@@ -36,7 +36,9 @@ public class PanelFactory
             case USEROVERVIEW:
                 panel = new UserOverviewPanel();
                 break;
-
+            case ADMINTHEME:
+                panel = new AdminThemePanel();
+                break;
         }
 
         return panel;
