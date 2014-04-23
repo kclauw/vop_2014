@@ -1,16 +1,11 @@
 package gui.controller;
 
+import dto.ImageTypeDTO;
 import dto.TreeDTO;
-import dto.UserDTO;
 import gui.Panels;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontFormatException;
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,6 +17,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import org.openide.util.Exceptions;
 import service.ClientServiceController;
+import service.ServiceConstant;
 
 public class GuiController
 {
@@ -36,8 +32,6 @@ public class GuiController
     private Panels currentPanel;
     private SettingsController settingsController;
     private UserOverviewController useroverviewController;
-
-    private String login;
 
     public GuiController()
     {
@@ -120,8 +114,7 @@ public class GuiController
         });
 
         programFrame.setLayout(new BorderLayout());
-        ClassLoader clientClassLoader = this.getClass().getClassLoader();
-        ImageIcon img = new ImageIcon(clientClassLoader.getResource("images/bg.jpg"));
+        ImageIcon img = new ImageIcon(ServiceConstant.getInstance().getApplicationImage(ImageTypeDTO.BACKGROUND));
         programFrame.setContentPane(new JLabel(img));
         programFrame.setLayout(new BorderLayout());
     }
