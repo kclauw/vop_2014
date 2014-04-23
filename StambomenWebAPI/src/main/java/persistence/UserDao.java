@@ -41,7 +41,7 @@ public class UserDao implements IDao<User>
     private final String GETUSERWITHPRIVACY = "SELECT *, fbprofileid as fb FROM User u  LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID = ? AND u.privacy = ?";
     private final String GETUSERSWITHPRIVACY = "SELECT *, fbprofileid as fb FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID != ? AND u.privacy = ?";
     private final String SETUSERBLOCK = "UPDATE User SET block = ? WHERE userID = ?";
-    private final String UPDATEUSER = "UPDATE User SET username = ?,password = ?,block = ? WHERE userID = ?";
+    private final String UPDATEUSER = "UPDATE User SET username = ? WHERE userID = ?";
     // private final PersistenceController pc;
 
     public UserDao(PersistenceFacade pc)
@@ -158,9 +158,7 @@ public class UserDao implements IDao<User>
             prep = con.prepareStatement(UPDATEUSER);
 
             prep.setString(1, value.getUsername());
-            prep.setString(2, value.getPassword());
-            prep.setBoolean(3, value.getBlock());
-            prep.setInt(4, value.getId());
+            prep.setInt(2, value.getId());
             logger.info("[USER DAO] Update user " + prep.toString());
             prep.executeUpdate();
 

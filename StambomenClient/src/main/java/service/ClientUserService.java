@@ -63,9 +63,9 @@ public class ClientUserService
                 userDTO = response.readEntity(UserDTO.class);
                 logger.info("[CLIENT USER SERVICE][LOGIN]User userDTO found " + userDTO);
                 ClientServiceController.getInstance().setUser(userDTO);
-                
+
                 result = "";
-                
+
                 break;
             }
 

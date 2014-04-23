@@ -188,4 +188,9 @@ public class UserController
     {
         pc.setTheme(userID, themeID);
     }
+
+    public void updateUser(int userID, User user)
+    {
+        pc.updateUser(user);
+    }
 }
