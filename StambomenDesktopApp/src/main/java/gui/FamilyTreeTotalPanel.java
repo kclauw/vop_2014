@@ -98,6 +98,7 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     private void initComponents()
     {
 
+        setOpaque(false);
         setLayout(new java.awt.BorderLayout());
     }// </editor-fold>//GEN-END:initComponents
 
