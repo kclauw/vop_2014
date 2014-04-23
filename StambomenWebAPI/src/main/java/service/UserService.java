@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import persistence.PersistenceController;
+import persistence.PersistenceFacade;
 
 /**
  * Proof of Concept klasse ter verduidelijking; De objecten zullen uiteindelijk
@@ -36,7 +36,7 @@ public class UserService
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private UserController uc = new UserController();
-    private PersistenceController pc = new PersistenceController();
+    private PersistenceFacade pc = new PersistenceFacade();
     private ActivityController ac = new ActivityController(pc);
 
     @GET

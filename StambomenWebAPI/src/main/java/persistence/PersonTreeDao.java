@@ -19,10 +19,10 @@ public class PersonTreeDao implements IDao
     private final String UPDATE_PERSON_TREE = "UPDATE PersonTree SET TreeID = ?,PersonID = ? WHERE personID = ? and TreeID = ?";
     private final String DELETE_PERSON_TREE = "DELETE FROM PersonTree WHERE personID = ? and TreeID = ?";
 
-    private PersistenceController pc;
+    private PersistenceFacade pc;
     private final Logger logger;
 
-    public PersonTreeDao(PersistenceController pc)
+    public PersonTreeDao(PersistenceFacade pc)
     {
         this.pc = pc;
         logger = LoggerFactory.getLogger(getClass());

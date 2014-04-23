@@ -45,10 +45,10 @@ public class PlaceDao implements IDao<Place>
     private final String UPDATE_PLACE = "UPDATE Place SET coordinatesID = ?, countryID = ?, zipcode = ?, placenameID = ? WHERE placeID = ?";
 
     private final Logger logger;
-    private PersistenceController pc;
+    private PersistenceFacade pc;
     Connection con;
 
-    public PlaceDao(PersistenceController pc)
+    public PlaceDao(PersistenceFacade pc)
     {
         this.pc = pc;
         logger = LoggerFactory.getLogger(getClass());

@@ -29,10 +29,10 @@ public class ThemeDao implements IDao<Theme>
     private final String GET_THEME_BY_ID = "select themeID, name, font, bgColor, textColor, maleColor, femaleColor from Theme where themeID=?";
 
     private final Logger logger;
-    private final PersistenceController pc;
+    private final PersistenceFacade pc;
     private Connection con;
 
-    public ThemeDao(PersistenceController pc)
+    public ThemeDao(PersistenceFacade pc)
     {
         this.pc = pc;
         logger = LoggerFactory.getLogger(getClass());

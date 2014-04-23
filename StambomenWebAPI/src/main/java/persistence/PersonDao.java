@@ -61,11 +61,11 @@ public class PersonDao implements IDao<Person>
 
     private final String GET_PERSON = "SELECT * FROM Person WHERE personID = ?";
 
-    private PersistenceController pc;
+    private PersistenceFacade pc;
     private final Logger logger;
     private int lastInsertedId;
 
-    public PersonDao(PersistenceController pc)
+    public PersonDao(PersistenceFacade pc)
     {
         this.pc = pc;
         logger = LoggerFactory.getLogger(getClass());

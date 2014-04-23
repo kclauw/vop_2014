@@ -10,18 +10,20 @@ import java.util.List;
 import javax.ws.rs.PathParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import persistence.PersistenceController;
+import persistence.PersistenceFacade;
 
 public class TreeController
 {
 
     private ActivityController ac;
-    private PersistenceController pc;
+    private PersistenceFacade pc;
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public TreeController()
     {
-        pc = new PersistenceController();
+
+        pc = new PersistenceFacade();
         ac = new ActivityController(pc);
     }
 
@@ -30,9 +32,11 @@ public class TreeController
         System.out.println("[TREE CONTROLLER] ADDING A TREE" + tree);
         int id;
         Date date = new Date();
+
         System.out.println("");
         Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
 
+       // Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
         if (tree.getId() == -1)
         {
             //TODO Still have to check wether the name already exists
@@ -49,6 +53,7 @@ public class TreeController
             }
 
             id = pc.addTree(tree);
+
             ac.addActivity(act);
 
         }
@@ -71,8 +76,10 @@ public class TreeController
                         throw new TreeNameAlreadyExistsException();
                     }
                 }
+
                 id = pc.addTree(tree);
                 ac.addActivity(act);
+
             };
         }
         return id;

@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import persistence.PersistenceController;
+import persistence.PersistenceFacade;
 
 /**
  * This class is the facade to all person interaction.
@@ -28,12 +28,12 @@ public class PersonController
 
     private TreeController tc;
     private ActivityController ac;
-    private PersistenceController pc;
+    private PersistenceFacade pc;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public PersonController()
     {
-        pc = new PersistenceController();
+        pc = new PersistenceFacade();
         ac = new ActivityController(pc);
         tc = new TreeController();
     }

@@ -4,15 +4,15 @@ import domain.Activity;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import persistence.PersistenceController;
+import persistence.PersistenceFacade;
 
 public class ActivityController
 {
 
-    private PersistenceController pc;
+    private PersistenceFacade pc;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public ActivityController(PersistenceController pc)
+    public ActivityController(PersistenceFacade pc)
     {
         this.pc = pc;
     }

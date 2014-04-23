@@ -27,10 +27,10 @@ public class ImageDao
     private String url;
     private String readUrl;
 
-    private PersistenceController persistenceController = null;
+    private PersistenceFacade persistenceController = null;
     private Sardine sardine;
 
-    public ImageDao(PersistenceController per)
+    public ImageDao(PersistenceFacade per)
     {
         try
         {

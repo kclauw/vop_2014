@@ -8,7 +8,7 @@ import exception.FacebookUserNotFoundException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import persistence.PersistenceController;
+import persistence.PersistenceFacade;
 
 public class FacebookEndpoint
 {
@@ -17,12 +17,12 @@ public class FacebookEndpoint
     private final String APP_SECRET = "cae31b2f0a830c383d5132b0714bc704";
     private final String CLIENT_SECRET = "f603ec45090e12a9f7fed1c51e9f18bd";
     private final UserController userController;
-    private PersistenceController pc;
+    private PersistenceFacade pc;
 
     public FacebookEndpoint()
     {
         this.userController = new UserController();
-        this.pc = new PersistenceController();
+        this.pc = new PersistenceFacade();
     }
 
     public User loginWithFB(String code)

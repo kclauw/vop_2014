@@ -17,10 +17,10 @@ public class ParentRelationDao implements IDao
     private final String SAVE_PARENT_RELATION = "INSERT INTO ParentRelation(TreeID,parent,child) VALUES (?,?,?)";
     private final String DELETE_PARENT_RELATION = "DELETE FROM ParentRelation WHERE child = ? AND treeID = ?";
 
-    private PersistenceController pc;
+    private PersistenceFacade pc;
     private final Logger logger;
 
-    public ParentRelationDao(PersistenceController pc)
+    public ParentRelationDao(PersistenceFacade pc)
     {
         this.pc = pc;
         logger = LoggerFactory.getLogger(getClass());

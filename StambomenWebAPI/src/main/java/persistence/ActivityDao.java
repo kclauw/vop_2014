@@ -20,10 +20,10 @@ public class ActivityDao implements IDao<Activity>
     private Connection con;
     private final String GETACTIVITY = "SELECT name,dateTime,userID,eventID FROM UserEvent x join Event y on x.eventID = y.eventID where x.userID in (select z.friend FROM Request z where z.receiver = ? and z.status=1 union select a.receiver FROM Request a where a.friend = ? and a.status= 1);";
     private final String SETACTIVITY = "INSERT INTO UserEvent (eventID, userID, name, dateTime) VALUES (?, ?,?,NOW())";
-    private PersistenceController pc;
+    private PersistenceFacade pc;
     private final Logger logger;
 
-    public ActivityDao(PersistenceController pc)
+    public ActivityDao(PersistenceFacade pc)
     {
         this.pc = pc;
         logger = LoggerFactory.getLogger(getClass());

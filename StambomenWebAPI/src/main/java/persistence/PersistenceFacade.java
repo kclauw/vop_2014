@@ -18,7 +18,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PersistenceController
+public class PersistenceFacade
 {
 
     private final UserDao userDao;
@@ -33,7 +33,7 @@ public class PersistenceController
     private final ActivityDao activityDao;
     private final Logger logger;
 
-    public PersistenceController()
+    public PersistenceFacade()
     {
         userDao = new UserDao(this);
         treeDao = new TreeDao(this);
@@ -77,13 +77,11 @@ public class PersistenceController
         logger.info("[PERSISTENCE CONTROLLER] Get tree with id:" + id);
         return treeDao.get(id);
     }
-
     public Tree getTreeByName(String name)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get tree with name:" + name);
         return treeDao.getByName(name);
     }
-
     public int addTree(Tree tree)
     {
         logger.info("[PERSISTENCE CONTROLLER] Add tree : " + tree);
@@ -201,8 +199,9 @@ public class PersistenceController
         /*Logica voor het wegschrijven van een boom */
         logger.info("[PERSISTENCE CONTROLLER] Add person " + person);
 
+        
         int personid = personDao.savePerson(person);
-
+       
         persontreeDao.save(personid, treeID);
 
         if (person.getMother() != null)
@@ -281,8 +280,8 @@ public class PersistenceController
         logger.info("[PERSISTENCE CONTROLLER] Get persons ");
         return personDao.getPersons(treeID, start, max);
     }
-
-    public List<Person> getPersonsByTree(int treeID)
+    
+     public List<Person> getPersonsByTree(int treeID)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get persons by tree");
         return personDao.GetAll(treeID);
