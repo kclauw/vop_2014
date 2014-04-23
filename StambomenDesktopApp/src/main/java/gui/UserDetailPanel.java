@@ -3,6 +3,7 @@ package gui;
 import dto.UserDTO;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import service.ClientUserController;
 import util.Translator;
 
 public class UserDetailPanel extends javax.swing.JPanel
@@ -13,14 +14,7 @@ public class UserDetailPanel extends javax.swing.JPanel
     private UserDTO user;
     private UserOverviewPanel uovp;
     private boolean adding = false;
-
-    public UserDetailPanel(UserDTO user, UserOverviewPanel uovp)
-    {
-        this.uovp = uovp;
-        initComponents();
-        translate();
-        setEditable(false);
-    }
+    private ClientUserController userController;
 
     public UserDetailPanel()
     {
@@ -28,6 +22,7 @@ public class UserDetailPanel extends javax.swing.JPanel
         initComponents();
         translate();
         setEditable(false);
+        userController = new ClientUserController();
 
     }
 
@@ -35,9 +30,7 @@ public class UserDetailPanel extends javax.swing.JPanel
     {
         Translator trans = new Translator();
         btnEdit.setText(trans.translate("Edit"));
-        btnAdd.setText(trans.translate("Add"));
-        btnDelete.setText(trans.translate("Delete"));
-        btnAdd.setText(trans.translate("Add"));
+
         labelUser.setText(trans.translate("User"));
 
     }
@@ -51,8 +44,6 @@ public class UserDetailPanel extends javax.swing.JPanel
         buttonGroup1 = new javax.swing.ButtonGroup();
         jButton1 = new javax.swing.JButton();
         personPanel = new javax.swing.JPanel();
-        btnDelete = new javax.swing.JButton();
-        btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         detailPanel = new javax.swing.JPanel();
         textUser = new javax.swing.JTextField();
@@ -69,35 +60,6 @@ public class UserDetailPanel extends javax.swing.JPanel
         gridBagConstraints.gridy = 5;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         add(personPanel, gridBagConstraints);
-
-        btnDelete.setText("Delete");
-        btnDelete.setMaximumSize(new java.awt.Dimension(200, 23));
-        btnDelete.setMinimumSize(new java.awt.Dimension(200, 23));
-        btnDelete.setPreferredSize(new java.awt.Dimension(200, 23));
-        btnDelete.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 9;
-        add(btnDelete, gridBagConstraints);
-
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                btnAddActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 9;
-        add(btnAdd, gridBagConstraints);
 
         btnEdit.setText("Edit");
         btnEdit.setMaximumSize(new java.awt.Dimension(200, 23));
@@ -174,8 +136,9 @@ public class UserDetailPanel extends javax.swing.JPanel
 
             if (confirm == JOptionPane.YES_OPTION)
             {
-                user = getCurrentUserFromInput();
-                uovp.updateUser(user);
+
+                user.setUsername(textUser.getText());
+                userController.updateUser(user);
 
             }
 
@@ -186,26 +149,7 @@ public class UserDetailPanel extends javax.swing.JPanel
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        Translator trans = new Translator();
-        int confirm = JOptionPane.showConfirmDialog(null, trans.translate("DeleteMessage"));
-
-        if (confirm == JOptionPane.YES_OPTION)
-        {
-            System.out.println("[USER OVERVIEW DETAIL PANEL] DELETING USER " + user.toString());
-            uovp.deleteUser(user);
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
-    {//GEN-HEADEREND:event_btnAddActionPerformed
-        Translator trans = new Translator();
-
-    }//GEN-LAST:event_btnAddActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel detailPanel;
@@ -251,16 +195,6 @@ public class UserDetailPanel extends javax.swing.JPanel
     {
         b.setEnabled(true);
 
-        if (b != btnAdd)
-        {
-            btnAdd.setEnabled(false);
-        }
-
-        if (b != btnDelete)
-        {
-            btnDelete.setEnabled(false);
-        }
-
         if (b != btnEdit)
         {
             btnEdit.setEnabled(false);
@@ -283,9 +217,9 @@ public class UserDetailPanel extends javax.swing.JPanel
 
     private void setAllButtonsActive()
     {
-        btnAdd.setEnabled(true);
+
         btnEdit.setEnabled(true);
-        btnDelete.setEnabled(true);
+
     }
 
     /*

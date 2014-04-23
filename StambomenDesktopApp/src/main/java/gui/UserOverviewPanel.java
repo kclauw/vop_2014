@@ -67,7 +67,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 int selectedRow = table.getSelectedRow();
                 selectedRow = table.convertRowIndexToModel(selectedRow);
                 UserDTO user = (UserDTO) table.getModel().getValueAt(selectedRow, 3);
-                System.out.println(user);
+
                 userDetailpanel.setUser(user);
 
             }
@@ -235,8 +235,4 @@ public class UserOverviewPanel extends javax.swing.JPanel
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    void updateUser(UserDTO user)
-    {
-        clientUserController.updateUser(user);
-    }
 }
