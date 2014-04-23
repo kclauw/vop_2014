@@ -3,6 +3,7 @@ package gui;
 import dto.PrivacyDTO;
 import dto.ThemeDTO;
 import dto.TreeDTO;
+import gui.controller.GuiController;
 import gui.controller.TreeOverviewController;
 import gui.controls.FamilyTreeList;
 import java.awt.BorderLayout;
@@ -41,7 +42,6 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
     private ClientTreeController treeController;
     private ClientUserController userController;
     private ClientGedcomController gedcomController;
-    
 
     private String login;
     private JMenu menu;
@@ -63,17 +63,17 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         treeController = new ClientTreeController();
         userController = new ClientUserController();
         cbxPrivacy = new JComboBox();
-        
+
         initComponents();
         trans = new Translator();
         menuBar = new JMenuBar();
-        menu = new JMenu("   " + trans.translate("Tree") + "   ");
-        menuS = new JMenu("   " + trans.translate("Settings") + "   ");
+        menu = new JMenu(trans.translate("Tree"));
+        menuS = new JMenu(trans.translate("Settings"));
 
-        settingsItem = new JMenuItem("   " + trans.translate("ChangeLanguage") + "   ");
-        addTreeItem = new JMenuItem("   " + trans.translate("AddTree") + "   ");
-        importGedcomItem = new JMenuItem("   Import gedcom   ");
-        exportGedcomItem = new JMenuItem("   Export gedcom   ");
+        settingsItem = new JMenuItem(trans.translate("ChangeLanguage"));
+        addTreeItem = new JMenuItem(trans.translate("AddTree"));
+        importGedcomItem = new JMenuItem("Import gedcom");
+        exportGedcomItem = new JMenuItem("Export gedcom");
         addTreeItem.addActionListener(new ActionListener()
         {
 
@@ -107,14 +107,13 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                 if (returnVal == JFileChooser.APPROVE_OPTION)
                 {
 
-                    
                     file = fc.getSelectedFile();
                     System.out.println("Opening: " + file.getName());
-                    
+
                     cbxPrivacy.setModel(new javax.swing.DefaultComboBoxModel(new String[]
                     {
-                       trans.translate("Private"), trans.translate("OnlyFriends"), trans.translate("Public")
-                     }));
+                        trans.translate("Private"), trans.translate("OnlyFriends"), trans.translate("Public")
+                    }));
                     int privacy = cbxPrivacy.getSelectedIndex();
                     cbxPrivacy.setVisible(true);
                     JOptionPane.showMessageDialog(null, cbxPrivacy);
@@ -135,31 +134,28 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                     {
                         p = null;
                     }
-                    
-                    
 
                     String name = JOptionPane.showInputDialog("Gelieve een naam voor de boom in te voeren");
-                    
-                   // TreeDTO tree = new TreeDTO(-1,userController.getUser().getId(), p,name,null);
+
+                    // TreeDTO tree = new TreeDTO(-1,userController.getUser().getId(), p,name,null);
                     //treeController.makeTree(tree);
-                    
-                 //   System.out.println("ADDING TREE : " + treeController.makeTree(tree));     
+                    //   System.out.println("ADDING TREE : " + treeController.makeTree(tree));
                    /* while(addTree.equals("exists")){
-                    tree.setName(name = JOptionPane.showInputDialog("Boom bestaat al gelieve een andere naam in te voeren"));
-                    addTree = treeController.makeTree(tree);
-                    };*/
-                   
-                    try {
-                        gedcomController.importGedcom(p.getPrivacyId(),userController.getUser().getId(),name, file);
-                         repaint();
-                    revalidate();
-                    } catch (IOException ex) {
-                        
+                     tree.setName(name = JOptionPane.showInputDialog("Boom bestaat al gelieve een andere naam in te voeren"));
+                     addTree = treeController.makeTree(tree);
+                     };*/
+                    try
+                    {
+                        gedcomController.importGedcom(p.getPrivacyId(), userController.getUser().getId(), name, file);
+                        repaint();
+                        revalidate();
+                    }
+                    catch (IOException ex)
+                    {
+
                         Exceptions.printStackTrace(ex);
                     }
-                        
-                    
-                    
+
                 }
                 else
                 {
@@ -187,7 +183,7 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         c.gridx = 1;
         c.gridy = 0;
         c.fill = GridBagConstraints.BOTH;
-        c.anchor = GridBagConstraints.EAST;
+        c.anchor = GridBagConstraints.LINE_END;
         pnlMenu.add(menuBar, c);
 
         initGui();
@@ -195,9 +191,13 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
     private void initGui()
     {
+        lblLogo.setIcon(new ImageIcon(this.getClass().getClassLoader().getResource("images/logo.png")));
+
         ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
         Color bgColor = ThemeDTO.toColor(theme.getBgColor());
-        Color textColor = ThemeDTO.toColor(theme.getTextColor());
+        String font = theme.getFont();
+
+        GuiController.setUIFont(font);
 
         pnlMenuBg.setBackground(bgColor);
         menuBar.setBackground(bgColor);
@@ -209,11 +209,6 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
             }
             menuBar.getMenu(i).setBackground(bgColor);
         }
-
-        lblLogo.setIcon(new ImageIcon(this.getClass().getClassLoader().getResource("images/logoSmall.png")));
-        menuBar.setMinimumSize(new Dimension(menuBar.getMinimumSize().width, 50));
-        menuBar.setPreferredSize(new Dimension(menuBar.getPreferredSize().width, 50));
-        menuBar.setMaximumSize(new Dimension(menuBar.getMaximumSize().width, 50));
     }
 
     public void addAdmin()
@@ -278,6 +273,8 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
         lblLogo.setText(" ");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 0.1;

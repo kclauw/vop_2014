@@ -8,15 +8,23 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.LayoutManager;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
+import org.openide.util.Exceptions;
 
-public class GuiController {
+public class GuiController
+{
 
     private JFrame programFrame;
     private PersonOverviewController personoverviewController;
@@ -31,13 +39,15 @@ public class GuiController {
 
     private String login;
 
-    public GuiController() {
+    public GuiController()
+    {
         init();
         goTo(Panels.LOGIN);
         programFrame.setVisible(true);
     }
 
-    private void init() {
+    private void init()
+    {
         createFrame();
 
         loginController = new LoginController(this);
@@ -50,24 +60,34 @@ public class GuiController {
         useroverviewController = new UserOverviewController(this);
     }
 
-    private void createFrame() {
+    private void createFrame()
+    {
         programFrame = new JFrame();
         programFrame.setSize(new Dimension(900, 550));
         programFrame.setPreferredSize(new Dimension(900, 550));
         programFrame.setLocationRelativeTo(null);
         programFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        programFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+        programFrame.addWindowListener(new java.awt.event.WindowAdapter()
+        {
             @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if (currentPanel == Panels.SETTINGS) {
+            public void windowClosing(java.awt.event.WindowEvent windowEvent)
+            {
+                if (currentPanel == Panels.SETTINGS)
+                {
                     goTo(Panels.TREEOVERVIEW);
-                } else {
+                }
+                else
+                {
                     int confirm = JOptionPane.showConfirmDialog(programFrame, "Are you sure you want to close?");
-                    if (confirm == JOptionPane.YES_OPTION) {
-                        if (currentPanel == Panels.TREE) {
+                    if (confirm == JOptionPane.YES_OPTION)
+                    {
+                        if (currentPanel == Panels.TREE)
+                        {
                             goTo(Panels.TREEOVERVIEW);
-                        } else {
+                        }
+                        else
+                        {
                             programFrame.dispose();
                             System.exit(0);
                         }
@@ -83,12 +103,43 @@ public class GuiController {
         programFrame.setLayout(new BorderLayout());
     }
 
-    public void goTo(Panels frame) {
+    public static void setUIFont(String fontName)
+    {
+        Font font = null;
+        try
+        {
+            InputStream myStream = GuiController.class.getResourceAsStream("gui/font/" + fontName + ".ttf");
+            font = Font.createFont(Font.TRUETYPE_FONT, myStream);
+        }
+        catch (Exception ex)
+        {
+            Exceptions.printStackTrace(ex);
+        }
+
+        if (font != null)
+        {
+            javax.swing.plaf.FontUIResource f = new javax.swing.plaf.FontUIResource(font);
+            java.util.Enumeration keys = UIManager.getDefaults().keys();
+            while (keys.hasMoreElements())
+            {
+                Object key = keys.nextElement();
+                Object value = UIManager.get(key);
+                if (value != null && value instanceof javax.swing.plaf.FontUIResource)
+                {
+                    UIManager.put(key, f);
+                }
+            }
+        }
+    }
+
+    public void goTo(Panels frame)
+    {
         currentPanel = frame;
         programFrame.getContentPane().removeAll();
 
         JPanel content = null;
-        switch (frame) {
+        switch (frame)
+        {
             case LOGIN:
                 content = loginController.show();
                 programFrame.setTitle("Login");
@@ -127,7 +178,8 @@ public class GuiController {
         programFrame.revalidate();
     }
 
-    public void setAdminframe(JPanel panel) {
+    public void setAdminframe(JPanel panel)
+    {
 
         programFrame.getContentPane().removeAll();
         programFrame.add(panel);
@@ -135,21 +187,25 @@ public class GuiController {
         programFrame.revalidate();
     }
 
-    public void showTree(TreeDTO tree) {
+    public void showTree(TreeDTO tree)
+    {
         goTo(Panels.TREE);
         treeController.setTree(tree);
     }
 
-    public void setLogin(String login) {
+    public void setLogin(String login)
+    {
         this.login = login;
         treeControllerOverviewController.setLogin(login);
     }
 
-    public String getLogin() {
+    public String getLogin()
+    {
         return login;
     }
 
-    public void setUser(UserDTO user) {
+    public void setUser(UserDTO user)
+    {
         this.treeControllerOverviewController.setUser(user);
     }
 }
