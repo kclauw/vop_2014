@@ -40,6 +40,7 @@
         <script src="./js/userProfiles.js"></script>
     </head>
     <body>
+        
         <div class="popupboxbg">
             <div class="popupbox itemblock shadow">
                 <div>
@@ -60,12 +61,26 @@
                 </div>
             </div>
             <div class = "wrapper">
+                <% 
+            
+        
+        
+        
+        %>
                 <div>
                     <div class = "userProfileList">
                         <h1>Public User Profiles</h1>
                         <ul id = "publicUserProfile">
                         ${publicUserProfileshtml}
-                    </ul>
+                        </ul>
+                        
+                        <ul class="treelist">
+                            <c:forEach var="item" items="${activities}" varStatus="counter">
+                                <li>
+                                    ${item.name}
+                                </li>
+                            </c:forEach>
+                        </ul>
                 </div>
             </div>
         </div>
