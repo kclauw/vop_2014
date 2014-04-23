@@ -52,17 +52,12 @@ public class UserTableModel extends AbstractTableModel
         }
         if (columnIndex == 2)
         {
-            return list.get(rowIndex).getRole();
+            return list.get(rowIndex).getId();
         }
 
         if (columnIndex == 3)
         {
             return list.get(rowIndex);
-        }
-
-        if (columnIndex == 4)
-        {
-            return list.get(rowIndex).getId();
         }
 
         return null;

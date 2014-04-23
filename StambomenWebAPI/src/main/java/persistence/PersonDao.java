@@ -94,7 +94,8 @@ public class PersonDao implements IDao<Person>
 
             if (person.getBirthDate() != null)
             {
-                prep.setDate(5, (java.sql.Date) (person.getBirthDate()));
+
+                prep.setDate(5, convertJavaDateToSqlDate(person.getBirthDate()));
             }
             else
             {
@@ -103,7 +104,8 @@ public class PersonDao implements IDao<Person>
 
             if (person.getDeathDate() != null)
             {
-                prep.setDate(6, (java.sql.Date) person.getDeathDate());
+
+                prep.setDate(6, convertJavaDateToSqlDate(person.getDeathDate()));
             }
             else
             {
@@ -147,6 +149,11 @@ public class PersonDao implements IDao<Person>
             }
         }
         return lastInsertedId;
+    }
+
+    public java.sql.Date convertJavaDateToSqlDate(java.util.Date date)
+    {
+        return new java.sql.Date(date.getTime());
     }
 
     public Person get(int treeID, int personID)

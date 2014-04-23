@@ -61,6 +61,8 @@ public class UserOverviewPanel extends javax.swing.JPanel
         sorter = new TableRowSorter<UserTableModel>(model);
         final JTable table = new JTable(model);
         table.setRowSorter(sorter);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setFillsViewportHeight(true);
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener()
         {
             public void valueChanged(ListSelectionEvent event)
@@ -68,8 +70,13 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 int selectedRow = table.getSelectedRow();
                 selectedRow = table.convertRowIndexToModel(selectedRow);
                 UserDTO user = (UserDTO) table.getModel().getValueAt(selectedRow, 3);
+                //model.fireTableDataChanged();
 
+                //table.repaint();
+                // table.revalidate();
                 userDetailpanel.setUser(user);
+                userDetailpanel.repaint();
+                userDetailpanel.revalidate();
 
             }
         });
@@ -134,12 +141,15 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 if (user.getBlock())
                 {
                     useroverviewController.blockUser(user.getId(), false);
+                    System.out.println("User unblocked");
                 }
                 else
                 {
                     useroverviewController.blockUser(user.getId(), true);
+                    System.out.println("User blocked");
                 }
-                model.fireTableDataChanged();
+
+//                model.fireTableDataChanged();
                 table.repaint();
                 table.revalidate();
 
