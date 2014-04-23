@@ -31,7 +31,7 @@ public class TreeOverviewController implements IPanelController
         this.gui = gui;
         this.serv = new ClientTreeController();
         this.userController = new ClientUserController();
-        
+
     }
 
     public JPanel show()
@@ -40,10 +40,13 @@ public class TreeOverviewController implements IPanelController
         treeOverviewPanel = (FamilyTreeOverviewPanel) PanelFactory.makePanel(Panels.TREEOVERVIEW);
         treeOverviewPanel.setTreeController(this);
 
-        if (userController.getUser().getRole().equals("Admin"))
+        String role = userController.getUser().getRole();
+
+        if (role != null && role.equals("Admin"))
         {
             treeOverviewPanel.addAdmin();
-       }
+        }
+
         getTrees(-1);
         return treeOverviewPanel;
     }

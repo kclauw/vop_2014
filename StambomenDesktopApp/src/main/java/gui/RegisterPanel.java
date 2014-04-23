@@ -34,7 +34,7 @@ public class RegisterPanel extends javax.swing.JPanel
     public RegisterPanel()
     {
         initComponents();
-        initGui();
+        //initGui();
     }
 
     private void initGui()
