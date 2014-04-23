@@ -4,13 +4,19 @@
     Author     : Lowie
 --%>
 
+<%@page import="util.Translator"%>
 <%@page import="dto.ThemeDTO"%>
 <%@page import="dto.UserDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%! Translator trans = new Translator(); %> 
+
 <!DOCTYPE html>
 <html>
-    <head>
+    
+
+        <head>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
         <title>Tree - Main</title>
@@ -54,7 +60,7 @@
             <div class="wrapper">
                 <div>
                     <div class="treegroup">
-                        <h1>Familytrees</h1>
+                        <h1><%= trans.translate("Familytrees") %></h1>
                         <ul class="treelist">
                             <c:forEach var="tree" items="${trees}" varStatus="counter">
                                 <a href="./TreeServlet?treeid=${tree.id}" class="itemblock"><li>
@@ -65,7 +71,7 @@
                         </ul>
                     </div>
                     <div class="treegroup">
-                        <h1>Public trees</h1>
+                        <h1><%= trans.translate("PublicTrees") %></h1>
                         <form method="get" action="./TreeServlet">
                             <input name="publictreename" value="${publictreename}" />
                             <input type="submit" value="Search" />
@@ -83,4 +89,5 @@
             </div>
         </div>
     </body>
+    </fmt:bundle>
 </html>
