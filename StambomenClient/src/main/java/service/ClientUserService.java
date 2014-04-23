@@ -1,6 +1,7 @@
 package service;
 
 import com.google.gson.Gson;
+import dto.ActivityDTO;
 import dto.PrivacyDTO;
 import dto.ThemeDTO;
 import dto.UserDTO;
@@ -37,7 +38,9 @@ public class ClientUserService
 
         if (response.getStatus() != 200)
         {
-            return " " + response.readEntity(String.class);
+            String resp = response.readEntity(String.class);
+            System.out.println("ERROR: " + resp);
+            return resp;
         }
 
         return null;
@@ -63,9 +66,9 @@ public class ClientUserService
                 userDTO = response.readEntity(UserDTO.class);
                 logger.info("[CLIENT USER SERVICE][LOGIN]User userDTO found " + userDTO);
                 ClientServiceController.getInstance().setUser(userDTO);
-                
+
                 result = "";
-                
+
                 break;
             }
 
@@ -237,7 +240,7 @@ public class ClientUserService
         return users;
     }
 
-    List<UserDTO> getUsers()
+    public List<UserDTO> getUsers()
     {
         logger.info("[CLIENT ADMIN SERVICE][GET USERS]Getting users ");
 
@@ -249,6 +252,20 @@ public class ClientUserService
         });
 
         return users;
+    }
+
+    public List<ActivityDTO> getActivities(int userID)
+    {
+        logger.info("[CLIENT ADMIN SERVICE][GET USERS]Getting users ");
+
+        Client client = ClientServiceController.getInstance().getClient();
+        client.register(new JacksonFeature());
+
+        List<ActivityDTO> activities = client.target(url + "user/getActivities/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<ActivityDTO>>()
+        {
+        });
+
+        return activities;
     }
 
     public String updateUser(UserDTO user)

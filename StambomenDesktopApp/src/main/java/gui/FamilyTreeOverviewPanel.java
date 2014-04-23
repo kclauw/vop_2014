@@ -43,7 +43,6 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
     private ClientUserController userController;
     private ClientGedcomController gedcomController;
 
-    private String login;
     private JMenu menu;
     private JMenu menuS;
     private JMenu menuA;
@@ -198,8 +197,6 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         Color bgColor = ThemeDTO.toColor(theme.getBgColor());
         String font = theme.getFont();
 
-        GuiController.setUIFont(font);
-
         pnlMenuBg.setBackground(bgColor);
         menuBar.setBackground(bgColor);
         for (int i = 0; i < menuBar.getMenuCount(); i++)
@@ -318,8 +315,6 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
     public void setTreeController(TreeOverviewController treeController)
     {
         this.treeoverviewController = treeController;
-        this.login = treeController.getLogin();
-
     }
 
     public TreeOverviewController getTreeoverviewcontroller()

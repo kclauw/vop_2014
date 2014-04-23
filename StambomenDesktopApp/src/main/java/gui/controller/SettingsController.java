@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import service.ClientUserController;
 
 public class SettingsController {
-
+    
     private GuiController gui;
     private SettingsPanel settingsPanel;
     private ClientUserController clientUserController;

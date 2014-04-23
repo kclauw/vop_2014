@@ -325,7 +325,8 @@ public class TreeDao implements ITreeDao<Tree>
             int privacy = res.getInt("privacy");
 
             Privacy priv = Privacy.getPrivacy(privacy);
-            User user = per.getUser(ownerID);
+     //       User user = per.getUser(ownerID); (We will never need to full user this is overhead)
+            User user = new User(ownerID);
             tree = new Tree(id, user, priv, name, null);
         }
         catch (SQLException ex)

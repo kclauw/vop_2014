@@ -47,9 +47,7 @@ public class LoginPanel extends javax.swing.JPanel
         {
             Exceptions.printStackTrace(ex);
         }
-
-        GuiController.setUIFont("Varela");
-
+        
         lblIcon.setIcon(new ImageIcon(this.getClass().getClassLoader().getResource("images/logo.png")));
         pnlLogin.setBorder(new MatteBorder(0, 5, 0, 0, new java.awt.Color(51, 68, 85)));
     }

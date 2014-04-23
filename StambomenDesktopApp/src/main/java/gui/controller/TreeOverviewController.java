@@ -1,7 +1,6 @@
 package gui.controller;
 
 import dto.TreeDTO;
-import dto.UserDTO;
 import gui.FamilyTreeOverviewPanel;
 import gui.PanelFactory;
 import gui.Panels;
@@ -10,7 +9,6 @@ import gui.controls.FamilyTreeListItem;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import service.ClientTreeController;
 import service.ClientUserController;
 
@@ -19,19 +17,15 @@ public class TreeOverviewController implements IPanelController
 
     private FamilyTreeOverviewPanel treeOverviewPanel;
     private GuiController gui;
-
     private ClientTreeController serv;
     private ClientUserController userController;
-    private UserDTO user;
-    private String login;
-    private int userid;
 
     public TreeOverviewController(GuiController gui)
     {
         this.gui = gui;
         this.serv = new ClientTreeController();
         this.userController = new ClientUserController();
-        
+
     }
 
     public JPanel show()
@@ -40,11 +34,15 @@ public class TreeOverviewController implements IPanelController
         treeOverviewPanel = (FamilyTreeOverviewPanel) PanelFactory.makePanel(Panels.TREEOVERVIEW);
         treeOverviewPanel.setTreeController(this);
 
-        if (userController.getUser().getRole().equals("Admin"))
+        String role = userController.getUser().getRole();
+
+        if (role != null && role.equals("Admin"))
         {
             treeOverviewPanel.addAdmin();
-       }
+        }
+
         getTrees(-1);
+
         return treeOverviewPanel;
     }
 
@@ -79,32 +77,11 @@ public class TreeOverviewController implements IPanelController
     {
         TreeDTO t = serv.getTree(tree.getId());
         gui.showTree(t);
-
-    }
-
-    public String getLogin()
-    {
-        return gui.getLogin();
-    }
-
-    public void setUser(UserDTO user)
-    {
-        this.user = user;
-    }
-
-    public void setLogin(String login)
-    {
-        this.login = gui.getLogin();
     }
 
     public void setAdminframe(JPanel panel)
     {
         gui.setAdminframe(panel);
-    }
-
-    public UserDTO getUser()
-    {
-        return user;
     }
 
 }

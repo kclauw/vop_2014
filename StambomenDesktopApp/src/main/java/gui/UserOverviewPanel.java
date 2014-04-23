@@ -77,7 +77,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         //items
-        JScrollPane pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        final JScrollPane pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         JLabel l1 = new JLabel(trans.translate("FilterText") + ":");
 
@@ -101,8 +101,6 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 UserDTO user = (UserDTO) table.getModel().getValueAt(selectedRow, 3);
                 System.out.println("USER : " + user);
 
-                useroverviewController.setLogin("Admin");
-
                 treeoverviewController = new TreeOverviewController(useroverviewController.getGui());
                 treeController = new TreeController(useroverviewController.getGui());
 
@@ -112,7 +110,11 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 treeoverviewController.setAdminframe(panel);
 
                 model.fireTableDataChanged();
+
                 table.repaint();
+                table.revalidate();
+                repaint();
+                revalidate();
 
             }
         });
@@ -139,6 +141,10 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 model.fireTableDataChanged();
                 table.repaint();
                 table.revalidate();
+                repaint();
+                revalidate();
+                pane.repaint();
+                pane.revalidate();
 
             }
         });
@@ -177,8 +183,8 @@ public class UserOverviewPanel extends javax.swing.JPanel
 
         add(pane, BorderLayout.LINE_START);
         add(form, BorderLayout.CENTER);
-        //add(panel,BorderLayout.EAST);
 
+        //add(panel,BorderLayout.EAST);
         setVisible(true);
 
     }
@@ -231,6 +237,6 @@ public class UserOverviewPanel extends javax.swing.JPanel
 
     void updateUser(UserDTO user)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        clientUserController.updateUser(user);
     }
 }
