@@ -1,8 +1,9 @@
 package domain.controller;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.InputStream;
 import persistence.PersistenceFacade;
+import util.ImageUtil;
 
 /**
  * This class will handle the uploading of Logo and BackgroundImage for the
@@ -12,6 +13,8 @@ public class ApplicationController
 {
 
     private PersistenceFacade per;
+    private int LOGO_SMALL_X = 105;
+    private int LOGO_SMALL_Y = 35;
 
     public ApplicationController()
     {
@@ -26,5 +29,9 @@ public class ApplicationController
     public void uploadLogoImage(BufferedImage imageInputStream)
     {
         per.uploadLogoImage(imageInputStream);
+
+        ImageUtil imu = new ImageUtil();
+        BufferedImage rescaled = (BufferedImage) imu.resize(imageInputStream, LOGO_SMALL_X, LOGO_SMALL_Y);
+        per.uploadSmallLogoImage(rescaled);
     }
 }

@@ -193,4 +193,10 @@ public class ImageDao
             Logger.getLogger(ImageDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void uploadSmallLogoImage(BufferedImage rescaled)
+    {
+        String url = this.url + "/logoSmall.jpg";
+        uploadImage(url, rescaled);
+    }
 }
