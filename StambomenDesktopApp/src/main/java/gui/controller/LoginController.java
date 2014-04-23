@@ -46,15 +46,11 @@ public class LoginController implements IPanelController
 
     public void login(UserDTO user)
     {
-        if (SwingUtilities.isEventDispatchThread())
-        {
-            System.out.println("EDT thread ");
-        }
 
         System.out.println("[LOGINCONTROLLER] login" + user.toString());
 
         String login = clientUserController.login(user);
-        
+
         if ("Error".equals(login))
         {
             this.loginPanel.setError(login);

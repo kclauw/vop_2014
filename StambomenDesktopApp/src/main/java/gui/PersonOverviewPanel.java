@@ -41,7 +41,6 @@ public class PersonOverviewPanel extends javax.swing.JPanel
     private JTable table;
     private JTextField filterText;
     private JTextField statusText;
-    private PersonOverviewController admin;
 
     public PersonOverviewPanel()
     {
@@ -208,9 +207,5 @@ public class PersonOverviewPanel extends javax.swing.JPanel
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-    public void setAdminController(PersonOverviewController a)
-    {
-        this.admin = a;
 
-    }
 }

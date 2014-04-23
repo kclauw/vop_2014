@@ -32,6 +32,7 @@ public class GuiController
     private Panels currentPanel;
     private SettingsController settingsController;
     private UserOverviewController useroverviewController;
+    private AdminThemeController adminThemeController;
 
     public GuiController()
     {
@@ -43,7 +44,6 @@ public class GuiController
     private void init()
     {
         createFrame();
-
         loginController = new LoginController(this);
         registerController = new RegisterController(this);
         treeControllerOverviewController = new TreeOverviewController(this);
@@ -52,6 +52,7 @@ public class GuiController
         settingsController = new SettingsController(this);
         personoverviewController = new PersonOverviewController(this);
         useroverviewController = new UserOverviewController(this);
+        adminThemeController = new AdminThemeController(this);
     }
 
     private void createFrame()
@@ -192,6 +193,11 @@ public class GuiController
                 programFrame.setTitle("User Overview");
                 setDefaultFont();
                 break;
+            case ADMINTHEME:
+                content = adminThemeController.show();
+                programFrame.setTitle("Theme");
+                setDefaultFont();
+                break;
         }
 
         programFrame.add(content);
@@ -201,7 +207,6 @@ public class GuiController
 
     public void setAdminframe(JPanel panel)
     {
-
         programFrame.getContentPane().removeAll();
         programFrame.add(panel);
         programFrame.setTitle("Admin");
