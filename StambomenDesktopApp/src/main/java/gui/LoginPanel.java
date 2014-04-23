@@ -1,7 +1,13 @@
 package gui;
 
 import dto.UserDTO;
+import gui.controller.GuiController;
 import gui.controller.LoginController;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.io.IOException;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,7 +21,10 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.MatteBorder;
+import org.openide.util.Exceptions;
 
 public class LoginPanel extends javax.swing.JPanel
 {
@@ -30,6 +39,17 @@ public class LoginPanel extends javax.swing.JPanel
 
     private void initGui()
     {
+        try
+        {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        }
+        catch (Exception ex)
+        {
+            Exceptions.printStackTrace(ex);
+        }
+
+        GuiController.setUIFont("Varela");
+
         lblIcon.setIcon(new ImageIcon(this.getClass().getClassLoader().getResource("images/logo.png")));
         pnlLogin.setBorder(new MatteBorder(0, 5, 0, 0, new java.awt.Color(51, 68, 85)));
     }
