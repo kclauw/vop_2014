@@ -1,5 +1,6 @@
 package gui;
 
+import gui.controller.GuiController;
 import javax.swing.JPanel;
 
 public class PanelFactory

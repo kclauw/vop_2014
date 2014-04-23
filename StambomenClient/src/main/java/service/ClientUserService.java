@@ -37,7 +37,9 @@ public class ClientUserService
 
         if (response.getStatus() != 200)
         {
-            return " " + response.readEntity(String.class);
+            String resp = response.readEntity(String.class);
+            System.out.println("ERROR: " + resp);
+            return resp;
         }
 
         return null;
@@ -63,9 +65,9 @@ public class ClientUserService
                 userDTO = response.readEntity(UserDTO.class);
                 logger.info("[CLIENT USER SERVICE][LOGIN]User userDTO found " + userDTO);
                 ClientServiceController.getInstance().setUser(userDTO);
-                
+
                 result = "";
-                
+
                 break;
             }
 

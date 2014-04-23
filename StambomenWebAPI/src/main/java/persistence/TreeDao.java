@@ -49,16 +49,14 @@ public class TreeDao implements ITreeDao<Tree>
             prep.setInt(1, id);
             logger.info("[TREE DAO] Get tree by id " + prep.toString());
             res = prep.executeQuery();
-
             if (res.next())
             {
                 tree = map(res);
             }
-            System.out.println("OWNER : " + tree.getOwner());
 
             List<Person> pers = per.getPersons(id);
 
-            if (tree != null && pers == null)
+            if (tree != null && pers != null)
             {
                 tree.setPersons(pers);
             }
@@ -327,7 +325,8 @@ public class TreeDao implements ITreeDao<Tree>
             int privacy = res.getInt("privacy");
 
             Privacy priv = Privacy.getPrivacy(privacy);
-            User user = per.getUser(ownerID);
+     //       User user = per.getUser(ownerID); (We will never need to full user this is overhead)
+            User user = new User(ownerID);
             tree = new Tree(id, user, priv, name, null);
         }
         catch (SQLException ex)
