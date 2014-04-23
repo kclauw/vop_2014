@@ -15,13 +15,10 @@
         <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
         <title>Tree - Timemachine</title>
 
-        <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" type="text/css" href="./css/general.css"/>
-        <link rel="stylesheet" type="text/css" href="./css/timemachine.css"/>
-        <link rel="stylesheet" type="text/css" href="./css/custom-theme/jquery-ui-1.10.4.custom.min.css"/>
         <style>
             <%
                 ThemeDTO theme = ((UserDTO)request.getSession().getAttribute("user")).getUserSettings().getTheme();
+                String font = theme.getFont().replace(' ', '+');
             %>
 
             *, #topbar a:link, #topbar a:visited, #topbar a:active {
@@ -41,6 +38,10 @@
                 background-color: #<%= theme.getFemaleColor() %>;
             }
         </style>
+        <link href='http://fonts.googleapis.com/css?family=<%=font%>' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="./css/general.css"/>
+        <link rel="stylesheet" type="text/css" href="./css/timemachine.css"/>
+        <link rel="stylesheet" type="text/css" href="./css/custom-theme/jquery-ui-1.10.4.custom.min.css"/>
         
         <script src="./js/jquery-1.11.0.min.js"></script>
         <script src="./js/jquery-ui-1.10.4.custom.min.js"></script>

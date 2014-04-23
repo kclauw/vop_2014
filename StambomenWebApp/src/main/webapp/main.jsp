@@ -14,12 +14,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
         <title>Tree - Main</title>
-        <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" type="text/css" href="./css/general.css"/>
-        <link rel="stylesheet" type="text/css" href="./css/main.css"/>
+        
         <style>
             <%
                 ThemeDTO theme = ((UserDTO)request.getSession().getAttribute("user")).getUserSettings().getTheme();
+                String font = theme.getFont().replace(' ', '+');
             %>
 
             *, #topbar a:link, #topbar a:visited, #topbar a:active {
@@ -39,6 +38,9 @@
                 background-color: #<%= theme.getFemaleColor() %>;
             }
         </style>
+        <link href='http://fonts.googleapis.com/css?family=<%=font%>' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="./css/general.css"/>
+        <link rel="stylesheet" type="text/css" href="./css/main.css"/>
         
         <script src="./js/jquery-1.11.0.min.js"></script>
     </head>

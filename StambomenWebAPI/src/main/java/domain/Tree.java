@@ -2,6 +2,8 @@ package domain;
 
 import domain.enums.Privacy;
 import java.util.List;
+import persistence.TreeNameCannotBeEmptyException;
+import util.StringValidation;
 
 public class Tree
 {
@@ -85,6 +87,11 @@ public class Tree
 
     private void setName(String name)
     {
+        if(StringValidation.emptyString(name))
+        {
+            throw new TreeNameCannotBeEmptyException();
+        }
+        
         this.name = name;
     }
 
