@@ -119,7 +119,7 @@ public class AdminThemePanel extends javax.swing.JPanel
     private void btnUploadLogoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnUploadLogoActionPerformed
     {//GEN-HEADEREND:event_btnUploadLogoActionPerformed
         Image im = getImage();
-        Image scaled = resize(im, 200, 200);
+        Image scaled = resize(im, 120, 40);
         themeC.uploadLogo(scaled);
     }//GEN-LAST:event_btnUploadLogoActionPerformed
 
