@@ -1,5 +1,6 @@
 package gui;
 
+import dto.ImageTypeDTO;
 import dto.PrivacyDTO;
 import dto.ThemeDTO;
 import dto.TreeDTO;
@@ -33,6 +34,7 @@ import service.ClientPersonController;
 import service.ClientServiceController;
 import service.ClientTreeController;
 import service.ClientUserController;
+import service.ServiceConstant;
 import util.Translator;
 
 public class FamilyTreeOverviewPanel extends javax.swing.JPanel
@@ -191,11 +193,10 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
     private void initGui()
     {
-        lblLogo.setIcon(new ImageIcon(this.getClass().getClassLoader().getResource("images/logo.png")));
+        lblLogo.setIcon(new ImageIcon(ServiceConstant.getInstance().getApplicationImage(ImageTypeDTO.LOGO)));
 
         ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
         Color bgColor = ThemeDTO.toColor(theme.getBgColor());
-        String font = theme.getFont();
 
         pnlMenuBg.setBackground(bgColor);
         menuBar.setBackground(bgColor);
