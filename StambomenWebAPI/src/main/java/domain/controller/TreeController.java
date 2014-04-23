@@ -30,7 +30,8 @@ public class TreeController
         System.out.println("[TREE CONTROLLER] ADDING A TREE" + tree);
         int id;
         Date date = new Date();
-       // Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
+        System.out.println("");
+        Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
 
         if (tree.getId() == -1)
         {
@@ -48,8 +49,8 @@ public class TreeController
             }
 
             id = pc.addTree(tree);
-            //ac.addActivity(act);
-            
+            ac.addActivity(act);
+
         }
         else
         {
@@ -70,8 +71,8 @@ public class TreeController
                         throw new TreeNameAlreadyExistsException();
                     }
                 }
-               id =  pc.addTree(tree);
-                //ac.addActivity(act);
+                id = pc.addTree(tree);
+                ac.addActivity(act);
             };
         }
         return id;
@@ -81,8 +82,8 @@ public class TreeController
     {
         return pc.getTree(id);
     }
-    
-     public Tree getTree(String name)
+
+    public Tree getTree(String name)
     {
         return pc.getTreeByName(name);
     }
