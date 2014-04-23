@@ -5,18 +5,21 @@ import gui.controller.SettingsController;
 import javax.swing.DefaultComboBoxModel;
 import util.Translator;
 
-public class SettingsPanel extends javax.swing.JPanel {
+public class SettingsPanel extends javax.swing.JPanel
+{
 
     private SettingsController settingsController;
 
-    public SettingsPanel() {
+    public SettingsPanel()
+    {
 
         initComponents();
         translate();
         cbxLanguage.setModel(new DefaultComboBoxModel(LanguageDTO.values()));
     }
 
-    public void translate() {
+    public void translate()
+    {
         Translator trans = new Translator();
 
         jButton1.setText(trans.translate("Back"));
@@ -31,7 +34,8 @@ public class SettingsPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jButton2 = new javax.swing.JButton();
@@ -42,6 +46,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         jButton2.setText("jButton2");
 
+        setOpaque(false);
         setLayout(new java.awt.GridBagLayout());
 
         jLabel2.setMaximumSize(new java.awt.Dimension(120, 23));
@@ -67,8 +72,10 @@ public class SettingsPanel extends javax.swing.JPanel {
         jButton1.setMaximumSize(new java.awt.Dimension(120, 23));
         jButton1.setMinimumSize(new java.awt.Dimension(120, 23));
         jButton1.setPreferredSize(new java.awt.Dimension(120, 23));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton1ActionPerformed(evt);
             }
         });
@@ -81,8 +88,10 @@ public class SettingsPanel extends javax.swing.JPanel {
         jButton3.setMaximumSize(new java.awt.Dimension(120, 23));
         jButton3.setMinimumSize(new java.awt.Dimension(120, 23));
         jButton3.setPreferredSize(new java.awt.Dimension(120, 23));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton3.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton3ActionPerformed(evt);
             }
         });
@@ -110,7 +119,8 @@ public class SettingsPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
-    public void setSettingsController(SettingsController sc) {
+    public void setSettingsController(SettingsController sc)
+    {
         this.settingsController = sc;
 
         LanguageDTO languageDTO = settingsController.getLanguage();

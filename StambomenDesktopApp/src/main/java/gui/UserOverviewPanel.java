@@ -200,12 +200,16 @@ public class UserOverviewPanel extends javax.swing.JPanel
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
 
+        setOpaque(false);
         setRequestFocusEnabled(false);
         setLayout(new java.awt.BorderLayout());
+
+        jPanel1.setOpaque(false);
         add(jPanel1, java.awt.BorderLayout.CENTER);
         jPanel1.getAccessibleContext().setAccessibleName("");
         jPanel1.getAccessibleContext().setAccessibleDescription("");
