@@ -27,12 +27,12 @@ public class GedcomService
     @Path("/import/{privacy}/{name}/{user}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response importGedcom(@PathParam("privacy") int privacy,@PathParam("user") int user,@PathParam("name") String name, InputStream inp) throws IOException, GedcomParserException
+    public Response importGedcom(@PathParam("privacy") int privacy, @PathParam("user") int user, @PathParam("name") String name, InputStream inp) throws IOException, GedcomParserException, ParseException
     {
 
-        String result = "Importing new Gedcom for user " + name ;
+        String result = "Importing new Gedcom for user " + name;
         System.out.println(result);
-        gc.importGedcom(privacy,user,name,inp);
+        gc.importGedcom(privacy, user, name, inp);
         return Response.status(Response.Status.OK).entity(result).build();
 
     }
