@@ -6,6 +6,14 @@
 package dto;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -118,4 +126,28 @@ public class ThemeDTO
         return new Color(Integer.parseInt(color, 16));
     }
 
+    public Font getDefaultFont()
+    {
+        try
+        {
+            ClassLoader clientClassLoader = this.getClass().getClassLoader();
+            URI ur = clientClassLoader.getResource("gui/font/" + font + ".ttf").toURI();
+            File file = new File(ur);
+            Font f = Font.createFont(Font.PLAIN, file);
+            return f.deriveFont(Font.PLAIN, 12f);
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(ThemeDTO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (FontFormatException ex)
+        {
+            Logger.getLogger(ThemeDTO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(ThemeDTO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
