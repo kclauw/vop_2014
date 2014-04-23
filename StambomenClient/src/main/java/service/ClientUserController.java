@@ -129,7 +129,8 @@ public class ClientUserController
     public List<ActivityDTO> getActivities()
     {
         int userID = ClientServiceController.getInstance().getUser().getId();
-        return client.getActivities(userID);
+        List<ActivityDTO> l = client.getActivities(userID);
+        return l;
     }
 
     public PrivacyDTO getUserPrivacy()

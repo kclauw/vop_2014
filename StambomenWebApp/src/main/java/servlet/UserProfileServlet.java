@@ -33,6 +33,11 @@ public class UserProfileServlet extends HttpServlet
     {
         logger.info("[USERPROFILE SERVLET][DO GET]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
 
+        HttpSession session = request.getSession(false);
+        ClientUserController uC = (ClientUserController) session.getAttribute("userController");
+
+        session.setAttribute("activities", uC.getActivities());
+
         doPost(request, response);
     }
 

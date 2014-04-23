@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,7 +19,7 @@ public class ActivityDao implements IDao<Activity>
 {
 
     private Connection con;
-    private final String GETACTIVITY = "SELECT name,dateTime,userID,eventID FROM UserEvent x join Event y on x.eventID = y.eventID where x.userID in (select z.friend FROM Request z where z.receiver = ? and z.status=1 union select a.receiver FROM Request a where a.friend = ? and a.status= 1);";
+    private final String GETACTIVITY = "SELECT x.name,x.dateTime,x.userID,x.eventID FROM UserEvent x join Event y on x.eventID = y.eventID where x.userID in (select z.friend FROM Request z where z.receiver = ? and z.status=1 union select a.receiver FROM Request a where a.friend = ? and a.status= 1);";
     private final String SETACTIVITY = "INSERT INTO UserEvent (eventID, userID, name, dateTime) VALUES (?, ?,?,NOW())";
     private PersistenceFacade pc;
     private final Logger logger;
@@ -31,7 +32,7 @@ public class ActivityDao implements IDao<Activity>
 
     public List<Activity> getAll(int id)
     {
-        List<Activity> activity = null;
+        List<Activity> activityList = new ArrayList<Activity>();
         PreparedStatement prep = null;
         ResultSet res = null;
         try
@@ -45,11 +46,11 @@ public class ActivityDao implements IDao<Activity>
 
             while (res.next())
             {
-                Activity activities = map(res);
+                Activity act = map(res);
 
-                if (activity != null)
+                if (act != null)
                 {
-                    activity.add(activities);
+                    activityList.add(act);
                 }
             }
 
@@ -78,7 +79,7 @@ public class ActivityDao implements IDao<Activity>
 
         }
 
-        return activity;
+        return activityList;
     }
 
     @Override
