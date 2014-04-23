@@ -77,7 +77,7 @@ public class GedcomController
         Privacy.getPrivacy(privacy);
         Tree tree = new Tree(-1, user, Privacy.getPrivacy(privacy), name, null);
         treeId = tc.addTree(tree);
-        DateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
         for (Individual i : g.individuals.values())
         {
@@ -107,11 +107,10 @@ public class GedcomController
                 }
                 try
                 {
-                    String birth = i.events.get(0).date.toString();
 
-                    String month = i.events.get(0).date.toString().toLowerCase().replaceAll("[0-9]", "");
-                    birth.replaceAll("[A-Z]", Character.toUpperCase(month.charAt(0)) + month.substring(1));
-                    System.out.println("MONTH BEFORE : " + month + "MONTH AFTER : " + Character.toUpperCase(month.charAt(0)) + month.substring(1) + " BIRTH : " + birth);
+                    birthdate = df.parse(changeMonth(i.events.get(0).date.toString()));
+
+                    System.out.println("DATE BEFORE : " + i.events.get(0).date.toString() + " DATE AFTER : " + changeMonth(i.events.get(0).date.toString()));
 
                 }
                 catch (IndexOutOfBoundsException e)
@@ -257,6 +256,64 @@ public class GedcomController
 
         System.out.println(Arrays.toString(pc.getPersonsByTree(userid).toArray()));
         System.out.println("Gedcom file added");
+
+    }
+
+    private String changeMonth(String date)
+    {
+        String temp = null;
+        String month = date.replaceAll("[0-9]", "").trim();
+
+        if (month.equals("JAN"))
+        {
+            temp = "Jan";
+        }
+        else if (month.equals("FEB"))
+        {
+            temp = "Feb";
+        }
+        else if (month.equals("MAR"))
+        {
+            temp = "Mar";
+        }
+        else if (month.equals("APR"))
+        {
+            temp = "Apr";
+        }
+        else if (month.equals("MAR"))
+        {
+            temp = "Mar";
+        }
+        else if (month.equals("JUN"))
+        {
+            temp = "Jun";
+        }
+        else if (month.equals("JUL"))
+        {
+            temp = "Jul";
+        }
+        else if (month.equals("AUG"))
+        {
+            temp = "Aug";
+        }
+        else if (month.equals("SEP"))
+        {
+            temp = "Sep";
+        }
+        else if (month.equals("OCT"))
+        {
+            temp = "Oct";
+        }
+        else if (month.equals("NOV"))
+        {
+            temp = "Nov";
+        }
+        else if (month.equals("DEC"))
+        {
+            temp = "Dec";
+        }
+        temp = date.replaceAll("[A-Z][A-Z][A-Z]", temp);
+        return temp;
 
     }
 }
