@@ -38,8 +38,7 @@ public class UserDetailPanel extends javax.swing.JPanel
         btnAdd.setText(trans.translate("Add"));
         btnDelete.setText(trans.translate("Delete"));
         btnAdd.setText(trans.translate("Add"));
-        labelFieldFirstname.setText(trans.translate("Firstname"));
-        labelFieldLastname.setText(trans.translate("LastName"));
+        labelUser.setText(trans.translate("User"));
 
     }
 
@@ -56,10 +55,8 @@ public class UserDetailPanel extends javax.swing.JPanel
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         detailPanel = new javax.swing.JPanel();
-        labelFieldLastname = new javax.swing.JLabel();
-        textPassword = new javax.swing.JTextField();
         textUser = new javax.swing.JTextField();
-        labelFieldFirstname = new javax.swing.JLabel();
+        labelUser = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -122,23 +119,6 @@ public class UserDetailPanel extends javax.swing.JPanel
         detailPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(setTitleD()));
         detailPanel.setLayout(new java.awt.GridBagLayout());
 
-        labelFieldLastname.setText("Password:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
-        detailPanel.add(labelFieldLastname, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 3;
-        gridBagConstraints.weightx = 0.9;
-        gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
-        detailPanel.add(textPassword, gridBagConstraints);
-
         textUser.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -156,14 +136,14 @@ public class UserDetailPanel extends javax.swing.JPanel
         gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 13);
         detailPanel.add(textUser, gridBagConstraints);
 
-        labelFieldFirstname.setText("User:");
-        labelFieldFirstname.setToolTipText("");
+        labelUser.setText("User:");
+        labelUser.setToolTipText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
-        detailPanel.add(labelFieldFirstname, gridBagConstraints);
+        detailPanel.add(labelUser, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -194,7 +174,7 @@ public class UserDetailPanel extends javax.swing.JPanel
 
             if (confirm == JOptionPane.YES_OPTION)
             {
-                //user = getCurrentUserFromInput();
+                user = getCurrentUserFromInput();
                 uovp.updateUser(user);
 
             }
@@ -230,10 +210,8 @@ public class UserDetailPanel extends javax.swing.JPanel
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel detailPanel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel labelFieldFirstname;
-    private javax.swing.JLabel labelFieldLastname;
+    private javax.swing.JLabel labelUser;
     private javax.swing.JPanel personPanel;
-    private javax.swing.JTextField textPassword;
     private javax.swing.JTextField textUser;
     // End of variables declaration//GEN-END:variables
 
@@ -248,7 +226,6 @@ public class UserDetailPanel extends javax.swing.JPanel
             if (user != null)
             {
                 textUser.setText(user.getUsername());
-                textPassword.setText(user.getPassword());
 
             }
         }
@@ -261,25 +238,13 @@ public class UserDetailPanel extends javax.swing.JPanel
     private String setTitle()
     {
         Translator trans = new Translator();
-        return trans.translate("Person");
-    }
-
-    private String setTitleA()
-    {
-        Translator trans = new Translator();
-        return trans.translate("Adress");
+        return trans.translate("User");
     }
 
     private String setTitleD()
     {
         Translator trans = new Translator();
         return trans.translate("Detail");
-    }
-
-    private String setTitleP()
-    {
-        Translator trans = new Translator();
-        return trans.translate("Picture");
     }
 
     private void setButtonActive(JButton b)
@@ -307,12 +272,11 @@ public class UserDetailPanel extends javax.swing.JPanel
         if (!edit)
         {
             textUser.setEditable(false);
-            textPassword.setEditable(false);
+
         }
         else
         {
             textUser.setEditable(true);
-            textPassword.setEditable(true);
 
         }
     }
@@ -338,9 +302,15 @@ public class UserDetailPanel extends javax.swing.JPanel
     private void clearInputFields()
     {
         textUser.setText("");
-        textPassword.setText("");
-        textUser.setText("");
-        textPassword.setText("");
+
+    }
+
+    private UserDTO getCurrentUserFromInput()
+    {
+
+        UserDTO u = new UserDTO(textUser.getText());
+
+        return u;
     }
 
 }

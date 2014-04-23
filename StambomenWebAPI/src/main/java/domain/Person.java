@@ -23,6 +23,7 @@ public class Person
     private Person father; // optional
     private Person mother; // optional
     private URI picture; // optional
+    private String facebookProfileID;
 
     public Person()
     {
@@ -40,6 +41,17 @@ public class Person
         this.father = builder.father;     // optional
         this.mother = builder.mother;    // optional
         this.picture = builder.picture;
+        this.facebookProfileID = builder.facebookProfileID;
+    }
+
+    public String getFacebookProfileID()
+    {
+        return facebookProfileID;
+    }
+
+    public void setFacebookProfileID(String facebookProfileID)
+    {
+        this.facebookProfileID = facebookProfileID;
     }
 
     public int getPersonId()
@@ -194,6 +206,7 @@ public class Person
         private Person father; // optional
         private Person mother; // optional
         private URI picture; //optional
+        private String facebookProfileID;
 
         public PersonBuilder(String firstName, String surName, Gender gender)
         {
@@ -229,6 +242,12 @@ public class Person
         public PersonBuilder personId(int personId)
         {
             this.personId = personId;
+            return this;
+        }
+
+        public PersonBuilder facebookProfileID(String facebookProfileID)
+        {
+            this.facebookProfileID = facebookProfileID;
             return this;
         }
 

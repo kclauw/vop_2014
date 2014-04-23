@@ -27,7 +27,7 @@ public class AdminService
     private PersonController pc = new PersonController();
     private UserController uc = new UserController();
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    
+
     @GET
     @Path("/persons/{start}/{max}")
     @Produces(MediaType.APPLICATION_JSON)

@@ -335,6 +335,12 @@ public class PersistenceFacade
         activityDao.save(act);
     }
 
+    public List<Activity> getActivities(int userID)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] GET Activity " + userID);
+        return activityDao.getAll(userID);
+    }
+
     public Theme getTheme(int themeID)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get Theme " + themeID);

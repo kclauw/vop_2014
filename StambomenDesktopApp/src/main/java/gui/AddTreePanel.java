@@ -3,6 +3,7 @@ package gui;
 import dto.PrivacyDTO;
 import dto.TreeDTO;
 import gui.controller.AddTreeController;
+import service.ClientServiceController;
 import util.Translator;
 
 public class AddTreePanel extends javax.swing.JPanel
@@ -136,7 +137,7 @@ public class AddTreePanel extends javax.swing.JPanel
             p = null;
         }
 
-        TreeDTO tree = new TreeDTO(-1, null, p, txtNameTree.getText(), null);
+        TreeDTO tree = new TreeDTO(-1, ClientServiceController.getInstance().getUser(), p, txtNameTree.getText(), null);
         addTreeController.makeTree(tree);
 
     }//GEN-LAST:event_jButton1ActionPerformed

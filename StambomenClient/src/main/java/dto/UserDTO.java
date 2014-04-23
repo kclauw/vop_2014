@@ -15,6 +15,13 @@ public class UserDTO implements java.io.Serializable
     {
     }
 
+    public UserDTO(String username)
+    {
+
+        this.username = username;
+
+    }
+
     public UserDTO(int id, String username, String password, UserSettingsDTO userSettings)
     {
         this.id = id;

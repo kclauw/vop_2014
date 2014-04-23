@@ -1,14 +1,17 @@
 package service;
 
+import domain.Activity;
 import domain.Theme;
 import domain.enums.Language;
 import domain.enums.Privacy;
 import domain.User;
+import domain.controller.ActivityController;
 import domain.controller.UserController;
 import exception.EmptyPasswordException;
 import exception.EmptyUsernameException;
 import exception.InvalidPasswordException;
 import exception.UserAlreadyExistsException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -20,6 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import persistence.PersistenceFacade;
 
 /**
  * Proof of Concept klasse ter verduidelijking; De objecten zullen uiteindelijk
@@ -32,6 +36,8 @@ public class UserService
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private UserController uc = new UserController();
+    private PersistenceFacade pc = new PersistenceFacade();
+    private ActivityController ac = new ActivityController(pc);
 
     @GET
     @Path("/get")
@@ -241,6 +247,27 @@ public class UserService
     }
 
     @GET
+    @Path("/getActivities/{userID}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getActivities(@PathParam("userID") int userID)
+    {
+        logger.info("[User Service][GET ACTIVITIES]Get activities from  user with id: " + userID);
+        List<Activity> act = ac.getActivities(userID);
+        Response rp = null;
+
+        try
+        {
+            rp = Response.ok(act).build();
+        }
+        catch (Exception ex)
+        {
+            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
+
+        return rp;
+    }
+
+    @GET
     @Path("/get/profile/getPublicUser/{userID}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPublicUser(@PathParam("userID") int userID)
@@ -314,4 +341,5 @@ public class UserService
 
         return rp;
     }
+
 }

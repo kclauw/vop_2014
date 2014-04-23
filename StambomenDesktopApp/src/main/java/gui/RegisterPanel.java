@@ -34,11 +34,16 @@ public class RegisterPanel extends javax.swing.JPanel
     public RegisterPanel()
     {
         initComponents();
-        initGui();
+        //initGui();
     }
 
     private void initGui()
     {
+        ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
+        java.awt.Color bgColor = ThemeDTO.toColor(theme.getBgColor());
+
+        pnlLogin.setBackground(bgColor);
+
         lblIcon.setIcon(new ImageIcon(this.getClass().getClassLoader().getResource("images/logo.png")));
         pnlLogin.setBorder(new MatteBorder(0, 5, 0, 0, new java.awt.Color(51, 68, 85)));
     }
