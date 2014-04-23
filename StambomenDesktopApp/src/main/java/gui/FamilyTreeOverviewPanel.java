@@ -139,8 +139,6 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
                     {
                         gedcomController.importGedcom(p.getPrivacyId(), userController.getUser().getId(), name, file);
 
-                        treeoverviewController.goTo(Panels.TREE);
-
                     }
 
                     catch (IOException ex)
