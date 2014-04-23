@@ -43,7 +43,7 @@ public class PersistenceFacade
         placeDao = new PlaceDao(this);
         persontreeDao = new PersonTreeDao(this);
         parentrelationDao = new ParentRelationDao(this);
-        imageDao = new ImageDao(this);
+        imageDao = new ImageDao();
         activityDao = new ActivityDao(this);
         logger = LoggerFactory.getLogger(getClass());
     }
@@ -77,11 +77,13 @@ public class PersistenceFacade
         logger.info("[PERSISTENCE CONTROLLER] Get tree with id:" + id);
         return treeDao.get(id);
     }
+
     public Tree getTreeByName(String name)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get tree with name:" + name);
         return treeDao.getByName(name);
     }
+
     public int addTree(Tree tree)
     {
         logger.info("[PERSISTENCE CONTROLLER] Add tree : " + tree);
@@ -199,9 +201,8 @@ public class PersistenceFacade
         /*Logica voor het wegschrijven van een boom */
         logger.info("[PERSISTENCE CONTROLLER] Add person " + person);
 
-        
         int personid = personDao.savePerson(person);
-       
+
         persontreeDao.save(personid, treeID);
 
         if (person.getMother() != null)
@@ -280,8 +281,8 @@ public class PersistenceFacade
         logger.info("[PERSISTENCE CONTROLLER] Get persons ");
         return personDao.getPersons(treeID, start, max);
     }
-    
-     public List<Person> getPersonsByTree(int treeID)
+
+    public List<Person> getPersonsByTree(int treeID)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get persons by tree");
         return personDao.GetAll(treeID);
@@ -380,5 +381,15 @@ public class PersistenceFacade
             System.out.println("FATHER " + person.getFather());
             addParentRelation(treeID, person.getFather().getPersonId(), person.getPersonId());
         }
+    }
+
+    public void uploadBackgroundImage(BufferedImage bufferedImage)
+    {
+        imageDao.uploadBackgroundImage(bufferedImage);
+    }
+
+    public void uploadLogoImage(BufferedImage bufferedImage)
+    {
+        imageDao.uploadLogoImage(bufferedImage);
     }
 }

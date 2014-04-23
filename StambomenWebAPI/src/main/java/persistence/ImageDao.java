@@ -26,16 +26,13 @@ public class ImageDao
 
     private String url;
     private String readUrl;
-
-    private PersistenceFacade persistenceController = null;
     private Sardine sardine;
 
-    public ImageDao(PersistenceFacade per)
+    public ImageDao()
     {
         try
         {
             setUrlPath();
-            this.persistenceController = per;
             sardine = SardineFactory.begin("team12", "RKAxujnJ");
 
         }
@@ -56,11 +53,11 @@ public class ImageDao
             if (exist)
             {
 
-                return new URI(readUrl + treeID + "/" + personID + ".jpg");
+                return new URI(readUrl + "persons/" + treeID + "/" + personID + ".jpg");
             }
             else
             {
-                return new URI(readUrl + "DefaultMale.png");
+                return new URI(readUrl + "persons/" + "DefaultMale.png");
             }
         }
         catch (URISyntaxException ex)
@@ -78,11 +75,11 @@ public class ImageDao
             if (exist)
             {
 
-                return new URI(readUrl + personID + ".jpg");
+                return new URI(readUrl + "persons/" + personID + ".jpg");
             }
             else
             {
-                return new URI(readUrl + "DefaultMale.png");
+                return new URI(readUrl + "persons/" + "DefaultMale.png");
             }
         }
         catch (URISyntaxException ex)
@@ -95,21 +92,8 @@ public class ImageDao
 
     public void save(int personID, BufferedImage bufferedImage) throws IOException
     {
-
-        try
-        {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(bufferedImage, "jpg", baos);
-            baos.flush();
-            byte[] imageInByte = baos.toByteArray();
-            baos.close();
-            sardine.put(url + "/" + personID + ".jpg", imageInByte);
-        }
-        catch (SardineException ex)
-        {
-            ex.printStackTrace();
-        }
-
+        String url = this.url + "persons/" + "/" + personID + ".jpg";
+        uploadImage(url, bufferedImage);
     }
 
     public void delete(int treeID, int personID)
@@ -120,7 +104,7 @@ public class ImageDao
 
             if (exists)
             {
-                sardine.delete(url + treeID + "/" + personID + ".jpg");
+                sardine.delete(url + "persons/" + treeID + "/" + personID + ".jpg");
             }
             else
             {
@@ -162,18 +146,51 @@ public class ImageDao
 
         if (hostname.equals("staging"))
         {
-            url = urlPrefix + "staging/images/persons/";
-            readUrl = urlReadOnly + "staging/images/persons/";;
+            url = urlPrefix + "staging/images/";
+            readUrl = urlReadOnly + "staging/images/";;
         }
         else if (hostname.equals("release"))
         {
-            url = urlPrefix + "release/images/persons/";
-            readUrl = urlReadOnly + "release/images/persons/";;
+            url = urlPrefix + "release/images/";
+            readUrl = urlReadOnly + "release/images/";;
         }
         else
         {
-            url = urlPrefix + "staging/images/persons/";
-            readUrl = urlReadOnly + "staging/images/persons/";;
+            url = urlPrefix + "staging/images/";
+            readUrl = urlReadOnly + "staging/images/";;
+        }
+    }
+
+    public void uploadBackgroundImage(BufferedImage bufferedImage)
+    {
+        String url = this.url + "/bg.jpg";
+        uploadImage(url, bufferedImage);
+    }
+
+    public void uploadLogoImage(BufferedImage bufferedImage)
+    {
+        String url = this.url + "/logo.jpg";
+        uploadImage(url, bufferedImage);
+    }
+
+    private void uploadImage(String url, BufferedImage bufferedImage)
+    {
+        try
+        {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "jpg", baos);
+            baos.flush();
+            byte[] imageInByte = baos.toByteArray();
+            baos.close();
+            sardine.put(url, imageInByte);
+        }
+        catch (SardineException ex)
+        {
+            ex.printStackTrace();
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(ImageDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
