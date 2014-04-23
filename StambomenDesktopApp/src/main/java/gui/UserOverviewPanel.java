@@ -24,6 +24,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import service.ClientTreeController;
 import service.ClientUserController;
@@ -46,6 +47,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
     private TreeOverviewController treeoverviewController;
     private TreeController treeController;
     private UserDetailPanel userDetailpanel;
+    private UserTableModel model;
 
     public UserOverviewPanel()
     {
@@ -57,9 +59,11 @@ public class UserOverviewPanel extends javax.swing.JPanel
         users = userController.getUsers();
 
         //create table
-        final UserTableModel model = new UserTableModel(users);
+        model = new UserTableModel(users);
+
         sorter = new TableRowSorter<UserTableModel>(model);
         final JTable table = new JTable(model);
+
         table.setRowSorter(sorter);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setFillsViewportHeight(true);
@@ -117,8 +121,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 treeoverviewController.getTrees(user.getId());
                 treeoverviewController.setAdminframe(panel);
 
-                model.fireTableDataChanged();
-
+                // model.fireTableDataChanged();
                 table.repaint();
                 table.revalidate();
                 repaint();
@@ -150,6 +153,8 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 }
 
 //                model.fireTableDataChanged();
+                model = new UserTableModel(userController.getUsers());
+                table.setModel(model);
                 table.repaint();
                 table.revalidate();
 
