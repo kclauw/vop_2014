@@ -37,6 +37,8 @@ public class PersonDTO implements java.io.Serializable, Cloneable
     private List<PersonDTO> childeren;
     private PersonDTO partner;
 
+    private String facebookProfileID;
+
     public PersonDTO()
     {
     }
@@ -53,6 +55,7 @@ public class PersonDTO implements java.io.Serializable, Cloneable
         this.father = builder.father;     // optional
         this.mother = builder.mother;    // optional
         this.picture = builder.picture;
+
     }
 
     public List<PersonDTO> getChilderen()
@@ -103,6 +106,16 @@ public class PersonDTO implements java.io.Serializable, Cloneable
     public String getSurName()
     {
         return surName;
+    }
+
+    public String getFacebookProfileID()
+    {
+        return facebookProfileID;
+    }
+
+    public void setFacebookProfileID(String facebookProfileID)
+    {
+        this.facebookProfileID = facebookProfileID;
     }
 
     public GenderDTO getGender()
