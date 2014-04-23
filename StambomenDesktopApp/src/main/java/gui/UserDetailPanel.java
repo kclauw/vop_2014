@@ -22,7 +22,17 @@ public class UserDetailPanel extends javax.swing.JPanel
         initComponents();
         translate();
         setEditable(false);
+
+    }
+
+    public UserDetailPanel(UserOverviewPanel uovp)
+    {
+
+        initComponents();
+        translate();
+        setEditable(false);
         userController = new ClientUserController();
+        this.uovp = uovp;
 
     }
 
@@ -139,6 +149,8 @@ public class UserDetailPanel extends javax.swing.JPanel
 
                 user.setUsername(textUser.getText());
                 userController.updateUser(user);
+                uovp.revalidate();
+                uovp.repaint();
 
             }
 
@@ -163,7 +175,7 @@ public class UserDetailPanel extends javax.swing.JPanel
     {
         Translator trans = new Translator();
 
-        if (!add && !edit)
+        if (!edit)
         {
             this.user = user;
 

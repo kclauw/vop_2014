@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -52,7 +53,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
         initComponents();
         Translator trans = new Translator();
         this.userController = new ClientUserController();
-        this.userDetailpanel = new UserDetailPanel();
+        this.userDetailpanel = new UserDetailPanel(this);
         users = userController.getUsers();
 
         //create table
@@ -141,10 +142,11 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 model.fireTableDataChanged();
                 table.repaint();
                 table.revalidate();
-                repaint();
-                revalidate();
+
                 pane.repaint();
                 pane.revalidate();
+                repaint();
+                revalidate();
 
             }
         });
