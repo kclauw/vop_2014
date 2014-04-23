@@ -30,11 +30,6 @@ public class UserOverviewController implements IPanelController
         this.gui.goTo(frame);
     }
 
-    public void setLogin(String login)
-    {
-        gui.setLogin(login);
-    }
-
     public List<UserDTO> getUsers(int start, int max)
     {
 

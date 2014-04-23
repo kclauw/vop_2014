@@ -62,31 +62,30 @@ public class GuiController
 
     private void createFrame()
     {
-        
+
         programFrame = new JFrame();
-        
+
         try
         {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } 
-        catch (ClassNotFoundException ex) 
-        {
-            Exceptions.printStackTrace(ex);
-        } 
-        catch (InstantiationException ex) 
+        }
+        catch (ClassNotFoundException ex)
         {
             Exceptions.printStackTrace(ex);
         }
-        catch (IllegalAccessException ex) 
+        catch (InstantiationException ex)
         {
             Exceptions.printStackTrace(ex);
-        } 
+        }
+        catch (IllegalAccessException ex)
+        {
+            Exceptions.printStackTrace(ex);
+        }
         catch (UnsupportedLookAndFeelException ex)
         {
             Exceptions.printStackTrace(ex);
         }
 
-        
         programFrame.setSize(new Dimension(900, 550));
         programFrame.setPreferredSize(new Dimension(900, 550));
         programFrame.setLocationRelativeTo(null);
@@ -131,25 +130,27 @@ public class GuiController
     {
         Font font = null;
         try
-        { 
-           ClassLoader clientClassLoader = GuiController.class.getClassLoader();
-           URI ur  = clientClassLoader.getResource("gui/font/" + fontName + ".ttf").toURI();
-           File f = new File(ur);
-           font = Font.createFont(Font.PLAIN, f);
+        {
+            ClassLoader clientClassLoader = GuiController.class.getClassLoader();
+            URI ur = clientClassLoader.getResource("gui/font/" + fontName + ".ttf").toURI();
+            File f = new File(ur);
+            font = Font.createFont(Font.PLAIN, f);
         }
         catch (FontFormatException ex)
         {
             Exceptions.printStackTrace(ex);
-        } 
-        catch (IOException ex) 
+        }
+        catch (IOException ex)
         {
             Exceptions.printStackTrace(ex);
-        } catch (URISyntaxException ex) {
+        }
+        catch (URISyntaxException ex)
+        {
             Exceptions.printStackTrace(ex);
         }
 
         if (font != null)
-        {   
+        {
             javax.swing.plaf.FontUIResource f = new javax.swing.plaf.FontUIResource(font.deriveFont(Font.PLAIN, 12f));
             java.util.Enumeration keys = UIManager.getDefaults().keys();
             while (keys.hasMoreElements())
@@ -163,12 +164,11 @@ public class GuiController
             }
         }
     }
-    
+
     public void setDefaultFont()
     {
         setUIFont(ClientServiceController.getInstance().getUser().getUserSettings().getTheme().getFont());
     }
- 
 
     public void goTo(Panels frame)
     {
@@ -236,21 +236,5 @@ public class GuiController
     {
         goTo(Panels.TREE);
         treeController.setTree(tree);
-    }
-
-    public void setLogin(String login)
-    {
-        this.login = login;
-        treeControllerOverviewController.setLogin(login);
-    }
-
-    public String getLogin()
-    {
-        return login;
-    }
-
-    public void setUser(UserDTO user)
-    {
-        this.treeControllerOverviewController.setUser(user);
     }
 }

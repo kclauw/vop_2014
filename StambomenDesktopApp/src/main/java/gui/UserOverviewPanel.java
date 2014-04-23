@@ -101,8 +101,6 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 UserDTO user = (UserDTO) table.getModel().getValueAt(selectedRow, 3);
                 System.out.println("USER : " + user);
 
-                useroverviewController.setLogin("Admin");
-
                 treeoverviewController = new TreeOverviewController(useroverviewController.getGui());
                 treeController = new TreeController(useroverviewController.getGui());
 

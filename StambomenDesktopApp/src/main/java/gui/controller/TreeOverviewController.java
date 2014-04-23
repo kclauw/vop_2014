@@ -1,19 +1,14 @@
 package gui.controller;
 
-import dto.ThemeDTO;
 import dto.TreeDTO;
-import dto.UserDTO;
 import gui.FamilyTreeOverviewPanel;
 import gui.PanelFactory;
 import gui.Panels;
 import gui.controls.FamilyTreeList;
 import gui.controls.FamilyTreeListItem;
-import java.awt.Font;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import service.ClientServiceController;
 import service.ClientTreeController;
 import service.ClientUserController;
 
@@ -47,7 +42,7 @@ public class TreeOverviewController implements IPanelController
         }
 
         getTrees(-1);
-        
+
         return treeOverviewPanel;
     }
 
@@ -82,11 +77,6 @@ public class TreeOverviewController implements IPanelController
     {
         TreeDTO t = serv.getTree(tree.getId());
         gui.showTree(t);
-    }
-
-    public String getLogin()
-    {
-        return gui.getLogin();
     }
 
     public void setAdminframe(JPanel panel)
