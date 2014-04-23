@@ -92,6 +92,35 @@ public class ServiceConstant
         return getImage(url);
     }
 
+    public String getApplicationImageLink(ImageTypeDTO image)
+    {
+        String url = null;
+
+        if (mode == 1)
+        {
+            url = "http://assets.vop.tiwi.be/team12/staging/images/";
+        }
+        else if (mode == 2)
+        {
+            url = "http://assets.vop.tiwi.be/team12/release/images/";
+        }
+        else if (mode == 0)
+        {
+            url = "http://assets.vop.tiwi.be/team12/staging/images/";
+        }
+
+        if (image == ImageTypeDTO.BACKGROUND)
+        {
+            url += "bg.jpg";
+        }
+        else if (image == ImageTypeDTO.LOGO)
+        {
+            url += "logo.png";
+        }
+
+        return url;
+    }
+
     public Image getImage(String url)
     {
         try

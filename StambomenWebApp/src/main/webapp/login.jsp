@@ -1,3 +1,5 @@
+<%@page import="dto.ImageTypeDTO"%>
+<%@page import="service.ServiceConstant"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
 <html>
@@ -10,6 +12,10 @@
         <link rel="stylesheet" type="text/css" href="./css/general.css"/>
         <link rel="stylesheet" type="text/css" href="./css/login.css"/>
         <style>
+            body {
+                background-image: url(<%= ServiceConstant.getInstance().getApplicationImageLink(ImageTypeDTO.BACKGROUND) %>);
+            }
+            
             *, #topbar a:link, #topbar a:visited, #topbar a:active {
                 font-family: 'Varela', sans-serif;
                 color: #252525;
@@ -35,7 +41,7 @@
         <div class="wrapper">
             <div>
                 <div class="popupbox itemblock">
-                    <a href="./"><img id="logo" src="./images/logo.png" height="35" alt="Tree" /></a>
+                    <a href="./"><img id="logo" src="<%= ServiceConstant.getInstance().getApplicationImageLink(ImageTypeDTO.LOGO) %>" height="35" alt="Tree" /></a>
                     <div>
                         <h1>Login</h1>
                         <form method="post">
