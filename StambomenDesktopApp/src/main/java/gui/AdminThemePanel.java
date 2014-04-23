@@ -6,6 +6,17 @@
 package gui;
 
 import gui.controller.AdminThemeController;
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import util.Translator;
 
 /**
  *
@@ -33,23 +44,157 @@ public class AdminThemePanel extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents()
     {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnUploadBG = new javax.swing.JButton();
+        btnUploadLogo = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+
+        setLayout(new java.awt.GridBagLayout());
+
+        jLabel1.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.jLabel1.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(13, 25, 13, 57);
+        add(jLabel1, gridBagConstraints);
+
+        jLabel2.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.jLabel2.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(13, 25, 13, 57);
+        add(jLabel2, gridBagConstraints);
+
+        btnUploadBG.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.btnUploadBG.text")); // NOI18N
+        btnUploadBG.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnUploadBGActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 32);
+        add(btnUploadBG, gridBagConstraints);
+
+        btnUploadLogo.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.btnUploadLogo.text")); // NOI18N
+        btnUploadLogo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnUploadLogoActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 32);
+        add(btnUploadLogo, gridBagConstraints);
+
+        jButton1.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.jButton1.text")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(11, 12, 11, 33);
+        add(jButton1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnUploadLogoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnUploadLogoActionPerformed
+    {//GEN-HEADEREND:event_btnUploadLogoActionPerformed
+        Image im = getImage();
+        Image scaled = resize(im, 200, 200);
+        themeC.uploadLogo(scaled);
+    }//GEN-LAST:event_btnUploadLogoActionPerformed
+
+    private void btnUploadBGActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnUploadBGActionPerformed
+    {//GEN-HEADEREND:event_btnUploadBGActionPerformed
+        Image im = getImage();
+        Image scaled = resize(im, 1920, 1080);
+        themeC.uploadBackgroundImage(scaled);
+    }//GEN-LAST:event_btnUploadBGActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        themeC.goTo(Panels.TREEOVERVIEW);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnUploadBG;
+    private javax.swing.JButton btnUploadLogo;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
     public void setAdminThemeController(AdminThemeController themeC)
     {
         this.themeC = themeC;
     }
+
+    /**
+     *
+     * @param originalImage an x or an o. Use cross or oh fields.
+     *
+     * @param biggerWidth
+     * @param biggerHeight
+     */
+    private Image resize(Image originalImage, int biggerWidth, int biggerHeight)
+    {
+        int type = BufferedImage.TYPE_INT_ARGB;
+
+        BufferedImage resizedImage = new BufferedImage(biggerWidth, biggerHeight, type);
+        Graphics2D g = resizedImage.createGraphics();
+
+        g.setComposite(AlphaComposite.Src);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        g.drawImage(originalImage, 0, 0, biggerWidth, biggerHeight, this);
+        g.dispose();
+
+        return resizedImage;
+    }
+
+    public Image getImage()
+    {
+        Translator trans = new Translator();
+        JFileChooser fc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(trans.translate("ImageFiles"), "jpg", "png");
+        fc.addChoosableFileFilter(filter);
+        fc.setAcceptAllFileFilterUsed(false);
+        fc.setFileFilter(filter);
+        int returnVal = fc.showOpenDialog(this);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION)
+        {
+            File file = fc.getSelectedFile();
+
+            ImageIcon image = new ImageIcon(file.getAbsolutePath());
+            return image.getImage();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, trans.translate("ImageMessage"));
+        }
+
+        return null;
+    }
+
 }
