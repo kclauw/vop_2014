@@ -70,9 +70,9 @@ public class TextInBoxTreePane extends JComponent
     {
         try
         {
-            this.maleImage = ImageIO.read(this.getClass().getClassLoader().getResource("Male.png"));
-            this.femaleImage = ImageIO.read(this.getClass().getClassLoader().getResource("Female.png"));
-            this.bg = ImageIO.read(this.getClass().getClassLoader().getResource("bg.jpg"));
+            this.maleImage = ImageIO.read(this.getClass().getClassLoader().getResource("images/Male.png"));
+            this.femaleImage = ImageIO.read(this.getClass().getClassLoader().getResource("images/Female.png"));
+            this.bg = ImageIO.read(this.getClass().getClassLoader().getResource("images/bg.jpg"));
         }
         catch (IOException ex)
         {
