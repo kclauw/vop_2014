@@ -19,7 +19,6 @@ public class UserOverviewController implements IPanelController
 
     public UserOverviewController(GuiController gui)
     {
-
         this.uc = new ClientUserController();
         this.gui = gui;
     }
@@ -32,18 +31,13 @@ public class UserOverviewController implements IPanelController
 
     public List<UserDTO> getUsers(int start, int max)
     {
-
         List<UserDTO> t = uc.getUsers();
-
         return t;
-
     }
 
     public void updateUser(UserDTO user)
     {
-
         uc.updateUser(user);
-
     }
 
     public JPanel show()
