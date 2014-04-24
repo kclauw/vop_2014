@@ -58,6 +58,8 @@ public class UserOverviewPanel extends javax.swing.JPanel
         this.userController = new ClientUserController();
         this.userDetailpanel = new UserDetailPanel(this);
         users = userController.getUsers();
+        
+        System.out.println("user:" + users.toString());
 
         //create table
         model = new UserTableModel(users);
