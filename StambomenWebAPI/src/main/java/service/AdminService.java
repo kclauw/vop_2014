@@ -95,7 +95,7 @@ public class AdminService
     }
 
     @POST
-    @Path("theme/upload/backgroundImage/")
+    @Path("/theme/upload/backgroundImage/")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     public Response uploadBackgroundImage(InputStream imageInputStream)
     {
@@ -113,7 +113,7 @@ public class AdminService
     }
 
     @POST
-    @Path("theme/upload/logoImage/")
+    @Path("/theme/upload/logoImage/")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     public Response uploadLogomage(InputStream imageInputStream)
     {

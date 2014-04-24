@@ -9,6 +9,7 @@ import domain.Tree;
 import domain.User;
 import domain.enums.Language;
 import domain.enums.Privacy;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
@@ -391,5 +392,10 @@ public class PersistenceFacade
     public void uploadLogoImage(BufferedImage bufferedImage)
     {
         imageDao.uploadLogoImage(bufferedImage);
+    }
+
+    public void uploadSmallLogoImage(BufferedImage rescaled)
+    {
+        imageDao.uploadSmallLogoImage(rescaled);
     }
 }

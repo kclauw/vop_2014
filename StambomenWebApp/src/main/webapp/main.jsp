@@ -4,6 +4,8 @@
     Author     : Lowie
 --%>
 
+<%@page import="dto.ImageTypeDTO"%>
+<%@page import="service.ServiceConstant"%>
 <%@page import="util.Translator"%>
 <%@page import="dto.ThemeDTO"%>
 <%@page import="dto.UserDTO"%>
@@ -24,6 +26,10 @@
         <link rel="stylesheet" type="text/css" href="./css/general.css"/>
         <link rel="stylesheet" type="text/css" href="./css/main.css"/>
         <style>
+            body {
+                background-image: url(<%= ServiceConstant.getInstance().getApplicationImageLink(ImageTypeDTO.BACKGROUND) %>);
+            }
+            
             <%
                 ThemeDTO theme = ((UserDTO)request.getSession().getAttribute("user")).getUserSettings().getTheme();
             %>

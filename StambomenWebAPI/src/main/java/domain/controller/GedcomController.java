@@ -42,6 +42,7 @@ public class GedcomController
 
     private PersonController pc;
     private TreeController tc;
+    private PersistenceFacade per;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private Person person;
@@ -59,11 +60,13 @@ public class GedcomController
     {
         this.pc = new PersonController();
         this.tc = new TreeController();
+        this.per = new PersistenceFacade();
 
     }
 
     public void importGedcom(int privacy, int userid, String name, InputStream input) throws IOException, GedcomParserException, ParseException
     {
+        gender = Gender.FEMALE;
 
         System.out.println("TREE GEDCOMCONTROLLER : " + name);
         GedcomParser gp = new GedcomParser();
@@ -77,7 +80,8 @@ public class GedcomController
         Privacy.getPrivacy(privacy);
         Tree tree = new Tree(-1, user, Privacy.getPrivacy(privacy), name, null);
         treeId = tc.addTree(tree);
-        DateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+        DateFormat df = new SimpleDateFormat("dd MM yyyy");
+        int teller = 0;
 
         for (Individual i : g.individuals.values())
         {
@@ -107,11 +111,9 @@ public class GedcomController
                 }
                 try
                 {
-                    String birth = i.events.get(0).date.toString();
 
-                    String month = i.events.get(0).date.toString().toLowerCase().replaceAll("[0-9]", "");
-                    birth.replaceAll("[A-Z]", Character.toUpperCase(month.charAt(0)) + month.substring(1));
-                    System.out.println("MONTH BEFORE : " + month + "MONTH AFTER : " + Character.toUpperCase(month.charAt(0)) + month.substring(1) + " BIRTH : " + birth);
+                    birthdate = df.parse(changeMonth(i.events.get(0).date.toString()));
+                    System.out.println("DATE BEFORE : " + i.events.get(0).date.toString() + " DATE AFTER : " + birthdate);
 
                 }
                 catch (IndexOutOfBoundsException e)
@@ -121,21 +123,29 @@ public class GedcomController
 
                 try
                 {
-                    //  deathdate = df.parse(i.events.get(1).date.toString().toLowerCase());
+                    deathdate = df.parse(changeMonth(i.events.get(1).date.toString()));
+
                 }
                 catch (IndexOutOfBoundsException e)
                 {
                     deathdate = null;
                 }
-
-                if (i.sex.toString().equals("M"))
+                try
+                {
+                    if (i.sex.toString().trim().equals("M"))
+                    {
+                        gender = Gender.MALE;
+                    }
+                    else
+                    {
+                        gender = Gender.FEMALE;
+                    }
+                }
+                catch (NullPointerException e)
                 {
                     gender = Gender.MALE;
                 }
-                else
-                {
-                    gender = Gender.FEMALE;
-                }
+
                 try
                 {
                     country = i.address.country.customTags.get(0).value.toString();
@@ -153,25 +163,33 @@ public class GedcomController
                 {
                     zip = "Unknown";
                 }
+                gender = Gender.MALE;
+
                 Place p = new Place.PlaceBuilder("Unknown").country(country).zipCode(zip).build();
                 person = new Person.PersonBuilder(firstname, surname, gender)
-                        .birthDate(null)
-                        .deathDate(null)
+                        .birthDate(birthdate)
+                        .deathDate(deathdate)
                         .place(p)
                         .build();
                 personid = pc.addPerson(treeId, PersonAdd.CHILD, person, -1);
+
                 persons.put(i.xref.toString(), personid);
-                //System.out.println("Gedcom ID : " + i.xref.toString() + " Person :" + firstname + " " + surname + " birthdate : " + birthdate + " deathdate : " + deathdate + "Treeid :" + treeId);
-                System.out.println("ZIP : " + zip + "COUNTRY : " + country);
+                System.out.println("Gedcom ID : " + i.xref.toString() + " Person :" + firstname + " " + surname + " birthdate : " + birthdate + " deathdate : " + deathdate + "Treeid :" + treeId);
+                System.out.println("ZIP : " + zip + "COUNTRY : " + country + " COUNT : " + teller++);
             }
         }
 
-        /*for(Object key: persons.keySet())
-         System.out.println(key + " - " + persons.get(key));
-         System.out.println();   */
+        for (Object key : persons.keySet())
+        {
+            System.out.println(key + " - " + persons.get(key));
+        }
+        System.out.println();
+
         for (Individual i : g.individuals.values())
         {
-            Person tempPerson = pc.getPerson(treeId, persons.get(i.xref));
+            Person child = new Person();
+            child = pc.getPerson(treeId, persons.get(i.xref));
+            System.out.println("GETTING INDIVIDUALS FOR PARENT : " + teller);
 
             /* System.out.println("Child : " + i.formattedName());
              System.out.println("Sex  : " + i.sex.toString());
@@ -179,8 +197,16 @@ public class GedcomController
             //OPHALEN VAN DE PARENT
             for (FamilyChild f : i.familiesWhereChild)
             {
-                if (f.family.husband != null)
+
+                if (f.family.husband != null && f.family.husband.xref != i.xref)
                 {
+                    System.out.println("Dad ID  : " + f.family.husband.formattedName() + persons.get(f.family.husband.xref) + " CHIlD ID " + i.formattedName() + persons.get(i.xref));
+                    Person father = new Person();
+                    father = pc.getPerson(treeId, persons.get(f.family.husband.xref));
+                    person.setFather(father);
+
+                    //pc.movePerson(treeId, PersonAdd.PARENT, persons.get(i.xref), persons.get(f.family.husband.xref));
+                    // System.out.println("Dad   : " + f.family.husband.formattedName().toString() + persons.get(f.family.husband.xref) + " CHIlD ID " + +persons.get(i.formattedName()) + persons.get(i.xref));
                     temp = f.family.husband.formattedName().split("/");
                     firstname = temp[0];
                     try
@@ -192,14 +218,21 @@ public class GedcomController
                         // System.out.println("Dad :" + firstname + "Unknown" + " ID : " + f.family.husband.xref + "database id : " + persons.get(f.family.husband.xref));
 
                     }
-                    //  System.out.println("Dad :" + firstname + " " + surname + " ID : " + f.family.husband.xref + "database id : " + persons.get(f.family.husband.xref));
-
-                    pc.movePerson(treeId, PersonAdd.PARENT, persons.get(i.xref), persons.get(f.family.husband.xref));
+                    //System.out.println("Dad :" + firstname + " " + surname + " ID : " + f.family.husband.xref + "database id : " + persons.get(f.family.husband.xref));
+                    // JOptionPane.showMessageDialog(null, "Mom :" + firstname + " Unknown" + " ID : " + f.family.husband.xref + "database id : " + persons.get(f.family.husband.xref), "TITLE", JOptionPane.WARNING_MESSAGE);
+                    // System.out.println("Dad :" + firstname + " " + surname + " CHILD : " + i.formattedName());
 
                 }
 
-                if (f.family.wife != null)
+                if (f.family.wife != null && f.family.wife.xref != i.xref)
                 {
+
+                    System.out.println("Mom   : " + f.family.wife.formattedName() + persons.get(f.family.wife.xref) + " CHIlD ID " + i.formattedName() + persons.get(i.xref));
+                    Person mother = new Person();
+                    mother = pc.getPerson(treeId, persons.get(f.family.wife.xref));
+                    child.setMother(mother);
+
+                    // pc.movePerson(treeId, PersonAdd.PARENT, persons.get(i.xref), persons.get(f.family.wife.xref));
                     temp = f.family.wife.formattedName().split("/");
                     firstname = temp[0];
                     try
@@ -208,15 +241,16 @@ public class GedcomController
                     }
                     catch (IndexOutOfBoundsException E)
                     {
-                        // System.out.println("Mom :" + firstname + " Unknown" + " ID : " + f.family.wife.xref + "database id : " + persons.get(f.family.wife.xref));
 
+                        // JOptionPane.showMessageDialog(null, "Mom :" + firstname + " Unknown" + " ID : " + f.family.wife.xref + "database id : " + persons.get(f.family.wife.xref), "TITLE", JOptionPane.WARNING_MESSAGE);
                     }
-                    //  System.out.println("Mom :" + firstname + " " + surname + " ID : " + f.family.wife.xref + "database id : " + persons.get(f.family.wife.xref));
+                    //System.out.println("Mom :" + firstname + " CHILD : " + i.formattedName());
 
-                    pc.movePerson(treeId, PersonAdd.PARENT, persons.get(i.xref), persons.get(f.family.wife.xref));
                 }
-
+                pc.updatePerson(treeId, child);
+                System.out.println("PERSON UPDATED : " + child);
             }
+
             /*CODE VOOR HUSBAND & WIFE
              for (FamilySpouse s : i.familiesWhereSpouse)
              {
@@ -252,11 +286,89 @@ public class GedcomController
              }
              }
              */
-
         }
 
-        System.out.println(Arrays.toString(pc.getPersonsByTree(userid).toArray()));
+        for (Individual z : g.individuals.values())
+        {
+            for (FamilyChild f : z.familiesWhereChild)
+            {
+
+                if (f.family.husband != null && f.family.husband.xref != z.xref)
+                {
+
+                    //pc.movePerson(treeId, PersonAdd.PARENT, persons.get(z.xref), persons.get(f.family.husband.xref));
+                    per.addParentRelation(treeId, persons.get(f.family.husband.xref), persons.get(z.xref));
+                }
+
+                if (f.family.wife != null && f.family.wife.xref != z.xref)
+                {
+                    per.addParentRelation(treeId, persons.get(f.family.wife.xref), persons.get(z.xref));
+                    //pc.movePerson(treeId, PersonAdd.PARENT, persons.get(z.xref), persons.get(f.family.wife.xref));
+                }
+            }
+        }
+
         System.out.println("Gedcom file added");
+
+    }
+
+    private String changeMonth(String date)
+    {
+
+        String temp = null;
+        String month = date.replaceAll("[0-9]", "").trim();
+
+        if (month.equals("JAN"))
+        {
+            temp = "01";
+        }
+        else if (month.equals("FEB"))
+        {
+            temp = "02";
+        }
+        else if (month.equals("MAR"))
+        {
+            temp = "03";
+        }
+        else if (month.equals("APR"))
+        {
+            temp = "04";
+        }
+        else if (month.equals("MAY"))
+        {
+            temp = "05";
+        }
+        else if (month.equals("JUN"))
+        {
+            temp = "06";
+        }
+        else if (month.equals("JUL"))
+        {
+            temp = "07";
+        }
+        else if (month.equals("AUG"))
+        {
+            temp = "08";
+        }
+        else if (month.equals("SEP"))
+        {
+            temp = "09";
+        }
+        else if (month.equals("OCT"))
+        {
+            temp = "10";
+        }
+        else if (month.equals("NOV"))
+        {
+            temp = "11";
+        }
+        else if (month.equals("DEC"))
+        {
+            temp = "12";
+        }
+        temp = date.replaceAll("[A-Z][A-Z][A-Z]", temp);
+
+        return temp;
 
     }
 }

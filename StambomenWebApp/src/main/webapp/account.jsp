@@ -1,3 +1,5 @@
+<%@page import="dto.ImageTypeDTO"%>
+<%@page import="service.ServiceConstant"%>
 <%@page import="dto.ThemeDTO"%>
 <%@page import="dto.UserDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -10,6 +12,10 @@
         <title>Public User Profiles</title>
 
         <style>
+            body {
+                background-image: url(<%= ServiceConstant.getInstance().getApplicationImageLink(ImageTypeDTO.BACKGROUND) %>);
+            }
+            
             <%
                 ThemeDTO theme = ((UserDTO)request.getSession().getAttribute("user")).getUserSettings().getTheme();
                 String font = theme.getFont().replace(' ', '+');

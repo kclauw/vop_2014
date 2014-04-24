@@ -3,6 +3,8 @@
     Created on : Mar 2, 2014, 9:08:09 PM
     Author     : Lowie
 --%>
+<%@page import="dto.ImageTypeDTO"%>
+<%@page import="service.ServiceConstant"%>
 <%@page import="dto.ThemeDTO"%>
 <%@page import="dto.UserDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -15,6 +17,10 @@
         <title>Tree - Friends</title>
 
         <style>
+            body {
+                background-image: url(<%= ServiceConstant.getInstance().getApplicationImageLink(ImageTypeDTO.BACKGROUND) %>);
+            }
+            
             <%
                 ThemeDTO theme = ((UserDTO)request.getSession().getAttribute("user")).getUserSettings().getTheme();
                 String font = theme.getFont().replace(' ', '+');

@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -23,6 +24,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import service.ClientTreeController;
 import service.ClientUserController;
@@ -45,6 +47,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
     private TreeOverviewController treeoverviewController;
     private TreeController treeController;
     private UserDetailPanel userDetailpanel;
+    private UserTableModel model;
 
     public UserOverviewPanel()
     {
@@ -52,14 +55,18 @@ public class UserOverviewPanel extends javax.swing.JPanel
         initComponents();
         Translator trans = new Translator();
         this.userController = new ClientUserController();
-        this.userDetailpanel = new UserDetailPanel();
+        this.userDetailpanel = new UserDetailPanel(this);
         users = userController.getUsers();
 
         //create table
-        final UserTableModel model = new UserTableModel(users);
+        model = new UserTableModel(users);
+
         sorter = new TableRowSorter<UserTableModel>(model);
         final JTable table = new JTable(model);
+
         table.setRowSorter(sorter);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setFillsViewportHeight(true);
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener()
         {
             public void valueChanged(ListSelectionEvent event)
@@ -67,8 +74,13 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 int selectedRow = table.getSelectedRow();
                 selectedRow = table.convertRowIndexToModel(selectedRow);
                 UserDTO user = (UserDTO) table.getModel().getValueAt(selectedRow, 3);
-                System.out.println(user);
+                //model.fireTableDataChanged();
+
+                //table.repaint();
+                // table.revalidate();
                 userDetailpanel.setUser(user);
+                userDetailpanel.repaint();
+                userDetailpanel.revalidate();
 
             }
         });
@@ -109,8 +121,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 treeoverviewController.getTrees(user.getId());
                 treeoverviewController.setAdminframe(panel);
 
-                model.fireTableDataChanged();
-
+                // model.fireTableDataChanged();
                 table.repaint();
                 table.revalidate();
                 repaint();
@@ -133,18 +144,24 @@ public class UserOverviewPanel extends javax.swing.JPanel
                 if (user.getBlock())
                 {
                     useroverviewController.blockUser(user.getId(), false);
+                    System.out.println("User unblocked");
                 }
                 else
                 {
                     useroverviewController.blockUser(user.getId(), true);
+                    System.out.println("User blocked");
                 }
-                model.fireTableDataChanged();
+
+//                model.fireTableDataChanged();
+                model = new UserTableModel(userController.getUsers());
+                table.setModel(model);
                 table.repaint();
                 table.revalidate();
-                repaint();
-                revalidate();
+
                 pane.repaint();
                 pane.revalidate();
+                repaint();
+                revalidate();
 
             }
         });
@@ -235,8 +252,4 @@ public class UserOverviewPanel extends javax.swing.JPanel
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    void updateUser(UserDTO user)
-    {
-        clientUserController.updateUser(user);
-    }
 }
