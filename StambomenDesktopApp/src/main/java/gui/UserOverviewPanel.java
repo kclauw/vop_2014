@@ -48,6 +48,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
     private TreeController treeController;
     private UserDetailPanel userDetailpanel;
     private UserTableModel model;
+    private UserDTO user;
 
     public UserOverviewPanel()
     {
@@ -72,10 +73,16 @@ public class UserOverviewPanel extends javax.swing.JPanel
             public void valueChanged(ListSelectionEvent event)
             {
                 int selectedRow = table.getSelectedRow();
-                selectedRow = table.convertRowIndexToModel(selectedRow);
-                UserDTO user = (UserDTO) table.getModel().getValueAt(selectedRow, 3);
-                //model.fireTableDataChanged();
+                try
+                {
+                    selectedRow = table.convertRowIndexToModel(selectedRow);
+                    user = (UserDTO) table.getModel().getValueAt(selectedRow, 3);
+                }
+                catch (IndexOutOfBoundsException e)
+                {
+                }
 
+                //model.fireTableDataChanged();
                 //table.repaint();
                 // table.revalidate();
                 userDetailpanel.setUser(user);
