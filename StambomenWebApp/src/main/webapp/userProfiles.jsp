@@ -83,8 +83,22 @@
                         <ul class="treelist">
                             <c:forEach var="item" items="${activities}" varStatus="counter">
                                 <li>
-                                    ${item.name}
+                                    ${item.event}
+                                    
                                 </li>
+                                <li> 
+                                    <c:choose>
+                                    <c:when test="${item.event}=ADDTREE">
+                                       Salary is very low to survive.
+                                    </c:when>
+                                    <c:when test="${item.event}=ADDPER">
+                                        Salary is very good.
+                                    </c:when>
+                                    <c:otherwise>
+                                        No comment sir...
+                                    </c:otherwise>
+                                </c:choose>
+                                                                </li>
                             </c:forEach>
                         </ul>
                 </div>
