@@ -50,7 +50,8 @@ public class BasicAuthFilter implements ContainerRequestFilter
         System.out.println("[AUTH FILTER] LOGIN:");
 
         User authentificationResult = userController.login(userCredentials);
-
+        System.out.println("Logged in:" +authentificationResult.toString());
+        
         if (path.contains("/user/login/"))
         {
             if (authentificationResult != null)

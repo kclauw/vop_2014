@@ -30,10 +30,11 @@ public class FacebookEndpoint
         User fbUser = null;
         try
         {
+            System.out.println("FB LOGIN");
             FacebookClient facebookClient = new DefaultFacebookClient(code, APP_SECRET);
             com.restfb.types.User user = facebookClient.fetchObject("me", com.restfb.types.User.class);
             fbUser = this.pc.getUser(user.getEmail());
-
+            System.out.println("FB user: "+fbUser.getUsername());
             if (fbUser == null)
             {
                 throw new FacebookUserNotFoundException();
