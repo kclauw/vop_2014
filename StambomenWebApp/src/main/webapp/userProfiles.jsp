@@ -11,15 +11,18 @@
         <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
         <title>Public User Profiles</title>
 
+        <%
+            ThemeDTO theme = ((UserDTO)request.getSession().getAttribute("user")).getUserSettings().getTheme();
+            String font = theme.getFont().replace(' ', '+');
+        %>
+        <link href='http://fonts.googleapis.com/css?family=<%=font%>' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="./css/general.css"/>
+        <link rel="stylesheet" type="text/css" href="./css/userProfiles.css"/>
         <style>
             body {
                 background-image: url(<%= ServiceConstant.getInstance().getApplicationImageLink(ImageTypeDTO.BACKGROUND) %>);
             }
             
-            <%
-                ThemeDTO theme = ((UserDTO)request.getSession().getAttribute("user")).getUserSettings().getTheme();
-                String font = theme.getFont().replace(' ', '+');
-            %>
 
             *, #topbar a:link, #topbar a:visited, #topbar a:active {
                 font-family: '<%= theme.getFont() %>', sans-serif;
@@ -38,9 +41,6 @@
                 background-color: #<%= theme.getFemaleColor() %>;
             }
         </style>
-        <link href='http://fonts.googleapis.com/css?family=<%=font%>' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" type="text/css" href="./css/general.css"/>
-        <link rel="stylesheet" type="text/css" href="./css/userProfiles.css"/>
 
         <script src="./js/jquery-1.11.0.min.js"></script>
         <script src="./js/userProfiles.js"></script>

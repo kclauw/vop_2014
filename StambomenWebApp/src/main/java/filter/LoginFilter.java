@@ -19,6 +19,7 @@ import service.ClientUserController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.ClientPersonController;
+import service.ServiceConstant;
 
 public class LoginFilter implements Filter
 {
@@ -28,6 +29,7 @@ public class LoginFilter implements Filter
     @Override
     public void init(FilterConfig config) throws ServletException
     {
+        ServiceConstant.getInstance().setMode(2);
         // If you have any <init-param> in web.xml, then you could get them
         // here by config.getInitParameter("name") and assign it as field.
     }
