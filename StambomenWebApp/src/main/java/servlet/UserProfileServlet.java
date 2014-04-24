@@ -37,7 +37,6 @@ public class UserProfileServlet extends HttpServlet
         ClientUserController uC = (ClientUserController) session.getAttribute("userController");
 
         session.setAttribute("activities", uC.getActivities());
-
         doPost(request, response);
     }
 
