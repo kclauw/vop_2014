@@ -42,6 +42,7 @@ public class GedcomController
 
     private PersonController pc;
     private TreeController tc;
+    private PersistenceFacade per;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private Person person;
@@ -59,6 +60,7 @@ public class GedcomController
     {
         this.pc = new PersonController();
         this.tc = new TreeController();
+        this.per = new PersistenceFacade();
 
     }
 
@@ -177,12 +179,17 @@ public class GedcomController
             }
         }
 
-        /*for(Object key: persons.keySet())
-         System.out.println(key + " - " + persons.get(key));
-         System.out.println();   */
+        for (Object key : persons.keySet())
+        {
+            System.out.println(key + " - " + persons.get(key));
+        }
+        System.out.println();
+
         for (Individual i : g.individuals.values())
         {
-            System.out.println("GETTING INDIVIDUALS FOR PARENT");
+            Person child = new Person();
+            child = pc.getPerson(treeId, persons.get(i.xref));
+            System.out.println("GETTING INDIVIDUALS FOR PARENT : " + teller);
 
             /* System.out.println("Child : " + i.formattedName());
              System.out.println("Sex  : " + i.sex.toString());
@@ -190,8 +197,16 @@ public class GedcomController
             //OPHALEN VAN DE PARENT
             for (FamilyChild f : i.familiesWhereChild)
             {
-                if (f.family.husband != null)
+
+                if (f.family.husband != null && f.family.husband.xref != i.xref)
                 {
+                    System.out.println("Dad ID  : " + f.family.husband.formattedName() + persons.get(f.family.husband.xref) + " CHIlD ID " + i.formattedName() + persons.get(i.xref));
+                    Person father = new Person();
+                    father = pc.getPerson(treeId, persons.get(f.family.husband.xref));
+                    person.setFather(father);
+
+                    //pc.movePerson(treeId, PersonAdd.PARENT, persons.get(i.xref), persons.get(f.family.husband.xref));
+                    // System.out.println("Dad   : " + f.family.husband.formattedName().toString() + persons.get(f.family.husband.xref) + " CHIlD ID " + +persons.get(i.formattedName()) + persons.get(i.xref));
                     temp = f.family.husband.formattedName().split("/");
                     firstname = temp[0];
                     try
@@ -203,14 +218,21 @@ public class GedcomController
                         // System.out.println("Dad :" + firstname + "Unknown" + " ID : " + f.family.husband.xref + "database id : " + persons.get(f.family.husband.xref));
 
                     }
-                    System.out.println("Dad :" + firstname + " " + surname + " ID : " + f.family.husband.xref + "database id : " + persons.get(f.family.husband.xref));
-
-                    System.out.println(pc.movePerson(treeId, PersonAdd.PARENT, persons.get(f.family.husband.xref), persons.get(i.xref)));
+                    //System.out.println("Dad :" + firstname + " " + surname + " ID : " + f.family.husband.xref + "database id : " + persons.get(f.family.husband.xref));
+                    // JOptionPane.showMessageDialog(null, "Mom :" + firstname + " Unknown" + " ID : " + f.family.husband.xref + "database id : " + persons.get(f.family.husband.xref), "TITLE", JOptionPane.WARNING_MESSAGE);
+                    // System.out.println("Dad :" + firstname + " " + surname + " CHILD : " + i.formattedName());
 
                 }
 
-                if (f.family.wife != null)
+                if (f.family.wife != null && f.family.wife.xref != i.xref)
                 {
+
+                    System.out.println("Mom   : " + f.family.wife.formattedName() + persons.get(f.family.wife.xref) + " CHIlD ID " + i.formattedName() + persons.get(i.xref));
+                    Person mother = new Person();
+                    mother = pc.getPerson(treeId, persons.get(f.family.wife.xref));
+                    child.setMother(mother);
+
+                    // pc.movePerson(treeId, PersonAdd.PARENT, persons.get(i.xref), persons.get(f.family.wife.xref));
                     temp = f.family.wife.formattedName().split("/");
                     firstname = temp[0];
                     try
@@ -219,15 +241,16 @@ public class GedcomController
                     }
                     catch (IndexOutOfBoundsException E)
                     {
-                        // System.out.println("Mom :" + firstname + " Unknown" + " ID : " + f.family.wife.xref + "database id : " + persons.get(f.family.wife.xref));
 
+                        // JOptionPane.showMessageDialog(null, "Mom :" + firstname + " Unknown" + " ID : " + f.family.wife.xref + "database id : " + persons.get(f.family.wife.xref), "TITLE", JOptionPane.WARNING_MESSAGE);
                     }
-                    System.out.println("Mom :" + firstname + " " + surname + " ID : " + f.family.wife.xref + "database id : " + persons.get(f.family.wife.xref));
+                    //System.out.println("Mom :" + firstname + " CHILD : " + i.formattedName());
 
-                    System.out.println(pc.movePerson(treeId, PersonAdd.PARENT, persons.get(f.family.wife.xref), persons.get(i.xref)));
                 }
-
+                pc.updatePerson(treeId, child);
+                System.out.println("PERSON UPDATED : " + child);
             }
+
             /*CODE VOOR HUSBAND & WIFE
              for (FamilySpouse s : i.familiesWhereSpouse)
              {
@@ -263,7 +286,26 @@ public class GedcomController
              }
              }
              */
+        }
 
+        for (Individual z : g.individuals.values())
+        {
+            for (FamilyChild f : z.familiesWhereChild)
+            {
+
+                if (f.family.husband != null && f.family.husband.xref != z.xref)
+                {
+
+                    //pc.movePerson(treeId, PersonAdd.PARENT, persons.get(z.xref), persons.get(f.family.husband.xref));
+                    per.addParentRelation(treeId, persons.get(f.family.husband.xref), persons.get(z.xref));
+                }
+
+                if (f.family.wife != null && f.family.wife.xref != z.xref)
+                {
+                    per.addParentRelation(treeId, persons.get(f.family.wife.xref), persons.get(z.xref));
+                    //pc.movePerson(treeId, PersonAdd.PARENT, persons.get(z.xref), persons.get(f.family.wife.xref));
+                }
+            }
         }
 
         System.out.println("Gedcom file added");
