@@ -47,8 +47,29 @@ public class ClientAdminService
 
     }
 
-    public String uploadLogoImage(Image imageInputStream)
+    public String uploadLogoImage(Image image)
     {
+        try
+        {
+            Client client = ClientServiceController.getInstance().getClient();
+            ByteArrayOutputStream bas = new ByteArrayOutputStream();
+            BufferedImage img = imageToBufferedImage(image);
+            ImageIO.write(img, "jpg", bas);
+            byte[] pic = bas.toByteArray();
+
+            Response response = client.target(url + "admin/theme/upload/logoImage/").request(MediaType.APPLICATION_JSON).post(Entity.entity(pic, MediaType.APPLICATION_OCTET_STREAM_TYPE));
+
+            if (response.getStatus() != 200)
+            {
+                String resp = response.readEntity(String.class);
+                System.out.println("RESPONSE:" + resp);
+                return resp;
+            }
+        }
+        catch (IOException ex)
+        {
+            java.util.logging.Logger.getLogger(ClientAdminService.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
     }
 
