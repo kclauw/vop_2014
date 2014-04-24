@@ -26,17 +26,26 @@ STDOUT->autoflush(1);
 # |C|O|N|S|T|A|N|T|S|
 # +-+-+-+-+-+-+-+-+-+
 
-my $assets_release = 0;
+my $assets_release = 1;
 my $db_port_ownpc = 1;
 
-my @treeIDs = ( 1,
-				2,
-				3,
-				4,
-				5,
-				6,
-				7,
-				8 ); #IDs van de trees waarvan de personen foto's moeten krijgen
+my @treeIDs = ( 278,
+				279,
+				280,
+				281,
+				282,
+				283,
+				284,
+				285,
+				286,
+				287,
+				288,
+				289,
+				290,
+				291,
+				292,
+				293,
+				294 ); #IDs van de trees waarvan de personen foto's moeten krijgen
 
 
 

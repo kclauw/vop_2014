@@ -16,15 +16,14 @@
         <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
         <title>Tree - Friends</title>
 
+        <%
+            ThemeDTO theme = ((UserDTO)request.getSession().getAttribute("user")).getUserSettings().getTheme();
+            String font = theme.getFont().replace(' ', '+');
+        %>
         <style>
             body {
                 background-image: url(<%= ServiceConstant.getInstance().getApplicationImageLink(ImageTypeDTO.BACKGROUND) %>);
             }
-            
-            <%
-                ThemeDTO theme = ((UserDTO)request.getSession().getAttribute("user")).getUserSettings().getTheme();
-                String font = theme.getFont().replace(' ', '+');
-            %>
 
             *, #topbar a:link, #topbar a:visited, #topbar a:active {
                 font-family: '<%= theme.getFont() %>', sans-serif;

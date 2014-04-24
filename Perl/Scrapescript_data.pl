@@ -27,7 +27,7 @@ STDOUT->autoflush(1);
 # +-+-+-+-+-+-+-+-+-+
 
 #DB info
-my $db_release = 0;
+my $db_release = 1;
 my $db_port_ownpc = 1;
 #Wegschrijven van de query (is enkel om te controleren, niet om te gebruiken)
 #OPGELET!: Dit kan het script doen vastlopen wanneer er enorm veel statements worden gegenereerd!
@@ -35,11 +35,10 @@ my $writequery = 0;
 my $openwrittenfile = 0;
 #Hoe moet de boom worden ingevuld?
 #USERS
-my %users = ( "Kenzo" => "123456789" ); #Users
-# my %users = ( "Axl" => "123456789", "Jelle" => "123456789", "Sander" => "123456789", "Lowie" => "123456789", "Kenzo" => "123456789" ); #Users
+my %users = ( "default" => "123456789", "Axl" => "123456789", "Jelle" => "123456789", "Sander" => "123456789", "Lowie" => "123456789", "Kenzo" => "123456789" ); #Users
 #TREES
-my @numberoftrees = 4..8; #Variatie in aantal bomen per user
-my @maxnumberofpersons = 50..5000; #Maximum aantal personen per boom
+my @numberoftrees = 2..5; #Variatie in aantal bomen per user
+my @maxnumberofpersons = 50..350; #Maximum aantal personen per boom
 #PERSONS
 my @privacyoptions = 0..2; #Variatie in de privacy van een boom
 my @headyearofbirth = 1600..1800; #Variatie in geboortejaar van hoofd van familie
@@ -60,12 +59,13 @@ my $oddsothercountry = 20; #Kans ander land (1 op ...)
 # +-+-+-+-+
 
 #Sql-statements
-my $sql_lock = "LOCK TABLES User WRITE, Tree WRITE, Country WRITE, Placename WRITE, Place WRITE, Person WRITE, PersonTree WRITE, ParentRelation WRITE";
+my $sql_lock = "LOCK TABLES User WRITE, RoleUser WRITE, Tree WRITE, Country WRITE, Placename WRITE, Place WRITE, Person WRITE, PersonTree WRITE, ParentRelation WRITE";
 my $sql_unlock = "UNLOCK TABLES";
 my $sql_set_nullvar = "set \@var0 = null";
 my $sql_lastinsertid = "set ? = ( select last_insert_id() )";
 	#User
 my $sql_add_user = "\n#USER\ninsert into User (username, password) values (?,?)";
+my $sql_add_userRole = "\n#USER\ninsert into RoleUser (roleID, userID) values (2,?)";
 	#Tree
 my $sql_add_tree = "\t#TREE\n\tinsert into Tree (ownerID, privacy, name) values (?,?,?)";
 	#Place
@@ -175,6 +175,7 @@ foreach my $username (keys %users) {
 	addtoSQL($sql_add_user, $username, $password);
 	my $var_userid = getsqlvariablename();
 	addtoSQL($sql_lastinsertid, $var_userid);
+	addtoSQL($sql_add_userRole, $var_userid);
 
 	#Aantal bomen vastleggen
 	my $trees = getnumberoftrees();

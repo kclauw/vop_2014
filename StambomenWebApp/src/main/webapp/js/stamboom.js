@@ -11,6 +11,7 @@ $(document).ready(function() {
         $('.popupbox #place').text("Place: " + $(this).attr("data-zipcode") + " " + $(this).attr("data-placename"));
         $('.popupbox #country').text("Country: " + $(this).attr("data-country"));
         $('.popupbox #refpersonid').val($(this).attr("data-id"));
+        $('.popupbox img').val($(this).attr("data-id"));
         
         $('.popupboxbg').show();
     });
