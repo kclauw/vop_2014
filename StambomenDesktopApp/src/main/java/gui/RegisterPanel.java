@@ -6,8 +6,8 @@
 package gui;
 
 import dto.ImageTypeDTO;
-import dto.ThemeDTO;
 import gui.controller.RegisterController;
+import java.awt.Dimension;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,11 +17,10 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.border.MatteBorder;
-import service.ClientServiceController;
 import service.ServiceConstant;
 
 /**
@@ -41,9 +40,6 @@ public class RegisterPanel extends javax.swing.JPanel
 
     private void initGui()
     {
-//        ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
-   //     java.awt.Color bgColor = ThemeDTO.toColor(theme.getBgColor());
-    //    pnlLogin.setBackground(bgColor);
         lblIcon.setIcon(new ImageIcon(ServiceConstant.getInstance().getApplicationImage(ImageTypeDTO.LOGO)));
         pnlLogin.setBorder(new MatteBorder(0, 5, 0, 0, new java.awt.Color(51, 68, 85)));
     }
@@ -317,19 +313,23 @@ public class RegisterPanel extends javax.swing.JPanel
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
+
+        final JFrame frame = new JFrame("Facebook Register");
         SwingUtilities.invokeLater(new Runnable()
         {
             @Override
             public void run()
             {
-                new JFXPanel();
+                final JFXPanel fxPanel = new JFXPanel();
+                frame.add(fxPanel);
+                frame.setMinimumSize(new Dimension(850, 600));
+                frame.setLocationRelativeTo(null);
+
                 Platform.runLater(new Runnable()
                 {
                     @Override
                     public void run()
                     {
-                        final Stage stage = new Stage();
-                        stage.setTitle("Faceboook Login");
                         WebView browser = new WebView();
                         final WebEngine webEngine = browser.getEngine();
                         webEngine.getLoadWorker().stateProperty().addListener(
@@ -346,21 +346,23 @@ public class RegisterPanel extends javax.swing.JPanel
                                             if (url.contains("https://www.facebook.com/connect/login_success.html#"))
                                             {
                                                 String authCode = url.replace("https://www.facebook.com/connect/login_success.html#access_token=", "");
-                                                System.out.println("[AUTH CODE] " + authCode);
                                                 reg.registerWithFB(authCode);
+                                                frame.setVisible(false);
                                             }
                                         }
                                     }
                                 });
                         Scene scene = new Scene(browser, 750, 500, Color.web("#666970"));
-                        stage.setScene(scene);
                         webEngine.load("https://www.facebook.com/dialog/oauth?client_id=225842214289570&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=basic_info,email,user_location,user_hometown,user_birthday");
-                        stage.show();
+                        fxPanel.setScene(scene);
                     }
                 });
+
+                frame.setVisible(true);
+                frame.toFront();
+                frame.setAlwaysOnTop(true);
             }
         });
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

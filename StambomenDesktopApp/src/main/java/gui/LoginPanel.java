@@ -3,6 +3,7 @@ package gui;
 import dto.ImageTypeDTO;
 import dto.UserDTO;
 import gui.controller.LoginController;
+import java.awt.Dimension;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,8 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
@@ -36,8 +37,7 @@ public class LoginPanel extends javax.swing.JPanel
         try
         {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        }
-        catch (Exception ex)
+        } catch (Exception ex)
         {
             Exceptions.printStackTrace(ex);
         }
@@ -272,22 +272,26 @@ public class LoginPanel extends javax.swing.JPanel
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
+        final JFrame frame = new JFrame("Facebook Login");
 
         SwingUtilities.invokeLater(new Runnable()
         {
             @Override
             public void run()
             {
-                new JFXPanel();
+                final JFXPanel fxPanel = new JFXPanel();
+                frame.add(fxPanel);
+                frame.setMinimumSize(new Dimension(850, 600));
+                frame.setLocationRelativeTo(null);
+
                 Platform.runLater(new Runnable()
                 {
                     @Override
                     public void run()
                     {
-                        final Stage stage = new Stage();
-                        stage.setTitle("Faceboook Login");
                         WebView browser = new WebView();
                         final WebEngine webEngine = browser.getEngine();
+                        Scene scene = new Scene(browser, 750, 500, Color.web("#666970"));
                         webEngine.getLoadWorker().stateProperty().addListener(
                                 new ChangeListener<Worker.State>()
                                 {
@@ -304,16 +308,18 @@ public class LoginPanel extends javax.swing.JPanel
                                                 String authCode = url.replace("https://www.facebook.com/connect/login_success.html#access_token=", "");
                                                 System.out.println("[AUTH CODE] " + authCode);
                                                 loginPanel.loginWithFB(authCode);
+                                                frame.setVisible(false);
                                             }
                                         }
                                     }
                                 });
-                        Scene scene = new Scene(browser, 750, 500, Color.web("#666970"));
-                        stage.setScene(scene);
                         webEngine.load("https://www.facebook.com/dialog/oauth?client_id=225842214289570&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=basic_info,email,user_location,user_hometown,user_birthday");
-                        stage.show();
+                        fxPanel.setScene(scene);
                     }
                 });
+                frame.setVisible(true);
+                frame.toFront();
+                frame.setAlwaysOnTop(true);
             }
         });
 
