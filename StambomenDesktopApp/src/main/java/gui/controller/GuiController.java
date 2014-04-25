@@ -100,7 +100,7 @@ public class GuiController
                     int confirm = JOptionPane.showConfirmDialog(programFrame, "Are you sure you want to close?");
                     if (confirm == JOptionPane.YES_OPTION)
                     {
-                        if (currentPanel == Panels.TREE)
+                        if (currentPanel != Panels.TREEOVERVIEW && currentPanel != Panels.LOGIN && currentPanel != Panels.REGISTER)
                         {
                             goTo(Panels.TREEOVERVIEW);
                         }
