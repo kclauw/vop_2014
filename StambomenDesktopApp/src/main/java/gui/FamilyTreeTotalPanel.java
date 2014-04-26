@@ -227,4 +227,9 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         return treeController.isTreeEmpty();
     }
 
+    public void setError(String error_no_persons_in_tree_Please_add_a_roo)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
