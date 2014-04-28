@@ -11,7 +11,6 @@ import gui.tree.swing.TextInBox;
 import gui.tree.swing.TextInBoxNodeExtentProvider;
 import gui.tree.swing.TextInBoxTreePane;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.util.List;
 import javax.swing.JFrame;
@@ -52,13 +51,16 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     {
         initComponents();
         this.setSize(1200, 400);
+        this.setLayout(new BorderLayout());
         this.treeController = treeController;
-        this.treeOptionsPanel = new TreeOptionsPanel(this);
+        if (this.treeOptionsPanel == null)
+        {
+            this.treeOptionsPanel = new TreeOptionsPanel(this);
+            this.add(treeOptionsPanel, BorderLayout.SOUTH);
+        }
         scroll = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         this.scroll.setVisible(true);
-        this.setLayout(new BorderLayout());
         this.add(scroll, BorderLayout.CENTER);
-        this.add(treeOptionsPanel, BorderLayout.SOUTH);
         addDetailPanel();
         this.validate();
     }
@@ -67,24 +69,25 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
     {
         if (this.detailFrame == null)
         {
-            this.detailFrame = new JFrame();
+//            this.detailFrame = new JFrame();
             this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
             this.familyTreeDetailPanel.validate();
-            detailFrame.add(familyTreeDetailPanel);
-            detailFrame.setPreferredSize(new Dimension(500, 1000));
-            detailFrame.setMinimumSize(new Dimension(500, 1000));
-            detailFrame.setVisible(true);
-            detailFrame.setLocationRelativeTo(this);
-            detailFrame.addWindowListener(new java.awt.event.WindowAdapter()
-            {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent windowEvent)
-                {
-                    detailFrame.setVisible(false);
-                    detailFrame.dispose();
-                    detailFrame = null;
-                }
-            });
+            this.add(familyTreeDetailPanel, BorderLayout.EAST);
+//            detailFrame.add(familyTreeDetailPanel);
+//            detailFrame.setPreferredSize(new Dimension(500, 1000));
+//            detailFrame.setMinimumSize(new Dimension(500, 1000));
+//            detailFrame.setVisible(true);
+//            detailFrame.setLocationRelativeTo(this);
+//            detailFrame.addWindowListener(new java.awt.event.WindowAdapter()
+//            {
+//                @Override
+//                public void windowClosing(java.awt.event.WindowEvent windowEvent)
+//                {
+//                    detailFrame.setVisible(false);
+//                    detailFrame.dispose();
+//                    detailFrame = null;
+//                }
+//            });
 
         }
         else
