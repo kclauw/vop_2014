@@ -206,52 +206,54 @@ public class PersonController
      */
     public String movePerson(int treeID, PersonAdd personAdd, int personID, int personMoveID)
     {
-        Person person = pc.getPerson(treeID, personID);
-        Person referencePerson = pc.getPerson(treeID, personMoveID);
-        List<Person> persons = pc.getPersons(treeID);
-
-        pc.removeRelations(treeID, personID);
-
-        if (person.getChilderen(persons).size() > 0)
+        if (pc.getPersonHasChildren(personID))
         {
             throw new CannotMovePersonThatHasChildren();
         }
-
-        if (personAdd == PersonAdd.CHILD)
+        else
         {
-            person.setFather(null);
-            person.setMother(null);
+            Person person = pc.getPerson(treeID, personID);
+            Person referencePerson = pc.getPerson(treeID, personMoveID);
+            List<Person> persons = pc.getPersons(treeID);
 
-            Person partner = referencePerson.getPartner(pc.getPersons(treeID));
+            pc.removeRelations(treeID, personID);
 
-            if (referencePerson.getGender() == Gender.FEMALE)
+            if (personAdd == PersonAdd.CHILD)
             {
-                person.setMother(referencePerson);
+                person.setFather(null);
+                person.setMother(null);
 
-                if (partner != null)
+                Person partner = referencePerson.getPartner(pc.getPersons(treeID));
+
+                if (referencePerson.getGender() == Gender.FEMALE)
                 {
-                    person.setFather(partner);
+                    person.setMother(referencePerson);
+
+                    if (partner != null)
+                    {
+                        person.setFather(partner);
+                    }
                 }
+                else
+                {
+                    person.setFather(referencePerson);
+
+                    if (partner != null)
+                    {
+                        person.setMother(partner);
+                    }
+                }
+
+                pc.updatePersonRelations(treeID, person);
+
             }
-            else
+            else if (personAdd == PersonAdd.PARENT)
             {
-                person.setFather(referencePerson);
-
-                if (partner != null)
-                {
-                    person.setMother(partner);
-                }
+                /*Person here is the person that is getting moved
+                 Reference person is the 'new' child of the person moved. */
+                checkParentRelations(referencePerson, person);
+                setParentRelation(treeID, referencePerson, person, persons);
             }
-
-            pc.updatePersonRelations(treeID, person);
-
-        }
-        else if (personAdd == PersonAdd.PARENT)
-        {
-            /*Person here is the person that is getting moved
-             Reference person is the 'new' child of the person moved. */
-            checkParentRelations(referencePerson, person);
-            setParentRelation(treeID, referencePerson, person, persons);
         }
 
         return null;
