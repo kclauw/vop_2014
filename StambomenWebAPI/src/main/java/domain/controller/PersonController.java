@@ -51,21 +51,11 @@ public class PersonController
         logger.info("==============================================================");
         logger.info("[PERSON CONTROLLER] Deleting person with id: " + personID + " from Tree " + treeID);
         /*check wether the person has childs!*/
-        Tree tree = pc.getTree(treeID);
-        List<Person> persons = tree.getPersons();
-        List<Person> children = new ArrayList<Person>();
+        boolean hasChildren = pc.getPersonHasChildren(personID);
         //Date date = new Date();
         Activity act = new Activity(Event.DELPER, getPerson(treeID, personID).getFirstName() + " " + getPerson(treeID, personID).getSurName(), tc.getTree(treeID).getOwner().getId(), null);
-        for (Person p : persons)
-        {
-            if (p.getPersonId() == personID)
-            {
-                children = p.getChilderen(persons);
-                logger.info("[PERSON CONTROLLER] [DELETE] Found the persons ...");
-            }
-        }
 
-        if (children != null && children.size() > 0)
+        if (hasChildren)
         {
             throw new CannotDeletePersonsWithChidrenException();
         }
@@ -112,9 +102,9 @@ public class PersonController
         int id = -1;
         System.out.println("GETTING TREE IN ADD PERSON ");
         //Tree tree = tc.getTree(treeID);
-     
+
         //Date date = new Date();
-      //  Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tree.getOwner().getId(), null);
+        //  Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tree.getOwner().getId(), null);
         System.out.println("[ADDING PERSON] " + treeID + " " + personAdd.getId() + " " + personLinkID);
         /*Check wheter the person exists. This should be place in a repo.*/
         Person ps = pc.getPerson(treeID, person.getPersonId());
@@ -169,8 +159,8 @@ public class PersonController
     {
         return pc.getPersons(treeID, start, max);
     }
-    
-      public List<Person> getPersonsByTree(int treeID)
+
+    public List<Person> getPersonsByTree(int treeID)
     {
         return pc.getPersonsByTree(treeID);
     }
@@ -202,8 +192,6 @@ public class PersonController
         setParentRelation(treeID, child, parent, pers);
         return id;
     }
-    
-
 
     /**
      * This method will move a person based on the params. TreeID is the tree of

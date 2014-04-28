@@ -37,7 +37,8 @@ public class LoginPanel extends javax.swing.JPanel
         try
         {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             Exceptions.printStackTrace(ex);
         }
@@ -309,6 +310,7 @@ public class LoginPanel extends javax.swing.JPanel
                                                 System.out.println("[AUTH CODE] " + authCode);
                                                 loginPanel.loginWithFB(authCode);
                                                 frame.setVisible(false);
+                                                frame.dispose();
                                             }
                                         }
                                     }
