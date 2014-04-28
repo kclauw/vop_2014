@@ -60,6 +60,7 @@ public class PersonDao implements IDao<Person>
             + " WHERE (t.privacy = 2 or (t.privacy=1 and t.ownerID = r.receiver)) and firstname like \"?%\" and lastname like \"?%\"";
 
     private final String GET_PERSON = "SELECT * FROM Person WHERE personID = ?";
+    private final String GET_HAS_CHILDREN = "select case count(1) when 0 then 0 else 1 end haschildren from Person p join ParentRelation r on r.parent = p.personID where p.personID=?";
 
     private PersistenceFacade pc;
     private final Logger logger;
@@ -217,6 +218,53 @@ public class PersonDao implements IDao<Person>
 
         return person;
 
+    }
+
+    public boolean getHasChildren(int personID)
+    {
+        boolean hasChildren = false;
+
+        ResultSet res = null;
+        PreparedStatement prep = null;
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(GET_HAS_CHILDREN);
+            prep.setInt(1, personID);
+            logger.info("[PERSON DAO] Getting person has children" + prep.toString());
+            res = prep.executeQuery();
+
+            if (res.next())
+            {
+                hasChildren = (res.getInt("haschildren") == 1);
+            }
+
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+
+            logger.info("[PERSON DAO][SQLException][Get] Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[PERSON DAO][Exception][Get] Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                logger.info("[PERSON DAO] Error " + ex.getMessage());
+            }
+        }
+
+        return hasChildren;
     }
 
     @Override

@@ -1,9 +1,12 @@
+<%@page import="util.Translator"%>
 <%@page import="dto.ImageTypeDTO"%>
 <%@page import="service.ServiceConstant"%>
 <%@page import="dto.ThemeDTO"%>
 <%@page import="dto.UserDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%! Translator trans = new Translator(); %> 
+ <%   trans.updateLanguage(); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -56,8 +59,8 @@
         <div class = "wrapper">
             <div>
                 <div id="privacySetting">
-                    <h1>Account settings</h1>
-                    <h2>Privacy</h2>
+                    <h1><%= trans.translate("AccountSettings") %></h1>
+                    <h2><%= trans.translate("Privacy") %></h2>
                     <form method="post" action="./AccountServlet">
                         <select name="savePrivacy">
                             <c:forEach var="item" items="${privacyList}">
@@ -69,8 +72,8 @@
                 </div>
 
                 <div id="languageSettings">
-                    <h1>Language settings</h1>
-                    <h2>Language</h2>
+                    <h1><%= trans.translate("LanguageSettings") %></h1>
+                    <h2><%= trans.translate("Language") %></h2>
                     <form method="post" action="./AccountServlet">
                         <select name="saveLanguage">
                             <c:forEach var="item" items="${languageList}">
@@ -82,8 +85,8 @@
                 </div>
 
                 <div id="themeSettings">
-                    <h1>Theme settings</h1>
-                    <h2>Theme</h2>
+                    <h1><%= trans.translate("ThemeSettings") %></h1>
+                    <h2><%= trans.translate("Theme") %></h2>
                     <form method="post" action="./AccountServlet">
                         <select name="saveTheme">
                             <c:forEach var="item" items="${themeList}">
