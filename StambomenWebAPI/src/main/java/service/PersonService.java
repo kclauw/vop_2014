@@ -54,9 +54,17 @@ public class PersonService
     @Path("/{treeID}/{addType}/{personID}/{personMoveID}")
     public Response movePerson(@PathParam("treeID") int treeID, @PathParam("addType") int addType, @PathParam("personID") int personID, @PathParam("personMoveID") int personMoveID)
     {
-        PersonAdd personAdd = PersonAdd.getAddMethod(addType);
-        String result = pc.movePerson(treeID, personAdd, personID, personMoveID);
-        return Response.status(Response.Status.OK).entity(result).build();
+        try
+        {
+            PersonAdd personAdd = PersonAdd.getAddMethod(addType);
+            String result = pc.movePerson(treeID, personAdd, personID, personMoveID);
+            return Response.status(Response.Status.OK).entity(result).build();
+        }
+        catch (Exception ex)
+        {
+            System.out.println("[EX]" + ex.getMessage());
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+        }
     }
 
     @GET
