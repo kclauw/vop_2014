@@ -17,6 +17,11 @@ public class Translator
     {
         this.client = new ClientUserController();
 
+        updateLanguage();
+    }
+
+    public void updateLanguage()
+    {
         lang = client.getLanguage();
 
         if (lang == LanguageDTO.EN)

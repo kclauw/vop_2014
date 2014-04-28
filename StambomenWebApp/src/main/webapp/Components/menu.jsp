@@ -1,5 +1,6 @@
 <%@page import="util.Translator"%>
 <%! Translator trans = new Translator(); %> 
+<%   trans.updateLanguage(); %>
 <li><a href="./main.jsp"><%= trans.translate("Trees") %></a></li>
 <li><a href="./FriendServlet"><%= trans.translate("Friends") %></a></li>
 <li><a href="./UserProfileServlet"><%= trans.translate("UserProfiles") %></a></li>
