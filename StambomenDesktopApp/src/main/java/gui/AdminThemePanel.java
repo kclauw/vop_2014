@@ -22,7 +22,7 @@ import util.Translator;
  *
  * @author Sklipnoty
  */
-public class AdminThemePanel extends javax.swing.JPanel
+public class AdminThemePanel extends IPanel
 {
 
     private AdminThemeController themeC;

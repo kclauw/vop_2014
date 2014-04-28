@@ -1,6 +1,5 @@
 package gui;
 
-import dto.ImageTypeDTO;
 import dto.UserDTO;
 import gui.controller.LoginController;
 import java.awt.Dimension;
@@ -13,15 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
-import org.openide.util.Exceptions;
-import service.ServiceConstant;
 
-public class LoginPanel extends javax.swing.JPanel
+public class LoginPanel extends IPanel
 {
 
     private LoginController loginPanel;
@@ -29,21 +24,8 @@ public class LoginPanel extends javax.swing.JPanel
     public LoginPanel()
     {
         initComponents();
-        initGui();
-    }
-
-    private void initGui()
-    {
-        try
-        {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        }
-        catch (Exception ex)
-        {
-            Exceptions.printStackTrace(ex);
-        }
-
-        lblIcon.setIcon(new ImageIcon(ServiceConstant.getInstance().getApplicationImage(ImageTypeDTO.LOGO)));
+        setLookAndFeel();
+        setIcon(lblIcon);
         pnlLogin.setBorder(new MatteBorder(0, 5, 0, 0, new java.awt.Color(51, 68, 85)));
     }
 

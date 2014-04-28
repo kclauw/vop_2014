@@ -4,14 +4,12 @@ import dto.PrivacyDTO;
 import dto.ThemeDTO;
 import dto.TreeDTO;
 import gui.controller.AddTreeController;
-import gui.controller.GuiController;
 import java.awt.Color;
-import javax.swing.ImageIcon;
 import javax.swing.border.MatteBorder;
 import service.ClientServiceController;
 import util.Translator;
 
-public class AddTreePanel extends javax.swing.JPanel
+public class AddTreePanel extends IPanel
 {
 
     private AddTreeController addTreeController;
@@ -24,7 +22,7 @@ public class AddTreePanel extends javax.swing.JPanel
         initGui();
     }
 
-    private void initGui()
+    private void initsGui()
     {
         ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
         Color bgColor = ThemeDTO.toColor(theme.getBgColor());
