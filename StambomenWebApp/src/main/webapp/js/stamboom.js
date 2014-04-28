@@ -6,7 +6,7 @@ $(document).ready(function() {
     
     $('.tree a:not(.unknown)').click(function(args) {
         $('.popupbox h1').text($(this).attr("data-firstname") + " " + $(this).attr("data-surname"));
-        $('.popupbox #birthdate').text("Birtdate: " + $(this).attr("data-birthdate"));
+        $('.popupbox #birthdate').text(lblBirthdate + ": " + $(this).attr("data-birthdate"));
         $('.popupbox #deathdate').text("Deathdate: " + $(this).attr("data-deathdate"));
         $('.popupbox #place').text("Place: " + $(this).attr("data-zipcode") + " " + $(this).attr("data-placename"));
         $('.popupbox #country').text("Country: " + $(this).attr("data-country"));

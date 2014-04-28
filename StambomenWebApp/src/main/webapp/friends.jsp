@@ -3,12 +3,15 @@
     Created on : Mar 2, 2014, 9:08:09 PM
     Author     : Lowie
 --%>
+<%@page import="util.Translator"%>
 <%@page import="dto.ImageTypeDTO"%>
 <%@page import="service.ServiceConstant"%>
 <%@page import="dto.ThemeDTO"%>
 <%@page import="dto.UserDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%! Translator trans = new Translator(); %> 
+ <%   trans.updateLanguage(); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -53,7 +56,7 @@
         <div class="popupboxbg">
             <div class="popupbox itemblock shadow">
                 <div>
-                    <h1>Add friend</h1>
+                    <h1><%= trans.translate("AddFriend") %></h1>
                     <form method="post" action="./FriendServlet"><input name="sendfriendrequestname" type="text" placeholder="Username"/><input class="submit" type="submit" value="Add"/></form>
                 </div>
             </div>
@@ -71,13 +74,13 @@
                 <div>
                     <div class="friendlist">
                         <img id="adduser" src="./images/adduser.png" width="32" height="32" alt="Add User" />
-                        <h1>Friendlist</h1>
+                        <h1><%= trans.translate("Friendlist") %></h1>
                         <ul>
                         ${friendshtml}
                     </ul>
                 </div>
                 <div class="friendrequestlist">
-                    <h1>Requests</h1>
+                    <h1><%= trans.translate("Requests") %></h1>
                     <ul>
                         ${friendrequestshtml}
                     </ul>   

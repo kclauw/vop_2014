@@ -4,12 +4,15 @@
     Author     : Lowie
 --%>
 
+<%@page import="util.Translator"%>
 <%@page import="dto.ImageTypeDTO"%>
 <%@page import="service.ServiceConstant"%>
 <%@page import="dto.ThemeDTO"%>
 <%@page import="dto.UserDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%! Translator trans = new Translator(); %> 
+ <%   trans.updateLanguage(); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -52,6 +55,9 @@
         
         <script src="./js/jquery-1.11.0.min.js"></script>
         <script src="./js/jquery.scrollTo-1.4.3.1-min.js"></script>
+        <script>
+            var lblBirthdate = "<%= trans.translate("Requests") %>";
+        </script>
         <script src="./js/stamboom.js"></script>
     </head>
     <body>

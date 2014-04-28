@@ -82,7 +82,7 @@
                         <h1><%= trans.translate("PublicTrees") %></h1>
                         <form method="get" action="./TreeServlet">
                             <input name="publictreename" value="${publictreename}" />
-                            <input type="submit" value="Search" />
+                            <input type="submit" value="><%= trans.translate("Search") %>" />
                         </form>
                         <ul class="treelist">
                             <c:forEach var="tree" items="${publictrees}" varStatus="counter">
