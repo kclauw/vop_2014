@@ -398,4 +398,10 @@ public class PersistenceFacade
     {
         imageDao.uploadSmallLogoImage(rescaled);
     }
+
+    public boolean getPersonHasChildren(int personID)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Get person has children");
+        return personDao.getHasChildren(personID);
+    }
 }
