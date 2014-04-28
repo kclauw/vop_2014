@@ -128,13 +128,6 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
 
                     String name = JOptionPane.showInputDialog("Gelieve een naam voor de boom in te voeren");
 
-                    // TreeDTO tree = new TreeDTO(-1,userController.getUser().getId(), p,name,null);
-                    //treeController.makeTree(tree);
-                    //   System.out.println("ADDING TREE : " + treeController.makeTree(tree));
-                   /* while(addTree.equals("exists")){
-                     tree.setName(name = JOptionPane.showInputDialog("Boom bestaat al gelieve een andere naam in te voeren"));
-                     addTree = treeController.makeTree(tree);
-                     };*/
                     try
                     {
                         gedcomController.importGedcom(p.getPrivacyId(), userController.getUser().getId(), name, file);
@@ -287,6 +280,8 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         pnlMenuBg.add(pnlMenu, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         add(pnlMenuBg, gridBagConstraints);
@@ -298,7 +293,7 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         pnlMain.setLayout(new java.awt.BorderLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.weighty = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(40, 10, 10, 10);
@@ -320,6 +315,11 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
     public TreeOverviewController getTreeoverviewcontroller()
     {
         return treeoverviewController;
+    }
+
+    public void setError(String msg)
+    {
+        lblLogo.setText(msg);
     }
 
 }

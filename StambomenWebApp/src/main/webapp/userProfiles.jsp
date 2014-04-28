@@ -88,11 +88,11 @@
                                 </li>
                                 <li> 
                                     <c:choose>
-                                    <c:when test="${item.event}=ADDTREE">
-                                       Salary is very low to survive.
+                                    <c:when test="${item.event=='ADDTREE'}">
+                                       Added tree with name: ${item.name}
                                     </c:when>
-                                    <c:when test="${item.event}=ADDPER">
-                                        Salary is very good.
+                                    <c:when test="${item.event=='ADDPER'}">
+                                        Added person with name: ${item.name}
                                     </c:when>
                                     <c:otherwise>
                                         No comment sir...

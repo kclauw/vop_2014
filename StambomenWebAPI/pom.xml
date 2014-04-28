@@ -155,5 +155,28 @@
             </plugin>
         </plugins>
     </build>
-
+<profiles>
+    <profile>
+        <id>linux</id>
+        <activation>
+            <os>
+                <family>unix</family>
+            </os>
+        </activation>
+        <properties>
+            <logDirectory>/var/log/tomcat6</logDirectory>
+        </properties>
+    </profile>
+    <profile>
+        <id>windows</id>
+        <activation>
+            <os>
+                <family>windows</family>
+            </os>
+        </activation>
+        <properties>
+            <logDirectory>${catalina.home}/logs</logDirectory>
+        </properties>
+    </profile>
+</profiles>
 </project>

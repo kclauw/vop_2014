@@ -3,7 +3,6 @@ package service;
 import dto.ImageTypeDTO;
 import java.awt.Image;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -84,7 +83,7 @@ public class ServiceConstant
         }
         else if (image == ImageTypeDTO.LOGO)
         {
-            url += "logo.png";
+            url += "logo.jpg";
         }
 
         System.out.println(url);
@@ -115,7 +114,7 @@ public class ServiceConstant
         }
         else if (image == ImageTypeDTO.LOGO)
         {
-            url += "logo.png";
+            url += "logo.jpg";
         }
 
         return url;
