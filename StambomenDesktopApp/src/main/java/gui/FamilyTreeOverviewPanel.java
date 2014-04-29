@@ -1,6 +1,5 @@
 package gui;
 
-import dto.ImageTypeDTO;
 import dto.PrivacyDTO;
 import dto.ThemeDTO;
 import gui.controller.TreeOverviewController;
@@ -11,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -23,10 +21,9 @@ import service.ClientGedcomController;
 import service.ClientServiceController;
 import service.ClientTreeController;
 import service.ClientUserController;
-import service.ServiceConstant;
 import util.Translator;
 
-public class FamilyTreeOverviewPanel extends javax.swing.JPanel
+public class FamilyTreeOverviewPanel extends IPanel
 {
 
     private TreeOverviewController treeoverviewController;
@@ -170,12 +167,13 @@ public class FamilyTreeOverviewPanel extends javax.swing.JPanel
         c.anchor = GridBagConstraints.LINE_END;
         pnlMenu.add(menuBar, c);
 
+        setIcon(lblLogo);
         initGui();
+        applyStyle();
     }
 
-    private void initGui()
+    private void applyStyle()
     {
-        lblLogo.setIcon(new ImageIcon(ServiceConstant.getInstance().getApplicationImage(ImageTypeDTO.LOGO)));
 
         ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
         Color bgColor = ThemeDTO.toColor(theme.getBgColor());

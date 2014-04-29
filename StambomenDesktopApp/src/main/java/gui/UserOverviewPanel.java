@@ -11,9 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -24,13 +22,11 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import service.ClientTreeController;
 import service.ClientUserController;
 import util.Translator;
 
-public class UserOverviewPanel extends javax.swing.JPanel
+public class UserOverviewPanel extends IPanel
 {
 
     private ClientUserController userController;
@@ -58,7 +54,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
         this.userController = new ClientUserController();
         this.userDetailpanel = new UserDetailPanel(this);
         users = userController.getUsers();
-        
+
         System.out.println("user:" + users.toString());
 
         //create table
@@ -209,7 +205,6 @@ public class UserOverviewPanel extends javax.swing.JPanel
 
         add(pane, BorderLayout.LINE_START);
         add(form, BorderLayout.CENTER);
-
         //add(panel,BorderLayout.EAST);
         setVisible(true);
 
@@ -256,7 +251,7 @@ public class UserOverviewPanel extends javax.swing.JPanel
         this.useroverviewController = u;
     }
 
-    void deleteUser(UserDTO user)
+    public void deleteUser(UserDTO user)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
-import dto.ImageTypeDTO;
 import gui.controller.RegisterController;
 import java.awt.Dimension;
 import javafx.application.Platform;
@@ -17,17 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.border.MatteBorder;
-import service.ServiceConstant;
 
-/**
- *
- * @author Lowie
- */
-public class RegisterPanel extends javax.swing.JPanel
+public class RegisterPanel extends IPanel
 {
 
     private RegisterController reg;
@@ -35,12 +23,7 @@ public class RegisterPanel extends javax.swing.JPanel
     public RegisterPanel()
     {
         initComponents();
-        initGui();
-    }
-
-    private void initGui()
-    {
-        lblIcon.setIcon(new ImageIcon(ServiceConstant.getInstance().getApplicationImage(ImageTypeDTO.LOGO)));
+        setIcon(lblIcon);
         pnlLogin.setBorder(new MatteBorder(0, 5, 0, 0, new java.awt.Color(51, 68, 85)));
     }
 
@@ -389,4 +372,5 @@ public class RegisterPanel extends javax.swing.JPanel
     private javax.swing.JPasswordField txtPasswordConfirm;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+
 }

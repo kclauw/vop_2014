@@ -3,28 +3,25 @@ package gui;
 import dto.LanguageDTO;
 import gui.controller.SettingsController;
 import javax.swing.DefaultComboBoxModel;
-import util.Translator;
 
-public class SettingsPanel extends javax.swing.JPanel
+public class SettingsPanel extends IPanel
 {
 
     private SettingsController settingsController;
 
     public SettingsPanel()
     {
-
         initComponents();
+        initGui();
         translate();
         cbxLanguage.setModel(new DefaultComboBoxModel(LanguageDTO.values()));
     }
 
     public void translate()
     {
-        Translator trans = new Translator();
-
-        jButton1.setText(trans.translate("Back"));
-        jButton3.setText(trans.translate("SetLanguage"));
-        jLabel2.setText(trans.translate("Language"));
+        jButton1.setText(translate("Back"));
+        jButton3.setText(translate("SetLanguage"));
+        jLabel2.setText(translate("Language"));
     }
 
     /**
@@ -122,7 +119,6 @@ public class SettingsPanel extends javax.swing.JPanel
     public void setSettingsController(SettingsController sc)
     {
         this.settingsController = sc;
-
         LanguageDTO languageDTO = settingsController.getLanguage();
         cbxLanguage.setSelectedItem(languageDTO);
     }

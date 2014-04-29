@@ -16,6 +16,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
@@ -217,10 +218,12 @@ public class TextInBoxTreePane extends JComponent
             {
                 if (box.contains(e.getPoint()))
                 {
+                    SimpleDateFormat sf = new SimpleDateFormat("dd-MMM-YYYY");
+
                     PlaceDTO place = person.getPlace();
                     setToolTipText("<html><p>" + person.getFirstName() + " " + person.getSurName() + " </p>"
-                            + "<p> Date of birth:" + person.getBirthDate() + "</p>"
-                            + "<p> Date of death:" + person.getDeathDate() + "</p>"
+                            + "<p> Date of birth: " + ((person.getBirthDate() != null) ? sf.format(person.getBirthDate()) : "Not known") + "</p>"
+                            + "<p> Date of death: " + ((person.getDeathDate() != null) ? sf.format(person.getDeathDate()) : "Not known") + "</p>"
                             + "<p>" + place.getPlaceName() + " " + place.getZipCode() + ", " + place.getCountry() + "</p>"
                             + "<p><img src='" + person.getPicture() + "'></p></html>");
                     ToolTipManager.sharedInstance().mouseMoved(e);

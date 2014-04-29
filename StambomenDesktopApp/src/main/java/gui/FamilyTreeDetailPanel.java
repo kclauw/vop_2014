@@ -17,12 +17,13 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.ProgressMonitor;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.openide.util.Exceptions;
 import util.Translator;
 
-public class FamilyTreeDetailPanel extends javax.swing.JPanel
+public class FamilyTreeDetailPanel extends IPanel
 {
 
     private boolean add = false;
@@ -33,6 +34,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private boolean adding = false;
     private boolean child;
     private boolean parent;
+    private ProgressMonitor moveMonitor;
 
     public FamilyTreeDetailPanel(PersonDTO person, FamilyTreeTotalPanel fttp)
     {
@@ -48,7 +50,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         initComponents();
         translate();
         setEditable(false);
-
     }
 
     public void translate()
@@ -90,9 +91,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         textFieldCity = new javax.swing.JTextField();
         textFieldZipCode = new javax.swing.JTextField();
         textFieldCountry = new javax.swing.JTextField();
-        btnDelete = new javax.swing.JButton();
-        btnAdd = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
         picturePanel = new javax.swing.JPanel();
         btnAddPicture = new javax.swing.JButton();
         labelPicture = new javax.swing.JLabel();
@@ -110,7 +108,11 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         dod = new com.toedter.calendar.JDateChooser();
         dob = new com.toedter.calendar.JDateChooser();
         jButton2 = new javax.swing.JButton();
+        manipulationPanel = new javax.swing.JPanel();
+        btnEdit = new javax.swing.JButton();
         btnMove = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -186,52 +188,6 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weighty = 1.0;
         add(adressPanel, gridBagConstraints);
-
-        btnDelete.setText("Delete");
-        btnDelete.setMaximumSize(new java.awt.Dimension(200, 23));
-        btnDelete.setMinimumSize(new java.awt.Dimension(200, 23));
-        btnDelete.setPreferredSize(new java.awt.Dimension(200, 23));
-        btnDelete.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 9;
-        add(btnDelete, gridBagConstraints);
-
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                btnAddActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 9;
-        add(btnAdd, gridBagConstraints);
-
-        btnEdit.setText("Edit");
-        btnEdit.setMaximumSize(new java.awt.Dimension(200, 23));
-        btnEdit.setMinimumSize(new java.awt.Dimension(200, 23));
-        btnEdit.setPreferredSize(new java.awt.Dimension(200, 23));
-        btnEdit.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                btnEditActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.weightx = 0.1;
-        add(btnEdit, gridBagConstraints);
 
         picturePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(setTitleP()));
         picturePanel.setToolTipText("");
@@ -405,6 +361,21 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         gridBagConstraints.gridwidth = 6;
         add(jButton2, gridBagConstraints);
 
+        manipulationPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Manipulation"));
+
+        btnEdit.setText("Edit");
+        btnEdit.setMaximumSize(new java.awt.Dimension(200, 23));
+        btnEdit.setMinimumSize(new java.awt.Dimension(200, 23));
+        btnEdit.setPreferredSize(new java.awt.Dimension(200, 23));
+        btnEdit.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnEditActionPerformed(evt);
+            }
+        });
+        manipulationPanel.add(btnEdit);
+
         btnMove.setText("Move");
         btnMove.addActionListener(new java.awt.event.ActionListener()
         {
@@ -413,10 +384,35 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 btnMoveActionPerformed(evt);
             }
         });
+        manipulationPanel.add(btnMove);
+
+        btnDelete.setText("Delete");
+        btnDelete.setMaximumSize(new java.awt.Dimension(200, 23));
+        btnDelete.setMinimumSize(new java.awt.Dimension(200, 23));
+        btnDelete.setPreferredSize(new java.awt.Dimension(200, 23));
+        btnDelete.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+        manipulationPanel.add(btnDelete);
+
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnAddActionPerformed(evt);
+            }
+        });
+        manipulationPanel.add(btnAdd);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 9;
-        add(btnMove, gridBagConstraints);
+        add(manipulationPanel, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textFieldFirstnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textFieldFirstnameActionPerformed
@@ -507,6 +503,8 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         }
         else if (adding)
         {
+            startTask();
+
             PersonDTO p = null;
             PersonAddDTO add = null;
             int link = -1;
@@ -544,6 +542,8 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
                 this.setEnabled(true);
                 this.clearInputFields();
             }
+
+            stopTask();
         }
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -595,7 +595,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         //for a move operation the user will need to select 2 things
         //1. where to move and wether to move as parent or as child.
         move = true;
-
+        setButtonActive(btnMove);
         JOptionPane.showMessageDialog(null, "Select where you want to move this person.");
     }//GEN-LAST:event_btnMoveActionPerformed
 
@@ -622,6 +622,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
     private javax.swing.JLabel labelFieldFirstname;
     private javax.swing.JLabel labelFieldLastname;
     private javax.swing.JLabel labelPicture;
+    private javax.swing.JPanel manipulationPanel;
     private javax.swing.JPanel personPanel;
     private javax.swing.JPanel picturePanel;
     private javax.swing.JRadioButton radioFemale;
@@ -744,6 +745,11 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         {
             btnEdit.setEnabled(false);
         }
+
+        if (b != btnMove)
+        {
+            btnMove.setEnabled(false);
+        }
     }
 
     private void setEditable(boolean edit)
@@ -779,6 +785,7 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         btnAdd.setEnabled(true);
         btnEdit.setEnabled(true);
         btnDelete.setEnabled(true);
+        btnMove.setEnabled(true);
     }
 
     /**
@@ -886,6 +893,8 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
 
         int option = JOptionPane.showOptionDialog(null, "Would you like to add " + person.getFirstName() + " " + person.getSurName() + " as parent or as child?", "Who would you liek to add?", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
 
+        startTask();
+
         if (option == 0)
         {
             fttp.movePerson(PersonAddDTO.CHILD, this.person.getPersonId(), person.getPersonId());
@@ -894,6 +903,10 @@ public class FamilyTreeDetailPanel extends javax.swing.JPanel
         {
             fttp.movePerson(PersonAddDTO.PARENT, this.person.getPersonId(), person.getPersonId());
         }
+
+        stopTask();
+
+        this.setAllButtonsActive();
 
     }
 

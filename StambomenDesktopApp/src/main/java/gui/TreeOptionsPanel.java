@@ -1,29 +1,15 @@
 package gui;
 
-import dto.ThemeDTO;
-import gui.controller.GuiController;
-import java.awt.Color;
-import javax.swing.ImageIcon;
-import service.ClientServiceController;
-
-public class TreeOptionsPanel extends javax.swing.JPanel
+public class TreeOptionsPanel extends IPanel
 {
 
-    private FamilyTreeTotalPanel fttp;
+    private final FamilyTreeTotalPanel fttp;
 
     public TreeOptionsPanel(FamilyTreeTotalPanel fttp)
     {
         this.fttp = fttp;
         initComponents();
         initGui();
-    }
-
-    private void initGui()
-    {
-        ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
-        Color bgColor = ThemeDTO.toColor(theme.getBgColor());
-
-        this.setBackground(bgColor);
     }
 
     @SuppressWarnings("unchecked")

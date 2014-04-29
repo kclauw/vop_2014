@@ -1,6 +1,5 @@
 package gui;
 
-import gui.controller.PersonOverviewController;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JPanel;
@@ -8,7 +7,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import dto.PersonDTO;
 import dto.PersonTableModel;
-import dto.TreeDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -23,18 +21,13 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 import service.ClientPersonController;
-import service.ClientTreeController;
 
-public class PersonOverviewPanel extends javax.swing.JPanel
+public class PersonOverviewPanel extends IPanel
 {
 
     private ClientPersonController personController;
-    private ClientTreeController treeController;
     private FamilyTreeDetailPanel familyTreeDetailPanel;
-
     private List<PersonDTO> persons;
-    private List<TreeDTO> trees;
-
     private TableRowSorter<PersonTableModel> sorter;
 
     private boolean DEBUG = false;
