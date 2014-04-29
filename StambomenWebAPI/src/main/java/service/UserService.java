@@ -252,11 +252,12 @@ public class UserService
     public Response getActivities(@PathParam("userID") int userID)
     {
         logger.info("[User Service][GET ACTIVITIES]Get activities from  user with id: " + userID);
-        List<Activity> act = ac.getActivities(userID);
+
         Response rp = null;
 
         try
         {
+            List<Activity> act = ac.getActivities(userID);
             rp = Response.ok(act).build();
         }
         catch (Exception ex)
