@@ -169,10 +169,10 @@ function constructMarker(latitude, longitude, treeid, id, firstname, lastname, z
       '<h1 id="firstHeading" class="firstHeading">' + firstname + " " + lastname + '</h1>'+
       '<div id="bodyContent">'+
       image +
-      '<p>Place: ' + zipcode + ' ' + placename + '</p>' +
-      '<p>Country: ' + country + '</p>' +
-      '<p>Birthdate: ' + dateToString(birthdate) + '</p>' +
-      '<p>Deathdate: ' + dateToString(deathdate) + '</p>' +
+      '<p>' + lblPlace + ': ' + zipcode + ' ' + placename + '</p>' +
+      '<p>' + lblCountry + ': ' + country + '</p>' +
+      '<p>' + lblBirthdate + ': ' + dateToString(birthdate) + '</p>' +
+      '<p>' + lblDeathdate + ': ' + dateToString(deathdate) + '</p>' +
       '</div>'+
       '</div>';
 

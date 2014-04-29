@@ -4,12 +4,15 @@
     Author     : Lowie
 --%>
 
+<%@page import="util.Translator"%>
 <%@page import="dto.ImageTypeDTO"%>
 <%@page import="service.ServiceConstant"%>
 <%@page import="dto.ThemeDTO"%>
 <%@page import="dto.UserDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%! Translator trans = new Translator(); %> 
+ <%   trans.updateLanguage(); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -53,6 +56,10 @@
         <script src="./js/jquery-ui-1.10.4.custom.min.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvtR35KQlMs6IuWdR7Bx3bvnOEIpl1C3w&sensor=false"></script>
         <script>
+            var lblBirthdate = "<%= trans.translate("DBirth") %>";
+            var lblDeathdate = "<%= trans.translate("DDeath") %>";
+            var lblPlace = "<%= trans.translate("Place") %>";
+            var lblCountry = "<%= trans.translate("Country") %>";
             var persons = [
                 <c:forEach var="person" items="${timemachinepersons}" varStatus="status">
                     [ <c:forEach var="item" items="${person}" varStatus="status">"${item}", </c:forEach> ], 
@@ -77,7 +84,7 @@
             </div>
             <div id="datewindow" class="shadow">
                 <div class="wrapper">
-                    <p>Date:</p>
+                    <p><%= trans.translate("Date") %>:</p>
                     <input type="text" id="datepicker"/>
                     <div class="slider"></div>
                     <div id="timecontrol">
