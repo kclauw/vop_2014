@@ -2,6 +2,7 @@ package dto;
 
 import com.google.gson.annotations.Expose;
 import java.awt.Image;
+import java.net.URI;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.Date;
@@ -28,6 +29,8 @@ public class PersonDTO implements java.io.Serializable, Cloneable
     private PersonDTO father;
     @Expose
     private PersonDTO mother;
+    @Expose
+    private URI facebookProfileLink;
 
     private URL picture;
     private int x;
@@ -36,8 +39,6 @@ public class PersonDTO implements java.io.Serializable, Cloneable
 
     private List<PersonDTO> childeren;
     private PersonDTO partner;
-
-    private String facebookProfileID;
 
     public PersonDTO()
     {
@@ -55,7 +56,7 @@ public class PersonDTO implements java.io.Serializable, Cloneable
         this.father = builder.father;     // optional
         this.mother = builder.mother;    // optional
         this.picture = builder.picture;
-
+        this.facebookProfileLink = builder.facebookProfileLink;
     }
 
     public List<PersonDTO> getChilderen()
@@ -108,14 +109,14 @@ public class PersonDTO implements java.io.Serializable, Cloneable
         return surName;
     }
 
-    public String getFacebookProfileID()
+    public URI getFacebookProfileLink()
     {
-        return facebookProfileID;
+        return facebookProfileLink;
     }
 
-    public void setFacebookProfileID(String facebookProfileID)
+    public void setFacebookProfileLink(URI facebookProfileLink)
     {
-        this.facebookProfileID = facebookProfileID;
+        this.facebookProfileLink = facebookProfileLink;
     }
 
     public GenderDTO getGender()
@@ -239,7 +240,7 @@ public class PersonDTO implements java.io.Serializable, Cloneable
     @Override
     public String toString()
     {
-        return firstName + " " + surName;
+        return "PersonDTO{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + ", facebookProfileLink=" + facebookProfileLink + '}';
     }
 
     public String toStringPerson()
@@ -292,12 +293,19 @@ public class PersonDTO implements java.io.Serializable, Cloneable
         private PersonDTO father; // optional
         private PersonDTO mother; // optional
         private URL picture; //optional
+        private URI facebookProfileLink;
 
         public PersonDTOBuilder(String firstName, String surName, GenderDTO gender)
         {
             this.firstName = firstName;
             this.surName = surName;
             this.gender = gender;
+        }
+
+        public PersonDTOBuilder facebook(URI facebookProfileLink)
+        {
+            this.facebookProfileLink = facebookProfileLink;
+            return this;
         }
 
         public PersonDTOBuilder personId(int personId)

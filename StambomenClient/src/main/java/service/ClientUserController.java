@@ -105,8 +105,15 @@ public class ClientUserController
 
     public LanguageDTO getLanguage()
     {
-        return ClientServiceController.getInstance().getUser().getUserSettings().getLanguage();
-        //logger.info("[CLIENT USER CONTROLLER][GET LANGUAGE]Get language from user with id: " + userID);
+        LanguageDTO language = ClientServiceController.getInstance().getUser().getUserSettings().getLanguage();
+        if (language != null)
+        {
+            return language;
+        }
+        else
+        {
+            return LanguageDTO.EN;
+        }
     }
 
     public ThemeDTO getTheme()
