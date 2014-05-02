@@ -1,6 +1,7 @@
 package service;
 
 import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import domain.Person;
 import domain.controller.PersonController;
 import domain.enums.PersonAdd;
@@ -31,6 +32,7 @@ public class PersonService
     @POST
     @Path("/{treeID}/{addType}/{personLinkID}/post")
     @Consumes(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Add person", notes = "More notes about this method", response = String.class)
     public Response addPerson(@PathParam("treeID") int treeID, @PathParam("addType") int addType, @PathParam("personLinkID") int personLinkID, Person person)
     {
         try
@@ -54,6 +56,7 @@ public class PersonService
 
     @GET
     @Path("/{treeID}/{addType}/{personID}/{personMoveID}")
+    @ApiOperation(value = "Move person", notes = "More notes about this method", response = String.class)
     public Response movePerson(@PathParam("treeID") int treeID, @PathParam("addType") int addType, @PathParam("personID") int personID, @PathParam("personMoveID") int personMoveID)
     {
         try
@@ -72,6 +75,7 @@ public class PersonService
     @GET
     @Path("/delete/{treeID}/{personId}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Delete person", notes = "More notes about this method", response = String.class)
     public Response deletePerson(@PathParam("treeID") int treeID, @PathParam("personId") int personId)
     {
         try
@@ -90,6 +94,7 @@ public class PersonService
     @POST
     @Path("/update/{treeID}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Update person", notes = "More notes about this method", response = String.class)
     public Response updatePerson(@PathParam("treeID") int treeID, Person person)
     {
         try
@@ -111,6 +116,7 @@ public class PersonService
     @Path("/{treeID}/{personID}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Get persons", notes = "More notes about this method", response = String.class)
     public Person getPerson(@PathParam("treeID") int treeID, @PathParam("personID") int personID)
     {
         logger.info("[GET][PERSONSERVICE]" + personID);
@@ -121,6 +127,7 @@ public class PersonService
     @POST
     @Path("/upload/image/{treeID}/{personID}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    @ApiOperation(value = "Upload person image", notes = "More notes about this method", response = String.class)
     public Response saveImage(@PathParam("personID") int personID, @PathParam("treeID") int treeID, InputStream bufferedImage)
     {
         try
@@ -141,6 +148,7 @@ public class PersonService
     @POST
     @Path("/upload/image/{personID}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    @ApiOperation(value = "Upload person image", notes = "More notes about this method", response = String.class)
     public Response saveImage(@PathParam("personID") int personID, InputStream bufferedImage)
     {
         try
@@ -161,6 +169,7 @@ public class PersonService
     @GET
     @Path("/delete/images/{treeID}/{personID}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Delete person image", notes = "More notes about this method", response = String.class)
     public Response deleteImage(@PathParam("personID") int personID, @PathParam("treeID") int treeID)
     {
         try
@@ -180,6 +189,7 @@ public class PersonService
     @GET
     @Path("/persons/{treeID}/{start}/{max}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Get persons with min and max range", notes = "More notes about this method", response = String.class)
     public List<Person> getPersons(@PathParam("treeID") int treeID, @PathParam("start") int start, @PathParam("max") int max) throws IOException
     {
         logger.info("[PERSON SERVICE][GET] Getting persons");

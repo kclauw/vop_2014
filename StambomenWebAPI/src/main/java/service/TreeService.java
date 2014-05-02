@@ -1,6 +1,7 @@
 package service;
 
 import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import domain.Tree;
 import domain.controller.TreeController;
 import exception.TreeAlreadyExistsException;
@@ -25,20 +26,20 @@ public class TreeService
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @GET
-    @Path("{treeId}")
+    @Path("/{treeId}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Get tree based on the treeID", notes = "More notes about this method", response = Tree.class)
     public Tree getTree(@PathParam("treeId") int treeId)
     {
         logger.info("[TREE SERVICE][GET] Getting trees by treeid" + treeId);
-        System.out.println("GET - TreeServices" + treeId);
         Tree t = tc.getTree(treeId);
-        System.out.println(t);
         return t;
     }
 
     @GET
     @Path("/user/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Get trees based on the userID", notes = "More notes about this method", response = Tree.class)
     public List<Tree> getTreeByUser(@PathParam("userId") int userId)
     {
         logger.info("[TREE SERVICE][GET] Getting trees by userid" + userId);
@@ -49,12 +50,12 @@ public class TreeService
     @POST
     @Path("/post")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response makeTree(Tree tree)
+    @ApiOperation(value = "Add a tree", notes = "More notes about this method", response = String.class)
+    public Response addTree(Tree tree)
     {
         try
         {
             String result = "Tree added:" + tree.toString();
-            System.out.println("[TREE SERVICE] Adding " + result);
             tc.addTree(tree);
             return Response.status(Response.Status.OK).entity(result).build();
         }
@@ -62,12 +63,12 @@ public class TreeService
         {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
-
     }
 
     @GET
     @Path("user/{userId}/treename/{name}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Get public trees by name", notes = "More notes about this method", response = Tree.class)
     public List<Tree> getPublicTreesByName(@PathParam("userId") int userId, @PathParam("name") String name)
     {
         logger.info("[TREE SERVICE][GET] Getting public trees for userid: " + userId + " with name like: %" + name + "%");

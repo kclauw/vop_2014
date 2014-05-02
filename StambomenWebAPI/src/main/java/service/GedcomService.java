@@ -1,6 +1,7 @@
 package service;
 
 import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import domain.controller.GedcomController;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,6 +30,7 @@ public class GedcomService
     @Path("/import/{privacy}/{name}/{user}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Import gedcom file!", notes = "More notes about this method", response = String.class)
     public Response importGedcom(@PathParam("privacy") int privacy, @PathParam("user") int user, @PathParam("name") String name, InputStream inp) throws IOException, GedcomParserException, ParseException
     {
 

@@ -1,6 +1,5 @@
 package service;
 
-import com.wordnik.swagger.annotations.Api;
 import domain.Person;
 import domain.User;
 import domain.controller.ApplicationController;
@@ -22,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Path("/admin")
-@Api(value = "/admin", description = "Operations for admins")
 public class AdminService
 {
 
@@ -37,9 +35,7 @@ public class AdminService
     public List<Person> getPersons(@PathParam("treeID") int treeID, @PathParam("start") int start, @PathParam("max") int max) throws IOException
     {
         logger.info("[PERSON SERVICE][GET] Getting persons");
-        System.out.println("GET - TreeServices");
         List<Person> persons = pc.getPersons(start, max);
-
         return persons;
     }
 
@@ -50,7 +46,6 @@ public class AdminService
     {
         logger.info("[USER SERVICE][GET] Getting users");
         List<User> users = uc.getUsers();
-
         return users;
     }
 
