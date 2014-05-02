@@ -18,20 +18,19 @@ public class AddTreePanel extends IPanel
     {
         initComponents();
         translate();
-
         initGui();
-    }
-
-    private void initsGui()
-    {
         ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
-        Color bgColor = ThemeDTO.toColor(theme.getBgColor());
         Color maleColor = ThemeDTO.toColor(theme.getMaleColor());
-
-        pnlAddTree.setBackground(bgColor);
-        pnlAddTree.setBorder(new MatteBorder(0, 5, 0, 0, maleColor));
+        pnlAddTree.setBorder(new MatteBorder(2, 5, 2, 2, maleColor));
     }
 
+//    private void initsGui()
+//    {
+//        Color bgColor = ThemeDTO.toColor(theme.getBgColor());
+//
+//        pnlAddTree.setBackground(bgColor);
+//
+//    }
     public void translate()
     {
         Translator trans = new Translator();

@@ -11,6 +11,8 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -107,6 +109,8 @@ public class FamilyTreeDetailPanel extends IPanel
         labeFieldGender = new javax.swing.JLabel();
         dod = new com.toedter.calendar.JDateChooser();
         dob = new com.toedter.calendar.JDateChooser();
+        jLabel3 = new javax.swing.JLabel();
+        textFieldFacebookProfileLink = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         manipulationPanel = new javax.swing.JPanel();
         btnEdit = new javax.swing.JButton();
@@ -338,6 +342,20 @@ public class FamilyTreeDetailPanel extends IPanel
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 11, 0, 11);
         detailPanel.add(dob, gridBagConstraints);
+
+        jLabel3.setText("Facebook Profile Link");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 8);
+        detailPanel.add(jLabel3, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 10);
+        detailPanel.add(textFieldFacebookProfileLink, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -615,6 +633,7 @@ public class FamilyTreeDetailPanel extends IPanel
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -629,6 +648,7 @@ public class FamilyTreeDetailPanel extends IPanel
     private javax.swing.JRadioButton radioMale;
     private javax.swing.JTextField textFieldCity;
     private javax.swing.JTextField textFieldCountry;
+    private javax.swing.JTextField textFieldFacebookProfileLink;
     private javax.swing.JTextField textFieldFirstname;
     private javax.swing.JTextField textFieldLastname;
     private javax.swing.JTextField textFieldZipCode;
@@ -860,16 +880,25 @@ public class FamilyTreeDetailPanel extends IPanel
         }
 
         PersonDTO p = new PersonDTO.PersonDTOBuilder(textFieldFirstname.getText(), textFieldLastname.getText(), g).build();
-        p.setBirthDate(dob.getDate());
-        p.setDeathDate(dob.getDate());
-        p.setPlace(new PlaceDTO.PlaceDTOBuilder(textFieldCity.getText())
-                .placeId(-1)
-                .countryId(-1)
-                .placeNameId(-1)
-                .coord(null)
-                .country(textFieldCountry.getText())
-                .zipCode(textFieldZipCode.getText())
-                .build());
+
+        try
+        {
+            p.setBirthDate(dob.getDate());
+            p.setDeathDate(dob.getDate());
+            p.setPlace(new PlaceDTO.PlaceDTOBuilder(textFieldCity.getText())
+                    .placeId(-1)
+                    .countryId(-1)
+                    .placeNameId(-1)
+                    .coord(null)
+                    .country(textFieldCountry.getText())
+                    .zipCode(textFieldZipCode.getText())
+                    .build());
+            p.setFacebookProfileLink(new URI(textFieldFacebookProfileLink.getText()));
+        }
+        catch (URISyntaxException ex)
+        {
+            Exceptions.printStackTrace(ex);
+        }
         return p;
     }
 

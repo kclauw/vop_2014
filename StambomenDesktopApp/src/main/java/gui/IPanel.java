@@ -74,5 +74,4 @@ public abstract class IPanel extends JPanel
             Exceptions.printStackTrace(ex);
         }
     }
-
 }
