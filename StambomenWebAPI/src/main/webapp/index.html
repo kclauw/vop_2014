@@ -50,19 +50,12 @@
                     docExpansion: "none"
                 });
 
-                $('#login').click(function()
-                {
-                    var username = $('#input_username')[0].value;
-                    var password = $('#input_password')[0].value;
-                    var toEncode = username + ':' + password;
-                    alert(toEncode);
-                    var encodedData = window.btoa(toEncode);
-                    alert(encodedData);
-
-                    if (username && username.trim() != "")
-                    {
-                        window.authorizations.add("key", new ApiKeyAuthorization("Authorization", encodedData, "header"));
-                       
+                $('#input_apiKey').change(function() {
+                    var key = $('#input_apiKey')[0].value;
+                    log("key: " + key);
+                    if (key && key.trim() != "") {
+                        log("added key " + key);
+                        window.authorizations.add("key", new ApiKeyAuthorization("Authorization", key, "header"));
                     }
                 })
                 window.swaggerUi.load();
@@ -74,10 +67,8 @@
         <div id='header'>
             <div class="swagger-ui-wrap">
                 <form id='api_selector'>
-                    <img id="tree_logo" src="http://assets.vop.tiwi.be/team12/staging/images/logo.jpg" title="Stambomen API">
-                    <div class='input'><input placeholder="username" id="input_username" name="input_username" type="text"/></div>
-                    <div class='input'><input placeholder="password" id="input_password" name="input_password" type="text"/></div>
-                    <div class='input'><a id="login" href="#">Login</a></div>
+                    <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
+                    <div class='input'><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text"/></div>
                     <div class='input'><a id="explore" href="#">Explore</a></div>
                 </form>
             </div>

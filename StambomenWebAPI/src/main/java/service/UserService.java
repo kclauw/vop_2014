@@ -22,6 +22,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.glassfish.jersey.server.ContainerRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.PersistenceFacade;
@@ -82,8 +83,10 @@ public class UserService
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/login/{username}")
     @ApiOperation(value = "Login method, this is a placeholder method", notes = "More notes about this method", response = String.class)
-    public Response login(@PathParam("username") String username)
+    public Response login(ContainerRequest cont, @PathParam("username") String username)
     {
+        User user = (User) cont.getProperty("user");
+        System.out.println("USER LOGGED IN:" + user);
         return null;
     }
 

@@ -14,6 +14,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.glassfish.jersey.server.ContainerRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +30,7 @@ public class TreeService
     @Path("/{treeId}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Get tree based on the treeID", notes = "More notes about this method", response = Tree.class)
-    public Tree getTree(@PathParam("treeId") int treeId)
+    public Tree getTree(ContainerRequest cont, @PathParam("treeId") int treeId)
     {
         logger.info("[TREE SERVICE][GET] Getting trees by treeid" + treeId);
         Tree t = tc.getTree(treeId);
