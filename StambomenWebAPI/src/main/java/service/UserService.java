@@ -1,17 +1,18 @@
 package service;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import domain.Activity;
 import domain.Theme;
-import domain.enums.Language;
-import domain.enums.Privacy;
 import domain.User;
 import domain.controller.ActivityController;
 import domain.controller.UserController;
+import domain.enums.Language;
+import domain.enums.Privacy;
 import exception.EmptyPasswordException;
 import exception.EmptyUsernameException;
 import exception.InvalidPasswordException;
 import exception.UserAlreadyExistsException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -31,6 +32,7 @@ import persistence.PersistenceFacade;
  *
  */
 @Path("/user")
+@Api(value = "/user", description = "Operations about user")
 public class UserService
 {
 
@@ -41,6 +43,7 @@ public class UserService
 
     @GET
     @Path("/get")
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
     @Produces(MediaType.APPLICATION_JSON)
     public String getUsernames()
     {
@@ -50,6 +53,8 @@ public class UserService
 
     @POST
     @Path("/post")
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addUser(User userInc)
     {
@@ -87,6 +92,8 @@ public class UserService
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/login/{username}")
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     public Response login(@PathParam("username") String username)
     {
         return null;
@@ -95,6 +102,8 @@ public class UserService
     @GET
     @Path("/friends/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     public Response getFriends(@PathParam("userId") int userID)
     {
         try
@@ -111,6 +120,9 @@ public class UserService
     @GET
     @Path("/friends/requests/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
+
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     public Response getFriendRequests(@PathParam("userId") int userID)
     {
         List<User> request = uc.getFriendRequest(userID);
@@ -120,6 +132,8 @@ public class UserService
     @GET
     @Path("/friends/delete/{userId}/{frienduserId}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     public Response deleteFriend(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID)
     {
         uc.deleteFriend(userID, frienduserID);
@@ -129,6 +143,8 @@ public class UserService
     @GET
     @Path("/friends/requests/allow/{userId}/{frienduserId}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     public Response allowFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID)
     {
         uc.allowDenyFriendRequest(userID, frienduserID, true);
@@ -138,6 +154,8 @@ public class UserService
     @GET
     @Path("/friends/requests/deny/{userId}/{frienduserId}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     public Response denyFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID)
     {
         uc.allowDenyFriendRequest(userID, frienduserID, false);
@@ -147,6 +165,8 @@ public class UserService
     @GET
     @Path("/friends/requests/send/{userId}/{frienduserName}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     public Response sendFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserName") String frienduserName)
     {
         uc.sendFriendRequest(userID, frienduserName);
@@ -156,6 +176,8 @@ public class UserService
     @GET
     @Path("/setLanguage/{userID}/{languageID}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     public Response setLanguage(@PathParam("userID") int userID, @PathParam("languageID") int languageID)
     {
         logger.info("[User Service][SET LANGUAGE]Set language with id: " + languageID + " for user with id: " + userID);
@@ -181,6 +203,8 @@ public class UserService
     @GET
     @Path("/get/profile/setUserPrivacy/{userID}/{PrivacyID}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     public Response setUserPrivacy(@PathParam("userID") int userID, @PathParam("PrivacyID") int PrivacyID)
     {
         logger.info("[User Service][SET USERPRIVACY]Set privacy with id: " + PrivacyID + " for user with id: " + userID);
@@ -205,6 +229,8 @@ public class UserService
     @GET
     @Path("/get/profile/getUserPrivacy/{userID}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     public Response getUserPrivacy(@PathParam("userID") int userID)
     {
         logger.info("[User Service][GET LANGUAGE]Get privacy from  user with id: " + userID);
@@ -227,6 +253,8 @@ public class UserService
     @GET
     @Path("/getLanguage/{userID}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     public Response getLanguage(@PathParam("userID") int userID)
     {
         logger.info("[User Service][GET LANGUAGE]Get language from  user with id: " + userID);
@@ -249,6 +277,8 @@ public class UserService
     @GET
     @Path("/getActivities/{userID}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     public Response getActivities(@PathParam("userID") int userID)
     {
         logger.info("[User Service][GET ACTIVITIES]Get activities from  user with id: " + userID);
@@ -270,6 +300,8 @@ public class UserService
     @GET
     @Path("/get/profile/getPublicUser/{userID}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     public Response getPublicUser(@PathParam("userID") int userID)
     {
         Privacy userPrivacy = Privacy.PUBLIC;
@@ -291,6 +323,8 @@ public class UserService
     @GET
     @Path("/get/profile/getPublicUsers/{userID}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     public Response getPublicUsers(@PathParam("userID") int userID)
     {
         Privacy userPrivacy = Privacy.PUBLIC;
@@ -312,6 +346,8 @@ public class UserService
     @GET
     @Path("/themes")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
+
     public Response getThemes()
     {
         List<Theme> request = uc.getThemes();
@@ -321,6 +357,7 @@ public class UserService
     @GET
     @Path("/setTheme/{userID}/{themeID}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Find pet by ID", notes = "More notes about this method", response = String.class)
     public Response setTheme(@PathParam("userID") int userID, @PathParam("themeID") int themeID)
     {
         logger.info("[User Service][SET THEME]Set theme with id: " + themeID + " for user with id: " + userID);

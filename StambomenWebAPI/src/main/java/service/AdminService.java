@@ -1,11 +1,11 @@
 package service;
 
+import com.wordnik.swagger.annotations.Api;
 import domain.Person;
 import domain.User;
 import domain.controller.ApplicationController;
 import domain.controller.PersonController;
 import domain.controller.UserController;
-import exception.PersonAlreadyExistsException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Path("/admin")
+@Api(value = "/admin", description = "Operations for admins")
 public class AdminService
 {
 

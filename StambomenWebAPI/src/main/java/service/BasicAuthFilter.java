@@ -3,8 +3,6 @@ package service;
 import domain.User;
 import domain.controller.UserController;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
@@ -26,7 +24,7 @@ public class BasicAuthFilter implements ContainerRequestFilter
         String path = containerRequest.getUriInfo().getPath();
         System.out.println("DECODING REQUEST METHOD= " + method + " PATH=" + path);
 
-        if (method.equals("POST") && (path.equals("/user/post")) || (path.contains("/facebook/")))
+        if (method.equals("POST") && (path.equals("/user/post")) || (path.contains("/facebook/register/")) || path.contains("api-docs"))
         {
             System.out.println("User is register no auth.");
             return;
@@ -50,8 +48,8 @@ public class BasicAuthFilter implements ContainerRequestFilter
         System.out.println("[AUTH FILTER] LOGIN:");
 
         User authentificationResult = userController.login(userCredentials);
-        System.out.println("Logged in:" +authentificationResult.toString());
-        
+        System.out.println("Logged in:" + authentificationResult.toString());
+
         if (path.contains("/user/login/"))
         {
             if (authentificationResult != null)

@@ -1,5 +1,6 @@
 package service;
 
+import com.wordnik.swagger.annotations.Api;
 import domain.controller.GedcomController;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Path("/gedcom")
+@Api(value = "/gedcom", description = "Operations with gedcom files")
 public class GedcomService
 {
 

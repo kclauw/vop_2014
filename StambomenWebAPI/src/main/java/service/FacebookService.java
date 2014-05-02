@@ -1,5 +1,6 @@
 package service;
 
+import com.wordnik.swagger.annotations.Api;
 import domain.User;
 import domain.controller.FacebookController;
 import javax.ws.rs.GET;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Path("/facebook")
+@Api(value = "/facebook", description = "Operations with Facebook")
 public class FacebookService
 {
 

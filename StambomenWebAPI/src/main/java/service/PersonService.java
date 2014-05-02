@@ -1,5 +1,6 @@
 package service;
 
+import com.wordnik.swagger.annotations.Api;
 import domain.Person;
 import domain.controller.PersonController;
 import domain.enums.PersonAdd;
@@ -20,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Path("/person")
+@Api(value = "/person", description = "Operations about persons")
 public class PersonService
 {
 

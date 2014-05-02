@@ -23,7 +23,7 @@ public class Person
     private Person father; // optional
     private Person mother; // optional
     private URI picture; // optional
-    private String facebookProfileID;
+    private URI facebookProfileLink;
 
     public Person()
     {
@@ -41,17 +41,17 @@ public class Person
         this.father = builder.father;     // optional
         this.mother = builder.mother;    // optional
         this.picture = builder.picture;
-        this.facebookProfileID = builder.facebookProfileID;
+        this.facebookProfileLink = builder.facebookProfileLink;
     }
 
-    public String getFacebookProfileID()
+    public URI getFacebookProfileLink()
     {
-        return facebookProfileID;
+        return facebookProfileLink;
     }
 
-    public void setFacebookProfileID(String facebookProfileID)
+    public void setFacebookProfileLink(URI facebookProfileLink)
     {
-        this.facebookProfileID = facebookProfileID;
+        this.facebookProfileLink = facebookProfileLink;
     }
 
     public int getPersonId()
@@ -131,7 +131,7 @@ public class Person
     @Override
     public String toString()
     {
-        return "Person{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + ", gender=" + gender + ", birthDate=" + birthDate + ", deathDate=" + deathDate + ", place=" + place + ", father=" + father + ", mother=" + mother + ", picture=" + picture + '}';
+        return "Person{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + ", gender=" + gender + ", birthDate=" + birthDate + ", deathDate=" + deathDate + ", place=" + place + ", father=" + father + ", mother=" + mother + ", picture=" + picture + ", facebookProfileLink=" + facebookProfileLink + '}';
     }
 
     public Person getPartner(List<Person> persons)
@@ -206,7 +206,7 @@ public class Person
         private Person father; // optional
         private Person mother; // optional
         private URI picture; //optional
-        private String facebookProfileID;
+        private URI facebookProfileLink;
 
         public PersonBuilder(String firstName, String surName, Gender gender)
         {
@@ -245,9 +245,9 @@ public class Person
             return this;
         }
 
-        public PersonBuilder facebookProfileID(String facebookProfileID)
+        public PersonBuilder facebookProfileLink(URI facebookProfileLink)
         {
-            this.facebookProfileID = facebookProfileID;
+            this.facebookProfileLink = facebookProfileLink;
             return this;
         }
 

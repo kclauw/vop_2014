@@ -1,6 +1,6 @@
 package service;
 
-import domain.Person;
+import com.wordnik.swagger.annotations.Api;
 import domain.Tree;
 import domain.controller.TreeController;
 import exception.TreeAlreadyExistsException;
@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Path("/tree")
+@Api(value = "/tree", description = "Operations about trees")
 public class TreeService
 {
 
