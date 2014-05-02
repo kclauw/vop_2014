@@ -5,8 +5,8 @@
 <%@page import="dto.UserDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%! Translator trans = new Translator(); %> 
- <%   trans.updateLanguage(); %>
+<%! Translator trans = new Translator();%> 
+<%   trans.updateLanguage(); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +15,7 @@
         <title>Public User Profiles</title>
 
         <%
-            ThemeDTO theme = ((UserDTO)request.getSession().getAttribute("user")).getUserSettings().getTheme();
+            ThemeDTO theme = ((UserDTO) request.getSession().getAttribute("user")).getUserSettings().getTheme();
             String font = theme.getFont().replace(' ', '+');
         %>
         <link href='http://fonts.googleapis.com/css?family=<%=font%>' rel='stylesheet' type='text/css'>
@@ -23,25 +23,25 @@
         <link rel="stylesheet" type="text/css" href="./css/userProfiles.css"/>
         <style>
             body {
-                background-image: url(<%= ServiceConstant.getInstance().getApplicationImageLink(ImageTypeDTO.BACKGROUND) %>);
+                background-image: url(<%= ServiceConstant.getInstance().getApplicationImageLink(ImageTypeDTO.BACKGROUND)%>);
             }
-            
+
 
             *, #topbar a:link, #topbar a:visited, #topbar a:active {
-                font-family: '<%= theme.getFont() %>', sans-serif;
-                color: #<%= theme.getTextColor() %>;
+                font-family: '<%= theme.getFont()%>', sans-serif;
+                color: #<%= theme.getTextColor()%>;
             }
             .themeBgColor, .itemblock, #topbar{
-                background-color: #<%= theme.getBgColor() %>;
+                background-color: #<%= theme.getBgColor()%>;
             }
             .themeMaleColor {
-                background-color: #<%= theme.getMaleColor() %>;
+                background-color: #<%= theme.getMaleColor()%>;
             }
             .itemblock {
-                border-left-color: #<%= theme.getMaleColor() %>;
+                border-left-color: #<%= theme.getMaleColor()%>;
             }
             .themeFemaleColor {
-                background-color: #<%= theme.getFemaleColor() %>;
+                background-color: #<%= theme.getFemaleColor()%>;
             }
         </style>
 
@@ -49,7 +49,7 @@
         <script src="./js/userProfiles.js"></script>
     </head>
     <body>
-        
+
         <div class="popupboxbg">
             <div class="popupbox itemblock shadow">
                 <div>
@@ -70,40 +70,31 @@
                 </div>
             </div>
             <div class = "wrapper">
-                <% 
-            
-        
-        
-        
-        %>
-                <div>
-                    <div class = "userProfileList">
-                        <h1><%= trans.translate("PublicUserProfiles") %></h1>
-                        <ul id = "publicUserProfile">
+            <%
+
+
+            %>
+            <div>
+                <div class = "userProfileList">
+                    <h1><%= trans.translate("UserProfiles")%></h1>
+                    <ul class = "publicUserProfile">
                         ${publicUserProfileshtml}
-                        </ul>
-                        
-                        <ul class="treelist">
-                            <c:forEach var="item" items="${activities}" varStatus="counter">
-                                <li>
-                                    ${item.event}
-                                    
-                                </li>
-                                <li> 
-                                    <c:choose>
-                                    <c:when test="${item.event=='ADDTREE'}">
-                                       Added tree with name: ${item.name}
-                                    </c:when>
-                                    <c:when test="${item.event=='ADDPER'}">
-                                        Added person with name: ${item.name}
-                                    </c:when>
-                                    <c:otherwise>
-                                        No comment sir...
-                                    </c:otherwise>
-                                </c:choose>
-                                                                </li>
-                            </c:forEach>
-                        </ul>
+                    </ul>
+                </div>
+                <div class="userProfileList">
+                    <h1><%= trans.translate("PublicUserProfiles")%></h1>
+                    <form method="get" action="./UserProfileServlet">
+                        <input name="publicUsername"/>
+                        <input type="submit" value="<%= trans.translate("Search")%>" />
+                    </form>
+                    <ul class = "publicUserProfile">
+                        <c:forEach var="user" items="${searchedUsers}" varStatus="counter">
+                            <li class="itemblock" id="${user.getId()}" >
+                                <div>${user.getUsername()}</div>
+                                <img class="privacy" src="./images/PUBLIC.png" alt="PUBLIC" />
+                            </li>
+                        </c:forEach>
+                    </ul>
                 </div>
             </div>
         </div>

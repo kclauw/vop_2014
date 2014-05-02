@@ -139,9 +139,13 @@ public class AccountServlet extends HttpServlet
     private void addLanguageData(HttpSession session, ClientUserController userController)
     {
         List<LanguageDTO> languages = (List<LanguageDTO>) session.getAttribute("languageList");
+
         if (languages == null)
         {
             languages = new ArrayList(Arrays.asList(LanguageDTO.values()));
+
+            //remove french from list, not supported
+            languages.remove(LanguageDTO.FR);
             session.setAttribute("languageList", languages);
         }
 

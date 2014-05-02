@@ -1,15 +1,16 @@
 package servlet;
 
 import com.google.gson.Gson;
-import dto.PrivacyDTO;
 import dto.UserDTO;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.taglibs.standard.tag.common.core.ForEachSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.ClientUserController;
@@ -55,6 +56,8 @@ public class UserProfileServlet extends HttpServlet
         logger.info("[USERPROFILE SERVLET][DO POST]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
 
         String getUserID = request.getParameter("userID");
+        String publicUsername = request.getParameter("publicUsername");
+
         if (getUserID != null)
         {
             HttpSession session = request.getSession(false);
@@ -62,6 +65,10 @@ public class UserProfileServlet extends HttpServlet
             Integer UserID = Integer.parseInt(getUserID);
 
             getUser(uC, UserID, response);
+        }
+        else if (publicUsername != null)
+        {
+            getSearchResultUsers(request, response, publicUsername);
         }
         else
         {
@@ -123,4 +130,25 @@ public class UserProfileServlet extends HttpServlet
     {
         return "UserProfileServlet";
     }// </editor-fold>
+
+    private void getSearchResultUsers(HttpServletRequest request, HttpServletResponse response, String publicUsername) throws IOException
+    {
+        HttpSession session = request.getSession(false);
+
+        ClientUserController userController = (ClientUserController) session.getAttribute("userController");
+        List<UserDTO> publicUserProfiles = userController.getPublicUsers();
+        List<UserDTO> searchedUsers = new ArrayList<UserDTO>();
+
+        for (UserDTO userDTO : publicUserProfiles)
+        {
+            boolean found = userDTO.getUsername().toLowerCase().startsWith(publicUsername.toLowerCase());
+            if (found)
+            {
+                searchedUsers.add(userDTO);
+            }
+        }
+        session.setAttribute("searchedUsers", searchedUsers);
+
+        response.sendRedirect(request.getContextPath() + "/userProfiles.jsp");
+    }
 }

@@ -56,7 +56,11 @@
         <script src="./js/jquery-1.11.0.min.js"></script>
         <script src="./js/jquery.scrollTo-1.4.3.1-min.js"></script>
         <script>
-            var lblBirthdate = "<%= trans.translate("Requests") %>";
+            var lblBirthdate = "<%= trans.translate("DBirth") %>";
+            var lblDeathdate = "<%= trans.translate("DDeath") %>";
+            var lblPlace = "<%= trans.translate("Place") %>";
+            var lblCountry = "<%= trans.translate("Country") %>";
+
         </script>
         <script src="./js/stamboom.js"></script>
     </head>
@@ -70,8 +74,8 @@
                     <p id="deathdate"></p>
                     <p id="place"></p>
                     <p id="country"></p>
-                    <form method="post" action="./TreeServlet"><input id="refpersonid" name="refpersonid" value="" type="hidden"/><input class="submit" type="submit" value="Set as referenceperson"/></form>
-                    <form method="post" action="./TimemachineServlet"><input id="refpersonid" name="refpersonid" value="" type="hidden"/><input class="submit" type="submit" value="Show in timemachine"/></form>
+                    <form method="post" action="./TreeServlet"><input id="refpersonid" name="refpersonid" value="" type="hidden"/><input class="submit" type="submit" value="<%= trans.translate("SetAsReferenceperson") %>"/></form>
+                    <form method="post" action="./TimemachineServlet"><input id="refpersonid" name="refpersonid" value="" type="hidden"/><input class="submit" type="submit" value="<%= trans.translate("ShowInTimemachine") %>"/></form>
                 </div>
             </div>
             <div></div>
