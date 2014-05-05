@@ -14,43 +14,43 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class BasicAuthFilter implements ContainerRequestFilter
 {
-    
+
     private final UserController userController = new UserController();
-    
+
     @Override
     public void filter(ContainerRequestContext containerRequest) throws IOException
     {
         String method = containerRequest.getMethod();
         String path = containerRequest.getUriInfo().getPath();
         System.out.println("DECODING REQUEST METHOD= " + method + " PATH=" + path);
-        
+
         if (method.equals("POST") && (path.equals("/user/post")) || (path.contains("/facebook/register/")) || path.contains("api-docs"))
         {
             System.out.println("User is register no auth.");
             return;
         }
-        
+
         String authorization = containerRequest.getHeaderString(HttpHeaders.AUTHORIZATION);
-        System.out.println(authorization);
-        
+        System.out.println("AUTH! : " + authorization);
+
         if (authorization == null || authorization.isEmpty())
         {
-            abortRequest(containerRequest, Status.UNAUTHORIZED);
+            abortRequest(containerRequest, Status.UNAUTHORIZED, "Invalid Login Credentials.");
+            return;
         }
-        
+
         String[] userCredentials = BasicAuthentication.decode(authorization);
-        
+
         if (userCredentials == null || userCredentials.length != 2)
         {
-            abortRequest(containerRequest, Status.UNAUTHORIZED);
+            abortRequest(containerRequest, Status.UNAUTHORIZED, null);
         }
-        
+
         System.out.println("[AUTH FILTER] LOGIN:");
-        
+
         User authentificationResult = userController.login(userCredentials);
-        System.out.println("Logged in:" + authentificationResult.toString());
         containerRequest.setProperty("user", authentificationResult);
-        
+
         if (path.contains("/user/login/"))
         {
             if (authentificationResult != null)
@@ -59,23 +59,25 @@ public class BasicAuthFilter implements ContainerRequestFilter
             }
             else
             {
-                abortRequest(containerRequest, Status.UNAUTHORIZED);
+                abortRequest(containerRequest, Status.UNAUTHORIZED, null);
             }
         }
-        
+
         if (authentificationResult == null)
         {
-            abortRequest(containerRequest, Status.UNAUTHORIZED);
+            abortRequest(containerRequest, Status.UNAUTHORIZED, null);
         }
         else if (path.contains("admin") && !authentificationResult.getRole().equals("Admin"))
         {
-            abortRequest(containerRequest, Status.UNAUTHORIZED);
+            abortRequest(containerRequest, Status.UNAUTHORIZED, null);
         }
-        
+
+        containerRequest.setProperty("user", authentificationResult);
+
     }
-    
-    private void abortRequest(ContainerRequestContext containerRequest, Status status)
+
+    private void abortRequest(ContainerRequestContext containerRequest, Status status, String message)
     {
-        containerRequest.abortWith(Response.status(status).build());
+        containerRequest.abortWith(Response.ok(message).status(Status.UNAUTHORIZED).build());
     }
 }

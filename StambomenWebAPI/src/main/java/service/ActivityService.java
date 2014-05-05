@@ -3,23 +3,13 @@ package service;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import domain.Activity;
-import domain.Theme;
 import domain.User;
 import domain.controller.ActivityController;
-import domain.controller.UserController;
-import domain.enums.Language;
-import domain.enums.Privacy;
-import exception.EmptyPasswordException;
-import exception.EmptyUsernameException;
-import exception.InvalidPasswordException;
-import exception.UserAlreadyExistsException;
 import java.util.List;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.glassfish.jersey.server.ContainerRequest;
@@ -43,25 +33,22 @@ public class ActivityService
     private ActivityController ac = new ActivityController(pc);
 
     @GET
-    @Path("/getActivities/{userID}")
+    @Path("/getActivities")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Get activities", notes = "More notes about this method", response = Activity.class)
-    public Response getActivities(@PathParam("userID") int userID)
+    public Response getActivities(@Context ContainerRequest cont)
     {
-        logger.info("[User Service][GET ACTIVITIES]Get activities from  user with id: " + userID);
-        List<Activity> act = ac.getActivities(userID);
-        Response rp = null;
-
         try
         {
-            rp = Response.ok(act).build();
+            User user = (User) cont.getProperty("user");
+            logger.info("[User Service][GET ACTIVITIES]Get activities from  user with id: " + user.getId());
+            List<Activity> acts = ac.getActivities(user.getId());
+            return Response.ok(acts).build();
         }
         catch (Exception ex)
         {
-            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
-
-        return rp;
     }
 
 }

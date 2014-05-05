@@ -3,6 +3,7 @@ package service;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import domain.Tree;
+import domain.User;
 import domain.controller.TreeController;
 import exception.TreeAlreadyExistsException;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.glassfish.jersey.server.ContainerRequest;
@@ -30,7 +32,7 @@ public class TreeService
     @Path("/{treeId}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Get tree based on the treeID", notes = "More notes about this method", response = Tree.class)
-    public Tree getTree(ContainerRequest cont, @PathParam("treeId") int treeId)
+    public Tree getTree(@PathParam("treeId") int treeId)
     {
         logger.info("[TREE SERVICE][GET] Getting trees by treeid" + treeId);
         Tree t = tc.getTree(treeId);
@@ -38,13 +40,14 @@ public class TreeService
     }
 
     @GET
-    @Path("/user/{userId}")
+    @Path("/user")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Get trees based on the userID", notes = "More notes about this method", response = Tree.class)
-    public List<Tree> getTreeByUser(@PathParam("userId") int userId)
+    public List<Tree> getTreeByUser(@Context ContainerRequest cont)
     {
-        logger.info("[TREE SERVICE][GET] Getting trees by userid" + userId);
-        List<Tree> tr = tc.getTrees(userId);
+        User user = (User) cont.getProperty("user");
+        logger.info("[TREE SERVICE][GET] Getting trees by userid" + user.getId());
+        List<Tree> tr = tc.getTrees(user.getId());
         return tr;
     }
 
@@ -67,13 +70,14 @@ public class TreeService
     }
 
     @GET
-    @Path("user/{userId}/treename/{name}")
+    @Path("user/treename/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Get public trees by name", notes = "More notes about this method", response = Tree.class)
-    public List<Tree> getPublicTreesByName(@PathParam("userId") int userId, @PathParam("name") String name)
+    public List<Tree> getPublicTreesByName(@Context ContainerRequest cont, @PathParam("name") String name)
     {
-        logger.info("[TREE SERVICE][GET] Getting public trees for userid: " + userId + " with name like: %" + name + "%");
-        List<Tree> t = tc.getPublicTreesByName(userId, name);
+        User user = (User) cont.getProperty("user");
+        logger.info("[TREE SERVICE][GET] Getting public trees for userid: " + user.getId() + " with name like: %" + name + "%");
+        List<Tree> t = tc.getPublicTreesByName(user.getId(), name);
         return t;
     }
 
