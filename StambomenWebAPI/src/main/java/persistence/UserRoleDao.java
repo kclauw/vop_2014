@@ -181,7 +181,7 @@ public class UserRoleDao implements IDao
     }
 
     @Override
-    public void save(Object value)
+    public int save(Object value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

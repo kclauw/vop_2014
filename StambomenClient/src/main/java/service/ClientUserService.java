@@ -87,34 +87,32 @@ public class ClientUserService
         return result;
     }
 
-    public List<UserDTO> getFriends(int userID)
+    public List<UserDTO> getFriends()
     {
-        logger.info("[CLIENT USER SERVICE][GET FRIENDS]Getting friends for user: " + userID);
-
+        logger.info("[CLIENT USER SERVICE][GET FRIENDS]");
         Client client = ClientServiceController.getInstance().getClient();
-        List<UserDTO> friends = client.target(url + "user/friends/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
+        List<UserDTO> friends = client.target(url + "user/friends/").request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
         {
         });
 
         return friends;
     }
 
-    public List<UserDTO> getFriendRequests(int userID)
+    public List<UserDTO> getFriendRequests()
     {
-        logger.info("[CLIENT USER SERVICE][GET FRIEND REQUESTS]Getting friendsfor user with id:" + userID);
+        logger.info("[CLIENT USER SERVICE][GET FRIEND REQUESTS]");
         Client client = ClientServiceController.getInstance().getClient();
-        List<UserDTO> friends = client.target(url + "user/friends/requests/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
+        List<UserDTO> friends = client.target(url + "user/friends/requests").request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
         {
         });
-
         return friends;
     }
 
-    public String deleteFriend(int userID, int frienduserID)
+    public String deleteFriend(int frienduserID)
     {
-        logger.info("[CLIENT USER SERVICE][DELETE FRIEND]Delete friend with id:" + frienduserID + " for user with id: " + userID);
+        logger.info("[CLIENT USER SERVICE][DELETE FRIEND]Delete friend with id:" + frienduserID);
         Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "user/friends/delete/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "user/friends/delete/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
 
         if (response.getStatus() != 200)
         {
@@ -126,11 +124,11 @@ public class ClientUserService
         return null;
     }
 
-    public String allowDenyFriendRequest(int userID, int frienduserID, boolean allow)
+    public String allowDenyFriendRequest(int frienduserID, boolean allow)
     {
-        logger.info("[CLIENT USER SERVICE][ALLOW DENY FRIEND REQUEST]Allow deny friendrequest for friend with id:" + frienduserID + " for user with id: " + userID);
+        logger.info("[CLIENT USER SERVICE][ALLOW DENY FRIEND REQUEST]Allow deny friendrequest for friend with id:" + frienduserID);
         Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "user/friends/requests/" + (allow ? "allow" : "deny") + "/" + userID + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "user/friends/requests/" + (allow ? "allow" : "deny") + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
 
         if (response.getStatus() != 200)
         {
@@ -142,11 +140,11 @@ public class ClientUserService
         return null;
     }
 
-    public String sendFriendRequest(int userID, String frienduserName)
+    public String sendFriendRequest(String frienduserName)
     {
-        logger.info("[CLIENT USER SERVICE][SEND FRIEND REQUEST]Send friendrequest to user with id:" + userID + " to friend user with name" + frienduserName);
+        logger.info("[CLIENT USER SERVICE][SEND FRIEND REQUEST]");
         Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "user/friends/requests/send/" + userID + "/" + frienduserName).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "user/friends/requests/send/" + frienduserName).request(MediaType.APPLICATION_JSON).post(null);
 
         if (response.getStatus() != 200)
         {
@@ -158,11 +156,11 @@ public class ClientUserService
         return null;
     }
 
-    public String setLanguage(int userID, int languageID)
+    public String setLanguage(int languageID)
     {
-        logger.info("[CLIENT USER SERVICE][SET LANGUAGE]Set language with id: " + languageID + " user with id: " + userID);
+        logger.info("[CLIENT USER SERVICE][SET LANGUAGE]Set language with id: " + languageID);
         Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "user/setLanguage/" + userID + "/" + languageID).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "user/setLanguage/" + languageID).request(MediaType.APPLICATION_JSON).put(null);
 
         if (response.getStatus() != 200)
         {
@@ -172,11 +170,11 @@ public class ClientUserService
         return null;
     }
 
-    public String setTheme(int userID, int themeID)
+    public String setTheme(int themeID)
     {
-        logger.info("[CLIENT USER SERVICE][SET THEME]Set theme with id: " + themeID + " user with id: " + userID);
+        logger.info("[CLIENT USER SERVICE][SET THEME]Set theme with id: " + themeID);
         Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "user/setTheme/" + userID + "/" + themeID).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "user/setTheme/" + themeID).request(MediaType.APPLICATION_JSON).put(null);
 
         if (response.getStatus() != 200)
         {
@@ -187,12 +185,12 @@ public class ClientUserService
         return null;
     }
 
-    public String setUserPrivacy(int userID, int privacyID)
+    public String setUserPrivacy(int privacyID)
     {
-        logger.info("[CLIENT USER SERVICE][SET USER PRIVACY]Set user privacy for user with id:" + userID + "to privacy state:" + privacyID);
+        logger.info("[CLIENT USER SERVICE][SET USER PRIVACY]");
         Client client = ClientServiceController.getInstance().getClient();
 
-        Response response = client.target(url + "user/get/profile/setUserPrivacy/" + userID + "/" + privacyID).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "user/get/profile/setUserPrivacy/" + privacyID).request(MediaType.APPLICATION_JSON).put(null);
 
         if (response.getStatus() != 200)
         {
@@ -204,36 +202,36 @@ public class ClientUserService
         return null;
     }
 
-    public PrivacyDTO getUserPrivacy(int userID)
+    public PrivacyDTO getUserPrivacy()
     {
-        logger.info("[CLIENT USER SERVICE][GET USER PRIVACY]Get user privacy for user with id:" + userID);
+        logger.info("[CLIENT USER SERVICE][GET USER PRIVACY]");
         Client client = ClientServiceController.getInstance().getClient();
 
-        PrivacyDTO privacy = client.target(url + "user/get/profile/getUserPrivacy/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<PrivacyDTO>()
+        PrivacyDTO privacy = client.target(url + "user/get/profile/getUserPrivacy/").request(MediaType.APPLICATION_JSON).get(new GenericType<PrivacyDTO>()
         {
         });
 
         return privacy;
     }
 
-    public UserDTO getPublicUser(int userID)
+    public UserDTO getPublicUser()
     {
         logger.info("[CLIENT USER SERVICE][GET PUBLIC USER]Get a public user");
         Client client = ClientServiceController.getInstance().getClient();
 
-        UserDTO user = client.target(url + "user/get/profile/getPublicUser/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<UserDTO>()
+        UserDTO user = client.target(url + "user/get/profile/getPublicUser/").request(MediaType.APPLICATION_JSON).get(new GenericType<UserDTO>()
         {
         });
 
         return user;
     }
 
-    public List<UserDTO> getPublicUsers(int userID)
+    public List<UserDTO> getPublicUsers()
     {
         logger.info("[CLIENT USER SERVICE][GET PUBLIC USERS]Get all public users");
         Client client = ClientServiceController.getInstance().getClient();
 
-        List<UserDTO> users = client.target(url + "user/get/profile/getPublicUsers/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
+        List<UserDTO> users = client.target(url + "user/get/profile/getPublicUsers/").request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
         {
         });
 
@@ -254,14 +252,14 @@ public class ClientUserService
         return users;
     }
 
-    public List<ActivityDTO> getActivities(int userID)
+    public List<ActivityDTO> getActivities()
     {
         logger.info("[CLIENT ADMIN SERVICE][GET USERS]Getting users ");
 
         Client client = ClientServiceController.getInstance().getClient();
         client.register(new JacksonFeature());
 
-        List<ActivityDTO> activities = client.target(url + "user/getActivities/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<List<ActivityDTO>>()
+        List<ActivityDTO> activities = client.target(url + "activity/getActivities/").request(MediaType.APPLICATION_JSON).get(new GenericType<List<ActivityDTO>>()
         {
         });
 

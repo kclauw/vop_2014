@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -54,7 +55,7 @@ public class PersonService
         }
     }
 
-    @GET
+    @PUT
     @Path("/{treeID}/{addType}/{personID}/{personMoveID}")
     @ApiOperation(value = "Move person", notes = "More notes about this method", response = String.class)
     public Response movePerson(@PathParam("treeID") int treeID, @PathParam("addType") int addType, @PathParam("personID") int personID, @PathParam("personMoveID") int personMoveID)
@@ -72,7 +73,7 @@ public class PersonService
         }
     }
 
-    @GET
+    @PUT
     @Path("/delete/{treeID}/{personId}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Delete person", notes = "More notes about this method", response = String.class)
@@ -91,7 +92,7 @@ public class PersonService
         }
     }
 
-    @POST
+    @PUT
     @Path("/update/{treeID}")
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Update person", notes = "More notes about this method", response = String.class)
@@ -125,7 +126,7 @@ public class PersonService
     }
 
     @POST
-    @Path("/upload/image/{treeID}/{personID}")
+    @Path("/images/upload/{treeID}/{personID}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @ApiOperation(value = "Upload person image", notes = "More notes about this method", response = String.class)
     public Response saveImage(@PathParam("personID") int personID, @PathParam("treeID") int treeID, InputStream bufferedImage)
@@ -145,29 +146,8 @@ public class PersonService
         }
     }
 
-    @POST
-    @Path("/upload/image/{personID}")
-    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-    @ApiOperation(value = "Upload person image", notes = "More notes about this method", response = String.class)
-    public Response saveImage(@PathParam("personID") int personID, InputStream bufferedImage)
-    {
-        try
-        {
-            logger.info("TRYING TO SAVE IMAGE " + bufferedImage);
-            String result = "Saving new Image for person " + personID;
-            logger.info("[SAVE][PERSONSERVICE] SAVING image for " + personID);
-            pc.savePersonImage(personID, ImageIO.read(bufferedImage));
-            return Response.status(Response.Status.OK).entity(result).build();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
-        }
-    }
-
-    @GET
-    @Path("/delete/images/{treeID}/{personID}")
+    @PUT
+    @Path("/images/delete/{treeID}/{personID}")
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Delete person image", notes = "More notes about this method", response = String.class)
     public Response deleteImage(@PathParam("personID") int personID, @PathParam("treeID") int treeID)
@@ -186,6 +166,7 @@ public class PersonService
         }
     }
 
+    //TODO revise this part.
     @GET
     @Path("/persons/{treeID}/{start}/{max}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -195,7 +176,6 @@ public class PersonService
         logger.info("[PERSON SERVICE][GET] Getting persons");
         System.out.println("GET - TreeServices");
         List<Person> persons = pc.getPersons(treeID, start, max);
-
         return persons;
     }
 

@@ -6,21 +6,21 @@ import gui.Panels;
 import gui.RegisterPanel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import service.ClientFacebookController;
+import service.ClientFacebookService;
 import service.ClientUserController;
 
 public class RegisterController implements IPanelController
 {
 
     private RegisterPanel registerPanel;
-    private ClientUserController uc;
-    private ClientFacebookController cfbc;
+    private ClientUserController clientUserController;
+    private ClientFacebookService clientFacebookService;
     private GuiController gui;
 
     public RegisterController(GuiController gui)
     {
-        uc = new ClientUserController();
-        cfbc = new ClientFacebookController();
+        clientUserController = new ClientUserController();
+        clientFacebookService = new ClientFacebookService();
         this.gui = gui;
     }
 
@@ -29,7 +29,7 @@ public class RegisterController implements IPanelController
         if (password.equals(passwordConfirm))
         {
             UserDTO user = new UserDTO(-1, username, password, null);
-            String succes = uc.makeUser(user);
+            String succes = clientUserController.makeUser(user);
             if (succes == null)
             {
                 JOptionPane.showConfirmDialog(registerPanel, "Account registered succesfully");
@@ -60,6 +60,6 @@ public class RegisterController implements IPanelController
 
     public void registerWithFB(String authCode)
     {
-        this.cfbc.registerWithFB(authCode);
+        this.clientFacebookService.registerWithFB(authCode);
     }
 }

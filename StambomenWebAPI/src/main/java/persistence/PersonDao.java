@@ -632,7 +632,7 @@ public class PersonDao implements IDao<Person>
     }
     
     @Override
-    public void save(Person value)
+    public int save(Person value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

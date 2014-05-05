@@ -6,8 +6,12 @@ import gui.PanelFactory;
 import gui.Panels;
 import gui.controls.FamilyTreeList;
 import gui.controls.FamilyTreeListItem;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import javax.swing.JPanel;
+import org.openide.util.Exceptions;
+import service.ClientGedcomService;
 import service.ClientTreeController;
 import service.ClientUserController;
 
@@ -18,13 +22,14 @@ public class TreeOverviewController implements IPanelController
     private GuiController gui;
     private ClientTreeController serv;
     private ClientUserController userController;
+    private ClientGedcomService clientGedcomService;
 
     public TreeOverviewController(GuiController gui)
     {
         this.gui = gui;
         this.serv = new ClientTreeController();
         this.userController = new ClientUserController();
-
+        this.clientGedcomService = new ClientGedcomService();
     }
 
     public JPanel show()
@@ -82,6 +87,18 @@ public class TreeOverviewController implements IPanelController
     public void setAdminframe(JPanel panel)
     {
         gui.setAdminframe(panel);
+    }
+
+    public void importGedcom(int privacyId, int id, String name, File file)
+    {
+        try
+        {
+            clientGedcomService.importGedcom(privacyId, id, name, file);
+        }
+        catch (IOException ex)
+        {
+            Exceptions.printStackTrace(ex);
+        }
     }
 
 }

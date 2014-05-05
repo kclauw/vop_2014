@@ -100,7 +100,7 @@ public class UserDao implements IDao<User>
     }
 
     @Override
-    public void save(User value)
+    public int save(User value)
     {
         PreparedStatement prep = null;
         try
@@ -124,6 +124,22 @@ public class UserDao implements IDao<User>
             logger.info("[USER DAO] Saving user " + prep.toString());
 
             prep.executeUpdate();
+
+            int lastInsertedId = -1;
+
+            ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
+
+            if (getKeyRs != null)
+            {
+
+                if (getKeyRs.next())
+                {
+                    lastInsertedId = getKeyRs.getInt(1);
+                }
+                getKeyRs.close();
+            }
+
+            return lastInsertedId;
         }
         catch (SQLException ex)
         {
@@ -147,6 +163,8 @@ public class UserDao implements IDao<User>
             }
 
         }
+
+        return -1;
     }
 
     @Override

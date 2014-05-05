@@ -1,10 +1,8 @@
 package persistence;
 
-import persistence.interfaces.IDao;
 import domain.Activity;
 import domain.enums.Event;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import persistence.interfaces.IDao;
 
 public class ActivityDao implements IDao<Activity>
 {
@@ -83,7 +82,7 @@ public class ActivityDao implements IDao<Activity>
     }
 
     @Override
-    public void save(Activity value)
+    public int save(Activity value)
     {
         PreparedStatement prep = null;
         //eventID, userID, name, dateTime
@@ -96,7 +95,23 @@ public class ActivityDao implements IDao<Activity>
             prep.setString(3, value.getName());
             logger.info("[ACTIVITY DAO] Save activity" + prep);
             prep.executeUpdate();
-            con.close();
+
+            int lastInsertedId = -1;
+
+            ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
+
+            if (getKeyRs != null)
+            {
+
+                if (getKeyRs.next())
+                {
+                    lastInsertedId = getKeyRs.getInt(1);
+                }
+                getKeyRs.close();
+            }
+
+            return lastInsertedId;
+
         }
         catch (SQLException ex)
         {
@@ -119,6 +134,8 @@ public class ActivityDao implements IDao<Activity>
             }
 
         }
+
+        return -1;
     }
 
     @Override

@@ -19,7 +19,7 @@ public class RoleDao implements IDao
     private final String GETUSERROLEBYID = "SELECT r.name from Roles r left join RoleUser ru on r.roleID = ru.roleID left join User u on u.userID = ru.userID WHERE u.userID = ?";
 
     @Override
-    public void save(Object value)
+    public int save(Object value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

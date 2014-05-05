@@ -1,25 +1,24 @@
 package gui.controller;
 
 import dto.PersonDTO;
-import gui.PersonOverviewPanel;
 import gui.PanelFactory;
 import gui.Panels;
-import java.util.Collection;
+import gui.PersonOverviewPanel;
 import java.util.List;
 import javax.swing.JPanel;
-import service.ClientPersonController;
+import service.ClientPersonService;
 
 public class PersonOverviewController implements IPanelController
 {
 
     private PersonOverviewPanel personoverviewPanel;
     private GuiController gui;
-    private ClientPersonController pc;
+    private ClientPersonService clientPersonService;
 
     public PersonOverviewController(GuiController gui)
     {
 
-        this.pc = new ClientPersonController();
+        this.clientPersonService = new ClientPersonService();
         this.gui = gui;
     }
 
@@ -31,7 +30,7 @@ public class PersonOverviewController implements IPanelController
 
     public List<PersonDTO> getPersons(int start, int max)
     {
-        List<PersonDTO> t = pc.getPersons(start, max);
+        List<PersonDTO> t = clientPersonService.getPersons(start, max);
         return t;
     }
 

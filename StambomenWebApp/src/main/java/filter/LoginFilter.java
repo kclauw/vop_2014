@@ -13,12 +13,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import service.ClientPersonService;
 import service.ClientServiceController;
 import service.ClientTreeController;
 import service.ClientUserController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import service.ClientPersonController;
 import service.ServiceConstant;
 
 public class LoginFilter implements Filter
@@ -29,7 +29,7 @@ public class LoginFilter implements Filter
     @Override
     public void init(FilterConfig config) throws ServletException
     {
-        ServiceConstant.getInstance().setMode(2);
+        ServiceConstant.getInstance().setMode(0);
         // If you have any <init-param> in web.xml, then you could get them
         // here by config.getInitParameter("name") and assign it as field.
     }
@@ -170,11 +170,11 @@ public class LoginFilter implements Filter
 
             ClientServiceController serviceController = ClientServiceController.getInstance();
             ClientTreeController treeController = new ClientTreeController();
-            ClientPersonController personController = new ClientPersonController();
+            ClientPersonService personService = new ClientPersonService();
             user = serviceController.getUser();
 
             session.setAttribute("serviceController", serviceController);
-            session.setAttribute("personController", personController);
+            session.setAttribute("personService", personService);
             session.setAttribute("treeController", treeController);
             session.setAttribute("userController", uC);
 

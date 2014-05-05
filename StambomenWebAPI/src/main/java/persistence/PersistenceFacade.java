@@ -9,12 +9,10 @@ import domain.Tree;
 import domain.User;
 import domain.enums.Language;
 import domain.enums.Privacy;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.ResultSet;
-import java.util.Collection;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,10 +47,10 @@ public class PersistenceFacade
         logger = LoggerFactory.getLogger(getClass());
     }
 
-    public void addUser(User user)
+    public int addUser(User user)
     {
         logger.info("[PERSISTENCE CONTROLLER] Add User " + user);
-        userDao.save(user);
+        return userDao.save(user);
     }
 
     public List<User> getUsers()

@@ -87,7 +87,7 @@ public class ThemeDao implements IDao<Theme>
     }
 
     @Override
-    public void save(Theme value)
+    public int save(Theme value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
