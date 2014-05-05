@@ -10,6 +10,7 @@ import domain.User;
 import domain.UserSettings;
 import domain.enums.Language;
 import domain.enums.Privacy;
+import exception.UserAlreadyExistsException;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,6 +18,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 /**
  *
@@ -26,8 +29,8 @@ public class UserControllerTest
 {
 
     private static UserController uc;
-    private User user;
-    private Theme theme;
+    private static User user;
+    private static Theme theme;
 
     public UserControllerTest()
     {
@@ -36,7 +39,7 @@ public class UserControllerTest
     @BeforeClass
     public static void setUpClass()
     {
-        uc = new UserController();
+
     }
 
     @AfterClass
@@ -47,43 +50,33 @@ public class UserControllerTest
     @Before
     public void setUp()
     {
+        uc = new UserController();
+        theme = new Theme(1, "Default", "Valera", "FFFFFF", "252525", "334455", "B03A3A");
+        user = new User(-1, "TestUser", "Clauw123456789", new UserSettings(Language.EN, theme));
     }
 
     @After
     public void tearDown()
     {
+        user = uc.getUser(user.getUsername());
+        uc.deleteUser(user.getId());
     }
 
-    /**
-     * Test of addUser method, of class UserController.
-     */
     @Test
     public void testAddUser()
     {
         System.out.println("addUser");
-
-        theme = new Theme(1, "Default", "Valera", "FFFFFF", "252525", "334455", "B03A3A");
-        user = new User(1, "Kenzo", "Clauw", new UserSettings(Language.EN, theme));
-
         uc.addUser(user);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(user = uc.getUser(user.getUsername()));
+
     }
 
-    /**
-     * Test of getUser method, of class UserController.
-     */
-    @Test
-    public void testGetUser()
+    @Test(expected = UserAlreadyExistsException.class)
+    public void testAddUserExists() throws UserAlreadyExistsException
     {
-        System.out.println("getUser");
-        String username = "";
-        UserController instance = new UserController();
-        User expResult = null;
-        User result = instance.getUser(username);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        testAddUser();
+        System.out.println("testAddUserExists");
+        uc.addUser(user);
     }
 
 }
