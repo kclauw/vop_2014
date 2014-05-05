@@ -20,6 +20,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.glassfish.jersey.server.ContainerRequest;
@@ -83,7 +84,7 @@ public class UserService
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/login/{username}")
     @ApiOperation(value = "Login method, this is a placeholder method", notes = "More notes about this method", response = String.class)
-    public Response login(ContainerRequest cont, @PathParam("username") String username)
+    public Response login(@Context ContainerRequest cont, @PathParam("username") String username)
     {
         User user = (User) cont.getProperty("user");
         System.out.println("USER LOGGED IN:" + user);
@@ -91,14 +92,15 @@ public class UserService
     }
 
     @GET
-    @Path("/friends/{userId}")
+    @Path("/friends/")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Get friends based on the userID", notes = "More notes about this method", response = User.class)
-    public Response getFriends(@PathParam("userId") int userID)
+    public Response getFriends(@Context ContainerRequest cont)
     {
         try
         {
-            List<User> friends = uc.getFriends(userID);
+            User user = (User) cont.getProperty("user");
+            List<User> friends = uc.getFriends(user.getId());
             return Response.ok(friends).build();
         }
         catch (Exception ex)
@@ -108,215 +110,196 @@ public class UserService
     }
 
     @GET
-    @Path("/friends/requests/{userId}")
+    @Path("/friends/requests/")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Get friendrequest based on the userID", notes = "More notes about this method", response = User.class)
-    public Response getFriendRequests(@PathParam("userId") int userID)
+    public Response getFriendRequests(@Context ContainerRequest cont)
     {
-        List<User> request = uc.getFriendRequest(userID);
+        User user = (User) cont.getProperty("user");
+        List<User> request = uc.getFriendRequest(user.getId());
         return Response.ok(request).build();
     }
 
     @GET
-    @Path("/friends/delete/{userId}/{frienduserId}")
+    @Path("/friends/delete/{frienduserId}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Delete a friend", notes = "More notes about this method", response = String.class)
-    public Response deleteFriend(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID)
+    public Response deleteFriend(@Context ContainerRequest cont, @PathParam("frienduserId") int frienduserID)
     {
-        uc.deleteFriend(userID, frienduserID);
+        User user = (User) cont.getProperty("user");
+        uc.deleteFriend(user.getId(), frienduserID);
         return Response.ok().build();
     }
 
     @GET
-    @Path("/friends/requests/allow/{userId}/{frienduserId}")
+    @Path("/friends/requests/allow/{frienduserId}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Allow a friend request", notes = "More notes about this method", response = String.class)
-    public Response allowFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID)
+    public Response allowFriendRequest(@Context ContainerRequest cont, @PathParam("frienduserId") int frienduserID)
     {
-        uc.allowDenyFriendRequest(userID, frienduserID, true);
+        User user = (User) cont.getProperty("user");
+        uc.allowDenyFriendRequest(user.getId(), frienduserID, true);
         return Response.ok().build();
     }
 
     @GET
-    @Path("/friends/requests/deny/{userId}/{frienduserId}")
+    @Path("/friends/requests/deny/{frienduserId}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Deny a friend request", notes = "More notes about this method", response = String.class)
-    public Response denyFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserId") int frienduserID)
+    public Response denyFriendRequest(@Context ContainerRequest cont, @PathParam("frienduserId") int frienduserID)
     {
-        uc.allowDenyFriendRequest(userID, frienduserID, false);
+        User user = (User) cont.getProperty("user");
+        uc.allowDenyFriendRequest(user.getId(), frienduserID, false);
         return Response.ok().build();
     }
 
     @GET
-    @Path("/friends/requests/send/{userId}/{frienduserName}")
+    @Path("/friends/requests/send/{frienduserName}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Send a friend request", notes = "More notes about this method", response = String.class)
-    public Response sendFriendRequest(@PathParam("userId") int userID, @PathParam("frienduserName") String frienduserName)
+    public Response sendFriendRequest(@Context ContainerRequest cont, @PathParam("frienduserName") String frienduserName)
     {
-        uc.sendFriendRequest(userID, frienduserName);
+        User user = (User) cont.getProperty("user");
+        uc.sendFriendRequest(user.getId(), frienduserName);
         return Response.ok().build();
     }
 
     @GET
-    @Path("/setLanguage/{userID}/{languageID}")
+    @Path("/setLanguage/{languageID}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Set language", notes = "More notes about this method", response = String.class)
-    public Response setLanguage(@PathParam("userID") int userID, @PathParam("languageID") int languageID)
+    public Response setLanguage(@Context ContainerRequest cont, @PathParam("languageID") int languageID)
     {
-        logger.info("[User Service][SET LANGUAGE]Set language with id: " + languageID + " for user with id: " + userID);
-        Response rp = null;
         try
         {
-            System.out.println("userID: " + userID + " languageID: " + languageID);
-            String result = "Language set:" + languageID;
-
+            User user = (User) cont.getProperty("user");
+            logger.info("[User Service][SET LANGUAGE]Set language with id: " + languageID + " for user with id: " + user.getId());
             Language language = Language.getLanguageId(languageID);
-            uc.setLanguage(userID, language);
-            rp = Response.status(Response.Status.OK).entity(result).build();
+            uc.setLanguage(user.getId(), language);
+            return Response.status(Response.Status.OK).entity("Succesfully set language for user" + user.getId()).build();
 
         }
         catch (Exception ex)
         {
-            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
-
-        return rp;
     }
 
     @GET
-    @Path("/get/profile/setUserPrivacy/{userID}/{PrivacyID}")
+    @Path("/get/profile/setUserPrivacy/{PrivacyID}")
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Set user privacy", notes = "More notes about this method", response = String.class)
-    public Response setUserPrivacy(@PathParam("userID") int userID, @PathParam("PrivacyID") int PrivacyID)
+    public Response setUserPrivacy(@Context ContainerRequest cont, @PathParam("PrivacyID") int PrivacyID)
     {
-        logger.info("[User Service][SET USERPRIVACY]Set privacy with id: " + PrivacyID + " for user with id: " + userID);
-
-        Response rp = null;
         try
         {
+            User user = (User) cont.getProperty("user");
+            logger.info("[User Service][SET USERPRIVACY]Set privacy with id: " + PrivacyID + " for user with id: " + user.getId());
             String result = "privacy set:" + PrivacyID;
             Privacy privacy = Privacy.getPrivacy(PrivacyID);
-            uc.setUserPrivacy(userID, privacy);
-            rp = Response.ok(result).build();
+            uc.setUserPrivacy(user.getId(), privacy);
+            return Response.ok(result).build();
         }
         catch (Exception ex)
         {
-            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
-
-        return rp;
     }
 
     @GET
-    @Path("/get/profile/getUserPrivacy/{userID}")
+    @Path("/get/profile/getUserPrivacy")
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Get user privacy", notes = "More notes about this method", response = String.class)
-    public Response getUserPrivacy(@PathParam("userID") int userID)
+    public Response getUserPrivacy(@Context ContainerRequest cont)
     {
-        logger.info("[User Service][GET LANGUAGE]Get privacy from  user with id: " + userID);
-
-        Response rp = null;
-
         try
         {
-            Privacy privacy = uc.getUserPrivacy(userID);
-            rp = Response.ok(privacy).build();
+            User user = (User) cont.getProperty("user");
+            logger.info("[User Service][GET LANGUAGE]Get privacy from  user with id: " + user.getId());
+            Privacy privacy = uc.getUserPrivacy(user.getId());
+            return Response.ok(privacy).build();
         }
         catch (Exception ex)
         {
-            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
-
-        return rp;
     }
 
     @GET
-    @Path("/getLanguage/{userID}")
+    @Path("/getLanguage")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Get user language", notes = "More notes about this method", response = String.class)
-    public Response getLanguage(@PathParam("userID") int userID)
+    public Response getLanguage(@Context ContainerRequest cont)
     {
-        logger.info("[User Service][GET LANGUAGE]Get language from  user with id: " + userID);
-
-        Language language = uc.getLanguage(userID);
-        Response rp = null;
-
         try
         {
-            rp = Response.ok(language).build();
+            User user = (User) cont.getProperty("user");
+            logger.info("[User Service][GET LANGUAGE]Get language from  user with id: " + user.getId());
+            Language language = uc.getLanguage(user.getId());
+            return Response.ok(language).build();
         }
         catch (Exception ex)
         {
-            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
-
-        return rp;
     }
 
     @GET
-    @Path("/getActivities/{userID}")
+    @Path("/getActivities")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Get activities", notes = "More notes about this method", response = Activity.class)
-    public Response getActivities(@PathParam("userID") int userID)
+    public Response getActivities(@Context ContainerRequest cont)
     {
-        logger.info("[User Service][GET ACTIVITIES]Get activities from  user with id: " + userID);
-        List<Activity> act = ac.getActivities(userID);
-        Response rp = null;
-
         try
         {
-            rp = Response.ok(act).build();
+            User user = (User) cont.getProperty("user");
+            logger.info("[User Service][GET ACTIVITIES]Get activities from  user with id: " + user.getId());
+            List<Activity> acts = ac.getActivities(user.getId());
+            return Response.ok(acts).build();
         }
         catch (Exception ex)
         {
-            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
-
-        return rp;
     }
 
     @GET
-    @Path("/get/profile/getPublicUser/{userID}")
+    @Path("/get/profile/getPublicUser")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Get public user", notes = "More notes about this method", response = User.class)
-    public Response getPublicUser(@PathParam("userID") int userID)
+    public Response getPublicUser(@Context ContainerRequest cont)
     {
+
         Privacy userPrivacy = Privacy.PUBLIC;
-        Response rp = null;
         try
         {
-            User user = uc.getUserWithPrivacy(userID, userPrivacy);
-
-            rp = Response.ok(user).build();
+            User us = (User) cont.getProperty("user");
+            User user = uc.getUserWithPrivacy(us.getId(), userPrivacy);
+            return Response.ok(user).build();
         }
         catch (Exception ex)
         {
-            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
-
-        return rp;
     }
 
     @GET
-    @Path("/get/profile/getPublicUsers/{userID}")
+    @Path("/get/profile/getPublicUsers")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Get public users", notes = "More notes about this method", response = User.class)
-    public Response getPublicUsers(@PathParam("userID") int userID)
+    public Response getPublicUsers(@Context ContainerRequest cont)
     {
-        Privacy userPrivacy = Privacy.PUBLIC;
-        Response rp;
         try
         {
-            List<User> user = uc.getUsersWithPrivacy(userID, userPrivacy);
-
-            rp = Response.ok(user).build();
+            User user = (User) cont.getProperty("user");
+            Privacy userPrivacy = Privacy.PUBLIC;
+            List<User> users = uc.getUsersWithPrivacy(user.getId(), userPrivacy);
+            return Response.ok(users).build();
         }
         catch (Exception ex)
         {
-            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
-
-        return rp;
     }
 
     @GET
@@ -330,25 +313,24 @@ public class UserService
     }
 
     @GET
-    @Path("/setTheme/{userID}/{themeID}")
+    @Path("/setTheme/{themeID}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Set theme", notes = "More notes about this method", response = String.class)
-    public Response setTheme(@PathParam("userID") int userID, @PathParam("themeID") int themeID)
+    public Response setTheme(@Context ContainerRequest cont, @PathParam("themeID") int themeID)
     {
-        logger.info("[User Service][SET THEME]Set theme with id: " + themeID + " for user with id: " + userID);
-        Response rp = null;
+
         try
         {
+            User user = (User) cont.getProperty("user");
             String result = "Theme set:" + themeID;
-            uc.setTheme(userID, themeID);
-            rp = Response.status(Response.Status.OK).entity(result).build();
+            uc.setTheme(user.getId(), themeID);
+            logger.info("[User Service][SET THEME]Set theme with id: " + themeID + " for user with id: " + user.getId());
+            return Response.status(Response.Status.OK).entity(result).build();
         }
         catch (Exception ex)
         {
-            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
-
-        return rp;
     }
 
 }
