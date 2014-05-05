@@ -2,13 +2,12 @@ package domain.controller;
 
 import domain.Activity;
 import domain.Theme;
-import domain.enums.Privacy;
 import domain.User;
 import domain.enums.Event;
 import domain.enums.Language;
+import domain.enums.Privacy;
 import exception.UserAlreadyExistsException;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
@@ -36,7 +35,7 @@ public class UserController
      *
      * @param user
      */
-    public void addUser(User user)
+    public int addUser(User user)
     {
         /*Check wheter the user exists. This should be place in a repo.*/
         User us = pc.getUser(user.getUsername());
@@ -46,8 +45,8 @@ public class UserController
         }
         else
         {
-            pc.addUser(user);
-        };
+            return pc.addUser(user);
+        }
     }
 
     /**
@@ -71,9 +70,9 @@ public class UserController
     {
         logger.debug("LOGIN of user " + userCredentials[0]);
         User user = getUser(userCredentials[0]);
-        System.out.println("CREDS=" +Arrays.deepToString(userCredentials));
-        
-        System.out.println("User: " +user.toString());
+        System.out.println("CREDS=" + Arrays.deepToString(userCredentials));
+
+        System.out.println("User: " + user.toString());
         if (user.getFacebookProfileID() != null)
         {
             FacebookController fb = new FacebookController();

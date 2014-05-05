@@ -31,7 +31,7 @@ public class TreeService
     @GET
     @Path("/{treeId}")
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Get tree based on the treeID", notes = "More notes about this method", response = Tree.class)
+    @ApiOperation(value = "Get tree based on the treeID", notes = "Returns a tree based on the given id.", response = Tree.class)
     public Tree getTree(@PathParam("treeId") int treeId)
     {
         logger.info("[TREE SERVICE][GET] Getting trees by treeid" + treeId);
@@ -40,9 +40,9 @@ public class TreeService
     }
 
     @GET
-    @Path("/user")
+    @Path("/getTree")
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Get trees based on the userID", notes = "More notes about this method", response = Tree.class)
+    @ApiOperation(value = "Get trees based on the userID", notes = "This method return the tree of the logged in user.", response = Tree.class)
     public List<Tree> getTreeByUser(@Context ContainerRequest cont)
     {
         User user = (User) cont.getProperty("user");
@@ -70,9 +70,9 @@ public class TreeService
     }
 
     @GET
-    @Path("user/treename/{name}")
+    @Path("getTreeByName/{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Get public trees by name", notes = "More notes about this method", response = Tree.class)
+    @ApiOperation(value = "Get public trees by name", notes = "Get all public trees with a certain name or part of a name.", response = Tree.class)
     public List<Tree> getPublicTreesByName(@Context ContainerRequest cont, @PathParam("name") String name)
     {
         User user = (User) cont.getProperty("user");

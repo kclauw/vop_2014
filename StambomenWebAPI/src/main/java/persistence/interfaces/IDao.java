@@ -12,7 +12,7 @@ public interface IDao<T>
 
     public T get(int id);
 
-    public void save(T value);
+    public int save(T value);
 
     public void update(T value);
 
