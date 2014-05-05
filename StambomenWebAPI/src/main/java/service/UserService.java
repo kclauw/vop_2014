@@ -2,10 +2,8 @@ package service;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
-import domain.Activity;
 import domain.Theme;
 import domain.User;
-import domain.controller.ActivityController;
 import domain.controller.UserController;
 import domain.enums.Language;
 import domain.enums.Privacy;
@@ -40,7 +38,6 @@ public class UserService
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private UserController uc = new UserController();
     private PersistenceFacade pc = new PersistenceFacade();
-    private ActivityController ac = new ActivityController(pc);
 
     @POST
     @Path("/post")
@@ -244,28 +241,6 @@ public class UserService
         try
         {
             rp = Response.ok(language).build();
-        }
-        catch (Exception ex)
-        {
-            rp = Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        }
-
-        return rp;
-    }
-
-    @GET
-    @Path("/getActivities/{userID}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Get activities", notes = "More notes about this method", response = Activity.class)
-    public Response getActivities(@PathParam("userID") int userID)
-    {
-        logger.info("[User Service][GET ACTIVITIES]Get activities from  user with id: " + userID);
-        List<Activity> act = ac.getActivities(userID);
-        Response rp = null;
-
-        try
-        {
-            rp = Response.ok(act).build();
         }
         catch (Exception ex)
         {
