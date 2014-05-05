@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import javax.imageio.ImageIO;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
@@ -48,7 +47,7 @@ public class ClientPersonService
     public String movePerson(int treeID, PersonAddDTO personAdd, int personID, int personMoveID)
     {
         Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "person/" + treeID + "/" + personAdd.getId() + "/" + personID + "/" + personMoveID).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "person/" + treeID + "/" + personAdd.getId() + "/" + personID + "/" + personMoveID).request(MediaType.APPLICATION_JSON).put(null);
 
         if (response.getStatus() != 200)
         {
@@ -67,7 +66,7 @@ public class ClientPersonService
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(person);
-        Response response = client.target(url + "person/update/" + treeID).request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
+        Response response = client.target(url + "person/update/" + treeID).request(MediaType.APPLICATION_JSON).put(Entity.entity(json, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() != 200)
         {
@@ -85,7 +84,7 @@ public class ClientPersonService
         System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + personID);
         Client client = ClientServiceController.getInstance().getClient();
 
-        Response response = client.target(url + "person/delete/" + treeID + "/" + personID).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "person/delete/" + treeID + "/" + personID).request(MediaType.APPLICATION_JSON).put(null);
 
         if (response.getStatus() != 200)
         {
@@ -109,7 +108,7 @@ public class ClientPersonService
             ImageIO.write(img, "jpg", bas);
             byte[] pic = bas.toByteArray();
 
-            Response response = client.target(url + "person/upload/image/" + treeID + "/" + personID).request(MediaType.APPLICATION_JSON).post(Entity.entity(pic, MediaType.APPLICATION_OCTET_STREAM_TYPE));
+            Response response = client.target(url + "person/images/upload/" + treeID + "/" + personID).request(MediaType.APPLICATION_JSON).post(Entity.entity(pic, MediaType.APPLICATION_OCTET_STREAM_TYPE));
 
             if (response.getStatus() != 200)
             {
@@ -131,7 +130,7 @@ public class ClientPersonService
     {
         Client client = ClientServiceController.getInstance().getClient();
 
-        Response response = client.target(url + "person/delete/images/" + treeID + "/" + personId).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "person/images/delete/" + treeID + "/" + personId).request(MediaType.APPLICATION_JSON).get();
 
         if (response.getStatus() != 200)
         {
