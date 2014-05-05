@@ -70,7 +70,7 @@ public class TreeService
     }
 
     @GET
-    @Path("getTreeByName/{name}")
+    @Path("/getTreeByName/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Get public trees by name", notes = "Get all public trees with a certain name or part of a name.", response = Tree.class)
     public List<Tree> getPublicTreesByName(@Context ContainerRequest cont, @PathParam("name") String name)
