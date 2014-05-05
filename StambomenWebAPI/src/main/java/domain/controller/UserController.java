@@ -1,5 +1,6 @@
 package domain.controller;
 
+import com.restfb.exception.FacebookOAuthException;
 import domain.Activity;
 import domain.Theme;
 import domain.User;
@@ -75,8 +76,20 @@ public class UserController
         System.out.println("User: " + user.toString());
         if (user.getFacebookProfileID() != null)
         {
-            FacebookController fb = new FacebookController();
-            return fb.loginWithFB(userCredentials[1]);
+            try
+            {
+                FacebookController fb = new FacebookController();
+                return fb.loginWithFB(userCredentials[1]);
+            }
+            catch (FacebookOAuthException ex)
+            {
+                if (user.getPassword().equals(userCredentials[1]))
+                {
+                    return user;
+                }
+
+                throw new IllegalArgumentException("Invalid LOGIN!");
+            }
         }
 
         if (user.getPassword().equals(userCredentials[1]))
