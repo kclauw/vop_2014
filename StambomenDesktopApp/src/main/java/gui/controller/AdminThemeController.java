@@ -6,18 +6,18 @@ import gui.Panels;
 import java.awt.Image;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import service.ClientAdminController;
+import service.ClientAdminService;
 
 public class AdminThemeController implements IPanelController
 {
 
     private GuiController gui;
     private AdminThemePanel adminThemePanel;
-    private ClientAdminController clientAdminController;
+    private ClientAdminService clientAdminService;
 
     public AdminThemeController(GuiController gui)
     {
-        this.clientAdminController = new ClientAdminController();
+        this.clientAdminService = new ClientAdminService();
         this.gui = gui;
     }
 
@@ -35,7 +35,7 @@ public class AdminThemeController implements IPanelController
 
     public void uploadLogo(Image scaled)
     {
-        String res = clientAdminController.uploadLogoImage(scaled);
+        String res = clientAdminService.uploadLogoImage(scaled);
 
         if (res != null)
         {
@@ -45,7 +45,7 @@ public class AdminThemeController implements IPanelController
 
     public void uploadBackgroundImage(Image scaled)
     {
-        String res = clientAdminController.uploadBackgroundImage(scaled);
+        String res = clientAdminService.uploadBackgroundImage(scaled);
 
         if (res != null)
         {

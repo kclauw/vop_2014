@@ -9,15 +9,12 @@ import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import org.openide.util.Exceptions;
-import service.ClientGedcomController;
 import service.ClientServiceController;
 import service.ClientTreeController;
 import service.ClientUserController;
@@ -29,7 +26,6 @@ public class FamilyTreeOverviewPanel extends IPanel
     private TreeOverviewController treeoverviewController;
     private ClientTreeController treeController;
     private ClientUserController userController;
-    private ClientGedcomController gedcomController;
 
     private JMenu menu;
     private JMenu menuS;
@@ -47,7 +43,6 @@ public class FamilyTreeOverviewPanel extends IPanel
 
     public FamilyTreeOverviewPanel()
     {
-        gedcomController = new ClientGedcomController();
         treeController = new ClientTreeController();
         userController = new ClientUserController();
         cbxPrivacy = new JComboBox();
@@ -124,18 +119,8 @@ public class FamilyTreeOverviewPanel extends IPanel
                     }
 
                     String name = JOptionPane.showInputDialog("Gelieve een naam voor de boom in te voeren");
-
-                    try
-                    {
-                        gedcomController.importGedcom(p.getPrivacyId(), userController.getUser().getId(), name, file);
-                        treeoverviewController.goTo(Panels.TREEOVERVIEW);
-                    }
-
-                    catch (IOException ex)
-                    {
-
-                        Exceptions.printStackTrace(ex);
-                    }
+                    treeoverviewController.importGedcom(p.getPrivacyId(), userController.getUser().getId(), name, file);
+                    treeoverviewController.goTo(Panels.TREEOVERVIEW);
 
                 }
                 else
