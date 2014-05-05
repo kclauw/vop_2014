@@ -29,7 +29,7 @@ public class LoginFilter implements Filter
     @Override
     public void init(FilterConfig config) throws ServletException
     {
-        ServiceConstant.getInstance().setMode(2);
+        ServiceConstant.getInstance().setMode(0);
         // If you have any <init-param> in web.xml, then you could get them
         // here by config.getInitParameter("name") and assign it as field.
     }

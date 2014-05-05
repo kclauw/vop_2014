@@ -11,18 +11,16 @@ import dto.TreeDTO;
 import dto.UserDTO;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import util.PersonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.ClientTreeController;
+import util.PersonUtil;
 
 /**
  *
@@ -247,7 +245,6 @@ public class TreeServlet extends HttpServlet
 
     private String getString(Object obj)
     {
-        logger.info("[TREE SERVLET][GET STRING]");
         if (obj == null)
         {
             return "/";
