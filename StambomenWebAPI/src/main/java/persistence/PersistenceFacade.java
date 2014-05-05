@@ -404,4 +404,10 @@ public class PersistenceFacade
         logger.info("[PERSISTENCE CONTROLLER] Get person has children");
         return personDao.getHasChildren(personID);
     }
+
+    public void deleteUser(int userID)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Delete user");
+        userDao.deleteUser(userID);
+    }
 }

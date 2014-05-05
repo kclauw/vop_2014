@@ -67,7 +67,7 @@ public class UserControllerTest
     {
         System.out.println("addUser");
         uc.addUser(user);
-        assertNotNull(user = uc.getUser(user.getUsername()));
+        assertNotNull(uc.getUser(user.getUsername()));
 
     }
 

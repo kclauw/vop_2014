@@ -71,9 +71,9 @@ public class UserController
     {
         logger.debug("LOGIN of user " + userCredentials[0]);
         User user = getUser(userCredentials[0]);
-        System.out.println("CREDS=" +Arrays.deepToString(userCredentials));
-        
-        System.out.println("User: " +user.toString());
+        System.out.println("CREDS=" + Arrays.deepToString(userCredentials));
+
+        System.out.println("User: " + user.toString());
         if (user.getFacebookProfileID() != null)
         {
             FacebookController fb = new FacebookController();
@@ -195,5 +195,10 @@ public class UserController
     public void updateUser(int userID, User user)
     {
         pc.updateUser(user);
+    }
+
+    public void deleteUser(int userID)
+    {
+        pc.deleteUser(userID);
     }
 }
