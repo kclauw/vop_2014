@@ -208,4 +208,9 @@ public class UserController
     {
         pc.updateUser(user);
     }
+
+    public void deleteUser(int userID)
+    {
+        pc.deleteUser(userID);
+    }
 }
