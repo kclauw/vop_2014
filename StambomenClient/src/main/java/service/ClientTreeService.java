@@ -42,29 +42,10 @@ public class ClientTreeService
         logger.info("[CLIENT TREE SERVICE][GET TREE]Getting trees from user with userid:" + userId);
         Client client = ClientServiceController.getInstance().getClient();
 
-        List<TreeDTO> list = client.target(url + "tree/getTree/").request(MediaType.APPLICATION_JSON).get(new GenericType<List<TreeDTO>>()
+        List<TreeDTO> list = client.target(url + "tree/getTree").request(MediaType.APPLICATION_JSON).get(new GenericType<List<TreeDTO>>()
         {
         });
 
-//
-//        for (TreeDTO tree : list)
-//        {
-//            List<PersonDTO> persons = tree.getPersons();
-//
-//            for (PersonDTO person : persons)
-//            {
-//                logger.info("[CLIENT TREE SERVICE][GET TREE]Person: " + person.hashCode() + " " + person.getFirstName());
-//
-//                if (person.getFather() != null)
-//                {
-//                    logger.info("[CLIENT TREE SERVICE][GET TREE]Person father: " + person.getFather().hashCode() + " " + person.getFather().getFirstName());
-//                }
-//                if (person.getMother() != null)
-//                {
-//                    logger.info("[CLIENT TREE SERVICE][GET TREE]Person mother: " + person.getMother().hashCode() + " " + person.getMother().getFirstName());
-//                }
-//            }
-//        }
         return list;
     }
 
