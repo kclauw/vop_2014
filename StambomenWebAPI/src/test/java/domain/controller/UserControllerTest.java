@@ -10,6 +10,8 @@ import domain.User;
 import domain.UserSettings;
 import domain.enums.Language;
 import domain.enums.Privacy;
+import exception.EmptyPasswordException;
+import exception.InvalidPasswordException;
 import exception.UserAlreadyExistsException;
 import java.util.List;
 import org.junit.After;
@@ -60,7 +62,14 @@ public class UserControllerTest
     public void tearDown()
     {
         user = uc.getUser(user.getUsername());
-        uc.deleteUser(user.getId());
+        try
+        {
+            uc.deleteUser(user.getId());
+        }
+        catch (NullPointerException e)
+        {
+
+        }
     }
 
     @Test
@@ -69,7 +78,6 @@ public class UserControllerTest
         System.out.println("addUser");
         uc.addUser(user);
         assertNotNull(uc.getUser(user.getUsername()));
-
     }
 
     @Test(expected = UserAlreadyExistsException.class)
@@ -78,6 +86,22 @@ public class UserControllerTest
         testAddUser();
         System.out.println("testAddUserExists");
         uc.addUser(user);
+    }
+
+    @Test(expected = InvalidPasswordException.class)
+    public void testAddUserPasswordToShort() throws UserAlreadyExistsException, NullPointerException
+    {
+
+        System.out.println("testAddUserPasswordToShort");
+        uc.addUser(new User(-1, "KenzoclauwA", "abcd", new UserSettings(Language.EN, theme)));
+    }
+
+    @Test(expected = EmptyPasswordException.class)
+    public void testAddUserPasswordNull() throws UserAlreadyExistsException, NullPointerException
+    {
+
+        System.out.println("testAddUserPasswordNull");
+        uc.addUser(new User(-1, "KenzoclauwA", "", new UserSettings(Language.EN, theme)));
     }
 
 }
