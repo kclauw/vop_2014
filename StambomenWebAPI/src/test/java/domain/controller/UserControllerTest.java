@@ -104,4 +104,23 @@ public class UserControllerTest
         uc.addUser(new User(-1, "KenzoclauwA", "", new UserSettings(Language.EN, theme)));
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testLoginNull() throws NullPointerException
+    {
+        String[] userCredentials = null;
+        userCredentials[0] = "";
+        System.out.println("testLoginNull");
+        uc.login(userCredentials);
+    }
+
+    @Test
+    public void testLogin()
+    {
+        String[] userCredentials = null;
+        userCredentials[0] = "TestUser";
+        userCredentials[1] = "Clauw123456789";
+        System.out.println("testLoginNull");
+        // assertNotNull(uc.login(userCredentials));
+    }
+
 }
