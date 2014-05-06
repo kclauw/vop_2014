@@ -14,6 +14,8 @@ import domain.User;
 import domain.UserSettings;
 import domain.enums.Language;
 import domain.enums.Privacy;
+import exception.TreeAlreadyExistsException;
+import exception.TreeNameAlreadyExistsException;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -21,6 +23,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import persistence.TreeNameCannotBeEmptyException;
 
 /**
  *
@@ -68,6 +71,7 @@ public class TreeControllerTest
                 .country("België")
                 .zipCode("8400")
                 .build();
+        tree = new Tree(-1, user, Privacy.FRIENDS, "Clauw", null);
     }
 
     @After
@@ -75,15 +79,20 @@ public class TreeControllerTest
     {
     }
 
-    /**
-     * Test of addTree method, of class TreeController.
-     */
     @Test
-    public void testAddTree()
+    public void testAddTree() throws TreeNameAlreadyExistsException
     {
         System.out.println("addTree");
         tree = new Tree(-1, user, Privacy.FRIENDS, "Clauw", null);
         assertNotNull(tc.addTree(tree));
+        assertNotNull(tc.getTree("Clauw"));
+
     }
 
+    @Test(expected = TreeNameCannotBeEmptyException.class)
+    public void testTreeNameNull()
+    {
+        System.out.println("Empty Tree");
+        tree = new Tree(-1, user, Privacy.FRIENDS, " ", null);
+    }
 }
