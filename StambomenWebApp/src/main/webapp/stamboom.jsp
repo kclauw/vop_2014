@@ -4,12 +4,15 @@
     Author     : Lowie
 --%>
 
+<%@page import="util.Translator"%>
 <%@page import="dto.ImageTypeDTO"%>
 <%@page import="service.ServiceConstant"%>
 <%@page import="dto.ThemeDTO"%>
 <%@page import="dto.UserDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%! Translator trans = new Translator(); %> 
+ <%   trans.updateLanguage(); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -52,6 +55,13 @@
         
         <script src="./js/jquery-1.11.0.min.js"></script>
         <script src="./js/jquery.scrollTo-1.4.3.1-min.js"></script>
+        <script>
+            var lblBirthdate = "<%= trans.translate("DBirth") %>";
+            var lblDeathdate = "<%= trans.translate("DDeath") %>";
+            var lblPlace = "<%= trans.translate("Place") %>";
+            var lblCountry = "<%= trans.translate("Country") %>";
+
+        </script>
         <script src="./js/stamboom.js"></script>
     </head>
     <body>
@@ -64,8 +74,8 @@
                     <p id="deathdate"></p>
                     <p id="place"></p>
                     <p id="country"></p>
-                    <form method="post" action="./TreeServlet"><input id="refpersonid" name="refpersonid" value="" type="hidden"/><input class="submit" type="submit" value="Set as referenceperson"/></form>
-                    <form method="post" action="./TimemachineServlet"><input id="refpersonid" name="refpersonid" value="" type="hidden"/><input class="submit" type="submit" value="Show in timemachine"/></form>
+                    <form method="post" action="./TreeServlet"><input id="refpersonid" name="refpersonid" value="" type="hidden"/><input class="submit" type="submit" value="<%= trans.translate("SetAsReferenceperson") %>"/></form>
+                    <form method="post" action="./TimemachineServlet"><input id="refpersonid" name="refpersonid" value="" type="hidden"/><input class="submit" type="submit" value="<%= trans.translate("ShowInTimemachine") %>"/></form>
                 </div>
             </div>
             <div></div>

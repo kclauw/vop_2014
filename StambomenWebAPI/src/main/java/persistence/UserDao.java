@@ -42,9 +42,9 @@ public class UserDao implements IDao<User>
     private final String GETUSERSWITHPRIVACY = "SELECT * FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID != ? AND u.privacy = ?";
     private final String SETUSERBLOCK = "UPDATE User SET block = ? WHERE userID = ?";
     private final String UPDATEUSER = "UPDATE User SET username = ? WHERE userID = ?";
-    
-    // private final PersistenceController pc;
+    private final String DELETE_USER = "DELETE from User WHERE userID = ?";
 
+    // private final PersistenceController pc;
     public UserDao(PersistenceFacade pc)
     {
         //    this.pc = new PersistenceController();
@@ -100,7 +100,7 @@ public class UserDao implements IDao<User>
     }
 
     @Override
-    public void save(User value)
+    public int save(User value)
     {
         PreparedStatement prep = null;
         try
@@ -124,6 +124,22 @@ public class UserDao implements IDao<User>
             logger.info("[USER DAO] Saving user " + prep.toString());
 
             prep.executeUpdate();
+
+            int lastInsertedId = -1;
+
+            ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
+
+            if (getKeyRs != null)
+            {
+
+                if (getKeyRs.next())
+                {
+                    lastInsertedId = getKeyRs.getInt(1);
+                }
+                getKeyRs.close();
+            }
+
+            return lastInsertedId;
         }
         catch (SQLException ex)
         {
@@ -147,6 +163,8 @@ public class UserDao implements IDao<User>
             }
 
         }
+
+        return -1;
     }
 
     @Override
@@ -187,12 +205,6 @@ public class UserDao implements IDao<User>
             }
 
         }
-    }
-
-    @Override
-    public void delete(User value)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -947,5 +959,45 @@ public class UserDao implements IDao<User>
         }
 
         return user;
+    }
+
+    public void deleteUser(int userID)
+    {
+        PreparedStatement prep = null;
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            prep = con.prepareStatement(DELETE_USER);
+            prep.setInt(1, userID);
+            prep.executeUpdate();
+            logger.info("[USER DAO] Deleting user " + prep.toString());
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[SQLException][USERDAO][Save]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[Exception][USERDAO][Save]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @Override
+    public void delete(User value)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

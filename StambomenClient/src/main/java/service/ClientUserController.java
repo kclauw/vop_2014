@@ -37,7 +37,7 @@ public class ClientUserController
         logger.info("[CLIENT USER CONTROLLER][GET FRIENDS]");
         int userID = ClientServiceController.getInstance().getUser().getId();
 
-        return client.getFriends(userID);
+        return client.getFriends();
     }
 
     public List<UserDTO> getFriendRequests()
@@ -45,7 +45,7 @@ public class ClientUserController
         logger.info("[CLIENT USER CONTROLLER][GET FRIEND REQUESTS]");
         int userID = ClientServiceController.getInstance().getUser().getId();
 
-        return client.getFriendRequests(userID);
+        return client.getFriendRequests();
     }
 
     public void deleteFriend(int frienduserID)
@@ -53,7 +53,7 @@ public class ClientUserController
         logger.info("[CLIENT USER CONTROLLER][DELETE FRIEND]Delete friend with ID:" + frienduserID);
         int userID = ClientServiceController.getInstance().getUser().getId();
 
-        client.deleteFriend(userID, frienduserID);
+        client.deleteFriend(frienduserID);
     }
 
     public void allowDenyFriendRequest(int frienduserID, boolean allow)
@@ -61,21 +61,21 @@ public class ClientUserController
         logger.info("[CLIENT USER CONTROLLER][ALLOW DENY FRIEND REQUEST]Allow friendrequest from user with id:" + frienduserID);
         int userID = ClientServiceController.getInstance().getUser().getId();
 
-        client.allowDenyFriendRequest(userID, frienduserID, allow);
+        client.allowDenyFriendRequest(frienduserID, allow);
     }
 
     public void sendFriendRequest(String frienduserName)
     {
         logger.info("[CLIENT USER CONTROLLER][SEND FRIEND REQUEST]Friend request naar user:" + frienduserName.toString());
         int userID = ClientServiceController.getInstance().getUser().getId();
-        client.sendFriendRequest(userID, frienduserName);
+        client.sendFriendRequest(frienduserName);
     }
 
     public void setLanguage(int language)
     {
         int userID = ClientServiceController.getInstance().getUser().getId();
         logger.info("[CLIENT USER CONTROLLER][SET LANGUAGE]Set language with id: " + language + " user with id: " + userID);
-        client.setLanguage(userID, language);
+        client.setLanguage(language);
 
         LanguageDTO lan = LanguageDTO.EN;
 
@@ -98,15 +98,22 @@ public class ClientUserController
     {
         int userID = ClientServiceController.getInstance().getUser().getId();
         logger.info("[CLIENT USER CONTROLLER][SET THEME]Set theme with id: " + theme.getThemeID() + " user with id: " + userID);
-        client.setTheme(userID, theme.getThemeID());
+        client.setTheme(theme.getThemeID());
 
         ClientServiceController.getInstance().getUser().getUserSettings().setTheme(theme);
     }
 
     public LanguageDTO getLanguage()
     {
-        return ClientServiceController.getInstance().getUser().getUserSettings().getLanguage();
-        //logger.info("[CLIENT USER CONTROLLER][GET LANGUAGE]Get language from user with id: " + userID);
+        LanguageDTO language = ClientServiceController.getInstance().getUser().getUserSettings().getLanguage();
+        if (language != null)
+        {
+            return language;
+        }
+        else
+        {
+            return LanguageDTO.EN;
+        }
     }
 
     public ThemeDTO getTheme()
@@ -123,27 +130,27 @@ public class ClientUserController
     {
         int userID = ClientServiceController.getInstance().getUser().getId();
 
-        client.setUserPrivacy(userID, userPrivacy);
+        client.setUserPrivacy(userPrivacy);
     }
 
     public List<ActivityDTO> getActivities()
     {
         int userID = ClientServiceController.getInstance().getUser().getId();
-        List<ActivityDTO> l = client.getActivities(userID);
+        List<ActivityDTO> l = client.getActivities();
         return l;
     }
 
     public PrivacyDTO getUserPrivacy()
     {
         int userID = ClientServiceController.getInstance().getUser().getId();
-        PrivacyDTO privacyDTO = client.getUserPrivacy(userID);
+        PrivacyDTO privacyDTO = client.getUserPrivacy();
 
         return privacyDTO;
     }
 
     public UserDTO getPublicUser(int userID)
     {
-        UserDTO user = client.getPublicUser(userID);
+        UserDTO user = client.getPublicUser();
 
         return user;
     }
@@ -151,7 +158,7 @@ public class ClientUserController
     public List<UserDTO> getPublicUsers()
     {
         int userID = ClientServiceController.getInstance().getUser().getId();
-        List<UserDTO> users = client.getPublicUsers(userID);
+        List<UserDTO> users = client.getPublicUsers();
 
         return users;
     }

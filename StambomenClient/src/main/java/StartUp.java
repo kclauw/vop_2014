@@ -1,12 +1,4 @@
 
-import dto.PersonDTO;
-import dto.TreeDTO;
-import dto.UserDTO;
-import java.util.List;
-import service.ClientPersonController;
-import service.ClientTreeController;
-import service.ClientUserController;
-
 public class StartUp
 {
 

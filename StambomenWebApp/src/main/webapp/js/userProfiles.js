@@ -4,7 +4,7 @@ $(document).ready(function() {
         closePopUpBox();
     });
 
-    $("#publicUserProfile li").click(function() {
+    $(".publicUserProfile li").click(function() {
         getUserProfileInPopUpBox(this.id);
     });
 });

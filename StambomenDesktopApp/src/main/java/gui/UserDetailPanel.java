@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 import service.ClientUserController;
 import util.Translator;
 
-public class UserDetailPanel extends javax.swing.JPanel
+public class UserDetailPanel extends IPanel
 {
 
     private boolean add = false;

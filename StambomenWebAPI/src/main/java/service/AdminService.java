@@ -5,7 +5,6 @@ import domain.User;
 import domain.controller.ApplicationController;
 import domain.controller.PersonController;
 import domain.controller.UserController;
-import exception.PersonAlreadyExistsException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -36,9 +35,7 @@ public class AdminService
     public List<Person> getPersons(@PathParam("treeID") int treeID, @PathParam("start") int start, @PathParam("max") int max) throws IOException
     {
         logger.info("[PERSON SERVICE][GET] Getting persons");
-        System.out.println("GET - TreeServices");
         List<Person> persons = pc.getPersons(start, max);
-
         return persons;
     }
 
@@ -49,7 +46,6 @@ public class AdminService
     {
         logger.info("[USER SERVICE][GET] Getting users");
         List<User> users = uc.getUsers();
-
         return users;
     }
 

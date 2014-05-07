@@ -1,5 +1,7 @@
 package service;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import domain.User;
 import domain.controller.FacebookController;
 import javax.ws.rs.GET;
@@ -12,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Path("/facebook")
+@Api(value = "/facebook", description = "Operations with Facebook")
 public class FacebookService
 {
 
@@ -21,11 +24,12 @@ public class FacebookService
     @GET
     @Path("/login/{code}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response loginWithFB(@PathParam("code") String code)
+    @ApiOperation(value = "Login with FB", notes = "More notes about this method", response = String.class)
+    public Response loginWithFB(@PathParam("code") String authCode)
     {
         try
         {
-            User user = fbController.loginWithFB(code);
+            User user = fbController.loginWithFB(authCode);
             return Response.status(Response.Status.OK).entity(user).build();
         }
         catch (Exception e)
@@ -37,6 +41,7 @@ public class FacebookService
     @GET
     @Path("/register/{code}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Register with FB", notes = "More notes about this method", response = String.class)
     public Response registerWithFB(@PathParam("code") String authCode)
     {
         try

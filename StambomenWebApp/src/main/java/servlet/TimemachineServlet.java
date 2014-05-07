@@ -12,8 +12,6 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import service.ClientPersonController;
-import service.ClientTreeController;
-import service.ClientUserController;
+import service.ClientPersonService;
 
 /**
  *
@@ -161,10 +157,10 @@ public class TimemachineServlet extends HttpServlet
             }
             else if (person.getPlace() == null || person.getPlace().getCoord() == null || (person.getPlace().getCoord().getLatitude() == 0 && person.getPlace().getCoord().getLongitude() == 0))
             {
-                ClientPersonController personController = (ClientPersonController) session.getAttribute("personController");
-                personController.updatePerson(tree.getId(), person);
+                ClientPersonService personService = (ClientPersonService) session.getAttribute("personService");
+                personService.updatePerson(tree.getId(), person);
 
-                PersonDTO personupdated = personController.getPerson(tree.getId(), person.getPersonId());
+                PersonDTO personupdated = personService.getPerson(tree.getId(), person.getPersonId());
                 if (personupdated != null)
                 {
                     person = personupdated;

@@ -9,7 +9,7 @@ import gui.Panels;
 import java.awt.Image;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import service.ClientPersonController;
+import service.ClientPersonService;
 import service.ClientTreeController;
 
 public class TreeController implements IPanelController
@@ -19,13 +19,13 @@ public class TreeController implements IPanelController
     private GuiController gui;
     private TreeDTO tree;
     private ClientTreeController clientTreeController;
-    private ClientPersonController clientPersonController;
+    private ClientPersonService clientPersonService;
 
     public TreeController(GuiController guiController)
     {
         this.gui = guiController;
         this.clientTreeController = new ClientTreeController();
-        this.clientPersonController = new ClientPersonController();
+        this.clientPersonService = new ClientPersonService();
     }
 
     public JPanel show()
@@ -73,7 +73,7 @@ public class TreeController implements IPanelController
     {
 
         System.out.println("[TREE CONTROLLER] DELETING PERSON " + person.toString());
-        String res = clientPersonController.deletePerson(tree.getId(), person.getPersonId());
+        String res = clientPersonService.deletePerson(tree.getId(), person.getPersonId());
 
         if (res != null)
         {
@@ -89,7 +89,7 @@ public class TreeController implements IPanelController
     public void updatePerson(PersonDTO person)
     {
         System.out.println("[TREE CONTROLLER] UPDATING PERSON " + person.toString());
-        String res = clientPersonController.updatePerson(tree.getId(), person);
+        String res = clientPersonService.updatePerson(tree.getId(), person);
 
         if (res == null)
         {
@@ -107,7 +107,7 @@ public class TreeController implements IPanelController
         }
 
         System.out.println("[TREE CONTROLLER] SAVING PERSON " + person.toString());
-        String res = clientPersonController.savePerson(tree.getId(), personAdd, person, link);
+        String res = clientPersonService.savePerson(tree.getId(), personAdd, person, link);
 
         if (res == null)
         {
@@ -129,7 +129,7 @@ public class TreeController implements IPanelController
 
     public void saveImage(PersonDTO person, Image image)
     {
-        String res = clientPersonController.saveImage(tree.getId(), person.getPersonId(), image);
+        String res = clientPersonService.saveImage(tree.getId(), person.getPersonId(), image);
         System.out.println("[TREE CONTROLLER] SAVING IMAGE OF PERSON " + person.getPersonId());
 
         if (res != null)
@@ -146,7 +146,7 @@ public class TreeController implements IPanelController
 
     public void deleteImage(PersonDTO person)
     {
-        String res = clientPersonController.deleteImage(tree.getId(), person.getPersonId());
+        String res = clientPersonService.deleteImage(tree.getId(), person.getPersonId());
         System.out.println("[TREE CONTROLLER] DELETE IMAGE OF PERSON " + person.getPersonId());
 
         if (res != null)
@@ -162,7 +162,7 @@ public class TreeController implements IPanelController
 
     public void movePerson(PersonAddDTO personAddDTO, int personId, int personMoveID)
     {
-        String res = clientPersonController.movePerson(tree.getId(), personAddDTO, personId, personMoveID);
+        String res = clientPersonService.movePerson(tree.getId(), personAddDTO, personId, personMoveID);
 
         if (res != null)
         {

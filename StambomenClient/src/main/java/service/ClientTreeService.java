@@ -18,7 +18,7 @@ public class ClientTreeService
 
     private final String url = ServiceConstant.getInstance().getURL();
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    private ClientPersonController pc = new ClientPersonController();
+    private ClientPersonService pc = new ClientPersonService();
 
     public String makeTree(TreeDTO treeDTO)
     {
@@ -42,29 +42,10 @@ public class ClientTreeService
         logger.info("[CLIENT TREE SERVICE][GET TREE]Getting trees from user with userid:" + userId);
         Client client = ClientServiceController.getInstance().getClient();
 
-        List<TreeDTO> list = client.target(url + "tree/user/" + userId).request(MediaType.APPLICATION_JSON).get(new GenericType<List<TreeDTO>>()
+        List<TreeDTO> list = client.target(url + "tree/getTree").request(MediaType.APPLICATION_JSON).get(new GenericType<List<TreeDTO>>()
         {
         });
 
-//
-//        for (TreeDTO tree : list)
-//        {
-//            List<PersonDTO> persons = tree.getPersons();
-//
-//            for (PersonDTO person : persons)
-//            {
-//                logger.info("[CLIENT TREE SERVICE][GET TREE]Person: " + person.hashCode() + " " + person.getFirstName());
-//
-//                if (person.getFather() != null)
-//                {
-//                    logger.info("[CLIENT TREE SERVICE][GET TREE]Person father: " + person.getFather().hashCode() + " " + person.getFather().getFirstName());
-//                }
-//                if (person.getMother() != null)
-//                {
-//                    logger.info("[CLIENT TREE SERVICE][GET TREE]Person mother: " + person.getMother().hashCode() + " " + person.getMother().getFirstName());
-//                }
-//            }
-//        }
         return list;
     }
 
@@ -94,7 +75,7 @@ public class ClientTreeService
         logger.info("[CLIENT TREE SERVICE][GET PUBLIC TREES BY NAME]Getting public trees for user with userid:" + userId + " with name like: %" + name + "%");
         Client client = ClientServiceController.getInstance().getClient();
 
-        List<TreeDTO> list = client.target(url + "tree/user/" + userId + "/treename/" + name).request(MediaType.APPLICATION_JSON).get(new GenericType<List<TreeDTO>>()
+        List<TreeDTO> list = client.target(url + "tree/getTreeByName/" + name).request(MediaType.APPLICATION_JSON).get(new GenericType<List<TreeDTO>>()
         {
         });
 

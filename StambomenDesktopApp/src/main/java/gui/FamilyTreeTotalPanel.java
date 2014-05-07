@@ -24,7 +24,7 @@ import org.abego.treelayout.util.DefaultConfiguration;
 import org.openide.util.Exceptions;
 import util.PersonUtil;
 
-public class FamilyTreeTotalPanel extends javax.swing.JPanel
+public class FamilyTreeTotalPanel extends IPanel
 {
 
     //  private FamilyTreePanel familyTreePanel;
@@ -114,6 +114,7 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
 
     public void drawFamilyTree(List<PersonDTO> persons)
     {
+        startTask();
         this.persons = persons;
         DefaultConfiguration def = new DefaultConfiguration<PersonDTO>(maxGapBetweenNodes, maxGapBetweenLevel);
         PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), this.persons);
@@ -124,10 +125,12 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         TextInBoxTreePane panel = new TextInBoxTreePane(this, trLayout);
         this.scroll.add(panel);
         this.scroll.setViewportView(panel);
+        stopTask();
     }
 
     public void drawFamilyTree(List<PersonDTO> persons, DefaultConfiguration def)
     {
+        startTask();
         this.persons = persons;
         PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), persons);
         TreeLayout<PersonDTO> layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), def);
@@ -136,6 +139,7 @@ public class FamilyTreeTotalPanel extends javax.swing.JPanel
         TextInBoxTreePane panel = new TextInBoxTreePane(this, trLayout);
         this.scroll.add(panel);
         this.scroll.setViewportView(panel);
+        stopTask();
     }
 
     private static TreeForTreeLayout<TextInBox> getSampleTree(TreeLayout<PersonDTO> tree)

@@ -1,5 +1,7 @@
 package service;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import domain.Person;
 import domain.controller.PersonController;
 import domain.enums.PersonAdd;
@@ -11,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -20,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Path("/person")
+@Api(value = "/person", description = "Operations about persons")
 public class PersonService
 {
 
@@ -29,6 +33,7 @@ public class PersonService
     @POST
     @Path("/{treeID}/{addType}/{personLinkID}/post")
     @Consumes(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Add person", notes = "More notes about this method", response = String.class)
     public Response addPerson(@PathParam("treeID") int treeID, @PathParam("addType") int addType, @PathParam("personLinkID") int personLinkID, Person person)
     {
         try
@@ -50,8 +55,9 @@ public class PersonService
         }
     }
 
-    @GET
+    @PUT
     @Path("/{treeID}/{addType}/{personID}/{personMoveID}")
+    @ApiOperation(value = "Move person", notes = "More notes about this method", response = String.class)
     public Response movePerson(@PathParam("treeID") int treeID, @PathParam("addType") int addType, @PathParam("personID") int personID, @PathParam("personMoveID") int personMoveID)
     {
         try
@@ -67,9 +73,10 @@ public class PersonService
         }
     }
 
-    @GET
+    @PUT
     @Path("/delete/{treeID}/{personId}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Delete person", notes = "More notes about this method", response = String.class)
     public Response deletePerson(@PathParam("treeID") int treeID, @PathParam("personId") int personId)
     {
         try
@@ -85,9 +92,10 @@ public class PersonService
         }
     }
 
-    @POST
+    @PUT
     @Path("/update/{treeID}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Update person", notes = "More notes about this method", response = String.class)
     public Response updatePerson(@PathParam("treeID") int treeID, Person person)
     {
         try
@@ -109,6 +117,7 @@ public class PersonService
     @Path("/{treeID}/{personID}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Get persons", notes = "More notes about this method", response = String.class)
     public Person getPerson(@PathParam("treeID") int treeID, @PathParam("personID") int personID)
     {
         logger.info("[GET][PERSONSERVICE]" + personID);
@@ -117,8 +126,9 @@ public class PersonService
     }
 
     @POST
-    @Path("/upload/image/{treeID}/{personID}")
+    @Path("/images/upload/{treeID}/{personID}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    @ApiOperation(value = "Upload person image", notes = "More notes about this method", response = String.class)
     public Response saveImage(@PathParam("personID") int personID, @PathParam("treeID") int treeID, InputStream bufferedImage)
     {
         try
@@ -136,29 +146,10 @@ public class PersonService
         }
     }
 
-    @POST
-    @Path("/upload/image/{personID}")
-    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-    public Response saveImage(@PathParam("personID") int personID, InputStream bufferedImage)
-    {
-        try
-        {
-            logger.info("TRYING TO SAVE IMAGE " + bufferedImage);
-            String result = "Saving new Image for person " + personID;
-            logger.info("[SAVE][PERSONSERVICE] SAVING image for " + personID);
-            pc.savePersonImage(personID, ImageIO.read(bufferedImage));
-            return Response.status(Response.Status.OK).entity(result).build();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
-        }
-    }
-
-    @GET
-    @Path("/delete/images/{treeID}/{personID}")
+    @PUT
+    @Path("/images/delete/{treeID}/{personID}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Delete person image", notes = "More notes about this method", response = String.class)
     public Response deleteImage(@PathParam("personID") int personID, @PathParam("treeID") int treeID)
     {
         try
@@ -175,15 +166,16 @@ public class PersonService
         }
     }
 
+    //TODO revise this part.
     @GET
     @Path("/persons/{treeID}/{start}/{max}")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Get persons with min and max range", notes = "More notes about this method", response = String.class)
     public List<Person> getPersons(@PathParam("treeID") int treeID, @PathParam("start") int start, @PathParam("max") int max) throws IOException
     {
         logger.info("[PERSON SERVICE][GET] Getting persons");
         System.out.println("GET - TreeServices");
         List<Person> persons = pc.getPersons(treeID, start, max);
-
         return persons;
     }
 

@@ -8,13 +8,8 @@ import org.slf4j.LoggerFactory;
 public class ClientTreeController
 {
 
-    private ClientTreeService client;
+    private ClientTreeService client = new ClientTreeService();
     private final Logger logger = LoggerFactory.getLogger(getClass());
-
-    public ClientTreeController()
-    {
-        this.client = new ClientTreeService();
-    }
 
     public String makeTree(TreeDTO tree)
     {

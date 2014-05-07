@@ -1,40 +1,33 @@
 package gui;
 
+import dto.PersonDTO;
+import dto.PersonTableModel;
 import gui.controller.PersonOverviewController;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-import dto.PersonDTO;
-import dto.PersonTableModel;
-import dto.TreeDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
-import service.ClientPersonController;
-import service.ClientTreeController;
 
-public class PersonOverviewPanel extends javax.swing.JPanel
+public class PersonOverviewPanel extends IPanel
 {
 
-    private ClientPersonController personController;
-    private ClientTreeController treeController;
+    private PersonOverviewController personController;
     private FamilyTreeDetailPanel familyTreeDetailPanel;
-
     private List<PersonDTO> persons;
-    private List<TreeDTO> trees;
-
     private TableRowSorter<PersonTableModel> sorter;
 
     private boolean DEBUG = false;
@@ -45,7 +38,6 @@ public class PersonOverviewPanel extends javax.swing.JPanel
     public PersonOverviewPanel()
     {
         initComponents();
-        this.personController = new ClientPersonController();
         this.familyTreeDetailPanel = new FamilyTreeDetailPanel();
 
         persons = personController.getPersons(0, 100);

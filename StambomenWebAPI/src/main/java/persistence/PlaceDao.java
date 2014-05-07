@@ -1,6 +1,5 @@
 package persistence;
 
-import persistence.interfaces.IDao;
 import domain.Coordinate;
 import domain.Place;
 import java.sql.Connection;
@@ -12,6 +11,7 @@ import java.util.Collection;
 import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import persistence.interfaces.IDao;
 
 public class PlaceDao implements IDao<Place>
 {
@@ -108,7 +108,7 @@ public class PlaceDao implements IDao<Place>
     }
 
     @Override
-    public void save(Place place)
+    public int save(Place value)
     {
         int countryID = -1;
         int placeNameID = -1;
@@ -119,13 +119,13 @@ public class PlaceDao implements IDao<Place>
         try
         {
             con = DatabaseUtils.getConnection();
-            countryID = saveCountry(place);
+            countryID = saveCountry(value);
 
-            placeNameID = savePlace(place);
+            placeNameID = savePlace(value);
 
             prep = con.prepareStatement(SAVE_PLACE);
 
-            Coordinate coord = place.getCoord();
+            Coordinate coord = value.getCoord();
 
             if (coord != null && coord.getId() != -1)
             {
@@ -134,7 +134,7 @@ public class PlaceDao implements IDao<Place>
             }
             else if (coord == null)
             {
-                coord = pc.getCoordinates(place);
+                coord = pc.getCoordinates(value);
             }
 
             if (coord != null && coord.getId() == -1)
@@ -149,11 +149,11 @@ public class PlaceDao implements IDao<Place>
 
             prep.setInt(2, countryID);
 
-            String zipCode = place.getZipCode();
+            String zipCode = value.getZipCode();
 
             if (zipCode != null)
             {
-                prep.setString(3, place.getZipCode());
+                prep.setString(3, value.getZipCode());
             }
             else
             {
@@ -163,6 +163,22 @@ public class PlaceDao implements IDao<Place>
             prep.setInt(4, placeNameID);
 
             prep.executeUpdate();
+
+            int lastInsertedId = -1;
+
+            ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
+
+            if (getKeyRs != null)
+            {
+
+                if (getKeyRs.next())
+                {
+                    lastInsertedId = getKeyRs.getInt(1);
+                }
+                getKeyRs.close();
+            }
+
+            return lastInsertedId;
 
         }
         catch (Exception ex)
@@ -183,6 +199,8 @@ public class PlaceDao implements IDao<Place>
             }
 
         }
+
+        return -1;
     }
 
     @Override
