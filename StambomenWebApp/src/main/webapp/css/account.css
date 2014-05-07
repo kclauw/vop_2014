@@ -3,10 +3,12 @@ h2 {
 }
 
 select {
-    width: 120px;
+    width: 140px;
+    height: 29px;
 }
 input {
-    width: 60px;
+    width: 80px;
+    height: 29px;
 }
 form {
     margin-bottom: 20px;

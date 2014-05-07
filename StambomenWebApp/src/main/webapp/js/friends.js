@@ -7,4 +7,9 @@ $(document).ready(function() {
     $('#adduser').click(function(args) {
         $('.popupboxbg').show();
     });
+    
+    if ($('.friendrequestlist ul').children().length === 0) {
+        $('.friendrequestlist').hide();
+    }
+    
 });

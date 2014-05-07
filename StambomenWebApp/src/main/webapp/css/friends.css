@@ -10,7 +10,7 @@ and open the template in the editor.
 
 .friendlist {
     float: left;
-    width: 620px;
+    width: 520px;
     min-height: 1px;
 }
 
@@ -41,9 +41,24 @@ and open the template in the editor.
 
 
 
-.friendrequestlist {
+.friendactivitylist {
     float: left;
+    width: 300px;
+}
+
+.friendactivitylist li {
+    display: block;
+    width: 300px;
+    padding: 6px;
+    margin: 15px 0px;
+    padding-left: 12px;
+    line-height: 20px;
+}
+
+
+.friendrequestlist {
     width: 200px;
+    margin-bottom: 30px;
 }
 
 .friendrequestlist li {

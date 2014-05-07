@@ -55,7 +55,7 @@
                 <div>
                     <div class="popupboxContent"></div>
                     <form>
-                        <input id = "BtnClosePopUpBox" type = "button" onclick = "closePopUpBox();" value = "Close"/>
+                        <input id = "BtnClosePopUpBox" type = "button" onclick = "closePopUpBox();" value = "<%= trans.translate("Close") %>"/>
                     </form>
                 </div>
             </div>
@@ -81,28 +81,6 @@
                         <h1><%= trans.translate("PublicUserProfiles") %></h1>
                         <ul id = "publicUserProfile">
                         ${publicUserProfileshtml}
-                        </ul>
-                        
-                        <ul class="treelist">
-                            <c:forEach var="item" items="${activities}" varStatus="counter">
-                                <li>
-                                    ${item.event}
-                                    
-                                </li>
-                                <li> 
-                                    <c:choose>
-                                    <c:when test="${item.event=='ADDTREE'}">
-                                       Added tree with name: ${item.name}
-                                    </c:when>
-                                    <c:when test="${item.event=='ADDPER'}">
-                                        Added person with name: ${item.name}
-                                    </c:when>
-                                    <c:otherwise>
-                                        No comment sir...
-                                    </c:otherwise>
-                                </c:choose>
-                                                                </li>
-                            </c:forEach>
                         </ul>
                 </div>
             </div>

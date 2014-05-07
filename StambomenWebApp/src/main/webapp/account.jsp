@@ -67,7 +67,7 @@
                                 <option value="${item.getPrivacyId()}" ${item == userPrivacy? "selected" : ""}>${item}</option>
                             </c:forEach>
                         </select>
-                        <input type="submit" value="Save"/>
+                        <input type="submit" value="<%= trans.translate("Save") %>"/>
                     </form>
                 </div>
 
@@ -80,7 +80,7 @@
                                 <option value="${item.getLanguageId()}" ${item == userLanguage? "selected" : ""}>${item}</option>
                             </c:forEach>
                         </select>
-                        <input type="submit" value="Save"/>
+                        <input type="submit" value="<%= trans.translate("Save") %>"/>
                     </form>
                 </div>
 
@@ -93,7 +93,7 @@
                                 <option value="${item.getThemeID()}" ${item == userTheme? "selected" : ""}>${item.getName()}</option>
                             </c:forEach>
                         </select>
-                        <input type="submit" value="Save"/>
+                        <input type="submit" value="<%= trans.translate("Save") %>"/>
                     </form>
                 </div>
                 
