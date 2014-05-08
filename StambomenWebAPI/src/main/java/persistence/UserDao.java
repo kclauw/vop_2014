@@ -28,6 +28,7 @@ public class UserDao implements IDao<User>
     private final String GETUSER = "SELECT u.userID AS userID, u.username AS username, u.password AS PASSWORD, u.languageID AS languageID, u.themeID AS themeID,r.role as role,u.block as block, fbprofileid FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.username = ?";
 
     private final String GETUSERBYID = "SELECT u.userID AS userID, u.username AS username, u.password AS password, u.languageID AS languageID, u.themeID AS themeID,r.role AS role,u.block as block, fbprofileid FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID WHERE u.userID = ?";
+    private final String GETPOTFBFRIENDS = "SELECT u.userID AS userID, u.username AS username, u.password AS password, u.languageID AS languageID, u.themeID AS themeID, r.role AS role,u.block as block, fbprofileid FROM User u LEFT JOIN RoleUser ru ON u.userID = ru.userID LEFT JOIN Roles r ON r.roleID = ru.roleID where u.userID not in ( SELECT case friend when ? then receiver else friend end friend FROM Request WHERE (receiver=? or friend=?) AND status in (0, 1) ) and fbprofileid in ({0)";
     private final String GETFRIENDSBYID = "SELECT friend, receiver, status FROM Request WHERE (receiver=? or friend=?) AND status = 1";
     private final String GETFRIENDREQUESTBYID = "SELECT friend, receiver, status FROM Request WHERE receiver=? AND status = 0";
     private final String DELETEFRIENDBYIDS = "DELETE from Request where ((friend=? and receiver=?) or (receiver=? and friend=?)) and status=1";
@@ -322,6 +323,66 @@ public class UserDao implements IDao<User>
         }
 
         return friends;
+    }
+
+    public List<User> getPotentialFBFriends(int userID, List<String> fbFriendIds)
+    {
+        List<User> potFriends = new ArrayList<User>();
+        PreparedStatement prep = null;
+        ResultSet res = null;
+        try
+        {
+            con = DatabaseUtils.getConnection();
+            String fb = "?";
+            for (int i = 1; i < fbFriendIds.size(); i++)
+            {
+                fb += ",?";
+            }
+
+            prep = con.prepareStatement(GETPOTFBFRIENDS.replace("{0}", fb));
+            prep.setInt(1, userID);
+            prep.setInt(2, userID);
+            prep.setInt(3, userID);
+            for (int i = 0; i < fbFriendIds.size(); i++)
+            {
+                prep.setString(4 + i, fbFriendIds.get(i));
+            }
+
+            res = prep.executeQuery();
+
+            while (res.next())
+            {
+                User user = map(res);
+
+                potFriends.add(user);
+            }
+
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            logger.info("[USER DAO][SQLException][GetFriends]Sql exception: " + ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            logger.info("[USER DAO][SQLException][GetFriends]Exception: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                DatabaseUtils.closeQuietly(res);
+                DatabaseUtils.closeQuietly(prep);
+                DatabaseUtils.closeQuietly(con);
+            }
+            catch (SQLException ex)
+            {
+                ex.printStackTrace();
+            }
+
+        }
+
+        return potFriends;
     }
 
     public User get(String username)

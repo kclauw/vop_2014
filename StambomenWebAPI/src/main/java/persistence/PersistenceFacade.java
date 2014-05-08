@@ -140,6 +140,12 @@ public class PersistenceFacade
         return userDao.getFriends(userID);
     }
 
+    public List<User> getPotentialFBFriends(int userID, List<String> fbFriendIds)
+    {
+        logger.info("[PERSISTENCE CONTROLLER] Get potential facebook-friends for user " + userID);
+        return userDao.getPotentialFBFriends(userID, fbFriendIds);
+    }
+
     public Place getPlace(ResultSet res)
     {
         logger.debug("[PERSISTENCE CONTROLLER] Get place based on a resultset");
