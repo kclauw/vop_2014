@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.server.ContainerRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import persistence.TreeNameCannotBeEmptyException;
 
 @Path("/tree")
 @Api(value = "/tree", description = "Operations about trees")
@@ -62,6 +63,10 @@ public class TreeService
             String result = "Tree added:" + tree.toString();
             tc.addTree(tree);
             return Response.status(Response.Status.OK).entity(result).build();
+        }
+        catch (TreeNameCannotBeEmptyException ex)
+        {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
         }
         catch (TreeAlreadyExistsException ex)
         {

@@ -49,6 +49,15 @@ public class BasicAuthFilter implements ContainerRequestFilter
         System.out.println("[AUTH FILTER] LOGIN:");
 
         User authentificationResult = userController.login(userCredentials);
+
+        if (authentificationResult == null)
+        {
+            abortRequest(containerRequest, Status.UNAUTHORIZED, null);
+        }
+        else if (path.contains("admin") && !authentificationResult.getRole().equals("Admin"))
+        {
+            abortRequest(containerRequest, Status.UNAUTHORIZED, null);
+        }
         containerRequest.setProperty("user", authentificationResult);
 
         if (authentificationResult.getFacebookProfileID() != null)
@@ -66,15 +75,6 @@ public class BasicAuthFilter implements ContainerRequestFilter
             {
                 abortRequest(containerRequest, Status.UNAUTHORIZED, null);
             }
-        }
-
-        if (authentificationResult == null)
-        {
-            abortRequest(containerRequest, Status.UNAUTHORIZED, null);
-        }
-        else if (path.contains("admin") && !authentificationResult.getRole().equals("Admin"))
-        {
-            abortRequest(containerRequest, Status.UNAUTHORIZED, null);
         }
 
         containerRequest.setProperty("user", authentificationResult);

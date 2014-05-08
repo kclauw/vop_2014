@@ -8,7 +8,6 @@ import exception.TreeNameAlreadyExistsException;
 import exception.TreeOwnerIsNullException;
 import java.util.Date;
 import java.util.List;
-import javax.ws.rs.PathParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.PersistenceFacade;
