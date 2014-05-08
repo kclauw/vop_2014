@@ -21,7 +21,6 @@ public class UserController
 {
 
     private ActivityController ac;
-    private FacebookController fc = new FacebookController();
     private final PersistenceFacade pc;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -62,6 +61,7 @@ public class UserController
 
     public List<User> getPotentialFBFriends(int userID, String fbAuthCode)
     {
+        FacebookController fc = new FacebookController(this);
         List<String> fbFriendIds = fc.getFriends(fbAuthCode);
         return pc.getPotentialFBFriends(userID, fbFriendIds);
     }
@@ -95,6 +95,7 @@ public class UserController
             {
                 if (user.getPassword().equals(userCredentials[1]))
                 {
+                    user.setFacebookProfileID(null);
                     return user;
                 }
 

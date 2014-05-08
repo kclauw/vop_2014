@@ -5,7 +5,6 @@ import com.restfb.FacebookClient;
 import domain.controller.UserController;
 import exception.FacebookUserNotFoundException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import persistence.PersistenceFacade;
 
@@ -21,6 +20,12 @@ public class FacebookEndpoint
     public FacebookEndpoint()
     {
         this.userController = new UserController();
+        this.pc = new PersistenceFacade();
+    }
+
+    public FacebookEndpoint(UserController userController)
+    {
+        this.userController = userController;
         this.pc = new PersistenceFacade();
     }
 

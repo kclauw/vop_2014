@@ -14,6 +14,11 @@ public class FacebookController
         fe = new FacebookEndpoint();
     }
 
+    public FacebookController(UserController userController)
+    {
+        fe = new FacebookEndpoint(userController);
+    }
+
     public User loginWithFB(String code)
     {
         return fe.loginWithFB(code);

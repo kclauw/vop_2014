@@ -50,17 +50,16 @@ public class FriendService
     }
 
     @GET
-    @Path("/getPotentialFacebookFriends/{code}")
+    @Path("/getPotentialFacebookFriends/")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Get potential facebook-friends", notes = "More notes about this method", response = User.class)
-    public Response getPotentialFBFriends(@Context ContainerRequest cont, @PathParam("code") String authCode)
+    public Response getPotentialFBFriends(@Context ContainerRequest cont)
     {
         try
         {
             User user = (User) cont.getProperty("user");
-
+            String authCode = (String) cont.getProperty("fb");
             List<User> users = uc.getPotentialFBFriends(user.getId(), authCode);
-
             return Response.ok(users).build();
         }
         catch (Exception ex)

@@ -6,10 +6,11 @@ import domain.User;
 import domain.controller.FacebookController;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.glassfish.jersey.server.ContainerRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,13 +23,14 @@ public class FacebookService
     private FacebookController fbController = new FacebookController();
 
     @GET
-    @Path("/login/{code}")
+    @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Login with FB", notes = "More notes about this method", response = String.class)
-    public Response loginWithFB(@PathParam("code") String authCode)
+    public Response loginWithFB(@Context ContainerRequest cont)
     {
         try
         {
+            String authCode = (String) cont.getProperty("fb");
             User user = fbController.loginWithFB(authCode);
             return Response.status(Response.Status.OK).entity(user).build();
         }
@@ -39,14 +41,14 @@ public class FacebookService
     }
 
     @GET
-    @Path("/register/{code}")
+    @Path("/register")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Register with FB", notes = "More notes about this method", response = String.class)
-    public Response registerWithFB(@PathParam("code") String authCode)
+    public Response registerWithFB(@Context ContainerRequest cont)
     {
         try
         {
-            System.out.println("[FB REGISTER] " + authCode);
+            String authCode = (String) cont.getProperty("fb");
             fbController.registerWithFB(authCode);
             String resp = "Succesfully registered!";
             return Response.status(Response.Status.OK).entity(resp).build();
