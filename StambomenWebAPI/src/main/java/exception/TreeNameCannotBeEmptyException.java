@@ -1,4 +1,4 @@
-package persistence;
+package exception;
 
 public class TreeNameCannotBeEmptyException extends IllegalArgumentException
 {
