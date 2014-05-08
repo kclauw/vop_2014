@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import service.ClientFriendService;
 import service.ClientPersonService;
 import service.ClientServiceController;
 import service.ClientTreeController;
@@ -171,10 +172,12 @@ public class LoginFilter implements Filter
             ClientServiceController serviceController = ClientServiceController.getInstance();
             ClientTreeController treeController = new ClientTreeController();
             ClientPersonService personService = new ClientPersonService();
+            ClientFriendService friendService = new ClientFriendService();
             user = serviceController.getUser();
 
             session.setAttribute("serviceController", serviceController);
             session.setAttribute("personService", personService);
+            session.setAttribute("friendService", friendService);
             session.setAttribute("treeController", treeController);
             session.setAttribute("userController", uC);
 
