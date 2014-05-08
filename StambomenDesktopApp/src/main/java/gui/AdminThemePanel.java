@@ -14,7 +14,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import util.Translator;
 
@@ -33,6 +32,7 @@ public class AdminThemePanel extends IPanel
     public AdminThemePanel()
     {
         initComponents();
+        setBorder(pnlTheme);
     }
 
     /**
@@ -46,29 +46,69 @@ public class AdminThemePanel extends IPanel
     {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        btnUploadBG = new javax.swing.JButton();
+        pnlTheme = new javax.swing.JPanel();
+        lblUploadLogo = new javax.swing.JLabel();
+        lblUploadBackground = new javax.swing.JLabel();
+        btnBack = new javax.swing.JButton();
         btnUploadLogo = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnUploadBG = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 32767));
+        lblError = new javax.swing.JLabel();
 
         setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.jLabel1.text")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(13, 25, 13, 57);
-        add(jLabel1, gridBagConstraints);
+        pnlTheme.setBackground(new java.awt.Color(255, 255, 255));
+        pnlTheme.setLayout(new java.awt.GridBagLayout());
 
-        jLabel2.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.jLabel2.text")); // NOI18N
+        lblUploadLogo.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.lblUploadLogo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(13, 25, 13, 57);
-        add(jLabel2, gridBagConstraints);
+        pnlTheme.add(lblUploadLogo, gridBagConstraints);
+
+        lblUploadBackground.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.lblUploadBackground.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(13, 25, 13, 57);
+        pnlTheme.add(lblUploadBackground, gridBagConstraints);
+
+        btnBack.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.btnBack.text")); // NOI18N
+        btnBack.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnBackActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(11, 12, 11, 33);
+        pnlTheme.add(btnBack, gridBagConstraints);
+
+        btnUploadLogo.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.btnUploadLogo.text")); // NOI18N
+        btnUploadLogo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnUploadLogoActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 32);
+        pnlTheme.add(btnUploadLogo, gridBagConstraints);
 
         btnUploadBG.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.btnUploadBG.text")); // NOI18N
         btnUploadBG.addActionListener(new java.awt.event.ActionListener()
@@ -80,67 +120,72 @@ public class AdminThemePanel extends IPanel
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 32);
+        pnlTheme.add(btnUploadBG, gridBagConstraints);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.jLabel1.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        pnlTheme.add(jLabel1, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.insets = new java.awt.Insets(24, 0, 24, 0);
+        pnlTheme.add(filler1, gridBagConstraints);
+
+        lblError.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.lblError.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 32);
-        add(btnUploadBG, gridBagConstraints);
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
+        pnlTheme.add(lblError, gridBagConstraints);
 
-        btnUploadLogo.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.btnUploadLogo.text")); // NOI18N
-        btnUploadLogo.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                btnUploadLogoActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 32);
-        add(btnUploadLogo, gridBagConstraints);
-
-        jButton1.setText(org.openide.util.NbBundle.getMessage(AdminThemePanel.class, "AdminThemePanel.jButton1.text")); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(11, 12, 11, 33);
-        add(jButton1, gridBagConstraints);
+        add(pnlTheme, new java.awt.GridBagConstraints());
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUploadLogoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnUploadLogoActionPerformed
     {//GEN-HEADEREND:event_btnUploadLogoActionPerformed
         Image im = getImage();
         Image scaled = resize(im, 120, 40);
+        startTask();
         themeC.uploadLogo(scaled);
+        stopTask();
     }//GEN-LAST:event_btnUploadLogoActionPerformed
 
     private void btnUploadBGActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnUploadBGActionPerformed
     {//GEN-HEADEREND:event_btnUploadBGActionPerformed
         Image im = getImage();
         Image scaled = resize(im, 1920, 1080);
+        startTask();
         themeC.uploadBackgroundImage(scaled);
+        stopTask();
     }//GEN-LAST:event_btnUploadBGActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBackActionPerformed
+    {//GEN-HEADEREND:event_btnBackActionPerformed
         themeC.goTo(Panels.TREEOVERVIEW);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnBackActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnUploadBG;
     private javax.swing.JButton btnUploadLogo;
-    private javax.swing.JButton jButton1;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblError;
+    private javax.swing.JLabel lblUploadBackground;
+    private javax.swing.JLabel lblUploadLogo;
+    private javax.swing.JPanel pnlTheme;
     // End of variables declaration//GEN-END:variables
     public void setAdminThemeController(AdminThemeController themeC)
     {
@@ -174,6 +219,7 @@ public class AdminThemePanel extends IPanel
 
     public Image getImage()
     {
+
         Translator trans = new Translator();
         JFileChooser fc = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(trans.translate("ImageFiles"), "jpg", "png");
@@ -185,13 +231,12 @@ public class AdminThemePanel extends IPanel
         if (returnVal == JFileChooser.APPROVE_OPTION)
         {
             File file = fc.getSelectedFile();
-
             ImageIcon image = new ImageIcon(file.getAbsolutePath());
             return image.getImage();
         }
         else
         {
-            JOptionPane.showMessageDialog(this, trans.translate("ImageMessage"));
+            setError(lblError, "Please try again!");
         }
 
         return null;

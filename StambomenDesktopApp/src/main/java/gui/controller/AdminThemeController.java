@@ -37,9 +37,9 @@ public class AdminThemeController implements IPanelController
     {
         String res = clientAdminService.uploadLogoImage(scaled);
 
-        if (res != null)
+        if (res == null)
         {
-            JOptionPane.showMessageDialog(null, "Uploaded Succesfully!");
+            JOptionPane.showMessageDialog(null, "Uploaded Succesfully!", "Image Operation", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -47,9 +47,9 @@ public class AdminThemeController implements IPanelController
     {
         String res = clientAdminService.uploadBackgroundImage(scaled);
 
-        if (res != null)
+        if (res == null)
         {
-            JOptionPane.showMessageDialog(null, "Uploaded Succesfully!");
+            JOptionPane.showMessageDialog(null, "Uploaded Succesfully!", "Image Operation", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

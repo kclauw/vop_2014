@@ -38,7 +38,7 @@ public abstract class IPanel extends JPanel
 
     public void stopTask()
     {
-        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
     public void initGui()
