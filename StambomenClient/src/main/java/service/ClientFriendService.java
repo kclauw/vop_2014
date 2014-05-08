@@ -26,6 +26,17 @@ public class ClientFriendService
         return friends;
     }
 
+    public List<UserDTO> getPotentialFBFriends()
+    {
+        logger.info("[CLIENT USER SERVICE][GET POTENTIAL FB FRIENDS]");
+        Client client = ClientServiceController.getInstance().getClient();
+        List<UserDTO> friends = client.target(url + "friends/getPotentialFacebookFriends/").request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
+        {
+        });
+
+        return friends;
+    }
+
     public List<UserDTO> getFriendRequests()
     {
         logger.info("[CLIENT USER SERVICE][GET FRIEND REQUESTS]");

@@ -19,6 +19,8 @@ import javax.servlet.http.HttpSession;
 import service.ClientUserController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import service.ClientActivitiesService;
+import service.ClientFriendService;
 
 /**
  *
@@ -97,8 +99,8 @@ public class FriendServlet extends HttpServlet
         }
         deletefriendid = Integer.parseInt(sdeletefriendid);
 
-        ClientUserController userController = (ClientUserController) session.getAttribute("userController");
-        userController.deleteFriend(deletefriendid);
+        ClientFriendService friendService = (ClientFriendService) session.getAttribute("friendService");
+        friendService.deleteFriend(deletefriendid);
 
         response.sendRedirect(request.getContextPath() + "/FriendServlet");
     }
@@ -128,8 +130,8 @@ public class FriendServlet extends HttpServlet
         }
         friendid = Integer.parseInt(sfriendid);
 
-        ClientUserController userController = (ClientUserController) session.getAttribute("userController");
-        userController.allowDenyFriendRequest(friendid, allow);
+        ClientFriendService friendService = (ClientFriendService) session.getAttribute("friendService");
+        friendService.allowDenyFriendRequest(friendid, allow);
 
         response.sendRedirect(request.getContextPath() + "/FriendServlet");
     }
@@ -140,9 +142,12 @@ public class FriendServlet extends HttpServlet
         HttpSession session = request.getSession(false);
 
         ClientUserController userController = (ClientUserController) session.getAttribute("userController");
-        List<UserDTO> friends = userController.getFriends();
-        List<UserDTO> friendrequests = userController.getFriendRequests();
-        List<ActivityDTO> activities = userController.getActivities();
+        ClientFriendService friendService = (ClientFriendService) session.getAttribute("friendService");
+        ClientActivitiesService activitiesService = (ClientActivitiesService) session.getAttribute("activitiesService");
+        List<UserDTO> friends = friendService.getFriends();
+        List<UserDTO> potFbFriends = friendService.getPotentialFBFriends();
+        List<UserDTO> friendrequests = friendService.getFriendRequests();
+        List<ActivityDTO> activities = activitiesService.getActivities();
 
         String friendshtml = "", friendrequestshtml = "";
         for (UserDTO friend : friends)
@@ -155,6 +160,7 @@ public class FriendServlet extends HttpServlet
         }
 
         session.setAttribute("friendshtml", friendshtml);
+        session.setAttribute("potFbFriends", potFbFriends);
         session.setAttribute("friendrequestshtml", friendrequestshtml);
         session.setAttribute("activities", activities);
 
@@ -225,8 +231,8 @@ public class FriendServlet extends HttpServlet
 
         request.removeAttribute("sendfriendrequestname");
 
-        ClientUserController userController = (ClientUserController) session.getAttribute("userController");
-        userController.sendFriendRequest(sendfriendrequestname);
+        ClientFriendService friendService = (ClientFriendService) session.getAttribute("friendService");
+        friendService.sendFriendRequest(sendfriendrequestname);
 
         response.sendRedirect(request.getContextPath() + "/FriendServlet");
     }

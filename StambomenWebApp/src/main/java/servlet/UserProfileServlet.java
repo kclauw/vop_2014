@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.taglibs.standard.tag.common.core.ForEachSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import service.ClientActivitiesService;
 import service.ClientUserController;
 
 public class UserProfileServlet extends HttpServlet
@@ -36,8 +37,9 @@ public class UserProfileServlet extends HttpServlet
 
         HttpSession session = request.getSession(false);
         ClientUserController uC = (ClientUserController) session.getAttribute("userController");
+        ClientActivitiesService aS = (ClientActivitiesService) session.getAttribute("activitiesService");
 
-        session.setAttribute("activities", uC.getActivities());
+        session.setAttribute("activities", aS.getActivities());
         doPost(request, response);
     }
 
