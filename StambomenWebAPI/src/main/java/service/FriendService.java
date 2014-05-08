@@ -9,7 +9,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -84,10 +83,10 @@ public class FriendService
     }
 
     @PUT
-    @Path("/delete/{frienduserId}")
+    @Path("/delete/")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Delete a friend", notes = "More notes about this method", response = String.class)
-    public Response deleteFriend(@Context ContainerRequest cont, @PathParam("frienduserId") int frienduserID)
+    public Response deleteFriend(@Context ContainerRequest cont, int frienduserID)
     {
         User user = (User) cont.getProperty("user");
         uc.deleteFriend(user.getId(), frienduserID);
@@ -95,10 +94,10 @@ public class FriendService
     }
 
     @PUT
-    @Path("/requests/allow/{frienduserId}")
+    @Path("/requests/allow/")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Allow a friend request", notes = "More notes about this method", response = String.class)
-    public Response allowFriendRequest(@Context ContainerRequest cont, @PathParam("frienduserId") int frienduserID)
+    public Response allowFriendRequest(@Context ContainerRequest cont, int frienduserID)
     {
         User user = (User) cont.getProperty("user");
         uc.allowDenyFriendRequest(user.getId(), frienduserID, true);
@@ -106,10 +105,10 @@ public class FriendService
     }
 
     @PUT
-    @Path("/requests/deny/{frienduserId}")
+    @Path("/requests/deny/")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Deny a friend request", notes = "More notes about this method", response = String.class)
-    public Response denyFriendRequest(@Context ContainerRequest cont, @PathParam("frienduserId") int frienduserID)
+    public Response denyFriendRequest(@Context ContainerRequest cont, int frienduserID)
     {
         User user = (User) cont.getProperty("user");
         uc.allowDenyFriendRequest(user.getId(), frienduserID, false);
@@ -117,10 +116,10 @@ public class FriendService
     }
 
     @POST
-    @Path("/requests/send/{frienduserName}")
+    @Path("/requests/send/")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Send a friend request", notes = "More notes about this method", response = String.class)
-    public Response sendFriendRequest(@Context ContainerRequest cont, @PathParam("frienduserName") String frienduserName)
+    public Response sendFriendRequest(@Context ContainerRequest cont, String frienduserName)
     {
         User user = (User) cont.getProperty("user");
         uc.sendFriendRequest(user.getId(), frienduserName);
