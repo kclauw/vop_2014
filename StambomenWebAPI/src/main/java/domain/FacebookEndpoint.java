@@ -6,6 +6,7 @@ import domain.controller.UserController;
 import exception.FacebookUserNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import persistence.PersistenceFacade;
 
 public class FacebookEndpoint
@@ -43,20 +44,13 @@ public class FacebookEndpoint
     public List<String> getFriends(String code)
     {
         List<String> friendIds = new ArrayList<String>();
-        try
-        {
-            System.out.println("FB LOGIN");
-            FacebookClient facebookClient = new DefaultFacebookClient(code, APP_SECRET);
-            com.restfb.Connection<com.restfb.types.User> myFriends = facebookClient.fetchConnection("me/friends", com.restfb.types.User.class);
 
-            for (com.restfb.types.User friend : myFriends.getData())
-            {
-                friendIds.add(friend.getId());
-            }
-        }
-        catch (FacebookException ex)
+        FacebookClient facebookClient = new DefaultFacebookClient(code, APP_SECRET);
+        com.restfb.Connection<com.restfb.types.User> myFriends = facebookClient.fetchConnection("me/friends", com.restfb.types.User.class);
+
+        for (com.restfb.types.User friend : myFriends.getData())
         {
-            Logger.getLogger(FacebookEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+            friendIds.add(friend.getId());
         }
 
         return friendIds;
