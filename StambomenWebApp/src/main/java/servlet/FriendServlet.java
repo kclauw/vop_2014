@@ -149,48 +149,12 @@ public class FriendServlet extends HttpServlet
         List<UserDTO> friendrequests = friendService.getFriendRequests();
         List<ActivityDTO> activities = activitiesService.getActivities();
 
-        String friendshtml = "", friendrequestshtml = "";
-        for (UserDTO friend : friends)
-        {
-            friendshtml += getFriendHtml(friend, false);
-        }
-        for (UserDTO friend : friendrequests)
-        {
-            friendrequestshtml += getFriendHtml(friend, true);
-        }
-
-        session.setAttribute("friendshtml", friendshtml);
+        session.setAttribute("friends", friends);
         session.setAttribute("potFbFriends", potFbFriends);
-        session.setAttribute("friendrequestshtml", friendrequestshtml);
+        session.setAttribute("friendrequests", friendrequests);
         session.setAttribute("activities", activities);
 
         response.sendRedirect(request.getContextPath() + "/friends.jsp");
-    }
-
-    private String getFriendHtml(UserDTO user, boolean request)
-    {
-        if (user != null)
-        {
-            logger.info("[FRIEND SERVLET][GET FRIEND HTML]USERDTO:" + user.toString() + "request" + request);
-        }
-
-        String html = "";
-
-        html += "<li class=\"itemblock\">";
-        html += "\n<div>" + user.getUsername() + "</div>";
-
-        if (!request)
-        {
-            html += "\n<a href=\"./FriendServlet?deletefriendid=" + user.getId() + "\"><img class=\"deletefriend\" src=\"./images/delete.png\" alt=\"remove\" /></a>";
-        }
-        else
-        {
-            html += "\n<a href=\"./FriendServlet?denyfriendrequestid=" + user.getId() + "\"><img class=\"denyfriend\" src=\"./images/delete.png\" alt=\"deny\" /></a>";
-            html += "\n<a href=\"./FriendServlet?allowfriendrequestid=" + user.getId() + "\"><img class=\"allowfriend\" src=\"./images/allow.png\" alt=\"allow\" /></a>";
-        }
-        html += "\n</li>";
-
-        return html;
     }
 
     /**

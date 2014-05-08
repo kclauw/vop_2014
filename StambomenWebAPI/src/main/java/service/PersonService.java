@@ -55,7 +55,7 @@ public class PersonService
         }
     }
 
-    @PUT
+    @GET
     @Path("/{treeID}/{addType}/{personID}/{personMoveID}")
     @ApiOperation(value = "Move person", notes = "More notes about this method", response = String.class)
     public Response movePerson(@PathParam("treeID") int treeID, @PathParam("addType") int addType, @PathParam("personID") int personID, @PathParam("personMoveID") int personMoveID)
@@ -73,7 +73,7 @@ public class PersonService
         }
     }
 
-    @PUT
+    @GET
     @Path("/delete/{treeID}/{personId}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Delete person", notes = "More notes about this method", response = String.class)
@@ -146,7 +146,7 @@ public class PersonService
         }
     }
 
-    @PUT
+    @GET
     @Path("/images/delete/{treeID}/{personID}")
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Delete person image", notes = "More notes about this method", response = String.class)

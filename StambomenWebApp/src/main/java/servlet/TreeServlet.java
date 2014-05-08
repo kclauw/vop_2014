@@ -138,8 +138,9 @@ public class TreeServlet extends HttpServlet
             {
                 top = refperson;
             }
-            treehtml = loop(tree.getPersons(), treehtml, top);
+            treehtml = loop(tree.getId(), tree.getPersons(), treehtml, top);
 
+            session.setAttribute("timemachinerefperson", top.getPersonId());
             session.setAttribute("tree", tree);
             session.setAttribute("treehtml", treehtml);
             response.sendRedirect(request.getContextPath() + "/stamboom.jsp");
@@ -151,7 +152,7 @@ public class TreeServlet extends HttpServlet
 
     }
 
-    private String loop(List<PersonDTO> allpersons, String treehtml, PersonDTO parent)
+    private String loop(int treeId, List<PersonDTO> allpersons, String treehtml, PersonDTO parent)
     {
         if (allpersons != null)
         {
@@ -161,7 +162,7 @@ public class TreeServlet extends HttpServlet
         {
             logger.info("[TREE SERVLET][LOOP]PERSONDTO PARENT:" + parent.toString());
         }
-        treehtml += "\n <li>" + getPersonHtml(parent);
+        treehtml += "\n <li>" + getPersonHtml(treeId, parent);
 
         boolean first = true;
         for (PersonDTO personitem : allpersons)
@@ -183,11 +184,11 @@ public class TreeServlet extends HttpServlet
                     }
                     if (partner != null)
                     {
-                        treehtml += getPersonHtml(partner);
+                        treehtml += getPersonHtml(treeId, partner);
                     }
                     treehtml += "\n <ul>";
                 }
-                treehtml = loop(allpersons, treehtml, personitem);
+                treehtml = loop(treeId, allpersons, treehtml, personitem);
             }
         }
         if (!first)
@@ -199,7 +200,7 @@ public class TreeServlet extends HttpServlet
         return treehtml;
     }
 
-    private String getPersonHtml(PersonDTO person)
+    private String getPersonHtml(int treeId, PersonDTO person)
     {
         if (person != null)
         {
@@ -212,6 +213,7 @@ public class TreeServlet extends HttpServlet
             html = "<a style=\"background-image: url('./images/" + person.getGender().toString() + ".png');\" class=\"" + ((person.getGender() == GenderDTO.FEMALE) ? "itemblockFemale " : "") + "itemblock\" ";
 
             html += "data-id=\"" + person.getPersonId() + "\" ";
+            html += "data-tree-id=\"" + treeId + "\" ";
             html += "data-firstname=\"" + getString(person.getFirstName()) + "\" ";
             html += "data-surname=\"" + getString(person.getSurName()) + "\" ";
             if (person.getBirthDate() != null)
@@ -222,7 +224,14 @@ public class TreeServlet extends HttpServlet
             {
                 html += "data-birthdate=\"/\" ";
             }
-            html += "data-deathdate=\"" + getString(person.getDeathDate()) + "\" ";
+            if (person.getDeathDate() != null)
+            {
+                html += "data-deathdate=\"" + (new SimpleDateFormat("d MMMM y")).format(person.getDeathDate()) + "\" ";
+            }
+            else
+            {
+                html += "data-deathdate=\"/\" ";
+            }
             if (person.getPlace() != null)
             {
                 html += "data-zipcode=\"" + getString(person.getPlace().getZipCode()) + "\" ";

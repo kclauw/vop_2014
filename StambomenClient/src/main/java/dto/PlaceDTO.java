@@ -18,7 +18,6 @@ public class PlaceDTO implements java.io.Serializable
     @Expose
     private String zipCode;
     @Expose
-
     private String placeName;
 
     public PlaceDTO()

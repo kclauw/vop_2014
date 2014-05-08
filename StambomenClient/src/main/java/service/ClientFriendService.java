@@ -3,6 +3,7 @@ package service;
 import dto.UserDTO;
 import java.util.List;
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -51,7 +52,7 @@ public class ClientFriendService
     {
         logger.info("[CLIENT USER SERVICE][DELETE FRIEND]Delete friend with id:" + frienduserID);
         Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "friends/delete/" + frienduserID).request(MediaType.APPLICATION_JSON).put(null);
+        Response response = client.target(url + "friends/delete/").request(MediaType.APPLICATION_JSON).put(Entity.entity(frienduserID, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() != 200)
         {
@@ -67,7 +68,7 @@ public class ClientFriendService
     {
         logger.info("[CLIENT USER SERVICE][ALLOW DENY FRIEND REQUEST]Allow deny friendrequest for friend with id:" + frienduserID);
         Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "friends/requests/" + (allow ? "allow" : "deny") + "/" + frienduserID).request(MediaType.APPLICATION_JSON).put(null);
+        Response response = client.target(url + "friends/requests/" + (allow ? "allow" : "deny") + "/").request(MediaType.APPLICATION_JSON).put(Entity.entity(frienduserID, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() != 200)
         {
@@ -83,7 +84,7 @@ public class ClientFriendService
     {
         logger.info("[CLIENT USER SERVICE][SEND FRIEND REQUEST]");
         Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "user/friends/requests/send/" + frienduserName).request(MediaType.APPLICATION_JSON).post(null);
+        Response response = client.target(url + "user/friends/requests/send/").request(MediaType.APPLICATION_JSON).post(Entity.entity(frienduserName, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() != 200)
         {

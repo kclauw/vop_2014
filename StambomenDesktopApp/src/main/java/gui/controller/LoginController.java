@@ -39,7 +39,6 @@ public class LoginController implements IPanelController
 
     public void goTo(Panels frame)
     {
-
         gui.goTo(frame);
     }
 

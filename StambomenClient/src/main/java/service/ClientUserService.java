@@ -90,7 +90,7 @@ public class ClientUserService
     {
         logger.info("[CLIENT USER SERVICE][SET LANGUAGE]Set language with id: " + languageID);
         Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "user/setLanguage/" + languageID).request(MediaType.APPLICATION_JSON).put(null);
+        Response response = client.target(url + "user/setLanguage/" + languageID).request(MediaType.APPLICATION_JSON).put(Entity.entity(languageID, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() != 200)
         {
@@ -104,7 +104,7 @@ public class ClientUserService
     {
         logger.info("[CLIENT USER SERVICE][SET THEME]Set theme with id: " + themeID);
         Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "user/setTheme/" + themeID).request(MediaType.APPLICATION_JSON).put(null);
+        Response response = client.target(url + "user/setTheme/").request(MediaType.APPLICATION_JSON).put(Entity.entity(themeID, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() != 200)
         {
@@ -120,8 +120,7 @@ public class ClientUserService
         logger.info("[CLIENT USER SERVICE][SET USER PRIVACY]");
         Client client = ClientServiceController.getInstance().getClient();
 
-        Response response = client.target(url + "user/get/profile/setUserPrivacy/" + privacyID).request(MediaType.APPLICATION_JSON).put(null);
-
+        Response response = client.target(url + "user/get/profile/setUserPrivacy/").request(MediaType.APPLICATION_JSON).put(Entity.entity(privacyID, MediaType.APPLICATION_JSON));
         if (response.getStatus() != 200)
         {
 

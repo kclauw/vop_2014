@@ -3,3 +3,6 @@
 /StambomenWebAPI/target/
 /StambomenWebApp/target/
 /Design/StambomenDesktopApp/target/
+/Dossier/*
+!Dossier/dossier.tex
+!Dossier/images/
