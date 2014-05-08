@@ -154,21 +154,12 @@ function constructMarker(latitude, longitude, treeid, id, firstname, lastname, z
     });
     markers[id] = marker;
     
-    var image = 'http://assets.vop.tiwi.be/team12/staging/images/persons/' + treeid + "/" + id + '.jpg';
-    var image_found = false;
-    $.get(image).done(function() { 
-        image = '<img src="' + image + '" height="200" />';
-        image_found = true;
-    });
-    if (!image_found)
-        image = '';
-    
-    var contentString = '<div id="content">'+
+    var contentString = '<div class="markercontent">'+
       '<div id="siteNotice">'+
       '</div>'+
       '<h1 id="firstHeading" class="firstHeading">' + firstname + " " + lastname + '</h1>'+
-      '<div id="bodyContent">'+
-      image +
+      '<div class="markerbodycontent" class="' + id + '">'+
+      '<img onerror="setDefaultPersonImage(' + id + ');" src="http://assets.vop.tiwi.be/team12/release/images/persons/' + treeid + "/" + id + '.jpg" height="150">' +
       '<p>' + lblPlace + ': ' + zipcode + ' ' + placename + '</p>' +
       '<p>' + lblCountry + ': ' + country + '</p>' +
       '<p>' + lblBirthdate + ': ' + dateToString(birthdate) + '</p>' +
@@ -183,6 +174,10 @@ function constructMarker(latitude, longitude, treeid, id, firstname, lastname, z
         infowindow.open(map,marker);
     });
     
+}
+
+function setDefaultPersonImage(id) {
+    $('.' + id + ' img').attr('src', 'http://assets.vop.tiwi.be/team12/release/images/persons/DefaultMale.png');
 }
 
 function dateToString(date) {
