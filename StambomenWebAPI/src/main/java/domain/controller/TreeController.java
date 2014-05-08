@@ -35,7 +35,7 @@ public class TreeController
         Date date = new Date();
 
         System.out.println("");
-        if (tree.getOwner().getId() == 0 || tree.getOwner() == null)
+        if (tree.getOwner() == null || tree.getOwner().getId() == 0 || tree.getOwner().getId() == -1)
         {
             throw new TreeOwnerIsNullException();
         }
