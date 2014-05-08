@@ -4,11 +4,13 @@ import dto.LanguageDTO;
 import gui.controller.SettingsController;
 import javax.swing.DefaultComboBoxModel;
 
-public class SettingsPanel extends IPanel {
+public class SettingsPanel extends IPanel
+{
 
     private SettingsController settingsController;
 
-    public SettingsPanel() {
+    public SettingsPanel()
+    {
         initComponents();
         initGui();
         translate();
@@ -18,7 +20,8 @@ public class SettingsPanel extends IPanel {
         cbxLanguage.removeItem(LanguageDTO.FR);
     }
 
-    public void translate() {
+    public void translate()
+    {
         jButton1.setText(translate("Back"));
         jButton3.setText(translate("SetLanguage"));
         jLabel2.setText(translate("Language"));
@@ -116,7 +119,8 @@ public class SettingsPanel extends IPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
-    public void setSettingsController(SettingsController sc) {
+    public void setSettingsController(SettingsController sc)
+    {
         this.settingsController = sc;
         LanguageDTO languageDTO = settingsController.getLanguage();
         cbxLanguage.setSelectedItem(languageDTO);
