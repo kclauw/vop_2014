@@ -28,6 +28,7 @@ public class ClientTreeService
         logger.info("[CLIENT TREE SERVICE][MAKE TREE]Tree in json" + json);
         Response response = client.target(url + "tree/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
         logger.info("[CLIENT TREE SERVICE][MAKE TREE]Response:" + response.toString());
+
         if (response.getStatus() != 200)
         {
             return " " + response.readEntity(String.class);
