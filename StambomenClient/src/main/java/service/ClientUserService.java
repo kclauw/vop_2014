@@ -1,7 +1,6 @@
 package service;
 
 import com.google.gson.Gson;
-import dto.ActivityDTO;
 import dto.PrivacyDTO;
 import dto.ThemeDTO;
 import dto.UserDTO;
@@ -181,20 +180,6 @@ public class ClientUserService
         });
 
         return users;
-    }
-
-    public List<ActivityDTO> getActivities()
-    {
-        logger.info("[CLIENT ADMIN SERVICE][GET USERS]Getting users ");
-
-        Client client = ClientServiceController.getInstance().getClient();
-        client.register(new JacksonFeature());
-
-        List<ActivityDTO> activities = client.target(url + "activity/getActivities/").request(MediaType.APPLICATION_JSON).get(new GenericType<List<ActivityDTO>>()
-        {
-        });
-
-        return activities;
     }
 
     public String updateUser(UserDTO user)

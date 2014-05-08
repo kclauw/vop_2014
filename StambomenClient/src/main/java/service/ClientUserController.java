@@ -1,6 +1,5 @@
 package service;
 
-import dto.ActivityDTO;
 import dto.LanguageDTO;
 import dto.PrivacyDTO;
 import dto.ThemeDTO;
@@ -89,21 +88,11 @@ public class ClientUserController
 
     public void setUserPrivacy(int userPrivacy)
     {
-        int userID = ClientServiceController.getInstance().getUser().getId();
-
         client.setUserPrivacy(userPrivacy);
-    }
-
-    public List<ActivityDTO> getActivities()
-    {
-        int userID = ClientServiceController.getInstance().getUser().getId();
-        List<ActivityDTO> l = client.getActivities();
-        return l;
     }
 
     public PrivacyDTO getUserPrivacy()
     {
-        int userID = ClientServiceController.getInstance().getUser().getId();
         PrivacyDTO privacyDTO = client.getUserPrivacy();
 
         return privacyDTO;
@@ -112,15 +101,12 @@ public class ClientUserController
     public UserDTO getPublicUser(int userID)
     {
         UserDTO user = client.getPublicUser();
-
         return user;
     }
 
     public List<UserDTO> getPublicUsers()
     {
-        int userID = ClientServiceController.getInstance().getUser().getId();
         List<UserDTO> users = client.getPublicUsers();
-
         return users;
     }
 
