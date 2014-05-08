@@ -1,28 +1,23 @@
 package gui;
 
 import dto.PrivacyDTO;
-import dto.ThemeDTO;
 import dto.TreeDTO;
 import gui.controller.AddTreeController;
-import java.awt.Color;
-import javax.swing.border.MatteBorder;
 import service.ClientServiceController;
 import util.Translator;
 
 public class AddTreePanel extends IPanel
 {
-
+    
     private AddTreeController addTreeController;
-
+    
     public AddTreePanel()
     {
         initComponents();
         translate();
-        ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
-        Color maleColor = ThemeDTO.toColor(theme.getMaleColor());
-        pnlAddTree.setBorder(new MatteBorder(2, 5, 2, 2, maleColor));
+        setBorder(pnlAddTree);
     }
-
+    
     public void translate()
     {
         Translator trans = new Translator();
@@ -36,7 +31,7 @@ public class AddTreePanel extends IPanel
         jButton1.setText(trans.translate("AddTree"));
         jButton2.setText(trans.translate("Back"));
     }
-
+    
     @SuppressWarnings("unchecked")
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -258,12 +253,12 @@ public class AddTreePanel extends IPanel
         {
             p = null;
         }
-
+        
         TreeDTO tree = new TreeDTO(-1, ClientServiceController.getInstance().getUser(), p, txtNameTree.getText(), null);
         addTreeController.makeTree(tree);
-
+        
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
         addTreeController.back();
@@ -295,7 +290,7 @@ public class AddTreePanel extends IPanel
     {
         this.addTreeController = atc;
     }
-
+    
     public void setErrorMessage(String message)
     {
         this.setError(lblError, message);

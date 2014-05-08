@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.border.MatteBorder;
 import org.openide.util.Exceptions;
 import service.ClientServiceController;
 import service.ServiceConstant;
@@ -73,5 +74,12 @@ public abstract class IPanel extends JPanel
         {
             Exceptions.printStackTrace(ex);
         }
+    }
+
+    public void setBorder(JPanel panel)
+    {
+        ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
+        Color maleColor = ThemeDTO.toColor(theme.getMaleColor());
+        panel.setBorder(new MatteBorder(2, 5, 2, 2, maleColor));
     }
 }
