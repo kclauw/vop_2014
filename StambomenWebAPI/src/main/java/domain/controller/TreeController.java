@@ -36,7 +36,7 @@ public class TreeController
         System.out.println("");
         Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
 
-       // Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
+        // Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
         if (tree.getId() == -1)
         {
             //TODO Still have to check wether the name already exists
@@ -47,7 +47,7 @@ public class TreeController
             {
                 if (t.getName().equals(tree.getName()))
                 {
-                    System.out.println("IER IST PROBLEEM");
+
                     throw new TreeNameAlreadyExistsException();
                 }
             }

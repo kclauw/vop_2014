@@ -65,24 +65,46 @@
         <div id="topbar" class="shadow">
             <div class="wrapper">
                 <c:import url = "/Components/header.jsp"></c:import>
-                    <ul id="menu">
-                        <c:import url = "/Components/menu.jsp"></c:import>
-                    </ul>   
-                </div>
+                <ul id="menu">
+                    <c:import url = "/Components/menu.jsp"></c:import>
+                </ul>   
             </div>
-            <div class="wrapper">
-                <div>
-                    <div class="friendlist">
-                        <img id="adduser" src="./images/adduser.png" width="32" height="32" alt="Add User" />
-                        <h1><%= trans.translate("Friendlist") %></h1>
-                        <ul>
-                        ${friendshtml}
-                    </ul>
-                </div>
+        </div>
+        <div class="wrapper">
+            <div>
                 <div class="friendrequestlist">
                     <h1><%= trans.translate("Requests") %></h1>
                     <ul>
                         ${friendrequestshtml}
+                    </ul>   
+                </div>
+                <div class="friendlist">
+                    <img id="adduser" src="./images/adduser.png" width="32" height="32" alt="Add User" />
+                    <h1><%= trans.translate("Friendlist") %></h1>
+                    <ul>
+                        ${friendshtml}
+                    </ul>
+                </div>
+                <div class="friendactivitylist">
+                    <h1>Activiteiten</h1>
+                    <ul>
+                        <c:forEach var="item" items="${activities}" varStatus="counter">
+                            <li class="itemblock">
+                                <div>${item.userID} 
+                                    <c:choose>
+                                        <c:when test="${item.event == 'ADDFRIEND'}"><%= trans.translate("ActivityAddFriend") %></c:when>
+                                        <c:when test="${item.event == 'ADDPER'}"><%= trans.translate("ActivityAddPerson") %></c:when>
+                                        <c:when test="${item.event == 'ADDTREE'}"><%= trans.translate("ActivityAddTree") %></c:when>
+                                        <c:when test="${item.event == 'CHAPER'}"><%= trans.translate("ActivityChangePerson") %></c:when>
+                                        <c:when test="${item.event == 'CHATREE'}"><%= trans.translate("ActivityChangeTree") %></c:when>
+                                        <c:when test="${item.event == 'DELPER'}"><%= trans.translate("ActivityDeletePerson") %></c:when>
+                                        <c:when test="${item.event == 'DELTREE'}"><%= trans.translate("ActivityDeleteTree") %></c:when>
+                                    </c:choose>
+                                    <%= trans.translate("WithName") %>: ${item.name}<br/>
+                                    <fmt:formatDate value="${item.date}" pattern="dd-MM-yyyy HH:mm:ss" />
+                                </div>
+                            </li>
+                        </c:forEach>
                     </ul>   
                 </div>
             </div>
