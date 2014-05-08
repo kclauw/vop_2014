@@ -60,7 +60,7 @@ public class FacebookEndpoint
     {
         FacebookClient facebookClient = new DefaultFacebookClient(authCode, APP_SECRET);
         com.restfb.types.User user = facebookClient.fetchObject("me", com.restfb.types.User.class);
-        User newUser = new User(-1, user.getEmail(), user.getId() + new Date().toString(), null);
+        User newUser = new User(-1, user.getEmail(), java.util.UUID.randomUUID().toString(), null);
         newUser.setFacebookProfileID(user.getId());
         System.out.println("Made new fb user: " + newUser.toString());
         userController.addUser(newUser);
