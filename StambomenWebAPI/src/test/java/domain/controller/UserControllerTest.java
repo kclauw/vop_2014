@@ -9,21 +9,16 @@ import domain.Theme;
 import domain.User;
 import domain.UserSettings;
 import domain.enums.Language;
-import domain.enums.Privacy;
 import exception.EmptyPasswordException;
 import exception.InvalidPasswordException;
 import exception.UserAlreadyExistsException;
-import java.util.List;
 import javax.xml.bind.DatatypeConverter;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 /**
  *
