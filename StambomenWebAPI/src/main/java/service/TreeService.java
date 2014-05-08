@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.server.ContainerRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import persistence.TreeNameCannotBeEmptyException;
+import exception.TreeNameCannotBeEmptyException;
 
 @Path("/tree")
 @Api(value = "/tree", description = "Operations about trees")
