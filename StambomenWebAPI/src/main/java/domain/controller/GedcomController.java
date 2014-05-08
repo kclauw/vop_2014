@@ -76,18 +76,6 @@ public class GedcomController
 
         for (Individual i : g.individuals.values())
         {
-
-            for (FamilyChild fa : i.familiesWhereChild)
-            {
-                try
-                {
-
-                }
-                catch (IndexOutOfBoundsException e)
-                {
-
-                }
-            }
             if (i.formattedName() != null)
             {
                 temp = i.formattedName().split("/");

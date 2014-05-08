@@ -16,6 +16,7 @@ import domain.enums.Language;
 import domain.enums.Privacy;
 import exception.TreeAlreadyExistsException;
 import exception.TreeNameAlreadyExistsException;
+import exception.TreeOwnerIsNullException;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -61,6 +62,7 @@ public class TreeControllerTest
         uc = new UserController();
         tc = new TreeController();
         user = new User(-1, "TestUser", "Clauw123456789", new UserSettings(Language.EN, theme));
+        uc.addUser(user);
         theme = new Theme(1, "Default", "Valera", "FFFFFF", "252525", "334455", "B03A3A");
         coord = new Coordinate(1, 0, 0);
         place = new Place.PlaceBuilder("Oostende")
@@ -77,6 +79,17 @@ public class TreeControllerTest
     @After
     public void tearDown()
     {
+
+    }
+
+    @Test
+    public void testAddTreeUserNull() throws NullPointerException
+    {
+        System.out.println("addTree");
+        tree = new Tree(-1, null, Privacy.FRIENDS, "Clauw", null);
+        assertNotNull(tc.addTree(tree));
+        assertNotNull(tc.getTree("Clauw"));
+
     }
 
     @Test
@@ -86,7 +99,6 @@ public class TreeControllerTest
         tree = new Tree(-1, user, Privacy.FRIENDS, "Clauw", null);
         assertNotNull(tc.addTree(tree));
         assertNotNull(tc.getTree("Clauw"));
-
     }
 
     @Test(expected = TreeNameCannotBeEmptyException.class)
@@ -95,4 +107,13 @@ public class TreeControllerTest
         System.out.println("Empty Tree");
         tree = new Tree(-1, user, Privacy.FRIENDS, " ", null);
     }
+
+    @Test(expected = TreeOwnerIsNullException.class)
+    public void testTreeOwerIsNull()
+    {
+        user = new User(-1, "TestUser", "Clauw123456789", new UserSettings(Language.EN, theme));
+        System.out.println("Empty Tree");
+        tree = new Tree(-1, user, Privacy.FRIENDS, " ", null);
+    }
+
 }
