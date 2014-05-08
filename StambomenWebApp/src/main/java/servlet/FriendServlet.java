@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import service.ClientUserController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import service.ClientActivitiesService;
 import service.ClientFriendService;
 
 /**
@@ -140,12 +141,13 @@ public class FriendServlet extends HttpServlet
         logger.info("[FRIEND SERVLET][GET DEFAULT]HTTP SERVLET REQUEST:" + request.toString() + "HTTP SERVLET RESPONSE" + response.toString());
         HttpSession session = request.getSession(false);
 
-        ClientFriendService friendService = (ClientFriendService) session.getAttribute("friendService");
         ClientUserController userController = (ClientUserController) session.getAttribute("userController");
+        ClientFriendService friendService = (ClientFriendService) session.getAttribute("friendService");
+        ClientActivitiesService activitiesService = (ClientActivitiesService) session.getAttribute("activitiesService");
         List<UserDTO> friends = friendService.getFriends();
         List<UserDTO> potFbFriends = friendService.getPotentialFBFriends();
         List<UserDTO> friendrequests = friendService.getFriendRequests();
-        List<ActivityDTO> activities = userController.getActivities();
+        List<ActivityDTO> activities = activitiesService.getActivities();
 
         String friendshtml = "", friendrequestshtml = "";
         for (UserDTO friend : friends)

@@ -9,7 +9,7 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ClientActivities
+public class ClientActivitiesService
 {
 
     private final static String url = ServiceConstant.getInstance().getURL();
