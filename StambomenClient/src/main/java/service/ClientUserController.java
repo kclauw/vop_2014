@@ -32,45 +32,6 @@ public class ClientUserController
         return client.login(user);
     }
 
-    public List<UserDTO> getFriends()
-    {
-        logger.info("[CLIENT USER CONTROLLER][GET FRIENDS]");
-        int userID = ClientServiceController.getInstance().getUser().getId();
-
-        return client.getFriends();
-    }
-
-    public List<UserDTO> getFriendRequests()
-    {
-        logger.info("[CLIENT USER CONTROLLER][GET FRIEND REQUESTS]");
-        int userID = ClientServiceController.getInstance().getUser().getId();
-
-        return client.getFriendRequests();
-    }
-
-    public void deleteFriend(int frienduserID)
-    {
-        logger.info("[CLIENT USER CONTROLLER][DELETE FRIEND]Delete friend with ID:" + frienduserID);
-        int userID = ClientServiceController.getInstance().getUser().getId();
-
-        client.deleteFriend(frienduserID);
-    }
-
-    public void allowDenyFriendRequest(int frienduserID, boolean allow)
-    {
-        logger.info("[CLIENT USER CONTROLLER][ALLOW DENY FRIEND REQUEST]Allow friendrequest from user with id:" + frienduserID);
-        int userID = ClientServiceController.getInstance().getUser().getId();
-
-        client.allowDenyFriendRequest(frienduserID, allow);
-    }
-
-    public void sendFriendRequest(String frienduserName)
-    {
-        logger.info("[CLIENT USER CONTROLLER][SEND FRIEND REQUEST]Friend request naar user:" + frienduserName.toString());
-        int userID = ClientServiceController.getInstance().getUser().getId();
-        client.sendFriendRequest(frienduserName);
-    }
-
     public void setLanguage(int language)
     {
         int userID = ClientServiceController.getInstance().getUser().getId();
