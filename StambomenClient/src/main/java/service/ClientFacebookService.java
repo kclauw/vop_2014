@@ -5,6 +5,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ public class ClientFacebookService
         Client client = ClientBuilder.newClient();
         client.register(new JacksonFeature());
         String c = authCode.substring(0, authCode.indexOf("&"));
+        client.register(HttpAuthenticationFeature.basicBuilder().credentials("FBLOGIN", c).build());
 
         Response response = client.target(url + "facebook/login/" + c).request(MediaType.APPLICATION_JSON).get();
 
@@ -48,8 +50,6 @@ public class ClientFacebookService
         {
             return " " + response.readEntity(String.class);
         }
-
-        System.out.println(response.toString());
 
         return null;
 

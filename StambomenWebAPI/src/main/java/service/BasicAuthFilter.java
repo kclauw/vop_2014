@@ -51,6 +51,11 @@ public class BasicAuthFilter implements ContainerRequestFilter
         User authentificationResult = userController.login(userCredentials);
         containerRequest.setProperty("user", authentificationResult);
 
+        if (authentificationResult.getFacebookProfileID() != null)
+        {
+            containerRequest.setProperty("fb", userCredentials[1]);
+        }
+
         if (path.contains("/user/login/"))
         {
             if (authentificationResult != null)

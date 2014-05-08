@@ -8,7 +8,6 @@ import domain.enums.Event;
 import domain.enums.Language;
 import domain.enums.Privacy;
 import exception.UserAlreadyExistsException;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
@@ -60,6 +59,13 @@ public class UserController
         return pc.getFriends(id);
     }
 
+    public List<User> getPotentialFBFriends(int userID, String fbAuthCode)
+    {
+        FacebookController fc = new FacebookController(this);
+        List<String> fbFriendIds = fc.getFriends(fbAuthCode);
+        return pc.getPotentialFBFriends(userID, fbFriendIds);
+    }
+
     /**
      * Checks if the user exists in the database. UseCredentials contains
      * username [0] and password [1]
@@ -71,20 +77,25 @@ public class UserController
     {
         logger.debug("LOGIN of user " + userCredentials[0]);
         User user = getUser(userCredentials[0]);
-        System.out.println("CREDS=" + Arrays.deepToString(userCredentials));
+        FacebookController fb = new FacebookController();
 
-        System.out.println("User: " + user.toString());
-        if (user.getFacebookProfileID() != null)
+        //If the user does a login with FB. 
+        if (user == null && userCredentials[0].equals("FBLOGIN"))
+        {
+            return fb.loginWithFB(userCredentials[1]);
+        }
+
+        if (user != null && user.getFacebookProfileID() != null)
         {
             try
             {
-                FacebookController fb = new FacebookController();
                 return fb.loginWithFB(userCredentials[1]);
             }
             catch (FacebookOAuthException ex)
             {
                 if (user.getPassword().equals(userCredentials[1]))
                 {
+                    user.setFacebookProfileID(null);
                     return user;
                 }
 
