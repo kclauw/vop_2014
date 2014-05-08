@@ -408,4 +408,5 @@ public class PersistenceFacade
         logger.info("[PERSISTENCE CONTROLLER] Delete user");
         userDao.deleteUser(userID);
     }
+
 }

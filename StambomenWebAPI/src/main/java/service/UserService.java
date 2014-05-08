@@ -252,24 +252,4 @@ public class UserService
         }
     }
 
-    @PUT
-    @Path("/delete/{userId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Delete user", notes = "More notes about this method", response = String.class)
-    public Response deletePerson(@PathParam("userId") int userId)
-    {
-        try
-        {
-            logger.info("[PERSON SERVICE] DELETING USER " + userId);
-            String result = "User deleted:" + userId;
-
-            uc.deleteUser(userId);
-            return Response.status(Response.Status.OK).entity(result).build();
-        }
-        catch (Exception e)
-        {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
-        }
-    }
-
 }
