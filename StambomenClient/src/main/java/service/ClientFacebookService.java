@@ -23,7 +23,7 @@ public class ClientFacebookService
         String c = authCode.substring(0, authCode.indexOf("&"));
         client.register(HttpAuthenticationFeature.basicBuilder().credentials("FBLOGIN", c).build());
 
-        Response response = client.target(url + "facebook/login/" + c).request(MediaType.APPLICATION_JSON).get();
+        Response response = client.target(url + "facebook/login/").request(MediaType.APPLICATION_JSON).get();
 
         if (response.getStatus() != 200)
         {
@@ -52,6 +52,5 @@ public class ClientFacebookService
         }
 
         return null;
-
     }
 }
