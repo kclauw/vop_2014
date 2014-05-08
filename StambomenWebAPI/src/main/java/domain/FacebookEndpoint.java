@@ -2,14 +2,10 @@ package domain;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
-import com.restfb.exception.FacebookException;
 import domain.controller.UserController;
 import exception.FacebookUserNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import persistence.PersistenceFacade;
 
 public class FacebookEndpoint
@@ -30,21 +26,15 @@ public class FacebookEndpoint
     public User loginWithFB(String code)
     {
         User fbUser = null;
-        try
+
+        System.out.println("FB LOGIN");
+        FacebookClient facebookClient = new DefaultFacebookClient(code, APP_SECRET);
+        com.restfb.types.User user = facebookClient.fetchObject("me", com.restfb.types.User.class);
+        fbUser = this.pc.getUser(user.getEmail());
+        System.out.println("FB user: " + fbUser.getUsername());
+        if (fbUser == null)
         {
-            System.out.println("FB LOGIN");
-            FacebookClient facebookClient = new DefaultFacebookClient(code, APP_SECRET);
-            com.restfb.types.User user = facebookClient.fetchObject("me", com.restfb.types.User.class);
-            fbUser = this.pc.getUser(user.getEmail());
-            System.out.println("FB user: " + fbUser.getUsername());
-            if (fbUser == null)
-            {
-                throw new FacebookUserNotFoundException();
-            }
-        }
-        catch (FacebookException ex)
-        {
-            Logger.getLogger(FacebookEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+            throw new FacebookUserNotFoundException();
         }
 
         return fbUser;

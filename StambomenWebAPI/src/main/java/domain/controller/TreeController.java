@@ -5,6 +5,7 @@ import domain.Tree;
 import domain.enums.Event;
 import exception.TreeAlreadyExistsException;
 import exception.TreeNameAlreadyExistsException;
+import exception.TreeOwnerIsNullException;
 import java.util.Date;
 import java.util.List;
 import javax.ws.rs.PathParam;
@@ -34,6 +35,10 @@ public class TreeController
         Date date = new Date();
 
         System.out.println("");
+        if (tree.getOwner().getId() == 0)
+        {
+            throw new TreeOwnerIsNullException();
+        }
         Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
 
         // Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
