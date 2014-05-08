@@ -30,7 +30,7 @@ public class GedcomService
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @POST
-    @Path("/import/{privacy}/{name}/")
+    @Path("/import/{privacy}/{name}/{user}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Import gedcom file!", notes = "More notes about this method", response = String.class)

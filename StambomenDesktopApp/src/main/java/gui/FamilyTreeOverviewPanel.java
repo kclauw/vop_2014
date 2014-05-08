@@ -119,6 +119,8 @@ public class FamilyTreeOverviewPanel extends IPanel
                     }
 
                     String name = JOptionPane.showInputDialog("Gelieve een naam voor de boom in te voeren");
+
+                    JOptionPane.showMessageDialog(null, "test", "InfoBox: ", JOptionPane.INFORMATION_MESSAGE);
                     treeoverviewController.importGedcom(p.getPrivacyId(), userController.getUser().getId(), name, file);
                     treeoverviewController.goTo(Panels.TREEOVERVIEW);
 
