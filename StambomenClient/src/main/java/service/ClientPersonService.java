@@ -84,7 +84,7 @@ public class ClientPersonService
         System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + personID);
         Client client = ClientServiceController.getInstance().getClient();
 
-        Response response = client.target(url + "person/delete/" + treeID + "/" + personID).request(MediaType.APPLICATION_JSON).put(null);
+        Response response = client.target(url + "person/delete/" + treeID + "/" + personID).request(MediaType.APPLICATION_JSON).get();
 
         if (response.getStatus() != 200)
         {
