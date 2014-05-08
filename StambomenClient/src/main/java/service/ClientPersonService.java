@@ -47,7 +47,7 @@ public class ClientPersonService
     public String movePerson(int treeID, PersonAddDTO personAdd, int personID, int personMoveID)
     {
         Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "person/" + treeID + "/" + personAdd.getId() + "/" + personID + "/" + personMoveID).request(MediaType.APPLICATION_JSON).put(null);
+        Response response = client.target(url + "person/" + treeID + "/" + personAdd.getId() + "/" + personID + "/" + personMoveID).request(MediaType.APPLICATION_JSON).get();
 
         if (response.getStatus() != 200)
         {
