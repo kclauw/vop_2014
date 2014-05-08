@@ -80,6 +80,6 @@ public abstract class IPanel extends JPanel
     {
         ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
         Color maleColor = ThemeDTO.toColor(theme.getMaleColor());
-        panel.setBorder(new MatteBorder(2, 5, 2, 2, maleColor));
+        panel.setBorder(new MatteBorder(0, 5, 0, 0, maleColor));
     }
 }
