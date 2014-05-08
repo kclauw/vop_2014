@@ -35,7 +35,10 @@ public class UserControllerTest
     {
         uc = new UserController();
         theme = new Theme(1, "Default", "Valera", "FFFFFF", "252525", "334455", "B03A3A");
-        user = new User(-1, "TestUser", "Clauw123456789", new UserSettings(Language.EN, theme));
+        user = new User(-1, "Zoef", "Clauw123456789", new UserSettings(Language.EN, theme));
+        //user = uc.getUser(user.getUsername());
+
+        // uc.deleteUser(user.getId());
     }
 
     @BeforeClass
@@ -61,6 +64,7 @@ public class UserControllerTest
         user = uc.getUser(user.getUsername());
         try
         {
+            uc.getUser(user.getUsername());
             uc.deleteUser(user.getId());
         }
         catch (NullPointerException e)

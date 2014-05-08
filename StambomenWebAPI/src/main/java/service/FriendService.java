@@ -58,7 +58,11 @@ public class FriendService
         {
             User user = (User) cont.getProperty("user");
             String authCode = (String) cont.getProperty("fb");
-            List<User> users = uc.getPotentialFBFriends(user.getId(), authCode);
+            List<User> users = null;
+            if (authCode != null)
+            {
+                users = uc.getPotentialFBFriends(user.getId(), authCode);
+            }
             return Response.ok(users).build();
         }
         catch (Exception ex)
