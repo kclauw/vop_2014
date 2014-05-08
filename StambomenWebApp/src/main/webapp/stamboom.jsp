@@ -36,7 +36,7 @@
                 font-family: '<%= theme.getFont() %>', sans-serif;
                 color: #<%= theme.getTextColor() %>;
             }
-            .themeBgColor, .itemblock, #topbar{
+            .themeBgColor, .itemblock, #topbar, #datewindow{
                 background-color: #<%= theme.getBgColor() %>;
             }
             .themeMaleColor {
@@ -75,7 +75,6 @@
                     <p id="place"></p>
                     <p id="country"></p>
                     <form method="post" action="./TreeServlet"><input id="refpersonid" name="refpersonid" value="" type="hidden"/><input class="submit" type="submit" value="<%= trans.translate("SetAsReferenceperson") %>"/></form>
-                    <form method="post" action="./TimemachineServlet"><input id="refpersonid" name="refpersonid" value="" type="hidden"/><input class="submit" type="submit" value="<%= trans.translate("ShowInTimemachine") %>"/></form>
                 </div>
             </div>
             <div></div>
@@ -84,8 +83,7 @@
             <div class="wrapper">
                 <c:import url = "/Components/header.jsp"></c:import>
                     <ul id="menu">
-                        <li><a id="rebuildtree" href="./TreeServlet?rebuildtree=rebuildtree"><img src="./images/Refresh.png" width="26" height="26" alt="Refresh Tree" /></a></li>
-                            <c:import url = "/Components/menu.jsp"></c:import>
+                        <c:import url = "/Components/menu.jsp"></c:import>
                     </ul>
                 </div>
             </div>
@@ -93,10 +91,17 @@
                 <div>
                     <div class="tree">
                         <ul>
-                        ${treehtml}
-                    </ul>
+                            ${treehtml}
+                        </ul>
+                    </div>
                 </div>
-            </div>
+                <div id="datewindow" class="shadow">
+                    <div class="wrapper">
+                        <p><%= trans.translate("RefreshTree") %>:</p>
+                        <a id="rebuildtree" href="./TreeServlet?rebuildtree=rebuildtree"><img src="./images/Refresh.png" width="26" height="26" alt="Refresh Tree" /></a>
+                        <form method="post" action="./TimemachineServlet"><input id="refpersonid" name="refpersonid" value="" type="hidden"/><input class="submit" type="submit" value="<%= trans.translate("ShowInTimemachine") %>"/></form>
+                    </div>
+                </div>
         </div>
     </body>
 </html>
