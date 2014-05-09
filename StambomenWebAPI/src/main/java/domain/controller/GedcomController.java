@@ -49,7 +49,7 @@ public class GedcomController
     private String firstname = null, surname = null, zip, country;
     private String[] temp;
     private Date birthdate = null, deathdate = null;
-    private Map<String, Integer> persons;
+    private Map<String, Person> persons;
     private int treeId;
     private GedcomParser gp;
     private Gedcom g;
@@ -95,37 +95,36 @@ public class GedcomController
          .deathDate(deathdate)
          .place(p)
          .build();
-         persons.put(i.xref.toString(), pc.addPerson(treeId, PersonAdd.CHILD, person, -1));
+         persons.put(i.xref.toString(), person);
+         pc.addChild(treeId, person);
         // System.out.println("Gedcom ID : " + i.xref.toString() + " Person :" + firstname + " " + surname + " birthdate : " + birthdate + " deathdate : " + deathdate + "Treeid :" + treeId);
          System.out.println("Person added nr : " + teller);
          }
          
         for (Family f : g.families.values())
         {
-            
             try{
-            setName(f.wife.formattedName().split("/"));}
+            mother = persons.get(f.wife.xref.toString());}
             catch(NullPointerException e){
                 
             }
-            
-            mother = pc.getPerson(treeId, persons.get(f.wife.xref.toString()));
-            System.out.println("Wife : " + mother);
             try{
-            setName(f.husband.formattedName().split("/"));}
+            father = persons.get(f.husband.xref.toString());}
             catch(NullPointerException e){
                 
-            }
-            father = pc.getPerson(treeId, persons.get(f.husband.xref.toString()));
-            System.out.println("Husband : " + father);
+            }     
+           
             for (Individual c : f.children)
             {
-                Person child = pc.getPerson(treeId, persons.get(c.xref.toString()));
+                Person child = persons.get(c.xref.toString());
                 child.setFather(father);
-                child.setMother(father);
-                System.out.println("CHILD : " + child);
-                //pc.updatePerson(treeId, person);
+                child.setMother(mother);
+                //pc.updatePerson(treeId, child);
+                pc.movePerson(treeId, PersonAdd.CHILD, father.getPersonId(), child.getPersonId());
+                pc.movePerson(treeId, PersonAdd.CHILD, mother.getPersonId(),child.getPersonId());
+                System.out.println("CHILD : " + child.getFirstName() + child.getSurName());
             }
+            
         }
     }
        

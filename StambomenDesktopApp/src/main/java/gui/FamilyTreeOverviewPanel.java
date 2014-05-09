@@ -122,6 +122,7 @@ public class FamilyTreeOverviewPanel extends IPanel
                     JOptionPane.showMessageDialog(null, "test", "InfoBox: ", JOptionPane.INFORMATION_MESSAGE);
                     treeoverviewController.importGedcom(p.getPrivacyId(), userController.getUser().getId(), name, file);
                     treeoverviewController.goTo(Panels.TREEOVERVIEW);
+                    System.out.println("GEDCOM FILE IMPORTED ");
 
                 }
                 else
