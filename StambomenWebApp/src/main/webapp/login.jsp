@@ -46,8 +46,8 @@
                         <h1>Login</h1>
                         <form method="post">
                             <input name="login" type="hidden" value="login" />
-                            <input name="username" type="text" placeholder="Username" value="${empty param.username?"default":param.username}" />
-                            <input name="password" type="password" placeholder="Password" value="${empty param.password?"123456789": param.password}" />
+                            <input name="username" type="text" placeholder="Username" value="${empty param.username?"":param.username}" />
+                            <input name="password" type="password" placeholder="Password" value="${empty param.password?"": param.password}" />
                             <label class="error">${errormessage}</label>
                             <input class="submit" type="submit" value="Login"/>
                         </form>
