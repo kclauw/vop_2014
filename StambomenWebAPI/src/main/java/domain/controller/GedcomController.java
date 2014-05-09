@@ -66,7 +66,7 @@ public class GedcomController
 
     }
     
-
+    
 
     public void importGedcom(int privacy, int userid, String name, InputStream input) throws IOException, GedcomParserException, ParseException
     {
@@ -78,6 +78,9 @@ public class GedcomController
         g = gp.gedcom;
         gender = Gender.FEMALE;
         treeId = tc.addTree(new Tree(-1, new User(userid), Privacy.getPrivacy(privacy), name, null));
+        Tree t = tc.getTree(name);
+        t.setPersons(pc.getPersonsByTree(treeId));
+        
         for (Individual i : g.individuals.values())
          {
             teller++;
@@ -95,32 +98,27 @@ public class GedcomController
          .place(p)
          .build();
          person.setPersonId(pc.addChild(treeId, person));
-         persons.put(i.xref.toString(), person);
+         persons.put(i.xref, person);
          System.out.println("Person added nr : " + teller);
          }
          
         for (Family f : g.families.values())
         {
-            try{
-            mother = persons.get(f.wife.xref);}
-            catch(NullPointerException e){
-                
-            }
-     
-            try{
-            father = persons.get(f.husband.xref);}
-            catch(NullPointerException e){
-                
-            }   
+    
+            mother = persons.get(f.wife.xref);
+            father = persons.get(f.husband.xref);
+         
            
             for (Individual c : f.children)
             {
                 Person child = persons.get(c.xref.toString());
                 child.setFather(father);
                 child.setMother(mother);
-                pc.movePerson(treeId, PersonAdd.PARENT, father.getPersonId(),child.getPersonId());
-                pc.movePerson(treeId, PersonAdd.PARENT, mother.getPersonId(),child.getPersonId());
-                
+                //pc.movePerson(treeId, PersonAdd.PARENT, father.getPersonId(),child.getPersonId());
+                //pc.movePerson(treeId, PersonAdd.PARENT, mother.getPersonId(),child.getPersonId());
+                pc.updatePerson(treeId, child);
+                pc.addParentRelation(treeId,father.getPersonId(), child.getPersonId());
+                pc.addParentRelation(treeId,mother.getPersonId(), child.getPersonId());
                 System.out.println("CHILD : " + child.getFirstName() + child.getSurName() + child.getPersonId() );
                 System.out.println("CHILD FATHER : " + child.getFather().getFirstName() + child.getFather().getSurName() + child.getFather().getPersonId() );
                 System.out.println("CHILD MOTHER : " + child.getMother().getFirstName() + child.getMother().getSurName() + child.getMother().getPersonId() );
