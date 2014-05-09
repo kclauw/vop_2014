@@ -72,7 +72,7 @@ public class GedcomController
     {
         gp = new GedcomParser();
         int teller = 0;
-        
+     
         gp.load(new BufferedInputStream(input));
         
         g = gp.gedcom;
@@ -120,9 +120,14 @@ public class GedcomController
                 child.setFather(father);
                 child.setMother(mother);
                 //pc.updatePerson(treeId, child);
-                pc.movePerson(treeId, PersonAdd.CHILD, father.getPersonId(), child.getPersonId());
-                pc.movePerson(treeId, PersonAdd.CHILD, mother.getPersonId(),child.getPersonId());
+               // pc.movePerson(treeId, PersonAdd.CHILD, child.getPersonId(),father.getPersonId());
+               // pc.movePerson(treeId, PersonAdd.CHILD,child.getPersonId(),mother.getPersonId());
+                //pc.movePerson(treeId, PersonAdd.PARENT,father.getPersonId(),child.getPersonId());
+                //pc.movePerson(treeId, PersonAdd.PARENT,mother.getPersonId(),child.getPersonId()); 
+                pc.updatePersonRelations(treeId,child);
+                
                 System.out.println("CHILD : " + child.getFirstName() + child.getSurName());
+                
             }
             
         }
@@ -144,9 +149,10 @@ public class GedcomController
     }
     private void setBirthdate(Individual i) throws ParseException
     {     
+        
          try
          {
-         birthdate = df.parse(changeMonth(i.events.get(0).date.toString()));
+         birthdate = df.parse(changeMonth(i.events.get(0).date.toString().replaceAll("Abt", "").trim()));
          }
          catch (IndexOutOfBoundsException e)
          {
@@ -156,12 +162,15 @@ public class GedcomController
          {
          deathdate = null;
          }
+         catch (ParseException e){
+             
+         }
     }
     private void setDeathdate(Individual i) throws ParseException
     {
          try
          {
-         deathdate = df.parse(changeMonth(i.events.get(1).date.toString()));
+         deathdate = df.parse(changeMonth(i.events.get(1).date.toString().replaceAll("Abt", "")).trim());
          }
          catch (IndexOutOfBoundsException e)
          {
@@ -170,6 +179,9 @@ public class GedcomController
          catch (NullPointerException e)
          {
          deathdate = null;
+         }
+         catch (ParseException e){
+             
          }
     }
     private void setGender(Individual i){

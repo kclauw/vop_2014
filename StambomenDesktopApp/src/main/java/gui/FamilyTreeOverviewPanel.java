@@ -88,10 +88,8 @@ public class FamilyTreeOverviewPanel extends IPanel
 
                 if (returnVal == JFileChooser.APPROVE_OPTION)
                 {
-
                     file = fc.getSelectedFile();
                     System.out.println("Opening: " + file.getName());
-
                     cbxPrivacy.setModel(new javax.swing.DefaultComboBoxModel(new String[]
                     {
                         trans.translate("Private"), trans.translate("OnlyFriends"), trans.translate("Public")
@@ -116,10 +114,7 @@ public class FamilyTreeOverviewPanel extends IPanel
                     {
                         p = null;
                     }
-
                     String name = JOptionPane.showInputDialog("Gelieve een naam voor de boom in te voeren");
-
-                    JOptionPane.showMessageDialog(null, "test", "InfoBox: ", JOptionPane.INFORMATION_MESSAGE);
                     treeoverviewController.importGedcom(p.getPrivacyId(), userController.getUser().getId(), name, file);
                     treeoverviewController.goTo(Panels.TREEOVERVIEW);
                     System.out.println("GEDCOM FILE IMPORTED ");
