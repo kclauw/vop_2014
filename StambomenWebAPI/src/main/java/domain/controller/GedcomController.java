@@ -84,7 +84,7 @@ public class GedcomController
             setName(i.formattedName().split("/"));
             setGender(i);
             setBirthdate(i); 
-            setBirthdate(i); 
+            setDeathdate(i); 
             setZip(i); 
             setCountry(i); 
          gender = Gender.MALE;
@@ -147,7 +147,7 @@ public class GedcomController
     {     
          try
          {
-         birthdate = df.parse(changeMonth(i.events.get(1).date.toString()));
+         birthdate = df.parse(changeMonth(i.events.get(0).date.toString()));
          }
          catch (IndexOutOfBoundsException e)
          {
@@ -158,11 +158,11 @@ public class GedcomController
          deathdate = null;
          }
     }
-    private void setDeathdate(String i) throws ParseException
+    private void setDeathdate(Individual i) throws ParseException
     {
          try
          {
-         deathdate = df.parse(changeMonth(i));
+         deathdate = df.parse(changeMonth(i.events.get(1).date.toString()));
          }
          catch (IndexOutOfBoundsException e)
          {
