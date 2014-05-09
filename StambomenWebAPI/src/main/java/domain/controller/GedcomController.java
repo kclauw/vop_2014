@@ -88,46 +88,42 @@ public class GedcomController
             setZip(i); 
             setCountry(i); 
          gender = Gender.MALE;
-         
          Place p = new Place.PlaceBuilder("Unknown").country(country).zipCode(zip).build();
          person = new Person.PersonBuilder(firstname, surname, gender)
          .birthDate(birthdate)
          .deathDate(deathdate)
          .place(p)
          .build();
+         person.setPersonId(pc.addChild(treeId, person));
          persons.put(i.xref.toString(), person);
-         pc.addChild(treeId, person);
-        // System.out.println("Gedcom ID : " + i.xref.toString() + " Person :" + firstname + " " + surname + " birthdate : " + birthdate + " deathdate : " + deathdate + "Treeid :" + treeId);
          System.out.println("Person added nr : " + teller);
          }
          
         for (Family f : g.families.values())
         {
             try{
-            mother = persons.get(f.wife.xref.toString());}
+            mother = persons.get(f.wife.xref);}
             catch(NullPointerException e){
                 
             }
+     
             try{
-            father = persons.get(f.husband.xref.toString());}
+            father = persons.get(f.husband.xref);}
             catch(NullPointerException e){
                 
-            }     
+            }   
            
             for (Individual c : f.children)
             {
                 Person child = persons.get(c.xref.toString());
                 child.setFather(father);
                 child.setMother(mother);
-                //pc.updatePerson(treeId, child);
-               // pc.movePerson(treeId, PersonAdd.CHILD, child.getPersonId(),father.getPersonId());
-               // pc.movePerson(treeId, PersonAdd.CHILD,child.getPersonId(),mother.getPersonId());
-                //pc.movePerson(treeId, PersonAdd.PARENT,father.getPersonId(),child.getPersonId());
-                //pc.movePerson(treeId, PersonAdd.PARENT,mother.getPersonId(),child.getPersonId()); 
-                pc.updatePersonRelations(treeId,child);
+                pc.movePerson(treeId, PersonAdd.PARENT, father.getPersonId(),child.getPersonId());
+                pc.movePerson(treeId, PersonAdd.PARENT, mother.getPersonId(),child.getPersonId());
                 
-                System.out.println("CHILD : " + child.getFirstName() + child.getSurName());
-                
+                System.out.println("CHILD : " + child.getFirstName() + child.getSurName() + child.getPersonId() );
+                System.out.println("CHILD FATHER : " + child.getFather().getFirstName() + child.getFather().getSurName() + child.getFather().getPersonId() );
+                System.out.println("CHILD MOTHER : " + child.getMother().getFirstName() + child.getMother().getSurName() + child.getMother().getPersonId() );
             }
             
         }
