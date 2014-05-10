@@ -3,7 +3,7 @@ package domain;
 import domain.enums.Privacy;
 import exception.TreePrivacyCannotBeEmptyException;
 import java.util.List;
-import persistence.TreeNameCannotBeEmptyException;
+import exception.TreeNameCannotBeEmptyException;
 import util.StringValidation;
 
 public class Tree

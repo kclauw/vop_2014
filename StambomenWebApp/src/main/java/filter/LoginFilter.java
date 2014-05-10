@@ -21,6 +21,7 @@ import service.ClientPersonService;
 import service.ClientServiceController;
 import service.ClientTreeController;
 import service.ClientUserController;
+import service.ClientFacebookService;
 import service.ServiceConstant;
 
 public class LoginFilter implements Filter
@@ -54,6 +55,7 @@ public class LoginFilter implements Filter
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String passwordconfirm = request.getParameter("passwordconfirm");
+        String fbLoginAuthCode = request.getParameter("fbLoginAuthCode");
         String logout = request.getParameter("logout");
 
         //check logout
@@ -98,7 +100,7 @@ public class LoginFilter implements Filter
             }
         }
         //check login
-        else if (login != null)
+        else if (login != null && !login.isEmpty())
         {
             //empty session if not empty
             if (session != null)
@@ -112,7 +114,7 @@ public class LoginFilter implements Filter
             UserDTO user = new UserDTO(-1, username, password, null);
 
             //try login
-            doLogin(uC, session, request, response, contextpath, user);
+            doLogin(uC, session, request, response, contextpath, user, fbLoginAuthCode);
         }
 
         ClientServiceController csc = ClientServiceController.getInstance();
@@ -163,9 +165,27 @@ public class LoginFilter implements Filter
         return session;
     }
 
-    private void doLogin(ClientUserController uC, HttpSession session, HttpServletRequest request, HttpServletResponse response, String contextpath, UserDTO user) throws IOException
+    private void doLogin(ClientUserController uC, HttpSession session, HttpServletRequest request, HttpServletResponse response, String contextpath, UserDTO user, String fbLoginAuthCode) throws IOException
     {
-        String loginResponse = uC.login(user);
+        String loginResponse = "";
+
+        //check if facebooklogin else do normal loginprocedure
+        if (fbLoginAuthCode != null && !fbLoginAuthCode.isEmpty())
+        {
+            ClientFacebookService cFbS = new ClientFacebookService();
+            uC.setFBAuthCode(fbLoginAuthCode);
+
+            loginResponse = cFbS.loginWithFB(fbLoginAuthCode);
+            if (loginResponse == null)
+            {
+                loginResponse = "";
+            }
+        }
+        else
+        {
+            loginResponse = uC.login(user);
+        }
+
         if (!loginResponse.equals("Error") && !loginResponse.equals("Block"))
         {
             session = request.getSession();

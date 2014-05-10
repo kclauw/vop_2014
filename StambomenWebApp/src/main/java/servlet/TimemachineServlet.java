@@ -193,7 +193,7 @@ public class TimemachineServlet extends HttpServlet
             list[i][9] = new SimpleDateFormat("yyyy-MM-dd").format(person.getBirthDate());
             if (person.getDeathDate() != null)
             {
-                list[i][10] = new SimpleDateFormat("yyyy-MM-dd").format(person.getDeathDate());
+                list[i][10] = new SimpleDateFormat("d MMMM y").format(person.getDeathDate());
             }
             else
             {
