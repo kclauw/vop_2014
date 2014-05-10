@@ -18,21 +18,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import org.gedcom4j.model.Family;
 import org.gedcom4j.model.FamilyChild;
 import org.gedcom4j.model.Gedcom;
 import org.gedcom4j.model.Individual;
-
 import org.gedcom4j.parser.GedcomParser;
 import org.gedcom4j.parser.GedcomParserException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.PersistenceFacade;
 
-/**
- * This class is the facade to all person interaction.
- */
 public class GedcomController
 {
 
@@ -42,78 +36,47 @@ public class GedcomController
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private Person person;
-    private Person father;
-    private Person mother;
     private User user;
     private Tree tree;
     private Gender gender;
     private int personid;
-    private String firstname = null, surname = null, zip, country;
+    private String firstname, surname, zip, country;
     private String[] temp;
     private Date birthdate = null, deathdate = null;
-    private Map<String, Person> persons;
+    private Map<String, Integer> persons;
     private int treeId;
-    private GedcomParser gp;
-    private Gedcom g;
-    private BufferedInputStream buf;
-    private DateFormat df;
+
     public GedcomController()
     {
         this.pc = new PersonController();
         this.tc = new TreeController();
         this.per = new PersistenceFacade();
-        this.gp = new GedcomParser();
-        this.persons = new HashMap();
-        this.df = new SimpleDateFormat("dd MM yyyy");
 
     }
-    
-    
 
     public void importGedcom(int privacy, int userid, String name, InputStream input) throws IOException, GedcomParserException, ParseException
     {
-        gp = new GedcomParser();
-        int teller = 0;
-     
-        gp.load(new BufferedInputStream(input));
-        
-        g = gp.gedcom;
         gender = Gender.FEMALE;
-        treeId = tc.addTree(new Tree(-1, new User(userid), Privacy.getPrivacy(privacy), name, null));
-        Tree t = tc.getTree(name);
-        t.setPersons(pc.getPersonsByTree(treeId));
-        
+
+        System.out.println("TREE GEDCOMCONTROLLER : " + name);
+        GedcomParser gp = new GedcomParser();
+        //IOUtils.copy(input, System.out);
+        BufferedInputStream buf = new BufferedInputStream(input);
+        gp.load(buf);
+        Gedcom g = gp.gedcom;
+        temp = new String[1];
+        persons = new HashMap();
+        User user = new User(userid);
+        Privacy.getPrivacy(privacy);
+        Tree tree = new Tree(-1, user, Privacy.getPrivacy(privacy), name, null);
+        treeId = tc.addTree(tree);
+        DateFormat df = new SimpleDateFormat("dd MM yyyy");
+        int teller = 0;
+
         for (Individual i : g.individuals.values())
-         {
-            teller++;
-            setName(i.formattedName().split("/"));
-            setGender(i);
-            setBirthdate(i); 
-            setDeathdate(i); 
-            setZip(i); 
-            setCountry(i); 
-         gender = Gender.MALE;
-         Place p = new Place.PlaceBuilder("Unknown").country(country).zipCode(zip).build();
-         person = new Person.PersonBuilder(firstname, surname, gender)
-         .birthDate(birthdate)
-         .deathDate(deathdate)
-         .place(p)
-         .build();
-         person.setPersonId(pc.addChild(treeId, person));
-         persons.put(i.xref, person);
-         System.out.println("Person added nr : " + teller);
-         }
-         
-        for (Family f : g.families.values())
         {
-    
-            mother = persons.get(f.wife.xref);
-            father = persons.get(f.husband.xref);
-         
-           
-            for (Individual c : f.children)
+            if (i.formattedName() != null)
             {
-<<<<<<< HEAD
                 temp = i.formattedName().split("/");
                 firstname = temp[0];
                 try
@@ -180,8 +143,7 @@ public class GedcomController
                 }
                 gender = Gender.MALE;
 
-                Place p = new Place(-1, zip, null, new Country(-1, country), new PlaceName(-1, "Unkown"));
-
+                Place p = new Place(-1, "Unkonwn", null, new Country(-1, "Unknown"), new PlaceName(-1, "Unkonwn"));
                 person = new Person.PersonBuilder(firstname, surname, gender)
                         .birthDate(birthdate)
                         .deathDate(deathdate)
@@ -192,110 +154,142 @@ public class GedcomController
                 persons.put(i.xref.toString(), personid);
                 System.out.println("Gedcom ID : " + i.xref.toString() + " Person :" + firstname + " " + surname + " birthdate : " + birthdate + " deathdate : " + deathdate + "Treeid :" + treeId);
                 System.out.println("ZIP : " + zip + "COUNTRY : " + country + " COUNT : " + teller++);
-=======
-                Person child = persons.get(c.xref.toString());
-                child.setFather(father);
-                child.setMother(mother);
-                //pc.movePerson(treeId, PersonAdd.PARENT, father.getPersonId(),child.getPersonId());
-                //pc.movePerson(treeId, PersonAdd.PARENT, mother.getPersonId(),child.getPersonId());
-                pc.updatePerson(treeId, child);
-                pc.addParentRelation(treeId,father.getPersonId(), child.getPersonId());
-                pc.addParentRelation(treeId,mother.getPersonId(), child.getPersonId());
-                System.out.println("CHILD : " + child.getFirstName() + child.getSurName() + child.getPersonId() );
-                System.out.println("CHILD FATHER : " + child.getFather().getFirstName() + child.getFather().getSurName() + child.getFather().getPersonId() );
-                System.out.println("CHILD MOTHER : " + child.getMother().getFirstName() + child.getMother().getSurName() + child.getMother().getPersonId() );
->>>>>>> 440d3d888917a5d5ad2389e7bc0aea2353f06bae
             }
-            
-        }
-    }
-       
-    
-
-    private void setName(String[] temp)
-    {
-        firstname = temp[0];
-        try
-        {
-            surname = temp[1];
-        }
-        catch (IndexOutOfBoundsException E)
-        {
-            surname = "Unknown";
-        }
-    }
-    private void setBirthdate(Individual i) throws ParseException
-    {     
-        
-         try
-         {
-         birthdate = df.parse(changeMonth(i.events.get(0).date.toString().replaceAll("Abt", "").trim()));
-         }
-         catch (IndexOutOfBoundsException e)
-         {
-         birthdate = null;
-         }
-         catch (NullPointerException e)
-         {
-         deathdate = null;
-         }
-         catch (ParseException e){
-             
-         }
-    }
-    private void setDeathdate(Individual i) throws ParseException
-    {
-         try
-         {
-         deathdate = df.parse(changeMonth(i.events.get(1).date.toString().replaceAll("Abt", "")).trim());
-         }
-         catch (IndexOutOfBoundsException e)
-         {
-         deathdate = null;
-         }
-         catch (NullPointerException e)
-         {
-         deathdate = null;
-         }
-         catch (ParseException e){
-             
-         }
-    }
-    private void setGender(Individual i){
-        try{
-                     if (i.sex.toString().trim().equals("M")) 
-         gender = Gender.MALE;
-         else
-         gender = Gender.FEMALE;
-            
-        }
-        catch(NullPointerException e){
-            
         }
 
-         
+        for (Object key : persons.keySet())
+        {
+            System.out.println(key + " - " + persons.get(key));
+        }
+        System.out.println();
+
+        for (Individual i : g.individuals.values())
+        {
+            Person child = new Person();
+            child = pc.getPerson(treeId, persons.get(i.xref));
+            System.out.println("GETTING INDIVIDUALS FOR PARENT : " + teller);
+
+            /* System.out.println("Child : " + i.formattedName());
+             System.out.println("Sex  : " + i.sex.toString());
+             System.out.println("ID  : " + i.xref.toString());*/
+            //OPHALEN VAN DE PARENT
+            for (FamilyChild f : i.familiesWhereChild)
+            {
+
+                if (f.family.husband != null && f.family.husband.xref != i.xref)
+                {
+                    System.out.println("Dad ID  : " + f.family.husband.formattedName() + persons.get(f.family.husband.xref) + " CHIlD ID " + i.formattedName() + persons.get(i.xref));
+                    Person father = new Person();
+                    father = pc.getPerson(treeId, persons.get(f.family.husband.xref));
+                    person.setFather(father);
+
+                    //pc.movePerson(treeId, PersonAdd.PARENT, persons.get(i.xref), persons.get(f.family.husband.xref));
+                    // System.out.println("Dad   : " + f.family.husband.formattedName().toString() + persons.get(f.family.husband.xref) + " CHIlD ID " + +persons.get(i.formattedName()) + persons.get(i.xref));
+                    temp = f.family.husband.formattedName().split("/");
+                    firstname = temp[0];
+                    try
+                    {
+                        surname = temp[1];
+                    }
+                    catch (IndexOutOfBoundsException E)
+                    {
+                        // System.out.println("Dad :" + firstname + "Unknown" + " ID : " + f.family.husband.xref + "database id : " + persons.get(f.family.husband.xref));
+
+                    }
+                    //System.out.println("Dad :" + firstname + " " + surname + " ID : " + f.family.husband.xref + "database id : " + persons.get(f.family.husband.xref));
+                    // JOptionPane.showMessageDialog(null, "Mom :" + firstname + " Unknown" + " ID : " + f.family.husband.xref + "database id : " + persons.get(f.family.husband.xref), "TITLE", JOptionPane.WARNING_MESSAGE);
+                    // System.out.println("Dad :" + firstname + " " + surname + " CHILD : " + i.formattedName());
+
+                }
+
+                if (f.family.wife != null && f.family.wife.xref != i.xref)
+                {
+
+                    System.out.println("Mom   : " + f.family.wife.formattedName() + persons.get(f.family.wife.xref) + " CHIlD ID " + i.formattedName() + persons.get(i.xref));
+                    Person mother = new Person();
+                    mother = pc.getPerson(treeId, persons.get(f.family.wife.xref));
+                    child.setMother(mother);
+
+                    // pc.movePerson(treeId, PersonAdd.PARENT, persons.get(i.xref), persons.get(f.family.wife.xref));
+                    temp = f.family.wife.formattedName().split("/");
+                    firstname = temp[0];
+                    try
+                    {
+                        surname = temp[1];
+                    }
+                    catch (IndexOutOfBoundsException E)
+                    {
+
+                        // JOptionPane.showMessageDialog(null, "Mom :" + firstname + " Unknown" + " ID : " + f.family.wife.xref + "database id : " + persons.get(f.family.wife.xref), "TITLE", JOptionPane.WARNING_MESSAGE);
+                    }
+                    //System.out.println("Mom :" + firstname + " CHILD : " + i.formattedName());
+
+                }
+                pc.updatePerson(treeId, child);
+                System.out.println("PERSON UPDATED : " + child);
+            }
+
+            /*CODE VOOR HUSBAND & WIFE
+             for (FamilySpouse s : i.familiesWhereSpouse)
+             {
+             if (s.family.husband != null && !s.family.husband.formattedName().equals(i.formattedName()))
+             {
+             temp = s.family.husband.formattedName().split("/");
+             firstname = temp[0];
+             try
+             {
+             surname = temp[1];
+             }
+             catch (IndexOutOfBoundsException E)
+             {
+             // System.out.println("Wife of  :" + firstname + " Unknown ID : " + s.family.wife.xref + "database id : " + persons.get(s.family.husband.xref));
+             }
+             // System.out.println("Wife of :" + firstname + " " + surname + " ID : " + s.family.wife.xref + "database id : " + persons.get(s.family.husband.xref));
+             // per.addParentRelation(treeId, persons.get(s.family.wife.xref), persons.get(i.xref));
+             }
+             if (s.family.wife != null && !s.family.wife.xref.equals(i.xref))
+             {
+             temp = s.family.wife.formattedName().split("/");
+             firstname = temp[0];
+             try
+             {
+             surname = temp[1];
+             }
+             catch (IndexOutOfBoundsException E)
+             {
+             //  System.out.println("Husband of  :" + firstname + " Unkown ID : "+  s.family.husband.xref + "database id : " + persons.get(s.family.wife.xref));
+             }
+             //  System.out.println("Husband of :" + firstname + " " + surname + " ID : " + s.family.husband.xref + "database id : " + persons.get(s.family.wife.xref));
+             // per.addParentRelation(treeId, persons.get(s.family.husband.xref), persons.get(i.xref));
+             }
+             }
+             */
+        }
+
+        for (Individual z : g.individuals.values())
+        {
+            for (FamilyChild f : z.familiesWhereChild)
+            {
+
+                if (f.family.husband != null && f.family.husband.xref != z.xref)
+                {
+
+                    //pc.movePerson(treeId, PersonAdd.PARENT, persons.get(z.xref), persons.get(f.family.husband.xref));
+                    per.addParentRelation(treeId, persons.get(f.family.husband.xref), persons.get(z.xref));
+                }
+
+                if (f.family.wife != null && f.family.wife.xref != z.xref)
+                {
+                    per.addParentRelation(treeId, persons.get(f.family.wife.xref), persons.get(z.xref));
+                    //pc.movePerson(treeId, PersonAdd.PARENT, persons.get(z.xref), persons.get(f.family.wife.xref));
+                }
+            }
+        }
+
+        System.out.println("Gedcom file added");
+
     }
-    private void setZip(Individual i){
-         try
-         {
-             
-         zip = i.address.postalCode.customTags.get(0).value.toString();
-         }
-         catch (NullPointerException e)
-         {
-         zip = "Unknown";
-         }          
-    }
-    private void setCountry(Individual i){
-         try
-         {
-         country = i.address.country.customTags.get(0).value.toString();
-         }
-         catch (NullPointerException e)
-         {
-         country = "Unknown";
-         }
-    }
+
     private String changeMonth(String date)
     {
 
