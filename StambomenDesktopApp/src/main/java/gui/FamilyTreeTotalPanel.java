@@ -61,39 +61,29 @@ public class FamilyTreeTotalPanel extends IPanel
         scroll = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         this.scroll.setVisible(true);
         this.add(scroll, BorderLayout.CENTER);
-        addDetailPanel();
         this.validate();
     }
 
     public void addDetailPanel()
     {
-        if (this.detailFrame == null)
+        startTask();
+        if (this.familyTreeDetailPanel == null)
         {
 //            this.detailFrame = new JFrame();
             this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
             this.familyTreeDetailPanel.validate();
             this.add(familyTreeDetailPanel, BorderLayout.EAST);
-//            detailFrame.add(familyTreeDetailPanel);
-//            detailFrame.setPreferredSize(new Dimension(500, 1000));
-//            detailFrame.setMinimumSize(new Dimension(500, 1000));
-//            detailFrame.setVisible(true);
-//            detailFrame.setLocationRelativeTo(this);
-//            detailFrame.addWindowListener(new java.awt.event.WindowAdapter()
-//            {
-//                @Override
-//                public void windowClosing(java.awt.event.WindowEvent windowEvent)
-//                {
-//                    detailFrame.setVisible(false);
-//                    detailFrame.dispose();
-//                    detailFrame = null;
-//                }
-//            });
-
+            repaint();
+            revalidate();
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "You already have a detail panel open!");
+            this.remove(familyTreeDetailPanel);
+            repaint();
+            revalidate();
+            this.familyTreeDetailPanel = null;
         }
+        stopTask();
     }
 
     @SuppressWarnings("unchecked")
@@ -109,11 +99,17 @@ public class FamilyTreeTotalPanel extends IPanel
     // End of variables declaration//GEN-END:variables
     public void setPerson(PersonDTO person)
     {
+        if (familyTreeDetailPanel == null)
+        {
+            this.addDetailPanel();
+        }
+
         this.familyTreeDetailPanel.setPerson(person);
     }
 
     public void drawFamilyTree(List<PersonDTO> persons)
     {
+        startTask();
         this.persons = persons;
         DefaultConfiguration def = new DefaultConfiguration<PersonDTO>(maxGapBetweenNodes, maxGapBetweenLevel);
         PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), this.persons);
@@ -124,10 +120,12 @@ public class FamilyTreeTotalPanel extends IPanel
         TextInBoxTreePane panel = new TextInBoxTreePane(this, trLayout);
         this.scroll.add(panel);
         this.scroll.setViewportView(panel);
+        stopTask();
     }
 
     public void drawFamilyTree(List<PersonDTO> persons, DefaultConfiguration def)
     {
+        startTask();
         this.persons = persons;
         PersonTreeForTreeLayout pers = new PersonTreeForTreeLayout(PersonUtil.getRoot(persons), persons);
         TreeLayout<PersonDTO> layout = new TreeLayout<PersonDTO>(pers, new PersonNodeExtentProvider(), def);
@@ -136,6 +134,7 @@ public class FamilyTreeTotalPanel extends IPanel
         TextInBoxTreePane panel = new TextInBoxTreePane(this, trLayout);
         this.scroll.add(panel);
         this.scroll.setViewportView(panel);
+        stopTask();
     }
 
     private static TreeForTreeLayout<TextInBox> getSampleTree(TreeLayout<PersonDTO> tree)

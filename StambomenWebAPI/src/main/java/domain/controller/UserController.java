@@ -59,6 +59,13 @@ public class UserController
         return pc.getFriends(id);
     }
 
+    public List<User> getPotentialFBFriends(int userID, String fbAuthCode)
+    {
+        FacebookController fc = new FacebookController(this);
+        List<String> fbFriendIds = fc.getFriends(fbAuthCode);
+        return pc.getPotentialFBFriends(userID, fbFriendIds);
+    }
+
     /**
      * Checks if the user exists in the database. UseCredentials contains
      * username [0] and password [1]
@@ -88,6 +95,7 @@ public class UserController
             {
                 if (user.getPassword().equals(userCredentials[1]))
                 {
+                    user.setFacebookProfileID(null);
                     return user;
                 }
 

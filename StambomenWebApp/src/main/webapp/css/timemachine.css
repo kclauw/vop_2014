@@ -92,3 +92,11 @@ body > .wrapper > div, #map-canvas {
 #timecontrol #slower {
     margin-top:11px;
 }
+
+.markerbodycontent p, .markerbodycontent img {
+    margin-top: 7px;
+}
+
+.markercontent {
+    margin: 10px;
+}

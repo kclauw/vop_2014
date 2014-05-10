@@ -4,24 +4,28 @@ import dto.LanguageDTO;
 import gui.controller.SettingsController;
 import javax.swing.DefaultComboBoxModel;
 
-public class SettingsPanel extends IPanel {
+public class SettingsPanel extends IPanel
+{
 
     private SettingsController settingsController;
 
-    public SettingsPanel() {
+    public SettingsPanel()
+    {
         initComponents();
         initGui();
         translate();
+        setBorder(pnlSettings);
         cbxLanguage.setModel(new DefaultComboBoxModel(LanguageDTO.values()));
 
         //remove french from list, not supported
         cbxLanguage.removeItem(LanguageDTO.FR);
     }
 
-    public void translate() {
-        jButton1.setText(translate("Back"));
-        jButton3.setText(translate("SetLanguage"));
-        jLabel2.setText(translate("Language"));
+    public void translate()
+    {
+        btnBack.setText(translate("Back"));
+        btnSetLanguage.setText(translate("SetLanguage"));
+        lblLanguage.setText(translate("Language"));
     }
 
     /**
@@ -35,88 +39,223 @@ public class SettingsPanel extends IPanel {
     {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jButton2 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        pnlSettings = new javax.swing.JPanel();
+        filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 32767));
+        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 32767));
+        filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 200));
+        filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 200));
+        filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 32767));
+        lblIcon = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        lblLanguage = new javax.swing.JLabel();
+        lblError = new javax.swing.JLabel();
+        btnSetLanguage = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         cbxLanguage = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-
-        jButton2.setText("jButton2");
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 32767));
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 50), new java.awt.Dimension(0, 50), new java.awt.Dimension(32767, 50));
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 50), new java.awt.Dimension(0, 50), new java.awt.Dimension(32767, 50));
+        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 32767));
 
         setOpaque(false);
         setLayout(new java.awt.GridBagLayout());
 
-        jLabel2.setMaximumSize(new java.awt.Dimension(120, 23));
-        jLabel2.setMinimumSize(new java.awt.Dimension(120, 23));
-        jLabel2.setPreferredSize(new java.awt.Dimension(120, 23));
+        pnlSettings.setBackground(new java.awt.Color(255, 255, 255));
+        pnlSettings.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pnlSettings.setMaximumSize(new java.awt.Dimension(355, 375));
+        pnlSettings.setMinimumSize(new java.awt.Dimension(355, 375));
+        pnlSettings.setPreferredSize(new java.awt.Dimension(355, 375));
+        pnlSettings.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 15;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        pnlSettings.add(filler10, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 15;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 0.4;
+        pnlSettings.add(filler11, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weighty = 0.1;
+        pnlSettings.add(filler12, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        pnlSettings.add(filler13, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 15;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        pnlSettings.add(filler14, gridBagConstraints);
+
+        lblIcon.setText("     ");
+        lblIcon.setToolTipText("");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
+        pnlSettings.add(lblIcon, gridBagConstraints);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Settings");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
+        pnlSettings.add(jLabel1, gridBagConstraints);
+
+        lblLanguage.setText("Language");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 5);
+        pnlSettings.add(lblLanguage, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(8, 8, 8, 8);
+        pnlSettings.add(lblError, gridBagConstraints);
+
+        btnSetLanguage.setText("Set Language");
+        btnSetLanguage.setMaximumSize(new java.awt.Dimension(120, 23));
+        btnSetLanguage.setMinimumSize(new java.awt.Dimension(120, 23));
+        btnSetLanguage.setPreferredSize(new java.awt.Dimension(120, 23));
+        btnSetLanguage.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnSetLanguageActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        add(jLabel2, gridBagConstraints);
+        gridBagConstraints.weightx = 0.6;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
+        pnlSettings.add(btnSetLanguage, gridBagConstraints);
+
+        btnBack.setText("Back");
+        btnBack.setMaximumSize(new java.awt.Dimension(120, 23));
+        btnBack.setMinimumSize(new java.awt.Dimension(120, 23));
+        btnBack.setPreferredSize(new java.awt.Dimension(120, 23));
+        btnBack.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnBackActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 0);
+        pnlSettings.add(btnBack, gridBagConstraints);
 
         cbxLanguage.setMaximumSize(new java.awt.Dimension(100, 23));
         cbxLanguage.setMinimumSize(new java.awt.Dimension(100, 23));
         cbxLanguage.setPreferredSize(new java.awt.Dimension(100, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
+        pnlSettings.add(cbxLanguage, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 17;
-        add(cbxLanguage, gridBagConstraints);
-
-        jButton1.setText("Back");
-        jButton1.setMaximumSize(new java.awt.Dimension(120, 23));
-        jButton1.setMinimumSize(new java.awt.Dimension(120, 23));
-        jButton1.setPreferredSize(new java.awt.Dimension(120, 23));
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        add(pnlSettings, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 0.2;
+        add(filler1, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        add(filler2, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        add(filler3, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        add(jButton1, gridBagConstraints);
-
-        jButton3.setText("Set Language");
-        jButton3.setMaximumSize(new java.awt.Dimension(120, 23));
-        jButton3.setMinimumSize(new java.awt.Dimension(120, 23));
-        jButton3.setPreferredSize(new java.awt.Dimension(120, 23));
-        jButton3.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        add(jButton3, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 0.2;
+        add(filler4, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         settingsController.back();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnBackActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
-    {//GEN-HEADEREND:event_jButton3ActionPerformed
+    private void btnSetLanguageActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSetLanguageActionPerformed
+    {//GEN-HEADEREND:event_btnSetLanguageActionPerformed
         LanguageDTO languageDTO = (LanguageDTO) cbxLanguage.getSelectedItem();
         settingsController.setLanguage(languageDTO.getLanguageId());
         translate();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnSetLanguageActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnSetLanguage;
     private javax.swing.JComboBox cbxLanguage;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler10;
+    private javax.swing.Box.Filler filler11;
+    private javax.swing.Box.Filler filler12;
+    private javax.swing.Box.Filler filler13;
+    private javax.swing.Box.Filler filler14;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
+    private javax.swing.Box.Filler filler4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblError;
+    private javax.swing.JLabel lblIcon;
+    private javax.swing.JLabel lblLanguage;
+    private javax.swing.JPanel pnlSettings;
     // End of variables declaration//GEN-END:variables
-    public void setSettingsController(SettingsController sc) {
+    public void setSettingsController(SettingsController sc)
+    {
         this.settingsController = sc;
         LanguageDTO languageDTO = settingsController.getLanguage();
         cbxLanguage.setSelectedItem(languageDTO);

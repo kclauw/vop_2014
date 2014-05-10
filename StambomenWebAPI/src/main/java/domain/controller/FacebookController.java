@@ -2,6 +2,7 @@ package domain.controller;
 
 import domain.FacebookEndpoint;
 import domain.User;
+import java.util.List;
 
 public class FacebookController
 {
@@ -13,6 +14,11 @@ public class FacebookController
         fe = new FacebookEndpoint();
     }
 
+    public FacebookController(UserController userController)
+    {
+        fe = new FacebookEndpoint(userController);
+    }
+
     public User loginWithFB(String code)
     {
         return fe.loginWithFB(code);
@@ -21,6 +27,11 @@ public class FacebookController
     public void registerWithFB(String authCode)
     {
         fe.register(authCode);
+    }
+
+    public List<String> getFriends(String authCode)
+    {
+        return fe.getFriends(authCode);
     }
 
 }

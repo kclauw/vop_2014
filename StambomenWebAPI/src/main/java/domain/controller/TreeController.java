@@ -8,7 +8,6 @@ import exception.TreeNameAlreadyExistsException;
 import exception.TreeOwnerIsNullException;
 import java.util.Date;
 import java.util.List;
-import javax.ws.rs.PathParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.PersistenceFacade;
@@ -35,10 +34,11 @@ public class TreeController
         Date date = new Date();
 
         System.out.println("");
-        if (tree.getOwner().getId() == 0)
+        if (tree.getOwner() == null || tree.getOwner().getId() == 0 || tree.getOwner().getId() == -1)
         {
             throw new TreeOwnerIsNullException();
         }
+
         Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
 
         // Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
@@ -109,4 +109,5 @@ public class TreeController
     {
         return pc.getPublicTreesByName(userId, name);
     }
+
 }

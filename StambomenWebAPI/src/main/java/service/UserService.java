@@ -96,17 +96,17 @@ public class UserService
     }
 
     @PUT
-    @Path("/setLanguage/{languageID}")
+    @Path("/setLanguage/")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Set language", notes = "More notes about this method", response = String.class)
-    public Response setLanguage(@Context ContainerRequest cont, @PathParam("languageID") int languageID)
+    public Response setLanguage(@Context ContainerRequest cont, int language)
     {
         try
         {
             User user = (User) cont.getProperty("user");
-            logger.info("[User Service][SET LANGUAGE]Set language with id: " + languageID + " for user with id: " + user.getId());
-            Language language = Language.getLanguageId(languageID);
-            uc.setLanguage(user.getId(), language);
+            logger.info("[User Service][SET LANGUAGE]Set language with id: " + language + " for user with id: " + user.getId());
+            Language languageObject = Language.getLanguageId(language);
+            uc.setLanguage(user.getId(), languageObject);
             return Response.status(Response.Status.OK).entity("Succesfully set language for user" + user.getId()).build();
         }
         catch (Exception ex)
@@ -135,10 +135,10 @@ public class UserService
     }
 
     @PUT
-    @Path("/get/profile/setUserPrivacy/{PrivacyID}")
+    @Path("/get/profile/setUserPrivacy/")
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Set user privacy", notes = "More notes about this method", response = String.class)
-    public Response setUserPrivacy(@Context ContainerRequest cont, @PathParam("PrivacyID") int PrivacyID)
+    public Response setUserPrivacy(@Context ContainerRequest cont, int PrivacyID)
     {
         try
         {
@@ -232,10 +232,10 @@ public class UserService
     }
 
     @PUT
-    @Path("/setTheme/{themeID}")
+    @Path("/setTheme/")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Set theme", notes = "More notes about this method", response = String.class)
-    public Response setTheme(@Context ContainerRequest cont, @PathParam("themeID") int themeID)
+    public Response setTheme(@Context ContainerRequest cont, int themeID)
     {
 
         try
@@ -249,26 +249,6 @@ public class UserService
         catch (Exception ex)
         {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(ex.getMessage()).build();
-        }
-    }
-
-    @PUT
-    @Path("/delete/{userId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Delete user", notes = "More notes about this method", response = String.class)
-    public Response deletePerson(@PathParam("userId") int userId)
-    {
-        try
-        {
-            logger.info("[PERSON SERVICE] DELETING USER " + userId);
-            String result = "User deleted:" + userId;
-
-            uc.deleteUser(userId);
-            return Response.status(Response.Status.OK).entity(result).build();
-        }
-        catch (Exception e)
-        {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
         }
     }
 

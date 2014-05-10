@@ -128,6 +128,49 @@ public class Person
         this.picture = picture;
     }
 
+    public void setPersonId(int personId)
+    {
+        this.personId = personId;
+    }
+
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
+
+    public void setSurName(String surName)
+    {
+        this.surName = surName;
+    }
+
+    public void setGender(Gender gender)
+    {
+        this.gender = gender;
+    }
+
+    public void setBirthDate(Date birthDate)
+    {
+        this.birthDate = birthDate;
+    }
+
+    public void setDeathDate(Date deathDate)
+    {
+        this.deathDate = deathDate;
+    }
+
+    public void setPlace(Place place)
+    {
+        if (place == null)
+        {
+            Place p = new Place.PlaceBuilder("Unknown").country("Unknown").zipCode("Unknown").build();
+            this.place = p;
+        }
+        else
+        {
+            this.place = place;
+        }
+    }
+
     @Override
     public String toString()
     {

@@ -1,7 +1,6 @@
 package service;
 
 import com.google.gson.Gson;
-import dto.ActivityDTO;
 import dto.PrivacyDTO;
 import dto.ThemeDTO;
 import dto.UserDTO;
@@ -87,80 +86,11 @@ public class ClientUserService
         return result;
     }
 
-    public List<UserDTO> getFriends()
-    {
-        logger.info("[CLIENT USER SERVICE][GET FRIENDS]");
-        Client client = ClientServiceController.getInstance().getClient();
-        List<UserDTO> friends = client.target(url + "user/friends/").request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
-        {
-        });
-
-        return friends;
-    }
-
-    public List<UserDTO> getFriendRequests()
-    {
-        logger.info("[CLIENT USER SERVICE][GET FRIEND REQUESTS]");
-        Client client = ClientServiceController.getInstance().getClient();
-        List<UserDTO> friends = client.target(url + "user/friends/requests").request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
-        {
-        });
-        return friends;
-    }
-
-    public String deleteFriend(int frienduserID)
-    {
-        logger.info("[CLIENT USER SERVICE][DELETE FRIEND]Delete friend with id:" + frienduserID);
-        Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "user/friends/delete/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
-
-        if (response.getStatus() != 200)
-        {
-
-            return " " + response.readEntity(String.class
-            );
-        }
-
-        return null;
-    }
-
-    public String allowDenyFriendRequest(int frienduserID, boolean allow)
-    {
-        logger.info("[CLIENT USER SERVICE][ALLOW DENY FRIEND REQUEST]Allow deny friendrequest for friend with id:" + frienduserID);
-        Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "user/friends/requests/" + (allow ? "allow" : "deny") + "/" + frienduserID).request(MediaType.APPLICATION_JSON).get();
-
-        if (response.getStatus() != 200)
-        {
-
-            return " " + response.readEntity(String.class
-            );
-        }
-
-        return null;
-    }
-
-    public String sendFriendRequest(String frienduserName)
-    {
-        logger.info("[CLIENT USER SERVICE][SEND FRIEND REQUEST]");
-        Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "user/friends/requests/send/" + frienduserName).request(MediaType.APPLICATION_JSON).post(null);
-
-        if (response.getStatus() != 200)
-        {
-
-            return " " + response.readEntity(String.class
-            );
-        }
-
-        return null;
-    }
-
     public String setLanguage(int languageID)
     {
         logger.info("[CLIENT USER SERVICE][SET LANGUAGE]Set language with id: " + languageID);
         Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "user/setLanguage/" + languageID).request(MediaType.APPLICATION_JSON).put(null);
+        Response response = client.target(url + "user/setLanguage/" + languageID).request(MediaType.APPLICATION_JSON).put(Entity.entity(languageID, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() != 200)
         {
@@ -174,7 +104,7 @@ public class ClientUserService
     {
         logger.info("[CLIENT USER SERVICE][SET THEME]Set theme with id: " + themeID);
         Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "user/setTheme/" + themeID).request(MediaType.APPLICATION_JSON).put(null);
+        Response response = client.target(url + "user/setTheme/").request(MediaType.APPLICATION_JSON).put(Entity.entity(themeID, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() != 200)
         {
@@ -190,8 +120,7 @@ public class ClientUserService
         logger.info("[CLIENT USER SERVICE][SET USER PRIVACY]");
         Client client = ClientServiceController.getInstance().getClient();
 
-        Response response = client.target(url + "user/get/profile/setUserPrivacy/" + privacyID).request(MediaType.APPLICATION_JSON).put(null);
-
+        Response response = client.target(url + "user/get/profile/setUserPrivacy/").request(MediaType.APPLICATION_JSON).put(Entity.entity(privacyID, MediaType.APPLICATION_JSON));
         if (response.getStatus() != 200)
         {
 
@@ -250,20 +179,6 @@ public class ClientUserService
         });
 
         return users;
-    }
-
-    public List<ActivityDTO> getActivities()
-    {
-        logger.info("[CLIENT ADMIN SERVICE][GET USERS]Getting users ");
-
-        Client client = ClientServiceController.getInstance().getClient();
-        client.register(new JacksonFeature());
-
-        List<ActivityDTO> activities = client.target(url + "activity/getActivities/").request(MediaType.APPLICATION_JSON).get(new GenericType<List<ActivityDTO>>()
-        {
-        });
-
-        return activities;
     }
 
     public String updateUser(UserDTO user)

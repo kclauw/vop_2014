@@ -8,8 +8,4 @@ $(document).ready(function() {
         $('.popupboxbg').show();
     });
     
-    if ($('.friendrequestlist ul').children().length === 0) {
-        $('.friendrequestlist').hide();
-    }
-    
 });

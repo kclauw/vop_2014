@@ -151,6 +151,10 @@ public class GuiController
     {
         currentPanel = frame;
         programFrame.getContentPane().removeAll();
+        programFrame.setLayout(new BorderLayout());
+        ImageIcon img = new ImageIcon(ServiceConstant.getInstance().getApplicationImage(ImageTypeDTO.BACKGROUND));
+        programFrame.setContentPane(new JLabel(img));
+        programFrame.setLayout(new BorderLayout());
 
         JPanel content = null;
         switch (frame)
@@ -200,7 +204,7 @@ public class GuiController
                 break;
         }
 
-        programFrame.add(content);
+        programFrame.add(content, BorderLayout.CENTER);
         programFrame.revalidate();
         programFrame.repaint();
     }

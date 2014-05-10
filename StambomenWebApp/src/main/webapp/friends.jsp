@@ -11,7 +11,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%! Translator trans = new Translator(); %> 
- <%   trans.updateLanguage(); %>
+<%   trans.updateLanguage(); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,6 +58,17 @@
                 <div>
                     <h1><%= trans.translate("AddFriend") %></h1>
                     <form method="post" action="./FriendServlet"><input name="sendfriendrequestname" type="text" placeholder="Username"/><input class="submit" type="submit" value="Add"/></form>
+                    <c:if test="${not empty potFbFriends}">
+                        <h2>Facebook</h2>
+                        <form method="post" action="./FriendServlet">
+                            <select name="sendfriendrequestid">
+                                <c:forEach var="item" items="${potFbFriends}" varStatus="counter">
+                                    <option value="${item.username}">${item.username}</option>
+                                </c:forEach>
+                            </select>
+                            <input class="submit" type="submit" value="Add"/>
+                        </form>
+                    </c:if>
                 </div>
             </div>
             <div></div>
@@ -72,17 +83,31 @@
         </div>
         <div class="wrapper">
             <div>
-                <div class="friendrequestlist">
-                    <h1><%= trans.translate("Requests") %></h1>
-                    <ul>
-                        ${friendrequestshtml}
-                    </ul>   
-                </div>
+                <c:if test="${not empty friendrequests}">
+                    <div class="friendrequestlist">
+                        <h1><%= trans.translate("Requests") %></h1>
+                        <ul>
+                            <c:forEach var="item" items="${friendrequests}" varStatus="counter">
+                                <li class="itemblock">
+                                    <div>${item.username}</div>
+                                <a href=\"./FriendServlet?denyfriendrequestid=${item.id}"><img class="denyfriend" src="./images/delete.png" alt="deny" /></a>
+                                <a href=\"./FriendServlet?allowfriendrequestid=${item.id}"><img class="allowfriend" src="./images/allow.png" alt="allow" /></a>
+                                </li>
+                            </c:forEach>
+                        </ul>   
+                    </div>
+                </c:if>
+                    
                 <div class="friendlist">
                     <img id="adduser" src="./images/adduser.png" width="32" height="32" alt="Add User" />
                     <h1><%= trans.translate("Friendlist") %></h1>
                     <ul>
-                        ${friendshtml}
+                        <c:forEach var="item" items="${friends}" varStatus="counter">
+                            <li class="itemblock">
+                                <div>${item.username}</div>
+                                    <a href="./FriendServlet?deletefriendid=${item.id}"><img class="deletefriend" src="./images/delete.png" alt="remove"></a>
+                            </li>
+                        </c:forEach>
                     </ul>
                 </div>
                 <div class="friendactivitylist">

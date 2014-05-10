@@ -1,5 +1,7 @@
 package domain;
 
+import util.StringValidation;
+
 public class Place
 {
 
@@ -24,6 +26,48 @@ public class Place
         this.country = builder.country;
         this.zipCode = builder.zipCode;
         this.placeName = builder.placeName;
+    }
+
+    public void setPlaceId(int placeId)
+    {
+        this.placeId = placeId;
+    }
+
+    public void setCountryId(int countryId)
+    {
+        this.countryId = countryId;
+    }
+
+    public void setPlaceNameId(int placeNameId)
+    {
+        this.placeNameId = placeNameId;
+    }
+
+    public void setCountry(String country)
+    {
+        if (StringValidation.emptyString(country))
+        {
+            this.country = "Unknown";
+        }
+        this.country = country;
+    }
+
+    public void setZipCode(String zipCode)
+    {
+        if (StringValidation.emptyString(zipCode))
+        {
+            this.zipCode = "Unknown";
+        }
+        this.zipCode = zipCode;
+    }
+
+    public void setPlaceName(String placeName)
+    {
+        if (StringValidation.emptyString(placeName))
+        {
+            this.placeName = "Unknown";
+        }
+        this.placeName = placeName;
     }
 
     public int getCountryId()
@@ -100,6 +144,10 @@ public class Place
 
         public PlaceBuilder(String placeName)
         {
+            if (StringValidation.emptyString(placeName))
+            {
+                this.placeName = "Unknown";
+            }
             this.placeName = placeName;
         }
 
@@ -123,12 +171,20 @@ public class Place
 
         public PlaceBuilder country(String country)
         {
+            if (StringValidation.emptyString(country))
+            {
+                this.country = "Unknown";
+            }
             this.country = country;
             return this;
         }
 
         public PlaceBuilder zipCode(String zipCode)
         {
+            if (StringValidation.emptyString(zipCode))
+            {
+                this.zipCode = "Unknown";
+            }
             this.zipCode = zipCode;
             return this;
         }

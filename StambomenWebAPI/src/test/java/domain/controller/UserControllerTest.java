@@ -9,20 +9,16 @@ import domain.Theme;
 import domain.User;
 import domain.UserSettings;
 import domain.enums.Language;
-import domain.enums.Privacy;
 import exception.EmptyPasswordException;
 import exception.InvalidPasswordException;
 import exception.UserAlreadyExistsException;
-import java.util.List;
+import javax.xml.bind.DatatypeConverter;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 /**
  *
@@ -37,6 +33,12 @@ public class UserControllerTest
 
     public UserControllerTest()
     {
+        uc = new UserController();
+        theme = new Theme(1, "Default", "Valera", "FFFFFF", "252525", "334455", "B03A3A");
+        user = new User(-1, "Zoef", "Clauw123456789", new UserSettings(Language.EN, theme));
+        //user = uc.getUser(user.getUsername());
+
+        // uc.deleteUser(user.getId());
     }
 
     @BeforeClass
@@ -53,9 +55,7 @@ public class UserControllerTest
     @Before
     public void setUp()
     {
-        uc = new UserController();
-        theme = new Theme(1, "Default", "Valera", "FFFFFF", "252525", "334455", "B03A3A");
-        user = new User(-1, "TestUser", "Clauw123456789", new UserSettings(Language.EN, theme));
+
     }
 
     @After
@@ -64,6 +64,7 @@ public class UserControllerTest
         user = uc.getUser(user.getUsername());
         try
         {
+            uc.getUser(user.getUsername());
             uc.deleteUser(user.getId());
         }
         catch (NullPointerException e)
@@ -116,11 +117,13 @@ public class UserControllerTest
     @Test
     public void testLogin()
     {
-        String[] userCredentials = null;
-        userCredentials[0] = "TestUser";
-        userCredentials[1] = "Clauw123456789";
-        System.out.println("testLoginNull");
-        // assertNotNull(uc.login(userCredentials));
+        String userCred = "TestUser:wachtwoord";
+
+        byte[] userCredentials = DatatypeConverter.parseBase64Binary(userCred);
+
+        System.out.println("Usercrdedentials : " + userCredentials.toString());
+
+        //assertNotNull(uc.login(userCredentials.toString()));
     }
 
 }

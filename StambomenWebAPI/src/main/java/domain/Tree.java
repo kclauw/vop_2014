@@ -1,8 +1,9 @@
 package domain;
 
 import domain.enums.Privacy;
+import exception.TreePrivacyCannotBeEmptyException;
 import java.util.List;
-import persistence.TreeNameCannotBeEmptyException;
+import exception.TreeNameCannotBeEmptyException;
 import util.StringValidation;
 
 public class Tree
@@ -26,13 +27,13 @@ public class Tree
         setName(name);
         setPersons(persons);
     }
-    
-     public Tree(User owner,String name)
+
+    public Tree(User owner, String name)
     {
-     
+
         setOwner(owner);
         setName(name);
-       
+
     }
 
     public List<Person> getPersons()
@@ -77,6 +78,11 @@ public class Tree
 
     private void setPrivacy(Privacy privacy)
     {
+        if (privacy == null)
+        {
+            throw new TreePrivacyCannotBeEmptyException();
+        }
+
         this.privacy = privacy;
     }
 
@@ -87,11 +93,11 @@ public class Tree
 
     private void setName(String name)
     {
-        if(StringValidation.emptyString(name))
+        if (StringValidation.emptyString(name))
         {
             throw new TreeNameCannotBeEmptyException();
         }
-        
+
         this.name = name;
     }
 

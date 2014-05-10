@@ -56,7 +56,6 @@ public class FamilyTreeOverviewPanel extends IPanel
         settingsItem = new JMenuItem(trans.translate("ChangeLanguage"));
         addTreeItem = new JMenuItem(trans.translate("AddTree"));
         importGedcomItem = new JMenuItem("Import gedcom");
-        exportGedcomItem = new JMenuItem("Export gedcom");
         addTreeItem.addActionListener(new ActionListener()
         {
 
@@ -89,10 +88,8 @@ public class FamilyTreeOverviewPanel extends IPanel
 
                 if (returnVal == JFileChooser.APPROVE_OPTION)
                 {
-
                     file = fc.getSelectedFile();
                     System.out.println("Opening: " + file.getName());
-
                     cbxPrivacy.setModel(new javax.swing.DefaultComboBoxModel(new String[]
                     {
                         trans.translate("Private"), trans.translate("OnlyFriends"), trans.translate("Public")
@@ -117,10 +114,10 @@ public class FamilyTreeOverviewPanel extends IPanel
                     {
                         p = null;
                     }
-
                     String name = JOptionPane.showInputDialog("Gelieve een naam voor de boom in te voeren");
                     treeoverviewController.importGedcom(p.getPrivacyId(), userController.getUser().getId(), name, file);
                     treeoverviewController.goTo(Panels.TREEOVERVIEW);
+                    System.out.println("GEDCOM FILE IMPORTED ");
 
                 }
                 else
@@ -130,17 +127,9 @@ public class FamilyTreeOverviewPanel extends IPanel
 
             }
         });
-        exportGedcomItem.addActionListener(new ActionListener()
-        {
 
-            public void actionPerformed(ActionEvent e)
-            {
-
-            }
-        });
         menuS.add(settingsItem);
         menuS.add(importGedcomItem);
-        menuS.add(exportGedcomItem);
         menu.add(addTreeItem);
         menuBar.add(menu);
         menuBar.add(menuS);
@@ -178,15 +167,6 @@ public class FamilyTreeOverviewPanel extends IPanel
     public void addAdmin()
     {
         menuA = new JMenu(trans.translate("Admin"));
-        personItem = new JMenuItem(trans.translate("PersonOverview"));
-        personItem.addActionListener(new ActionListener()
-        {
-
-            public void actionPerformed(ActionEvent e)
-            {
-                treeoverviewController.goTo(Panels.PERSONOVERVIEW);
-            }
-        });
         userItem = new JMenuItem(trans.translate("UserOverview"));
         userItem.addActionListener(new ActionListener()
         {
@@ -205,7 +185,6 @@ public class FamilyTreeOverviewPanel extends IPanel
                 treeoverviewController.goTo(Panels.ADMINTHEME);
             }
         });
-        menuA.add(personItem);
         menuA.add(userItem);
         menuA.add(style);
         menuBar.add(menuA);

@@ -131,6 +131,7 @@ public class PersonController
             }
 
         };
+       
         return id;
     }
 
@@ -139,6 +140,8 @@ public class PersonController
         return pc.addPerson(treeID, person);
 
     }
+    
+    
 
     public void deletePersonImage(int treeID, int personID)
     {
@@ -257,6 +260,10 @@ public class PersonController
         }
 
         return null;
+    }
+    
+    public void addParentRelation(int treeID,int parentID,int childID){
+     pc.addParentRelation(treeID, parentID, childID);
     }
 
     private void checkParentRelations(Person child, Person person)

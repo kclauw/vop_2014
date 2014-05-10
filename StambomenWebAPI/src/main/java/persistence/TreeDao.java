@@ -29,6 +29,7 @@ public class TreeDao implements ITreeDao<Tree>
     private PersistenceFacade per;
     private final Logger logger;
     private int lastInsertedId;
+    //private final String DELETETREE = "DELETE from Tree WHERE treeID = ?";
 
     public TreeDao(PersistenceFacade per)
     {
@@ -203,7 +204,7 @@ public class TreeDao implements ITreeDao<Tree>
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(GETTREEBYUSERID);
             prep.setInt(1, userid);
-            logger.info("[TREE DAO] GET ALL USERID " + prep.toString());
+            logger.info("[TREE DAO] GET ALL BY USERID :" + prep.toString());
             res = prep.executeQuery();
 
             while (res.next())

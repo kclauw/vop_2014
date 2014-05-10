@@ -17,6 +17,7 @@ import domain.enums.Privacy;
 import exception.TreeAlreadyExistsException;
 import exception.TreeNameAlreadyExistsException;
 import exception.TreeOwnerIsNullException;
+import exception.UserAlreadyExistsException;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -24,7 +25,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import persistence.TreeNameCannotBeEmptyException;
+import exception.TreeNameCannotBeEmptyException;
 
 /**
  *
@@ -44,25 +45,19 @@ public class TreeControllerTest
 
     public TreeControllerTest()
     {
-    }
 
-    @BeforeClass
-    public static void setUpClass()
-    {
-    }
-
-    @AfterClass
-    public static void tearDownClass()
-    {
-    }
-
-    @Before
-    public void setUp()
-    {
         uc = new UserController();
         tc = new TreeController();
-        user = new User(-1, "TestUser", "Clauw123456789", new UserSettings(Language.EN, theme));
-        uc.addUser(user);
+        user = new User(-1, "TreeControllerTest1234", "123456789", new UserSettings(Language.EN, theme));
+        try
+        {
+            uc.addUser(user);
+        }
+        catch (UserAlreadyExistsException e)
+        {
+
+        }
+        user = uc.getUser(user.getUsername());
         theme = new Theme(1, "Default", "Valera", "FFFFFF", "252525", "334455", "B03A3A");
         coord = new Coordinate(1, 0, 0);
         place = new Place.PlaceBuilder("Oostende")
@@ -73,47 +68,74 @@ public class TreeControllerTest
                 .country("België")
                 .zipCode("8400")
                 .build();
-        tree = new Tree(-1, user, Privacy.FRIENDS, "Clauw", null);
+
+    }
+
+    @BeforeClass
+    public static void setUpClass()
+    {
+
+    }
+
+    @AfterClass
+    public static void tearDownClass()
+    {
+
+    }
+
+    @Before
+    public void setUp()
+    {
+
     }
 
     @After
     public void tearDown()
     {
+        try
+        {
+            uc.getUser(user.getUsername());
+            uc.deleteUser(user.getId());
+        }
+        catch (NullPointerException e)
+        {
+
+        }
 
     }
 
-    @Test
-    public void testAddTreeUserNull() throws NullPointerException
+    @Test(expected = TreeNameAlreadyExistsException.class)
+    public void testAddTreeAlreadyExists()
     {
         System.out.println("addTree");
-        tree = new Tree(-1, null, Privacy.FRIENDS, "Clauw", null);
-        assertNotNull(tc.addTree(tree));
-        assertNotNull(tc.getTree("Clauw"));
-
-    }
-
-    @Test
-    public void testAddTree() throws TreeNameAlreadyExistsException
-    {
-        System.out.println("addTree");
-        tree = new Tree(-1, user, Privacy.FRIENDS, "Clauw", null);
-        assertNotNull(tc.addTree(tree));
-        assertNotNull(tc.getTree("Clauw"));
+        tree = new Tree(-1, user, Privacy.FRIENDS, "testAddTree", null);
+        tc.addTree(tree);
+        tc.addTree(tree);
     }
 
     @Test(expected = TreeNameCannotBeEmptyException.class)
     public void testTreeNameNull()
     {
         System.out.println("Empty Tree");
-        tree = new Tree(-1, user, Privacy.FRIENDS, " ", null);
+        tree = new Tree(-1, user, Privacy.FRIENDS, "", null);
+        tc.addTree(tree);
     }
 
     @Test(expected = TreeOwnerIsNullException.class)
-    public void testTreeOwerIsNull()
+    public void testTreeOwnerIsNull()
     {
-        user = new User(-1, "TestUser", "Clauw123456789", new UserSettings(Language.EN, theme));
-        System.out.println("Empty Tree");
-        tree = new Tree(-1, user, Privacy.FRIENDS, " ", null);
+        System.out.println("testTreeOwnerIsNull");
+        tree = new Tree(-1, null, Privacy.FRIENDS, "testTreeOwnerIsNull", null);
+        tc.addTree(tree);
+    }
+
+    @Test(expected = TreeOwnerIsNullException.class)
+    public void testTreeOwnerIdIsNull()
+    {
+        System.out.println("testTreeOwnerIdIsNull");
+        user = new User(0, "TreeControllerTest", "123456789", new UserSettings(Language.EN, theme));
+        tree = new Tree(-1, user, Privacy.FRIENDS, "testTreeOwnerIdIsNull", null);
+        tc.addTree(tree);
     }
 
 }
