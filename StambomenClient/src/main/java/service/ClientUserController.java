@@ -100,7 +100,7 @@ public class ClientUserController
 
     public UserDTO getPublicUser(int userID)
     {
-        UserDTO user = client.getPublicUser();
+        UserDTO user = client.getPublicUser(userID);
         return user;
     }
 

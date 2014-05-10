@@ -143,12 +143,11 @@ public class ClientUserService
         return privacy;
     }
 
-    public UserDTO getPublicUser()
+    public UserDTO getPublicUser(int userID)
     {
         logger.info("[CLIENT USER SERVICE][GET PUBLIC USER]Get a public user");
         Client client = ClientServiceController.getInstance().getClient();
-
-        UserDTO user = client.target(url + "user/get/profile/getPublicUser/").request(MediaType.APPLICATION_JSON).get(new GenericType<UserDTO>()
+        UserDTO user = client.target(url + "user/get/profile/getPublicUser/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<UserDTO>()
         {
         });
 
