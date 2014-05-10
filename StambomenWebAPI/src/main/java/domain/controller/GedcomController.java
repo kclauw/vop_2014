@@ -1,7 +1,9 @@
 package domain.controller;
 
+import domain.Country;
 import domain.Person;
 import domain.Place;
+import domain.PlaceName;
 import domain.Tree;
 import domain.User;
 import domain.enums.Gender;
@@ -18,10 +20,8 @@ import java.util.Map;
 import org.gedcom4j.model.Family;
 import org.gedcom4j.model.Gedcom;
 import org.gedcom4j.model.Individual;
-
 import org.gedcom4j.parser.GedcomParser;
 import org.gedcom4j.parser.GedcomParserException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.PersistenceFacade;
@@ -88,7 +88,7 @@ public class GedcomController
             setZip(i);
             setCountry(i);
             gender = Gender.MALE;
-            Place p = new Place.PlaceBuilder("Unknown").country(country).zipCode(zip).build();
+            Place p = new Place(-1, "Unkown", null, new Country(-1, "Unknown"), new PlaceName(-1, "Unknown"));
             person = new Person.PersonBuilder(firstname, surname, gender)
                     .birthDate(birthdate)
                     .deathDate(deathdate)
