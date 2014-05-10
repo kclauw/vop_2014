@@ -175,17 +175,16 @@ public class UserService
     }
 
     @GET
-    @Path("/get/profile/getPublicUser")
+    @Path("/get/profile/getPublicUser/{userID}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Get public user", notes = "More notes about this method", response = User.class)
-    public Response getPublicUser(@Context ContainerRequest cont)
+    public Response getPublicUser(@PathParam("userID") int userID)
     {
 
         Privacy userPrivacy = Privacy.PUBLIC;
         try
         {
-            User us = (User) cont.getProperty("user");
-            User user = uc.getUserWithPrivacy(us.getId(), userPrivacy);
+            User user = uc.getUserWithPrivacy(userID, userPrivacy);
             return Response.ok(user).build();
         }
         catch (Exception ex)
