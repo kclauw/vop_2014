@@ -113,6 +113,7 @@ public class GedcomController
            
             for (Individual c : f.children)
             {
+<<<<<<< HEAD
                 temp = i.formattedName().split("/");
                 firstname = temp[0];
                 try
@@ -191,6 +192,19 @@ public class GedcomController
                 persons.put(i.xref.toString(), personid);
                 System.out.println("Gedcom ID : " + i.xref.toString() + " Person :" + firstname + " " + surname + " birthdate : " + birthdate + " deathdate : " + deathdate + "Treeid :" + treeId);
                 System.out.println("ZIP : " + zip + "COUNTRY : " + country + " COUNT : " + teller++);
+=======
+                Person child = persons.get(c.xref.toString());
+                child.setFather(father);
+                child.setMother(mother);
+                //pc.movePerson(treeId, PersonAdd.PARENT, father.getPersonId(),child.getPersonId());
+                //pc.movePerson(treeId, PersonAdd.PARENT, mother.getPersonId(),child.getPersonId());
+                pc.updatePerson(treeId, child);
+                pc.addParentRelation(treeId,father.getPersonId(), child.getPersonId());
+                pc.addParentRelation(treeId,mother.getPersonId(), child.getPersonId());
+                System.out.println("CHILD : " + child.getFirstName() + child.getSurName() + child.getPersonId() );
+                System.out.println("CHILD FATHER : " + child.getFather().getFirstName() + child.getFather().getSurName() + child.getFather().getPersonId() );
+                System.out.println("CHILD MOTHER : " + child.getMother().getFirstName() + child.getMother().getSurName() + child.getMother().getPersonId() );
+>>>>>>> 440d3d888917a5d5ad2389e7bc0aea2353f06bae
             }
             
         }
