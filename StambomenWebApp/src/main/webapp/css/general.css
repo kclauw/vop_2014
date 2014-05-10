@@ -71,8 +71,9 @@ form .error {
     color: red;
 }
 .popupbox form .submit {
-    width: 60%;
-    float: right;
+    /* width: 60%; */
+    /* width: 100%; */
+    /* float: right; */
 }
 
 body > .wrapper > div {
