@@ -8,31 +8,16 @@ public class PlaceDTO implements java.io.Serializable
     @Expose
     private int placeId;
     @Expose
-    private int countryId;
-    @Expose
-    private int placeNameId;
+    private String zipCode;
     @Expose
     private CoordinateDTO coord;
     @Expose
-    private String country;
+    private CountryDTO country;
     @Expose
-    private String zipCode;
-    @Expose
-    private String placeName;
+    private PlaceNameDTO placeName;
 
     public PlaceDTO()
     {
-    }
-
-    public PlaceDTO(PlaceDTOBuilder builder)
-    {
-        this.placeId = builder.placeId;
-        this.countryId = builder.countryId;
-        this.placeNameId = builder.placeNameId;
-        this.coord = builder.coord;
-        this.country = builder.country;
-        this.zipCode = builder.zipCode;
-        this.placeName = builder.placeName;
     }
 
     public int getPlaceId()
@@ -40,24 +25,9 @@ public class PlaceDTO implements java.io.Serializable
         return placeId;
     }
 
-    public int getCountryId()
+    public void setPlaceId(int placeId)
     {
-        return countryId;
-    }
-
-    public int getPlaceNameId()
-    {
-        return placeNameId;
-    }
-
-    public CoordinateDTO getCoord()
-    {
-        return coord;
-    }
-
-    public String getCountry()
-    {
-        return country;
+        this.placeId = placeId;
     }
 
     public String getZipCode()
@@ -65,73 +35,44 @@ public class PlaceDTO implements java.io.Serializable
         return zipCode;
     }
 
-    public String getPlaceName()
+    public void setZipCode(String zipCode)
+    {
+        this.zipCode = zipCode;
+    }
+
+    public CoordinateDTO getCoord()
+    {
+        return coord;
+    }
+
+    public void setCoord(CoordinateDTO coord)
+    {
+        this.coord = coord;
+    }
+
+    public CountryDTO getCountry()
+    {
+        return country;
+    }
+
+    public void setCountry(CountryDTO country)
+    {
+        this.country = country;
+    }
+
+    public PlaceNameDTO getPlaceName()
     {
         return placeName;
+    }
+
+    public void setPlaceName(PlaceNameDTO placeName)
+    {
+        this.placeName = placeName;
     }
 
     @Override
     public String toString()
     {
-        return "PlaceDTO{" + "placeId=" + placeId + ", countryId=" + countryId + ", placeNameId=" + placeNameId + ", coord=" + coord + ", country=" + country + ", zipCode=" + zipCode + ", placeName=" + placeName + '}';
+        return "PlaceDTO{" + "placeId=" + placeId + ", zipCode=" + zipCode + ", coord=" + coord + ", country=" + country + ", placeName=" + placeName + '}';
     }
-
-    public static class PlaceDTOBuilder
-    {
-
-        private int placeId;
-        private int countryId;
-        private int placeNameId;
-        private CoordinateDTO coord;
-        private String country;
-        private String zipCode;
-        private String placeName;
-
-        public PlaceDTOBuilder(String placeName)
-        {
-            this.placeName = placeName;
-        }
-
-        public PlaceDTOBuilder placeId(int placeId)
-        {
-            this.placeId = placeId;
-            return this;
-        }
-
-        public PlaceDTOBuilder countryId(int countryId)
-        {
-            this.countryId = countryId;
-            return this;
-        }
-
-        public PlaceDTOBuilder placeNameId(int placeNameId)
-        {
-            this.placeNameId = placeNameId;
-            return this;
-        }
-
-        public PlaceDTOBuilder country(String country)
-        {
-            this.country = country;
-            return this;
-        }
-
-        public PlaceDTOBuilder zipCode(String zipCode)
-        {
-            this.zipCode = zipCode;
-            return this;
-        }
-
-        public PlaceDTOBuilder coord(CoordinateDTO coord)
-        {
-            this.coord = coord;
-            return this;
-        }
-
-        public PlaceDTO build()
-        {
-            return new PlaceDTO(this);
-        }
-    }
-
 }
