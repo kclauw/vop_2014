@@ -44,7 +44,7 @@ public class GedcomController
     private Tree tree;
     private Gender gender;
     private int personid;
-    private String firstname = null, surname = null, zip, country;
+    private String firstname = null, surname = null, zip, country,place;
     private String[] temp;
     private Date birthdate = null, deathdate = null;
     private Map<String, Person> persons;
@@ -87,8 +87,10 @@ public class GedcomController
             setDeathdate(i);
             setZip(i);
             setCountry(i);
+            setPlace(i);
+            
             gender = Gender.MALE;
-            Place p = new Place(-1, "Unkown", null, new Country(-1, "Unknown"), new PlaceName(-1, "Unknown"));
+            Place p = new Place(-1, zip, null, new Country(-1, country), new PlaceName(-1,place));
             person = new Person.PersonBuilder(firstname, surname, gender)
                     .birthDate(birthdate)
                     .deathDate(deathdate)
@@ -108,16 +110,8 @@ public class GedcomController
             for (Individual c : f.children)
             {
                 Person child = persons.get(c.xref.toString());
-                child.setFather(father);
-                child.setMother(mother);
-                //pc.movePerson(treeId, PersonAdd.PARENT, father.getPersonId(),child.getPersonId());
-                //pc.movePerson(treeId, PersonAdd.PARENT, mother.getPersonId(),child.getPersonId());
-                pc.updatePerson(treeId, child);
                 pc.addParentRelation(treeId, father.getPersonId(), child.getPersonId());
                 pc.addParentRelation(treeId, mother.getPersonId(), child.getPersonId());
-                System.out.println("CHILD : " + child.getFirstName() + child.getSurName() + child.getPersonId());
-                System.out.println("CHILD FATHER : " + child.getFather().getFirstName() + child.getFather().getSurName() + child.getFather().getPersonId());
-                System.out.println("CHILD MOTHER : " + child.getMother().getFirstName() + child.getMother().getSurName() + child.getMother().getPersonId());
             }
 
         }
@@ -216,13 +210,25 @@ public class GedcomController
         try
         {
             country = i.address.country.customTags.get(0).value.toString();
+          
         }
         catch (NullPointerException e)
         {
             country = "Unknown";
         }
     }
-
+    private void setPlace(Individual i)
+    {
+        try
+        {
+            place = i.address.stateProvince.customTags.get(0).value.toString();
+          
+        }
+        catch (NullPointerException e)
+        {
+            place = "Unknown";
+        }
+    }
     private String changeMonth(String date)
     {
 
