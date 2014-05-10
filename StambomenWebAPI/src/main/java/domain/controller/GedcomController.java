@@ -1,13 +1,10 @@
 package domain.controller;
 
-import domain.Country;
 import domain.Person;
 import domain.Place;
-import domain.PlaceName;
 import domain.Tree;
 import domain.User;
 import domain.enums.Gender;
-import domain.enums.PersonAdd;
 import domain.enums.Privacy;
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -19,7 +16,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import org.gedcom4j.model.Family;
-import org.gedcom4j.model.FamilyChild;
 import org.gedcom4j.model.Gedcom;
 import org.gedcom4j.model.Individual;
 
@@ -30,6 +26,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.PersistenceFacade;
 
+/**
+ * This class is the facade to all person interaction.
+ */
 public class GedcomController
 {
 
@@ -54,6 +53,7 @@ public class GedcomController
     private Gedcom g;
     private BufferedInputStream buf;
     private DateFormat df;
+
     public GedcomController()
     {
         this.pc = new PersonController();
@@ -64,135 +64,64 @@ public class GedcomController
         this.df = new SimpleDateFormat("dd MM yyyy");
 
     }
-    
-    
 
     public void importGedcom(int privacy, int userid, String name, InputStream input) throws IOException, GedcomParserException, ParseException
     {
         gp = new GedcomParser();
         int teller = 0;
-     
+
         gp.load(new BufferedInputStream(input));
-        
+
         g = gp.gedcom;
         gender = Gender.FEMALE;
         treeId = tc.addTree(new Tree(-1, new User(userid), Privacy.getPrivacy(privacy), name, null));
         Tree t = tc.getTree(name);
         t.setPersons(pc.getPersonsByTree(treeId));
-        
+
         for (Individual i : g.individuals.values())
-         {
+        {
             teller++;
             setName(i.formattedName().split("/"));
             setGender(i);
-            setBirthdate(i); 
-            setDeathdate(i); 
-            setZip(i); 
-            setCountry(i); 
-         gender = Gender.MALE;
-         Place p = new Place.PlaceBuilder("Unknown").country(country).zipCode(zip).build();
-         person = new Person.PersonBuilder(firstname, surname, gender)
-         .birthDate(birthdate)
-         .deathDate(deathdate)
-         .place(p)
-         .build();
-         person.setPersonId(pc.addChild(treeId, person));
-         persons.put(i.xref, person);
-         System.out.println("Person added nr : " + teller);
-         }
-         
+            setBirthdate(i);
+            setDeathdate(i);
+            setZip(i);
+            setCountry(i);
+            gender = Gender.MALE;
+            Place p = new Place.PlaceBuilder("Unknown").country(country).zipCode(zip).build();
+            person = new Person.PersonBuilder(firstname, surname, gender)
+                    .birthDate(birthdate)
+                    .deathDate(deathdate)
+                    .place(p)
+                    .build();
+            person.setPersonId(pc.addChild(treeId, person));
+            persons.put(i.xref, person);
+            System.out.println("Person added nr : " + teller);
+        }
+
         for (Family f : g.families.values())
         {
-    
+
             mother = persons.get(f.wife.xref);
             father = persons.get(f.husband.xref);
-         
-           
+
             for (Individual c : f.children)
             {
-                temp = i.formattedName().split("/");
-                firstname = temp[0];
-                try
-                {
-                    surname = temp[1];
-                }
-                catch (IndexOutOfBoundsException E)
-                {
-                    surname = "Unknown";
-                }
-                try
-                {
-
-                    birthdate = df.parse(changeMonth(i.events.get(0).date.toString()));
-                    System.out.println("DATE BEFORE : " + i.events.get(0).date.toString() + " DATE AFTER : " + birthdate);
-
-                }
-                catch (IndexOutOfBoundsException e)
-                {
-                    birthdate = null;
-                }
-
-                try
-                {
-                    deathdate = df.parse(changeMonth(i.events.get(1).date.toString()));
-
-                }
-                catch (IndexOutOfBoundsException e)
-                {
-                    deathdate = null;
-                }
-                try
-                {
-                    if (i.sex.toString().trim().equals("M"))
-                    {
-                        gender = Gender.MALE;
-                    }
-                    else
-                    {
-                        gender = Gender.FEMALE;
-                    }
-                }
-                catch (NullPointerException e)
-                {
-                    gender = Gender.MALE;
-                }
-
-                try
-                {
-                    country = i.address.country.customTags.get(0).value.toString();
-
-                }
-                catch (NullPointerException e)
-                {
-                    country = "Unknown";
-                }
-                try
-                {
-                    zip = i.address.postalCode.toString();
-                }
-                catch (NullPointerException e)
-                {
-                    zip = "Unknown";
-                }
-                gender = Gender.MALE;
-
-                Place p = new Place(-1, "Unkonwn", null, new Country(-1, "Unknown"), new PlaceName(-1, "Unkonwn"));
-                person = new Person.PersonBuilder(firstname, surname, gender)
-                        .birthDate(birthdate)
-                        .deathDate(deathdate)
-                        .place(p)
-                        .build();
-                personid = pc.addPerson(treeId, PersonAdd.CHILD, person, -1);
-
-                persons.put(i.xref.toString(), personid);
-                System.out.println("Gedcom ID : " + i.xref.toString() + " Person :" + firstname + " " + surname + " birthdate : " + birthdate + " deathdate : " + deathdate + "Treeid :" + treeId);
-                System.out.println("ZIP : " + zip + "COUNTRY : " + country + " COUNT : " + teller++);
+                Person child = persons.get(c.xref.toString());
+                child.setFather(father);
+                child.setMother(mother);
+                //pc.movePerson(treeId, PersonAdd.PARENT, father.getPersonId(),child.getPersonId());
+                //pc.movePerson(treeId, PersonAdd.PARENT, mother.getPersonId(),child.getPersonId());
+                pc.updatePerson(treeId, child);
+                pc.addParentRelation(treeId, father.getPersonId(), child.getPersonId());
+                pc.addParentRelation(treeId, mother.getPersonId(), child.getPersonId());
+                System.out.println("CHILD : " + child.getFirstName() + child.getSurName() + child.getPersonId());
+                System.out.println("CHILD FATHER : " + child.getFather().getFirstName() + child.getFather().getSurName() + child.getFather().getPersonId());
+                System.out.println("CHILD MOTHER : " + child.getMother().getFirstName() + child.getMother().getSurName() + child.getMother().getPersonId());
             }
-            
+
         }
     }
-       
-    
 
     private void setName(String[] temp)
     {
@@ -206,78 +135,94 @@ public class GedcomController
             surname = "Unknown";
         }
     }
+
     private void setBirthdate(Individual i) throws ParseException
-    {     
-        
-         try
-         {
-         birthdate = df.parse(changeMonth(i.events.get(0).date.toString().replaceAll("Abt", "").trim()));
-         }
-         catch (IndexOutOfBoundsException e)
-         {
-         birthdate = null;
-         }
-         catch (NullPointerException e)
-         {
-         deathdate = null;
-         }
-         catch (ParseException e){
-             
-         }
+    {
+
+        try
+        {
+            birthdate = df.parse(changeMonth(i.events.get(0).date.toString().replaceAll("Abt", "").trim()));
+        }
+        catch (IndexOutOfBoundsException e)
+        {
+            birthdate = null;
+        }
+        catch (NullPointerException e)
+        {
+            deathdate = null;
+        }
+        catch (ParseException e)
+        {
+
+        }
     }
+
     private void setDeathdate(Individual i) throws ParseException
     {
-         try
-         {
-         deathdate = df.parse(changeMonth(i.events.get(1).date.toString().replaceAll("Abt", "")).trim());
-         }
-         catch (IndexOutOfBoundsException e)
-         {
-         deathdate = null;
-         }
-         catch (NullPointerException e)
-         {
-         deathdate = null;
-         }
-         catch (ParseException e){
-             
-         }
-    }
-    private void setGender(Individual i){
-        try{
-                     if (i.sex.toString().trim().equals("M")) 
-         gender = Gender.MALE;
-         else
-         gender = Gender.FEMALE;
-            
+        try
+        {
+            deathdate = df.parse(changeMonth(i.events.get(1).date.toString().replaceAll("Abt", "")).trim());
         }
-        catch(NullPointerException e){
-            
+        catch (IndexOutOfBoundsException e)
+        {
+            deathdate = null;
+        }
+        catch (NullPointerException e)
+        {
+            deathdate = null;
+        }
+        catch (ParseException e)
+        {
+
+        }
+    }
+
+    private void setGender(Individual i)
+    {
+        try
+        {
+            if (i.sex.toString().trim().equals("M"))
+            {
+                gender = Gender.MALE;
+            }
+            else
+            {
+                gender = Gender.FEMALE;
+            }
+
+        }
+        catch (NullPointerException e)
+        {
+
         }
 
-         
     }
-    private void setZip(Individual i){
-         try
-         {
-             
-         zip = i.address.postalCode.customTags.get(0).value.toString();
-         }
-         catch (NullPointerException e)
-         {
-         zip = "Unknown";
-         }          
+
+    private void setZip(Individual i)
+    {
+        try
+        {
+
+            zip = i.address.postalCode.customTags.get(0).value.toString();
+        }
+        catch (NullPointerException e)
+        {
+            zip = "Unknown";
+        }
     }
-    private void setCountry(Individual i){
-         try
-         {
-         country = i.address.country.customTags.get(0).value.toString();
-         }
-         catch (NullPointerException e)
-         {
-         country = "Unknown";
-         }
+
+    private void setCountry(Individual i)
+    {
+        try
+        {
+            country = i.address.country.customTags.get(0).value.toString();
+        }
+        catch (NullPointerException e)
+        {
+            country = "Unknown";
+        }
     }
+
     private String changeMonth(String date)
     {
 
