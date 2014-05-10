@@ -188,8 +188,8 @@ public class TimemachineServlet extends HttpServlet
             list[i][4] = person.getFirstName();
             list[i][5] = person.getSurName();
             list[i][6] = person.getPlace().getZipCode();
-            list[i][7] = person.getPlace().getPlaceName();
-            list[i][8] = person.getPlace().getCountry();
+            list[i][7] = person.getPlace().getPlaceName().getPlaceName();
+            list[i][8] = person.getPlace().getCountry().getCountry();
             list[i][9] = new SimpleDateFormat("yyyy-MM-dd").format(person.getBirthDate());
             if (person.getDeathDate() != null)
             {
