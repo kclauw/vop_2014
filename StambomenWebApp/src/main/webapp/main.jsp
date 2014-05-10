@@ -18,6 +18,10 @@
         <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="./css/general.css"/>
         <link rel="stylesheet" type="text/css" href="./css/main.css"/>
+
+        <script src="./js/jquery-1.11.0.min.js"></script>
+        <script  src="./js/facebookRequirements.js"></script>
+
         <style>
             body {
                 background-image: url(<%= ServiceConstant.getInstance().getApplicationImageLink(ImageTypeDTO.BACKGROUND)%>);
@@ -45,7 +49,6 @@
             }
         </style>
 
-        <script src="./js/jquery-1.11.0.min.js"></script>
     </head>
     <body>
         <div id="fb-root"></div>
@@ -88,27 +91,5 @@
                 </div>
             </div>
         </div>
-        <script>
-            window.fbAsyncInit = function() {
-                FB.init({
-                    appId: '225842214289570',
-                    xfbml: true,
-                    version: 'v2.0'
-                });
-            };
-
-            (function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) {
-                    return;
-                }
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "https://connect.facebook.net/en_US/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-
-        </script>
     </body>
-</fmt:bundle>
 </html>
