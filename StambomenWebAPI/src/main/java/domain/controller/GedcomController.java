@@ -1,7 +1,9 @@
 package domain.controller;
 
+import domain.Country;
 import domain.Person;
 import domain.Place;
+import domain.PlaceName;
 import domain.Tree;
 import domain.User;
 import domain.enums.Gender;
@@ -144,7 +146,8 @@ public class GedcomController
                 }
                 gender = Gender.MALE;
 
-                Place p = new Place.PlaceBuilder("Unknown").country(country).zipCode(zip).build();
+                Place p = new Place(-1, zip, null, new Country(-1, country), new PlaceName(-1, "Unkown"));
+
                 person = new Person.PersonBuilder(firstname, surname, gender)
                         .birthDate(birthdate)
                         .deathDate(deathdate)

@@ -4,55 +4,32 @@ import util.StringValidation;
 
 public class Place
 {
-
+    
     private int placeId;
-    private int countryId;
-    private int placeNameId;
-    private Coordinate coord;
-    private String country;
     private String zipCode;
-    private String placeName;
-
+    private Coordinate coord;
+    private Country country;
+    private PlaceName placeName;
+    
     public Place()
     {
     }
-
-    public Place(PlaceBuilder builder)
+    
+    public Place(int placeId, String zipCode, Coordinate coord, Country country, PlaceName placeName)
     {
-        this.placeId = builder.placeId;
-        this.countryId = builder.countryId;
-        this.placeNameId = builder.placeNameId;
-        this.coord = builder.coord;
-        this.country = builder.country;
-        this.zipCode = builder.zipCode;
-        this.placeName = builder.placeName;
+        setPlaceId(placeId);
+        setZipCode(zipCode);
+        setCoord(coord);
+        setPlaceName(placeName);
+        setCountry(country);
     }
-
-    public void setPlaceId(int placeId)
+    
+    private void setPlaceId(int placeId)
     {
         this.placeId = placeId;
     }
-
-    public void setCountryId(int countryId)
-    {
-        this.countryId = countryId;
-    }
-
-    public void setPlaceNameId(int placeNameId)
-    {
-        this.placeNameId = placeNameId;
-    }
-
-    public void setCountry(String country)
-    {
-        if (StringValidation.emptyString(country))
-        {
-            this.country = "Unknown";
-        }
-        this.country = country;
-    }
-
-    public void setZipCode(String zipCode)
+    
+    private void setZipCode(String zipCode)
     {
         if (StringValidation.emptyString(zipCode))
         {
@@ -60,145 +37,100 @@ public class Place
         }
         this.zipCode = zipCode;
     }
-
-    public void setPlaceName(String placeName)
-    {
-        if (StringValidation.emptyString(placeName))
-        {
-            this.placeName = "Unknown";
-        }
-        this.placeName = placeName;
-    }
-
-    public int getCountryId()
-    {
-        return countryId;
-    }
-
-    public int getPlaceNameId()
-    {
-        return placeNameId;
-    }
-
-    public int getPlaceId()
-    {
-        return placeId;
-    }
-
+    
     public Coordinate getCoord()
     {
         return coord;
     }
-
-    public void setCoord(Coordinate coordinate)
+    
+    private void setCoord(Coordinate coord)
     {
-        this.coord = coordinate;
+        this.coord = coord;
     }
-
-    public String getCountry()
+    
+    public Country getCountry()
     {
         return country;
     }
-
+    
+    private void setCountry(Country country)
+    {
+        this.country = country;
+    }
+    
+    public PlaceName getPlaceName()
+    {
+        return placeName;
+    }
+    
+    private void setPlaceName(PlaceName placeName)
+    {
+        this.placeName = placeName;
+    }
+    
+    public int getPlaceId()
+    {
+        return placeId;
+    }
+    
     public String getZipCode()
     {
         return zipCode;
     }
-
-    public String getPlaceName()
-    {
-        return placeName;
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj.getClass() == this.getClass())
-        {
-            Place p2 = (Place) obj;
-
-            if (this.getPlaceName().equals(p2.placeName) && this.getZipCode().equals(p2.getZipCode()) && this.getCountry().equals(p2.getCountry()))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
+    
     @Override
     public String toString()
     {
-        return "Place{" + "placeId=" + placeId + ", countryId=" + countryId + ", placeNameId=" + placeNameId + ", coord=" + coord + ", country=" + country + ", zipCode=" + zipCode + ", placeName=" + placeName + '}';
+        return "Place{" + "placeId=" + placeId + ", zipCode=" + zipCode + ", coord=" + coord + ", country=" + country + ", placeName=" + placeName + '}';
     }
-
-    public static class PlaceBuilder
+    
+    @Override
+    public boolean equals(Object obj)
     {
-
-        private int placeId;
-        private int countryId;
-        private int placeNameId;
-        private Coordinate coord;
-        private String country;
-        private String zipCode;
-        private String placeName;
-
-        public PlaceBuilder(String placeName)
+        if (obj == null)
         {
-            if (StringValidation.emptyString(placeName))
-            {
-                this.placeName = "Unknown";
-            }
-            this.placeName = placeName;
+            return false;
         }
-
-        public PlaceBuilder placeId(int placeId)
+        if (getClass() != obj.getClass())
         {
-            this.placeId = placeId;
-            return this;
+            return false;
         }
-
-        public PlaceBuilder countryId(int countryId)
+        final Place other = (Place) obj;
+        
+        if (this.placeId != other.placeId)
         {
-            this.countryId = countryId;
-            return this;
+            return false;
         }
-
-        public PlaceBuilder placeNameId(int placeNameId)
+        if ((this.zipCode == null) ? (other.zipCode != null) : !this.zipCode.equals(other.zipCode))
         {
-            this.placeNameId = placeNameId;
-            return this;
+            return false;
         }
-
-        public PlaceBuilder country(String country)
+        if (this.coord != other.coord && (this.coord == null || !this.coord.equals(other.coord)))
         {
-            if (StringValidation.emptyString(country))
-            {
-                this.country = "Unknown";
-            }
-            this.country = country;
-            return this;
+            return false;
         }
-
-        public PlaceBuilder zipCode(String zipCode)
+        if (this.country != other.country && (this.country == null || !this.country.equals(other.country)))
         {
-            if (StringValidation.emptyString(zipCode))
-            {
-                this.zipCode = "Unknown";
-            }
-            this.zipCode = zipCode;
-            return this;
+            return false;
         }
-
-        public PlaceBuilder coord(Coordinate coord)
+        if (this.placeName != other.placeName && (this.placeName == null || !this.placeName.equals(other.placeName)))
         {
-            this.coord = coord;
-            return this;
+            return false;
         }
-
-        public Place build()
-        {
-            return new Place(this);
-        }
+        
+        return true;
     }
-
+    
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 41 * hash + this.placeId;
+        hash = 41 * hash + (this.zipCode != null ? this.zipCode.hashCode() : 0);
+        hash = 41 * hash + (this.coord != null ? this.coord.hashCode() : 0);
+        hash = 41 * hash + (this.country != null ? this.country.hashCode() : 0);
+        hash = 41 * hash + (this.placeName != null ? this.placeName.hashCode() : 0);
+        return hash;
+    }
+    
 }

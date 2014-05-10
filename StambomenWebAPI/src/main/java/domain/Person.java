@@ -162,7 +162,7 @@ public class Person
     {
         if (place == null)
         {
-            Place p = new Place.PlaceBuilder("Unknown").country("Unknown").zipCode("Unknown").build();
+            Place p = new Place(-1, " ", null, new Country(-1, "Unknown"), new PlaceName(-1, "Unkown"));
             this.place = p;
         }
         else
@@ -310,7 +310,7 @@ public class Person
         {
             if (place == null)
             {
-                Place p = new Place.PlaceBuilder("Unknown").country("Unknown").zipCode("Unknown").build();
+                Place p = new Place(-1, " ", null, new Country(-1, "Unknown"), new PlaceName(-1, "Unkown"));
                 this.place = p;
             }
             else

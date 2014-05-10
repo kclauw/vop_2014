@@ -1,4 +1,4 @@
-package persistence;
+package persistence.place;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
@@ -65,8 +65,8 @@ public class GoogleGeoDao
 
         String placeUrl = URLGOOGLE;
         placeUrl = placeUrl.replace("{0}", place.getZipCode());
-        placeUrl = placeUrl.replace("{1}", place.getPlaceName());
-        placeUrl = placeUrl.replace("{2}", place.getCountry());
+        placeUrl = placeUrl.replace("{1}", place.getPlaceName().getPlaceName());
+        placeUrl = placeUrl.replace("{2}", place.getCountry().getCountry());
         placeUrl = placeUrl.replace(" ", "+");
 
         URL url = null;

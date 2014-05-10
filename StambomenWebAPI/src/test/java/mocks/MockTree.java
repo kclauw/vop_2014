@@ -11,11 +11,9 @@ import domain.Tree;
 import domain.User;
 import domain.UserSettings;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import persistence.interfaces.ITreeDao;
 
 public class MockTree implements ITreeDao<Tree>
@@ -37,14 +35,14 @@ public class MockTree implements ITreeDao<Tree>
         Date d2 = new Date("31/5/1969");
         Date d3 = new Date("24/5/1992");
         coord = new Coordinate(1, 0, 0);
-        place = new Place.PlaceBuilder("Zoersel")
-                .placeId(1)
-                .countryId(1)
-                .placeNameId(1)
-                .coord(coord)
-                .country("België")
-                .zipCode("2980")
-                .build();
+//        place = new Place.PlaceBuilder("Zoersel")
+//                .placeId(1)
+//                .countryId(1)
+//                .placeNameId(1)
+//                .coord(coord)
+//                .country("België")
+//                .zipCode("2980")
+//                .build();
 //        Person person1 = new Person(1, "Peter", "Verreth", gm, d1, null, place, null, null);
 //        Person person2 = new Person(1, "Shirley", "Verreth", gf, d1, null, place, null, null);
 //        Person person3 = new Person(1, "Jelle", "Verreth", gm, d1, null, place, person1, person2);
@@ -87,7 +85,6 @@ public class MockTree implements ITreeDao<Tree>
         return p;
     }
 
-  
     public int save(Tree value)
     {
         trees.add(value);
@@ -131,7 +128,5 @@ public class MockTree implements ITreeDao<Tree>
         }
         return tr;
     }
-
-   
 
 }

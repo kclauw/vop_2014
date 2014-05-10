@@ -1,5 +1,7 @@
 package persistence;
 
+import persistence.place.GoogleGeoDao;
+import persistence.place.PlaceDao;
 import domain.Activity;
 import domain.Coordinate;
 import domain.Person;
