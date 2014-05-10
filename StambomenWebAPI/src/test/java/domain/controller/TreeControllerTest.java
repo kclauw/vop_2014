@@ -14,17 +14,14 @@ import domain.User;
 import domain.UserSettings;
 import domain.enums.Language;
 import domain.enums.Privacy;
-import exception.TreeAlreadyExistsException;
 import exception.TreeNameAlreadyExistsException;
 import exception.TreeOwnerIsNullException;
 import exception.UserAlreadyExistsException;
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import exception.TreeNameCannotBeEmptyException;
 
 /**
@@ -60,14 +57,14 @@ public class TreeControllerTest
         user = uc.getUser(user.getUsername());
         theme = new Theme(1, "Default", "Valera", "FFFFFF", "252525", "334455", "B03A3A");
         coord = new Coordinate(1, 0, 0);
-        place = new Place.PlaceBuilder("Oostende")
-                .placeId(1)
-                .countryId(1)
-                .placeNameId(1)
-                .coord(coord)
-                .country("België")
-                .zipCode("8400")
-                .build();
+//        place = new Place.PlaceBuilder("Oostende")
+//                .placeId(1)
+//                .countryId(1)
+//                .placeNameId(1)
+//                .coord(coord)
+//                .country("België")
+//                .zipCode("8400")
+//                .build();
 
     }
 
