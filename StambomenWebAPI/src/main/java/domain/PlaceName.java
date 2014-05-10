@@ -6,6 +6,10 @@ public class PlaceName
     private int id;
     private String placeName;
 
+    public PlaceName()
+    {
+    }
+
     public PlaceName(int id, String placeName)
     {
         this.id = id;
