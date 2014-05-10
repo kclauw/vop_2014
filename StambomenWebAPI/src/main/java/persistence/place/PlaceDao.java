@@ -121,8 +121,8 @@ public class PlaceDao implements IDao<Place>
         try
         {
             con = DatabaseUtils.getConnection();
-            countryID = countryDao.save(value.getCountry());
 
+            countryID = countryDao.save(value.getCountry());
             placeNameID = placeNameDao.save(value.getPlaceName());
 
             prep = con.prepareStatement(SAVE_PLACE);
