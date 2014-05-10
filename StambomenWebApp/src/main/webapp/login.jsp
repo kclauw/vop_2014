@@ -15,6 +15,7 @@
         <script src="./js/jquery-1.11.0.min.js"></script>
         <script  src="./js/facebookRequirements.js"></script>
         <script  src="./js/login.js"></script>
+
         <style>
             body {
                 background-image: url(<%= ServiceConstant.getInstance().getApplicationImageLink(ImageTypeDTO.BACKGROUND)%>);

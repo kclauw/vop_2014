@@ -10,12 +10,17 @@
 
         <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="./css/general.css"/>
-        <link rel="stylesheet" type="text/css" href="./css/login.css"/>
+        <link rel="stylesheet" type="text/css" href="./css/register.css"/>
+
+        <script src="./js/jquery-1.11.0.min.js"></script>
+        <script  src="./js/facebookRequirements.js"></script>
+        <script  src="./js/register.js"></script>
+
         <style>
             body {
-                background-image: url(<%= ServiceConstant.getInstance().getApplicationImageLink(ImageTypeDTO.BACKGROUND) %>);
+                background-image: url(<%= ServiceConstant.getInstance().getApplicationImageLink(ImageTypeDTO.BACKGROUND)%>);
             }
-            
+
             *, #topbar a:link, #topbar a:visited, #topbar a:active {
                 font-family: 'Varela', sans-serif;
                 color: #252525;
@@ -38,22 +43,26 @@
         </style>
     </head>
     <body id="body">
+        <div id="fb-root"></div>
         <div class="wrapper">
             <div>
                 <div class="popupbox itemblock">
-                    <a href="./"><img id="logo" src="<%= ServiceConstant.getInstance().getApplicationImageLink(ImageTypeDTO.LOGO) %>" height="35" alt="Tree" /></a>
+                    <a href="./"><img id="logo" src="<%= ServiceConstant.getInstance().getApplicationImageLink(ImageTypeDTO.LOGO)%>" height="35" alt="Tree" /></a>
                     <div>
                         <h1>Registreren</h1>
-                        <form method="post">
+                        <form name="registerForm" method="post">
                             <input name="register" type="hidden" value="register" />
                             <input name="username" type="text" placeholder="Username" value="${param.username}" />
                             <input name="password" type="password" placeholder="Password" />
                             <input name="passwordconfirm" type="password" placeholder="Confirm password" />
                             <label class="error">${errormessage}</label>
-                            <input class="submit" type="submit" value="Registreren"/>
+                            <input id="btnRegister" class="submit" type="submit" value="Registreren"/>
+                            <input type="hidden" name="fbRegisterAuthCode" value=""/>
+                            <input id="btnFbRegister" type="button" onclick="fbRegister();" value="FB register"/>
+
                         </form>
                         <form method="post" action="./login.jsp">
-                            <input class="submit" type="submit" value="Login"/>
+                            <input id="btnLogin" class="submit" type="submit" value="Login"/>
                         </form>
                     </div>
                 </div>

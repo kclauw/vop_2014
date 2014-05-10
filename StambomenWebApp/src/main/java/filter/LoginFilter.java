@@ -56,6 +56,7 @@ public class LoginFilter implements Filter
         String password = request.getParameter("password");
         String passwordconfirm = request.getParameter("passwordconfirm");
         String fbLoginAuthCode = request.getParameter("fbLoginAuthCode");
+        String fbRegisterAuthCode = request.getParameter("fbRegisterAuthCode");
         String logout = request.getParameter("logout");
 
         //check logout
@@ -65,7 +66,7 @@ public class LoginFilter implements Filter
 
             session = removeSession(session);
         }
-        //check regist
+        //check register
         else if (register != null)
         {
             //empty session if not empty
@@ -91,8 +92,14 @@ public class LoginFilter implements Filter
                 }
                 else
                 {
-                    request.setAttribute("errormessage", "Passwoorden zijn niet gelijk.");
+                    request.setAttribute("errormessage", "Paswoorden zijn niet gelijk.");
                 }
+            }
+            //check if fbRegister and regsiter with facebook
+            else if (fbRegisterAuthCode != null && !fbRegisterAuthCode.isEmpty())
+            {
+                ClientFacebookService cFacebookService = new ClientFacebookService();
+                cFacebookService.registerWithFB(fbRegisterAuthCode);
             }
             else
             {
@@ -172,10 +179,9 @@ public class LoginFilter implements Filter
         //check if facebooklogin else do normal loginprocedure
         if (fbLoginAuthCode != null && !fbLoginAuthCode.isEmpty())
         {
-            ClientFacebookService cFbS = new ClientFacebookService();
-            uC.setFBAuthCode(fbLoginAuthCode);
+            ClientFacebookService cFacebookService = new ClientFacebookService();
 
-            loginResponse = cFbS.loginWithFB(fbLoginAuthCode);
+            loginResponse = cFacebookService.loginWithFB(fbLoginAuthCode);
             if (loginResponse == null)
             {
                 loginResponse = "";

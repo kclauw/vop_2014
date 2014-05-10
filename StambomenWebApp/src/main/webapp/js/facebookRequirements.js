@@ -30,3 +30,15 @@ function fbLoginAuthCode(callback) {
         }
     }, {scope: 'public_profile,email,user_location,user_hometown,user_birthday'});
 }
+
+//returns authCode from fbRegister
+function fbRegisterAuthCode(callback) {
+    FB.login(function(response) {
+        if (response.authResponse) {
+            var accessToken = FB.getAuthResponse()['accessToken'];
+            var expiresIn = FB.getAuthResponse()['expiresIn'];
+            var authCode = accessToken.toString() + "&expires_in=" + expiresIn.toString();
+            callback(authCode)
+        }
+    }, {scope: 'public_profile,email,user_location,user_hometown,user_birthday'});
+}
