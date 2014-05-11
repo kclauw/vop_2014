@@ -84,6 +84,7 @@
                         <c:forEach var="tree" items="${publictrees}" varStatus="counter">
                             <a href="./TreeServlet?treeid=${tree.id}" class="itemblock"><li>
                                     <div>${tree.name}</div>
+                                    <div class="fb-share-button" data-href="./TreeServlet?treeid=${tree.id}" data-type="button"></div> 
                                     <img class="privacy" src="./images/${tree.privacy}.png" alt="${tree.privacy}" />
                                 </li></a>
                             </c:forEach>
