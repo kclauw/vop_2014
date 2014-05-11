@@ -58,12 +58,13 @@ public class LoginFilter implements Filter
         String fbLoginAuthCode = request.getParameter("fbLoginAuthCode");
         String fbRegisterAuthCode = request.getParameter("fbRegisterAuthCode");
         String logout = request.getParameter("logout");
+        ClientServiceController clientServiceController = ClientServiceController.getInstance();
 
         //check logout
         if (logout != null && session != null)
         {
             logger.info("[LOGIN FILTER][DO FILTER]" + logout + " " + session.toString());
-
+            clientServiceController.clearUser();
             session = removeSession(session);
         }
         //check register
@@ -124,10 +125,9 @@ public class LoginFilter implements Filter
             doLogin(uC, session, request, response, contextpath, user, fbLoginAuthCode);
         }
 
-        ClientServiceController csc = ClientServiceController.getInstance();
-        if (csc != null && session != null)
+        if (clientServiceController != null && session != null)
         {
-            UserDTO user = csc.getUser();
+            UserDTO user = clientServiceController.getUser();
             if (user != null)
             {
                 session.setAttribute("user", user);
