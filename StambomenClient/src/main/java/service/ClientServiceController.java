@@ -76,4 +76,10 @@ public class ClientServiceController
         this.authCode = authCode;
     }
 
+    public void clearUser()
+    {
+        logger.info("[CLIENT SERVICE CONTROLLER][USER CLEAR]" + user.toString());
+        this.user = null;
+    }
+
 }
