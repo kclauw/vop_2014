@@ -1,0 +1,61 @@
+\select@language {UKenglish}
+\contentsline {chapter}{\numberline {1}Voorwoord}{3}{chapter.1}
+\contentsline {paragraph}{}{3}{section*.2}
+\contentsline {chapter}{\numberline {2}Introductie en situering}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}Introductie}{4}{section.2.1}
+\contentsline {paragraph}{}{4}{section*.3}
+\contentsline {paragraph}{}{4}{section*.4}
+\contentsline {paragraph}{}{5}{section*.5}
+\contentsline {section}{\numberline {2.2}Technische}{5}{section.2.2}
+\contentsline {paragraph}{}{5}{section*.6}
+\contentsline {paragraph}{Presentatie laag}{5}{section*.7}
+\contentsline {paragraph}{Domein logica}{5}{section*.8}
+\contentsline {paragraph}{Data tier}{5}{section*.9}
+\contentsline {section}{\numberline {2.3}Situering}{6}{section.2.3}
+\contentsline {paragraph}{}{6}{section*.10}
+\contentsline {chapter}{\numberline {3}Taak-verdeling}{7}{chapter.3}
+\contentsline {section}{\numberline {3.1}Methodologie}{7}{section.3.1}
+\contentsline {paragraph}{}{7}{section*.11}
+\contentsline {paragraph}{}{7}{section*.12}
+\contentsline {paragraph}{}{7}{section*.13}
+\contentsline {paragraph}{}{7}{section*.14}
+\contentsline {section}{\numberline {3.2}Sprint 1}{9}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Kenzo Clauw}{9}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Axl Fran\IeC {\c c}ois}{9}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Lowie Huyghe}{9}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Sander Trypsteen}{9}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.5}Jelle Verreth}{9}{subsection.3.2.5}
+\contentsline {section}{\numberline {3.3}Sprint 2}{9}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Kenzo Clauw}{9}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Axl Fran\IeC {\c c}ois}{9}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Lowie Huyghe}{9}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.4}Sander Trypsteen}{9}{subsection.3.3.4}
+\contentsline {subsection}{\numberline {3.3.5}Jelle Verreth}{9}{subsection.3.3.5}
+\contentsline {section}{\numberline {3.4}Sprint 3}{9}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Kenzo Clauw}{9}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Axl Fran\IeC {\c c}ois}{9}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Lowie Huyghe}{9}{subsection.3.4.3}
+\contentsline {subsection}{\numberline {3.4.4}Sander Trypsteen}{9}{subsection.3.4.4}
+\contentsline {subsection}{\numberline {3.4.5}Jelle Verreth}{9}{subsection.3.4.5}
+\contentsline {section}{\numberline {3.5}Overzicht}{9}{section.3.5}
+\contentsline {chapter}{\numberline {4}Analyse}{10}{chapter.4}
+\contentsline {chapter}{\numberline {5}Interresantee Ontwerpbeslissingen}{11}{chapter.5}
+\contentsline {chapter}{\numberline {6}Interessante Implementatiekeuzes}{12}{chapter.6}
+\contentsline {section}{\numberline {6.1}Bibliotheken}{13}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Jersey}{13}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Swagger Jersey}{13}{subsection.6.1.2}
+\contentsline {subsection}{\numberline {6.1.3}SLF4J}{13}{subsection.6.1.3}
+\contentsline {subsection}{\numberline {6.1.4}Junit}{13}{subsection.6.1.4}
+\contentsline {subsection}{\numberline {6.1.5}Gedcom4j}{13}{subsection.6.1.5}
+\contentsline {subsection}{\numberline {6.1.6}Sardine}{13}{subsection.6.1.6}
+\contentsline {subsection}{\numberline {6.1.7}RestFB}{13}{subsection.6.1.7}
+\contentsline {subsection}{\numberline {6.1.8}JCalendar}{13}{subsection.6.1.8}
+\contentsline {subsection}{\numberline {6.1.9}Abego TreeLayout}{13}{subsection.6.1.9}
+\contentsline {subsection}{\numberline {6.1.10}Java FX}{13}{subsection.6.1.10}
+\contentsline {chapter}{\numberline {7}Kwaliteitscontrole}{14}{chapter.7}
+\contentsline {chapter}{\numberline {8}Gekende problemen}{15}{chapter.8}
+\contentsline {chapter}{\numberline {9}Verbeterpunten en uitbreidingsmogelijkheden}{16}{chapter.9}
+\contentsline {chapter}{\numberline {10}Nabeschouwing en besluit}{17}{chapter.10}
+\vspace *{\baselineskip }
+\contentsline {chapter}{List of Figures}{18}{chapter.10}
+\contentsline {chapter}{List of Tables}{19}{chapter*.15}

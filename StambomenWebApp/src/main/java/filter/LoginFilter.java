@@ -46,6 +46,15 @@ public class LoginFilter implements Filter
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession(false);
 
+        if (session != null)
+        {
+            ClientServiceController clientServiceController = (ClientServiceController) session.getAttribute("serviceController");
+            if (clientServiceController == null)
+            {
+                session = removeSession(session);
+            }
+        }
+
         String requesturi = request.getRequestURI();
         String contextpath = request.getContextPath();
 
@@ -58,13 +67,11 @@ public class LoginFilter implements Filter
         String fbLoginAuthCode = request.getParameter("fbLoginAuthCode");
         String fbRegisterAuthCode = request.getParameter("fbRegisterAuthCode");
         String logout = request.getParameter("logout");
-        ClientServiceController clientServiceController = ClientServiceController.getInstance();
 
         //check logout
         if (logout != null && session != null)
         {
             logger.info("[LOGIN FILTER][DO FILTER]" + logout + " " + session.toString());
-            clientServiceController.clearUser();
             session = removeSession(session);
         }
         //check register
@@ -81,7 +88,8 @@ public class LoginFilter implements Filter
             {
                 if (password.equals(passwordconfirm))
                 {
-                    ClientUserController uC = new ClientUserController();
+                    ClientServiceController csc = new ClientServiceController();
+                    ClientUserController uC = new ClientUserController(csc);
                     UserDTO user = new UserDTO(-1, username, password, null);
 
                     String registerResponse = uC.makeUser(user);
@@ -99,7 +107,8 @@ public class LoginFilter implements Filter
             //check if fbRegister and regsiter with facebook
             else if (fbRegisterAuthCode != null && !fbRegisterAuthCode.isEmpty())
             {
-                ClientFacebookService cFacebookService = new ClientFacebookService();
+                ClientServiceController csc = new ClientServiceController();
+                ClientFacebookService cFacebookService = new ClientFacebookService(csc);
                 cFacebookService.registerWithFB(fbRegisterAuthCode);
             }
             else
@@ -118,15 +127,18 @@ public class LoginFilter implements Filter
             logger.info("[LOGIN FILTER][DO FILTER] LOGIN USER:" + username);
 
             //create new user
-            ClientUserController uC = new ClientUserController();
+            ClientServiceController csc = new ClientServiceController();
+            ClientUserController uC = new ClientUserController(csc);
             UserDTO user = new UserDTO(-1, username, password, null);
 
             //try login
             doLogin(uC, session, request, response, contextpath, user, fbLoginAuthCode);
         }
 
-        if (clientServiceController != null && session != null)
+        if (session != null)
         {
+            ClientServiceController clientServiceController = (ClientServiceController) session.getAttribute("serviceController");
+
             UserDTO user = clientServiceController.getUser();
             if (user != null)
             {
@@ -167,6 +179,7 @@ public class LoginFilter implements Filter
     private HttpSession removeSession(HttpSession session)
     {
         session.invalidate();
+
         session = null;
 
         return session;
@@ -179,7 +192,7 @@ public class LoginFilter implements Filter
         //check if facebooklogin else do normal loginprocedure
         if (fbLoginAuthCode != null && !fbLoginAuthCode.isEmpty())
         {
-            ClientFacebookService cFacebookService = new ClientFacebookService();
+            ClientFacebookService cFacebookService = new ClientFacebookService(uC.getClientServiceController());
 
             loginResponse = cFacebookService.loginWithFB(fbLoginAuthCode);
             if (loginResponse == null)
@@ -194,13 +207,13 @@ public class LoginFilter implements Filter
 
         if (!loginResponse.equals("Error") && !loginResponse.equals("Block"))
         {
-            session = request.getSession();
+            session = request.getSession(true);
 
-            ClientServiceController serviceController = ClientServiceController.getInstance();
-            ClientTreeController treeController = new ClientTreeController();
-            ClientPersonService personService = new ClientPersonService();
-            ClientFriendService friendService = new ClientFriendService();
-            ClientActivitiesService activitiesService = new ClientActivitiesService();
+            ClientServiceController serviceController = uC.getClientServiceController();
+            ClientTreeController treeController = new ClientTreeController(uC.getClientServiceController());
+            ClientPersonService personService = new ClientPersonService(uC.getClientServiceController());
+            ClientFriendService friendService = new ClientFriendService(uC.getClientServiceController());
+            ClientActivitiesService activitiesService = new ClientActivitiesService(uC.getClientServiceController());
             user = serviceController.getUser();
 
             session.setAttribute("serviceController", serviceController);
@@ -211,7 +224,6 @@ public class LoginFilter implements Filter
             session.setAttribute("userController", uC);
 
             initUserData(session, user);
-
             response.sendRedirect(contextpath + "/main.jsp");
         }
         else

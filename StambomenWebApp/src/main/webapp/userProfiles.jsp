@@ -1,3 +1,4 @@
+<%@page import="service.ClientServiceController"%>
 <%@page import="util.Translator"%>
 <%@page import="dto.ImageTypeDTO"%>
 <%@page import="service.ServiceConstant"%>
@@ -5,8 +6,11 @@
 <%@page import="dto.UserDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%! Translator trans = new Translator();%> 
-<%   trans.updateLanguage(); %>
+<%
+    ClientServiceController clientServiceController = (ClientServiceController) session.getAttribute("serviceController");
+    Translator trans = new Translator(clientServiceController);
+    trans.updateLanguage();
+%>
 <!DOCTYPE html>
 <html>
     <head>

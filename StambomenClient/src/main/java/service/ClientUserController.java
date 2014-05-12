@@ -8,15 +8,16 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ClientUserController
+public class ClientUserController extends ClientService
 {
 
     private ClientUserService client;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public ClientUserController()
+    public ClientUserController(ClientServiceController clientServiceController)
     {
-        this.client = new ClientUserService();
+        super(clientServiceController);
+        this.client = new ClientUserService(this.getClientServiceController());
     }
 
     public String makeUser(UserDTO user)
@@ -33,7 +34,7 @@ public class ClientUserController
 
     public void setLanguage(int language)
     {
-        int userID = ClientServiceController.getInstance().getUser().getId();
+        int userID = getClientServiceController().getUser().getId();
         logger.info("[CLIENT USER CONTROLLER][SET LANGUAGE]Set language with id: " + language + " user with id: " + userID);
         client.setLanguage(language);
 
@@ -51,21 +52,21 @@ public class ClientUserController
         {
             lan = LanguageDTO.FR;
         }
-        ClientServiceController.getInstance().getUser().getUserSettings().setLanguage(lan);
+        getClientServiceController().getUser().getUserSettings().setLanguage(lan);
     }
 
     public void setTheme(ThemeDTO theme)
     {
-        int userID = ClientServiceController.getInstance().getUser().getId();
+        int userID = getClientServiceController().getUser().getId();
         logger.info("[CLIENT USER CONTROLLER][SET THEME]Set theme with id: " + theme.getThemeID() + " user with id: " + userID);
         client.setTheme(theme.getThemeID());
 
-        ClientServiceController.getInstance().getUser().getUserSettings().setTheme(theme);
+        getClientServiceController().getUser().getUserSettings().setTheme(theme);
     }
 
     public LanguageDTO getLanguage()
     {
-        LanguageDTO language = ClientServiceController.getInstance().getUser().getUserSettings().getLanguage();
+        LanguageDTO language = getClientServiceController().getUser().getUserSettings().getLanguage();
         if (language != null)
         {
             return language;
@@ -78,12 +79,12 @@ public class ClientUserController
 
     public ThemeDTO getTheme()
     {
-        return ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
+        return getClientServiceController().getUser().getUserSettings().getTheme();
     }
 
     public UserDTO getUser()
     {
-        return ClientServiceController.getInstance().getUser();
+        return getClientServiceController().getUser();
     }
 
     public void setUserPrivacy(int userPrivacy)
@@ -117,7 +118,7 @@ public class ClientUserController
 
     public void setFBAuthCode(String authCode)
     {
-        ClientServiceController.getInstance().setFbAuthCode(authCode);
+        getClientServiceController().setFbAuthCode(authCode);
     }
 
     public void updateUser(UserDTO user)

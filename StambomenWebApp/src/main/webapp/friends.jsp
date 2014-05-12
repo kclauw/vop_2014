@@ -3,6 +3,7 @@
     Created on : Mar 2, 2014, 9:08:09 PM
     Author     : Lowie
 --%>
+<%@page import="service.ClientServiceController"%>
 <%@page import="util.Translator"%>
 <%@page import="dto.ImageTypeDTO"%>
 <%@page import="service.ServiceConstant"%>
@@ -11,8 +12,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%! Translator trans = new Translator(); %> 
-<%   trans.updateLanguage(); %>
+<%
+    ClientServiceController clientServiceController = (ClientServiceController) session.getAttribute("serviceController");
+    Translator trans = new Translator(clientServiceController);
+    trans.updateLanguage();
+%>
 <!DOCTYPE html>
 <html>
     <head>

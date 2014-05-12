@@ -14,17 +14,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import static service.ClientPersonService.imageToBufferedImage;
 
-public class ClientAdminService
+public class ClientAdminService extends ClientService
 {
 
     private final String url = ServiceConstant.getInstance().getURL();
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    public ClientAdminService(ClientServiceController clientServiceController)
+    {
+        super(clientServiceController);
+    }
+
     public String uploadBackgroundImage(Image image)
     {
         try
         {
-            Client client = ClientServiceController.getInstance().getClient();
+            Client client = getClientServiceController().getClient();
             ByteArrayOutputStream bas = new ByteArrayOutputStream();
             BufferedImage img = imageToBufferedImage(image);
             ImageIO.write(img, "jpg", bas);
@@ -51,7 +56,7 @@ public class ClientAdminService
     {
         try
         {
-            Client client = ClientServiceController.getInstance().getClient();
+            Client client = getClientServiceController().getClient();
             ByteArrayOutputStream bas = new ByteArrayOutputStream();
             BufferedImage img = imageToBufferedImage(image);
             ImageIO.write(img, "jpg", bas);

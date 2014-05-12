@@ -3,9 +3,11 @@ package util;
 import dto.LanguageDTO;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import service.ClientService;
+import service.ClientServiceController;
 import service.ClientUserController;
 
-public class Translator
+public class Translator extends ClientService
 {
 
     private ResourceBundle messages;
@@ -13,9 +15,10 @@ public class Translator
     private LanguageDTO lang;
     private int id;
 
-    public Translator()
+    public Translator(ClientServiceController clientServiceController)
     {
-        this.client = new ClientUserController();
+        super(clientServiceController);
+        this.client = new ClientUserController(this.getClientServiceController());
 
         updateLanguage();
     }

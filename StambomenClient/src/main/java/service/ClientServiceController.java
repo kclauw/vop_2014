@@ -11,13 +11,12 @@ import org.slf4j.LoggerFactory;
 public class ClientServiceController
 {
 
-    private static ClientServiceController instance;
     private UserDTO user;
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private String authCode;
     private Client client;
 
-    private ClientServiceController()
+    public ClientServiceController()
     {
         client = ClientBuilder.newClient();
         client.register(new JacksonFeature());
@@ -32,23 +31,6 @@ public class ClientServiceController
     public UserDTO getUser()
     {
         return this.user;
-    }
-
-    private synchronized static void createInstance()
-    {
-        if (instance == null)
-        {
-            instance = new ClientServiceController();
-        }
-    }
-
-    public static ClientServiceController getInstance()
-    {
-        if (instance == null)
-        {
-            createInstance();
-        }
-        return instance;
     }
 
     public HttpAuthenticationFeature getHttpCredentials()
@@ -78,7 +60,10 @@ public class ClientServiceController
 
     public void clearUser()
     {
-        logger.info("[CLIENT SERVICE CONTROLLER][USER CLEAR]" + user.toString());
+        if (user != null)
+        {
+            logger.info("[CLIENT SERVICE CONTROLLER][USER CLEAR]" + user.toString());
+        }
         this.user = null;
     }
 

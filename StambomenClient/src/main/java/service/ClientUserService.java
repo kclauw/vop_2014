@@ -20,11 +20,16 @@ import org.slf4j.LoggerFactory;
 /**
  * Contains the concrete implementations for the request to the WebAPI.
  */
-public class ClientUserService
+public class ClientUserService extends ClientService
 {
 
     private final static String url = ServiceConstant.getInstance().getURL();
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    public ClientUserService(ClientServiceController clientServiceController)
+    {
+        super(clientServiceController);
+    }
 
     public String makeUser(UserDTO userDTO)
     {
@@ -64,7 +69,7 @@ public class ClientUserService
             {
                 userDTO = response.readEntity(UserDTO.class);
                 logger.info("[CLIENT USER SERVICE][LOGIN]User userDTO found " + userDTO);
-                ClientServiceController.getInstance().setUser(userDTO);
+                getClientServiceController().setUser(userDTO);
 
                 result = "";
 
@@ -89,7 +94,7 @@ public class ClientUserService
     public String setLanguage(int languageID)
     {
         logger.info("[CLIENT USER SERVICE][SET LANGUAGE]Set language with id: " + languageID);
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
         Response response = client.target(url + "user/setLanguage/" + languageID).request(MediaType.APPLICATION_JSON).put(Entity.entity(languageID, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() != 200)
@@ -103,7 +108,7 @@ public class ClientUserService
     public String setTheme(int themeID)
     {
         logger.info("[CLIENT USER SERVICE][SET THEME]Set theme with id: " + themeID);
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
         Response response = client.target(url + "user/setTheme/").request(MediaType.APPLICATION_JSON).put(Entity.entity(themeID, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() != 200)
@@ -118,7 +123,7 @@ public class ClientUserService
     public String setUserPrivacy(int privacyID)
     {
         logger.info("[CLIENT USER SERVICE][SET USER PRIVACY]");
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
 
         Response response = client.target(url + "user/get/profile/setUserPrivacy/").request(MediaType.APPLICATION_JSON).put(Entity.entity(privacyID, MediaType.APPLICATION_JSON));
         if (response.getStatus() != 200)
@@ -134,7 +139,7 @@ public class ClientUserService
     public PrivacyDTO getUserPrivacy()
     {
         logger.info("[CLIENT USER SERVICE][GET USER PRIVACY]");
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
 
         PrivacyDTO privacy = client.target(url + "user/get/profile/getUserPrivacy/").request(MediaType.APPLICATION_JSON).get(new GenericType<PrivacyDTO>()
         {
@@ -146,7 +151,7 @@ public class ClientUserService
     public UserDTO getPublicUser(int userID)
     {
         logger.info("[CLIENT USER SERVICE][GET PUBLIC USER]Get a public user");
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
         UserDTO user = client.target(url + "user/get/profile/getPublicUser/" + userID).request(MediaType.APPLICATION_JSON).get(new GenericType<UserDTO>()
         {
         });
@@ -157,7 +162,7 @@ public class ClientUserService
     public List<UserDTO> getPublicUsers()
     {
         logger.info("[CLIENT USER SERVICE][GET PUBLIC USERS]Get all public users");
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
 
         List<UserDTO> users = client.target(url + "user/get/profile/getPublicUsers/").request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
         {
@@ -170,7 +175,7 @@ public class ClientUserService
     {
         logger.info("[CLIENT ADMIN SERVICE][GET USERS]Getting users ");
 
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
         client.register(new JacksonFeature());
 
         List<UserDTO> users = client.target(url + "admin/users").request(MediaType.APPLICATION_JSON).get(new GenericType<List<UserDTO>>()
@@ -183,7 +188,7 @@ public class ClientUserService
     public String updateUser(UserDTO user)
     {
         logger.info("[CLIENT USER SERVICE][UPDATE PERSON]:" + user.toString());
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
         client.register(new JacksonFeature());
 
         String json = new Gson().toJson(user);
@@ -208,7 +213,7 @@ public class ClientUserService
     public String blockUser(int userid, boolean block)
     {
         logger.info("[CLIENT USER SERVICE][BLOCK USER]Block user with id:" + userid + "to block state:" + block);
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
         client.register(new JacksonFeature());
         Response response = client.target(url + "admin/blockuser/" + userid + "/" + block).request(MediaType.APPLICATION_JSON).post(Entity.entity(block, MediaType.APPLICATION_JSON));
 
@@ -230,7 +235,7 @@ public class ClientUserService
     {
         logger.info("[CLIENT USER SERVICE][GET THEMES]Getting themes");
 
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
         List<ThemeDTO> themes = client.target(url + "user/themes").request(MediaType.APPLICATION_JSON).get(new GenericType<List<ThemeDTO>>()
         {
         });
