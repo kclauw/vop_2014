@@ -46,6 +46,7 @@ public class PlaceDao implements IDao<Place>
     private CoordinateDao coordinateDao;
     private CountryDao countryDao;
     private PlaceNameDao placeNameDao;
+    private GoogleGeoDao googleDao;
 
     public PlaceDao(PersistenceFacade pc)
     {
@@ -54,6 +55,7 @@ public class PlaceDao implements IDao<Place>
         this.coordinateDao = new CoordinateDao();
         this.countryDao = new CountryDao();
         this.placeNameDao = new PlaceNameDao();
+        this.googleDao = new GoogleGeoDao();
     }
 
     @Override
@@ -121,28 +123,15 @@ public class PlaceDao implements IDao<Place>
         try
         {
             con = DatabaseUtils.getConnection();
-
             countryID = countryDao.save(value.getCountry());
             placeNameID = placeNameDao.save(value.getPlaceName());
+            Coordinate coord = googleDao.getCoordinates(value);
 
             prep = con.prepareStatement(SAVE_PLACE);
 
-            Coordinate coord = value.getCoord();
-
-            if (coord != null && coord.getId() != -1)
+            if (coord != null)
             {
-                coordinateID = coord.getId();
-                prep.setInt(1, coordinateID);
-            }
-            else if (coord == null)
-            {
-                coord = pc.getCoordinates(value);
-            }
-
-            if (coord != null && coord.getId() == -1)
-            {
-                coordinateID = coordinateDao.save(coord);
-                prep.setInt(1, coordinateID);
+                prep.setInt(1, coord.getId());
             }
             else
             {
@@ -163,7 +152,7 @@ public class PlaceDao implements IDao<Place>
             }
 
             prep.setInt(4, placeNameID);
-
+            System.out.println("PLACE INSERT:" + prep.toString());
             prep.executeUpdate();
 
             int lastInsertedId = -1;
@@ -217,27 +206,13 @@ public class PlaceDao implements IDao<Place>
         try
         {
             con = DatabaseUtils.getConnection();
-            //TODO FIX ME!
             countryID = countryDao.save(place.getCountry());
-
             placeNameID = placeNameDao.save(place.getPlaceName());
-
+            coordinateID = googleDao.getCoordinates(place).getId();
             prep = con.prepareStatement(UPDATE_PLACE);
-            Coordinate coord = place.getCoord();
 
-            if (coord != null && coord.getId() > 0)
+            if (coordinateID >= 0)
             {
-                coordinateID = coord.getId();
-                prep.setInt(1, coordinateID);
-            }
-            else if (coord == null)
-            {
-                coord = pc.getCoordinates(place);
-            }
-
-            if (coord != null && coord.getId() <= 0)
-            {
-                coordinateID = coordinateDao.save(coord);
                 prep.setInt(1, coordinateID);
             }
             else
@@ -387,6 +362,7 @@ public class PlaceDao implements IDao<Place>
         if (place.getPlaceId() <= 0)
         {
             Place pl = get(place);
+
             if (pl == null)
             {
                 save(place);

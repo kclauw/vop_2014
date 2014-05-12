@@ -36,4 +36,10 @@ public class PlaceName
         this.placeName = placeName;
     }
 
+    @Override
+    public String toString()
+    {
+        return "PlaceName{" + "id=" + id + ", placeName=" + placeName + '}';
+    }
+
 }

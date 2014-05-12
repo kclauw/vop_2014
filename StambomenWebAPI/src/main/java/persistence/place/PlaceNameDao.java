@@ -15,7 +15,7 @@ import persistence.interfaces.IDao;
 public class PlaceNameDao implements IDao<PlaceName>
 {
 
-    private final String GET_PLACENAMEID_BY_NAME = "SELECT placeNameID FROM Placename where name = ?";
+    private final String GET_PLACENAMEID_BY_NAME = "SELECT placeNameID, name FROM Placename where name = ?";
     private final String SAVE_PLACENAME = "INSERT INTO Placename VALUES (null,?);";
 
     @Override

@@ -91,6 +91,7 @@ public class CountryDao implements IDao<Country>
                 con = DatabaseUtils.getConnection();
                 prep = con.prepareStatement(SAVE_COUNTRY);
                 prep.setString(1, country.getCountry());
+                System.out.println(prep.toString());
                 prep.executeUpdate();
 
                 ResultSet getKeyRs = prep.executeQuery("SELECT LAST_INSERT_ID()");
@@ -142,6 +143,7 @@ public class CountryDao implements IDao<Country>
     public void update(Country value)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override

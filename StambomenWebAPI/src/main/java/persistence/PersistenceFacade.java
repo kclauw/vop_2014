@@ -1,7 +1,5 @@
 package persistence;
 
-import persistence.place.GoogleGeoDao;
-import persistence.place.PlaceDao;
 import domain.Activity;
 import domain.Coordinate;
 import domain.Person;
@@ -18,6 +16,8 @@ import java.sql.ResultSet;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import persistence.place.GoogleGeoDao;
+import persistence.place.PlaceDao;
 
 public class PersistenceFacade
 {
@@ -415,6 +415,12 @@ public class PersistenceFacade
     {
         logger.info("[PERSISTENCE CONTROLLER] Delete user");
         userDao.deleteUser(userID);
+    }
+
+    public Place updatePlace(Place place)
+    {
+        int placeID = placeDao.save(place);
+        return placeDao.get(placeID);
     }
 
 }
