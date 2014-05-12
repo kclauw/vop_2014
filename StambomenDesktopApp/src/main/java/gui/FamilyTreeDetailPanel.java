@@ -457,9 +457,11 @@ public class FamilyTreeDetailPanel extends IPanel
 
             if (confirm == JOptionPane.YES_OPTION)
             {
-                PersonDTO person = getCurrentPersonFromInput();
-                person.setPersonId(this.person.getPersonId());
-                fttp.updatePerson(person);
+                startTask();
+                PersonDTO personFromInput = getCurrentPersonFromInput();
+                personFromInput.setPersonId(this.person.getPersonId());
+                fttp.updatePerson(personFromInput);
+                stopTask();
             }
 
             this.setEditable(false);
