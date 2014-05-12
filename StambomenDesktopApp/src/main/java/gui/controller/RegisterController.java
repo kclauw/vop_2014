@@ -7,9 +7,10 @@ import gui.RegisterPanel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import service.ClientFacebookService;
+import service.ClientServiceController;
 import service.ClientUserController;
 
-public class RegisterController implements IPanelController
+public class RegisterController extends IPanelController
 {
 
     private RegisterPanel registerPanel;
@@ -17,10 +18,11 @@ public class RegisterController implements IPanelController
     private ClientFacebookService clientFacebookService;
     private GuiController gui;
 
-    public RegisterController(GuiController gui)
+    public RegisterController(GuiController gui, ClientServiceController clientServiceController)
     {
-        clientUserController = new ClientUserController();
-        clientFacebookService = new ClientFacebookService();
+        super(clientServiceController);
+        this.clientUserController = new ClientUserController(clientServiceController);
+        this.clientFacebookService = new ClientFacebookService(clientServiceController);
         this.gui = gui;
     }
 

@@ -2,6 +2,7 @@ package gui.controller;
 
 import dto.ImageTypeDTO;
 import dto.TreeDTO;
+import dto.UserDTO;
 import gui.Panels;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -16,7 +17,13 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import org.openide.util.Exceptions;
+import service.ClientAdminService;
+import service.ClientFacebookService;
+import service.ClientGedcomService;
+import service.ClientPersonService;
 import service.ClientServiceController;
+import service.ClientTreeController;
+import service.ClientUserController;
 import service.ServiceConstant;
 
 public class GuiController
@@ -33,6 +40,7 @@ public class GuiController
     private SettingsController settingsController;
     private UserOverviewController useroverviewController;
     private AdminThemeController adminThemeController;
+    private ClientServiceController clientServiceController;
 
     public GuiController()
     {
@@ -44,15 +52,16 @@ public class GuiController
     private void init()
     {
         createFrame();
-        loginController = new LoginController(this);
-        registerController = new RegisterController(this);
-        treeControllerOverviewController = new TreeOverviewController(this);
-        treeController = new TreeController(this);
-        addTreeController = new AddTreeController(this);
-        settingsController = new SettingsController(this);
-        personoverviewController = new PersonOverviewController(this);
-        useroverviewController = new UserOverviewController(this);
-        adminThemeController = new AdminThemeController(this);
+        clientServiceController = new ClientServiceController();
+        loginController = new LoginController(this, clientServiceController);
+        registerController = new RegisterController(this, clientServiceController);
+        treeControllerOverviewController = new TreeOverviewController(this, clientServiceController);
+        treeController = new TreeController(this, clientServiceController);
+        addTreeController = new AddTreeController(this, clientServiceController);
+        settingsController = new SettingsController(this, clientServiceController);
+        personoverviewController = new PersonOverviewController(this, clientServiceController);
+        useroverviewController = new UserOverviewController(this, clientServiceController);
+        adminThemeController = new AdminThemeController(this, clientServiceController);
     }
 
     private void createFrame()
@@ -122,7 +131,7 @@ public class GuiController
 
     public void setUIFont(String fontName)
     {
-        Font font = ClientServiceController.getInstance().getUser().getUserSettings().getTheme().getDefaultFont();
+        Font font = this.clientServiceController.getUser().getUserSettings().getTheme().getDefaultFont();
 
         if (font != null)
         {
@@ -144,7 +153,7 @@ public class GuiController
 
     public void setDefaultFont()
     {
-        setUIFont(ClientServiceController.getInstance().getUser().getUserSettings().getTheme().getFont());
+        setUIFont(this.clientServiceController.getUser().getUserSettings().getTheme().getFont());
     }
 
     public void goTo(Panels frame)
@@ -222,4 +231,10 @@ public class GuiController
         goTo(Panels.TREE);
         treeController.setTree(tree);
     }
+
+    public ClientServiceController getClientService()
+    {
+        return clientServiceController;
+    }
+
 }

@@ -5,18 +5,20 @@ import gui.PanelFactory;
 import gui.Panels;
 import gui.SettingsPanel;
 import javax.swing.JPanel;
+import service.ClientServiceController;
 import service.ClientUserController;
 
-public class SettingsController
+public class SettingsController extends IPanelController
 {
 
     private GuiController gui;
     private SettingsPanel settingsPanel;
     private ClientUserController clientUserController;
 
-    public SettingsController(GuiController gui)
+    public SettingsController(GuiController gui, ClientServiceController clientServiceController)
     {
-        this.clientUserController = new ClientUserController();
+        super(clientServiceController);
+        this.clientUserController = new ClientUserController(clientServiceController);
         this.gui = gui;
     }
 

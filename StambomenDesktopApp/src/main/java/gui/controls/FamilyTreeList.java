@@ -7,13 +7,7 @@ package gui.controls;
 
 import dto.TreeDTO;
 import gui.controller.TreeOverviewController;
-import java.awt.Color;
-import util.Translator;
 
-/**
- *
- * @author Lowie
- */
 public class FamilyTreeList extends javax.swing.JPanel
 {
 
@@ -40,9 +34,7 @@ public class FamilyTreeList extends javax.swing.JPanel
 
     public void translate()
     {
-        Translator trans = new Translator();
-        jLabel2.setText(trans.translate("AllTrees"));
-
+        jLabel2.setText(translate("AllTrees"));
     }
 
     @SuppressWarnings("unchecked")
@@ -94,7 +86,6 @@ public class FamilyTreeList extends javax.swing.JPanel
     public void addFamilyTree(FamilyTreeListItem item)
     {
         System.out.println("[FAMILY TREE LIST PANEL] Adding tree item" + item);
-
         pnlAllFamilyTrees.add(item);
     }
 }

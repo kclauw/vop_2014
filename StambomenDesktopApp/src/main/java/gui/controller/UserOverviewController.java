@@ -8,18 +8,20 @@ import gui.UserOverviewPanel;
 import java.util.Collection;
 import java.util.List;
 import javax.swing.JPanel;
+import service.ClientServiceController;
 import service.ClientUserController;
 
-public class UserOverviewController implements IPanelController
+public class UserOverviewController extends IPanelController
 {
 
     private UserOverviewPanel useroverviewPanel;
     private GuiController gui;
     private ClientUserController uc;
 
-    public UserOverviewController(GuiController gui)
+    public UserOverviewController(GuiController gui, ClientServiceController clientServiceController)
     {
-        this.uc = new ClientUserController();
+        super(clientServiceController);
+        this.uc = new ClientUserController(clientServiceController);
         this.gui = gui;
     }
 

@@ -10,9 +10,10 @@ import java.awt.Image;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import service.ClientPersonService;
+import service.ClientServiceController;
 import service.ClientTreeController;
 
-public class TreeController implements IPanelController
+public class TreeController extends IPanelController
 {
 
     private FamilyTreeTotalPanel familyTreeTotalPanel;
@@ -21,11 +22,12 @@ public class TreeController implements IPanelController
     private ClientTreeController clientTreeController;
     private ClientPersonService clientPersonService;
 
-    public TreeController(GuiController guiController)
+    public TreeController(GuiController guiController, ClientServiceController clientServiceController)
     {
+        super(clientServiceController);
         this.gui = guiController;
-        this.clientTreeController = new ClientTreeController();
-        this.clientPersonService = new ClientPersonService();
+        this.clientTreeController = new ClientTreeController(clientServiceController);
+        this.clientPersonService = new ClientPersonService(clientServiceController);
     }
 
     public JPanel show()

@@ -15,6 +15,7 @@ import javafx.scene.web.WebView;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.border.MatteBorder;
+import service.ClientServiceController;
 
 public class LoginPanel extends IPanel
 {

@@ -7,18 +7,19 @@ import gui.PersonOverviewPanel;
 import java.util.List;
 import javax.swing.JPanel;
 import service.ClientPersonService;
+import service.ClientServiceController;
 
-public class PersonOverviewController implements IPanelController
+public class PersonOverviewController extends IPanelController
 {
 
     private PersonOverviewPanel personoverviewPanel;
     private GuiController gui;
     private ClientPersonService clientPersonService;
 
-    public PersonOverviewController(GuiController gui)
+    public PersonOverviewController(GuiController gui, ClientServiceController clientServiceController)
     {
-
-        this.clientPersonService = new ClientPersonService();
+        super(clientServiceController);
+        this.clientPersonService = new ClientPersonService(clientServiceController);
         this.gui = gui;
     }
 

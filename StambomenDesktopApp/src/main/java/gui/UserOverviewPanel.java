@@ -39,9 +39,7 @@ public class UserOverviewPanel extends IPanel
     private JTextField filterText;
     private JTextField statusText;
     private UserOverviewController useroverviewController;
-    private ClientUserController clientUserController;
     private TreeOverviewController treeoverviewController;
-    private TreeController treeController;
     private UserDetailPanel userDetailpanel;
     private UserTableModel model;
     private UserDTO user;
@@ -50,7 +48,6 @@ public class UserOverviewPanel extends IPanel
     {
 
         initComponents();
-        Translator trans = new Translator();
         this.userController = new ClientUserController();
         this.userDetailpanel = new UserDetailPanel(this);
         users = userController.getUsers();
@@ -96,15 +93,15 @@ public class UserOverviewPanel extends IPanel
         //items
         final JScrollPane pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-        JLabel l1 = new JLabel(trans.translate("FilterText") + ":");
+        JLabel l1 = new JLabel(translate("FilterText") + ":");
 
         JPanel form = new JPanel();
         JPanel filter = new JPanel();
 
         JButton btnBlock = new JButton();
-        btnBlock.setText(trans.translate("BlockUser"));
+        btnBlock.setText(translate("BlockUser"));
         JButton btnUser = new JButton();
-        btnUser.setText(trans.translate("GotoUser"));
+        btnUser.setText(translate("GotoUser"));
 
         btnUser.addActionListener(new ActionListener()
         {
@@ -254,6 +251,11 @@ public class UserOverviewPanel extends IPanel
     public void deleteUser(UserDTO user)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void updateUser(UserDTO user)
+    {
+        this.userController.updateUser(user);
     }
 
 }
