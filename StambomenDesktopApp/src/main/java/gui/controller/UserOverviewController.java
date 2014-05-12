@@ -60,4 +60,18 @@ public class UserOverviewController extends IPanelController
         return gui;
     }
 
+    public List<UserDTO> getUsers()
+    {
+        return uc.getUsers();
+    }
+
+    public void goToTreeOverview(int id)
+    {
+        TreeOverviewController treeoverviewController = new TreeOverviewController(gui, getClientServiceController());
+        JPanel panel = new JPanel();
+        panel = treeoverviewController.show();
+        treeoverviewController.getTrees(id);
+        treeoverviewController.setAdminframe(panel);
+    }
+
 }

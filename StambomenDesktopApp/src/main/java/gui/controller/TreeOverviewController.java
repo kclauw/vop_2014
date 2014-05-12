@@ -73,7 +73,7 @@ public class TreeOverviewController extends IPanelController
 
             for (TreeDTO tree : trees)
             {
-                familyTreeList.addFamilyTree(new FamilyTreeListItem(tree.getName(), tree.getPrivacy().ordinal(), familyTreeList, tree));
+                familyTreeList.addFamilyTree(new FamilyTreeListItem(getClientServiceController(), tree.getName(), tree.getPrivacy().ordinal(), familyTreeList, tree));
             }
         }
         treeOverviewPanel.addFamilyTreeList(familyTreeList);
