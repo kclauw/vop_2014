@@ -200,25 +200,6 @@ public class FamilyTreeTotalPanel extends IPanel
         treeController.deleteImage(person);
     }
 
-    public void drawFamilyTree2()
-    {
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                try
-                {
-                    AbegoTreeLayoutForNetbeansDemo.Start(persons, layout);
-                }
-                catch (Exception ex)
-                {
-                    Exceptions.printStackTrace(ex);
-                }
-            }
-        });
-    }
-
     public void movePerson(PersonAddDTO personAddDTO, int personId, int personMoveID)
     {
         treeController.movePerson(personAddDTO, personId, personMoveID);
