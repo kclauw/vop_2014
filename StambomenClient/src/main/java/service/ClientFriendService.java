@@ -84,7 +84,7 @@ public class ClientFriendService
     {
         logger.info("[CLIENT USER SERVICE][SEND FRIEND REQUEST]");
         Client client = ClientServiceController.getInstance().getClient();
-        Response response = client.target(url + "user/friends/requests/send/").request(MediaType.APPLICATION_JSON).post(Entity.entity(frienduserName, MediaType.APPLICATION_JSON));
+        Response response = client.target(url + "friends/requests/send/").request(MediaType.APPLICATION_JSON).post(Entity.entity(frienduserName, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() != 200)
         {

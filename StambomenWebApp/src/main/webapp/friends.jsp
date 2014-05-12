@@ -61,7 +61,7 @@
                     <c:if test="${not empty potFbFriends}">
                         <h2>Facebook</h2>
                         <form method="post" action="./FriendServlet">
-                            <select name="sendfriendrequestid">
+                            <select name="sendfriendrequestname">
                                 <c:forEach var="item" items="${potFbFriends}" varStatus="counter">
                                     <option value="${item.username}">${item.username}</option>
                                 </c:forEach>
@@ -90,8 +90,8 @@
                             <c:forEach var="item" items="${friendrequests}" varStatus="counter">
                                 <li class="itemblock">
                                     <div>${item.username}</div>
-                                <a href=\"./FriendServlet?denyfriendrequestid=${item.id}"><img class="denyfriend" src="./images/delete.png" alt="deny" /></a>
-                                <a href=\"./FriendServlet?allowfriendrequestid=${item.id}"><img class="allowfriend" src="./images/allow.png" alt="allow" /></a>
+                                <a href="./FriendServlet?denyfriendrequestid=${item.id}"><img class="denyfriend" src="./images/delete.png" alt="deny" /></a>
+                                <a href="./FriendServlet?allowfriendrequestid=${item.id}"><img class="allowfriend" src="./images/allow.png" alt="allow" /></a>
                                 </li>
                             </c:forEach>
                         </ul>   
