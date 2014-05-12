@@ -10,11 +10,16 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ClientFacebookService
+public class ClientFacebookService extends ClientService
 {
 
     private final String url = ServiceConstant.getInstance().getURL();
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    public ClientFacebookService(ClientServiceController clientServiceController)
+    {
+        super(clientServiceController);
+    }
 
     public String loginWithFB(String authCode)
     {
@@ -32,8 +37,8 @@ public class ClientFacebookService
 
         UserDTO user = response.readEntity(UserDTO.class);
 
-        ClientServiceController.getInstance().setUser(user);
-        ClientServiceController.getInstance().setFbAuthCode(c);
+        getClientServiceController().setUser(user);
+        getClientServiceController().setFbAuthCode(c);
 
         return null;
     }

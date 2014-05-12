@@ -30,15 +30,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.io.IOUtils;
 
-public class ClientGedcomService
+public class ClientGedcomService extends ClientService
 {
 
     private final String url = ServiceConstant.getInstance().getURL();
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    public ClientGedcomService(ClientServiceController clientServiceController)
+    {
+        super(clientServiceController);
+    }
+
     public String importGedcom(int privacy, int user, String name, File file) throws FileNotFoundException, IOException
     {
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
         InputStream input = new FileInputStream(file);
         BufferedInputStream bis = new BufferedInputStream(input);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -50,7 +55,7 @@ public class ClientGedcomService
             System.out.println("Error occured" + response.toString() + "  " + resp);
             return " " + resp;
         }
-        
+
         return null;
     }
 }

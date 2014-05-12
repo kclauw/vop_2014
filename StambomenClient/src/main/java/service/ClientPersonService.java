@@ -20,16 +20,21 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ClientPersonService
+public class ClientPersonService extends ClientService
 {
 
     private final String url = ServiceConstant.getInstance().getURL();
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    public ClientPersonService(ClientServiceController clientServiceController)
+    {
+        super(clientServiceController);
+    }
+
     public String savePerson(int treeID, PersonAddDTO personAdd, PersonDTO person, int link)
     {
         logger.info("[CLIENT PERSON SERVICE][SAVE PERSON]:" + person.toString());
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd").create();
         String json = gson.toJson(person);
         Response response = client.target(url + "person/" + treeID + "/" + personAdd.getId() + "/" + link + "/post").request(MediaType.APPLICATION_JSON).post(Entity.entity(json, MediaType.APPLICATION_JSON));
@@ -46,7 +51,7 @@ public class ClientPersonService
 
     public String movePerson(int treeID, PersonAddDTO personAdd, int personID, int personMoveID)
     {
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
         Response response = client.target(url + "person/" + treeID + "/" + personAdd.getId() + "/" + personID + "/" + personMoveID).request(MediaType.APPLICATION_JSON).get();
 
         if (response.getStatus() != 200)
@@ -62,7 +67,7 @@ public class ClientPersonService
     public String updatePerson(int treeID, PersonDTO person)
     {
         logger.info("[CLIENT PERSON SERVICE][UPDATE PERSON]:" + person.toString());
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(person);
         Response response = client.target(url + "person/update/" + treeID).request(MediaType.APPLICATION_JSON).put(Entity.entity(json, MediaType.APPLICATION_JSON));
@@ -81,7 +86,7 @@ public class ClientPersonService
     public String deletePerson(int treeID, int personID)
     {
         System.out.println("[CLIENT PERSON SERVICE] DELETING PERSON " + personID);
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
 
         Response response = client.target(url + "person/delete/" + treeID + "/" + personID).request(MediaType.APPLICATION_JSON).get();
 
@@ -101,7 +106,7 @@ public class ClientPersonService
     {
         try
         {
-            Client client = ClientServiceController.getInstance().getClient();
+            Client client = getClientServiceController().getClient();
             ByteArrayOutputStream bas = new ByteArrayOutputStream();
             BufferedImage img = imageToBufferedImage(image);
             ImageIO.write(img, "jpg", bas);
@@ -127,7 +132,7 @@ public class ClientPersonService
 
     public String deleteImage(int treeID, int personId)
     {
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
 
         Response response = client.target(url + "person/images/delete/" + treeID + "/" + personId).request(MediaType.APPLICATION_JSON).get();
 
@@ -154,7 +159,7 @@ public class ClientPersonService
     {
         logger.info("[CLIENT ADMIN SERVICE][GET PERSONS]Getting persons ");
 
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
 
         List<PersonDTO> persons = client.target(url + "admin/persons/" + start + "/" + max).request(MediaType.APPLICATION_JSON).get(new GenericType<List<PersonDTO>>()
         {
@@ -169,7 +174,7 @@ public class ClientPersonService
         System.out.println("URL");
         System.out.println(url + "person/");
         System.out.println("-------------------");
-        Client client = ClientServiceController.getInstance().getClient();
+        Client client = getClientServiceController().getClient();
 
         PersonDTO person = client.target(url + "person/" + treeId + "/" + personId).request(MediaType.APPLICATION_JSON).get(new GenericType<PersonDTO>()
         {
@@ -180,8 +185,8 @@ public class ClientPersonService
 
     public List<PersonDTO> getPersonsBySearch(String firstname, String lastname)
     {
-        int userID = ClientServiceController.getInstance().getUser().getId();
-        Client client = ClientServiceController.getInstance().getClient();
+        int userID = getClientServiceController().getUser().getId();
+        Client client = getClientServiceController().getClient();
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
         List<PersonDTO> persons = client.target(url + "/search/" + userID + "/" + firstname + "/" + lastname).request(MediaType.APPLICATION_JSON).get(new GenericType<List<PersonDTO>>()
         {

@@ -5,15 +5,21 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ClientTreeController
+public class ClientTreeController extends ClientService
 {
 
-    private ClientTreeService client = new ClientTreeService();
+    private ClientTreeService client;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    public ClientTreeController(ClientServiceController clientServiceController)
+    {
+        super(clientServiceController);
+        client = new ClientTreeService(this.getClientServiceController());
+    }
 
     public String makeTree(TreeDTO tree)
     {
-        tree.setOwner(ClientServiceController.getInstance().getUser());
+        tree.setOwner(getClientServiceController().getUser());
         logger.info("[CLIENT TREE CONTROLLER][MAKE TREE]" + tree.toString());
         return client.makeTree(tree);
     }
@@ -24,7 +30,7 @@ public class ClientTreeController
         if (i == -1)
         {
             System.out.println("ClienTreeController :  " + i);
-            return client.getTrees(ClientServiceController.getInstance().getUser().getId());
+            return client.getTrees(getClientServiceController().getUser().getId());
         }
         else
         {
