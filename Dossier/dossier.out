@@ -30,24 +30,28 @@
 \BOOKMARK [0][-]{chapter.5}{Interresantee Ontwerpbeslissingen}{}% 30
 \BOOKMARK [0][-]{chapter.6}{Interessante Implementatiekeuzes}{}% 31
 \BOOKMARK [1][-]{section.6.1}{Bibliotheken}{chapter.6}% 32
-\BOOKMARK [2][-]{subsection.6.1.1}{Jersey}{section.6.1}% 33
-\BOOKMARK [2][-]{subsection.6.1.2}{Swagger Jersey}{section.6.1}% 34
-\BOOKMARK [2][-]{subsection.6.1.3}{SLF4J}{section.6.1}% 35
-\BOOKMARK [2][-]{subsection.6.1.4}{Junit}{section.6.1}% 36
-\BOOKMARK [2][-]{subsection.6.1.5}{Gedcom4j}{section.6.1}% 37
-\BOOKMARK [2][-]{subsection.6.1.6}{Sardine}{section.6.1}% 38
-\BOOKMARK [2][-]{subsection.6.1.7}{RestFB}{section.6.1}% 39
-\BOOKMARK [2][-]{subsection.6.1.8}{JCalendar}{section.6.1}% 40
-\BOOKMARK [2][-]{subsection.6.1.9}{Abego TreeLayout}{section.6.1}% 41
-\BOOKMARK [2][-]{subsection.6.1.10}{Java FX}{section.6.1}% 42
-\BOOKMARK [0][-]{chapter.7}{Kwaliteitscontrole}{}% 43
-\BOOKMARK [0][-]{chapter.8}{Gekende problemen}{}% 44
-\BOOKMARK [0][-]{chapter.9}{Verbeterpunten en uitbreidingsmogelijkheden}{}% 45
-\BOOKMARK [0][-]{chapter.10}{Nabeschouwing en besluit}{}% 46
-\BOOKMARK [0][-]{chapter.10}{List of Figures}{}% 47
-\BOOKMARK [0][-]{chapter*.20}{List of Tables}{}% 48
-\BOOKMARK [0][-]{appendix.A}{Appendix}{}% 49
-\BOOKMARK [1][-]{section.A.1}{Opdracht sprint 1}{appendix.A}% 50
-\BOOKMARK [1][-]{section.A.2}{Opdracht sprint 1}{appendix.A}% 51
-\BOOKMARK [1][-]{section.A.3}{Opdracht sprint 2}{appendix.A}% 52
-\BOOKMARK [1][-]{section.A.4}{Opdracht sprint 2}{appendix.A}% 53
+\BOOKMARK [0][-]{chapter.7}{Interessante Implementatiekeuzes}{}% 33
+\BOOKMARK [1][-]{section.7.1}{Bibliotheken}{chapter.7}% 34
+\BOOKMARK [2][-]{subsection.7.1.1}{Jersey}{section.7.1}% 35
+\BOOKMARK [2][-]{subsection.7.1.2}{Swagger Jersey}{section.7.1}% 36
+\BOOKMARK [2][-]{subsection.7.1.3}{SLF4J}{section.7.1}% 37
+\BOOKMARK [2][-]{subsection.7.1.4}{Junit}{section.7.1}% 38
+\BOOKMARK [2][-]{subsection.7.1.5}{Gedcom}{section.7.1}% 39
+\BOOKMARK [2][-]{subsection.7.1.6}{Gedcom4j}{section.7.1}% 40
+\BOOKMARK [2][-]{subsection.7.1.7}{Sardine}{section.7.1}% 41
+\BOOKMARK [2][-]{subsection.7.1.8}{RestFB}{section.7.1}% 42
+\BOOKMARK [2][-]{subsection.7.1.9}{JCalendar}{section.7.1}% 43
+\BOOKMARK [2][-]{subsection.7.1.10}{Abego TreeLayout}{section.7.1}% 44
+\BOOKMARK [2][-]{subsection.7.1.11}{Java FX}{section.7.1}% 45
+\BOOKMARK [0][-]{chapter.8}{Kwaliteitscontrole}{}% 46
+\BOOKMARK [0][-]{chapter.9}{Kwaliteitscontrole}{}% 47
+\BOOKMARK [0][-]{chapter.10}{Gekende problemen}{}% 48
+\BOOKMARK [0][-]{chapter.11}{Verbeterpunten en uitbreidingsmogelijkheden}{}% 49
+\BOOKMARK [0][-]{chapter.12}{Nabeschouwing en besluit}{}% 50
+\BOOKMARK [0][-]{chapter.12}{List of Figures}{}% 51
+\BOOKMARK [0][-]{chapter*.20}{List of Tables}{}% 52
+\BOOKMARK [0][-]{appendix.A}{Appendix}{}% 53
+\BOOKMARK [1][-]{section.A.1}{Opdracht sprint 1}{appendix.A}% 54
+\BOOKMARK [1][-]{section.A.2}{Opdracht sprint 1}{appendix.A}% 55
+\BOOKMARK [1][-]{section.A.3}{Opdracht sprint 2}{appendix.A}% 56
+\BOOKMARK [1][-]{section.A.4}{Opdracht sprint 2}{appendix.A}% 57

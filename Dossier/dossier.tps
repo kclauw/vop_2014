@@ -17,8 +17,8 @@ Class=LaTeXView
 Document=dossier.tex
 
 [Frame0_View0,0]
-TopLine=292
-Cursor=13742
+TopLine=705
+Cursor=29657
 
 [Frame1]
 Flags=0
@@ -32,7 +32,7 @@ NormalPos.top=26
 NormalPos.right=1562
 NormalPos.bottom=539
 Class=LaTeXView
-Document=C:\Users\Sklipnoty\Dropbox\INWE\Netwerken\template_Article.tex
+Document=..\..\..\..\Dropbox\INWE\Netwerken\template_Article.tex
 
 [Frame1_View0,0]
 TopLine=10
@@ -40,5 +40,5 @@ Cursor=981
 
 [SessionInfo]
 FrameCount=2
-ActiveFrame=1
+ActiveFrame=0
 
