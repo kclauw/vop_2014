@@ -34,7 +34,7 @@ public class FamilyTreeList extends javax.swing.JPanel
 
     public void translate()
     {
-        jLabel2.setText(translate("AllTrees"));
+        jLabel2.setText(treeController.translate("AllTrees"));
     }
 
     @SuppressWarnings("unchecked")

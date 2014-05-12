@@ -15,6 +15,7 @@ import service.ClientGedcomService;
 import service.ClientServiceController;
 import service.ClientTreeController;
 import service.ClientUserController;
+import util.Translator;
 
 public class TreeOverviewController extends IPanelController
 {
@@ -101,6 +102,12 @@ public class TreeOverviewController extends IPanelController
         {
             Exceptions.printStackTrace(ex);
         }
+    }
+
+    public String translate(String allTrees)
+    {
+        Translator trans = new Translator(getClientServiceController());
+        return trans.translate(allTrees);
     }
 
 }
