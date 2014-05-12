@@ -53,7 +53,7 @@ public class PersonController
         /*check wether the person has childs!*/
         boolean hasChildren = pc.getPersonHasChildren(personID);
         //Date date = new Date();
-        Activity act = new Activity(Event.DELPER, getPerson(treeID, personID).getFirstName() + " " + getPerson(treeID, personID).getSurName(), tc.getTree(treeID).getOwner().getId(), null);
+        Activity act = new Activity(Event.DELPER, getPerson(treeID, personID).getFirstName() + " " + getPerson(treeID, personID).getSurName(), tc.getTree(treeID).getOwner(), null);
 
         if (hasChildren)
         {
@@ -71,7 +71,7 @@ public class PersonController
 
     public void updatePerson(int treeID, Person person)
     {
-        Activity act = new Activity(Event.CHAPER, person.getFirstName() + " " + person.getSurName(), pc.getTree(treeID).getOwner().getId(), null);
+        Activity act = new Activity(Event.CHAPER, person.getFirstName() + " " + person.getSurName(), pc.getTree(treeID).getOwner(), null);
         logger.info("[PERSON CONTROLLER] Updating person " + person);
         pc.updatePerson(treeID, person);
         ac.addActivity(act);
@@ -131,7 +131,7 @@ public class PersonController
             }
 
         };
-       
+
         return id;
     }
 
@@ -140,8 +140,6 @@ public class PersonController
         return pc.addPerson(treeID, person);
 
     }
-    
-    
 
     public void deletePersonImage(int treeID, int personID)
     {
@@ -261,9 +259,10 @@ public class PersonController
 
         return null;
     }
-    
-    public void addParentRelation(int treeID,int parentID,int childID){
-     pc.addParentRelation(treeID, parentID, childID);
+
+    public void addParentRelation(int treeID, int parentID, int childID)
+    {
+        pc.addParentRelation(treeID, parentID, childID);
     }
 
     private void checkParentRelations(Person child, Person person)

@@ -8,6 +8,7 @@
 <%@page import="service.ServiceConstant"%>
 <%@page import="dto.ThemeDTO"%>
 <%@page import="dto.UserDTO"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%! Translator trans = new Translator(); %> 
@@ -111,11 +112,11 @@
                     </ul>
                 </div>
                 <div class="friendactivitylist">
-                    <h1>Activiteiten</h1>
+                    <h1><%= trans.translate("Activities") %></h1>
                     <ul>
                         <c:forEach var="item" items="${activities}" varStatus="counter">
                             <li class="itemblock">
-                                <div>${item.userID} 
+                                <div><b>${item.user.username}</b> 
                                     <c:choose>
                                         <c:when test="${item.event == 'ADDFRIEND'}"><%= trans.translate("ActivityAddFriend") %></c:when>
                                         <c:when test="${item.event == 'ADDPER'}"><%= trans.translate("ActivityAddPerson") %></c:when>
@@ -125,7 +126,7 @@
                                         <c:when test="${item.event == 'DELPER'}"><%= trans.translate("ActivityDeletePerson") %></c:when>
                                         <c:when test="${item.event == 'DELTREE'}"><%= trans.translate("ActivityDeleteTree") %></c:when>
                                     </c:choose>
-                                    <%= trans.translate("WithName") %>: ${item.name}<br/>
+                                    <%= trans.translate("WithName") %>: <b>${item.name}</b><br/>
                                     <fmt:formatDate value="${item.date}" pattern="dd-MM-yyyy HH:mm:ss" />
                                 </div>
                             </li>

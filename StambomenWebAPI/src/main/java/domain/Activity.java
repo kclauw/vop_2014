@@ -8,18 +8,18 @@ public class Activity
 
     private Event event;
     private String name;
-    private int userID;
+    private User user;
     private java.util.Date date;
 
     public Activity()
     {
     }
 
-    public Activity(Event event, String name, int userID, Date date)
+    public Activity(Event event, String name, User user, Date date)
     {
         this.event = event;
         this.name = name;
-        this.userID = userID;
+        this.user = user;
         this.date = date;
     }
 
@@ -43,14 +43,14 @@ public class Activity
         this.name = name;
     }
 
-    public int getUserID()
+    public User getUser()
     {
-        return userID;
+        return user;
     }
 
-    public void setUserID(int userID)
+    public void setUser(User user)
     {
-        this.userID = userID;
+        this.user = user;
     }
 
     public Date getDate()
