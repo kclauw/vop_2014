@@ -204,6 +204,7 @@ public class TextInBoxTreePane extends JComponent
             {
                 if (box.contains(me.getPoint()))
                 {
+                    System.out.println("Person with id:" + person.getPersonId());
                     fttp.setPerson(person);
                 }
             }
@@ -224,7 +225,7 @@ public class TextInBoxTreePane extends JComponent
                     setToolTipText("<html><p>" + person.getFirstName() + " " + person.getSurName() + " </p>"
                             + "<p> Date of birth: " + ((person.getBirthDate() != null) ? sf.format(person.getBirthDate()) : "Not known") + "</p>"
                             + "<p> Date of death: " + ((person.getDeathDate() != null) ? sf.format(person.getDeathDate()) : "Not known") + "</p>"
-                            + "<p>" + place.getPlaceName() + " " + place.getZipCode() + ", " + place.getCountry() + "</p>"
+                            + "<p>" + place.getPlaceName().getPlaceName() + " " + place.getZipCode() + ", " + place.getCountry().getCountry() + "</p>"
                             + "<p><img src='" + person.getPicture() + "'></p></html>");
                     ToolTipManager.sharedInstance().mouseMoved(e);
                     ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);

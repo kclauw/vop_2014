@@ -59,6 +59,7 @@ public class AddTreePanel extends IPanel
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 200));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 200));
 
+        setOpaque(false);
         setLayout(new java.awt.GridBagLayout());
 
         pnlAddTree.setBackground(new java.awt.Color(255, 255, 255));

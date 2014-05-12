@@ -1,9 +1,11 @@
 package gui;
 
+import dto.CountryDTO;
 import dto.GenderDTO;
 import dto.PersonAddDTO;
 import dto.PersonDTO;
 import dto.PlaceDTO;
+import dto.PlaceNameDTO;
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -689,8 +691,8 @@ public class FamilyTreeDetailPanel extends IPanel
                     }
                     else
                     {
-                        textFieldCity.setText(place.getPlaceName());
-                        textFieldCountry.setText(place.getCountry());
+                        textFieldCity.setText(place.getPlaceName().getPlaceName());
+                        textFieldCountry.setText(place.getCountry().getCountry());
                         textFieldZipCode.setText(place.getZipCode());
                     }
                     if (person.getPicture() != null)
@@ -865,37 +867,40 @@ public class FamilyTreeDetailPanel extends IPanel
 
     private PersonDTO getCurrentPersonFromInput()
     {
-        GenderDTO g;
-
-        if (radioFemale.isSelected())
-        {
-            g = GenderDTO.FEMALE;
-        }
-        else
-        {
-            g = GenderDTO.MALE;
-        }
-
-        PersonDTO p = new PersonDTO.PersonDTOBuilder(textFieldFirstname.getText(), textFieldLastname.getText(), g).build();
+        PersonDTO p = this.person;
 
         try
         {
+            GenderDTO g;
+
+            if (radioFemale.isSelected())
+            {
+                g = GenderDTO.FEMALE;
+            }
+            else
+            {
+                g = GenderDTO.MALE;
+            }
+
+            if (person == null)
+            {
+                p = new PersonDTO();
+                p.setPersonId(-1);
+            }
+
+            p.setFirstName(textFieldFirstname.getText());
+            p.setSurName(textFieldLastname.getText());
+            p.setGender(g);
             p.setBirthDate(dob.getDate());
             p.setDeathDate(dob.getDate());
-            p.setPlace(new PlaceDTO.PlaceDTOBuilder(textFieldCity.getText())
-                    .placeId(-1)
-                    .countryId(-1)
-                    .placeNameId(-1)
-                    .coord(null)
-                    .country(textFieldCountry.getText())
-                    .zipCode(textFieldZipCode.getText())
-                    .build());
             p.setFacebookProfileLink(new URI(textFieldFacebookProfileLink.getText()));
+            p.setPlace(new PlaceDTO(-1, textFieldZipCode.getText(), null, new CountryDTO(-1, textFieldCountry.getText()), new PlaceNameDTO(-1, textFieldCity.getText())));
         }
         catch (URISyntaxException ex)
         {
-            Exceptions.printStackTrace(ex);
+            p.setFacebookProfileLink(null);
         }
+
         return p;
     }
 
