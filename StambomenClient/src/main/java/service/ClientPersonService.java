@@ -63,7 +63,6 @@ public class ClientPersonService
     {
         logger.info("[CLIENT PERSON SERVICE][UPDATE PERSON]:" + person.toString());
         Client client = ClientServiceController.getInstance().getClient();
-
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(person);
         Response response = client.target(url + "person/update/" + treeID).request(MediaType.APPLICATION_JSON).put(Entity.entity(json, MediaType.APPLICATION_JSON));

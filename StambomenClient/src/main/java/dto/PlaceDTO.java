@@ -20,6 +20,15 @@ public class PlaceDTO implements java.io.Serializable
     {
     }
 
+    public PlaceDTO(int placeId, String zipCode, CoordinateDTO coord, CountryDTO country, PlaceNameDTO placeName)
+    {
+        this.placeId = placeId;
+        this.zipCode = zipCode;
+        this.coord = coord;
+        this.country = country;
+        this.placeName = placeName;
+    }
+
     public int getPlaceId()
     {
         return placeId;

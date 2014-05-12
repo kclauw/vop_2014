@@ -25,9 +25,9 @@ public class PersonDTO implements java.io.Serializable, Cloneable
     private Date deathDate;
     @Expose
     private PlaceDTO place;
-    @Expose
+    @Expose(serialize = false)
     private PersonDTO father;
-    @Expose
+    @Expose(serialize = false)
     private PersonDTO mother;
     @Expose
     private URI facebookProfileLink;
@@ -42,21 +42,6 @@ public class PersonDTO implements java.io.Serializable, Cloneable
 
     public PersonDTO()
     {
-    }
-
-    public PersonDTO(PersonDTOBuilder builder)
-    {
-        this.personId = builder.personId;        // optional
-        this.firstName = builder.firstName;     // required
-        this.surName = builder.surName;        // required
-        this.gender = builder.gender;         // required
-        this.birthDate = builder.birthDate;  // optional
-        this.deathDate = builder.deathDate; // optional
-        this.place = builder.place;        // optional
-        this.father = builder.father;     // optional
-        this.mother = builder.mother;    // optional
-        this.picture = builder.picture;
-        this.facebookProfileLink = builder.facebookProfileLink;
     }
 
     public List<PersonDTO> getChilderen()
@@ -240,7 +225,7 @@ public class PersonDTO implements java.io.Serializable, Cloneable
     @Override
     public String toString()
     {
-        return "PersonDTO{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + ", facebookProfileLink=" + facebookProfileLink + '}';
+        return "PersonDTO{" + "personId=" + personId + ", firstName=" + firstName + ", surName=" + surName + "}";
     }
 
     public String toStringPerson()
@@ -279,80 +264,4 @@ public class PersonDTO implements java.io.Serializable, Cloneable
                     }
                 }
             };
-
-    public static class PersonDTOBuilder
-    {
-
-        private int personId;   // optional
-        private final String firstName; // required
-        private final String surName; // required
-        private final GenderDTO gender; // required
-        private Date birthDate; // optional
-        private Date deathDate; // optional
-        private PlaceDTO place; // optional
-        private PersonDTO father; // optional
-        private PersonDTO mother; // optional
-        private URL picture; //optional
-        private URI facebookProfileLink;
-
-        public PersonDTOBuilder(String firstName, String surName, GenderDTO gender)
-        {
-            this.firstName = firstName;
-            this.surName = surName;
-            this.gender = gender;
-        }
-
-        public PersonDTOBuilder facebook(URI facebookProfileLink)
-        {
-            this.facebookProfileLink = facebookProfileLink;
-            return this;
-        }
-
-        public PersonDTOBuilder personId(int personId)
-        {
-            this.personId = personId;
-            return this;
-        }
-
-        public PersonDTOBuilder birthDate(Date birthDate)
-        {
-            this.birthDate = birthDate;
-            return this;
-        }
-
-        public PersonDTOBuilder deathDate(Date deathDate)
-        {
-            this.deathDate = deathDate;
-            return this;
-        }
-
-        public PersonDTOBuilder place(PlaceDTO place)
-        {
-            this.place = place;
-            return this;
-        }
-
-        public PersonDTOBuilder father(PersonDTO father)
-        {
-            this.father = father;
-            return this;
-        }
-
-        public PersonDTOBuilder mother(PersonDTO mother)
-        {
-            this.mother = mother;
-            return this;
-        }
-
-        public PersonDTOBuilder picture(URL picture)
-        {
-            this.picture = picture;
-            return this;
-        }
-
-        public PersonDTO build()
-        {
-            return new PersonDTO(this);
-        }
-    }
 }
