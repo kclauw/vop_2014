@@ -2,7 +2,6 @@ package domain.controller;
 
 import domain.Activity;
 import domain.Person;
-import domain.Tree;
 import domain.enums.Event;
 import domain.enums.Gender;
 import domain.enums.PersonAdd;
@@ -14,7 +13,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,7 +99,6 @@ public class PersonController
     {
         int id = -1;
         System.out.println("GETTING TREE IN ADD PERSON ");
-        //Tree tree = tc.getTree(treeID);
 
         //Date date = new Date();
         //  Activity act = new Activity(Event.ADDPER, person.getFirstName() + " " + person.getSurName(), tree.getOwner().getId(), null);
@@ -112,7 +109,6 @@ public class PersonController
         if (ps != null)
         {
             return ps.getPersonId();
-            //throw new PersonAlreadyExistsException();
         }
         else
         {
@@ -120,6 +116,16 @@ public class PersonController
             {
                 case CHILD:
                     System.out.println("ADDING CHILD");
+                    Person parent = pc.getPerson(treeID, personLinkID);
+
+                    if (parent.getGender() == Gender.MALE)
+                    {
+                        person.setFather(parent);
+                    }
+                    else
+                    {
+                        person.setMother(parent);
+                    }
                     id = addChild(treeID, person);
                     //ac.addActivity(act);
                     break;
@@ -138,7 +144,6 @@ public class PersonController
     public int addChild(int treeID, Person person)
     {
         return pc.addPerson(treeID, person);
-
     }
 
     public void deletePersonImage(int treeID, int personID)
@@ -186,9 +191,7 @@ public class PersonController
         int id = pc.addPerson(treeID, person);
         Person parent = pc.getPerson(treeID, id);
         Person child = pc.getPerson(treeID, personLinkID);
-
         logger.info("ADDING PARENT IN TREE " + treeID + " " + parent.getFirstName() + " " + parent.getPersonId() + " WITH AS CHILD " + child.getFirstName() + " " + child.getPersonId());
-
         checkParentRelations(child, person);
         setParentRelation(treeID, child, parent, pers);
         return id;
@@ -290,7 +293,7 @@ public class PersonController
         {
             if (child.getFather() != null)
             {
-                pers = child.getFather().getChilderen(pc.getPersons(treeID));
+                pers = child.getFather().getChilderen(persons);
                 partner = child.getFather();
             }
         }
@@ -298,7 +301,7 @@ public class PersonController
         {
             if (child.getMother() != null)
             {
-                pers = child.getMother().getChilderen(pc.getPersons(treeID));
+                pers = child.getMother().getChilderen(persons);
                 partner = child.getMother();
             }
         }

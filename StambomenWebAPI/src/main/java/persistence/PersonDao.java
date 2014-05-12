@@ -82,6 +82,9 @@ public class PersonDao implements IDao<Person>
             prep = con.prepareStatement(SAVE_PERSON);
 
             Place pl = pc.getPlace(person.getPlace());
+
+            System.out.println("Saving person with placeID" + pl.getPlaceId());
+
             if (pl != null)
             {
                 prep.setInt(1, pl.getPlaceId());

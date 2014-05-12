@@ -457,9 +457,11 @@ public class FamilyTreeDetailPanel extends IPanel
 
             if (confirm == JOptionPane.YES_OPTION)
             {
-                person = getCurrentPersonFromInput();
-                fttp.updatePerson(person);
-
+                startTask();
+                PersonDTO personFromInput = getCurrentPersonFromInput();
+                personFromInput.setPersonId(this.person.getPersonId());
+                fttp.updatePerson(personFromInput);
+                stopTask();
             }
 
             this.setEditable(false);
@@ -546,6 +548,7 @@ public class FamilyTreeDetailPanel extends IPanel
 
             adding = false;
             String result = fttp.addPerson(add, p, link);
+
             if (result == null)
             {
                 setAllButtonsActive();
@@ -555,6 +558,7 @@ public class FamilyTreeDetailPanel extends IPanel
             else
             {
                 JOptionPane.showMessageDialog(this, result);
+                this.setAllButtonsActive();
                 this.setEditable(false);
                 this.setEnabled(true);
                 this.clearInputFields();
@@ -865,7 +869,7 @@ public class FamilyTreeDetailPanel extends IPanel
 
     private PersonDTO getCurrentPersonFromInput()
     {
-        PersonDTO p = this.person;
+        PersonDTO p = null;
 
         try
         {
@@ -880,12 +884,8 @@ public class FamilyTreeDetailPanel extends IPanel
                 g = GenderDTO.MALE;
             }
 
-            if (person == null)
-            {
-                p = new PersonDTO();
-                p.setPersonId(-1);
-            }
-
+            p = new PersonDTO();
+            p.setPersonId(-1);
             p.setFirstName(textFieldFirstname.getText());
             p.setSurName(textFieldLastname.getText());
             p.setGender(g);
