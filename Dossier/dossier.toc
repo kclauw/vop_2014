@@ -59,3 +59,8 @@
 \vspace *{\baselineskip }
 \contentsline {chapter}{List of Figures}{19}{chapter.10}
 \contentsline {chapter}{List of Tables}{20}{chapter*.15}
+\contentsline {chapter}{\numberline {A}Appendix}{21}{appendix.A}
+\contentsline {section}{\numberline {A.1}Opdracht sprint 1}{22}{section.A.1}
+\contentsline {section}{\numberline {A.2}Opdracht sprint 1}{23}{section.A.2}
+\contentsline {section}{\numberline {A.3}Opdracht sprint 2}{24}{section.A.3}
+\contentsline {section}{\numberline {A.4}Opdracht sprint 2}{25}{section.A.4}

@@ -31,7 +31,7 @@
 \usepackage{footnote}
 \usepackage{parskip}
 \usepackage{longtable}			 % For tables longer than one page
-
+\usepackage[final]{pdfpages}
 
 % paragrafen zonder indentatie, en op andere lijn
 \setlength{\parindent}{0pt }
@@ -206,15 +206,8 @@
 \newcommand{\studentd}{Sander Trypsteen}
 \newcommand{\studente}{Jelle Verreth}
 
-% De naam van je stage-/bachelorproefbegeleider
-%\newcommand{\begeleider}{} 
-
-% De naam (én firma/organisatie) van je mentor/promotor
-% Laat in commentaar indien niet van toepassing
-%\newcommand{\mentor}{Jan Janssen, ACME Inc.}
-
 % De titel van je scriptie/stageverslag
-\newcommand{\titel}{VOP Project Dossier}
+\newcommand{\titel}{Vakoverschrijdend Eindproject}
 
 % Ondertitel
 \newcommand{\ondertitel}{ Stambomen}
@@ -237,7 +230,7 @@
 \begin{titlepage}
 \begin{center}
 \includegraphics[width=4cm]{images/logo.png}\\[.5cm]
-Master of Science Industrial Science : Informatics\\
+Bachelor of Science Industrial Science : Informatics\\
 Academic year \academiejaar
 
 \vfill
@@ -379,6 +372,8 @@ Op het einde van de sprint kijken we dan welke features we gerealiseerd hebben e
 
 \paragraph{}
 Tijdens elke sprint krijgen we van de docenten een voorgestelde lijst met features.
+Deze lijsten kan je vinden als appendix bij dit document.
+
 
 \section{Sprint 1}
 
@@ -474,7 +469,9 @@ Tijdens elke sprint krijgen we van de docenten een voorgestelde lijst met featur
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \appendix
-%\input{FileName} %You need a file 'FileName.tex' for this.
+\chapter{Appendix}
+\includepdf[pages=-,pagecommand=\section{Opdracht sprint 1}, scale=0.80]{Files/stambomen-sprint1.pdf}
+\includepdf[pages=-,pagecommand=\section{Opdracht sprint 2}, scale=0.80]{Files/stambomen-sprint2.pdf}
 
 \end{document}
 
