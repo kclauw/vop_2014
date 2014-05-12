@@ -20,10 +20,6 @@ public class TreeOptionsPanel extends IPanel
         btnEdit = new javax.swing.JButton();
         btnZoomOut = new javax.swing.JButton();
         btnZoomIn = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        btnEdit1 = new javax.swing.JButton();
-        btnZoomOut1 = new javax.swing.JButton();
-        btnZoomIn1 = new javax.swing.JButton();
 
         btnEdit.setText(org.openide.util.NbBundle.getMessage(TreeOptionsPanel.class, "TreeOptionsPanel.btnEdit.text")); // NOI18N
         btnEdit.addActionListener(new java.awt.event.ActionListener()
@@ -54,40 +50,6 @@ public class TreeOptionsPanel extends IPanel
             }
         });
         add(btnZoomIn);
-
-        jPanel1.setOpaque(false);
-
-        btnEdit1.setText(org.openide.util.NbBundle.getMessage(TreeOptionsPanel.class, "TreeOptionsPanel.btnEdit1.text")); // NOI18N
-        btnEdit1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                btnEdit1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnEdit1);
-
-        btnZoomOut1.setText(org.openide.util.NbBundle.getMessage(TreeOptionsPanel.class, "TreeOptionsPanel.btnZoomOut1.text")); // NOI18N
-        btnZoomOut1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                btnZoomOut1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnZoomOut1);
-
-        btnZoomIn1.setText(org.openide.util.NbBundle.getMessage(TreeOptionsPanel.class, "TreeOptionsPanel.btnZoomIn1.text")); // NOI18N
-        btnZoomIn1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                btnZoomIn1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnZoomIn1);
-
-        add(jPanel1);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnEditActionPerformed
@@ -105,28 +67,9 @@ public class TreeOptionsPanel extends IPanel
         this.fttp.zoomIn();
     }//GEN-LAST:event_btnZoomInActionPerformed
 
-    private void btnEdit1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnEdit1ActionPerformed
-    {//GEN-HEADEREND:event_btnEdit1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEdit1ActionPerformed
-
-    private void btnZoomOut1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnZoomOut1ActionPerformed
-    {//GEN-HEADEREND:event_btnZoomOut1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnZoomOut1ActionPerformed
-
-    private void btnZoomIn1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnZoomIn1ActionPerformed
-    {//GEN-HEADEREND:event_btnZoomIn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnZoomIn1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnEdit1;
     private javax.swing.JButton btnZoomIn;
-    private javax.swing.JButton btnZoomIn1;
     private javax.swing.JButton btnZoomOut;
-    private javax.swing.JButton btnZoomOut1;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
