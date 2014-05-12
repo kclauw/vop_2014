@@ -58,24 +58,23 @@ public class FamilyTreeDetailPanel extends IPanel
 
     public void translate()
     {
-        Translator trans = new Translator();
-        btnEdit.setText(trans.translate("Edit"));
-        jLabel1.setText(trans.translate("DBirth"));
-        jLabel2.setText(trans.translate("DDeath"));
-        radioMale.setText(trans.translate("Male"));
-        radioFemale.setText(trans.translate("Female"));
-        btnAdd.setText(trans.translate("Add"));
-        btnAddPicture.setText(trans.translate("AddPicture"));
-        btnDeletePicture.setText(trans.translate("DeletePicture"));
-        btnDelete.setText(trans.translate("Delete"));
-        btnAdd.setText(trans.translate("Add"));
-        btnMove.setText(trans.translate("Move"));
-        jLabel4.setText(trans.translate("City"));
-        jLabel5.setText(trans.translate("ZipCode"));
-        jLabel6.setText(trans.translate("Country"));
-        labelFieldFirstname.setText(trans.translate("Firstname"));
-        labelFieldLastname.setText(trans.translate("LastName"));
-        labeFieldGender.setText(trans.translate("Gender"));
+        btnEdit.setText(translate("Edit"));
+        jLabel1.setText(translate("DBirth"));
+        jLabel2.setText(translate("DDeath"));
+        radioMale.setText(translate("Male"));
+        radioFemale.setText(translate("Female"));
+        btnAdd.setText(translate("Add"));
+        btnAddPicture.setText(translate("AddPicture"));
+        btnDeletePicture.setText(translate("DeletePicture"));
+        btnDelete.setText(translate("Delete"));
+        btnAdd.setText(translate("Add"));
+        btnMove.setText(translate("Move"));
+        jLabel4.setText(translate("City"));
+        jLabel5.setText(translate("ZipCode"));
+        jLabel6.setText(translate("Country"));
+        labelFieldFirstname.setText(translate("Firstname"));
+        labelFieldLastname.setText(translate("LastName"));
+        labeFieldGender.setText(translate("Gender"));
     }
 
     @SuppressWarnings("unchecked")
@@ -443,17 +442,17 @@ public class FamilyTreeDetailPanel extends IPanel
     }//GEN-LAST:event_textFieldFirstnameActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        Translator trans = new Translator();
+
         if (!edit)
         {
-            btnEdit.setText(trans.translate("Save"));
+            btnEdit.setText(translate("Save"));
             this.setEditable(true);
             setButtonActive(btnEdit);
             edit = true;
         }
         else
         {
-            int confirm = JOptionPane.showConfirmDialog(null, trans.translate("SaveMessage"));
+            int confirm = JOptionPane.showConfirmDialog(null, translate("SaveMessage"));
 
             if (confirm == JOptionPane.YES_OPTION)
             {
@@ -465,15 +464,14 @@ public class FamilyTreeDetailPanel extends IPanel
             }
 
             this.setEditable(false);
-            btnEdit.setText(trans.translate("Edit"));
+            btnEdit.setText(translate("Edit"));
             edit = false;
             setAllButtonsActive();
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        Translator trans = new Translator();
-        int confirm = JOptionPane.showConfirmDialog(null, trans.translate("DeleteMessage"));
+        int confirm = JOptionPane.showConfirmDialog(null, translate("DeleteMessage"));
 
         if (confirm == JOptionPane.YES_OPTION)
         {
@@ -484,7 +482,6 @@ public class FamilyTreeDetailPanel extends IPanel
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
     {//GEN-HEADEREND:event_btnAddActionPerformed
-        Translator trans = new Translator();
 
         String[] options = new String[2];
         options[0] = "Child";
@@ -517,7 +514,7 @@ public class FamilyTreeDetailPanel extends IPanel
             this.setEditable(true);
 
             setButtonActive(btnAdd);
-            btnAdd.setText(trans.translate("ClickSave"));
+            btnAdd.setText(translate("ClickSave"));
         }
         else if (adding)
         {
@@ -571,9 +568,8 @@ public class FamilyTreeDetailPanel extends IPanel
 
     private void btnAddPictureActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddPictureActionPerformed
     {//GEN-HEADEREND:event_btnAddPictureActionPerformed
-        Translator trans = new Translator();
         JFileChooser fc = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(trans.translate("ImageFiles"), "jpg", "png");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(translate("ImageFiles"), "jpg", "png");
         fc.addChoosableFileFilter(filter);
         fc.setAcceptAllFileFilterUsed(false);
         fc.setFileFilter(filter);
@@ -594,7 +590,7 @@ public class FamilyTreeDetailPanel extends IPanel
         }
         else
         {
-            JOptionPane.showMessageDialog(this, trans.translate("ImageMessage"));
+            JOptionPane.showMessageDialog(this, translate("ImageMessage"));
         }
 
         fc.setSelectedFile(null);
@@ -654,7 +650,6 @@ public class FamilyTreeDetailPanel extends IPanel
 
     public void setPerson(PersonDTO person)
     {
-        Translator trans = new Translator();
 
         if (!add && !edit && !move)
         {
@@ -687,9 +682,9 @@ public class FamilyTreeDetailPanel extends IPanel
 
                     if (place == null)
                     {
-                        textFieldCity.setText(trans.translate("Undefined"));
-                        textFieldCountry.setText(trans.translate("Undefined"));
-                        textFieldZipCode.setText(trans.translate("Undefined"));
+                        textFieldCity.setText(translate("Undefined"));
+                        textFieldCountry.setText(translate("Undefined"));
+                        textFieldZipCode.setText(translate("Undefined"));
                     }
                     else
                     {
@@ -724,26 +719,22 @@ public class FamilyTreeDetailPanel extends IPanel
 
     private String setTitle()
     {
-        Translator trans = new Translator();
-        return trans.translate("Person");
+        return translate("Person");
     }
 
     private String setTitleA()
     {
-        Translator trans = new Translator();
-        return trans.translate("Adress");
+        return translate("Adress");
     }
 
     private String setTitleD()
     {
-        Translator trans = new Translator();
-        return trans.translate("Detail");
+        return translate("Detail");
     }
 
     private String setTitleP()
     {
-        Translator trans = new Translator();
-        return trans.translate("Picture");
+        return translate("Picture");
     }
 
     private void setButtonActive(JButton b)

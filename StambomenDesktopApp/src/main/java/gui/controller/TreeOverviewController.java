@@ -12,10 +12,12 @@ import java.util.List;
 import javax.swing.JPanel;
 import org.openide.util.Exceptions;
 import service.ClientGedcomService;
+import service.ClientServiceController;
 import service.ClientTreeController;
 import service.ClientUserController;
+import util.Translator;
 
-public class TreeOverviewController implements IPanelController
+public class TreeOverviewController extends IPanelController
 {
 
     private FamilyTreeOverviewPanel treeOverviewPanel;
@@ -24,12 +26,13 @@ public class TreeOverviewController implements IPanelController
     private ClientUserController userController;
     private ClientGedcomService clientGedcomService;
 
-    public TreeOverviewController(GuiController gui)
+    public TreeOverviewController(GuiController gui, ClientServiceController clientServiceController)
     {
+        super(clientServiceController);
         this.gui = gui;
-        this.serv = new ClientTreeController();
-        this.userController = new ClientUserController();
-        this.clientGedcomService = new ClientGedcomService();
+        this.serv = new ClientTreeController(clientServiceController);
+        this.userController = new ClientUserController(clientServiceController);
+        this.clientGedcomService = new ClientGedcomService(clientServiceController);
     }
 
     public JPanel show()
@@ -71,7 +74,7 @@ public class TreeOverviewController implements IPanelController
 
             for (TreeDTO tree : trees)
             {
-                familyTreeList.addFamilyTree(new FamilyTreeListItem(tree.getName(), tree.getPrivacy().ordinal(), familyTreeList, tree));
+                familyTreeList.addFamilyTree(new FamilyTreeListItem(getClientServiceController(), tree.getName(), tree.getPrivacy().ordinal(), familyTreeList, tree));
             }
         }
         treeOverviewPanel.addFamilyTreeList(familyTreeList);
@@ -99,6 +102,12 @@ public class TreeOverviewController implements IPanelController
         {
             Exceptions.printStackTrace(ex);
         }
+    }
+
+    public String translate(String allTrees)
+    {
+        Translator trans = new Translator(getClientServiceController());
+        return trans.translate(allTrees);
     }
 
 }

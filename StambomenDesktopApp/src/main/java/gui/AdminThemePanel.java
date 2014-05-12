@@ -319,10 +319,8 @@ public class AdminThemePanel extends IPanel
 
     public Image getImage()
     {
-
-        Translator trans = new Translator();
         JFileChooser fc = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(trans.translate("ImageFiles"), "jpg", "png");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(translate("ImageFiles"), "jpg", "png");
         fc.addChoosableFileFilter(filter);
         fc.setAcceptAllFileFilterUsed(false);
         fc.setFileFilter(filter);

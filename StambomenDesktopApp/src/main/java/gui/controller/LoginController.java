@@ -7,9 +7,10 @@ import gui.Panels;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import service.ClientFacebookService;
+import service.ClientServiceController;
 import service.ClientUserController;
 
-public class LoginController implements IPanelController
+public class LoginController extends IPanelController
 {
 
     private LoginPanel loginPanel;
@@ -18,11 +19,12 @@ public class LoginController implements IPanelController
     private boolean admin = true;
     private ClientFacebookService clientFacebookService;
 
-    public LoginController(GuiController guiC)
+    public LoginController(GuiController guiC, ClientServiceController clientServiceController)
     {
+        super(clientServiceController);
         this.gui = guiC;
-        this.clientUserController = new ClientUserController();
-        this.clientFacebookService = new ClientFacebookService();
+        this.clientUserController = new ClientUserController(clientServiceController);
+        this.clientFacebookService = new ClientFacebookService(clientServiceController);
     }
 
     public LoginPanel getLoginFrame()
@@ -34,6 +36,7 @@ public class LoginController implements IPanelController
     {
         loginPanel = (LoginPanel) PanelFactory.makePanel(Panels.LOGIN);
         loginPanel.setLoginController(this);
+        loginPanel.setClientServiceController(getClientServiceController());
         return loginPanel;
     }
 

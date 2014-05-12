@@ -18,17 +18,11 @@ public abstract class IPanel extends JPanel
 {
 
     private Translator translator;
+    private ClientServiceController clientServiceController;
 
     public IPanel()
     {
-        try
-        {
-            translator = new Translator();
-        }
-        catch (NullPointerException ex)
-        {
-
-        }
+        //  translator = new Translator();
     }
 
     public void startTask()
@@ -43,7 +37,7 @@ public abstract class IPanel extends JPanel
 
     public void initGui()
     {
-        ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
+        ThemeDTO theme = clientServiceController.getUser().getUserSettings().getTheme();
         Color bgColor = ThemeDTO.toColor(theme.getBgColor());
         this.setBackground(bgColor);
     }
@@ -78,8 +72,13 @@ public abstract class IPanel extends JPanel
 
     public void setBorder(JPanel panel)
     {
-        ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
+        ThemeDTO theme = clientServiceController.getUser().getUserSettings().getTheme();
         Color maleColor = ThemeDTO.toColor(theme.getMaleColor());
         panel.setBorder(new MatteBorder(0, 5, 0, 0, maleColor));
+    }
+
+    public void setClientServiceController(ClientServiceController clientServiceController)
+    {
+        this.clientServiceController = clientServiceController;
     }
 }

@@ -20,16 +20,15 @@ public class AddTreePanel extends IPanel
 
     public void translate()
     {
-        Translator trans = new Translator();
-        jLabel1.setText(trans.translate("AddATree"));
-        jLabel2.setText(trans.translate("Name"));
-        jLabel3.setText(trans.translate("Privacy"));
+        jLabel1.setText(translate("AddATree"));
+        jLabel2.setText(translate("Name"));
+        jLabel3.setText(translate("Privacy"));
         cbxPrivacy.setModel(new javax.swing.DefaultComboBoxModel(new String[]
         {
-            trans.translate("Private"), trans.translate("OnlyFriends"), trans.translate("Public")
+            translate("Private"), translate("OnlyFriends"), translate("Public")
         }));
-        jButton1.setText(trans.translate("AddTree"));
-        jButton2.setText(trans.translate("Back"));
+        jButton1.setText(translate("AddTree"));
+        jButton2.setText(translate("Back"));
     }
 
     @SuppressWarnings("unchecked")
@@ -255,7 +254,7 @@ public class AddTreePanel extends IPanel
             p = null;
         }
 
-        TreeDTO tree = new TreeDTO(-1, ClientServiceController.getInstance().getUser(), p, txtNameTree.getText(), null);
+        TreeDTO tree = new TreeDTO(-1, null, p, txtNameTree.getText(), null);
         addTreeController.makeTree(tree);
 
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -7,17 +7,19 @@ import java.awt.Image;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import service.ClientAdminService;
+import service.ClientServiceController;
 
-public class AdminThemeController implements IPanelController
+public class AdminThemeController extends IPanelController
 {
 
     private GuiController gui;
     private AdminThemePanel adminThemePanel;
     private ClientAdminService clientAdminService;
 
-    public AdminThemeController(GuiController gui)
+    public AdminThemeController(GuiController gui, ClientServiceController clientServiceController)
     {
-        this.clientAdminService = new ClientAdminService();
+        super(clientServiceController);
+        this.clientAdminService = new ClientAdminService(clientServiceController);
         this.gui = gui;
     }
 
