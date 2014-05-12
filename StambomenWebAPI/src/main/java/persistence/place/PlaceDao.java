@@ -116,7 +116,6 @@ public class PlaceDao implements IDao<Place>
     {
         int countryID = -1;
         int placeNameID = -1;
-        int coordinateID = -1;
         PreparedStatement prep = null;
         ResultSet res = null;
 
@@ -129,7 +128,7 @@ public class PlaceDao implements IDao<Place>
 
             prep = con.prepareStatement(SAVE_PLACE);
 
-            if (coord != null)
+            if (coord != null && coord.getId() > -1)
             {
                 prep.setInt(1, coord.getId());
             }
@@ -208,10 +207,11 @@ public class PlaceDao implements IDao<Place>
             con = DatabaseUtils.getConnection();
             countryID = countryDao.save(place.getCountry());
             placeNameID = placeNameDao.save(place.getPlaceName());
-            coordinateID = googleDao.getCoordinates(place).getId();
+            Coordinate coord = googleDao.getCoordinates(place);
+
             prep = con.prepareStatement(UPDATE_PLACE);
 
-            if (coordinateID >= 0)
+            if (coord != null && coordinateID >= 0)
             {
                 prep.setInt(1, coordinateID);
             }
@@ -326,8 +326,28 @@ public class PlaceDao implements IDao<Place>
         {
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(GET_PLACE_BY_PLACE);
-            prep.setString(1, place.getCountry().getCountry());
-            prep.setString(2, place.getPlaceName().getPlaceName());
+
+            Country c = place.getCountry();
+            PlaceName pc = place.getPlaceName();
+
+            if (c != null)
+            {
+                prep.setString(1, place.getCountry().getCountry());
+            }
+            else
+            {
+                prep.setNull(1, Types.VARCHAR);
+            }
+
+            if (pc != null)
+            {
+                prep.setString(2, place.getPlaceName().getPlaceName());
+
+            }
+            else
+            {
+                prep.setNull(2, Types.VARCHAR);
+            }
             prep.setString(3, place.getZipCode());
             res = prep.executeQuery();
             //We veronderstellen hier dat de plaats bestaat!
@@ -359,9 +379,15 @@ public class PlaceDao implements IDao<Place>
 
     public Place getPlaceObject(Place place)
     {
-        if (place.getPlaceId() <= 0)
+
+        Place pl = null;
+
+        Country c = place.getCountry();
+        PlaceName pc = place.getPlaceName();
+
+        if (place.getZipCode() != null && c != null && pc != null)
         {
-            Place pl = get(place);
+            pl = get(place);
 
             if (pl == null)
             {
@@ -371,20 +397,38 @@ public class PlaceDao implements IDao<Place>
             {
                 update(pl);
             }
-            else
-            {
-                return pl;
-            }
-            return get(pl);
         }
-        else if (place.getCoord() == null || place.getCoord().getId() <= 0)
-        {
-            update(place);
-            return get(place);
-        }
-        else
-        {
-            return get(place.getPlaceId());
-        }
+
+        return get(place);
+
+//        System.out.println("GET PLACE OBJECT " + place.toString());
+//        if (place.getPlaceId() <= 0)
+//        {
+//            Place pl = get(place);
+//
+//            if (pl == null)
+//            {
+//                save(place);
+//            }
+//            else if (pl.getCoord() == null || pl.getCoord().getId() <= 0)
+//            {
+//                update(pl);
+//            }
+//            else
+//            {
+//                return pl;
+//            }
+//
+//            return get(pl);
+//        }
+//        else if (place.getCoord() == null || place.getCoord().getId() <= 0)
+//        {
+//            update(place);
+//            return get(place);
+//        }
+//        else
+//        {
+//            return get(place.getPlaceId());
+//        }
     }
 }

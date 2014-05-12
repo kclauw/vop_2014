@@ -205,7 +205,6 @@ public class PersistenceFacade
 
     public int addPerson(int treeID, Person person)
     {
-        /*Logica voor het wegschrijven van een boom */
         logger.info("[PERSISTENCE CONTROLLER] Add person " + person);
 
         int personid = personDao.savePerson(person);
