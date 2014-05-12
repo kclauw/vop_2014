@@ -20,6 +20,7 @@ public class FamilyTreeListItem extends javax.swing.JPanel
     private FamilyTreeList familyTreeList;
     private int privacy = 0;
     private TreeDTO tree;
+    private ClientServiceController clientServiceController;
 
     public String getFamilyTreeName()
     {
@@ -58,7 +59,6 @@ public class FamilyTreeListItem extends javax.swing.JPanel
 
     private void setPrivacy(int privacy)
     {
-        Translator trans = new Translator();
         this.privacy = privacy;
         String icon = null;
 
@@ -83,27 +83,28 @@ public class FamilyTreeListItem extends javax.swing.JPanel
      * @param name
      * @param privacy
      */
-    public FamilyTreeListItem()
+    public FamilyTreeListItem(ClientServiceController clientServiceController)
     {
+        this.clientServiceController = clientServiceController;
         initComponents();
         initGui();
     }
 
     private void initGui()
     {
-        ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
+        ThemeDTO theme = clientServiceController.getUser().getUserSettings().getTheme();
         Color bgColor = ThemeDTO.toColor(theme.getBgColor());
         Color maleColor = ThemeDTO.toColor(theme.getMaleColor());
 
-        this.lblName.setFont(ClientServiceController.getInstance().getUser().getUserSettings().getTheme().getDefaultFont());
+        this.lblName.setFont(clientServiceController.getUser().getUserSettings().getTheme().getDefaultFont());
         pnlBg.setBackground(bgColor);
 
         this.setBorder(new MatteBorder(0, 5, 0, 0, maleColor));
     }
 
-    public FamilyTreeListItem(String name, int privacy, FamilyTreeList famTreeList, TreeDTO tree)
+    public FamilyTreeListItem(ClientServiceController client, String name, int privacy, FamilyTreeList famTreeList, TreeDTO tree)
     {
-        this();
+        this(client);
         setFamilyTreeName(name);
         setPrivacy(privacy);
         setFamilyTreeList(famTreeList);

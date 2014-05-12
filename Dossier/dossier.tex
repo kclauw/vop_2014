@@ -526,11 +526,78 @@ gelijkenissen aan de betrokken gebruikers.
 
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline  & Kenzo Clauw & Axl Francois & Lowie Huyghe & Sander Trypsteen & Jelle Verreth \\ 
-\hline 1. &  &  &  &  &  \\ 
+\hline SPRINT 1 &  &  &  &  &  \\
+\hline 1. &  & \textcolor{red}{S1} &  &  &  \\ 
 \hline 2. &  &  &  &  &  \\ 
-\hline 3.  &  &  &  &  &  \\ 
+\hline 3.  &  &  &  &  &  \\
+\hline 4.  &  &  &  &  &  \\
+\hline 5.  &  &  &  &  &  \\
+\hline 6.  &  &  &  &  &  \\
+\hline 7.  &  &  &  &  &  \\
+\hline 8.  &  &  &  &  &  \\
+\hline 9.  &  &  &  &  &  \\
+\hline 10.  &  &  &  &  &  \\
+\hline 11. &  &  &  &  &  \\ 
+\hline 12. &  &  &  &  &  \\ 
+\hline 13.  &  &  &  &  &  \\
+\hline 14.  &  &  &  &  &  \\
+\hline 15.  &  &  &  &  &  \\
+\hline 16.  &  &  &  &  &  \\
+\hline 17.  &  &  &  &  &  \\
+\hline 18.  &  &  &  &  &  \\
+\hline 19.  &  &  &  &  &  \\
+\hline 20.  &  &  &  &  &  \\
+\hline 21. &  &  &  &  &  \\ 
+\hline 22. &  &  &  &  &  \\
+\hline
+\end{tabular}  
+\newpage 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline  & Kenzo Clauw & Axl Francois & Lowie Huyghe & Sander Trypsteen & Jelle Verreth \\ 
+\hline SPRINT 2 &  &  &  &  &  \\
+\hline 1. &  & \textcolor{red}{S1} &  &  &  \\ 
+\hline 2. &  &  &  &  &  \\ 
+\hline 3.  &  &  &  &  &  \\
+\hline 4.  &  &  &  &  &  \\
+\hline 5.  &  &  &  &  &  \\
+\hline 6.  &  &  &  &  &  \\
+\hline 7.  &  &  &  &  &  \\
+\hline 8.  &  &  &  &  &  \\
+\hline 9.  &  &  &  &  &  \\
+\hline 10.  &  &  &  &  &  \\
+\hline 11. &  &  &  &  &  \\ 
+\hline 12. &  &  &  &  &  \\ 
+\hline 13.  &  &  &  &  &  \\
+\hline 14.  &  &  &  &  &  \\
+\hline 15.  &  &  &  &  &  \\
+\hline 16.  &  &  &  &  &  \\
+\hline 17.  &  &  &  &  &  \\
+\hline 18.  &  &  &  &  &  \\
+\hline 19.  &  &  &  &  &  \\
+\hline 20.  &  &  &  &  &  \\
+\hline 21. &  &  &  &  &  \\ 
+\hline 22. &  &  &  &  &  \\
+\hline 23.  &  &  &  &  &  \\
+\hline 24.  &  &  &  &  &  \\
+\hline 25.  &  &  &  &  &  \\
+\hline 26.  &  &  &  &  &  \\
+\hline 27.  &  &  &  &  &  \\
+\hline 28.  &  &  &  &  &  \\
+\hline 29.  &  &  &  &  &  \\
+\hline 30.  &  &  &  &  &  \\
 \hline 
 \end{tabular} 
+
+\paragraph{legende}
+\begin{itemize}
+\item Sprint 1: \textcolor{red}{S1}
+\item Sprint 2: \textcolor{green}{S2}
+\item Sprint 3: \textcolor{blue}{S3}
+\item Sprint Niet opgenomen: \textcolor{cyan}{OP}
+\item Sprint Niet afgewerkt: \textcolor{magenta}{AF}
+\item Sprint Niet gerealiseerd: \textcolor{yellow}{GER}
+\end{itemize}
+
 
 \chapter{Analyse}
 
@@ -538,16 +605,119 @@ gelijkenissen aan de betrokken gebruikers.
 
 \chapter{Interessante Implementatiekeuzes}
 \section{Bibliotheken}
+\chapter{Interessante Implementatiekeuzes}
+\section{Bibliotheken}
 \subsection{Jersey}
+Jersey is een JAX-RS referentie-implementatie die een eigen API aanbied door de JAX-RS toolkit uit te breiden met extra functies en hulpprogramma's om op een eenvoudige manier RESTful Webservices en client development aan te bieden.
+JAX-RS : Java API voor REST Web Services biedt ondersteuning bij het creëren van web services volgens het Representational State Transfer (REST) pattern.
+REST is een pattern die beschrijft hoe resources geadresseerd en gebruikt kunnen worden.Een resource kan aangesproken worden dankzij een gemeenschappelijke interface op basis van de HTTP standaard methodes.
+Een REST server zorgt ervoor dat de client een verbinding kan maken om de resources op te halen en te wijzigen. REST wordt veel gebruikt voor het bouwen van webservices en noemen we respectievelijk RESTful Webservices.
+Voor de applicatie hebben we gebruik gemaakt van Jersey die zorgt voor de REST server en een REST client.
+
 \subsection{Swagger Jersey}
+Swagger is een specificatie en compleet uitvoeringskader voor het bescrijven, het produceren , consumeren en visualiseren van REST webservices. Het doel van Swagger om client en documentatie systemen de mogelijkheid te geven op hetzelfde tempo te werken als de server. De documentatie van de methoden,paremeters en modellen zijn nauw geintegreerd in de server-code, waardoor de API's altijd gesynchroniseerd zijn.
+
+Door gebruik te maken van Swagger kunnen clients diensten consumeren en toegang tot de server code zonder in aanraking te komen de implementatie van de server.
+De interface van het framework zorgt ervoor dat er interactie mogelijk is  met de API in een sandbox omgeving.
+Swagger ondersteunt JSON en XML en zal in de toekomst ook beschikbaar zijn in andere formaten. 
+
 \subsection{SLF4J}
+SLF4J is een Java logging api die gebruik maakt van een facade pattern, dit is een software design pattern die gebruikt wordt in object-oriented programming om een complex systeem voor te stellen als een interface.
+De facade pattern is ideaal bij het werken met een groot aantal onderling afhankelijke klassen of klassen die meerdere methoden gebruiken , vooral wanneer deze te ingewikkeld zijn om te gebruiken of moeilijk te begrijpen.
+De onderliggende logging backend van SLFJ4J wordt bepaald op runtime door het toevegen van de gewenste binding aan het classpath ( java.util.logging).
+Om gebruik te maken van SLF4J moet je de slf4j-api-1.7.7.jar en slf4j-simple-1.7.7.jar plaatsen in de classpath van het project.
+Bij het volgende voorbeeld roepen we de loggerfactory op om dan vervolgens het toevoegen van een persoon te registeren :
+
+\includegraphics{images/logger.png}\\
+
 \subsection{Junit}
+JUnit is een unit testing framework voor Java die gebruikt wordt in test-driven development die deel uit maak van xUnit.
+Een unit test is een stukje code die een specifieke functionaliteit uitvoert om de code testen. Het percentage van de code die wordt getest door unit tests wordt meestal de test coverage genoemd.
+Een unit test richt zich op een kleine eenheid van de code , bv een methode of een klasse.
+
+\subsection{Gedcom}
+GEDCOM is een speciaal tekstformaat die ontwikkeld is door de Kerk van Jezus Christus van de Heiligen der Laatste Dagen en is bedoeld als standaard voor communicatie tussen de Kerk en personen die genealogische data aanleveren.
+Dit formaat heeft zich nu ontwikkeld tot de standaard voor gegevensuitwisseling tussen de meeste genealogische programma's en systemen.
+
+Stel dat we in de applicatie een persoon toevoegen dan zouden deze gegevens in een GEDCOM als volgt voorgesteld worden :
+
+\includegraphics{images/gedcom.png}\\
+
+Het eerste deel bevat de header met de gebruikte versie,character encoding (ANSEl,UNICODE of ASCII) als de belangrijkste informatie.
+
+\includegraphics{images/gedcomheader.png}\\
+
+Het tweede deel bevat informatie over de personen.
+
+\includegraphics{images/gedcomperson.png}\\
+
+Het laatste deel bevat de relaties tussen personen met TRLR die het bestand afsluit.
+
+\includegraphics{images/gedcomrelaties.png}\\
+
 \subsection{Gedcom4j}
+Gedcom4j is een gratis open-source Java library voor het laden ( parsing ) en opslaan van gegevens in Gedcom genealogie 5.5 of 5.51 bestanden naar een Java-object hiërarchie.
+
+Om gebruik te maken van Gedcom4j moet je de gedcom4j.jar plaatsen in de classpath van het project.
+
+Om toegang tot gegevens te verkrijgen maak je gebruik van de properties binnen de gp.gedcom structure waarbij de personen voorgesteld worden door het object Individual en de relaties door Family.
+
+Laden van een gedcom bestand :
+
+GedcomParser gp = new GedcomParser();
+gp.load("sample/TGC551.ged");
+
+Om de personen te overlopen  :
+
+\includegraphics{images/gedcomindividual.png}\\
+
+Om de relaties met kinderen te overlopen :
+
+\includegraphics{images/gedcomfamily.png}\\
+
 \subsection{Sardine}
 \subsection{RestFB}
 \subsection{JCalendar}
 \subsection{Abego TreeLayout}
-\subsection{Java FX}
+ABEGO TreeLayout is een Efficiënt en aanpasbare Boom Layout algoritme voor Java.
+De TreeLayout creëert boom lay-outs voor willekeurige bomen. Het is niet beperkt tot een bepaalde productie of formaat, maar kan worden gebruikt voor elke vorm van tweedimensionale tekening. Voorbeelden zijn Swing gebaseerde componenten, SVG-bestanden, en nog veel meer.
+
+Om de Treelayout te gebruiken moet je een instantie van de klasse TreeLayout voorzien van de knooppunten van de boom inclusief zijn kinderen samen met de hoogte tussen verchillende niveaus.
+
+Eigenschappen :
+Op basis van deze informatie zorgt de TreeLayout voor een compacte layout met een overzichtelijke boom.
+
+De indeling toont de hiërarchische structuur van de boom, namelijk de y-coördinaat van een knooppunt wordt bepaald door het niveau.
+
+De randen kruisen elkaar niet en de nodes op hetzelfde niveau hebben een minimale horizontale afstand.
+De volgorode van de kinderen van een knooppunt wordt weergegeven in de tekening.
+
+Het algoritme werkt symmetrisch, dat wil zeggen de tekening van de weerspiegeling van een boom is het gereflecteerde tekening van de oorspronkelijke boom
+
+
+Om gebruik te maken van de Abego TreeLayout moet je de org.abego.treelayout.core.jar(de TreeLayout algoritme kern) en org.abego.treelayout.netbeans.jar( gebruikt  van de NetBeans visuele API ) plaatsen in de classpath van het project.
+
+
+ \subsection{Java FX}
+ 
+ \chapter{Kwaliteitscontrole}
+ 
+Om de kwaliteit van onze applicatie te garanderen wordt er gebruik gemaakt van Test-driven development die een onderdeel is van agile softwareontwikkeling.
+
+Hoe werkt Test-driven development?
+
+Voor dat er code geschreven wordt maak je eerst een geautomatiseerde test waarbij je rekening moet houden met alle mogelijkheden van invoer , errors en uitvoer. Op deze manier moet je nog geen rekening houden met code.
+De eerste keer dat een test uitgevoerd wordt moet deze een error produceren omdat er nog geen code aanwezig is.
+Na het afwerken van de test is het de bedoeling om op basis van de tests code te schrijven.
+Eens de code met succes de verschillende testen kan doorstaan kun je bepaalde bugs uit je applicatie al uitsluiten.
+
+Wij hebben ervoor gekozen om aan de hand van JUnit de opgestellende use cases om uitgebreid te testen in onze applicaite aan de hand van een JUnit test suite.
+
+Wat moet er getest worden?
+
+In het algemeen is het veilig om bepaalde methoden zoals getters en setters die gewoon waarden oproepen of toewijzen te negeren. Het schrijven van tests hiervoor is tijdrovend en zinloos omdat je op deze manier de Java Virtual Machine zou testen waarvoor er al testen voorzien zijn.
+
+
 
 \chapter{Kwaliteitscontrole}
 

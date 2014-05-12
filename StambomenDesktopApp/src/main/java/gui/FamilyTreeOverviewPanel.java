@@ -43,18 +43,15 @@ public class FamilyTreeOverviewPanel extends IPanel
 
     public FamilyTreeOverviewPanel()
     {
-        treeController = new ClientTreeController();
-        userController = new ClientUserController();
         cbxPrivacy = new JComboBox();
 
         initComponents();
-        trans = new Translator();
         menuBar = new JMenuBar();
-        menu = new JMenu(trans.translate("Tree"));
-        menuS = new JMenu(trans.translate("Settings"));
+        menu = new JMenu(translate("Tree"));
+        menuS = new JMenu(translate("Settings"));
 
-        settingsItem = new JMenuItem(trans.translate("ChangeLanguage"));
-        addTreeItem = new JMenuItem(trans.translate("AddTree"));
+        settingsItem = new JMenuItem(translate("ChangeLanguage"));
+        addTreeItem = new JMenuItem(translate("AddTree"));
         importGedcomItem = new JMenuItem("Import gedcom");
         addTreeItem.addActionListener(new ActionListener()
         {
@@ -92,7 +89,7 @@ public class FamilyTreeOverviewPanel extends IPanel
                     System.out.println("Opening: " + file.getName());
                     cbxPrivacy.setModel(new javax.swing.DefaultComboBoxModel(new String[]
                     {
-                        trans.translate("Private"), trans.translate("OnlyFriends"), trans.translate("Public")
+                        translate("Private"), translate("OnlyFriends"), translate("Public")
                     }));
                     int privacy = cbxPrivacy.getSelectedIndex();
                     cbxPrivacy.setVisible(true);
@@ -148,26 +145,26 @@ public class FamilyTreeOverviewPanel extends IPanel
 
     private void applyStyle()
     {
+//FIXME TODO
+       /* ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
+         Color bgColor = ThemeDTO.toColor(theme.getBgColor());
 
-        ThemeDTO theme = ClientServiceController.getInstance().getUser().getUserSettings().getTheme();
-        Color bgColor = ThemeDTO.toColor(theme.getBgColor());
-
-        pnlMenuBg.setBackground(bgColor);
-        menuBar.setBackground(bgColor);
-        for (int i = 0; i < menuBar.getMenuCount(); i++)
-        {
-            for (int j = 0; j < menuBar.getMenu(i).getItemCount(); j++)
-            {
-                menuBar.getMenu(i).getItem(j).setBackground(bgColor);
-            }
-            menuBar.getMenu(i).setBackground(bgColor);
-        }
+         pnlMenuBg.setBackground(bgColor);
+         menuBar.setBackground(bgColor);
+         for (int i = 0; i < menuBar.getMenuCount(); i++)
+         {
+         for (int j = 0; j < menuBar.getMenu(i).getItemCount(); j++)
+         {
+         menuBar.getMenu(i).getItem(j).setBackground(bgColor);
+         }
+         menuBar.getMenu(i).setBackground(bgColor);
+         }*/
     }
 
     public void addAdmin()
     {
-        menuA = new JMenu(trans.translate("Admin"));
-        userItem = new JMenuItem(trans.translate("UserOverview"));
+        menuA = new JMenu(translate("Admin"));
+        userItem = new JMenuItem(translate("UserOverview"));
         userItem.addActionListener(new ActionListener()
         {
 
@@ -176,7 +173,7 @@ public class FamilyTreeOverviewPanel extends IPanel
                 treeoverviewController.goTo(Panels.USEROVERVIEW);
             }
         });
-        style = new JMenuItem(trans.translate("Theme"));
+        style = new JMenuItem(translate("Theme"));
         style.addActionListener(new ActionListener()
         {
 

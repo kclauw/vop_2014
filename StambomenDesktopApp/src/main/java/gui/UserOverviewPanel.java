@@ -29,8 +29,6 @@ import util.Translator;
 public class UserOverviewPanel extends IPanel
 {
 
-    private ClientUserController userController;
-
     private List<UserDTO> users;
 
     private TableRowSorter<UserTableModel> sorter;
@@ -39,9 +37,7 @@ public class UserOverviewPanel extends IPanel
     private JTextField filterText;
     private JTextField statusText;
     private UserOverviewController useroverviewController;
-    private ClientUserController clientUserController;
     private TreeOverviewController treeoverviewController;
-    private TreeController treeController;
     private UserDetailPanel userDetailpanel;
     private UserTableModel model;
     private UserDTO user;
@@ -50,10 +46,50 @@ public class UserOverviewPanel extends IPanel
     {
 
         initComponents();
-        Translator trans = new Translator();
-        this.userController = new ClientUserController();
+
+    }
+
+    private void newFilter()
+    {
+        RowFilter<UserTableModel, Object> rf = null;
+        //If current expression doesn't parse, don't update.
+        try
+        {
+            rf = RowFilter.regexFilter(filterText.getText(), 0);
+        }
+        catch (java.util.regex.PatternSyntaxException e)
+        {
+            return;
+        }
+        sorter.setRowFilter(rf);
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents()
+    {
+
+        jPanel1 = new javax.swing.JPanel();
+
+        setOpaque(false);
+        setRequestFocusEnabled(false);
+        setLayout(new java.awt.BorderLayout());
+
+        jPanel1.setOpaque(false);
+        add(jPanel1, java.awt.BorderLayout.CENTER);
+        jPanel1.getAccessibleContext().setAccessibleName("");
+        jPanel1.getAccessibleContext().setAccessibleDescription("");
+    }// </editor-fold>//GEN-END:initComponents
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
+    // End of variables declaration//GEN-END:variables
+
+    public void setUserOverviewController(UserOverviewController u)
+    {
+        this.useroverviewController = u;
         this.userDetailpanel = new UserDetailPanel(this);
-        users = userController.getUsers();
+        users = useroverviewController.getUsers();
 
         System.out.println("user:" + users.toString());
 
@@ -96,15 +132,15 @@ public class UserOverviewPanel extends IPanel
         //items
         final JScrollPane pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-        JLabel l1 = new JLabel(trans.translate("FilterText") + ":");
+        JLabel l1 = new JLabel(translate("FilterText") + ":");
 
         JPanel form = new JPanel();
         JPanel filter = new JPanel();
 
         JButton btnBlock = new JButton();
-        btnBlock.setText(trans.translate("BlockUser"));
+        btnBlock.setText(translate("BlockUser"));
         JButton btnUser = new JButton();
-        btnUser.setText(trans.translate("GotoUser"));
+        btnUser.setText(translate("GotoUser"));
 
         btnUser.addActionListener(new ActionListener()
         {
@@ -118,14 +154,7 @@ public class UserOverviewPanel extends IPanel
                 UserDTO user = (UserDTO) table.getModel().getValueAt(selectedRow, 3);
                 System.out.println("USER : " + user);
 
-                treeoverviewController = new TreeOverviewController(useroverviewController.getGui());
-                treeController = new TreeController(useroverviewController.getGui());
-
-                JPanel panel = new JPanel();
-                panel = treeoverviewController.show();
-                treeoverviewController.getTrees(user.getId());
-                treeoverviewController.setAdminframe(panel);
-
+                useroverviewController.goToTreeOverview(user.getId());
                 // model.fireTableDataChanged();
                 table.repaint();
                 table.revalidate();
@@ -158,7 +187,7 @@ public class UserOverviewPanel extends IPanel
                 }
 
 //                model.fireTableDataChanged();
-                model = new UserTableModel(userController.getUsers());
+                model = new UserTableModel(useroverviewController.getUsers());
                 table.setModel(model);
                 table.repaint();
                 table.revalidate();
@@ -210,50 +239,14 @@ public class UserOverviewPanel extends IPanel
 
     }
 
-    private void newFilter()
-    {
-        RowFilter<UserTableModel, Object> rf = null;
-        //If current expression doesn't parse, don't update.
-        try
-        {
-            rf = RowFilter.regexFilter(filterText.getText(), 0);
-        }
-        catch (java.util.regex.PatternSyntaxException e)
-        {
-            return;
-        }
-        sorter.setRowFilter(rf);
-    }
-
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
-
-        jPanel1 = new javax.swing.JPanel();
-
-        setOpaque(false);
-        setRequestFocusEnabled(false);
-        setLayout(new java.awt.BorderLayout());
-
-        jPanel1.setOpaque(false);
-        add(jPanel1, java.awt.BorderLayout.CENTER);
-        jPanel1.getAccessibleContext().setAccessibleName("");
-        jPanel1.getAccessibleContext().setAccessibleDescription("");
-    }// </editor-fold>//GEN-END:initComponents
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    // End of variables declaration//GEN-END:variables
-
-    public void setUserOverviewController(UserOverviewController u)
-    {
-        this.useroverviewController = u;
-    }
-
     public void deleteUser(UserDTO user)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void updateUser(UserDTO user)
+    {
+        this.useroverviewController.updateUser(user);
     }
 
 }

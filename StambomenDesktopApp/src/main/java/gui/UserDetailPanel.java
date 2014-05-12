@@ -14,35 +14,26 @@ public class UserDetailPanel extends IPanel
     private UserDTO user;
     private UserOverviewPanel uovp;
     private boolean adding = false;
-    private ClientUserController userController;
 
     public UserDetailPanel()
     {
-
         initComponents();
         translate();
         setEditable(false);
-
     }
 
     public UserDetailPanel(UserOverviewPanel uovp)
     {
-
         initComponents();
         translate();
         setEditable(false);
-        userController = new ClientUserController();
         this.uovp = uovp;
-
     }
 
     public void translate()
     {
-        Translator trans = new Translator();
-        btnEdit.setText(trans.translate("Edit"));
-
-        labelUser.setText(trans.translate("User"));
-
+        btnEdit.setText(translate("Edit"));
+        labelUser.setText(translate("User"));
     }
 
     @SuppressWarnings("unchecked")
@@ -132,30 +123,29 @@ public class UserDetailPanel extends IPanel
     }//GEN-LAST:event_textUserActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        Translator trans = new Translator();
         if (!edit)
         {
-            btnEdit.setText(trans.translate("Save"));
+            btnEdit.setText(translate("Save"));
             this.setEditable(true);
             setButtonActive(btnEdit);
             edit = true;
         }
         else
         {
-            int confirm = JOptionPane.showConfirmDialog(null, trans.translate("SaveMessage"));
+            int confirm = JOptionPane.showConfirmDialog(null, translate("SaveMessage"));
 
             if (confirm == JOptionPane.YES_OPTION)
             {
 
                 user.setUsername(textUser.getText());
-                userController.updateUser(user);
+                uovp.updateUser(user);
                 uovp.revalidate();
                 uovp.repaint();
 
             }
 
             this.setEditable(false);
-            btnEdit.setText(trans.translate("Edit"));
+            btnEdit.setText(translate("Edit"));
             edit = false;
             setAllButtonsActive();
         }
@@ -173,8 +163,6 @@ public class UserDetailPanel extends IPanel
 
     public void setUser(UserDTO user)
     {
-        Translator trans = new Translator();
-
         if (!edit)
         {
             this.user = user;
@@ -193,14 +181,12 @@ public class UserDetailPanel extends IPanel
 
     private String setTitle()
     {
-        Translator trans = new Translator();
-        return trans.translate("User");
+        return translate("User");
     }
 
     private String setTitleD()
     {
-        Translator trans = new Translator();
-        return trans.translate("Detail");
+        return translate("Detail");
     }
 
     private void setButtonActive(JButton b)
