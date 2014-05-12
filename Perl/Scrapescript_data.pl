@@ -27,7 +27,7 @@ STDOUT->autoflush(1);
 # +-+-+-+-+-+-+-+-+-+
 
 #DB info
-my $db_release = 1;
+my $db_release = 0;
 my $db_port_ownpc = 1;
 #Wegschrijven van de query (is enkel om te controleren, niet om te gebruiken)
 #OPGELET!: Dit kan het script doen vastlopen wanneer er enorm veel statements worden gegenereerd!
@@ -35,13 +35,18 @@ my $writequery = 0;
 my $openwrittenfile = 0;
 #Hoe moet de boom worden ingevuld?
 #USERS
-my %users = ( "default" => "123456789", "Axl" => "123456789", "Jelle" => "123456789", "Sander" => "123456789", "Lowie" => "123456789", "Kenzo" => "123456789" ); #Users
+my %users = ( 	"LargePublicUser" => "123456789");
+				# ,"Axl" => "123456789"
+				# ,"Jelle" => "123456789"
+				# ,"Sander" => "123456789"
+				# ,"Lowie" => "123456789"
+				# ,"Kenzo" => "123456789" ); #Users
 #TREES
-my @numberoftrees = 2..5; #Variatie in aantal bomen per user
-my @maxnumberofpersons = 50..350; #Maximum aantal personen per boom
+my @numberoftrees = (200..250); #Variatie in aantal bomen per user
+my @maxnumberofpersons = (50..150); #Maximum aantal personen per boom
 #PERSONS
-my @privacyoptions = 0..2; #Variatie in de privacy van een boom
-my @headyearofbirth = 1600..1800; #Variatie in geboortejaar van hoofd van familie
+my @privacyoptions = (0..2); #Variatie in de privacy van een boom
+my @headyearofbirth = (1400..1600); #Variatie in geboortejaar van hoofd van familie
 my @childrenperperson = (0..4, 0..3, 0..2, 0..1, 0);# (0..6, 0..5, 0..4, 0..3, 0..2, 0..1, 0); #Variatie in aantal kinderen per persoon
 my @personage = (70..110, 72..105, 74..100, 76..95, 78..90, 80..85); #Variatie in leeftijd van een persoon
 my @partneragedifference = (-10..10, -5..10, 0..10); #Variatie in verschil in leeftijd tussen partners
@@ -65,7 +70,7 @@ my $sql_set_nullvar = "set \@var0 = null";
 my $sql_lastinsertid = "set ? = ( select last_insert_id() )";
 	#User
 my $sql_add_user = "\n#USER\ninsert into User (username, password) values (?,?)";
-my $sql_add_userRole = "\n#USER\ninsert into RoleUser (roleID, userID) values (2,?)";
+my $sql_add_userRole = "\tinsert into RoleUser (roleID, userID) values (2,?)";
 	#Tree
 my $sql_add_tree = "\t#TREE\n\tinsert into Tree (ownerID, privacy, name) values (?,?,?)";
 	#Place
@@ -279,8 +284,18 @@ eval {
 		}
 
 		foreach my $statement (split(m/\n/x, $statements )) {
-			printlines("\tDoing: Adding user") if ($statement =~ m/^\s*#USER.*$/g);
-			printlines("\tDoing: Adding tree") if ($statement =~ m/^\s*#TREE.*$/g);
+			if ($statement =~ m/^\s*#USER.*$/g) {
+				printlines("\tDoing: Adding user");
+			}
+			if ($statement =~ m/^\s*#TREE.*$/g) {
+				#Commiting and starting new transaction
+				$dbh->commit() or $dbh->errstr;
+				printlines("Commited changes");
+				$dbh->begin_work or die $dbh->errstr;
+				printlines("Started transaction");
+
+				printlines("\tDoing: Adding tree");
+			}
 			next if ($statement =~ m/^\s*#.*$/g || $statement =~ m/^\s*$/g);
 
 			my $numberofparameters = $statement =~ tr/?//;
