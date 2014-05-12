@@ -539,6 +539,7 @@ public class FamilyTreeDetailPanel extends IPanel
             {
                 p = addChild();
                 add = PersonAddDTO.CHILD;
+                link = person.getPersonId();
             }
 
             adding = false;
