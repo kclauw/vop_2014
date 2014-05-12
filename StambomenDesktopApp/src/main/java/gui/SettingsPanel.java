@@ -230,9 +230,11 @@ public class SettingsPanel extends IPanel
 
     private void btnSetLanguageActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSetLanguageActionPerformed
     {//GEN-HEADEREND:event_btnSetLanguageActionPerformed
+        startTask();
         LanguageDTO languageDTO = (LanguageDTO) cbxLanguage.getSelectedItem();
         settingsController.setLanguage(languageDTO.getLanguageId());
         translate();
+        stopTask();
     }//GEN-LAST:event_btnSetLanguageActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -254,6 +256,7 @@ public class SettingsPanel extends IPanel
     private javax.swing.JLabel lblLanguage;
     private javax.swing.JPanel pnlSettings;
     // End of variables declaration//GEN-END:variables
+
     public void setSettingsController(SettingsController sc)
     {
         this.settingsController = sc;

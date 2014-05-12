@@ -264,7 +264,7 @@ public class LoginPanel extends IPanel
             {
                 final JFXPanel fxPanel = new JFXPanel();
                 frame.add(fxPanel);
-                frame.setMinimumSize(new Dimension(850, 600));
+                frame.setMinimumSize(new Dimension(500, 350));
                 frame.setLocationRelativeTo(null);
 
                 Platform.runLater(new Runnable()
@@ -274,7 +274,7 @@ public class LoginPanel extends IPanel
                     {
                         WebView browser = new WebView();
                         final WebEngine webEngine = browser.getEngine();
-                        Scene scene = new Scene(browser, 750, 500, Color.web("#666970"));
+                        Scene scene = new Scene(browser, 500, 350, Color.web("#666970"));
                         webEngine.getLoadWorker().stateProperty().addListener(
                                 new ChangeListener<Worker.State>()
                                 {
@@ -297,7 +297,7 @@ public class LoginPanel extends IPanel
                                         }
                                     }
                                 });
-                        webEngine.load("https://www.facebook.com/dialog/oauth?client_id=225842214289570&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=basic_info,email,user_location,user_hometown,user_birthday");
+                        webEngine.load("https://www.facebook.com/dialog/oauth?client_id=225842214289570&display=popup&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=basic_info,email,user_location,user_hometown,user_birthday");
                         fxPanel.setScene(scene);
                     }
                 });
