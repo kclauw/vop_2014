@@ -1,6 +1,7 @@
 package persistence;
 
 import domain.Activity;
+import domain.User;
 import domain.enums.Event;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class ActivityDao implements IDao<Activity>
 {
 
     private Connection con;
-    private final String GETACTIVITY = "SELECT x.name,x.dateTime,x.userID,x.eventID FROM UserEvent x join Event y on x.eventID = y.eventID where x.userID in (select z.friend FROM Request z where z.receiver = ? and z.status=1 union select a.receiver FROM Request a where a.friend = ? and a.status= 1);";
+    private final String GETACTIVITY = "SELECT x.name,x.dateTime,x.userID,x.eventID FROM UserEvent x join Event y on x.eventID = y.eventID where x.userID in (select z.friend FROM Request z where z.receiver = ? and z.status=1 union select a.receiver FROM Request a where a.friend = ? and a.status= 1) order by dateTime desc limit 50;";
     private final String SETACTIVITY = "INSERT INTO UserEvent (eventID, userID, name, dateTime) VALUES (?, ?,?,NOW())";
     private PersistenceFacade pc;
     private final Logger logger;
@@ -91,7 +92,7 @@ public class ActivityDao implements IDao<Activity>
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(SETACTIVITY);
             prep.setInt(1, value.getEvent().getEventId());
-            prep.setInt(2, value.getUserID());
+            prep.setInt(2, value.getUser().getId());
             prep.setString(3, value.getName());
             logger.info("[ACTIVITY DAO] Save activity" + prep);
             prep.executeUpdate();
@@ -165,7 +166,7 @@ public class ActivityDao implements IDao<Activity>
             con = DatabaseUtils.getConnection();
             prep = con.prepareStatement(SETACTIVITY);
             prep.setInt(1, act.getEvent().getEventId());
-            prep.setInt(2, act.getUserID());
+            prep.setInt(2, act.getUser().getId());
             prep.setString(3, act.getName());
             logger.info("[ACTIVITY DAO] Adding activity" + prep);
             prep.executeUpdate();
@@ -232,8 +233,9 @@ public class ActivityDao implements IDao<Activity>
                     even = null;
                     break;
             }
+            User user = pc.getUser(userID);
 
-            activity = new Activity(even, name, userID, date);
+            activity = new Activity(even, name, user, date);
 
         }
         catch (SQLException ex)

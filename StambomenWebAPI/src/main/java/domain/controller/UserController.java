@@ -79,7 +79,7 @@ public class UserController
         User user = getUser(userCredentials[0]);
         FacebookController fb = new FacebookController();
 
-        //If the user does a login with FB. 
+        //If the user does a login with FB.
         if (user == null && userCredentials[0].equals("FBLOGIN"))
         {
             return fb.loginWithFB(userCredentials[1]);
@@ -141,7 +141,7 @@ public class UserController
         if (allow == false)
         {
             Date date = new Date();
-            Activity act = new Activity(Event.ADDFRIEND, String.valueOf(frienduserID), userID, date);
+            Activity act = new Activity(Event.ADDFRIEND, String.valueOf(frienduserID), pc.getUser(userID), date);
             ac.addActivity(act);
         }
 

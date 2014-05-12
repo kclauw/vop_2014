@@ -7,18 +7,18 @@ public class ActivityDTO
 
     private EventDTO event;
     private String name;
-    private int userID;
+    private UserDTO user;
     private java.util.Date date;
 
     public ActivityDTO()
     {
     }
 
-    public ActivityDTO(EventDTO event, String name, int userID, Date date)
+    public ActivityDTO(EventDTO event, String name, UserDTO user, Date date)
     {
         this.event = event;
         this.name = name;
-        this.userID = userID;
+        this.user = user;
         this.date = date;
     }
 
@@ -42,14 +42,14 @@ public class ActivityDTO
         this.name = name;
     }
 
-    public int getUserID()
+    public UserDTO getUser()
     {
-        return userID;
+        return user;
     }
 
-    public void setUserID(int userID)
+    public void setUser(UserDTO user)
     {
-        this.userID = userID;
+        this.user = user;
     }
 
     public Date getDate()

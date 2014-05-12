@@ -39,7 +39,7 @@ public class TreeController
             throw new TreeOwnerIsNullException();
         }
 
-        Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
+        Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner(), date);
 
         // Activity act = new Activity(Event.ADDTREE, tree.getName(), tree.getOwner().getId(), date);
         if (tree.getId() == -1)
