@@ -55,9 +55,9 @@ public class LoginController extends IPanelController
         {
             this.loginPanel.setError(login);
         }
-        else if (login.equals(clientUserController.getUser().getBlock()))
+        else if (clientUserController.getUser().getBlock())
         {
-            JOptionPane.showMessageDialog(loginPanel, user);
+            JOptionPane.showMessageDialog(loginPanel, "User : " + user.getUsername() + " blocked");
         }
         else
         {
