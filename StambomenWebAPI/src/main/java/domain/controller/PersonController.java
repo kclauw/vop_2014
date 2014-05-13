@@ -81,11 +81,6 @@ public class PersonController
         return pc.getPerson(treeID, personID);
     }
 
-    public Collection<Person> getPersons(int personID)
-    {
-        return pc.getPersons(personID);
-    }
-
     /**
      * Add a person that doesn't already exist. Throws
      * PersonAlreadyExistsException otherwise.
