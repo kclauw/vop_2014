@@ -6,7 +6,7 @@ import service.ServiceConstant;
 
 public class StartUp
 {
-    
+
     public static void main(String args[])
     {
         SwingUtilities.invokeLater(new Runnable()
@@ -22,11 +22,12 @@ public class StartUp
                 }
                 catch (Exception e)
                 {
+                    e.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Error booting up the application " + e.getMessage());
                 }
-                
+
             }
         });
-        
+
     }
 }

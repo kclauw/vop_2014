@@ -22,7 +22,7 @@ public abstract class IPanel extends JPanel
 
     public IPanel()
     {
-        //  translator = new Translator();
+        translator = new Translator(clientServiceController);
     }
 
     public void startTask()
@@ -55,6 +55,7 @@ public abstract class IPanel extends JPanel
 
     public String translate(String messsage)
     {
+
         return translator.translate(messsage);
     }
 
