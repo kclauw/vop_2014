@@ -428,7 +428,7 @@ In het vervolg van dit hoofdstuk kan er dus wel eens verwezen worden naar de num
 
 \subsection{Niet opgenomen}
 \begin{itemize}
-\item 10. De gebruiker importeert een GEDCOM-bestand. 
+
 \item 19. De gebruiker kiest de referentiepersoon voor de teletijdmachine. 
 \item 20. De gebruiker kiest de datum voor de teletijdmachine
 \item 21. De teletijdmachine markeert de geboorteplaatsen van de familieleden die op de ingevoerde 
@@ -439,6 +439,7 @@ datum in leven waren.
 
 \subsection{Kenzo Clauw}
 \begin{itemize}
+\item 10. De gebruiker importeert een GEDCOM-bestand. 
 \item 22. De moderator wijzigt de gegevens van een persoon. 
 \item 23. De moderator wijzigt het profiel van een gebruiker. 
 \item 24. De moderator blokkeert tijdelijk het account van een gebruiker. 
@@ -504,7 +505,7 @@ gelijkenissen aan de betrokken gebruikers.
 
 \subsection{Kenzo Clauw}
 \begin{itemize}
-\item 1. De gebruiker wijzigt deergavetaal. 
+\item 1. De gebruiker wijzigt de weergavetaal. 
 \item 2. Het systeem houdt een overzicht bij van relevante gebeurtenissen. 
 \end{itemize}
 \subsection{Axl François}
@@ -608,11 +609,13 @@ gelijkenissen aan de betrokken gebruikers.
 \chapter{Interessante Implementatiekeuzes}
 \section{Bibliotheken}
 \subsection{Jersey}
+
 Jersey is een JAX-RS referentie-implementatie die een eigen API aanbied door de JAX-RS toolkit uit te breiden met extra functies en hulpprogramma's om op een eenvoudige manier RESTful Webservices en client development aan te bieden.
 JAX-RS : Java API voor REST Web Services biedt ondersteuning bij het creëren van web services volgens het Representational State Transfer (REST) pattern.
 REST is een pattern die beschrijft hoe resources geadresseerd en gebruikt kunnen worden.Een resource kan aangesproken worden dankzij een gemeenschappelijke interface op basis van de HTTP standaard methodes.
 Een REST server zorgt ervoor dat de client een verbinding kan maken om de resources op te halen en te wijzigen. REST wordt veel gebruikt voor het bouwen van webservices en noemen we respectievelijk RESTful Webservices.
 Voor de applicatie hebben we gebruik gemaakt van Jersey die zorgt voor de REST server en een REST client.
+
 
 \subsection{Swagger Jersey}
 Swagger is een specificatie en compleet uitvoeringskader voor het bescrijven, het produceren , consumeren en visualiseren van REST webservices. Het doel van Swagger om client en documentatie systemen de mogelijkheid te geven op hetzelfde tempo te werken als de server. De documentatie van de methoden,paremeters en modellen zijn nauw geintegreerd in de server-code, waardoor de API's altijd gesynchroniseerd zijn.
@@ -620,6 +623,10 @@ Swagger is een specificatie en compleet uitvoeringskader voor het bescrijven, he
 Door gebruik te maken van Swagger kunnen clients diensten consumeren en toegang tot de server code zonder in aanraking te komen de implementatie van de server.
 De interface van het framework zorgt ervoor dat er interactie mogelijk is  met de API in een sandbox omgeving.
 Swagger ondersteunt JSON en XML en zal in de toekomst ook beschikbaar zijn in andere formaten. 
+
+
+
+
 
 \subsection{SLF4J}
 SLF4J is een Java logging api die gebruik maakt van een facade pattern, dit is een software design pattern die gebruikt wordt in object-oriented programming om een complex systeem voor te stellen als een interface.
@@ -630,12 +637,96 @@ Bij het volgende voorbeeld roepen we de loggerfactory op om dan vervolgens het t
 
 \includegraphics{images/logger.png}\\
 
-\subsection{Junit}
-JUnit is een unit testing framework voor Java die gebruikt wordt in test-driven development die deel uit maak van xUnit.
+
+\subsection{Junit 4.x}
+JUnit is een unit testing framework voor Java die gebruikt wordt in test-driven development die deel uit maakt van xUnit.
 Een unit test is een stukje code die een specifieke functionaliteit uitvoert om de code testen. Het percentage van de code die wordt getest door unit tests wordt meestal de test coverage genoemd.
 Een unit test richt zich op een kleine eenheid van de code , bv een methode of een klasse.
+Een integratie of functionele test eeft als doel om het gedrag van een component of de integratie tussen een set van componenten te testen.
+Deze soort van testen kunnen user stories vertalen in een test suite , dit zou een soort sandbox omgeving zijn waarin alle methoden kunnen getest worden op bijvoorbeeld verkeerde input , lege waarden enz.
+Naast integratie testen kan JUnit ook gebruikt worden voor het benchmarken van verschillende software componenten.
+
+Aan de hand van een voorbeeld waarbij we een test unit maken voor de UserController is het eenvoudig om de verschillende mogelijkheden van JUnit uit te leggen.
+
+Om in Netbeans een JUnit test aan te maken voor de UserController navigeer je naar het tools menu en klik je op Create Tests.
+
+\includegraphics{images/netbeansjunit.png}\\
+
+Er verschijnt een nieuw venster waarin er gevraagd wordt om een naam op te geven voor de JUnit test en welke code gegenereerd moet worden. Belangrijk hierbij is dat de class steeds moet eindigen op Test.
+
+\includegraphics{images/netbeansjunit2.png}\\
+
+Netbeans zal nu een nieuwe class aanmaken die een default constructor bevat die bij de UserControllerTest gebruikt wordt om de usercontroller , theme en user object aan te maken.
+
+\includegraphics{images/junit1.png}\\
+
+JUnit maakt gebruik van annotaties om de methoden die een test uitvoeren te identificeren en worden enkel opgenomen in een Test class. 
+Een overzicht van de annotaties :
+
+@Before and @After
+Before en After zal worden aangeroepen voor en na elke test case.
+Voor de UserControllerTest wordt dit gebruikt om de databank op te kuisen door de aangemaakte test gebruiker te verwijderen.
+
+\includegraphics{images/beforeafter.png}\\
+
+
+@BeforeClass and @AfterClass
+Vergelijkbaar met Before and After maar deze zal pas worden utigevoerd na de JUnit Test en net voor of na de Class.
+
+\includegraphics{images/beforeafterclass.png}\\
+
+@Test
+Een test annotatie wordt gebruik voor een normale test;
+
+@Ignore
+Wordt gebruikt om een bepaalde test over te slaan indien deze nog niet geïmplementeerd.
+\includegraphics{images/junit2.png}\\
+
+@Test(Timeout=500)
+Het is mogelijk om een unit te testen na een bepaalde periode in milliseconden.
+
+@Test (expected=IllegalArgumentException.class)
+Soms is het nodig om te controleren of een bepaalde exceptie gesmeten wordt , in ons voorbeeld met de UsercontrollerTest is dit bij het opvangen van een gebruiker die al bestaat in de databank.
+
+\includegraphics{images/junit3.png}\\
+
+Assert statements
+
+Junit biedst statische methoden aan in de Assert class die ervoor zorgen dat er testen kunnen opgesteld worden met bepaalde voorwaarden.
+Een assert methode vergelijkt de werkelijke waarde die teruggegeven wordt door een test met de verwachte waarde en gooit een AssertException indien deze vergelijking mislukt.
+
+Een overzicht van asserts:
+
+fail(String)
+een fail op het toevoegen van de user forceren.
+
+\includegraphics{images/adduserfail.png}\\
+
+assertTrue(Bericht,boolean voorwaarde)
+Controleert of de boolean voorwaarde waar is.
+
+assertFalse(Bericht, boolean voorwaarde)
+Controleert of de boolean voorwaarde onwaar is.
+
+assertNull(bericht ,object)
+Controleert of het object null is
+
+assertNotNull(bericht ,object)
+Controleert of het object niet null is.
+
+\includegraphics{images/junit3.png}\\
+
+AssertEquals(bericht, verwacht ,werkelijk)
+Test of twee waarden gelijk zijn.
+
+Indien je met meerdere test klassen werkt kunt u deze combineren in een test suite.
+Het uitvoeren van een testsuite bevat alle test classes van het project.
+
+
+
 
 \subsection{Gedcom}
+
 GEDCOM is een speciaal tekstformaat die ontwikkeld is door de Kerk van Jezus Christus van de Heiligen der Laatste Dagen en is bedoeld als standaard voor communicatie tussen de Kerk en personen die genealogische data aanleveren.
 Dit formaat heeft zich nu ontwikkeld tot de standaard voor gegevensuitwisseling tussen de meeste genealogische programma's en systemen.
 
@@ -644,6 +735,7 @@ Stel dat we in de applicatie een persoon toevoegen dan zouden deze gegevens in e
 \includegraphics{images/gedcom.png}\\
 
 Het eerste deel bevat de header met de gebruikte versie,character encoding (ANSEl,UNICODE of ASCII) als de belangrijkste informatie.
+
 
 \includegraphics{images/gedcomheader.png}\\
 
@@ -654,6 +746,8 @@ Het tweede deel bevat informatie over de personen.
 Het laatste deel bevat de relaties tussen personen met TRLR die het bestand afsluit.
 
 \includegraphics{images/gedcomrelaties.png}\\
+
+
 
 \subsection{Gedcom4j}
 Gedcom4j is een gratis open-source Java library voor het laden ( parsing ) en opslaan van gegevens in Gedcom genealogie 5.5 of 5.51 bestanden naar een Java-object hiërarchie.
@@ -676,8 +770,91 @@ Om de relaties met kinderen te overlopen :
 \includegraphics{images/gedcomfamily.png}\\
 
 \subsection{Sardine}
+
+Sardine is een WebDAV-client voor Java die een groot deel van de WebDAV client specificaties bevat. 
+
+WebDAV is een uitbreiding op het HTTP protocol en staat voor Web-based Distributed Authoring and versioning.
+
+Dit protocol wordt gebruik om op afstand bestanden aan te maken , wijzigen of te verplaatsen op een server via het internet.
+
+De meeste moderne besturingssystemen ondersteunen WebDAV , waardoor een gebruiker bestanden op de server kan plaatsen alsof ze lokaal opgeslagen worden.
+
+Gebruik :
+
+Om gebruik te maken van Sardine plaats je de commons-logging.jar,commons-codec.jar en HttpClient/HttpCore 4.1.1 in je classpath.
+
+Voor onze applicatie hebben we gebruik gemaakt van Sardine in de ImageDAO om images up te loaden naar de Server.
+
+
+SardineFactory
+Om gebruik te maken van Sardine interface maak je instantie van de SardineFactory aan om aan de hand van HTTP Authenticatie te verbinden met de WebDAV server.
+
+\includegraphics{images/sardine.png}\\
+
+Bij het doorgeven van credentials aan de client wordt de authenticatie scope geconfigureerd voor Basic , Digest en NTML verificatie om te reageren op de server.
+
+put (String url, byte [] gegevens)
+Aan de hand van HTTP put wordt een bestand op de server geplaats.
+
+\includegraphics{images/sardineupload.png}\\
+
+
+
 \subsection{RestFB}
+
+RestFB is een efficiente Java implementatie van een Facebook Graph Api.
+Het voordeel van RestFB is dat er ook ondersteuning is voor oudere versies van de API omdat sommige features nog niet geïmplementeerd zijn in de Graph API.
+
+Registereren van een developer app :
+Ga naar https://developers.facebook.com/apps om een nieuwe app te maken.
+
+ \includegraphics{images/facebook4.png}\\
+ 
+ Een aanvraag bevestigen : 
+ 
+ \includegraphics{images/facebook.png}\\
+ 
+ Geef een naam op voor de nieuwe App Stambomen.
+ 
+ \includegraphics{images/facebook2.png}\\
+ 
+ Op je dashboard verschijnt er een overzicht van je App met App-id en geheime code die gebruikt worden in de applicatie om een verbinding te maken.
+ 
+ \includegraphics{images/facebook3.png}\\
+ 
+Om in de applicatie in te loggen met facebook maak je een classFacebookClient aan waarin de secret code van de API vermeld wordt.
+\includegraphics{images/facebook4.png}\\
+
+Om een user op te vragen roep je in de FacebookClient de methode fetchObject op.
+
+ 
+
 \subsection{JCalendar}
+JCalender is een Java-date chooser om grafisch een datum te selecteren en bestaat uit een combinatie van de volgende componenten :
+
+JDateChooser
+
+Om een datum te kiezen kan je ofwel de datum rechtstreeks invullen of klikken op de afbeelding om de datum te kiezen.
+De default date editor vangt de nodige fouten op met een respectievelijke rode kleur.
+
+
+JDayChooser
+
+Om een dag te kiezen klik je op het dag nummer die hoort bij de weeknummers en dagen die afhankelijk zijn van de locale.
+
+
+
+JMonthChooser
+
+Een JCombobox  waarbij een maand kan geselecteerd worden uit een keuzelijst of door de knoppen te verhogen / verlagen. De taal waarin de namen worden vermeld zijn afhankelijk van de Locale.
+ 
+JYearChooser
+
+Een JSpinField die het toelaat om een jaar te selecteren door de knoppen te verhogen / verlagen of deze manueel in het tekstveld invoeren.
+
+
+
+
 \subsection{Abego TreeLayout}
 ABEGO TreeLayout is een Efficiënt en aanpasbare Boom Layout algoritme voor Java.
 De TreeLayout creëert boom lay-outs voor willekeurige bomen. Het is niet beperkt tot een bepaalde productie of formaat, maar kan worden gebruikt voor elke vorm van tweedimensionale tekening. Voorbeelden zijn Swing gebaseerde componenten, SVG-bestanden, en nog veel meer.
@@ -698,10 +875,17 @@ Het algoritme werkt symmetrisch, dat wil zeggen de tekening van de weerspiegelin
 Om gebruik te maken van de Abego TreeLayout moet je de org.abego.treelayout.core.jar(de TreeLayout algoritme kern) en org.abego.treelayout.netbeans.jar( gebruikt  van de NetBeans visuele API ) plaatsen in de classpath van het project.
 
 
- \subsection{Java FX}
+\subsection{Java FX}
+JavaFX is een platform die gebruikt wordt om Rich Internet Applications te ontwikkelen die audio,video en webservices aanbieden en kan gebruikt worden op computers of smartphones.
+Rich Internet Applications zijn interactieve internetapplicaties die het gevoel van een desktopprogramma geven.
+
+Omdat JavaFX gebaseerd is op Java is het platformonafhankelijk met als voordeel dat alle Java-bibliotheken kunnen worden gebruikt bij het ontwikkelen van applicaties.
+Applicaties worden geschreven in JavaFX Script , een decleratieve scripttaal die speciaal is ontwikkeld voor webontwikkelaars en designers die visuaal willen programmeren. 
+De applicaties in JavaFX kunnen worden uitgevoerd in een webbrowsers of kunnen worden geïnstalleerd  door ze naar het bureaublad  te slepen;
  
  \chapter{Kwaliteitscontrole}
  
+
 Om de kwaliteit van onze applicatie te garanderen wordt er gebruik gemaakt van Test-driven development die een onderdeel is van agile softwareontwikkeling.
 
 Hoe werkt Test-driven development?
@@ -711,15 +895,37 @@ De eerste keer dat een test uitgevoerd wordt moet deze een error produceren omda
 Na het afwerken van de test is het de bedoeling om op basis van de tests code te schrijven.
 Eens de code met succes de verschillende testen kan doorstaan kun je bepaalde bugs uit je applicatie al uitsluiten.
 
-Wij hebben ervoor gekozen om aan de hand van JUnit de opgestellende use cases om uitgebreid te testen in onze applicaite aan de hand van een JUnit test suite.
+Voor onze applicatie hebben we gekozen voor JUNIT die het mogelijk maakt om aan de hand van functionele of integratie testen te debuggen volgens de opgestelde use cases.
+
 
 Wat moet er getest worden?
 
 In het algemeen is het veilig om bepaalde methoden zoals getters en setters die gewoon waarden oproepen of toewijzen te negeren. Het schrijven van tests hiervoor is tijdrovend en zinloos omdat je op deze manier de Java Virtual Machine zou testen waarvoor er al testen voorzien zijn.
 
+Het is aangeraden om voor de kritische en complexe onderdelen van uw een applicatie uitgebreide testen te voorzien. Een stevige test suite beschermt u ook tegen regressie in de bestaande code als je nieuwe features introduceert.
+
+
 
 
 \chapter{Kwaliteitscontrole}
+Om de kwaliteit van onze applicatie te garanderen wordt er gebruik gemaakt van Test-driven development die een onderdeel is van agile softwareontwikkeling.
+
+Hoe werkt Test-driven development?
+
+Voor dat er code geschreven wordt maak je eerst een geautomatiseerde test waarbij je rekening moet houden met alle mogelijkheden van invoer , errors en uitvoer. Op deze manier moet je nog geen rekening houden met code.
+De eerste keer dat een test uitgevoerd wordt moet deze een error produceren omdat er nog geen code aanwezig is.
+Na het afwerken van de test is het de bedoeling om op basis van de tests code te schrijven.
+Eens de code met succes de verschillende testen kan doorstaan kun je bepaalde bugs uit je applicatie al uitsluiten.
+
+Voor onze applicatie hebben we gekozen voor JUNIT die het mogelijk maakt om aan de hand van functionele of integratie testen te debuggen volgens de opgestelde use cases.
+
+
+Wat moet er getest worden?
+
+In het algemeen is het veilig om bepaalde methoden zoals getters en setters die gewoon waarden oproepen of toewijzen te negeren. Het schrijven van tests hiervoor is tijdrovend en zinloos omdat je op deze manier de Java Virtual Machine zou testen waarvoor er al testen voorzien zijn.
+
+Het is aangeraden om voor de kritische en complexe onderdelen van uw een applicatie uitgebreide testen te voorzien. Een stevige test suite beschermt u ook tegen regressie in de bestaande code als je nieuwe features introduceert.
+
 
 \chapter{Gekende problemen}
 
