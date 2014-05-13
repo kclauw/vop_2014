@@ -21,6 +21,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
+import service.ClientServiceController;
 
 public class PersonOverviewPanel extends IPanel
 {
@@ -35,10 +36,11 @@ public class PersonOverviewPanel extends IPanel
     private JTextField filterText;
     private JTextField statusText;
 
-    public PersonOverviewPanel()
+    public PersonOverviewPanel(ClientServiceController clientServiceController)
     {
+        super(clientServiceController);
         initComponents();
-        this.familyTreeDetailPanel = new FamilyTreeDetailPanel();
+        this.familyTreeDetailPanel = new FamilyTreeDetailPanel(clientServiceController);
 
         persons = personController.getPersons(0, 100);
 

@@ -32,8 +32,7 @@ public class TreeController extends IPanelController
 
     public JPanel show()
     {
-        familyTreeTotalPanel = (FamilyTreeTotalPanel) PanelFactory.makePanel(Panels.TREE);
-        familyTreeTotalPanel.setTreeController(this);
+        familyTreeTotalPanel = (FamilyTreeTotalPanel) PanelFactory.makePanel(Panels.TREE, getClientServiceController());
         return familyTreeTotalPanel;
     }
 

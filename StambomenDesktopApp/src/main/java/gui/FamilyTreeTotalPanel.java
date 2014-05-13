@@ -3,7 +3,6 @@ package gui;
 import dto.PersonAddDTO;
 import dto.PersonDTO;
 import gui.controller.TreeController;
-import gui.tree.AbegoTreeLayoutForNetbeansDemo;
 import gui.tree.PersonNodeExtentProvider;
 import gui.tree.PersonTreeForTreeLayout;
 import gui.tree.swing.SampleTreeFactory;
@@ -17,11 +16,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
 import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.TreeLayout;
 import org.abego.treelayout.util.DefaultConfiguration;
-import org.openide.util.Exceptions;
+import service.ClientServiceController;
 import util.PersonUtil;
 
 public class FamilyTreeTotalPanel extends IPanel
@@ -41,13 +39,15 @@ public class FamilyTreeTotalPanel extends IPanel
     /**
      * Creates new form FamilyTreeTotalPanel
      *
+     * @param clientServiceController
      * @param treeController
      */
-    public FamilyTreeTotalPanel()
+    public FamilyTreeTotalPanel(ClientServiceController clientServiceController)
     {
+        super(clientServiceController);
     }
 
-    public void setTreeController(final TreeController treeController)
+    public void setTreeController(ClientServiceController clientServiceController, final TreeController treeController)
     {
         initComponents();
         this.setSize(1200, 400);
@@ -55,7 +55,7 @@ public class FamilyTreeTotalPanel extends IPanel
         this.treeController = treeController;
         if (this.treeOptionsPanel == null)
         {
-            this.treeOptionsPanel = new TreeOptionsPanel(this);
+            this.treeOptionsPanel = new TreeOptionsPanel(getClientServiceController(), this);
             this.add(treeOptionsPanel, BorderLayout.SOUTH);
         }
         scroll = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -70,7 +70,7 @@ public class FamilyTreeTotalPanel extends IPanel
         if (this.familyTreeDetailPanel == null)
         {
 //            this.detailFrame = new JFrame();
-            this.familyTreeDetailPanel = new FamilyTreeDetailPanel(null, this);
+            this.familyTreeDetailPanel = new FamilyTreeDetailPanel(getClientServiceController(), null, this);
             this.familyTreeDetailPanel.validate();
             this.add(familyTreeDetailPanel, BorderLayout.EAST);
             repaint();

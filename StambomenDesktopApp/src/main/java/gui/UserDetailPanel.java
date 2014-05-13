@@ -3,8 +3,7 @@ package gui;
 import dto.UserDTO;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import service.ClientUserController;
-import util.Translator;
+import service.ClientServiceController;
 
 public class UserDetailPanel extends IPanel
 {
@@ -15,15 +14,17 @@ public class UserDetailPanel extends IPanel
     private UserOverviewPanel uovp;
     private boolean adding = false;
 
-    public UserDetailPanel()
+    public UserDetailPanel(ClientServiceController clientServiceController)
     {
+        super(clientServiceController);
         initComponents();
         translate();
         setEditable(false);
     }
 
-    public UserDetailPanel(UserOverviewPanel uovp)
+    public UserDetailPanel(ClientServiceController clientServiceController, UserOverviewPanel uovp)
     {
+        super(clientServiceController);
         initComponents();
         translate();
         setEditable(false);

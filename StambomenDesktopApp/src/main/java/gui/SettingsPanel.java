@@ -3,14 +3,16 @@ package gui;
 import dto.LanguageDTO;
 import gui.controller.SettingsController;
 import javax.swing.DefaultComboBoxModel;
+import service.ClientServiceController;
 
 public class SettingsPanel extends IPanel
 {
 
     private SettingsController settingsController;
 
-    public SettingsPanel()
+    public SettingsPanel(ClientServiceController clientServiceController)
     {
+        super(clientServiceController);
         initComponents();
         initGui();
         translate();

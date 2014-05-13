@@ -24,7 +24,7 @@ public class SettingsController extends IPanelController
 
     public JPanel show()
     {
-        settingsPanel = (SettingsPanel) PanelFactory.makePanel(Panels.SETTINGS);
+        settingsPanel = (SettingsPanel) PanelFactory.makePanel(Panels.SETTINGS, getClientServiceController());
         settingsPanel.setSettingsController(this);
         return settingsPanel;
     }

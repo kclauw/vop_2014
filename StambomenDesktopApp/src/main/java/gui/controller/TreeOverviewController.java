@@ -37,8 +37,7 @@ public class TreeOverviewController extends IPanelController
 
     public JPanel show()
     {
-
-        treeOverviewPanel = (FamilyTreeOverviewPanel) PanelFactory.makePanel(Panels.TREEOVERVIEW);
+        treeOverviewPanel = (FamilyTreeOverviewPanel) PanelFactory.makePanel(Panels.TREEOVERVIEW, getClientServiceController());
         treeOverviewPanel.setTreeController(this);
 
         String role = userController.getUser().getRole();

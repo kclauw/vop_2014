@@ -14,14 +14,16 @@ import javafx.scene.web.WebView;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.border.MatteBorder;
+import service.ClientServiceController;
 
 public class RegisterPanel extends IPanel
 {
 
     private RegisterController reg;
 
-    public RegisterPanel()
+    public RegisterPanel(ClientServiceController clientServiceController)
     {
+        super(clientServiceController);
         initComponents();
         setIcon(lblIcon);
         pnlLogin.setBorder(new MatteBorder(0, 5, 0, 0, new java.awt.Color(51, 68, 85)));

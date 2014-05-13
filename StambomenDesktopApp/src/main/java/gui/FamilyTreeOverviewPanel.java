@@ -1,10 +1,8 @@
 package gui;
 
 import dto.PrivacyDTO;
-import dto.ThemeDTO;
 import gui.controller.TreeOverviewController;
 import gui.controls.FamilyTreeList;
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +14,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import service.ClientServiceController;
-import service.ClientTreeController;
 import service.ClientUserController;
 import util.Translator;
 
@@ -24,7 +21,6 @@ public class FamilyTreeOverviewPanel extends IPanel
 {
 
     private TreeOverviewController treeoverviewController;
-    private ClientTreeController treeController;
     private ClientUserController userController;
 
     private JMenu menu;
@@ -32,17 +28,16 @@ public class FamilyTreeOverviewPanel extends IPanel
     private JMenu menuA;
     private JMenuItem settingsItem;
     private JMenuItem addTreeItem;
-    private JMenuItem personItem;
     private JMenuItem userItem;
     private JMenuItem importGedcomItem;
-    private JMenuItem exportGedcomItem;
     private Translator trans;
     private JMenuBar menuBar;
     private JComboBox cbxPrivacy;
     private JMenuItem style;
 
-    public FamilyTreeOverviewPanel()
+    public FamilyTreeOverviewPanel(ClientServiceController clientServiceController)
     {
+        super(clientServiceController);
         cbxPrivacy = new JComboBox();
 
         initComponents();

@@ -38,7 +38,7 @@ public class PersonOverviewController extends IPanelController
     public JPanel show()
     {
         System.out.println("SHOW ADMINCONTROLLER");
-        personoverviewPanel = (PersonOverviewPanel) PanelFactory.makePanel(Panels.PERSONOVERVIEW);
+        personoverviewPanel = (PersonOverviewPanel) PanelFactory.makePanel(Panels.PERSONOVERVIEW, getClientServiceController());
         return personoverviewPanel;
     }
 

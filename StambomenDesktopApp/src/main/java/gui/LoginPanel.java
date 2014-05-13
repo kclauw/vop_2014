@@ -22,8 +22,9 @@ public class LoginPanel extends IPanel
 
     private LoginController loginPanel;
 
-    public LoginPanel()
+    public LoginPanel(ClientServiceController clientServiceController)
     {
+        super(clientServiceController);
         initComponents();
         setLookAndFeel();
         setIcon(lblIcon);

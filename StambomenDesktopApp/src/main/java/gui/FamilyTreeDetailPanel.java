@@ -25,11 +25,11 @@ import javax.swing.ProgressMonitor;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.openide.util.Exceptions;
-import util.Translator;
+import service.ClientServiceController;
 
 public class FamilyTreeDetailPanel extends IPanel
 {
-
+    
     private boolean add = false;
     private boolean edit = false;
     private boolean move = false;
@@ -39,23 +39,24 @@ public class FamilyTreeDetailPanel extends IPanel
     private boolean child;
     private boolean parent;
     private ProgressMonitor moveMonitor;
-
-    public FamilyTreeDetailPanel(PersonDTO person, FamilyTreeTotalPanel fttp)
+    
+    public FamilyTreeDetailPanel(ClientServiceController clientServiceController, PersonDTO person, FamilyTreeTotalPanel fttp)
     {
+        super(clientServiceController);
         this.fttp = fttp;
         initComponents();
         translate();
         setEditable(false);
     }
-
-    public FamilyTreeDetailPanel()
+    
+    public FamilyTreeDetailPanel(ClientServiceController clientServiceController)
     {
-
+        super(clientServiceController);
         initComponents();
         translate();
         setEditable(false);
     }
-
+    
     public void translate()
     {
         btnEdit.setText(translate("Edit"));
@@ -76,7 +77,7 @@ public class FamilyTreeDetailPanel extends IPanel
         labelFieldLastname.setText(translate("LastName"));
         labeFieldGender.setText(translate("Gender"));
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents()
@@ -438,11 +439,11 @@ public class FamilyTreeDetailPanel extends IPanel
 
     private void textFieldFirstnameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_textFieldFirstnameActionPerformed
     {//GEN-HEADEREND:event_textFieldFirstnameActionPerformed
-
+        
     }//GEN-LAST:event_textFieldFirstnameActionPerformed
-
+    
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-
+        
         if (!edit)
         {
             btnEdit.setText(translate("Save"));
@@ -453,7 +454,7 @@ public class FamilyTreeDetailPanel extends IPanel
         else
         {
             int confirm = JOptionPane.showConfirmDialog(null, translate("SaveMessage"));
-
+            
             if (confirm == JOptionPane.YES_OPTION)
             {
                 startTask();
@@ -462,43 +463,43 @@ public class FamilyTreeDetailPanel extends IPanel
                 fttp.updatePerson(personFromInput);
                 stopTask();
             }
-
+            
             this.setEditable(false);
             btnEdit.setText(translate("Edit"));
             edit = false;
             setAllButtonsActive();
         }
     }//GEN-LAST:event_btnEditActionPerformed
-
+    
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int confirm = JOptionPane.showConfirmDialog(null, translate("DeleteMessage"));
-
+        
         if (confirm == JOptionPane.YES_OPTION)
         {
             System.out.println("[FAMILY TREE DETAIL PANEL] DELETING PERSON " + person.toString());
             fttp.deletePerson(person);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
-
+    
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddActionPerformed
     {//GEN-HEADEREND:event_btnAddActionPerformed
-
+        
         String[] options = new String[2];
         options[0] = "Child";
         options[1] = "Parent";
-
+        
         if (!adding)
         {
             adding = true;
-
+            
             String option = null;
             JOptionPane dialog = new JOptionPane("Would you like to add parent or child?", JOptionPane.QUESTION_MESSAGE, 0, null, options, null);
             JDialog d = dialog.createDialog("Add a parent or child");
             d.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
             d.setVisible(true);
-
+            
             option = (String) dialog.getValue();
-
+            
             if (option.equals("Child"))
             {
                 child = true;
@@ -509,21 +510,21 @@ public class FamilyTreeDetailPanel extends IPanel
                 child = false;
                 parent = true;
             }
-
+            
             clearInputFields();
             this.setEditable(true);
-
+            
             setButtonActive(btnAdd);
             btnAdd.setText(translate("ClickSave"));
         }
         else if (adding)
         {
             startTask();
-
+            
             PersonDTO p = null;
             PersonAddDTO add = null;
             int link = -1;
-
+            
             if (this.fttp.isTreeEmpty())
             {
                 p = getCurrentPersonFromInput();
@@ -542,10 +543,10 @@ public class FamilyTreeDetailPanel extends IPanel
                 add = PersonAddDTO.CHILD;
                 link = person.getPersonId();
             }
-
+            
             adding = false;
             String result = fttp.addPerson(add, p, link);
-
+            
             if (result == null)
             {
                 setAllButtonsActive();
@@ -560,12 +561,12 @@ public class FamilyTreeDetailPanel extends IPanel
                 this.setEnabled(true);
                 this.clearInputFields();
             }
-
+            
             stopTask();
         }
-
+        
     }//GEN-LAST:event_btnAddActionPerformed
-
+    
     private void btnAddPictureActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddPictureActionPerformed
     {//GEN-HEADEREND:event_btnAddPictureActionPerformed
         JFileChooser fc = new JFileChooser();
@@ -574,34 +575,34 @@ public class FamilyTreeDetailPanel extends IPanel
         fc.setAcceptAllFileFilterUsed(false);
         fc.setFileFilter(filter);
         int returnVal = fc.showOpenDialog(this);
-
+        
         if (returnVal == JFileChooser.APPROVE_OPTION)
         {
             File file = fc.getSelectedFile();
-
+            
             ImageIcon image = new ImageIcon(file.getAbsolutePath());
             labelPicture.setIcon(image);
             picturePanel.repaint();
             picturePanel.revalidate();
-
+            
             Image scaledVersion = resize(image.getImage(), 200, 200);
-
+            
             fttp.saveImage(person, scaledVersion);
         }
         else
         {
             JOptionPane.showMessageDialog(this, translate("ImageMessage"));
         }
-
+        
         fc.setSelectedFile(null);
-
+        
     }//GEN-LAST:event_btnAddPictureActionPerformed
-
+    
     private void btnDeletePictureActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnDeletePictureActionPerformed
     {//GEN-HEADEREND:event_btnDeletePictureActionPerformed
         fttp.deleteImage(person);
     }//GEN-LAST:event_btnDeletePictureActionPerformed
-
+    
     private void btnMoveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnMoveActionPerformed
     {//GEN-HEADEREND:event_btnMoveActionPerformed
         //for a move operation the user will need to select 2 things
@@ -650,25 +651,25 @@ public class FamilyTreeDetailPanel extends IPanel
 
     public void setPerson(PersonDTO person)
     {
-
+        
         if (!add && !edit && !move)
         {
             this.person = person;
-
+            
             if (person != null)
             {
                 try
                 {
                     textFieldFirstname.setText(person.getFirstName());
                     textFieldLastname.setText(person.getSurName());
-
+                    
                     GenderDTO g = person.getGender();
                     buttonGroup1.add(radioMale);
                     buttonGroup1.add(radioFemale);
-
+                    
                     dob.setDate(person.getBirthDate());
                     dod.setDate(person.getDeathDate());
-
+                    
                     if (g == GenderDTO.MALE)
                     {
                         radioMale.setSelected(true);
@@ -677,9 +678,9 @@ public class FamilyTreeDetailPanel extends IPanel
                     {
                         radioFemale.setSelected(true);
                     }
-
+                    
                     PlaceDTO place = person.getPlace();
-
+                    
                     if (place == null)
                     {
                         textFieldCity.setText(translate("Undefined"));
@@ -703,7 +704,7 @@ public class FamilyTreeDetailPanel extends IPanel
                 {
                     Exceptions.printStackTrace(ex);
                 }
-
+                
             }
         }
         else if (move)
@@ -716,52 +717,52 @@ public class FamilyTreeDetailPanel extends IPanel
             JOptionPane.showMessageDialog(this, "Cannot select another person while you are adding or edditing the tree.");
         }
     }
-
+    
     private String setTitle()
     {
         return translate("Person");
     }
-
+    
     private String setTitleA()
     {
         return translate("Adress");
     }
-
+    
     private String setTitleD()
     {
         return translate("Detail");
     }
-
+    
     private String setTitleP()
     {
         return translate("Picture");
     }
-
+    
     private void setButtonActive(JButton b)
     {
         b.setEnabled(true);
-
+        
         if (b != btnAdd)
         {
             btnAdd.setEnabled(false);
         }
-
+        
         if (b != btnDelete)
         {
             btnDelete.setEnabled(false);
         }
-
+        
         if (b != btnEdit)
         {
             btnEdit.setEnabled(false);
         }
-
+        
         if (b != btnMove)
         {
             btnMove.setEnabled(false);
         }
     }
-
+    
     private void setEditable(boolean edit)
     {
         if (!edit)
@@ -791,7 +792,7 @@ public class FamilyTreeDetailPanel extends IPanel
             dod.setEnabled(true);
         }
     }
-
+    
     private void setAllButtonsActive()
     {
         btnAdd.setEnabled(true);
@@ -810,28 +811,28 @@ public class FamilyTreeDetailPanel extends IPanel
     private Image resize(Image originalImage, int biggerWidth, int biggerHeight)
     {
         int type = BufferedImage.TYPE_INT_ARGB;
-
+        
         BufferedImage resizedImage = new BufferedImage(biggerWidth, biggerHeight, type);
         Graphics2D g = resizedImage.createGraphics();
-
+        
         g.setComposite(AlphaComposite.Src);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
+        
         g.drawImage(originalImage, 0, 0, biggerWidth, biggerHeight, this);
         g.dispose();
-
+        
         return resizedImage;
     }
-
+    
     private PersonDTO addChild()
     {
         PersonDTO p = getCurrentPersonFromInput();
         PersonDTO partner = null;
-
+        
         partner = person.getPartner();
-
+        
         if (person.getGender() == GenderDTO.FEMALE)
         {
             p.setMother(person);
@@ -848,24 +849,24 @@ public class FamilyTreeDetailPanel extends IPanel
                 p.setMother(partner);
             }
         }
-
+        
         return p;
     }
-
+    
     private PersonDTO addParent()
     {
         PersonDTO p = getCurrentPersonFromInput();
         return p;
     }
-
+    
     private PersonDTO getCurrentPersonFromInput()
     {
         PersonDTO p = null;
-
+        
         try
         {
             GenderDTO g;
-
+            
             if (radioFemale.isSelected())
             {
                 g = GenderDTO.FEMALE;
@@ -874,7 +875,7 @@ public class FamilyTreeDetailPanel extends IPanel
             {
                 g = GenderDTO.MALE;
             }
-
+            
             p = new PersonDTO();
             p.setPersonId(-1);
             p.setFirstName(textFieldFirstname.getText());
@@ -889,10 +890,10 @@ public class FamilyTreeDetailPanel extends IPanel
         {
             p.setFacebookProfileLink(null);
         }
-
+        
         return p;
     }
-
+    
     private void clearInputFields()
     {
         textFieldFirstname.setText("");
@@ -904,18 +905,18 @@ public class FamilyTreeDetailPanel extends IPanel
         dob.setDate(null);
         dod.setDate(null);
     }
-
+    
     private void movePerson(PersonDTO person)
     {
-
+        
         String[] options = new String[2];
         options[0] = "Child";
         options[1] = "Parent";
-
+        
         int option = JOptionPane.showOptionDialog(null, "Would you like to add " + person.getFirstName() + " " + person.getSurName() + " as parent or as child?", "Who would you liek to add?", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
-
+        
         startTask();
-
+        
         if (option == 0)
         {
             fttp.movePerson(PersonAddDTO.CHILD, this.person.getPersonId(), person.getPersonId());
@@ -924,11 +925,11 @@ public class FamilyTreeDetailPanel extends IPanel
         {
             fttp.movePerson(PersonAddDTO.PARENT, this.person.getPersonId(), person.getPersonId());
         }
-
+        
         stopTask();
-
+        
         this.setAllButtonsActive();
-
+        
     }
-
+    
 }

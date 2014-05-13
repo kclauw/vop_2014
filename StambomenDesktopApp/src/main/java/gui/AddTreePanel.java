@@ -4,15 +4,15 @@ import dto.PrivacyDTO;
 import dto.TreeDTO;
 import gui.controller.AddTreeController;
 import service.ClientServiceController;
-import util.Translator;
 
 public class AddTreePanel extends IPanel
 {
 
     private AddTreeController addTreeController;
 
-    public AddTreePanel()
+    public AddTreePanel(ClientServiceController clientServiceController)
     {
+        super(clientServiceController);
         initComponents();
         translate();
         setBorder(pnlAddTree);

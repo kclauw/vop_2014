@@ -1,11 +1,9 @@
 package gui.controller;
 
 import dto.UserDTO;
-import gui.UserOverviewPanel;
 import gui.PanelFactory;
 import gui.Panels;
 import gui.UserOverviewPanel;
-import java.util.Collection;
 import java.util.List;
 import javax.swing.JPanel;
 import service.ClientServiceController;
@@ -45,7 +43,7 @@ public class UserOverviewController extends IPanelController
     public JPanel show()
     {
         System.out.println("SHOW USEROVERVIEWCONTROLLER");
-        useroverviewPanel = (UserOverviewPanel) PanelFactory.makePanel(Panels.USEROVERVIEW);
+        useroverviewPanel = (UserOverviewPanel) PanelFactory.makePanel(Panels.USEROVERVIEW, getClientServiceController());
         useroverviewPanel.setUserOverviewController(this);
         return useroverviewPanel;
     }

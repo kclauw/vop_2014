@@ -24,7 +24,7 @@ public class AddTreeController extends IPanelController
 
     public JPanel show()
     {
-        addTreePanel = (AddTreePanel) PanelFactory.makePanel(Panels.ADDTREE);
+        addTreePanel = (AddTreePanel) PanelFactory.makePanel(Panels.ADDTREE, getClientServiceController());
         addTreePanel.setAddTreeController(this);
         return addTreePanel;
     }

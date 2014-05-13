@@ -34,9 +34,8 @@ public class LoginController extends IPanelController
 
     public JPanel show()
     {
-        loginPanel = (LoginPanel) PanelFactory.makePanel(Panels.LOGIN);
+        loginPanel = (LoginPanel) PanelFactory.makePanel(Panels.LOGIN, getClientServiceController());
         loginPanel.setLoginController(this);
-        loginPanel.setClientServiceController(getClientServiceController());
         return loginPanel;
     }
 

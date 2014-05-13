@@ -15,7 +15,7 @@ import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import util.Translator;
+import service.ClientServiceController;
 
 /**
  *
@@ -28,9 +28,12 @@ public class AdminThemePanel extends IPanel
 
     /**
      * Creates new form AdminThemePanel
+     *
+     * @param clientServiceController
      */
-    public AdminThemePanel()
+    public AdminThemePanel(ClientServiceController clientServiceController)
     {
+        super(clientServiceController);
         initComponents();
         setBorder(pnlTheme);
     }
@@ -287,6 +290,7 @@ public class AdminThemePanel extends IPanel
     private javax.swing.JLabel lblUploadLogo;
     private javax.swing.JPanel pnlTheme;
     // End of variables declaration//GEN-END:variables
+
     public void setAdminThemeController(AdminThemeController themeC)
     {
         this.themeC = themeC;

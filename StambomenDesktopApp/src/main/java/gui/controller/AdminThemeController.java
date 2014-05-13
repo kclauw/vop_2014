@@ -25,7 +25,7 @@ public class AdminThemeController extends IPanelController
 
     public JPanel show()
     {
-        this.adminThemePanel = (AdminThemePanel) PanelFactory.makePanel(Panels.ADMINTHEME);
+        this.adminThemePanel = (AdminThemePanel) PanelFactory.makePanel(Panels.ADMINTHEME, getClientServiceController());
         this.adminThemePanel.setAdminThemeController(this);
         return this.adminThemePanel;
     }

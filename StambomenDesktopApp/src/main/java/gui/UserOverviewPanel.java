@@ -2,7 +2,6 @@ package gui;
 
 import dto.UserDTO;
 import dto.UserTableModel;
-import gui.controller.TreeController;
 import gui.controller.TreeOverviewController;
 import gui.controller.UserOverviewController;
 import java.awt.BorderLayout;
@@ -23,8 +22,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
-import service.ClientUserController;
-import util.Translator;
+import service.ClientServiceController;
 
 public class UserOverviewPanel extends IPanel
 {
@@ -42,11 +40,10 @@ public class UserOverviewPanel extends IPanel
     private UserTableModel model;
     private UserDTO user;
 
-    public UserOverviewPanel()
+    public UserOverviewPanel(ClientServiceController clientServiceController)
     {
-
+        super(clientServiceController);
         initComponents();
-
     }
 
     private void newFilter()
@@ -88,7 +85,7 @@ public class UserOverviewPanel extends IPanel
     public void setUserOverviewController(UserOverviewController u)
     {
         this.useroverviewController = u;
-        this.userDetailpanel = new UserDetailPanel(this);
+        this.userDetailpanel = new UserDetailPanel(getClientServiceController(), this);
         users = useroverviewController.getUsers();
 
         System.out.println("user:" + users.toString());

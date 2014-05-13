@@ -1,12 +1,15 @@
 package gui;
 
+import service.ClientServiceController;
+
 public class TreeOptionsPanel extends IPanel
 {
 
     private final FamilyTreeTotalPanel fttp;
 
-    public TreeOptionsPanel(FamilyTreeTotalPanel fttp)
+    public TreeOptionsPanel(ClientServiceController clientServiceController, FamilyTreeTotalPanel fttp)
     {
+        super(clientServiceController);
         this.fttp = fttp;
         initComponents();
         initGui();

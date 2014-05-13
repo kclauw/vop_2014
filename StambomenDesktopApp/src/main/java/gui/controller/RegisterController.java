@@ -50,7 +50,7 @@ public class RegisterController extends IPanelController
 
     public JPanel show()
     {
-        registerPanel = (RegisterPanel) PanelFactory.makePanel(Panels.REGISTER);
+        registerPanel = (RegisterPanel) PanelFactory.makePanel(Panels.REGISTER, getClientServiceController());
         registerPanel.setRegisterController(this);
         return registerPanel;
     }
