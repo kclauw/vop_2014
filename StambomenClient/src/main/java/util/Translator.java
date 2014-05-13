@@ -19,7 +19,6 @@ public class Translator extends ClientService
     {
         super(clientServiceController);
         this.client = new ClientUserController(this.getClientServiceController());
-
         updateLanguage();
     }
 

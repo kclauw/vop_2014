@@ -66,15 +66,17 @@ public class ClientUserController extends ClientService
 
     public LanguageDTO getLanguage()
     {
-        LanguageDTO language = getClientServiceController().getUser().getUserSettings().getLanguage();
-        if (language != null)
+        if (getClientServiceController() != null)
         {
-            return language;
+            LanguageDTO language = getClientServiceController().getUser().getUserSettings().getLanguage();
+
+            if (language != null)
+            {
+                return language;
+            }
         }
-        else
-        {
-            return LanguageDTO.EN;
-        }
+
+        return LanguageDTO.EN;
     }
 
     public ThemeDTO getTheme()
