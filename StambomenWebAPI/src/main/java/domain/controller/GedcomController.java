@@ -8,6 +8,7 @@ import domain.Tree;
 import domain.User;
 import domain.enums.Gender;
 import domain.enums.Privacy;
+import exception.GedcomPersonsWithoutNameException;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,15 +41,14 @@ public class GedcomController
     private Person person;
     private Person father;
     private Person mother;
-    private User user;
-    private Tree tree;
+
     private Gender gender;
-    private int personid;
-    private String firstname = null, surname = null, zip, country,place;
+
+    private String firstname = null, surname = null, zip, country, place;
     private String[] temp;
     private Date birthdate = null, deathdate = null;
     private Map<String, Person> persons;
-    private int treeId;
+
     private GedcomParser gp;
     private Gedcom g;
     private BufferedInputStream buf;
@@ -65,7 +65,7 @@ public class GedcomController
 
     }
 
-    public void importGedcom(int privacy, int userid, String name, InputStream input) throws IOException, GedcomParserException, ParseException
+    public void importGedcom(int privacy, int treeid, String name, InputStream input) throws IOException, GedcomParserException, ParseException
     {
         gp = new GedcomParser();
         int teller = 0;
@@ -74,55 +74,98 @@ public class GedcomController
 
         g = gp.gedcom;
         gender = Gender.FEMALE;
-        treeId = tc.addTree(new Tree(-1, new User(userid), Privacy.getPrivacy(privacy), name, null));
-        Tree t = tc.getTree(name);
-        t.setPersons(pc.getPersonsByTree(treeId));
 
         for (Individual i : g.individuals.values())
         {
             teller++;
-            setName(i.formattedName().split("/"));
+            setName(i);
             setGender(i);
             setBirthdate(i);
             setDeathdate(i);
             setZip(i);
             setCountry(i);
             setPlace(i);
-            
+
             gender = Gender.MALE;
-            Place p = new Place(-1, zip, null, new Country(-1, country), new PlaceName(-1,place));
+            Place p = new Place(-1, zip, null, new Country(-1, country), new PlaceName(-1, place));
             person = new Person.PersonBuilder(firstname, surname, gender)
                     .birthDate(birthdate)
                     .deathDate(deathdate)
                     .place(p)
                     .build();
-            person.setPersonId(pc.addChild(treeId, person));
+            person.setPersonId(pc.addChild(treeid, person));
             persons.put(i.xref, person);
             System.out.println("Person added nr : " + teller);
         }
 
         for (Family f : g.families.values())
         {
+            try
+            {
+                mother = persons.get(f.wife.xref);
+            }
+            catch (Exception e)
+            {
 
-            mother = persons.get(f.wife.xref);
-            father = persons.get(f.husband.xref);
+            }
+            try
+            {
+                father = persons.get(f.husband.xref);
+            }
+            catch (Exception e)
+            {
+
+            }
 
             for (Individual c : f.children)
             {
                 Person child = persons.get(c.xref.toString());
-                pc.addParentRelation(treeId, father.getPersonId(), child.getPersonId());
-                pc.addParentRelation(treeId, mother.getPersonId(), child.getPersonId());
+                child.setFather(father);
+                child.setMother(mother);
+                pc.updatePerson(treeid, child);
             }
 
         }
     }
 
-    private void setName(String[] temp)
+    private void setName(Individual i)
     {
-        firstname = temp[0];
         try
         {
-            surname = temp[1];
+            firstname = i.names.get(0).givenName.toString();
+        }
+        catch (NullPointerException E)
+        {
+            setFirstname(i.formattedName().trim().split("/"));
+        }
+
+        try
+        {
+            surname = i.names.get(0).surname.toString();
+        }
+        catch (NullPointerException E)
+        {
+            setSurname(i.formattedName().trim().split("/"));
+        }
+    }
+
+    private void setFirstname(String[] f)
+    {
+        try
+        {
+            firstname = f[0];
+        }
+        catch (IndexOutOfBoundsException E)
+        {
+            throw new GedcomPersonsWithoutNameException();
+        }
+    }
+
+    private void setSurname(String[] s)
+    {
+        try
+        {
+            surname = s[1];
         }
         catch (IndexOutOfBoundsException E)
         {
@@ -197,7 +240,7 @@ public class GedcomController
         try
         {
 
-            zip = i.address.postalCode.customTags.get(0).value.toString();
+            zip = i.events.get(0).address.postalCode.customTags.get(0).value.toString();
         }
         catch (NullPointerException e)
         {
@@ -209,26 +252,28 @@ public class GedcomController
     {
         try
         {
-            country = i.address.country.customTags.get(0).value.toString();
-          
+            country = i.events.get(0).address.country.customTags.get(0).value.toString();
+
         }
         catch (NullPointerException e)
         {
             country = "Unknown";
         }
     }
+
     private void setPlace(Individual i)
     {
         try
         {
-            place = i.address.stateProvince.customTags.get(0).value.toString();
-          
+            place = i.events.get(0).address.stateProvince.customTags.get(0).value.toString();
+
         }
         catch (NullPointerException e)
         {
             place = "Unknown";
         }
     }
+
     private String changeMonth(String date)
     {
 

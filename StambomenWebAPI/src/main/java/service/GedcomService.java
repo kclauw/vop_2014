@@ -2,8 +2,15 @@ package service;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
+import domain.Tree;
 import domain.User;
 import domain.controller.GedcomController;
+import domain.controller.PersonController;
+import domain.controller.TreeController;
+import domain.enums.Privacy;
+import exception.GedcomPersonsWithoutNameException;
+import exception.TreeAlreadyExistsException;
+import exception.TreeNameAlreadyExistsException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -26,19 +33,34 @@ public class GedcomService
 {
 
     private GedcomController gc = new GedcomController();
-
+    private TreeController tc = new TreeController();
+    private int treeID;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @POST
-    @Path("/import/{privacy}/{name}/{user}")
+    @Path("/import/{privacy}/{name}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Import gedcom file!", notes = "More notes about this method", response = String.class)
-    public Response importGedcom(@Context ContainerRequest cont, @PathParam("privacy") int privacy, @PathParam("name") String name, InputStream inp) throws IOException, GedcomParserException, ParseException
+    public Response importGedcom(@Context ContainerRequest cont, @PathParam("privacy") int privacy, @PathParam("name") String name, InputStream inp) throws IOException, GedcomParserException, ParseException, TreeNameAlreadyExistsException
     {
+        logger.info("[GEDCOM SERVICE] IMPORT GEDCOM :" + name);
         User user = (User) cont.getProperty("user");
         String result = "Importing new Gedcom for user " + name;
-        gc.importGedcom(privacy, user.getId(), name, inp);
+        try
+        {
+            gc.importGedcom(privacy, tc.addTree(new Tree(-1, new User(user.getId()), Privacy.getPrivacy(privacy), name, null)), name, inp);
+        }
+        catch (GedcomPersonsWithoutNameException e)
+        {
+            return Response.status(Response.Status.CONFLICT).entity(result).build();
+        }
+        catch (TreeNameAlreadyExistsException e)
+        {
+            return Response.status(Response.Status.BAD_REQUEST).entity(result).build();
+        }
+
+        System.out.println("GEDCOM FILE IMPORTED ");
         return Response.status(Response.Status.OK).entity(result).build();
 
     }
