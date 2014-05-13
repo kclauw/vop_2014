@@ -78,7 +78,7 @@
                     <p id="deathdate"></p>
                     <p id="place"></p>
                     <p id="country"></p>
-                    <form method="post" action="./TreeServlet"><input id="refpersonid" name="refpersonid" value="${timemachinerefperson}" type="hidden"/><input class="submit" type="submit" value="<%= trans.translate("SetAsReferenceperson") %>"/></form>
+                    <form method="post" action="./TreeServlet"><input id="refpersonid" name="refpersonid" value="" type="hidden"/><input class="submit" type="submit" value="<%= trans.translate("SetAsReferenceperson") %>"/></form>
                 </div>
             </div>
             <div></div>
@@ -103,7 +103,9 @@
                     <div class="wrapper">
                         <p><%= trans.translate("RefreshTree") %>:</p>
                         <a id="rebuildtree" href="./TreeServlet?rebuildtree=rebuildtree"><img src="./images/Refresh.png" width="26" height="26" alt="Refresh Tree" /></a>
-                        <form method="post" action="./TimemachineServlet"><input id="refpersonid" name="refpersonid" value="${timemachinerefperson}" type="hidden"/><input class="submit" type="submit" value="<%= trans.translate("ShowInTimemachine") %>"/></form>
+                        <c:if test="${not empty timemachinerefperson}">
+                            <form method="post" action="./TimemachineServlet"><input id="refpersonid" name="refpersonid" value="${timemachinerefperson.personId}" type="hidden"/><input class="submit" type="submit" value="<%= trans.translate("ShowInTimemachine") %>"/></form>
+                        </c:if>
                     </div>
                 </div>
         </div>
