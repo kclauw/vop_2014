@@ -49,6 +49,7 @@ public class FamilyTreeTotalPanel extends IPanel
 
     public void setTreeController(ClientServiceController clientServiceController, final TreeController treeController)
     {
+
         initComponents();
         this.setSize(1200, 400);
         this.setLayout(new BorderLayout());

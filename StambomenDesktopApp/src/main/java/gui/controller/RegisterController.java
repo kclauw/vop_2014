@@ -34,7 +34,7 @@ public class RegisterController extends IPanelController
             String succes = clientUserController.makeUser(user);
             if (succes == null)
             {
-                JOptionPane.showConfirmDialog(registerPanel, "Account registered succesfully");
+                JOptionPane.showMessageDialog(registerPanel, "Account registered succesfully");
                 goTo(Panels.LOGIN);
             }
             else
