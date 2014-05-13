@@ -17,10 +17,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.gedcom4j.model.Family;
 import org.gedcom4j.model.Gedcom;
 import org.gedcom4j.model.Individual;
+import org.gedcom4j.model.IndividualEvent;
+import org.gedcom4j.model.IndividualEventType;
 import org.gedcom4j.parser.GedcomParser;
 import org.gedcom4j.parser.GedcomParserException;
 import org.slf4j.Logger;
@@ -68,16 +71,10 @@ public class GedcomController
     public void importGedcom(int privacy, int treeid, String name, InputStream input) throws IOException, GedcomParserException, ParseException
     {
         gp = new GedcomParser();
-        int teller = 0;
-
         gp.load(new BufferedInputStream(input));
-
         g = gp.gedcom;
-        gender = Gender.FEMALE;
-
         for (Individual i : g.individuals.values())
         {
-            teller++;
             setName(i);
             setGender(i);
             setBirthdate(i);
@@ -85,8 +82,6 @@ public class GedcomController
             setZip(i);
             setCountry(i);
             setPlace(i);
-
-            gender = Gender.MALE;
             Place p = new Place(-1, zip, null, new Country(-1, country), new PlaceName(-1, place));
             person = new Person.PersonBuilder(firstname, surname, gender)
                     .birthDate(birthdate)
@@ -95,27 +90,14 @@ public class GedcomController
                     .build();
             person.setPersonId(pc.addChild(treeid, person));
             persons.put(i.xref, person);
-            System.out.println("Person added nr : " + teller);
+            System.out.println("Person added nr : " + i.xref + person.getFirstName() + person.getSurName());
         }
 
         for (Family f : g.families.values())
         {
-            try
-            {
-                mother = persons.get(f.wife.xref);
-            }
-            catch (Exception e)
-            {
 
-            }
-            try
-            {
-                father = persons.get(f.husband.xref);
-            }
-            catch (Exception e)
-            {
-
-            }
+            mother = persons.get(f.wife.xref);
+            father = persons.get(f.husband.xref);
 
             for (Individual c : f.children)
             {
@@ -126,6 +108,7 @@ public class GedcomController
             }
 
         }
+
     }
 
     private void setName(Individual i)
@@ -208,10 +191,7 @@ public class GedcomController
         {
             deathdate = null;
         }
-        catch (ParseException e)
-        {
 
-        }
     }
 
     private void setGender(Individual i)
@@ -240,9 +220,14 @@ public class GedcomController
         try
         {
 
-            zip = i.events.get(0).address.postalCode.customTags.get(0).value.toString();
+            zip = i.address.postalCode.toString();
+            System.out.println(zip);
         }
         catch (NullPointerException e)
+        {
+            zip = "Unknown";
+        }
+        catch (IndexOutOfBoundsException e)
         {
             zip = "Unknown";
         }
@@ -252,10 +237,13 @@ public class GedcomController
     {
         try
         {
-            country = i.events.get(0).address.country.customTags.get(0).value.toString();
-
+            country = i.getEventsOfType(IndividualEventType.BIRTH).get(0).address.country.toString();
         }
         catch (NullPointerException e)
+        {
+            country = "Unknown";
+        }
+        catch (IndexOutOfBoundsException e)
         {
             country = "Unknown";
         }
@@ -265,10 +253,13 @@ public class GedcomController
     {
         try
         {
-            place = i.events.get(0).address.stateProvince.customTags.get(0).value.toString();
-
+            place = i.getEventsOfType(IndividualEventType.BIRTH).get(0).place.placeName.toString();
         }
         catch (NullPointerException e)
+        {
+            place = "Unknown";
+        }
+        catch (IndexOutOfBoundsException e)
         {
             place = "Unknown";
         }

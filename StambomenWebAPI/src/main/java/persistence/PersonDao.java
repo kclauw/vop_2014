@@ -295,7 +295,6 @@ public class PersonDao implements IDao<Person>
             Place place;
 
             place = pc.updatePlace(person.getPlace());
-            System.out.println("Person update!: " + place.toString());
 
             if (place != null)
             {
