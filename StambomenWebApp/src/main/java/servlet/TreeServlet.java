@@ -12,6 +12,7 @@ import dto.UserDTO;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -140,7 +141,7 @@ public class TreeServlet extends HttpServlet
             }
             treehtml = loop(tree.getId(), tree.getPersons(), treehtml, top);
 
-            session.setAttribute("timemachinerefperson", top.getPersonId());
+            session.setAttribute("timemachinerefperson", top);
             session.setAttribute("tree", tree);
             session.setAttribute("treehtml", treehtml);
             response.sendRedirect(request.getContextPath() + "/stamboom.jsp");
@@ -235,8 +236,8 @@ public class TreeServlet extends HttpServlet
             if (person.getPlace() != null)
             {
                 html += "data-zipcode=\"" + getString(person.getPlace().getZipCode()) + "\" ";
-                html += "data-placename=\"" + getString(person.getPlace().getPlaceName()) + "\" ";
-                html += "data-country=\"" + getString(person.getPlace().getCountry()) + "\" ";
+                html += "data-placename=\"" + getString(person.getPlace().getPlaceName().getPlaceName()) + "\" ";
+                html += "data-country=\"" + getString(person.getPlace().getCountry().getCountry()) + "\" ";
             }
             else
             {
