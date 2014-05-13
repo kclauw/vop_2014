@@ -7,12 +7,14 @@ import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import org.openide.util.Exceptions;
 import service.ClientServiceController;
 import service.ClientUserController;
 import util.Translator;
@@ -35,7 +37,7 @@ public class FamilyTreeOverviewPanel extends IPanel
     private JComboBox cbxPrivacy;
     private JMenuItem style;
 
-    public FamilyTreeOverviewPanel(ClientServiceController clientServiceController)
+    public FamilyTreeOverviewPanel(final ClientServiceController clientServiceController)
     {
         super(clientServiceController);
         cbxPrivacy = new JComboBox();
@@ -80,36 +82,51 @@ public class FamilyTreeOverviewPanel extends IPanel
 
                 if (returnVal == JFileChooser.APPROVE_OPTION)
                 {
-                    file = fc.getSelectedFile();
-                    System.out.println("Opening: " + file.getName());
-                    cbxPrivacy.setModel(new javax.swing.DefaultComboBoxModel(new String[]
+                    try
                     {
-                        translate("Private"), translate("OnlyFriends"), translate("Public")
-                    }));
-                    int privacy = cbxPrivacy.getSelectedIndex();
-                    cbxPrivacy.setVisible(true);
-                    JOptionPane.showMessageDialog(null, cbxPrivacy);
-                    PrivacyDTO p;
-                    if (privacy == 0)
-                    {
-                        p = PrivacyDTO.PRIVATE;
+                        file = fc.getSelectedFile();
+                        System.out.println("Opening: " + file.getName());
+                        cbxPrivacy.setModel(new javax.swing.DefaultComboBoxModel(new String[]
+                        {
+                            translate("Private"), translate("OnlyFriends"), translate("Public")
+                        }));
+                        int privacy = cbxPrivacy.getSelectedIndex();
+                        cbxPrivacy.setVisible(true);
+                        JOptionPane.showMessageDialog(null, cbxPrivacy);
+                        PrivacyDTO p;
+                        if (privacy == 0)
+                        {
+                            p = PrivacyDTO.PRIVATE;
+                        }
+                        else if (privacy == 1)
+                        {
+                            p = PrivacyDTO.FRIENDS;
+                        }
+                        else if (privacy == 2)
+                        {
+                            p = PrivacyDTO.PUBLIC;
+                        }
+                        else
+                        {
+                            p = null;
+                        }
+                        String name = JOptionPane.showInputDialog("Gelieve een naam voor de boom in te voeren");
+                        String resp = treeoverviewController.importGedcom(p.getPrivacyId(), clientServiceController.getUser().getId(), name, file);
+                        System.out.println("RESPONSE : " + resp);
+                        if (resp.equals("TreeAlreadyExists"))
+                        {
+                            JOptionPane.showMessageDialog(null, "Tree already exists");
+                        }
+                        if (resp.equals("GedcomError"))
+                        {
+                            JOptionPane.showMessageDialog(null, "Gedcom file has errors");
+                        }
+                        treeoverviewController.goTo(Panels.TREEOVERVIEW);
                     }
-                    else if (privacy == 1)
+                    catch (IOException ex)
                     {
-                        p = PrivacyDTO.FRIENDS;
+                        Exceptions.printStackTrace(ex);
                     }
-                    else if (privacy == 2)
-                    {
-                        p = PrivacyDTO.PUBLIC;
-                    }
-                    else
-                    {
-                        p = null;
-                    }
-                    String name = JOptionPane.showInputDialog("Gelieve een naam voor de boom in te voeren");
-                    treeoverviewController.importGedcom(p.getPrivacyId(), userController.getUser().getId(), name, file);
-                    treeoverviewController.goTo(Panels.TREEOVERVIEW);
-                    System.out.println("GEDCOM FILE IMPORTED ");
 
                 }
                 else

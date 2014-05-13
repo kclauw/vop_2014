@@ -48,7 +48,19 @@ public class ClientGedcomService extends ClientService
         BufferedInputStream bis = new BufferedInputStream(input);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         System.out.println("IMPORTING GEDCOM FILE ");
-        Response response = client.target(url + "gedcom/import/" + privacy + "/" + name + "/" + user).request(MediaType.APPLICATION_JSON).post(Entity.entity(bis, MediaType.APPLICATION_OCTET_STREAM_TYPE));
+        Response response = client.target(url + "gedcom/import/" + privacy + "/" + name).request(MediaType.APPLICATION_JSON).post(Entity.entity(bis, MediaType.APPLICATION_OCTET_STREAM_TYPE));
+        if (response.getStatus() == 400)
+        {
+            String resp = response.readEntity(String.class);
+            System.out.println("Error occured" + response.toString() + "  " + resp);
+            return "TreeAlreadyExists";
+        }
+        if (response.getStatus() == 409)
+        {
+            String resp = response.readEntity(String.class);
+            System.out.println("Error occured" + response.toString() + "  " + resp);
+            return "GedcomError";
+        }
         if (response.getStatus() != 200)
         {
             String resp = response.readEntity(String.class);

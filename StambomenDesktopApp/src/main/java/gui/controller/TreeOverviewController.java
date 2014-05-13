@@ -91,16 +91,11 @@ public class TreeOverviewController extends IPanelController
         gui.setAdminframe(panel);
     }
 
-    public void importGedcom(int privacyId, int id, String name, File file)
+    public String importGedcom(int privacyId, int id, String name, File file) throws IOException
     {
-        try
-        {
-            clientGedcomService.importGedcom(privacyId, id, name, file);
-        }
-        catch (IOException ex)
-        {
-            Exceptions.printStackTrace(ex);
-        }
+
+        return clientGedcomService.importGedcom(privacyId, id, name, file);
+
     }
 
     public String translate(String allTrees)
