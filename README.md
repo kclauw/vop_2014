@@ -99,17 +99,15 @@ Source Packages:
 The stambomen folder contains the [DB-script][dbS] and the [perlscript][pS]
 
 
-### Artefacts ###
-* use cases
-
 ### Initialization ###
 
-1. import projects in netbeans
-2. build with dependencies
+1. import projects in netbeans or goto [release][release]
+2. clean and build stambomenClient and the stambomenWebAPI
+2. build the stambomeWebApp with dependencies
 3. add the StambomenWebAPI and StambomenWebApp to the tomcat server
 4. run tomcat and run StambomenWebApp
-5. login
-6. run the stambomenDesktopApp
+5. login (note facebook login and other related functions will only work on the release becaus of facebook restrictions)
+6. run the stambomenDesktopAPP jar
 7. login
 
 ## login details ##
@@ -126,3 +124,4 @@ The stambomen folder contains the [DB-script][dbS] and the [perlscript][pS]
 [s]: https://github.ugent.be/iii-vop/vop-2014-team12/tree/master/Stambomen
 [dbS]:https://github.ugent.be/iii-vop/vop-2014-team12/tree/master/SQL
 [pS]:https://github.ugent.be/iii-vop/vop-2014-team12/tree/master/Perl
+[release]:http://release.team12.vop.tiwi.be/login.jsp
