@@ -155,7 +155,7 @@ public class LoginFilter implements Filter
         if (allowed || (session != null && session.getAttribute("user") != null) || requesturi.endsWith(contextpath + "/login.jsp") || requesturi.endsWith(contextpath + "/register.jsp"))
         {
             path = contextpath + "/index.jsp";
-            if (requesturi.endsWith(path))
+            if (requesturi.endsWith(path) || requesturi.equals(contextpath) || requesturi.equals(contextpath + "/"))
             {
                 path = contextpath + "/main.jsp";
                 response.sendRedirect(path);
