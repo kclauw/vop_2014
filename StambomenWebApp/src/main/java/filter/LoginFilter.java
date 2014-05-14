@@ -162,7 +162,7 @@ public class LoginFilter implements Filter
             }
             else if (registerSucces)
             {
-                path = contextpath + "/l.jsp";
+                path = contextpath + "/login.jsp";
                 response.sendRedirect(path);
             }
             else
