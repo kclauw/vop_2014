@@ -90,21 +90,38 @@ public class GedcomController
                     .build();
             person.setPersonId(pc.addChild(treeid, person));
             persons.put(i.xref, person);
-            System.out.println("Person added nr : " + i.xref + person.getFirstName() + person.getSurName());
+            //System.out.println("Person added nr : " + i.xref + person.getFirstName() + person.getSurName());
+        }
+        for (Map.Entry<String, Person> entry : persons.entrySet())
+        {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
         }
 
         for (Family f : g.families.values())
         {
+            try
+            {
+                mother = persons.get(f.wife.xref);
+            }
+            catch (NullPointerException e)
+            {
 
-            mother = persons.get(f.wife.xref);
-            father = persons.get(f.husband.xref);
+            }
+            try
+            {
+                father = persons.get(f.husband.xref);
+            }
+            catch (NullPointerException e)
+            {
+
+            }
 
             for (Individual c : f.children)
             {
                 Person child = persons.get(c.xref.toString());
                 child.setFather(father);
                 child.setMother(mother);
-                pc.updatePerson(treeid, child);
+                pc.updatePersonRelations(treeid, child);
             }
 
         }
@@ -161,7 +178,7 @@ public class GedcomController
 
         try
         {
-            birthdate = df.parse(changeMonth(i.events.get(0).date.toString().replaceAll("Abt", "").trim()));
+            birthdate = df.parse(changeMonth(i.events.get(0).date.toString().replaceAll("Abt", "").trim()).toUpperCase());
         }
         catch (IndexOutOfBoundsException e)
         {
@@ -181,7 +198,7 @@ public class GedcomController
     {
         try
         {
-            deathdate = df.parse(changeMonth(i.events.get(1).date.toString().replaceAll("Abt", "")).trim());
+            deathdate = df.parse(changeMonth(i.events.get(1).date.toString().replaceAll("Abt", "").trim()).toUpperCase());
         }
         catch (IndexOutOfBoundsException e)
         {

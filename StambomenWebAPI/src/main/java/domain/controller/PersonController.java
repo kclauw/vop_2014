@@ -258,6 +258,11 @@ public class PersonController
         return null;
     }
 
+    public void updatePersonRelations(int treeID, Person person)
+    {
+        pc.updatePersonRelations(treeID, person);
+    }
+
     public void addParentRelation(int treeID, int parentID, int childID)
     {
         pc.addParentRelation(treeID, parentID, childID);
