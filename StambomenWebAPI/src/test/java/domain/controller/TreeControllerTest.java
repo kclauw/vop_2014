@@ -23,11 +23,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import exception.TreeNameCannotBeEmptyException;
+import org.junit.Ignore;
 
 /**
  *
  * @author admin
  */
+@Ignore
 public class TreeControllerTest
 {
 

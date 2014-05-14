@@ -112,7 +112,6 @@ public class FamilyTreeOverviewPanel extends IPanel
                         }
                         String name = JOptionPane.showInputDialog("Gelieve een naam voor de boom in te voeren");
                         String resp = treeoverviewController.importGedcom(p.getPrivacyId(), clientServiceController.getUser().getId(), name, file);
-                        System.out.println("RESPONSE : " + resp);
                         if (resp.equals("TreeAlreadyExists"))
                         {
                             JOptionPane.showMessageDialog(null, "Tree already exists");
@@ -121,6 +120,7 @@ public class FamilyTreeOverviewPanel extends IPanel
                         {
                             JOptionPane.showMessageDialog(null, "Gedcom file has errors");
                         }
+
                         treeoverviewController.goTo(Panels.TREEOVERVIEW);
                     }
                     catch (IOException ex)
