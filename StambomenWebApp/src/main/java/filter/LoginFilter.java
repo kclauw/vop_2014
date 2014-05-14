@@ -67,6 +67,7 @@ public class LoginFilter implements Filter
         String fbLoginAuthCode = request.getParameter("fbLoginAuthCode");
         String fbRegisterAuthCode = request.getParameter("fbRegisterAuthCode");
         String logout = request.getParameter("logout");
+        Boolean registerSucces = false;
 
         //check logout
         if (logout != null && session != null)
@@ -95,6 +96,7 @@ public class LoginFilter implements Filter
                     String registerResponse = uC.makeUser(user);
                     if (registerResponse == null)
                     {
+                        registerSucces = true;
                         request.setAttribute("username", username);
                         request.setAttribute("errormessage", registerResponse);
                     }
@@ -110,6 +112,7 @@ public class LoginFilter implements Filter
                 ClientServiceController csc = new ClientServiceController();
                 ClientFacebookService cFacebookService = new ClientFacebookService(csc);
                 cFacebookService.registerWithFB(fbRegisterAuthCode);
+                registerSucces = true;
             }
             else
             {
@@ -157,6 +160,11 @@ public class LoginFilter implements Filter
                 path = contextpath + "/main.jsp";
                 response.sendRedirect(path);
             }
+            else if (registerSucces)
+            {
+                path = contextpath + "/l.jsp";
+                response.sendRedirect(path);
+            }
             else
             {
                 chain.doFilter(request, response);
@@ -198,6 +206,10 @@ public class LoginFilter implements Filter
             if (loginResponse == null)
             {
                 loginResponse = "";
+            }
+            else
+            {
+                loginResponse = "Error";
             }
         }
         else
