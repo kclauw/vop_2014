@@ -121,7 +121,6 @@ public class FamilyTreeOverviewPanel extends IPanel
                             JOptionPane.showMessageDialog(null, "Gedcom file has errors");
                         }
 
-                        treeoverviewController.goTo(Panels.TREEOVERVIEW);
                     }
                     catch (IOException ex)
                     {
@@ -133,7 +132,8 @@ public class FamilyTreeOverviewPanel extends IPanel
                 {
                     System.out.println("Error opening file");
                 }
-
+                treeoverviewController.getTreesAdmin(1);
+                treeoverviewController.goTo(Panels.TREEOVERVIEW);
             }
         });
 
