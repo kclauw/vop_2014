@@ -26,6 +26,7 @@ Source Packages:
   * contains the service files and the controllers
 * util
  * PersonUtil
+ * Translator
 
 Test Packages:
 
@@ -84,7 +85,7 @@ Web Pages:
  * images
  * css
  * js
- * jsp pages for login, main and others
+ * jsp pages
 
 Source Packages:
 
@@ -123,5 +124,5 @@ The stambomen folder contains the [DB-script][dbS] and the [perlscript][pS]
 [swAPI]: https://github.ugent.be/iii-vop/vop-2014-team12/tree/master/StambomenWebAPI
 [swAPP]: https://github.ugent.be/iii-vop/vop-2014-team12/tree/master/StambomenWebApp
 [s]: https://github.ugent.be/iii-vop/vop-2014-team12/tree/master/Stambomen
-[dbS]:https://github.ugent.be/iii-vop/vop-2014-team12/tree/master/Stambomen/DBFile
-[pS]:https://github.ugent.be/iii-vop/vop-2014-team12/tree/master/Stambomen/perl
+[dbS]:https://github.ugent.be/iii-vop/vop-2014-team12/tree/master/SQL
+[pS]:https://github.ugent.be/iii-vop/vop-2014-team12/tree/master/Perl
