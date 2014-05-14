@@ -25,6 +25,7 @@ public class TreeOverviewController extends IPanelController
     private ClientTreeController serv;
     private ClientUserController userController;
     private ClientGedcomService clientGedcomService;
+    private List<TreeDTO> treesAdmin;
 
     public TreeOverviewController(GuiController gui, ClientServiceController clientServiceController)
     {
@@ -52,6 +53,22 @@ public class TreeOverviewController extends IPanelController
         return treeOverviewPanel;
     }
 
+    public JPanel showAdmin(int userID)
+    {
+        treeOverviewPanel = (FamilyTreeOverviewPanel) PanelFactory.makePanel(Panels.TREEOVERVIEW, getClientServiceController());
+        treeOverviewPanel.setTreeController(this);
+
+        String role = userController.getUser().getRole();
+
+        if (role != null && role.equals("Admin"))
+        {
+            treeOverviewPanel.addAdmin();
+        }
+        getTreesAdmin(userID);
+
+        return treeOverviewPanel;
+    }
+
     public void goTo(Panels frame)
     {
         gui.goTo(frame);
@@ -60,6 +77,29 @@ public class TreeOverviewController extends IPanelController
     public void getTrees(int userId)
     {
         List<TreeDTO> trees = serv.getTrees(userId);
+        FamilyTreeList familyTreeList = new FamilyTreeList(this);
+
+        if (trees == null || trees.isEmpty())
+        {
+            treeOverviewPanel.setError("No trees, please add one.");
+        }
+        else
+        {
+            System.out.println("[TREE OVERVIEW CONTROLLER] Found " + trees.size() + " trees!");
+            treeOverviewPanel.setError(" ");
+
+            for (TreeDTO tree : trees)
+            {
+                familyTreeList.addFamilyTree(new FamilyTreeListItem(getClientServiceController(), tree.getName(), tree.getPrivacy().ordinal(), familyTreeList, tree));
+            }
+        }
+        treeOverviewPanel.addFamilyTreeList(familyTreeList);
+
+    }
+
+    public void getTreesAdmin(int userId)
+    {
+        List<TreeDTO> trees = serv.getTreesAdmin(userId);
         FamilyTreeList familyTreeList = new FamilyTreeList(this);
 
         if (trees == null || trees.isEmpty())

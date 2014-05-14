@@ -122,4 +122,16 @@ public class ClientTreeService extends ClientService
         }
 
     }
+
+    List<TreeDTO> getTreesAdmin(int userId)
+    {
+        logger.info("[CLIENT TREE SERVICE][GET TREE]Getting trees from user with userid:" + userId);
+        Client client = getClientServiceController().getClient();
+
+        List<TreeDTO> list = client.target(url + "admin/getTree/" + userId).request(MediaType.APPLICATION_JSON).get(new GenericType<List<TreeDTO>>()
+        {
+        });
+
+        return list;
+    }
 }
