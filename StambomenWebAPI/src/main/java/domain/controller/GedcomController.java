@@ -8,6 +8,7 @@ import domain.Tree;
 import domain.User;
 import domain.enums.Gender;
 import domain.enums.Privacy;
+import exception.GedcomParentException;
 import exception.GedcomPersonsWithoutNameException;
 import exception.InvalidParentException;
 import java.io.BufferedInputStream;
@@ -98,8 +99,16 @@ public class GedcomController
             for (Individual c : f.children)
             {
                 Person child = persons.get(c.xref.toString());
-                child.setFather(persons.get(f.husband.xref));
-                child.setMother(persons.get(f.wife.xref));
+                try
+                {
+                    child.setFather(persons.get(f.husband.xref));
+                    child.setMother(persons.get(f.wife.xref));
+                }
+                catch (InvalidParentException e)
+                {
+                    throw new GedcomParentException();
+                }
+
                 pc.updatePersonRelations(treeid, child);
             }
         }
@@ -168,7 +177,7 @@ public class GedcomController
         }
         catch (ParseException e)
         {
-
+            birthdate = null;
         }
     }
 
@@ -186,7 +195,10 @@ public class GedcomController
         {
             deathdate = null;
         }
-
+        catch (ParseException e)
+        {
+            deathdate = null;
+        }
     }
 
     private void setGender(Individual i)
