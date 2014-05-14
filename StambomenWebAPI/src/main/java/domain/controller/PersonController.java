@@ -150,12 +150,7 @@ public class PersonController
 
     public void savePersonImage(int treeID, int personID, BufferedImage bufferedImage) throws IOException
     {
-        pc.savePersonImage(personID, bufferedImage);
-    }
-
-    public void savePersonImage(int personID, BufferedImage bufferedImage) throws IOException
-    {
-        pc.savePersonImage(personID, bufferedImage);
+        pc.savePersonImage(treeID, personID, bufferedImage);
     }
 
     public List<Person> getPersonsByTree(int treeID)

@@ -90,9 +90,9 @@ public class ImageDao
         return null;
     }
 
-    public void save(int personID, BufferedImage bufferedImage) throws IOException
+    public void save(int treeID, int personID, BufferedImage bufferedImage) throws IOException
     {
-        String url = this.url + "persons/" + "/" + personID + ".jpg";
+        String url = this.url + "persons/" + treeID + "/" + personID + ".jpg";
         uploadImage(url, bufferedImage);
     }
 

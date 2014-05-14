@@ -264,10 +264,10 @@ public class PersistenceFacade
         imageDao.delete(treeID, personID);
     }
 
-    public void savePersonImage(int personID, BufferedImage bufferedImage) throws IOException
+    public void savePersonImage(int treeID, int personID, BufferedImage bufferedImage) throws IOException
     {
         logger.info("[PERSISTENCE CONTROLLER] Save Person Image from person " + personID);
-        imageDao.save(personID, bufferedImage);
+        imageDao.save(treeID, personID, bufferedImage);
     }
 
     public URI getPicture(int treeID, int personID, boolean pictureExists)
