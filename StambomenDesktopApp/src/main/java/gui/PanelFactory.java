@@ -30,9 +30,6 @@ public class PanelFactory
             case SETTINGS:
                 panel = new SettingsPanel(clientServiceController);
                 break;
-            case PERSONOVERVIEW:
-                panel = new PersonOverviewPanel(clientServiceController);
-                break;
             case USEROVERVIEW:
                 panel = new UserOverviewPanel(clientServiceController);
                 break;

@@ -36,16 +36,6 @@ public class AdminService
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @GET
-    @Path("/persons/{start}/{max}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Person> getPersons(@PathParam("treeID") int treeID, @PathParam("start") int start, @PathParam("max") int max) throws IOException
-    {
-        logger.info("[PERSON SERVICE][GET] Getting persons");
-        List<Person> persons = pc.getPersons(start, max);
-        return persons;
-    }
-
-    @GET
     @Path("/users")
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getUsers() throws IOException

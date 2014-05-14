@@ -158,19 +158,9 @@ public class PersonController
         pc.savePersonImage(personID, bufferedImage);
     }
 
-    public List<Person> getPersons(int treeID, int start, int max)
-    {
-        return pc.getPersons(treeID, start, max);
-    }
-
     public List<Person> getPersonsByTree(int treeID)
     {
         return pc.getPersonsByTree(treeID);
-    }
-
-    public List<Person> getPersons(int start, int max)
-    {
-        return pc.getPersons(start, max);
     }
 
     public List<Person> searchPerson(int userID, String firstname, String lastname)

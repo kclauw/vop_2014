@@ -404,55 +404,6 @@ public class PersonDao implements IDao<Person>
         }
     }
 
-    public List<Person> getPersons(int start, int max)
-    {
-        List<Person> persons = new ArrayList<Person>();
-        ResultSet res = null;
-        PreparedStatement prep = null;
-        try
-        {
-            con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(GET_PERSONS);
-            prep.setInt(1, start);
-            prep.setInt(2, max);
-            logger.info("[PERSON DAO] GET ALL PERSON " + prep.toString());
-            res = prep.executeQuery();
-
-            while (res.next())
-            {
-                Person person = map(res);
-
-                persons.add(person);
-            }
-
-            con.close();
-
-        }
-        catch (SQLException ex)
-        {
-            logger.info("[PERSONDAOSQL][Exception][GetAll]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
-            logger.info("[PERSONDAO][Exception][GetAll]Exception: " + ex.getMessage());
-        }
-        finally
-        {
-            try
-            {
-                DatabaseUtils.closeQuietly(res);
-                DatabaseUtils.closeQuietly(prep);
-                DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
-                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        return persons;
-    }
-
     public List<Person> GetAll(int treeID)
     {
 
@@ -668,57 +619,6 @@ public class PersonDao implements IDao<Person>
 
         return p;
 
-    }
-
-    public List<Person> getPersons(int treeID, int start, int max)
-    {
-        List<Person> persons = new ArrayList<Person>();
-        MultiMap<Integer, Person> personMap = new MultiMap<Integer, Person>();
-        ResultSet res = null;
-        PreparedStatement prep = null;
-        try
-        {
-            con = DatabaseUtils.getConnection();
-            prep = con.prepareStatement(GET_PERSONS);
-            prep.setInt(1, start);
-            prep.setInt(2, max);
-            logger.info("[PERSON DAO] GET ALL PERSON " + prep.toString());
-            res = prep.executeQuery();
-
-            while (res.next())
-            {
-                Person person = map(treeID, res, personMap);
-
-                persons.add(person);
-            }
-
-            con.close();
-
-        }
-        catch (SQLException ex)
-        {
-            logger.info("[PERSONDAOSQL][Exception][GetAll]Sql exception: " + ex.getMessage());
-        }
-        catch (Exception ex)
-        {
-            logger.info("[PERSONDAO][Exception][GetAll]Exception: " + ex.getMessage());
-        }
-        finally
-        {
-            try
-            {
-                DatabaseUtils.closeQuietly(res);
-                DatabaseUtils.closeQuietly(prep);
-                DatabaseUtils.closeQuietly(con);
-            }
-            catch (SQLException ex)
-            {
-                java.util.logging.Logger.getLogger(TreeDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        mapRelations(persons, personMap);
-        return persons;
     }
 
     @Override
