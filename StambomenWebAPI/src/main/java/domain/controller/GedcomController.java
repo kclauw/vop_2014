@@ -9,6 +9,7 @@ import domain.User;
 import domain.enums.Gender;
 import domain.enums.Privacy;
 import exception.GedcomPersonsWithoutNameException;
+import exception.InvalidParentException;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -90,40 +91,17 @@ public class GedcomController
                     .build();
             person.setPersonId(pc.addChild(treeid, person));
             persons.put(i.xref, person);
-            //System.out.println("Person added nr : " + i.xref + person.getFirstName() + person.getSurName());
-        }
-        for (Map.Entry<String, Person> entry : persons.entrySet())
-        {
-            System.out.println(entry.getKey() + " : " + entry.getValue());
         }
 
         for (Family f : g.families.values())
         {
-            try
-            {
-                mother = persons.get(f.wife.xref);
-            }
-            catch (NullPointerException e)
-            {
-
-            }
-            try
-            {
-                father = persons.get(f.husband.xref);
-            }
-            catch (NullPointerException e)
-            {
-
-            }
-
             for (Individual c : f.children)
             {
                 Person child = persons.get(c.xref.toString());
-                child.setFather(father);
-                child.setMother(mother);
+                child.setFather(persons.get(f.husband.xref));
+                child.setMother(persons.get(f.wife.xref));
                 pc.updatePersonRelations(treeid, child);
             }
-
         }
 
     }
