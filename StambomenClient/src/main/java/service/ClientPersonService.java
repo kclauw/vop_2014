@@ -155,19 +155,6 @@ public class ClientPersonService extends ClientService
         return bi;
     }
 
-    public List<PersonDTO> getPersons(int start, int max)
-    {
-        logger.info("[CLIENT ADMIN SERVICE][GET PERSONS]Getting persons ");
-
-        Client client = getClientServiceController().getClient();
-
-        List<PersonDTO> persons = client.target(url + "admin/persons/" + start + "/" + max).request(MediaType.APPLICATION_JSON).get(new GenericType<List<PersonDTO>>()
-        {
-        });
-
-        return persons;
-    }
-
     public PersonDTO getPerson(int treeId, int personId)
     {
         logger.info("[CLIENT ADMIN SERVICE][GET PERSON]Getting person ");

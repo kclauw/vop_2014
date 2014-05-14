@@ -166,19 +166,6 @@ public class PersonService
         }
     }
 
-    //TODO revise this part.
-    @GET
-    @Path("/persons/{treeID}/{start}/{max}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Get persons with min and max range", notes = "More notes about this method", response = String.class)
-    public List<Person> getPersons(@PathParam("treeID") int treeID, @PathParam("start") int start, @PathParam("max") int max) throws IOException
-    {
-        logger.info("[PERSON SERVICE][GET] Getting persons");
-        System.out.println("GET - TreeServices");
-        List<Person> persons = pc.getPersons(treeID, start, max);
-        return persons;
-    }
-
     /*
      Voor fiddler:
      {"id":5,"username":"A11xl","passsword":"l11ol"}

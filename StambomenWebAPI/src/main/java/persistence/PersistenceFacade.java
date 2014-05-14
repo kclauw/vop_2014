@@ -282,22 +282,10 @@ public class PersistenceFacade
         return imageDao.get(personID, pictureExists);
     }
 
-    public List<Person> getPersons(int treeID, int start, int max)
-    {
-        logger.info("[PERSISTENCE CONTROLLER] Get persons ");
-        return personDao.getPersons(treeID, start, max);
-    }
-
     public List<Person> getPersonsByTree(int treeID)
     {
         logger.info("[PERSISTENCE CONTROLLER] Get persons by tree");
         return personDao.GetAll(treeID);
-    }
-
-    public List<Person> getPersons(int start, int max)
-    {
-        logger.info("[PERSISTENCE CONTROLLER] Get persons without tree ");
-        return personDao.getPersons(start, max);
     }
 
     public Coordinate getCoordinates(Place place)

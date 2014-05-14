@@ -63,12 +63,11 @@ public class UserOverviewController extends IPanelController
         return uc.getUsers();
     }
 
-    public void goToTreeOverview(int id)
+    public void goToTreeOverview(int userID)
     {
         TreeOverviewController treeoverviewController = new TreeOverviewController(gui, getClientServiceController());
         JPanel panel = new JPanel();
-        panel = treeoverviewController.show();
-        treeoverviewController.getTrees(id);
+        panel = treeoverviewController.showAdmin(userID);
         treeoverviewController.setAdminframe(panel);
     }
 

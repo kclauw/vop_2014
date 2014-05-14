@@ -30,7 +30,6 @@ public class GuiController
 {
 
     private JFrame programFrame;
-    private PersonOverviewController personoverviewController;
     private LoginController loginController;
     private RegisterController registerController;
     private TreeOverviewController treeControllerOverviewController;
@@ -59,7 +58,7 @@ public class GuiController
         treeController = new TreeController(this, clientServiceController);
         addTreeController = new AddTreeController(this, clientServiceController);
         settingsController = new SettingsController(this, clientServiceController);
-        personoverviewController = new PersonOverviewController(this, clientServiceController);
+
         useroverviewController = new UserOverviewController(this, clientServiceController);
         adminThemeController = new AdminThemeController(this, clientServiceController);
     }
@@ -194,11 +193,6 @@ public class GuiController
             case SETTINGS:
                 content = settingsController.show();
                 programFrame.setTitle("Settings");
-                setDefaultFont();
-                break;
-            case PERSONOVERVIEW:
-                content = personoverviewController.show();
-                programFrame.setTitle("Person overview");
                 setDefaultFont();
                 break;
             case USEROVERVIEW:

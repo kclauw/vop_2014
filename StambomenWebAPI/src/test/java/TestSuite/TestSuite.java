@@ -9,6 +9,7 @@ package TestSuite;
  *
  * @author admin
  */
+import domain.controller.TreeControllerTest;
 import domain.controller.UserControllerTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -16,7 +17,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
         {
-            UserControllerTest.class
+            UserControllerTest.class,
+            TreeControllerTest.class
         })
 public class TestSuite
 {

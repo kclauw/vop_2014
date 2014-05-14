@@ -48,6 +48,7 @@ public class ClientGedcomService extends ClientService
         BufferedInputStream bis = new BufferedInputStream(input);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         System.out.println("IMPORTING GEDCOM FILE ");
+
         Response response = client.target(url + "gedcom/import/" + privacy + "/" + name).request(MediaType.APPLICATION_JSON).post(Entity.entity(bis, MediaType.APPLICATION_OCTET_STREAM_TYPE));
         if (response.getStatus() == 400)
         {
@@ -67,7 +68,7 @@ public class ClientGedcomService extends ClientService
             System.out.println("Error occured" + response.toString() + "  " + resp);
             return " " + resp;
         }
-
-        return null;
+        System.out.println("GEDCOM FILE IMPORTER");
+        return "works";
     }
 }

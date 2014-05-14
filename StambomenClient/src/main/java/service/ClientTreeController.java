@@ -40,6 +40,12 @@ public class ClientTreeController extends ClientService
 
     }
 
+    public List<TreeDTO> getTreesAdmin(int userID)
+    {
+        logger.info("[CLIENT TREE CONTROLLER][GET TREES]Get trees with id: " + userID);
+        return client.getTreesAdmin(userID);
+    }
+
     public TreeDTO getTree(int id)
     {
         return client.getTree(id);

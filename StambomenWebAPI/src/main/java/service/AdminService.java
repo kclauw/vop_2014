@@ -2,9 +2,11 @@ package service;
 
 import com.wordnik.swagger.annotations.ApiOperation;
 import domain.Person;
+import domain.Tree;
 import domain.User;
 import domain.controller.ApplicationController;
 import domain.controller.PersonController;
+import domain.controller.TreeController;
 import domain.controller.UserController;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,17 +31,9 @@ public class AdminService
     private PersonController pc = new PersonController();
     private UserController uc = new UserController();
     private ApplicationController ac = new ApplicationController();
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private TreeController tc = new TreeController();
 
-    @GET
-    @Path("/persons/{start}/{max}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Person> getPersons(@PathParam("treeID") int treeID, @PathParam("start") int start, @PathParam("max") int max) throws IOException
-    {
-        logger.info("[PERSON SERVICE][GET] Getting persons");
-        List<Person> persons = pc.getPersons(start, max);
-        return persons;
-    }
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @GET
     @Path("/users")
@@ -146,6 +140,17 @@ public class AdminService
         {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
         }
+    }
+
+    @GET
+    @Path("/getTree/{userId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Get trees based on the userID", notes = "This method return the tree of the logged in user.", response = Tree.class)
+    public List<Tree> getTreeByUser(@PathParam("userId") int userId)
+    {
+        logger.info("[TREE SERVICE][GET] Getting trees by userid" + userId);
+        List<Tree> tr = tc.getTrees(userId);
+        return tr;
     }
 
 }
