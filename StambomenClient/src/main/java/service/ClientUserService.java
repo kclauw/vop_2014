@@ -71,7 +71,14 @@ public class ClientUserService extends ClientService
                 logger.info("[CLIENT USER SERVICE][LOGIN]User userDTO found " + userDTO);
                 getClientServiceController().setUser(userDTO);
 
-                result = "";
+                if (userDTO != null && userDTO.getBlock())
+                {
+                    result = "Block";
+                }
+                else
+                {
+                    result = "";
+                }
 
                 break;
             }
