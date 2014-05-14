@@ -112,14 +112,16 @@ public class PersonController
                 case CHILD:
                     System.out.println("ADDING CHILD");
                     Person parent = pc.getPerson(treeID, personLinkID);
-
-                    if (parent.getGender() == Gender.MALE)
+                    if (parent != null)
                     {
-                        person.setFather(parent);
-                    }
-                    else
-                    {
-                        person.setMother(parent);
+                        if (parent.getGender() == Gender.MALE)
+                        {
+                            person.setFather(parent);
+                        }
+                        else
+                        {
+                            person.setMother(parent);
+                        }
                     }
                     id = addChild(treeID, person);
                     //ac.addActivity(act);
