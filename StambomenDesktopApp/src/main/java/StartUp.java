@@ -17,7 +17,7 @@ public class StartUp
                 try
                 {
                     //Eerst de modus waarop we draaien instellen!
-                    ServiceConstant.getInstance().setMode(0);
+                    ServiceConstant.getInstance().setMode(2);
                     new GuiController();
                 }
                 catch (Exception e)

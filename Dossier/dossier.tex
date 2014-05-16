@@ -867,7 +867,7 @@ Op basis van deze informatie zorgt de TreeLayout voor een compacte layout met ee
 De indeling toont de hiërarchische structuur van de boom, namelijk de y-coördinaat van een knooppunt wordt bepaald door het niveau.
 
 De randen kruisen elkaar niet en de nodes op hetzelfde niveau hebben een minimale horizontale afstand.
-De volgorode van de kinderen van een knooppunt wordt weergegeven in de tekening.
+De volgorde van de kinderen van een knooppunt wordt weergegeven in de tekening.
 
 Het algoritme werkt symmetrisch, dat wil zeggen de tekening van de weerspiegeling van een boom is het gereflecteerde tekening van de oorspronkelijke boom
 
@@ -907,29 +907,31 @@ Het is aangeraden om voor de kritische en complexe onderdelen van uw een applica
 
 
 
-\chapter{Kwaliteitscontrole}
-Om de kwaliteit van onze applicatie te garanderen wordt er gebruik gemaakt van Test-driven development die een onderdeel is van agile softwareontwikkeling.
-
-Hoe werkt Test-driven development?
-
-Voor dat er code geschreven wordt maak je eerst een geautomatiseerde test waarbij je rekening moet houden met alle mogelijkheden van invoer , errors en uitvoer. Op deze manier moet je nog geen rekening houden met code.
-De eerste keer dat een test uitgevoerd wordt moet deze een error produceren omdat er nog geen code aanwezig is.
-Na het afwerken van de test is het de bedoeling om op basis van de tests code te schrijven.
-Eens de code met succes de verschillende testen kan doorstaan kun je bepaalde bugs uit je applicatie al uitsluiten.
-
-Voor onze applicatie hebben we gekozen voor JUNIT die het mogelijk maakt om aan de hand van functionele of integratie testen te debuggen volgens de opgestelde use cases.
-
-
-Wat moet er getest worden?
-
-In het algemeen is het veilig om bepaalde methoden zoals getters en setters die gewoon waarden oproepen of toewijzen te negeren. Het schrijven van tests hiervoor is tijdrovend en zinloos omdat je op deze manier de Java Virtual Machine zou testen waarvoor er al testen voorzien zijn.
-
-Het is aangeraden om voor de kritische en complexe onderdelen van uw een applicatie uitgebreide testen te voorzien. Een stevige test suite beschermt u ook tegen regressie in de bestaande code als je nieuwe features introduceert.
-
-
 \chapter{Gekende problemen}
 
 \chapter{Verbeterpunten en uitbreidingsmogelijkheden}
+\subsection{Gedcom}
+* Exporteren van gedcom bestanden
+	Op de documentatie pagina van Gedcom4j staat er een perfect voorbeeld van hoe een GEDCOM bestand kan opgesteld worden met de nodige controle door een gedcomvalidator vanaf nul.
+	http://gedcom4j.org/main/example-creating-gedcom-scratch
+* Meerdere stambomen uit een gedcom bestand importeren
+	Bij het importeren van een gedcom bestand in de huidige applicatie is het enkel mogelijk om een stamboom te importeren waarvan alle relaties aan elkaar geknoopt zijn.
+	Een uitbreiding zou ervoor kunnen zorgen dat meerdere stambomen opgesteld worden uit eenzelfde bestand.
+*Toevoegen van een gedcom bestand aan een stamboom
+ 
+\subsection{Stambomen}
+* Printen van een stamboom
+* Personen verplaatsen tussen stambomen
+* Samenvoegen van stambomen
+* In 3D wandelen door een stamboom
+* Exporteren en importeren van stambomen in bepaalde formaten zoals pdf , word , excel ,scv ..
+
+\subsection{Admin}
+* Importeren van database files 
+* Een statistisch overzicht van de verschillende acties in de applicaties 
+
+
+
 
 \chapter{Nabeschouwing en besluit}
 
