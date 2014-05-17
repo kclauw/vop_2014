@@ -110,6 +110,9 @@ The stambomen folder contains the [DB-script][dbS] and the [perlscript][pS]
 6. run the stambomenDesktopAPP jar
 7. login
 
+## Remark ##
+* please run the StambomenWebApp in Google Chrome to get a full-featured experience
+
 ## login details ##
 * username: default
 * password: 123456789
