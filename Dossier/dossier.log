@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.5.5)  18 MAY 2014 17:50
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.5.5)  18 MAY 2014 17:53
 entering extended mode
 **dossier.tex
 
@@ -739,7 +739,7 @@ out)
 out)
 \@outlinefile=\write3
 \c@lstlisting=\count141
- <images/logo.png, id=254, 411.78844pt x 411.78844pt>
+ <images/logo.png, id=250, 411.78844pt x 411.78844pt>
 File: images/logo.png Graphic file (type png)
 
 <use images/logo.png>
@@ -779,7 +779,7 @@ tocpdfTeX warning (ext4): destination with the same identifier (name{page.2}) h
 as been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.53 ...er}{\numberline {4}Analyse}{19}{chapter.4}
+l.52 ...er}{\numberline {4}Analyse}{19}{chapter.4}
                                                    [2
 
 ]
@@ -820,25 +820,25 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [7]
+Chapter 3.
+LaTeX Font Info:    Try loading font information for OMS+cmss on input line 379
+.
+LaTeX Font Info:    No file OMScmss.fd. on input line 379.
+
+LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead
+(Font)              for symbol `textbullet' on input line 379.
+
+[8
+
+]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[8]
-Chapter 3.
-LaTeX Font Info:    Try loading font information for OMS+cmss on input line 383
-.
-LaTeX Font Info:    No file OMScmss.fd. on input line 383.
-
-LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
-(Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbullet' on input line 383.
-
-[9
-
-]
+[9]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -867,14 +867,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [13]
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[14]
-Overfull \hbox (74.25381pt too wide) in paragraph at lines 546--573
+Overfull \hbox (74.25381pt too wide) in paragraph at lines 542--569
 [] 
  []
 
@@ -884,7 +877,18 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
+[14]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
 [15]
+Overfull \hbox (77.88852pt too wide) in paragraph at lines 570--605
+[][] 
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -892,10 +896,6 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [16]
-Overfull \hbox (77.88852pt too wide) in paragraph at lines 574--609
-[][] 
- []
-
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -903,41 +903,57 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [17]
+Chapter 4.
+[18
+
+]
+Chapter 5.
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 619.
+
+[19
+
+]
+Chapter 6.
+[20
+
+] <images/logger.png, id=444, 439.6425pt x 92.59593pt>
+File: images/logger.png Graphic file (type png)
+
+<use images/logger.png>
+Package pdftex.def Info: images/logger.png used on input line 651.
+(pdftex.def)             Requested size: 439.64142pt x 92.59569pt.
+
+Overfull \hbox (49.64142pt too wide) in paragraph at lines 651--652
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 651--652
+
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[18]
-Chapter 4.
-[19
+[21 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
+es/logger.png>] <images/netbeansjunit.png, id=451, 438.8897pt x 334.24875pt>
+File: images/netbeansjunit.png Graphic file (type png)
 
-]
-Chapter 5.
+<use images/netbeansjunit.png>
+Package pdftex.def Info: images/netbeansjunit.png used on input line 666.
+(pdftex.def)             Requested size: 438.88863pt x 334.24792pt.
 
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 623.
-
-[20
-
-]
-Chapter 6.
-[21
-
-] <images/logger.png, id=454, 439.6425pt x 92.59593pt>
-File: images/logger.png Graphic file (type png)
-
-<use images/logger.png>
-Package pdftex.def Info: images/logger.png used on input line 655.
-(pdftex.def)             Requested size: 439.64142pt x 92.59569pt.
-
-Overfull \hbox (49.64142pt too wide) in paragraph at lines 655--656
+Overfull \hbox (48.88863pt too wide) in paragraph at lines 666--667
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 655--656
+Underfull \hbox (badness 10000) in paragraph at lines 666--667
 
  []
 
@@ -948,53 +964,30 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [22 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/logger.png>] <images/netbeansjunit.png, id=462, 438.8897pt x 334.24875pt>
-File: images/netbeansjunit.png Graphic file (type png)
+es/netbeansjunit.png>]
+<images/netbeansjunit2.png, id=458, 283.81032pt x 417.05812pt>
+File: images/netbeansjunit2.png Graphic file (type png)
 
-<use images/netbeansjunit.png>
-Package pdftex.def Info: images/netbeansjunit.png used on input line 670.
-(pdftex.def)             Requested size: 438.88863pt x 334.24792pt.
-
-Overfull \hbox (48.88863pt too wide) in paragraph at lines 670--671
-[][] 
- []
-
+<use images/netbeansjunit2.png>
+Package pdftex.def Info: images/netbeansjunit2.png used on input line 670.
+(pdftex.def)             Requested size: 283.80962pt x 417.0571pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 670--671
 
  []
 
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[23 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/netbeansjunit.png>]
-<images/netbeansjunit2.png, id=468, 283.81032pt x 417.05812pt>
-File: images/netbeansjunit2.png Graphic file (type png)
-
-<use images/netbeansjunit2.png>
-Package pdftex.def Info: images/netbeansjunit2.png used on input line 674.
-(pdftex.def)             Requested size: 283.80962pt x 417.0571pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 674--675
-
- []
-
-<images/junit1.png, id=469, 544.28343pt x 173.89969pt>
+<images/junit1.png, id=459, 544.28343pt x 173.89969pt>
 File: images/junit1.png Graphic file (type png)
  <use images/junit1.png>
-Package pdftex.def Info: images/junit1.png used on input line 678.
+Package pdftex.def Info: images/junit1.png used on input line 674.
 (pdftex.def)             Requested size: 544.2821pt x 173.89925pt.
 
-Overfull \hbox (154.2821pt too wide) in paragraph at lines 678--679
+Overfull \hbox (154.2821pt too wide) in paragraph at lines 674--675
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 678--679
+Underfull \hbox (badness 10000) in paragraph at lines 674--675
 
  []
 
@@ -1008,37 +1001,71 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[24 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
+[23 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
 es/netbeansjunit2.png>]
-<images/beforeafter.png, id=475, 484.05844pt x 219.06844pt>
+<images/beforeafter.png, id=465, 484.05844pt x 219.06844pt>
 File: images/beforeafter.png Graphic file (type png)
 
 <use images/beforeafter.png>
-Package pdftex.def Info: images/beforeafter.png used on input line 687.
+Package pdftex.def Info: images/beforeafter.png used on input line 683.
 (pdftex.def)             Requested size: 484.05725pt x 219.06789pt.
 
-Overfull \hbox (94.05725pt too wide) in paragraph at lines 687--688
+Overfull \hbox (94.05725pt too wide) in paragraph at lines 683--684
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 687--688
+Underfull \hbox (badness 10000) in paragraph at lines 683--684
 
  []
 
-<images/beforeafterclass.png, id=476, 656.4525pt x 124.96687pt>
+<images/beforeafterclass.png, id=466, 656.4525pt x 124.96687pt>
 File: images/beforeafterclass.png Graphic file (type png)
 
 <use images/beforeafterclass.png>
-Package pdftex.def Info: images/beforeafterclass.png used on input line 693.
+Package pdftex.def Info: images/beforeafterclass.png used on input line 689.
 (pdftex.def)             Requested size: 656.4509pt x 124.96657pt.
 
-Overfull \hbox (266.4509pt too wide) in paragraph at lines 693--694
+Overfull \hbox (266.4509pt too wide) in paragraph at lines 689--690
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 693--694
+Underfull \hbox (badness 10000) in paragraph at lines 689--690
+
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[24 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
+es/junit1.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/D
+ossier/images/beforeafter.png>]
+<images/junit2.png, id=473, 249.93375pt x 83.5622pt>
+File: images/junit2.png Graphic file (type png)
+ <use images/junit2.png>
+Package pdftex.def Info: images/junit2.png used on input line 696.
+(pdftex.def)             Requested size: 249.93314pt x 83.56198pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 694--697
+
+ []
+
+<images/junit3.png, id=474, 395.22656pt x 95.6072pt>
+File: images/junit3.png Graphic file (type png)
+ <use images/junit3.png>
+Package pdftex.def Info: images/junit3.png used on input line 704.
+(pdftex.def)             Requested size: 395.22559pt x 95.60695pt.
+
+Overfull \hbox (5.22559pt too wide) in paragraph at lines 704--705
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 704--705
 
  []
 
@@ -1049,65 +1076,31 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [25 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/junit1.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/D
-ossier/images/beforeafter.png>]
-<images/junit2.png, id=483, 249.93375pt x 83.5622pt>
-File: images/junit2.png Graphic file (type png)
- <use images/junit2.png>
-Package pdftex.def Info: images/junit2.png used on input line 700.
-(pdftex.def)             Requested size: 249.93314pt x 83.56198pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 698--701
-
- []
-
-<images/junit3.png, id=484, 395.22656pt x 95.6072pt>
-File: images/junit3.png Graphic file (type png)
- <use images/junit3.png>
-Package pdftex.def Info: images/junit3.png used on input line 708.
-(pdftex.def)             Requested size: 395.22559pt x 95.60695pt.
-
-Overfull \hbox (5.22559pt too wide) in paragraph at lines 708--709
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 708--709
-
- []
-
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[26 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
 es/beforeafterclass.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-201
 4-team12/Dossier/images/junit2.png> <C:/Users/Sklipnoty/Documents/NetBeansProje
 cts/vop-2014-team12/Dossier/images/junit3.png>]
-<images/adduserfail.png, id=492, 246.1697pt x 94.10156pt>
+<images/adduserfail.png, id=482, 246.1697pt x 94.10156pt>
 File: images/adduserfail.png Graphic file (type png)
 
 <use images/adduserfail.png>
-Package pdftex.def Info: images/adduserfail.png used on input line 720.
+Package pdftex.def Info: images/adduserfail.png used on input line 716.
 (pdftex.def)             Requested size: 246.16908pt x 94.10132pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 720--721
+Underfull \hbox (badness 10000) in paragraph at lines 716--717
 
  []
 
 File: images/junit3.png Graphic file (type png)
 <use images/junit3.png>
-Package pdftex.def Info: images/junit3.png used on input line 734.
+Package pdftex.def Info: images/junit3.png used on input line 730.
 (pdftex.def)             Requested size: 395.22559pt x 95.60695pt.
 
-Overfull \hbox (5.22559pt too wide) in paragraph at lines 734--735
+Overfull \hbox (5.22559pt too wide) in paragraph at lines 730--731
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 734--735
+Underfull \hbox (badness 10000) in paragraph at lines 730--731
 
  []
 
@@ -1121,35 +1114,64 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[27 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/adduserfail.png>] <images/gedcom.png, id=498, 462.97969pt x 167.87718pt>
+[26 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
+es/adduserfail.png>] <images/gedcom.png, id=488, 462.97969pt x 167.87718pt>
 File: images/gedcom.png Graphic file (type png)
 
 <use images/gedcom.png>
-Package pdftex.def Info: images/gedcom.png used on input line 752.
+Package pdftex.def Info: images/gedcom.png used on input line 748.
 (pdftex.def)             Requested size: 462.97855pt x 167.87677pt.
 
-Overfull \hbox (72.97855pt too wide) in paragraph at lines 752--753
+Overfull \hbox (72.97855pt too wide) in paragraph at lines 748--749
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 752--753
+Underfull \hbox (badness 10000) in paragraph at lines 748--749
 
  []
 
-<images/gedcomheader.png, id=499, 245.41687pt x 165.61874pt>
+<images/gedcomheader.png, id=489, 245.41687pt x 165.61874pt>
 File: images/gedcomheader.png Graphic file (type png)
 
 <use images/gedcomheader.png>
-Package pdftex.def Info: images/gedcomheader.png used on input line 757.
+Package pdftex.def Info: images/gedcomheader.png used on input line 753.
 (pdftex.def)             Requested size: 245.41626pt x 165.61833pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 753--754
+
+ []
+
+<images/gedcomperson.png, id=490, 182.93344pt x 261.22594pt>
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[27 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
+es/gedcom.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/D
+ossier/images/gedcomheader.png>]
+File: images/gedcomperson.png Graphic file (type png)
+ <use images/gedcomperson.png>
+Package pdftex.def Info: images/gedcomperson.png used on input line 757.
+(pdftex.def)             Requested size: 182.93298pt x 261.22528pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 757--758
 
  []
 
-<images/gedcomperson.png, id=500, 182.93344pt x 261.22594pt>
+<images/gedcomrelaties.png, id=497, 91.84312pt x 68.50594pt>
+File: images/gedcomrelaties.png Graphic file (type png)
+
+<use images/gedcomrelaties.png>
+Package pdftex.def Info: images/gedcomrelaties.png used on input line 761.
+(pdftex.def)             Requested size: 91.84288pt x 68.50577pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 761--762
+
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -1157,25 +1179,27 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [28 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/gedcom.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/D
-ossier/images/gedcomheader.png>]
-File: images/gedcomperson.png Graphic file (type png)
- <use images/gedcomperson.png>
-Package pdftex.def Info: images/gedcomperson.png used on input line 761.
-(pdftex.def)             Requested size: 182.93298pt x 261.22528pt.
+es/gedcomperson.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-te
+am12/Dossier/images/gedcomrelaties.png>]
+<images/gedcomindividual.png, id=505, 271.0125pt x 41.4047pt>
+File: images/gedcomindividual.png Graphic file (type png)
 
-Underfull \hbox (badness 10000) in paragraph at lines 761--762
+<use images/gedcomindividual.png>
+Package pdftex.def Info: images/gedcomindividual.png used on input line 779.
+(pdftex.def)             Requested size: 271.01183pt x 41.40457pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 779--780
 
  []
 
-<images/gedcomrelaties.png, id=508, 91.84312pt x 68.50594pt>
-File: images/gedcomrelaties.png Graphic file (type png)
+<images/gedcomfamily.png, id=506, 226.59656pt x 108.405pt>
+File: images/gedcomfamily.png Graphic file (type png)
 
-<use images/gedcomrelaties.png>
-Package pdftex.def Info: images/gedcomrelaties.png used on input line 765.
-(pdftex.def)             Requested size: 91.84288pt x 68.50577pt.
+<use images/gedcomfamily.png>
+Package pdftex.def Info: images/gedcomfamily.png used on input line 783.
+(pdftex.def)             Requested size: 226.596pt x 108.40472pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 765--766
+Underfull \hbox (badness 10000) in paragraph at lines 783--784
 
  []
 
@@ -1186,29 +1210,43 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [29 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/gedcomperson.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-te
-am12/Dossier/images/gedcomrelaties.png>]
-<images/gedcomindividual.png, id=515, 271.0125pt x 41.4047pt>
-File: images/gedcomindividual.png Graphic file (type png)
+es/gedcomindividual.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-201
+4-team12/Dossier/images/gedcomfamily.png>]
+<images/sardine.png, id=513, 485.56406pt x 231.11343pt>
+File: images/sardine.png Graphic file (type png)
 
-<use images/gedcomindividual.png>
-Package pdftex.def Info: images/gedcomindividual.png used on input line 783.
-(pdftex.def)             Requested size: 271.01183pt x 41.40457pt.
+<use images/sardine.png>
+Package pdftex.def Info: images/sardine.png used on input line 805.
+(pdftex.def)             Requested size: 485.56287pt x 231.11287pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 783--784
+Overfull \hbox (95.56287pt too wide) in paragraph at lines 805--806
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 805--806
 
  []
 
-<images/gedcomfamily.png, id=516, 226.59656pt x 108.405pt>
-File: images/gedcomfamily.png Graphic file (type png)
+<images/sardineupload.png, id=514, 411.03563pt x 152.06813pt>
+File: images/sardineupload.png Graphic file (type png)
 
-<use images/gedcomfamily.png>
-Package pdftex.def Info: images/gedcomfamily.png used on input line 787.
-(pdftex.def)             Requested size: 226.596pt x 108.40472pt.
+<use images/sardineupload.png>
+Package pdftex.def Info: images/sardineupload.png used on input line 812.
+(pdftex.def)             Requested size: 411.03462pt x 152.06775pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 787--788
+Overfull \hbox (21.03462pt too wide) in paragraph at lines 812--813
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 812--813
 
  []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1217,37 +1255,41 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [30 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/gedcomindividual.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-201
-4-team12/Dossier/images/gedcomfamily.png>]
-<images/sardine.png, id=523, 485.56406pt x 231.11343pt>
-File: images/sardine.png Graphic file (type png)
+es/sardine.png>]
+Overfull \hbox (16.98413pt too wide) in paragraph at lines 821--823
+[]\OT1/cmss/m/n/12 Registereren van een de-veloper app : Ga naar ht-tps://devel
+opers.facebook.com/apps
+ []
 
-<use images/sardine.png>
-Package pdftex.def Info: images/sardine.png used on input line 809.
-(pdftex.def)             Requested size: 485.56287pt x 231.11287pt.
+<images/facebook4.png, id=520, 696.35156pt x 79.79813pt>
+File: images/facebook4.png Graphic file (type png)
 
-Overfull \hbox (95.56287pt too wide) in paragraph at lines 809--810
+<use images/facebook4.png>
+Package pdftex.def Info: images/facebook4.png used on input line 824.
+(pdftex.def)             Requested size: 696.34985pt x 79.79791pt.
+
+Overfull \hbox (306.34985pt too wide) in paragraph at lines 824--825
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 809--810
+Underfull \hbox (badness 10000) in paragraph at lines 824--825
 
  []
 
-<images/sardineupload.png, id=524, 411.03563pt x 152.06813pt>
-File: images/sardineupload.png Graphic file (type png)
+<images/facebook.png, id=521, 426.09187pt x 249.93375pt>
+File: images/facebook.png Graphic file (type png)
 
-<use images/sardineupload.png>
-Package pdftex.def Info: images/sardineupload.png used on input line 816.
-(pdftex.def)             Requested size: 411.03462pt x 152.06775pt.
+<use images/facebook.png>
+Package pdftex.def Info: images/facebook.png used on input line 828.
+(pdftex.def)             Requested size: 426.09082pt x 249.93314pt.
 
-Overfull \hbox (21.03462pt too wide) in paragraph at lines 816--817
+Overfull \hbox (36.09082pt too wide) in paragraph at lines 828--829
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 816--817
+Underfull \hbox (badness 10000) in paragraph at lines 828--829
 
  []
 
@@ -1262,36 +1304,16 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [31 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/sardine.png>]
-Overfull \hbox (16.98413pt too wide) in paragraph at lines 825--827
-[]\OT1/cmss/m/n/12 Registereren van een de-veloper app : Ga naar ht-tps://devel
-opers.facebook.com/apps
- []
+es/sardineupload.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-t
+eam12/Dossier/images/facebook4.png>]
+<images/facebook2.png, id=528, 542.77782pt x 268.00125pt>
+File: images/facebook2.png Graphic file (type png)
 
-<images/facebook4.png, id=530, 696.35156pt x 79.79813pt>
-File: images/facebook4.png Graphic file (type png)
+<use images/facebook2.png>
+Package pdftex.def Info: images/facebook2.png used on input line 832.
+(pdftex.def)             Requested size: 542.77649pt x 268.00058pt.
 
-<use images/facebook4.png>
-Package pdftex.def Info: images/facebook4.png used on input line 828.
-(pdftex.def)             Requested size: 696.34985pt x 79.79791pt.
-
-Overfull \hbox (306.34985pt too wide) in paragraph at lines 828--829
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 828--829
-
- []
-
-<images/facebook.png, id=531, 426.09187pt x 249.93375pt>
-File: images/facebook.png Graphic file (type png)
-
-<use images/facebook.png>
-Package pdftex.def Info: images/facebook.png used on input line 832.
-(pdftex.def)             Requested size: 426.09082pt x 249.93314pt.
-
-Overfull \hbox (36.09082pt too wide) in paragraph at lines 832--833
+Overfull \hbox (152.77649pt too wide) in paragraph at lines 832--833
 [][] 
  []
 
@@ -1301,31 +1323,41 @@ Underfull \hbox (badness 10000) in paragraph at lines 832--833
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [32 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/sardineupload.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-t
-eam12/Dossier/images/facebook4.png>]
-<images/facebook2.png, id=538, 542.77782pt x 268.00125pt>
-File: images/facebook2.png Graphic file (type png)
+es/facebook.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12
+/Dossier/images/facebook2.png>]
+<images/facebook3.png, id=534, 537.50812pt x 135.50626pt>
+File: images/facebook3.png Graphic file (type png)
 
-<use images/facebook2.png>
-Package pdftex.def Info: images/facebook2.png used on input line 836.
-(pdftex.def)             Requested size: 542.77649pt x 268.00058pt.
+<use images/facebook3.png>
+Package pdftex.def Info: images/facebook3.png used on input line 836.
+(pdftex.def)             Requested size: 537.5068pt x 135.5059pt.
 
-Overfull \hbox (152.77649pt too wide) in paragraph at lines 836--837
+Overfull \hbox (147.5068pt too wide) in paragraph at lines 836--837
 [][] 
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 836--837
+
+ []
+
+File: images/facebook4.png Graphic file (type png)
+<use images/facebook4.png>
+Package pdftex.def Info: images/facebook4.png used on input line 839.
+(pdftex.def)             Requested size: 696.34985pt x 79.79791pt.
+
+Overfull \hbox (560.94923pt too wide) in paragraph at lines 838--840
+\OT1/cmss/m/n/12 aan waarin de secret code van de API ver-meld wordt. [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 838--840
 
  []
 
@@ -1336,36 +1368,10 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [33 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/facebook.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12
-/Dossier/images/facebook2.png>]
-<images/facebook3.png, id=544, 537.50812pt x 135.50626pt>
-File: images/facebook3.png Graphic file (type png)
-
-<use images/facebook3.png>
-Package pdftex.def Info: images/facebook3.png used on input line 840.
-(pdftex.def)             Requested size: 537.5068pt x 135.5059pt.
-
-Overfull \hbox (147.5068pt too wide) in paragraph at lines 840--841
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 840--841
-
- []
-
-File: images/facebook4.png Graphic file (type png)
-<use images/facebook4.png>
-Package pdftex.def Info: images/facebook4.png used on input line 843.
-(pdftex.def)             Requested size: 696.34985pt x 79.79791pt.
-
-Overfull \hbox (560.94923pt too wide) in paragraph at lines 842--844
-\OT1/cmss/m/n/12 aan waarin de secret code van de API ver-meld wordt. [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 842--844
-
+es/facebook3.png>]
+Overfull \hbox (44.71713pt too wide) in paragraph at lines 888--889
+[]\OT1/cmss/m/n/12 Om gebruik te maken van de Abego TreeLay-out moet je de org.
+abego.treelayout.core.jar(de
  []
 
 
@@ -1374,13 +1380,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[34 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/facebook3.png>]
-Overfull \hbox (44.71713pt too wide) in paragraph at lines 892--893
-[]\OT1/cmss/m/n/12 Om gebruik te maken van de Abego TreeLay-out moet je de org.
-abego.treelayout.core.jar(de
- []
-
+[34]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -1395,27 +1395,20 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [36]
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[37]
 Chapter 7.
-[38
+[37
 
 ]
 Chapter 8.
-[39
+[38
 
 ]
 Chapter 9.
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 948.
+(hyperref)                than one, level fixed on input line 944.
 
-[40
+[39
 
 ]
 
@@ -1424,63 +1417,63 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[41]
+[40]
 Chapter 10.
-[42
+[41
 
 ]
 (C:\Users\Sklipnoty\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.
 lof)
 \tf@lof=\write5
- [43
+ [42
 
 
 ]
 (C:\Users\Sklipnoty\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.
 lot)
 \tf@lot=\write6
- [44
+ [43
 
 
 ]
 Appendix A.
-<Files/stambomen-sprint1.pdf, id=604, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint1.pdf, id=594, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf>
-Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 1034.
+Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 1030.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
  <use Files/stambomen-sprint1.pdf>
-Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 1034.
+Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 1030.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
- [45
+ [44
 
 ]
-<Files/stambomen-sprint1.pdf, id=611, page=1, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint1.pdf, id=601, page=1, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-1034.
+1030.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-1034.
+1030.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-1034.
+1030.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-1034.
+1030.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 
 
@@ -1492,72 +1485,72 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-1034.
+1030.
+(pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
+ [45 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/Fil
+es/stambomen-sprint1.pdf>]
+<Files/stambomen-sprint1.pdf, id=622, page=2, 597.55246pt x 845.07718pt>
+File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
+
+<use Files/stambomen-sprint1.pdf, page 2>
+Package pdftex.def Info: Files/stambomen-sprint1.pdf, page2 used on input line 
+1030.
+(pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
+File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
+
+<use Files/stambomen-sprint1.pdf, page 2>
+Package pdftex.def Info: Files/stambomen-sprint1.pdf, page2 used on input line 
+1030.
+(pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
+<use Files/stambomen-sprint1.pdf, page 2>
+Package pdftex.def Info: Files/stambomen-sprint1.pdf, page2 used on input line 
+1030.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
  [46 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/Fil
 es/stambomen-sprint1.pdf>]
-<Files/stambomen-sprint1.pdf, id=633, page=2, 597.55246pt x 845.07718pt>
-File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
-
-<use Files/stambomen-sprint1.pdf, page 2>
-Package pdftex.def Info: Files/stambomen-sprint1.pdf, page2 used on input line 
-1034.
-(pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
-File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
-
-<use Files/stambomen-sprint1.pdf, page 2>
-Package pdftex.def Info: Files/stambomen-sprint1.pdf, page2 used on input line 
-1034.
-(pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
-
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
-<use Files/stambomen-sprint1.pdf, page 2>
-Package pdftex.def Info: Files/stambomen-sprint1.pdf, page2 used on input line 
-1034.
-(pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
- [47 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/Fil
-es/stambomen-sprint1.pdf>]
-<Files/stambomen-sprint2.pdf, id=642, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint2.pdf, id=632, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf>
-Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 1035.
+Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 1031.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
  <use Files/stambomen-sprint2.pdf>
-Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 1035.
+Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 1031.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 
-<Files/stambomen-sprint2.pdf, id=645, page=1, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint2.pdf, id=635, page=1, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-1035.
+1031.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-1035.
+1031.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-1035.
+1031.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-1035.
+1031.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 
 
@@ -1569,44 +1562,44 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-1035.
+1031.
+(pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
+ [47 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/Fil
+es/stambomen-sprint2.pdf>]
+<Files/stambomen-sprint2.pdf, id=653, page=2, 597.55246pt x 845.07718pt>
+File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
+
+<use Files/stambomen-sprint2.pdf, page 2>
+Package pdftex.def Info: Files/stambomen-sprint2.pdf, page2 used on input line 
+1031.
+(pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
+File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
+
+<use Files/stambomen-sprint2.pdf, page 2>
+Package pdftex.def Info: Files/stambomen-sprint2.pdf, page2 used on input line 
+1031.
+(pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
+<use Files/stambomen-sprint2.pdf, page 2>
+Package pdftex.def Info: Files/stambomen-sprint2.pdf, page2 used on input line 
+1031.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
  [48 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/Fil
 es/stambomen-sprint2.pdf>]
-<Files/stambomen-sprint2.pdf, id=663, page=2, 597.55246pt x 845.07718pt>
-File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
-
-<use Files/stambomen-sprint2.pdf, page 2>
-Package pdftex.def Info: Files/stambomen-sprint2.pdf, page2 used on input line 
-1035.
-(pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
-File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
-
-<use Files/stambomen-sprint2.pdf, page 2>
-Package pdftex.def Info: Files/stambomen-sprint2.pdf, page2 used on input line 
-1035.
-(pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
-
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
-<use Files/stambomen-sprint2.pdf, page 2>
-Package pdftex.def Info: Files/stambomen-sprint2.pdf, page2 used on input line 
-1035.
-(pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
- [49 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/Fil
-es/stambomen-sprint2.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1037.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1037.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1033.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1033.
 
 (C:\Users\Sklipnoty\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.
 aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1037.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1037.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1033.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1033.
 
 
 
@@ -1615,26 +1608,26 @@ Package rerunfilecheck Warning: File `dossier.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `dossier.out':
-(rerunfilecheck)             Before: EC1C405DA4BC46B3A17F94B87A3F9442;3979
-(rerunfilecheck)             After:  02FB3423E9F9ECC147CB2747ABC9A3B6;3911.
+(rerunfilecheck)             Before: 02FB3423E9F9ECC147CB2747ABC9A3B6;3911
+(rerunfilecheck)             After:  8CBD2DFF274134016C33BB2AD6315B0E;3854.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1037.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1033.
  ) 
 Here is how much of TeX's memory you used:
- 10599 strings out of 493921
- 156106 string characters out of 3144865
+ 10595 strings out of 493921
+ 156054 string characters out of 3144865
  279140 words of memory out of 3000000
- 13552 multiletter control sequences out of 15000+200000
+ 13551 multiletter control sequences out of 15000+200000
  13650 words of font info for 52 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  40i,19n,46p,722b,479s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{subsection.3.4.6} has been referenced but does no
-t exist, replaced by a fixed one
+pdfTeX warning (dest): name{section.2.3} has been referenced but does not exi
+st, replaced by a fixed one
 
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:
 /Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/P
@@ -1644,9 +1637,9 @@ am Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Program
 Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Program 
 Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi12.pfb><C:/Program F
 iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on dossier.pdf (52 pages, 884796 bytes).
+Output written on dossier.pdf (51 pages, 884080 bytes).
 PDF statistics:
- 730 PDF objects out of 1000 (max. 8388607)
- 150 named destinations out of 1000 (max. 500000)
- 665 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 720 PDF objects out of 1000 (max. 8388607)
+ 147 named destinations out of 1000 (max. 500000)
+ 657 words of extra memory for PDF output out of 10000 (max. 10000000)
 
