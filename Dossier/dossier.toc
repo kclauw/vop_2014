@@ -60,12 +60,14 @@
 \contentsline {subsection}{\numberline {6.1.9}JCalendar}{32}{subsection.6.1.9}
 \contentsline {subsection}{\numberline {6.1.10}Abego TreeLayout}{33}{subsection.6.1.10}
 \contentsline {subsection}{\numberline {6.1.11}Java FX}{34}{subsection.6.1.11}
+\contentsline {subsection}{\numberline {6.1.12}JQuery}{34}{subsection.6.1.12}
+\contentsline {subsection}{\numberline {6.1.13}JQuery UI}{34}{subsection.6.1.13}
 \contentsline {chapter}{\numberline {7}Kwaliteitscontrole}{35}{chapter.7}
 \contentsline {chapter}{\numberline {8}Gekende problemen}{36}{chapter.8}
 \contentsline {chapter}{\numberline {9}Verbeterpunten en uitbreidingsmogelijkheden}{37}{chapter.9}
-\contentsline {subsection}{\numberline {9.0.12}Gedcom}{37}{subsection.9.0.12}
-\contentsline {subsection}{\numberline {9.0.13}Stambomen}{37}{subsection.9.0.13}
-\contentsline {subsection}{\numberline {9.0.14}Admin}{38}{subsection.9.0.14}
+\contentsline {subsection}{\numberline {9.0.14}Gedcom}{37}{subsection.9.0.14}
+\contentsline {subsection}{\numberline {9.0.15}Stambomen}{37}{subsection.9.0.15}
+\contentsline {subsection}{\numberline {9.0.16}Admin}{38}{subsection.9.0.16}
 \contentsline {chapter}{\numberline {10}Nabeschouwing en besluit}{39}{chapter.10}
 \vspace *{\baselineskip }
 \contentsline {chapter}{List of Figures}{40}{chapter.10}
