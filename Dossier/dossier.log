@@ -1,7 +1,8 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.5.8)  15 MAY 2014 20:33
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.5.10)  17 MAY 2014 22:03
 entering extended mode
 **dossier.tex
-(C:\Users\admin\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.tex
+
+(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -640,7 +641,7 @@ Package color Info: Redefining color cyan on input line 50.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
 File: lstlang1.sty 2014/03/04 1.5c listings language file
 )
-(C:\Users\admin\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.aux
+(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.aux
 
 LaTeX Warning: Label `sec:opdrachtsprint1' multiply defined.
 
@@ -700,11 +701,13 @@ LaTeX Info: Redefining \ref on input line 225.
 LaTeX Info: Redefining \pageref on input line 225.
 LaTeX Info: Redefining \nameref on input line 225.
 
-(C:\Users\admin\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.out)
-(C:\Users\admin\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.out)
+(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.out
+)
+(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.out
+)
 \@outlinefile=\write3
 \c@lstlisting=\count141
-<images/logo.png, id=242, 411.78844pt x 411.78844pt>
+ <images/logo.png, id=238, 411.78844pt x 411.78844pt>
 File: images/logo.png Graphic file (type png)
  <use images/logo.png>
 Package pdftex.def Info: images/logo.png used on input line 232.
@@ -725,10 +728,10 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 259.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/admin/Documents/
-NetBeansProjects/vop-2014-team12/Dossier/images/logo.png>] [2]pdfTeX warning (e
-xt4): destination with the same identifier (name{page.1}) has been already used
-, duplicate ignored
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/Admin2/Documents
+/NetBeansProjects/vop-2014-team12/Dossier/images/logo.png>] [2]pdfTeX warning (
+ext4): destination with the same identifier (name{page.1}) has been already use
+d, duplicate ignored
 <to be read again> 
                    \relax 
 l.315 \end{titlepage}
@@ -738,12 +741,12 @@ ifier (name{page.1}) has been already used, duplicate ignored
                    \relax 
 l.321 \tableofcontents
                        [1]
-(C:\Users\admin\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.tocp
-dfTeX warning (ext4): destination with the same identifier (name{page.2}) has b
-een already used, duplicate ignored
+(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.toc
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
+been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.48 ...er}{\numberline {4}Analyse}{18}{chapter.4}
+l.48 ...er}{\numberline {4}Analyse}{17}{chapter.4}
                                                    [2
 
 ])
@@ -756,15 +759,8 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [3]
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[4]
 Chapter 1.
-[5
+[4
 
 ]
 Chapter 2.
@@ -774,7 +770,7 @@ Overfull \hbox (21.02925pt too wide) in paragraph at lines 339--340
 -soon een buitenechtelijke
  []
 
-[6
+[5
 
 ]
 
@@ -783,14 +779,14 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[7]
+[6]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[8]
+[7]
 Chapter 3.
 LaTeX Font Info:    Try loading font information for OMS+cmss on input line 383
 .
@@ -800,9 +796,16 @@ LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
 (Font)              for symbol `textbullet' on input line 383.
 
-[9
+[8
 
 ]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[9]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -824,13 +827,6 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [12]
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[13]
 Overfull \hbox (71.8647pt too wide) in paragraph at lines 528--555
 [] 
  []
@@ -841,14 +837,14 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[14]
+[13]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[15]
+[14]
 Overfull \hbox (71.8647pt too wide) in paragraph at lines 556--591
 [][] 
  []
@@ -859,30 +855,30 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[16]
+[15]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[17]
+[16]
 Chapter 4.
-[18
+[17
 
 ]
 Chapter 5.
-[19
+[18
 
 ]
 Chapter 6.
-[20
+[19
 
 ]
 Chapter 7.
-[21
+[20
 
-] <images/logger.png, id=435, 439.6425pt x 92.59593pt>
+] <images/logger.png, id=426, 439.6425pt x 92.59593pt>
 File: images/logger.png Graphic file (type png)
 
 <use images/logger.png>
@@ -904,8 +900,8 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[22 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/l
-ogger.png>] <images/netbeansjunit.png, id=443, 438.8897pt x 334.24875pt>
+[21 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
+logger.png>] <images/netbeansjunit.png, id=433, 438.8897pt x 334.24875pt>
 File: images/netbeansjunit.png Graphic file (type png)
 
 <use images/netbeansjunit.png>
@@ -927,9 +923,9 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[23 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/n
-etbeansjunit.png>]
-<images/netbeansjunit2.png, id=449, 283.81032pt x 417.05812pt>
+[22 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
+netbeansjunit.png>]
+<images/netbeansjunit2.png, id=440, 283.81032pt x 417.05812pt>
 File: images/netbeansjunit2.png Graphic file (type png)
 
 <use images/netbeansjunit2.png>
@@ -940,7 +936,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 657--658
 
  []
 
-<images/junit1.png, id=450, 544.28343pt x 173.89969pt>
+<images/junit1.png, id=441, 544.28343pt x 173.89969pt>
 File: images/junit1.png Graphic file (type png)
  <use images/junit1.png>
 Package pdftex.def Info: images/junit1.png used on input line 661.
@@ -965,9 +961,9 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[24 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/n
-etbeansjunit2.png>]
-<images/beforeafter.png, id=456, 484.05844pt x 219.06844pt>
+[23 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
+netbeansjunit2.png>]
+<images/beforeafter.png, id=447, 484.05844pt x 219.06844pt>
 File: images/beforeafter.png Graphic file (type png)
 
 <use images/beforeafter.png>
@@ -983,7 +979,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 670--671
 
  []
 
-<images/beforeafterclass.png, id=457, 656.4525pt x 124.96687pt>
+<images/beforeafterclass.png, id=448, 656.4525pt x 124.96687pt>
 File: images/beforeafterclass.png Graphic file (type png)
 
 <use images/beforeafterclass.png>
@@ -1005,9 +1001,9 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[25 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/j
-unit1.png> <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/i
-mages/beforeafter.png>] <images/junit2.png, id=464, 249.93375pt x 83.5622pt>
+[24 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
+junit1.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier
+/images/beforeafter.png>] <images/junit2.png, id=455, 249.93375pt x 83.5622pt>
 File: images/junit2.png Graphic file (type png)
 
 <use images/junit2.png>
@@ -1018,7 +1014,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 681--684
 
  []
 
-<images/junit3.png, id=465, 395.22656pt x 95.6072pt>
+<images/junit3.png, id=456, 395.22656pt x 95.6072pt>
 File: images/junit3.png Graphic file (type png)
  <use images/junit3.png>
 Package pdftex.def Info: images/junit3.png used on input line 691.
@@ -1039,11 +1035,11 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[26 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/b
-eforeafterclass.png> <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12
-/Dossier/images/junit2.png> <C:/Users/admin/Documents/NetBeansProjects/vop-2014
--team12/Dossier/images/junit3.png>]
-<images/adduserfail.png, id=473, 246.1697pt x 94.10156pt>
+[25 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
+beforeafterclass.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team
+12/Dossier/images/junit2.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2
+014-team12/Dossier/images/junit3.png>]
+<images/adduserfail.png, id=464, 246.1697pt x 94.10156pt>
 File: images/adduserfail.png Graphic file (type png)
 
 <use images/adduserfail.png>
@@ -1078,8 +1074,8 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[27 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/a
-dduserfail.png>] <images/gedcom.png, id=479, 462.97969pt x 167.87718pt>
+[26 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
+adduserfail.png>] <images/gedcom.png, id=470, 462.97969pt x 167.87718pt>
 File: images/gedcom.png Graphic file (type png)
 
 <use images/gedcom.png>
@@ -1095,7 +1091,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 735--736
 
  []
 
-<images/gedcomheader.png, id=480, 245.41687pt x 165.61874pt>
+<images/gedcomheader.png, id=471, 245.41687pt x 165.61874pt>
 File: images/gedcomheader.png Graphic file (type png)
 
 <use images/gedcomheader.png>
@@ -1106,16 +1102,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 740--741
 
  []
 
-<images/gedcomperson.png, id=481, 182.93344pt x 261.22594pt>
+<images/gedcomperson.png, id=472, 182.93344pt x 261.22594pt>
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[28 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/g
-edcom.png> <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/i
-mages/gedcomheader.png>]
+[27 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
+gedcom.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier
+/images/gedcomheader.png>]
 File: images/gedcomperson.png Graphic file (type png)
  <use images/gedcomperson.png>
 Package pdftex.def Info: images/gedcomperson.png used on input line 744.
@@ -1125,7 +1121,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 744--745
 
  []
 
-<images/gedcomrelaties.png, id=489, 91.84312pt x 68.50594pt>
+<images/gedcomrelaties.png, id=479, 91.84312pt x 68.50594pt>
 File: images/gedcomrelaties.png Graphic file (type png)
 
 <use images/gedcomrelaties.png>
@@ -1142,10 +1138,10 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[29 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/g
-edcomperson.png> <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dos
-sier/images/gedcomrelaties.png>]
-<images/gedcomindividual.png, id=496, 271.0125pt x 41.4047pt>
+[28 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
+gedcomperson.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/D
+ossier/images/gedcomrelaties.png>]
+<images/gedcomindividual.png, id=487, 271.0125pt x 41.4047pt>
 File: images/gedcomindividual.png Graphic file (type png)
 
 <use images/gedcomindividual.png>
@@ -1156,7 +1152,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 766--767
 
  []
 
-<images/gedcomfamily.png, id=497, 226.59656pt x 108.405pt>
+<images/gedcomfamily.png, id=488, 226.59656pt x 108.405pt>
 File: images/gedcomfamily.png Graphic file (type png)
 
 <use images/gedcomfamily.png>
@@ -1173,10 +1169,10 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[30 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/g
-edcomindividual.png> <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12
-/Dossier/images/gedcomfamily.png>]
-<images/sardine.png, id=504, 485.56406pt x 231.11343pt>
+[29 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
+gedcomindividual.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team
+12/Dossier/images/gedcomfamily.png>]
+<images/sardine.png, id=495, 485.56406pt x 231.11343pt>
 File: images/sardine.png Graphic file (type png)
 
 <use images/sardine.png>
@@ -1192,7 +1188,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 792--793
 
  []
 
-<images/sardineupload.png, id=505, 411.03563pt x 152.06813pt>
+<images/sardineupload.png, id=496, 411.03563pt x 152.06813pt>
 File: images/sardineupload.png Graphic file (type png)
 
 <use images/sardineupload.png>
@@ -1218,14 +1214,14 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[31 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/s
-ardine.png>]
+[30 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
+sardine.png>]
 Overfull \hbox (16.98413pt too wide) in paragraph at lines 808--810
 []\OT1/cmss/m/n/12 Registereren van een de-veloper app : Ga naar ht-tps://devel
 opers.facebook.com/apps
  []
 
-<images/facebook4.png, id=511, 696.35156pt x 79.79813pt>
+<images/facebook4.png, id=502, 696.35156pt x 79.79813pt>
 File: images/facebook4.png Graphic file (type png)
 
 <use images/facebook4.png>
@@ -1241,7 +1237,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 811--812
 
  []
 
-<images/facebook.png, id=512, 426.09187pt x 249.93375pt>
+<images/facebook.png, id=503, 426.09187pt x 249.93375pt>
 File: images/facebook.png Graphic file (type png)
 
 <use images/facebook.png>
@@ -1267,10 +1263,10 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[32 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/s
-ardineupload.png> <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Do
-ssier/images/facebook4.png>]
-<images/facebook2.png, id=519, 542.77782pt x 268.00125pt>
+[31 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
+sardineupload.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/
+Dossier/images/facebook4.png>]
+<images/facebook2.png, id=510, 542.77782pt x 268.00125pt>
 File: images/facebook2.png Graphic file (type png)
 
 <use images/facebook2.png>
@@ -1292,10 +1288,10 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[33 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/f
-acebook.png> <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier
-/images/facebook2.png>]
-<images/facebook3.png, id=525, 537.50812pt x 135.50626pt>
+[32 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
+facebook.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossi
+er/images/facebook2.png>]
+<images/facebook3.png, id=516, 537.50812pt x 135.50626pt>
 File: images/facebook3.png Graphic file (type png)
 
 <use images/facebook3.png>
@@ -1331,8 +1327,8 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[34 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/f
-acebook3.png>]
+[33 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
+facebook3.png>]
 Overfull \hbox (44.71713pt too wide) in paragraph at lines 875--876
 []\OT1/cmss/m/n/12 Om gebruik te maken van de Abego TreeLay-out moet je de org.
 abego.treelayout.core.jar(de
@@ -1344,35 +1340,31 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[35]
+[34]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[36]
+[35]
 Chapter 8.
-[37
+[36
 
 ]
 Chapter 9.
-[38
+[37
 
 ]
 Chapter 10.
-[39
-
-]
-Chapter 11.
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 935.
+(hyperref)                than one, level fixed on input line 913.
 
 
-Underfull \vbox (badness 6300) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [40
+ [38
 
 ]
 
@@ -1381,61 +1373,63 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[41]
-Chapter 12.
-[42
+[39]
+Chapter 11.
+[40
 
 ]
-(C:\Users\admin\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.lof)
+(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.lof
+)
 \tf@lof=\write5
-[43
+ [41
 
 
 ]
-(C:\Users\admin\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.lot)
+(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.lot
+)
 \tf@lot=\write6
-[44
+ [42
 
 
 ]
 Appendix A.
-<Files/stambomen-sprint1.pdf, id=574, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint1.pdf, id=561, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf>
-Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 990.
+Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 970.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
  <use Files/stambomen-sprint1.pdf>
-Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 990.
+Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 970.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
- [45
+ [43
 
 ]
-<Files/stambomen-sprint1.pdf, id=581, page=1, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint1.pdf, id=568, page=1, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-990.
+970.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-990.
+970.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-990.
+970.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-990.
+970.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 
 
@@ -1447,22 +1441,22 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-990.
+970.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
- [46 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/Files/s
-tambomen-sprint1.pdf>]
-<Files/stambomen-sprint1.pdf, id=603, page=2, 597.55246pt x 845.07718pt>
+ [44 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/Files/
+stambomen-sprint1.pdf>]
+<Files/stambomen-sprint1.pdf, id=589, page=2, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page2 used on input line 
-990.
+970.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page2 used on input line 
-990.
+970.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 
 
@@ -1474,45 +1468,45 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 <use Files/stambomen-sprint1.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page2 used on input line 
-990.
+970.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
- [47 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/Files/s
-tambomen-sprint1.pdf>]
-<Files/stambomen-sprint2.pdf, id=612, 597.55246pt x 845.07718pt>
+ [45 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/Files/
+stambomen-sprint1.pdf>]
+<Files/stambomen-sprint2.pdf, id=598, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf>
-Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 991.
+Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 971.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
  <use Files/stambomen-sprint2.pdf>
-Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 991.
+Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 971.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 
-<Files/stambomen-sprint2.pdf, id=615, page=1, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint2.pdf, id=601, page=1, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-991.
+971.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-991.
+971.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-991.
+971.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-991.
+971.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 
 
@@ -1524,22 +1518,22 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-991.
+971.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
- [48 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/Files/s
-tambomen-sprint2.pdf>]
-<Files/stambomen-sprint2.pdf, id=633, page=2, 597.55246pt x 845.07718pt>
+ [46 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/Files/
+stambomen-sprint2.pdf>]
+<Files/stambomen-sprint2.pdf, id=620, page=2, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page2 used on input line 
-991.
+971.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page2 used on input line 
-991.
+971.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 
 
@@ -1551,31 +1545,33 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 <use Files/stambomen-sprint2.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page2 used on input line 
-991.
+971.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
- [49 <C:/Users/admin/Documents/NetBeansProjects/vop-2014-team12/Dossier/Files/s
-tambomen-sprint2.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 993.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 993.
+ [47 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/Files/
+stambomen-sprint2.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 973.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 973.
 
-(C:\Users\admin\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 993.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 993.
+(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.aux
+)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 973.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 973.
 Package rerunfilecheck Info: File `dossier.out' has not changed.
-(rerunfilecheck)             Checksum: DCD3A67BCF2B67839DB445E9B0EA2A29;3776.
+(rerunfilecheck)             Checksum: D2402CDA08A51DC328BAAE3815382DAA;3716.
+
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 993.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 973.
  ) 
 Here is how much of TeX's memory you used:
- 10577 strings out of 493921
- 155780 string characters out of 3144877
+ 10573 strings out of 493921
+ 155761 string characters out of 3144873
  278140 words of memory out of 3000000
- 13548 multiletter control sequences out of 15000+200000
+ 13547 multiletter control sequences out of 15000+200000
  13650 words of font info for 52 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  40i,19n,46p,723b,479s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1587,9 +1583,9 @@ gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Progra
 m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Progra
 m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi12.pfb><C:/Program
  Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on dossier.pdf (52 pages, 861816 bytes).
+Output written on dossier.pdf (50 pages, 859779 bytes).
 PDF statistics:
- 696 PDF objects out of 1000 (max. 8388607)
- 132 named destinations out of 1000 (max. 500000)
- 641 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 683 PDF objects out of 1000 (max. 8388607)
+ 129 named destinations out of 1000 (max. 500000)
+ 633 words of extra memory for PDF output out of 10000 (max. 10000000)
 

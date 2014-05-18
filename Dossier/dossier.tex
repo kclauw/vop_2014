@@ -910,6 +910,8 @@ Het is aangeraden om voor de kritische en complexe onderdelen van uw een applica
 \chapter{Gekende problemen}
 
 \chapter{Verbeterpunten en uitbreidingsmogelijkheden}
+
+Er zijn nog verschillende uitbreidingsmogelijkheden voor de applicatie die kunnen onderverdeeld worden volgens :
 \subsection{Gedcom}
 * Exporteren van gedcom bestanden
 	Op de documentatie pagina van Gedcom4j staat er een perfect voorbeeld van hoe een GEDCOM bestand kan opgesteld worden met de nodige controle door een gedcomvalidator vanaf nul.
@@ -927,8 +929,27 @@ Het is aangeraden om voor de kritische en complexe onderdelen van uw een applica
 * Exporteren en importeren van stambomen in bepaalde formaten zoals pdf , word , excel ,scv ..
 
 \subsection{Admin}
-* Importeren van database files 
-* Een statistisch overzicht van de verschillende acties in de applicaties 
+
+In de huidige applicatie bestaat het admin gedeelte enkel uit een Useroverviewpanel die een overzicht bevat van alle gebruikers.
+Deze gebruikers kunnen door de admin geblokkeerd of gewijzigd worden en is er een mogelijkheid om in te loggen als een geselecteerde gebruiker om de gegevens van hun stamboom te wijzigen.
+Het inloggen als een gebruiker door de admin heeft als voordeel dat de administrator een duidelijk beeld krijgt van zijn stambomen waarbij er niet te veel gegevens uit de databank opgehaald moeten worden.
+Een uitbreidingsmogelijkheid zou zijn om een personoverviewpanel te voorzien om direct gegevens te wijzigingen in een lijst van personen.
+Tijdens sprint 2 is er een prototype ontwikkelt die een lijst bevat van alle personen maar qua performantie was dit ver van ideaal.
+Om het personoverviewpanel te verbeteren zouden de personen moeten verspreid worden door eerst een lijst te voorzien van de gebruikers , gevolgd door hun stambomen en dan pas een lijst van personen die aan de hand van paginering opgehaald worden uit de databank. 
+
+Naast het personoverviewpanel zou de administrator de mogelijkhed moeten krijgen om volgende opties uit te voeren :
+
+* Het importeren van gegevens uit andere databanken die gebruik maken van de applicatie
+* Een statistisch overzicht van de verschillende acties in de applicatie
+
+
+
+
+
+
+Naast uitbreidingsmogelijkheden zijn er ook nog enkele verbeteringspunten :
+
+* Bij het wijzigen van de user in de useroverviewpanel worden alle users terug opgehaald na een wijziging , het zou efficienter zijn om enkel de gewijzigde persoon terug op te halen.
 
 
 
