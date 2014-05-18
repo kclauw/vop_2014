@@ -602,7 +602,12 @@ gelijkenissen aan de betrokken gebruikers.
 
 \chapter{Analyse}
 
-\chapter{Interresantee Ontwerpbeslissingen}
+\chapter{Interessante Ontwerpbeslissingen}
+\subsection{Best Practice}
+\subsection{JSP vs Servlets}
+Voor de WebApplicatie kan er zowel in de JSP-pagina's als in de Servlets Java-code worden geschreven. Dit kan er al snel voor zorgen dat de code onoverzichtelijk wordt omdat ze her en der verspreid is.
+
+Wij hebben er voor gekozen om de Java-code binnen de Servlets te houden. Dit zorgt er voor dat de code gecentraliseerd blijft en gemakkelijker te onderhouden is. In de JSP-pagina's wordt de informatie die verkregen wordt via requests of sessies verwerkt met de JSTL-bibliotheek. Dankzij de eenvoudige html-syntax integreert deze gemakkelijk met de rest van de code.
 
 \chapter{Interessante Implementatiekeuzes}
 \section{Bibliotheken}
@@ -893,6 +898,11 @@ Aangezien de meeste van het werk in de WebApplicatie op de achtergrond in Java g
 JQuery UI is een uitbreiding op JQuery die extra interactieve evenementen toevoegt, een aantrekkelijke UI voor bepaalde componenten en meer.
 
 Ook deze bibliotheek werd voornamelijk gebruikt in de WebApplicatie voor de teletijdsmachine.
+
+
+\subsection{JSTL}
+JSTL is een afkorting voor JSP - Standard Tag Library wat een bibliotheek is die je op een eenvoudige manier objecten van de backend laat verwerken in de JSP-pagina's. Alle algemeen gekende operaties zoals if-then-else, for-loops, while-loops, enz. zijn aanwezig. De bibliotheek maakt gebruik van standaard html-tags waardoor de code mooi geïntegreerd worden in de html-code.
+
  
  \chapter{Kwaliteitscontrole}
  
