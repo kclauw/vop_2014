@@ -690,12 +690,213 @@ Deze service heeft betrekking op het authenticatie gebeuren van de app., zodat n
 BasicAuthentication:\\*
 Hier wordt er data gedecodeerd.
 
-\includegraphics[width=\textwidth]{images/DCDService.png}\\
+\includegraphics[width=\textwidth, height=\textheight]{images/DCDService.png}
 
 \section{DCD User}
+\includegraphics[width=\textwidth, height=\textheight]{images/DCDUser.png}
 
-\includegraphics[width=\textwidth]{images/DCDUser.png}\\
+\section{DCD Person}
+\includegraphics[width=\textwidth, height=\textheight]{images/DCDpersondomain.png}
 
+\section{Use case Aanmaken van gebruiker}
+Een gebruiker wordt geregistreerd in het systeem en kan daarna inloggen.
+
+Prioriteit\\*
+Hoog
+
+Complexiteit\\*
+Gemiddeld
+
+Precondities \\*
+De gebruiker heeft nog geen gebruikersnaam en wachtwoord.
+
+Postcondities \\*
+De gebruiker heeft zichzelf geregistreerd en kan nu inloggen met de opgegeven gebruikersnaam en wachtwoord.
+
+Primaire actoren \\*
+Een gebruiker
+
+Secundaire actoren \\*
+
+Successcenario\\*
+1.	Het systeem vraagt gebruikersnaam, wachtwoord.\\*
+2.	De gebruiker geeft het gegeven in.\\*
+3.	Het systeem valideert.\\*
+4.	Het systeem registreert de gebruiker.\\*
+
+Alternatieve scenario’s\\*
+3A. Niet alle gegevens zijn ingevuld.\\*
+3A1. Het systeem geeft een melding.\\*
+3A2. Terug naar stap 2.\\*
+
+3B. Combinatie wachtwoord en gebruikersnaam zijn ongeldig.\\*
+3B1. Het systeem geeft een melding.\\*
+3B2. Terug naar stap 2.\\*
+
+3C. Het gebruikersaccount bestaat reeds.\\*
+3C1. Het systeem geeft een melding.\\*
+3C2. Terug naar stap 2.\\*
+
+
+Domeinregels voor gebruikersnaam en wachtwoord? (lengte, tekens, ...?)\\*
+\section{Sequence Diagram Aanmaken van gebruiker}
+\includegraphics[width=\textwidth]{images/aanmakenuser.png}
+
+\section{Use case Inloggen}
+Een gebruiker logt in op het systeem.
+
+Prioriteit\\*
+Hoog
+
+Complexiteit\\*
+Gemiddeld
+
+Precondities \\*
+De gebruiker is nog niet ingelogd
+
+Postcondities \\*
+De gebruik is ingelogd en heeft toegang tot het systeem. (krijgt rechten)
+
+Primaire actoren\\*
+De gebruiker
+
+Secundaire actoren 
+
+Successcenario\\*
+1.	Het systeem vraagt gebruikersnaam en wachtwoord.\\*
+2.	De gebruiker geeft de gegevens in.\\*
+3.	Het systeem valideert de gegevens.\\*
+4.	Het systeem kent de gepaste rechten toe aan de gebruiker.\\*
+
+Alternatieve scenario’s\\*
+3A. Niet alle gegevens zijn ingevuld.\\*
+3A1. Het systeem geeft een melding.\\*
+3A2. Terug naar stap 2.\\*
+
+3B. Combinatie wachtwoord en gebruikersnaam zijn ongeldig.\\*
+3B1. Het systeem geeft een melding.\\*
+3B2. Terug naar stap 2.\\*
+
+Domeinregels voor gebruikersnaam en wachtwoord? (lengte, tekens, ...?)\\*
+\section{Sequence Diagram Inloggen}
+\includegraphics[width=\textwidth]{images/inloggenuser.png}
+
+\section{Use case Aanmaken stamboom}
+Een gebruiker maakt een stamboom aan.
+
+Prioriteit\\*
+Hoog
+
+Complexiteit\\*
+Hoog
+
+Precondities \\*
+De gebruiker is ingelogd.
+
+Postcondities \\*
+De gebruiker heeft een nieuwe stamboom kunnen maken en deze is gekoppeld aan zijn account.
+
+Primaire actoren \\*
+De gebruiker
+
+Secundaire actoren \\*
+
+Successcenario\\*
+1. Het systeem vraagt de gegevens  (naam, privacy) van een nieuwe stamboom. \\*
+2. De gebruiker geeft de gegevens in.\\*
+3. Het systeem valideert.\\*
+4. Het systeem voegt de stamboom toe aan het account van de gebruiker.\\*
+
+Alternatieve scenario’s\\*
+3A. Het systeem detecteert dat de naam al in gebruik is voor een andere stamboom.\\*
+3A1. Het systeem geeft een melding.\\*
+3A2. Terug naar stap 2.\\*
+
+3B. Het systeem detecteert foutieve invoer.\\*
+3B1. Het systeem geeft een melding.\\*
+3B2. Terug naar stap 2.\\*
+
+\section{Sequence Diagram Aanmaken stamboom}
+\includegraphics[width=\textwidth]{images/aanmakentree.png}
+
+\section{Use case Toevoegen persoon}
+Een gebruiker voegt een persoon toe.
+
+Prioriteit\\*
+Hoog
+
+Complexiteit\\*
+Hoog
+
+Precondities \\*
+De gebruiker is ingelogd en heeft een stamboom geselecteerd.
+
+Postcondities \\*
+De gebruiker heeft een persoon toegevoegd aan de geselecteerde stamboom.
+
+Primaire actoren \\*
+De gebruiker
+
+Secundaire actoren \\*
+
+Successcenario\\*
+1. Het systeem vraagt waar de persoon moet toegevoegd worden.\\*
+2. De gebruiker geeft de plaats \\*
+3. Het systeem valideert.	\\*
+4. Het systeem vraagt de persoonlijke gegevens van de persoon.\\*
+5. Het systeem valideert.\\*
+6. Het systeem voegt de gebruiker toe aan de stamboom.\\*
+
+Alternatieve scenario’s\\*
+3A. Het systeem detecteert een ongeldige plaats.\\*
+3A1. Het systeem geeft een melding.\\*
+3A2. Terug naar stap 1.\\*
+
+5. Het systeem detecteert foutieve invoer.\\*
+5A1. Het systeem geeft een melding\\*
+5A2. Terug naar stap 4.\\*
+
+\section{Sequence Diagram Toevoegen persoon}
+\includegraphics[width=\textwidth]{images/persoontoevoegen.png}
+
+\section{Use case Versturen Van Vriendschapsverzoek}
+Een gebruiker verzendt een vriendschapsverzoek.
+
+Prioriteit\\*
+Gemiddeld
+
+Complexiteit\\*
+Gemiddeld
+
+Precondities \\*
+De gebruiker is ingelogd.
+
+Postcondities \\*
+De gebruiker heeft een nieuwe vriend in zijn vriendenlijst.
+
+Primaire actoren \\*
+De gebruiker
+
+Secundaire actoren \\*
+De mogelijke vriend
+
+Successcenario\\*
+1. De gebruiker verstuurd een vriendschapsverzoek naar een mogelijke vriend.\\*
+2. Het systeem meldt aan de mogelijke vriend dat hij een vriendschapsverzoek heeft.\\*
+3. De mogelijke vriend aanvaardt het vriendschapsverzoek.\\*
+4. Het systeem valideert.\\*
+5. Het systeem heeft een mogelijke vriend toegevoegd aan de vriendenlijst van de gebruiker.\\*
+
+Alternatieve scenario’s\\*
+3A1. De mogelijke vriend weigert het vriendschapsverzoek.\\*
+3A2 Het systeem heeft de mogelijke vriend niet toegevoegd aan de vriendenlijst van de gebruiker.\\*
+
+4A1. Het systeem detecteert foutieve invoer.\\*
+4A2. Terug naar stap 2.\\*
+
+Statuscode weigering is 2, verzoek 0 en geaccepteerd 1.
+\section{Sequence Diagram Versturen Van Vriendschapsverzoek}
+\includegraphics[width=\textwidth]{images/sendfriendrequest.png}
 
 
 \chapter{Interessante Ontwerpbeslissingen}

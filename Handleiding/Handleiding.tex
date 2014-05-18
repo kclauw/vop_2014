@@ -326,149 +326,69 @@ Submitted on \datum
 
 
 \tableofcontents
-
-\chapter{Voorwoord}\label{ch:preface}
-
-\paragraph{}
-Dit projectdossier is een schriftelijk neerslag van onze prestaties voor het vakoverschrijvend project\footnote{VOP}. Hierin bespreken we de verschillende facetten van ons project. 
-Allereest zullen wij beginnen met de opdracht voor te stellen en ze te situeren. Hierbij zullen we proberen van een zo volledig mogelijk overzicht te geven van alle technische en niet-technische onderdelen. Vervolgens krijgt u meer uitleg over de manier waarop onze takenverdeling tot stand komt en het volledig overzicht van onze takenverdeling.
-Daarna bespreken we de analyse van het project aan de hand van enkele diagrammen en use cases. Vervolgens lichten we enkele belangerijke aspecten van ons project toe. We gaan hier zowel in op ontwerpbeslissingen als op implementatiekeuzes. Dan komen we aan de kwaliteitscontrole voldoet onze applicatie aan de fucntionele en niet-functionele veresiten zoals deze zijn opgesteld door de klant? Uiteraard zijn er in elk project wel problemen en we zullen het niet na laten om deze te bespreken. Als voorlaatste geven we nog even onze visie op het verdere verloop van de applicatie. Waar kan het beter, welke uitbreidingen zijn mogelijk. Ten slotte eindigen we met een nabeschouwing en ons besluit over het VOP.
-\chapter{Introductie en situering}\label{ch:introduction}
-
-\section{Introductie}
-In deze paper kan u meer informatie vinden rond ons vop. Het onderwerp zoals u wellicht al gelezen hebt op het titel blad zijn stambomen. Het woord stambomen kan in verschillende contexten bekeken worden. We beperken ons echter enkel tot de genealogie. In genealogie zitten twee Griekse woorden verborgen namelijk Genea en Logos. Genea staat voor afkomst of afstamming en logos betekent wetenschap of kennis. 
-Dus we bestuderen hier de afkomst, afstamming van een persoon.
-In dit project zijn er echter twee bepererkingen:
-\paragraph{}
-Zonder dieper in te gaan op het onderwerp genealogie willen ook nog melden dat in dit project we ons slechts zullen beperken tot natuurlijk mogelijke afstammelingen. Hieronder verstaan wij dat er enkel man - vrouw relaties mogelijk zijn. We houden dus geen rekening met man - man of vrouw - vrouw relaties die dan kinderen zouden hebben.
-
-\paragraph{}
-Verder houden we ook geen rekening met de onderlinge relaties tussen echtparen. Op zich zijn dat onze zaken niet maar wanneer een persoon een buitenechtelijke kind heeft dan zal hij dat niet kunnen invoeren in ons programma. Hieronder vallen dus ook half-broers of half-zussen. Deze zullen niet weergegeven worden in ons stamboom overzicht.
-
-\paragraph{}
-Nu de scope van de opdracht duidelijker is kunnnen ingaan op wat er gevraagd is. Het is de bedoeling om een applicatie te maken waar een gebruiker stambomen kan ingeven en bekijken. De gebruiker moet deze stambomen kunnen raadplegen via een website  en de bomen worden ingegeven via een desktop applicatie. Verder moet de gebruiker ook zijn bomen kunnen delen met zijn vrienden zowel binnen de applicatie als op sociale netwerk sites. Voor dit project zullen we ons qua sociale netwerk sites beperken tot Facebook.
-
-\section{Technische}
-\paragraph{}
-We hebben op 10/02/2014 de inleidende presentatie van het vop gekregen. Hierin werden een aantal vereisten uitgelegd. Deze vereisten staan uitgebreid beschreven in VOP: de richtlijnen \footnote{ADD REFERENCE}. De belangrijkste hierin zijn dat er een docent de rol van klant zal spelen. Er zullen afspraken moeten worden gemaakt met de klant over wat al dan niet mogelijk is. Wat er moet gerealiseerd worden? We kwamen ook te weten dat het project in Java moest geschreven worden. Verder moest dit gebeuren door aan de hand van een drielagen architectuur. 
-
-\paragraph{Presentatie laag}
-Deze laag bestond uit twee onderdelen namelijk een Java Desktop Client gemaakt in Java Swing en een website (HTML5, Javascript) die gebruikt maakt van Java Servlets. De nadruk uiteraard ligt hier bij het scheiden van onze logica van de presentatie.
-
-\paragraph{Domein logica}
-Hierbij was het de bedoeling om een REST-service in Java op te zetten waarvan de presentatie gebruik kan maken. We hebben hier van in het begin gekozen om Jersey te gebruiken.
-
-\paragraph{Data tier}
-Een relationele databank ging in staan voor de persistentie van onze gegevens. De databank die ons aangeboden werd door UGent is MySQL. We mochten in deze opdracht geen gebruik maken van ORM-tools\footnote{Object-Relational Mapping zoals Hibernate.}. 
-
-\section{Situering}
-\paragraph{}
-WAT?
-
-\chapter{Taak-verdeling}
-
-\section{Methodologie}
-\paragraph{}
-Tijdens dit project zullen we gebruik maken van Scrum. Hierbij verdelen we het project in drie sprints. Aan het begin van elke sprint zitten we samen om te bespreken welke features we graag zouden opnemen. Hoe lang een bepaalde feature duurt om uit te werken. Na deze bespreking maken we een afspraak bij de klant.
-
-\paragraph{}
-Met de klant bespreken we dan welke features voor ons mogelijk zijn en welke features voor de klant noodzakelijk zijn. Hieruit volg een contract, alle features die we tijdens een bepaalde sprint zullen realiseren.
-
-\paragraph{}
-Op het einde van de sprint kijken we dan welke features we gerealiseerd hebben en welke niet. Dankzij deze methode kunnen we inschatten of we tijdens het project moeten bijsturen. Het kan zijn dat we niet alle features gerealiseerd hebben dan moeten we harder werken tijdens de volgende sprint.
-
-\paragraph{}
-Tijdens elke sprint krijgen we van de docenten een voorgestelde lijst met features.
-
-\section{Sprint 1}
-
-\subsection{Kenzo Clauw}
-
-\subsection{Axl François}
-
-\subsection{Lowie Huyghe}
-
-\subsection{Sander Trypsteen}
-
-\subsection{Jelle Verreth}
-
-\section{Sprint 2}
-
-\subsection{Kenzo Clauw}
-
-\subsection{Axl François}
-
-\subsection{Lowie Huyghe}
-
-\subsection{Sander Trypsteen}
-
-\subsection{Jelle Verreth}
-
-\section{Sprint 3}
-
-\subsection{Kenzo Clauw}
-
-\subsection{Axl François}
-
-\subsection{Lowie Huyghe}
-
-\subsection{Sander Trypsteen}
-
-\subsection{Jelle Verreth}
-
-\section{Overzicht}
+\chapter{Inleiding}\label{ch:preface}
+Om het gebruik van de applicatie te vereenvoudigen kunt u deze handleiding raadplegen die alle mogelijke functionaliteiten uit onze applicatie bevat.
+Bij de handleiding worden de verschillende stappen van de applicatie uitgelegd aan de hand van een voorbeeld gebruiker Kenzo en een Admin die uiteraard over administrator mogelijkheden beschikt.
 
 
-\chapter{Analyse}
+\chapter{Toegangsbeheer}\label{ch:preface}
+\subsection{Login}
+Bij het opstarten van de applicatie krijgt u toegang tot het login scherm die er als volgt uitziet :
 
-\chapter{Interresantee Ontwerpbeslissingen}
+\includegraphics[width=12cm]{images/login.png}\\[.5cm]
 
-\chapter{Interessante Implementatiekeuzes}
-\section{Bibliotheken}
-\subsection{Jersey}
-\subsection{Swagger Jersey}
-\subsection{SLF4J}
-\subsection{Junit}
-\subsection{Gedcom4j}
-\subsection{Sardine}
-\subsection{RestFB}
-\subsection{JCalendar}
-\subsection{Abego TreeLayout}
-\subsection{Java FX}
+\includegraphics[width=12cm]{images/add_tree.png}\\[.5cm]
+Er zijn 2 mogelijkheden om als gebruiker in te loggen.
 
-\chapter{Kwaliteitscontrole}
-
-\chapter{Gekende problemen}
-
-\chapter{Verbeterpunten en uitbreidingsmogelijkheden}
-
-\chapter{Nabeschouwing en besluit}
+\begin{enumerate}
+\item \label{it:first}Inloggen door met gebruikersnaam en passwoord.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% BIBLIOGRAPHY AND OTHER LISTS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% A small distance to the other stuff in the table of contents (toc)
-\addtocontents{toc}{\protect\vspace*{\baselineskip}}
 
-%% The Bibliography
-%% ==> You need a file 'literature.bib' for this.
-%% ==> You need to run BibTeX for this (Project | Properties... | Uses BibTeX)
-%\addcontentsline{toc}{chapter}{Bibliography} %'Bibliography' into toc
-%\nocite{*} %Even non-cited BibTeX-Entries will be shown.
-%\bibliographystyle{alpha} %Style of Bibliography: plain / apalike / amsalpha / ...
-%\bibliography{literature} %You need a file 'literature.bib' for this.
+\item \label{it:first}Inloggen via facebook
 
-%% The List of Figures
-\clearpage
-\addcontentsline{toc}{chapter}{List of Figures}
-\listoffigures
+\includegraphics[width=12cm]{images/facebook.png}\\[.5cm]
+\end{enumerate}
 
-%% The List of Tables
-\clearpage
-\addcontentsline{toc}{chapter}{List of Tables}
-\listoftables
+\subsection{Registratie}
+Op het loginscherm kan je een gebruiker aanmaken door een naam en passwoord op te geven : 
 
+\includegraphics[width=12cm]{images/register.png}\\[.5cm]
+Het passwoord moet minimum 8 characters lang zijn.
+Na het registreren wordt je terug doorverwezen naar het login scherm.
+
+
+\chapter{Overzicht stambomen}\label{ch:preface}
+Na het inloggen als een gewone gebruiker krijg je een overzicht van stambomen.
+
+\includegraphics[width=12cm]{images/user_treeoverview.png}\\[.5cm]
+
+Een stamboom toevoegen kan via het menu Tree.
+\includegraphics[width=12cm]{images/tree_add.png}\\[.5cm]
+
+Er verschijnt een panel je een naam moet opgeven en 1 van de volgende privacy instellingen selecteren :
+
+\includegraphics[width=12cm]{images/add_tree.png}\\[.5cm]
+
+\begin{enumerate}
+\item \label{it:first}Private
+\includegraphics[width=12cm]{images/facebook.png}\\[.5cm]
+\end{enumerate}
+
+Na het toevoegen van een tree krijg je terug een overzicht van de stambomen.
+
+\includegraphics[width=12cm]{images/user_treeoverview_full.png}\\[.5cm]
+
+\chapter{Settings}
+\subsection{Taal}
+Om de taal van de applicatie te wijzigen :
+\includegraphics[width=12cm]{images/change_language.png}\\[.5cm]
+\subsection{Gedcom}
+Om een gedcom bestand te importeren :
+\includegraphics[width=12cm]{images/import_gedcom.png}\\[.5cm]
+
+
+\chapter{Administrator}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% APPENDICES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
