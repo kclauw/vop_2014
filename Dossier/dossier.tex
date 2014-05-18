@@ -616,6 +616,73 @@ gelijkenissen aan de betrokken gebruikers.
 \end{itemize}
 
 \chapter{Analyse}
+\section{DB-structuur}
+De databasestructuur is opgebouwd rond de user die een tree kan aanmaken die op zich weer personen kan bevatten. 
+
+Een user heeft een username, passwoord, heeft een standaard taal, een privacy instelling om aan te geven of zijn profiel publiek is, een standaard thema. De user kan geblokeerd worden zodat deze niet kan inloggen.
+Een user kan zich op twee manieren registreren met een facebookprofiel waarvan het facebookprofielid bijgehouden word en een gewoon gebruikersaccount. Ook heeft deze een role zodat er gebruikersmachtigingen kunnen toegepast worden.
+Deze heeft ook een mogelijkheid om vrienden te maken door een friendrequest te sturen.
+Ook worden Userevents bijgehouden per user.
+
+Een tree is van een user, heeft een naam, een privacy zodat deze gedeeld kan worden met vrienden, of openbaar gemaakt kan worden.
+
+Een persoon is van een tree, heeft een naam, achternaam, geslacht, geboorteplaats,  geboortedatum, mogelijks een sterfdatum, een afbeelding en eventueel een facebookprofielid.  Deze kan een relatie hebben met een andere persoon die dan zijn ouder of kind kan zijn.
+
+Een plaats heeft een landnaam, zipcode, plaatsnaam, en mogelijks coordinaten.
+
+Naarmate het project evolueerde en er nieuwe features bijkwamen zijn we steeds gestart vanuit de database.
+
+\includegraphics[width=\textwidth]{images/db.png}\\
+
+\section{Deployment diagram}
+Het deployment diagram bestaat uit de clientPC, de StambomenWebApp, de StambomenWebAPI en de DatabaseServer.
+De client kan via de WebBrowser of de StambomenDesktopApp verbinden met de applicatie. Het verschil ligt hem in het feit dat de webclient eerst met een webserver (de WebApp) verbind  en dan pas met de webAPI vooraleer deze gegevens kan veranderen. Terwijl bij de desktopApp deze rechtstreeks verbindt met de webAPI.
+
+Op de desktopApp zal de user de gegevens van de bomen ingeven en al de nodige bewerkingen hierop kunnen uitvoeren. Terwijl op de webApp deze alle gegevens kan bekijken en gebruiken met het sociale netwerk. Zo kunt je vrienden worden met andere gebruikers en stambomen delen, evenals het delen via facebook en contact leggen met facebookvrienden.
+
+De webAPI bevat de services in de service package die gebruikt worden door de desktopApp en de webApp om bewerkingen van gegevens te kunnen uitvoeren. Via de DAO’s (Data Acces Object) in de persistence package worden de gegevens uitgewisseld met de databank.
+Verder maken we ook gebruik van googleGeoData om coördinaten van een plaats te kunnen opvragen en bijhouden.
+\begin{center}
+\includegraphics[height=\textheight]{images/deploymentdiagram.png}\\
+\end{center}
+
+\section{DCD Service}
+De service package bevat de volgende aanspreekpunten:
+In de services, behalve de basicAuthFilter en de BasicAuthentication wordt alles gelogd, zo kan er gemakkelijk nagegaan worden waar er iets foutlooopt.
+
+De UserService:\\*
+Deze heeft betrekking op alles wat te maken heeft met een user.
+De belangrijkste zijn hierbij het aanmaken van een user en de login functie, verder zijn er nog de friendrequest, privacy, language, theme functies.
+
+De TreeService:\\*
+Deze heeft betrekking op alles wat te maken heeft met een tree.
+Zo kan een user een tree aanmaken en trees opvragen.
+
+De PersonService:\\*
+Deze heeft betrekking op alles at te maken heeft met een persoon.
+Zo zal een user eerst een persoon of meerdere aan moeten maken om deze te kunnen manipuleren in de boom en de persoonsgegevens te wijzigen.
+
+De facebookService:\\*
+Deze heeft betrekking op alles wat te maken heeft met het facebookgebeuren.
+Zo kan een user registreren en inloggen met een facebookaccount.
+
+De GedcomService:\\*
+Deze heeft betrekking op alles wat te maken heeft met de gedcombestanden.
+Met deze service kan de gebruiker een gedcom bestand importeren en zo een hele tree van een ander systeem ophalen en toevoegen aan zijn trees.
+
+De BasicAuthFilter:\\*
+Deze service heeft betrekking op het authenticatie gebeuren van de app., zodat niet geautoriseerde gebruikers geen toegang hebben tot het systeem.
+
+BasicAuthentication:\\*
+Hier wordt er data gedecodeerd.
+
+\includegraphics[width=\textwidth]{images/DCDService.png}\\
+
+\section{DCD User}
+
+\includegraphics[width=\textwidth]{images/DCDUser.png}\\
+
+
 
 \chapter{Interessante Ontwerpbeslissingen}
 \subsection{Best Practice}
@@ -939,7 +1006,21 @@ Het is aangeraden om voor de kritische en complexe onderdelen van uw een applica
 
 
 \chapter{Gekende problemen}
+\subsection{WebApp}
+\begin{enumerate}
+\item \label{it:first}Facebook share button (onderdeel van de facebook social plugins) toevoegen gaat enorm traag wanneer er enorm veel share button elementen geïnjecteerd moeten wroden.
+Om deze plug-in te kunnen gebruiken wordt er gebruik gemaakt van facebook hun javascript SDK, deze wordt asynchroon geladen en zal de rendering van de pagina niet in de weg lopen.
+Doordat de share button telkens in de page load alle elementen moet overlopen om te zoeken waar er een share button moet toegevoegd worden, bevriest de GUI een beetje.
 
+\item \label{it:first}Wanneer een rechtstreekse link ingegeven wordt naar een pagina van de stambomenWebApp (bvb. naar een specifieke stamboom) zonder ingelogd te zijn zal deze redirecten naar de loginpagina. Wanneer er dan ingelogd wordt zal de pagina van de ingegeven link niet verkregen worden, maar de main pagina.
+
+\item \label{it:first}Geen paginering bij trees, vrienden, user profiles, wanneer deze veel elementen bevatten zal de pagina minder overzichtelijk worden.
+\end{enumerate}
+
+\subsection{DesktopApp}
+\begin{enumerate}
+\item \label{it:first}Wanneer een nieuwe tree aangemaakt is met een gebruiker en een image aan deze gebruiker wordt toegevoegd wordt er geen nieuwe map (met de naam van de tree) aangemaakt op de server. Daardoor zal er geen image toegevoegd worden aan de persoon.
+\end{enumerate}
 \chapter{Verbeterpunten en uitbreidingsmogelijkheden}
 
 Er zijn nog verschillende uitbreidingsmogelijkheden voor de applicatie die kunnen onderverdeeld worden volgens :
