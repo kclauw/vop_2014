@@ -207,13 +207,13 @@
 \newcommand{\studente}{Jelle Verreth}
 
 % De titel van je scriptie/stageverslag
-\newcommand{\titel}{Vakoverschrijdend Eindproject}
+\newcommand{\titel}{Vakoverschrijdend Eindproject Team 12}
 
 % Ondertitel
-\newcommand{\ondertitel}{ Stambomen}
+\newcommand{\ondertitel}{Stambomen}
 
 % Datum van indienen
-\newcommand{\datum}{XX XXXX 2014}
+\newcommand{\datum}{19 May 2014}
 
 % Academiejaar
 \newcommand{\academiejaar}{2013-2014}
@@ -229,7 +229,7 @@
 
 \begin{titlepage}
 \begin{center}
-\includegraphics[width=4cm]{images/logo.png}\\[.5cm]
+\includegraphics[width=4cm]{images/logo.jpg}\\[.5cm]
 Bachelor of Science Industrial Science : Informatics\\
 Academic year \academiejaar
 
@@ -329,7 +329,7 @@ Daarna bespreken we de analyse van het project aan de hand van enkele diagrammen
 \chapter{Introductie en situering}\label{ch:introduction}
 
 \section{Introductie}
-In deze paper kan u meer informatie vinden rond ons vop. Het onderwerp zoals u wellicht al gelezen hebt op het titel blad zijn stambomen. Het woord stambomen kan in verschillende contexten bekeken worden. We beperken ons echter enkel tot de genealogie. In genealogie zitten twee Griekse woorden verborgen namelijk Genea en Logos. Genea staat voor afkomst of afstamming en logos betekent wetenschap of kennis. 
+In deze paper kan u meer informatie vinden rond ons VOP. Het onderwerp zoals u wellicht al gelezen hebt op het titel blad zijn stambomen. Het woord stambomen kan in verschillende contexten bekeken worden. We beperken ons echter enkel tot de genealogie. In genealogie zitten twee Griekse woorden verborgen namelijk Genea en Logos. Genea staat voor afkomst of afstamming en logos betekent wetenschap of kennis. 
 Dus we bestuderen hier de afkomst, afstamming van een persoon.
 In dit project zijn er echter twee beperkingen:
 \paragraph{}
@@ -343,7 +343,7 @@ Nu de scope van de opdracht duidelijker is kunnen ingaan op wat er gevraagd is. 
 
 \section{Technische}
 \paragraph{}
-We hebben op 10/02/2014 de inleidende presentatie van het vop gekregen. Hierin werden een aantal vereisten uitgelegd. Deze vereisten staan uitgebreid beschreven in VOP: de richtlijnen \footnote{ADD REFERENCE}. De belangrijkste hierin zijn dat er een docent de rol van klant zal spelen. Er zullen afspraken moeten worden gemaakt met de klant over wat al dan niet mogelijk is. Wat er moet gerealiseerd worden? We kwamen ook te weten dat het project in Java moest geschreven worden. Verder moest dit gebeuren door aan de hand van een drielagen architectuur. 
+We hebben op 10/02/2014 de inleidende presentatie van het VOP gekregen. Hierin werden een aantal vereisten uitgelegd. Deze vereisten staan uitgebreid beschreven in VOP: de richtlijnen \footnote{ADD REFERENCE}. De belangrijkste hierin zijn dat er een docent de rol van klant zal spelen. Er zullen afspraken moeten worden gemaakt met de klant over wat al dan niet mogelijk is. Wat er moet gerealiseerd worden? We kwamen ook te weten dat het project in Java moest geschreven worden. Verder moest dit gebeuren door aan de hand van een drielagen architectuur. 
 
 \paragraph{Presentatie laag}
 Deze laag bestond uit twee onderdelen namelijk een Java Desktop Client gemaakt in Java Swing en een website (HTML5, Javascript) die gebruikt maakt van Java Servlets. De nadruk uiteraard ligt hier bij het scheiden van onze logica van de presentatie.
@@ -619,7 +619,7 @@ gelijkenissen aan de betrokken gebruikers.
 \section{DB-structuur}
 De databasestructuur is opgebouwd rond de user die een tree kan aanmaken die op zich weer personen kan bevatten. 
 
-Een user heeft een username, passwoord, heeft een standaard taal, een privacy instelling om aan te geven of zijn profiel publiek is, een standaard thema. De user kan geblokeerd worden zodat deze niet kan inloggen.
+Een user heeft een username, paswoord, heeft een standaard taal, een privacy instelling om aan te geven of zijn profiel publiek is, een standaard thema. De user kan geblokkeerd worden zodat deze niet kan inloggen.
 Een user kan zich op twee manieren registreren met een facebookprofiel waarvan het facebookprofielid bijgehouden word en een gewoon gebruikersaccount. Ook heeft deze een role zodat er gebruikersmachtigingen kunnen toegepast worden.
 Deze heeft ook een mogelijkheid om vrienden te maken door een friendrequest te sturen.
 Ook worden Userevents bijgehouden per user.
@@ -628,7 +628,7 @@ Een tree is van een user, heeft een naam, een privacy zodat deze gedeeld kan wor
 
 Een persoon is van een tree, heeft een naam, achternaam, geslacht, geboorteplaats,  geboortedatum, mogelijks een sterfdatum, een afbeelding en eventueel een facebookprofielid.  Deze kan een relatie hebben met een andere persoon die dan zijn ouder of kind kan zijn.
 
-Een plaats heeft een landnaam, zipcode, plaatsnaam, en mogelijks coordinaten.
+Een plaats heeft een landnaam, zipcode, plaatsnaam, en mogelijks coördinaten.
 
 Naarmate het project evolueerde en er nieuwe features bijkwamen zijn we steeds gestart vanuit de database.
 
@@ -648,7 +648,7 @@ Verder maken we ook gebruik van googleGeoData om coördinaten van een plaats te 
 
 \section{DCD Service}
 De service package bevat de volgende aanspreekpunten:
-In de services, behalve de basicAuthFilter en de BasicAuthentication wordt alles gelogd, zo kan er gemakkelijk nagegaan worden waar er iets foutlooopt.
+In de services, behalve de basicAuthFilter en de BasicAuthentication wordt alles gelogd, zo kan er gemakkelijk nagegaan worden waar er iets fout loopt.
 
 De UserService:\\*
 Deze heeft betrekking op alles wat te maken heeft met een user.
@@ -904,7 +904,7 @@ Voor de applicatie hebben we gebruik gemaakt van Jersey die zorgt voor de REST s
 
 
 \subsection{Swagger Jersey}
-Swagger is een specificatie en compleet uitvoeringskader voor het bescrijven, het produceren , consumeren en visualiseren van REST webservices. Het doel van Swagger om client en documentatie systemen de mogelijkheid te geven op hetzelfde tempo te werken als de server. De documentatie van de methoden,paremeters en modellen zijn nauw geïntegreerd in de server-code, waardoor de Apis altijd gesynchroniseerd zijn.
+Swagger is een specificatie en compleet uitvoeringskader voor het beschrijven, het produceren , consumeren en visualiseren van REST webservices. Het doel van Swagger om client en documentatie systemen de mogelijkheid te geven op hetzelfde tempo te werken als de server. De documentatie van de methoden, parameters en modellen zijn nauw geïntegreerd in de server-code, waardoor de Apis altijd gesynchroniseerd zijn.
 
 Door gebruik te maken van Swagger kunnen cliënten diensten consumeren en toegang tot de server code zonder in aanraking te komen de implementatie van de server.
 De interface van het framework zorgt ervoor dat er interactie mogelijk is  met de API in een sandbox omgeving.
@@ -925,7 +925,7 @@ Bij het volgende voorbeeld roepen we de loggerfactory op om dan vervolgens het t
 JUnit is een unit testing framework voor Java die gebruikt wordt in test-driven development die deel uit maakt van xUnit.
 Een unit test is een stukje code die een specifieke functionaliteit uitvoert om de code testen. Het percentage van de code die wordt getest door unit tests wordt meestal de test coverage genoemd.
 Een unit test richt zich op een kleine eenheid van de code , bv een methode of een klasse.
-Een integratie of functionele test eeft als doel om het gedrag van een component of de integratie tussen een set van componenten te testen.
+Een integratie of functionele test heeft als doel om het gedrag van een component of de integratie tussen een set van componenten te testen.
 Deze soort van testen kunnen user stories vertalen in een test suite , dit zou een soort sandbox omgeving zijn waarin alle methoden kunnen getest worden op bijvoorbeeld verkeerde input , lege waarden enz.
 Naast integratie testen kan JUnit ook gebruikt worden voor het benchmarken van verschillende software componenten.
 
@@ -954,7 +954,7 @@ Voor de UserControllerTest wordt dit gebruikt om de databank op te kuisen door d
 
 
 @BeforeClass and @AfterClass
-Vergelijkbaar met Before and After maar deze zal pas worden utigevoerd na de JUnit Test en net voor of na de Class.
+Vergelijkbaar met Before and After maar deze zal pas worden uitgevoerd na de JUnit Test en net voor of na de Class.
 
 \includegraphics{images/beforeafterclass.png}\\
 
@@ -1142,7 +1142,7 @@ Een JSpinField die het toelaat om een jaar te selecteren door de knoppen te verh
 ABEGO TreeLayout is een Efficiënt en aanpasbare Boom Layout algoritme voor Java.
 De TreeLayout creëert boom lay-outs voor willekeurige bomen. Het is niet beperkt tot een bepaalde productie of formaat, maar kan worden gebruikt voor elke vorm van tweedimensionale tekening. Voorbeelden zijn Swing gebaseerde componenten, SVG-bestanden, en nog veel meer.
 
-Om de Treelayout te gebruiken moet je een instantie van de klasse TreeLayout voorzien van de knooppunten van de boom inclusief zijn kinderen samen met de hoogte tussen verchillende niveaus.
+Om de Treelayout te gebruiken moet je een instantie van de klasse TreeLayout voorzien van de knooppunten van de boom inclusief zijn kinderen samen met de hoogte tussen verschillende niveaus.
 
 Eigenschappen :
 Op basis van deze informatie zorgt de TreeLayout voor een compacte layout met een overzichtelijke boom.
@@ -1163,7 +1163,7 @@ JavaFX is een platform die gebruikt wordt om Rich Internet Applications te ontwi
 Rich Internet Applications zijn interactieve internetapplicaties die het gevoel van een desktopprogramma geven.
 
 Omdat JavaFX gebaseerd is op Java is het platformonafhankelijk met als voordeel dat alle Java-bibliotheken kunnen worden gebruikt bij het ontwikkelen van applicaties.
-Applicaties worden geschreven in JavaFX Script , een decleratieve scripttaal die speciaal is ontwikkeld voor webontwikkelaars en designers die visuaal willen programmeren. 
+Applicaties worden geschreven in JavaFX Script, een decleratieve scripttaal die speciaal is ontwikkeld voor webontwikkelaars en designers die visueel willen programmeren. 
 De applicaties in JavaFX kunnen worden uitgevoerd in een webbrowsers of kunnen worden geïnstalleerd  door ze naar het bureaublad  te slepen;
 
 \subsection{JQuery}
@@ -1209,7 +1209,7 @@ Het is aangeraden om voor de kritische en complexe onderdelen van uw een applica
 \chapter{Gekende problemen}
 \subsection{WebApp}
 \begin{enumerate}
-\item \label{it:first}Facebook share button (onderdeel van de facebook social plugins) toevoegen gaat enorm traag wanneer er enorm veel share button elementen geïnjecteerd moeten wroden.
+\item \label{it:first}Facebook share button (onderdeel van de facebook social plugins) toevoegen gaat enorm traag wanneer er enorm veel share button elementen geïnjecteerd moeten worden.
 Om deze plug-in te kunnen gebruiken wordt er gebruik gemaakt van facebook hun javascript SDK, deze wordt asynchroon geladen en zal de rendering van de pagina niet in de weg lopen.
 Doordat de share button telkens in de page load alle elementen moet overlopen om te zoeken waar er een share button moet toegevoegd worden, bevriest de GUI een beetje.
 
@@ -1255,7 +1255,7 @@ Een uitbreidingsmogelijkheid zou zijn om een personoverviewpanel te voorzien om 
 Tijdens sprint 2 is er een prototype ontwikkelt die een lijst bevat van alle personen maar qua performantie was dit ver van ideaal.
 Om het personoverviewpanel te verbeteren zouden de personen moeten verspreid worden door eerst een lijst te voorzien van de gebruikers , gevolgd door hun stambomen en dan pas een lijst van personen die aan de hand van paginering opgehaald worden uit de databank. 
 
-Naast het personoverviewpanel zou de administrator de mogelijkhed moeten krijgen om volgende opties uit te voeren :
+Naast het personoverviewpanel zou de administrator de mogelijkheid moeten krijgen om volgende opties uit te voeren :
 \begin{enumerate}
 \item \label{it:first} Het importeren van gegevens uit andere databanken die gebruik maken van de applicatie
 \item \label{it:first} Een statistisch overzicht van de verschillende acties in de applicatie
@@ -1272,7 +1272,7 @@ Naast het personoverviewpanel zou de administrator de mogelijkhed moeten krijgen
 Naast uitbreidingsmogelijkheden zijn er ook nog enkele verbeteringspunten :
 
 \begin{enumerate}
-\item \label{it:first} Bij het wijzigen van de user in de useroverviewpanel worden alle users terug opgehaald na een wijziging , het zou efficienter zijn om enkel de gewijzigde persoon terug op te halen.
+\item \label{it:first} Bij het wijzigen van de user in de useroverviewpanel worden alle users terug opgehaald na een wijziging , het zou efficiënter zijn om enkel de gewijzigde persoon terug op te halen.
 \end{enumerate}
 
 
