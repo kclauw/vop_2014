@@ -1,8 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.5.10)  17 MAY 2014 22:03
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.5.8)  18 MAY 2014 15:10
 entering extended mode
 **dossier.tex
 
-(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.tex
+("C:\Users\Lowie\SkyDrive\UGent\Jaar 1 - Semester 2\Vakoverschrijdend eindproje
+ct\Project\vop-2014-team12\Dossier\dossier.tex"
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -14,9 +15,9 @@ german-x-2013-05-26, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
 ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
 an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
 ishmax, welsh, loaded.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\report.cls"
+("C:\Program Files (x86)\MiKTeX\tex\latex\base\report.cls"
 Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size12.clo"
+("C:\Program Files (x86)\MiKTeX\tex\latex\base\size12.clo"
 File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -32,33 +33,33 @@ File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\color.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\graphics\color.sty"
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+("C:\Program Files (x86)\MiKTeX\tex\latex\00miktex\color.cfg"
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+("C:\Program Files (x86)\MiKTeX\tex\latex\pdftex-def\pdftex.def"
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+("C:\Program Files (x86)\MiKTeX\tex\generic\oberdiek\infwarerr.sty"
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+("C:\Program Files (x86)\MiKTeX\tex\generic\oberdiek\ltxcmds.sty"
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
 \Gread@gobject=\count88
 ))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\caption\caption.sty"
 Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption3.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\caption\caption3.sty"
 Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 57.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\graphics\keyval.sty"
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
@@ -72,24 +73,24 @@ Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 )
 \c@ContinuedFloat=\count89
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\subcaption.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\caption\subcaption.sty"
 Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
 \c@subfigure=\count90
 \c@subtable=\count91
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\base\inputenc.sty"
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks15
 \inpenc@posthook=\toks16
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\utf8.def"
+("C:\Program Files (x86)\MiKTeX\tex\latex\base\utf8.def"
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encoding T1
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
+("C:\Program Files (x86)\MiKTeX\tex\latex\base\t1enc.dfu"
 File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -239,7 +240,7 @@ File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encoding OT1
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
+("C:\Program Files (x86)\MiKTeX\tex\latex\base\ot1enc.dfu"
 File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -270,7 +271,7 @@ File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encoding OMS
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omsenc.dfu"
+("C:\Program Files (x86)\MiKTeX\tex\latex\base\omsenc.dfu"
 File: omsenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
@@ -294,7 +295,7 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\amsfonts\amsfonts.sty"
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks17
 \symAMSa=\mathgroup4
@@ -302,24 +303,24 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\amsmath\amsmath.sty"
 Package: amsmath 2013/01/14 v2.14 AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\amsmath\amstext.sty"
 Package: amstext 2000/06/29 v2.01
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\amsmath\amsgen.sty"
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks18
 \ex@=\dimen110
 ))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\amsmath\amsbsy.sty"
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen111
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\amsmath\amsopn.sty"
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count92
@@ -360,22 +361,22 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 LaTeX Info: Redefining \[ on input line 2665.
 LaTeX Info: Redefining \] on input line 2666.
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\amsfonts\amssymb.sty"
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.sty"
+("C:\Program Files (x86)\MiKTeX\tex\generic\babel\babel.sty"
 Package: babel 2008/07/08 v3.8m The Babel package
 
 *************************************
 * Local config file bblopts.cfg used
 *
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg"
+("C:\Program Files (x86)\MiKTeX\tex\latex\00miktex\bblopts.cfg"
 File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\english.ldf"
+("C:\Program Files (x86)\MiKTeX\tex\generic\babel\english.ldf"
 Language: english 2005/03/30 v3.3o English support from the babel system
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.def"
+("C:\Program Files (x86)\MiKTeX\tex\generic\babel\babel.def"
 File: babel.def 2008/07/08 v3.8m Babel common definitions
 \babel@savecnt=\count104
 \U@D=\dimen119
@@ -384,20 +385,20 @@ File: babel.def 2008/07/08 v3.8m Babel common definitions
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
 ))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\eurosym\eurosym.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\eurosym\eurosym.sty"
 Package: eurosym 1998/08/06 v1.1 European currency symbol ``Euro''
 \@eurobox=\box28
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\graphics\graphicx.sty"
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\graphics\graphics.sty"
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\graphics\trig.sty"
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+("C:\Program Files (x86)\MiKTeX\tex\latex\00miktex\graphics.cfg"
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
@@ -405,14 +406,14 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 \Gin@req@height=\dimen120
 \Gin@req@width=\dimen121
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\hyperref\hyperref.sty"
 Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
+("C:\Program Files (x86)\MiKTeX\tex\generic\oberdiek\hobsub-hyperref.sty"
 Package: hobsub-hyperref 2012/04/25 v1.12 Bundle oberdiek, subset hyperref (HO)
 
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
+("C:\Program Files (x86)\MiKTeX\tex\generic\oberdiek\hobsub-generic.sty"
 Package: hobsub-generic 2012/04/25 v1.12 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2012/04/25 v1.12 Construct package bundles (HO)
 Package hobsub Info: Skipping package `infwarerr' (already loaded).
@@ -453,27 +454,27 @@ Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
 Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
 Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+("C:\Program Files (x86)\MiKTeX\tex\generic\ifxetex\ifxetex.sty"
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\auxhook.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\oberdiek\auxhook.sty"
 Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\oberdiek\kvoptions.sty"
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 )
 \@linkdim=\dimen122
 \Hy@linkcounter=\count105
 \Hy@pagecounter=\count106
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
+("C:\Program Files (x86)\MiKTeX\tex\latex\hyperref\pd1enc.def"
 File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
 \Hy@SavedSpaceFactor=\count107
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
+("C:\Program Files (x86)\MiKTeX\tex\latex\00miktex\hyperref.cfg"
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 Package hyperref Info: Option `bookmarks' set `true' on input line 4319.
@@ -486,7 +487,7 @@ Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4688.
 \c@Hy@tempcnt=\count108
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\url\url.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\url\url.sty"
 \Urlmuskip=\muskip11
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
@@ -511,19 +512,19 @@ LaTeX Info: Redefining \pageref on input line 6369.
 
 Package hyperref Message: Driver: hpdftex.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
+("C:\Program Files (x86)\MiKTeX\tex\latex\hyperref\hpdftex.def"
 File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
 \Fld@listcount=\count113
 \c@bookmark@seq@number=\count114
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\oberdiek\rerunfilecheck.sty"
 Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
 \Hy@SectionHShift=\skip46
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\listings.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\listings\listings.sty"
 \lst@mode=\count115
 \lst@gtempboxa=\box29
 \lst@token=\toks23
@@ -537,24 +538,24 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \lst@lineno=\count120
 \lst@maxwidth=\dimen129
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\listings\lstmisc.sty"
 File: lstmisc.sty 2014/03/04 1.5c (Carsten Heinz)
 \c@lstnumber=\count121
 \lst@skipnumbers=\count122
 \lst@framebox=\box30
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\listings.cfg"
+("C:\Program Files (x86)\MiKTeX\tex\latex\listings\listings.cfg"
 File: listings.cfg 2014/03/04 1.5c listings configuration
 ))
 Package: listings 2014/03/04 1.5c (Carsten Heinz)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\multirow\multirow.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\multirow\multirow.sty"
 \bigstrutjot=\dimen130
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\rotating\rotating.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\rotating\rotating.sty"
 Package: rotating 2009/03/28 v2.16a rotated objects in LaTeX
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\base\ifthen.sty"
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 )
 \c@r@tfl@t=\count123
@@ -563,14 +564,14 @@ Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 \rot@float@box=\box31
 \rot@mess@toks=\toks24
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\natbib\natbib.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\natbib\natbib.sty"
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip49
 \bibsep=\skip50
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count124
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\fancyhdr\fancyhdr.sty"
 \fancy@headwidth=\skip51
 \f@ncyO@elh=\skip52
 \f@ncyO@erh=\skip53
@@ -581,15 +582,15 @@ LaTeX Info: Redefining \cite on input line 694.
 \f@ncyO@olf=\skip58
 \f@ncyO@orf=\skip59
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\mdwtools\footnote.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\mdwtools\footnote.sty"
 Package: footnote 1997/01/28 1.13 Save footnotes around boxes
 \fn@notes=\box32
 \fn@width=\dimen131
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ltxmisc\parskip.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\ltxmisc\parskip.sty"
 Package: parskip 2001/04/09 non-zero parskip adjustments
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\longtable.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\tools\longtable.sty"
 Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
 \LTleft=\skip60
 \LTright=\skip61
@@ -607,10 +608,10 @@ Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
 \c@LT@chunks=\count129
 \LT@p@ftn=\toks25
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdfpages\pdfpages.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\pdfpages\pdfpages.sty"
 Package: pdfpages 2013/08/25 v0.4v Insert pages of external PDF documents (AM)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\calc.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\tools\calc.sty"
 Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count130
 \calc@Bcount=\count131
@@ -623,10 +624,10 @@ LaTeX Info: Redefining \addtolength on input line 77.
 \calc@Ccount=\count132
 \calc@Cskip=\skip66
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\eso-pic\eso-pic.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\eso-pic\eso-pic.sty"
 Package: eso-pic 2013/10/06 v2.0d eso-pic (RN)
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdfpages\pppdftex.def"
+("C:\Program Files (x86)\MiKTeX\tex\latex\pdfpages\pppdftex.def"
 File: pppdftex.def 2013/08/25 v0.4v Pdfpages driver for pdfTeX (AM)
 )
 \AM@pagebox=\box37
@@ -638,10 +639,11 @@ Package color Info: Redefining color black on input line 45.
 Package color Info: Redefining color darkgray on input line 47.
 Package color Info: Redefining color cyan on input line 50.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\listings\lstlang1.sty"
 File: lstlang1.sty 2014/03/04 1.5c listings language file
 )
-(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.aux
+("C:\Users\Lowie\SkyDrive\UGent\Jaar 1 - Semester 2\Vakoverschrijdend eindproje
+ct\Project\vop-2014-team12\Dossier\dossier.aux"
 
 LaTeX Warning: Label `sec:opdrachtsprint1' multiply defined.
 
@@ -663,7 +665,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 225.
 LaTeX Font Info:    ... okay on input line 225.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 225.
 LaTeX Font Info:    ... okay on input line 225.
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+ ("C:\Program Files (x86)\MiKTeX\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count134
 \scratchdimen=\dimen135
@@ -681,7 +683,7 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: longtable package is loaded.
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\ltcaption.sty"
+ ("C:\Program Files (x86)\MiKTeX\tex\latex\caption\ltcaption.sty"
 Package: ltcaption 2013/02/03 v1.3-62 longtable captions (AR)
 )
 Package caption Info: rotating package is loaded.
@@ -689,10 +691,10 @@ Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box40
 Package hyperref Info: Link coloring OFF on input line 225.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
+("C:\Program Files (x86)\MiKTeX\tex\latex\hyperref\nameref.sty"
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
+("C:\Program Files (x86)\MiKTeX\tex\generic\oberdiek\gettitlestring.sty"
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count140
@@ -701,13 +703,14 @@ LaTeX Info: Redefining \ref on input line 225.
 LaTeX Info: Redefining \pageref on input line 225.
 LaTeX Info: Redefining \nameref on input line 225.
 
-(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.out
-)
-(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.out
-)
+("C:\Users\Lowie\SkyDrive\UGent\Jaar 1 - Semester 2\Vakoverschrijdend eindproje
+ct\Project\vop-2014-team12\Dossier\dossier.out")
+("C:\Users\Lowie\SkyDrive\UGent\Jaar 1 - Semester 2\Vakoverschrijdend eindproje
+ct\Project\vop-2014-team12\Dossier\dossier.out")
 \@outlinefile=\write3
 \c@lstlisting=\count141
- <images/logo.png, id=238, 411.78844pt x 411.78844pt>
+
+<images/logo.png, id=242, 411.78844pt x 411.78844pt>
 File: images/logo.png Graphic file (type png)
  <use images/logo.png>
 Package pdftex.def Info: images/logo.png used on input line 232.
@@ -719,19 +722,20 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <12> not available
 
 
 LaTeX Font Info:    Try loading font information for U+msa on input line 259.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+("C:\Program Files (x86)\MiKTeX\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 259.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+("C:\Program Files (x86)\MiKTeX\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/Admin2/Documents
-/NetBeansProjects/vop-2014-team12/Dossier/images/logo.png>] [2]pdfTeX warning (
-ext4): destination with the same identifier (name{page.1}) has been already use
-d, duplicate ignored
+{C:/Users/Lowie/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/Lo
+wie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindproject/Project/vo
+p-2014-team12/Dossier/images/logo.png>] [2]pdfTeX warning (ext4): destination w
+ith the same identifier (name{page.1}) has been already used, duplicate ignored
+
 <to be read again> 
                    \relax 
 l.315 \end{titlepage}
@@ -741,12 +745,13 @@ ifier (name{page.1}) has been already used, duplicate ignored
                    \relax 
 l.321 \tableofcontents
                        [1]
-(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.toc
-pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
-been already used, duplicate ignored
+("C:\Users\Lowie\SkyDrive\UGent\Jaar 1 - Semester 2\Vakoverschrijdend eindproje
+ct\Project\vop-2014-team12\Dossier\dossier.toc"pdfTeX warning (ext4): destinati
+on with the same identifier (name{page.2}) has been already used, duplicate ign
+ored
 <to be read again> 
                    \relax 
-l.48 ...er}{\numberline {4}Analyse}{17}{chapter.4}
+l.48 ...er}{\numberline {4}Analyse}{18}{chapter.4}
                                                    [2
 
 ])
@@ -759,8 +764,15 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [3]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[4]
 Chapter 1.
-[4
+[5
 
 ]
 Chapter 2.
@@ -770,7 +782,7 @@ Overfull \hbox (21.02925pt too wide) in paragraph at lines 339--340
 -soon een buitenechtelijke
  []
 
-[5
+[6
 
 ]
 
@@ -779,14 +791,14 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[6]
+[7]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[7]
+[8]
 Chapter 3.
 LaTeX Font Info:    Try loading font information for OMS+cmss on input line 383
 .
@@ -796,16 +808,9 @@ LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
 (Font)              for symbol `textbullet' on input line 383.
 
-[8
+[9
 
 ]
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[9]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -827,6 +832,13 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [12]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[13]
 Overfull \hbox (71.8647pt too wide) in paragraph at lines 528--555
 [] 
  []
@@ -837,14 +849,14 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[13]
+[14]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[14]
+[15]
 Overfull \hbox (71.8647pt too wide) in paragraph at lines 556--591
 [][] 
  []
@@ -855,30 +867,30 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[15]
+[16]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[16]
+[17]
 Chapter 4.
-[17
-
-]
-Chapter 5.
 [18
 
 ]
-Chapter 6.
+Chapter 5.
 [19
 
 ]
-Chapter 7.
+Chapter 6.
 [20
 
-] <images/logger.png, id=426, 439.6425pt x 92.59593pt>
+]
+Chapter 7.
+[21
+
+] <images/logger.png, id=435, 439.6425pt x 92.59593pt>
 File: images/logger.png Graphic file (type png)
 
 <use images/logger.png>
@@ -900,8 +912,9 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[21 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
-logger.png>] <images/netbeansjunit.png, id=433, 438.8897pt x 334.24875pt>
+[22 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindpr
+oject/Project/vop-2014-team12/Dossier/images/logger.png>]
+<images/netbeansjunit.png, id=443, 438.8897pt x 334.24875pt>
 File: images/netbeansjunit.png Graphic file (type png)
 
 <use images/netbeansjunit.png>
@@ -923,9 +936,9 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[22 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
-netbeansjunit.png>]
-<images/netbeansjunit2.png, id=440, 283.81032pt x 417.05812pt>
+[23 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindpr
+oject/Project/vop-2014-team12/Dossier/images/netbeansjunit.png>]
+<images/netbeansjunit2.png, id=449, 283.81032pt x 417.05812pt>
 File: images/netbeansjunit2.png Graphic file (type png)
 
 <use images/netbeansjunit2.png>
@@ -936,7 +949,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 657--658
 
  []
 
-<images/junit1.png, id=441, 544.28343pt x 173.89969pt>
+<images/junit1.png, id=450, 544.28343pt x 173.89969pt>
 File: images/junit1.png Graphic file (type png)
  <use images/junit1.png>
 Package pdftex.def Info: images/junit1.png used on input line 661.
@@ -961,9 +974,9 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[23 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
-netbeansjunit2.png>]
-<images/beforeafter.png, id=447, 484.05844pt x 219.06844pt>
+[24 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindpr
+oject/Project/vop-2014-team12/Dossier/images/netbeansjunit2.png>]
+<images/beforeafter.png, id=456, 484.05844pt x 219.06844pt>
 File: images/beforeafter.png Graphic file (type png)
 
 <use images/beforeafter.png>
@@ -979,7 +992,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 670--671
 
  []
 
-<images/beforeafterclass.png, id=448, 656.4525pt x 124.96687pt>
+<images/beforeafterclass.png, id=457, 656.4525pt x 124.96687pt>
 File: images/beforeafterclass.png Graphic file (type png)
 
 <use images/beforeafterclass.png>
@@ -1001,12 +1014,13 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[24 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
-junit1.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier
-/images/beforeafter.png>] <images/junit2.png, id=455, 249.93375pt x 83.5622pt>
+[25 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindpr
+oject/Project/vop-2014-team12/Dossier/images/junit1.png> <C:/Users/Lowie/SkyDri
+ve/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindproject/Project/vop-2014-tea
+m12/Dossier/images/beforeafter.png>]
+<images/junit2.png, id=464, 249.93375pt x 83.5622pt>
 File: images/junit2.png Graphic file (type png)
-
-<use images/junit2.png>
+ <use images/junit2.png>
 Package pdftex.def Info: images/junit2.png used on input line 683.
 (pdftex.def)             Requested size: 249.93314pt x 83.56198pt.
 
@@ -1014,7 +1028,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 681--684
 
  []
 
-<images/junit3.png, id=456, 395.22656pt x 95.6072pt>
+<images/junit3.png, id=465, 395.22656pt x 95.6072pt>
 File: images/junit3.png Graphic file (type png)
  <use images/junit3.png>
 Package pdftex.def Info: images/junit3.png used on input line 691.
@@ -1035,11 +1049,12 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[25 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
-beforeafterclass.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team
-12/Dossier/images/junit2.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2
-014-team12/Dossier/images/junit3.png>]
-<images/adduserfail.png, id=464, 246.1697pt x 94.10156pt>
+[26 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindpr
+oject/Project/vop-2014-team12/Dossier/images/beforeafterclass.png> <C:/Users/Lo
+wie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindproject/Project/vo
+p-2014-team12/Dossier/images/junit2.png> <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 
+- Semester 2/Vakoverschrijdend eindproject/Project/vop-2014-team12/Dossier/imag
+es/junit3.png>] <images/adduserfail.png, id=473, 246.1697pt x 94.10156pt>
 File: images/adduserfail.png Graphic file (type png)
 
 <use images/adduserfail.png>
@@ -1074,11 +1089,11 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[26 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
-adduserfail.png>] <images/gedcom.png, id=470, 462.97969pt x 167.87718pt>
+[27 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindpr
+oject/Project/vop-2014-team12/Dossier/images/adduserfail.png>]
+<images/gedcom.png, id=479, 462.97969pt x 167.87718pt>
 File: images/gedcom.png Graphic file (type png)
-
-<use images/gedcom.png>
+ <use images/gedcom.png>
 Package pdftex.def Info: images/gedcom.png used on input line 735.
 (pdftex.def)             Requested size: 462.97855pt x 167.87677pt.
 
@@ -1091,7 +1106,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 735--736
 
  []
 
-<images/gedcomheader.png, id=471, 245.41687pt x 165.61874pt>
+<images/gedcomheader.png, id=480, 245.41687pt x 165.61874pt>
 File: images/gedcomheader.png Graphic file (type png)
 
 <use images/gedcomheader.png>
@@ -1102,16 +1117,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 740--741
 
  []
 
-<images/gedcomperson.png, id=472, 182.93344pt x 261.22594pt>
+<images/gedcomperson.png, id=481, 182.93344pt x 261.22594pt>
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[27 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
-gedcom.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier
-/images/gedcomheader.png>]
+[28 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindpr
+oject/Project/vop-2014-team12/Dossier/images/gedcom.png> <C:/Users/Lowie/SkyDri
+ve/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindproject/Project/vop-2014-tea
+m12/Dossier/images/gedcomheader.png>]
 File: images/gedcomperson.png Graphic file (type png)
  <use images/gedcomperson.png>
 Package pdftex.def Info: images/gedcomperson.png used on input line 744.
@@ -1121,7 +1137,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 744--745
 
  []
 
-<images/gedcomrelaties.png, id=479, 91.84312pt x 68.50594pt>
+<images/gedcomrelaties.png, id=489, 91.84312pt x 68.50594pt>
 File: images/gedcomrelaties.png Graphic file (type png)
 
 <use images/gedcomrelaties.png>
@@ -1138,10 +1154,11 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[28 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
-gedcomperson.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/D
-ossier/images/gedcomrelaties.png>]
-<images/gedcomindividual.png, id=487, 271.0125pt x 41.4047pt>
+[29 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindpr
+oject/Project/vop-2014-team12/Dossier/images/gedcomperson.png> <C:/Users/Lowie/
+SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindproject/Project/vop-20
+14-team12/Dossier/images/gedcomrelaties.png>]
+<images/gedcomindividual.png, id=496, 271.0125pt x 41.4047pt>
 File: images/gedcomindividual.png Graphic file (type png)
 
 <use images/gedcomindividual.png>
@@ -1152,7 +1169,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 766--767
 
  []
 
-<images/gedcomfamily.png, id=488, 226.59656pt x 108.405pt>
+<images/gedcomfamily.png, id=497, 226.59656pt x 108.405pt>
 File: images/gedcomfamily.png Graphic file (type png)
 
 <use images/gedcomfamily.png>
@@ -1169,10 +1186,11 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[29 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
-gedcomindividual.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team
-12/Dossier/images/gedcomfamily.png>]
-<images/sardine.png, id=495, 485.56406pt x 231.11343pt>
+[30 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindpr
+oject/Project/vop-2014-team12/Dossier/images/gedcomindividual.png> <C:/Users/Lo
+wie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindproject/Project/vo
+p-2014-team12/Dossier/images/gedcomfamily.png>]
+<images/sardine.png, id=504, 485.56406pt x 231.11343pt>
 File: images/sardine.png Graphic file (type png)
 
 <use images/sardine.png>
@@ -1188,7 +1206,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 792--793
 
  []
 
-<images/sardineupload.png, id=496, 411.03563pt x 152.06813pt>
+<images/sardineupload.png, id=505, 411.03563pt x 152.06813pt>
 File: images/sardineupload.png Graphic file (type png)
 
 <use images/sardineupload.png>
@@ -1214,14 +1232,14 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[30 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
-sardine.png>]
+[31 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindpr
+oject/Project/vop-2014-team12/Dossier/images/sardine.png>]
 Overfull \hbox (16.98413pt too wide) in paragraph at lines 808--810
 []\OT1/cmss/m/n/12 Registereren van een de-veloper app : Ga naar ht-tps://devel
 opers.facebook.com/apps
  []
 
-<images/facebook4.png, id=502, 696.35156pt x 79.79813pt>
+<images/facebook4.png, id=511, 696.35156pt x 79.79813pt>
 File: images/facebook4.png Graphic file (type png)
 
 <use images/facebook4.png>
@@ -1237,7 +1255,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 811--812
 
  []
 
-<images/facebook.png, id=503, 426.09187pt x 249.93375pt>
+<images/facebook.png, id=512, 426.09187pt x 249.93375pt>
 File: images/facebook.png Graphic file (type png)
 
 <use images/facebook.png>
@@ -1263,10 +1281,11 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[31 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
-sardineupload.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/
-Dossier/images/facebook4.png>]
-<images/facebook2.png, id=510, 542.77782pt x 268.00125pt>
+[32 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindpr
+oject/Project/vop-2014-team12/Dossier/images/sardineupload.png> <C:/Users/Lowie
+/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindproject/Project/vop-2
+014-team12/Dossier/images/facebook4.png>]
+<images/facebook2.png, id=519, 542.77782pt x 268.00125pt>
 File: images/facebook2.png Graphic file (type png)
 
 <use images/facebook2.png>
@@ -1288,10 +1307,11 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[32 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
-facebook.png> <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossi
-er/images/facebook2.png>]
-<images/facebook3.png, id=516, 537.50812pt x 135.50626pt>
+[33 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindpr
+oject/Project/vop-2014-team12/Dossier/images/facebook.png> <C:/Users/Lowie/SkyD
+rive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindproject/Project/vop-2014-t
+eam12/Dossier/images/facebook2.png>]
+<images/facebook3.png, id=525, 537.50812pt x 135.50626pt>
 File: images/facebook3.png Graphic file (type png)
 
 <use images/facebook3.png>
@@ -1327,8 +1347,8 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[33 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/
-facebook3.png>]
+[34 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindpr
+oject/Project/vop-2014-team12/Dossier/images/facebook3.png>]
 Overfull \hbox (44.71713pt too wide) in paragraph at lines 875--876
 []\OT1/cmss/m/n/12 Om gebruik te maken van de Abego TreeLay-out moet je de org.
 abego.treelayout.core.jar(de
@@ -1340,31 +1360,28 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[34]
+[35]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[35]
+[36]
 Chapter 8.
-[36
+[37
 
 ]
 Chapter 9.
-[37
+[38
 
 ]
 Chapter 10.
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 913.
+(hyperref)                than one, level fixed on input line 929.
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [38
+[39
 
 ]
 
@@ -1373,63 +1390,63 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[39]
+[40]
 Chapter 11.
-[40
+[41
 
 ]
-(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.lof
-)
+("C:\Users\Lowie\SkyDrive\UGent\Jaar 1 - Semester 2\Vakoverschrijdend eindproje
+ct\Project\vop-2014-team12\Dossier\dossier.lof")
 \tf@lof=\write5
- [41
-
-
-]
-(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.lot
-)
-\tf@lot=\write6
  [42
 
 
 ]
+("C:\Users\Lowie\SkyDrive\UGent\Jaar 1 - Semester 2\Vakoverschrijdend eindproje
+ct\Project\vop-2014-team12\Dossier\dossier.lot")
+\tf@lot=\write6
+ [43
+
+
+]
 Appendix A.
-<Files/stambomen-sprint1.pdf, id=561, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint1.pdf, id=572, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf>
-Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 970.
+Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 1005.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
  <use Files/stambomen-sprint1.pdf>
-Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 970.
+Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 1005.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
- [43
+ [44
 
 ]
-<Files/stambomen-sprint1.pdf, id=568, page=1, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint1.pdf, id=579, page=1, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-970.
+1005.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-970.
+1005.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-970.
+1005.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-970.
+1005.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 
 
@@ -1441,22 +1458,22 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-970.
+1005.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
- [44 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/Files/
-stambomen-sprint1.pdf>]
-<Files/stambomen-sprint1.pdf, id=589, page=2, 597.55246pt x 845.07718pt>
+ [45 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindp
+roject/Project/vop-2014-team12/Dossier/Files/stambomen-sprint1.pdf>]
+<Files/stambomen-sprint1.pdf, id=600, page=2, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page2 used on input line 
-970.
+1005.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page2 used on input line 
-970.
+1005.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 
 
@@ -1468,45 +1485,45 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 <use Files/stambomen-sprint1.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page2 used on input line 
-970.
+1005.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
- [45 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/Files/
-stambomen-sprint1.pdf>]
-<Files/stambomen-sprint2.pdf, id=598, 597.55246pt x 845.07718pt>
+ [46 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindp
+roject/Project/vop-2014-team12/Dossier/Files/stambomen-sprint1.pdf>]
+<Files/stambomen-sprint2.pdf, id=610, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf>
-Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 971.
+Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 1006.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
  <use Files/stambomen-sprint2.pdf>
-Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 971.
+Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 1006.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 
-<Files/stambomen-sprint2.pdf, id=601, page=1, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint2.pdf, id=613, page=1, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-971.
+1006.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-971.
+1006.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-971.
+1006.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-971.
+1006.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 
 
@@ -1518,22 +1535,22 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-971.
+1006.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
- [46 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/Files/
-stambomen-sprint2.pdf>]
-<Files/stambomen-sprint2.pdf, id=620, page=2, 597.55246pt x 845.07718pt>
+ [47 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindp
+roject/Project/vop-2014-team12/Dossier/Files/stambomen-sprint2.pdf>]
+<Files/stambomen-sprint2.pdf, id=631, page=2, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page2 used on input line 
-971.
+1006.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page2 used on input line 
-971.
+1006.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 
 
@@ -1545,47 +1562,57 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 <use Files/stambomen-sprint2.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page2 used on input line 
-971.
+1006.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
- [47 <C:/Users/Admin2/Documents/NetBeansProjects/vop-2014-team12/Dossier/Files/
-stambomen-sprint2.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 973.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 973.
+ [48 <C:/Users/Lowie/SkyDrive/UGent/Jaar 1 - Semester 2/Vakoverschrijdend eindp
+roject/Project/vop-2014-team12/Dossier/Files/stambomen-sprint2.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1008.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1008.
 
-(C:\Users\Admin2\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.aux
-)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 973.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 973.
-Package rerunfilecheck Info: File `dossier.out' has not changed.
-(rerunfilecheck)             Checksum: D2402CDA08A51DC328BAAE3815382DAA;3716.
+("C:\Users\Lowie\SkyDrive\UGent\Jaar 1 - Semester 2\Vakoverschrijdend eindproje
+ct\Project\vop-2014-team12\Dossier\dossier.aux")
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1008.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1008.
 
+
+
+Package rerunfilecheck Warning: File `dossier.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `dossier.out':
+(rerunfilecheck)             Before: 41B015D3834AEB065953767F375FD860;3778
+(rerunfilecheck)             After:  4DF5FDC6568745BAFC2355897A91BD86;3843.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 973.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1008.
  ) 
 Here is how much of TeX's memory you used:
- 10573 strings out of 493921
- 155761 string characters out of 3144873
+ 10578 strings out of 493921
+ 155996 string characters out of 3146481
  278140 words of memory out of 3000000
- 13547 multiletter control sequences out of 15000+200000
+ 13548 multiletter control sequences out of 15000+200000
  13650 words of font info for 52 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  40i,19n,46p,723b,479s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><
-C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:
-/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/P
-rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss17.pfb><C:/Pro
-gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Progra
-m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Progra
-m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi12.pfb><C:/Program
- Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on dossier.pdf (50 pages, 859779 bytes).
+pdfTeX warning (dest): name{subsection.10.0.13} has been referenced but does 
+not exist, replaced by a fixed one
+
+<C:/Program Files (x86)/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Pro
+gram Files (x86)/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Program F
+iles (x86)/MiKTeX/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Program Files (
+x86)/MiKTeX/fonts/type1/public/amsfonts/cm/cmss17.pfb><C:/Program Files (x86)/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Program Files (x86)/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Program Files (x86)/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmssi12.pfb><C:/Program Files (x86)/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmsy10.pfb>
+Output written on dossier.pdf (51 pages, 859676 bytes).
 PDF statistics:
- 683 PDF objects out of 1000 (max. 8388607)
- 129 named destinations out of 1000 (max. 500000)
- 633 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 695 PDF objects out of 1000 (max. 8388607)
+ 133 named destinations out of 1000 (max. 500000)
+ 641 words of extra memory for PDF output out of 10000 (max. 10000000)
 
