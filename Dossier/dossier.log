@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.5.5)  18 MAY 2014 17:53
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.2.10)  19 MAY 2014 00:17
 entering extended mode
 **dossier.tex
 
@@ -15,9 +15,9 @@ german-x-2013-05-26, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
 ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
 an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
 ishmax, welsh, loaded.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\report.cls"
+(Z:\Programs\MikTex\tex\latex\base\report.cls
 Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size12.clo"
+(Z:\Programs\MikTex\tex\latex\base\size12.clo
 File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -33,33 +33,33 @@ File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\color.sty"
+(Z:\Programs\MikTex\tex\latex\graphics\color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+(Z:\Programs\MikTex\tex\latex\00miktex\color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+(Z:\Programs\MikTex\tex\latex\pdftex-def\pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+(Z:\Programs\MikTex\tex\generic\oberdiek\infwarerr.sty
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+(Z:\Programs\MikTex\tex\generic\oberdiek\ltxcmds.sty
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
 \Gread@gobject=\count88
 ))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption.sty"
+(Z:\Programs\MikTex\tex\latex\caption\caption.sty
 Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption3.sty"
+(Z:\Programs\MikTex\tex\latex\caption\caption3.sty
 Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 57.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+(Z:\Programs\MikTex\tex\latex\graphics\keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
@@ -73,24 +73,24 @@ Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 )
 \c@ContinuedFloat=\count89
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\subcaption.sty"
+(Z:\Programs\MikTex\tex\latex\caption\subcaption.sty
 Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
 \c@subfigure=\count90
 \c@subtable=\count91
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+(Z:\Programs\MikTex\tex\latex\base\inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks15
 \inpenc@posthook=\toks16
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\utf8.def"
+(Z:\Programs\MikTex\tex\latex\base\utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encoding T1
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
+(Z:\Programs\MikTex\tex\latex\base\t1enc.dfu
 File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -240,7 +240,7 @@ File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encoding OT1
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
+(Z:\Programs\MikTex\tex\latex\base\ot1enc.dfu
 File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -271,7 +271,7 @@ File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encoding OMS
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omsenc.dfu"
+(Z:\Programs\MikTex\tex\latex\base\omsenc.dfu
 File: omsenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
@@ -295,7 +295,7 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
+(Z:\Programs\MikTex\tex\latex\amsfonts\amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks17
 \symAMSa=\mathgroup4
@@ -303,24 +303,24 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
+(Z:\Programs\MikTex\tex\latex\amsmath\amsmath.sty
 Package: amsmath 2013/01/14 v2.14 AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
+(Z:\Programs\MikTex\tex\latex\amsmath\amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
+(Z:\Programs\MikTex\tex\latex\amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks18
 \ex@=\dimen110
 ))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
+(Z:\Programs\MikTex\tex\latex\amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen111
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+(Z:\Programs\MikTex\tex\latex\amsmath\amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count92
@@ -361,22 +361,22 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 LaTeX Info: Redefining \[ on input line 2665.
 LaTeX Info: Redefining \] on input line 2666.
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+(Z:\Programs\MikTex\tex\latex\amsfonts\amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.sty"
+(Z:\Programs\MikTex\tex\generic\babel\babel.sty
 Package: babel 2008/07/08 v3.8m The Babel package
 
 *************************************
 * Local config file bblopts.cfg used
 *
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg"
+(Z:\Programs\MikTex\tex\latex\00miktex\bblopts.cfg
 File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\english.ldf"
+(Z:\Programs\MikTex\tex\generic\babel\english.ldf
 Language: english 2005/03/30 v3.3o English support from the babel system
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.def"
+(Z:\Programs\MikTex\tex\generic\babel\babel.def
 File: babel.def 2008/07/08 v3.8m Babel common definitions
 \babel@savecnt=\count104
 \U@D=\dimen119
@@ -385,20 +385,20 @@ File: babel.def 2008/07/08 v3.8m Babel common definitions
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
 ))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\eurosym\eurosym.sty"
+(Z:\Programs\MikTex\tex\latex\eurosym\eurosym.sty
 Package: eurosym 1998/08/06 v1.1 European currency symbol ``Euro''
 \@eurobox=\box28
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+(Z:\Programs\MikTex\tex\latex\graphics\graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+(Z:\Programs\MikTex\tex\latex\graphics\graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+(Z:\Programs\MikTex\tex\latex\graphics\trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+(Z:\Programs\MikTex\tex\latex\00miktex\graphics.cfg
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
@@ -406,14 +406,14 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 \Gin@req@height=\dimen120
 \Gin@req@width=\dimen121
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
+(Z:\Programs\MikTex\tex\latex\hyperref\hyperref.sty
 Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
+(Z:\Programs\MikTex\tex\generic\oberdiek\hobsub-hyperref.sty
 Package: hobsub-hyperref 2012/04/25 v1.12 Bundle oberdiek, subset hyperref (HO)
 
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
+(Z:\Programs\MikTex\tex\generic\oberdiek\hobsub-generic.sty
 Package: hobsub-generic 2012/04/25 v1.12 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2012/04/25 v1.12 Construct package bundles (HO)
 Package hobsub Info: Skipping package `infwarerr' (already loaded).
@@ -454,27 +454,27 @@ Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
 Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
 Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+(Z:\Programs\MikTex\tex\generic\ifxetex\ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\auxhook.sty"
+(Z:\Programs\MikTex\tex\latex\oberdiek\auxhook.sty
 Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+(Z:\Programs\MikTex\tex\latex\oberdiek\kvoptions.sty
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 )
 \@linkdim=\dimen122
 \Hy@linkcounter=\count105
 \Hy@pagecounter=\count106
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
+(Z:\Programs\MikTex\tex\latex\hyperref\pd1enc.def
 File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
 \Hy@SavedSpaceFactor=\count107
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
+(Z:\Programs\MikTex\tex\latex\00miktex\hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 Package hyperref Info: Option `bookmarks' set `true' on input line 4319.
@@ -487,7 +487,7 @@ Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4688.
 \c@Hy@tempcnt=\count108
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\url\url.sty"
+(Z:\Programs\MikTex\tex\latex\url\url.sty
 \Urlmuskip=\muskip11
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
@@ -512,19 +512,19 @@ LaTeX Info: Redefining \pageref on input line 6369.
 
 Package hyperref Message: Driver: hpdftex.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
+(Z:\Programs\MikTex\tex\latex\hyperref\hpdftex.def
 File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
 \Fld@listcount=\count113
 \c@bookmark@seq@number=\count114
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
+(Z:\Programs\MikTex\tex\latex\oberdiek\rerunfilecheck.sty
 Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
 \Hy@SectionHShift=\skip46
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\listings.sty"
+(Z:\Programs\MikTex\tex\latex\listings\listings.sty
 \lst@mode=\count115
 \lst@gtempboxa=\box29
 \lst@token=\toks23
@@ -538,24 +538,24 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \lst@lineno=\count120
 \lst@maxwidth=\dimen129
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
-File: lstmisc.sty 2014/03/04 1.5c (Carsten Heinz)
+(Z:\Programs\MikTex\tex\latex\listings\lstmisc.sty
+File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
 \c@lstnumber=\count121
 \lst@skipnumbers=\count122
 \lst@framebox=\box30
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\listings.cfg"
-File: listings.cfg 2014/03/04 1.5c listings configuration
+(Z:\Programs\MikTex\tex\latex\listings\listings.cfg
+File: listings.cfg 2013/08/26 1.5b listings configuration
 ))
-Package: listings 2014/03/04 1.5c (Carsten Heinz)
+Package: listings 2013/08/26 1.5b (Carsten Heinz)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\multirow\multirow.sty"
+(Z:\Programs\MikTex\tex\latex\multirow\multirow.sty
 \bigstrutjot=\dimen130
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\rotating\rotating.sty"
+(Z:\Programs\MikTex\tex\latex\rotating\rotating.sty
 Package: rotating 2009/03/28 v2.16a rotated objects in LaTeX
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+(Z:\Programs\MikTex\tex\latex\base\ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 )
 \c@r@tfl@t=\count123
@@ -564,14 +564,14 @@ Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 \rot@float@box=\box31
 \rot@mess@toks=\toks24
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\natbib\natbib.sty"
+(Z:\Programs\MikTex\tex\latex\natbib\natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip49
 \bibsep=\skip50
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count124
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.sty"
+(Z:\Programs\MikTex\tex\latex\fancyhdr\fancyhdr.sty
 \fancy@headwidth=\skip51
 \f@ncyO@elh=\skip52
 \f@ncyO@erh=\skip53
@@ -582,15 +582,15 @@ LaTeX Info: Redefining \cite on input line 694.
 \f@ncyO@olf=\skip58
 \f@ncyO@orf=\skip59
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\mdwtools\footnote.sty"
+(Z:\Programs\MikTex\tex\latex\mdwtools\footnote.sty
 Package: footnote 1997/01/28 1.13 Save footnotes around boxes
 \fn@notes=\box32
 \fn@width=\dimen131
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ltxmisc\parskip.sty"
+(Z:\Programs\MikTex\tex\latex\ltxmisc\parskip.sty
 Package: parskip 2001/04/09 non-zero parskip adjustments
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\longtable.sty"
+(Z:\Programs\MikTex\tex\latex\tools\longtable.sty
 Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
 \LTleft=\skip60
 \LTright=\skip61
@@ -608,10 +608,10 @@ Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
 \c@LT@chunks=\count129
 \LT@p@ftn=\toks25
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdfpages\pdfpages.sty"
+(Z:\Programs\MikTex\tex\latex\pdfpages\pdfpages.sty
 Package: pdfpages 2013/08/25 v0.4v Insert pages of external PDF documents (AM)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\calc.sty"
+(Z:\Programs\MikTex\tex\latex\tools\calc.sty
 Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count130
 \calc@Bcount=\count131
@@ -624,10 +624,10 @@ LaTeX Info: Redefining \addtolength on input line 77.
 \calc@Ccount=\count132
 \calc@Cskip=\skip66
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\eso-pic\eso-pic.sty"
+(Z:\Programs\MikTex\tex\latex\eso-pic\eso-pic.sty
 Package: eso-pic 2013/10/06 v2.0d eso-pic (RN)
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdfpages\pppdftex.def"
+(Z:\Programs\MikTex\tex\latex\pdfpages\pppdftex.def
 File: pppdftex.def 2013/08/25 v0.4v Pdfpages driver for pdfTeX (AM)
 )
 \AM@pagebox=\box37
@@ -639,11 +639,23 @@ Package color Info: Redefining color black on input line 45.
 Package color Info: Redefining color darkgray on input line 47.
 Package color Info: Redefining color cyan on input line 50.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
-File: lstlang1.sty 2014/03/04 1.5c listings language file
+(Z:\Programs\MikTex\tex\latex\listings\lstlang1.sty
+File: lstlang1.sty 2013/08/26 1.5b listings language file
 )
 (C:\Users\Sklipnoty\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.
 aux
+
+LaTeX Warning: Label `it:first' multiply defined.
+
+
+LaTeX Warning: Label `it:first' multiply defined.
+
+
+LaTeX Warning: Label `it:first' multiply defined.
+
+
+LaTeX Warning: Label `it:first' multiply defined.
+
 
 LaTeX Warning: Label `it:first' multiply defined.
 
@@ -695,7 +707,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 225.
 LaTeX Font Info:    ... okay on input line 225.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 225.
 LaTeX Font Info:    ... okay on input line 225.
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+ (Z:\Programs\MikTex\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count134
 \scratchdimen=\dimen135
@@ -713,7 +725,7 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: longtable package is loaded.
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\ltcaption.sty"
+ (Z:\Programs\MikTex\tex\latex\caption\ltcaption.sty
 Package: ltcaption 2013/02/03 v1.3-62 longtable captions (AR)
 )
 Package caption Info: rotating package is loaded.
@@ -721,10 +733,10 @@ Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box40
 Package hyperref Info: Link coloring OFF on input line 225.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
+(Z:\Programs\MikTex\tex\latex\hyperref\nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
+(Z:\Programs\MikTex\tex\generic\oberdiek\gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count140
@@ -739,12 +751,12 @@ out)
 out)
 \@outlinefile=\write3
 \c@lstlisting=\count141
- <images/logo.png, id=250, 411.78844pt x 411.78844pt>
-File: images/logo.png Graphic file (type png)
+ <images/header.jpg, id=270, 884.55469pt x 114.4275pt>
+File: images/header.jpg Graphic file (type jpg)
 
-<use images/logo.png>
-Package pdftex.def Info: images/logo.png used on input line 232.
-(pdftex.def)             Requested size: 113.81102pt x 113.8108pt.
+<use images/header.jpg>
+Package pdftex.def Info: images/header.jpg used on input line 232.
+(pdftex.def)             Requested size: 390.0pt x 50.45126pt.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <12> not available
@@ -752,19 +764,19 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <12> not available
 
 
 LaTeX Font Info:    Try loading font information for U+msa on input line 259.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+(Z:\Programs\MikTex\tex\latex\amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 259.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+(Z:\Programs\MikTex\tex\latex\amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/Sklipnoty/Docume
-nts/NetBeansProjects/vop-2014-team12/Dossier/images/logo.png>] [2]pdfTeX warnin
-g (ext4): destination with the same identifier (name{page.1}) has been already 
-used, duplicate ignored
+{C:/Users/Sklipnoty/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/User
+s/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/images/header.jp
+g>] [2]pdfTeX warning (ext4): destination with the same identifier (name{page.1
+}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.315 \end{titlepage}
@@ -772,14 +784,22 @@ l.315 \end{titlepage}
 ifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.321 \tableofcontents
-                       [1]
-(C:\Users\Sklipnoty\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.
-tocpdfTeX warning (ext4): destination with the same identifier (name{page.2}) h
-as been already used, duplicate ignored
+l.325 \abstract
+                [1]pdfTeX warning (ext4): destination with the same identifier 
+(name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.52 ...er}{\numberline {4}Analyse}{19}{chapter.4}
+l.330 \tableofcontents
+                       [1]
+(C:\Users\Sklipnoty\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.
+toc
+Underfull \vbox (badness 1406) has occurred while \output is active []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.50 ...er}{\numberline {4}Analyse}{18}{chapter.4}
                                                    [2
 
 ]
@@ -805,7 +825,7 @@ Chapter 1.
 ]
 Chapter 2.
 
-Overfull \hbox (21.02925pt too wide) in paragraph at lines 339--340
+Overfull \hbox (21.02925pt too wide) in paragraph at lines 348--349
 \OT1/cmss/m/n/12 paren. Op zich zijn dat onze za-ken niet maar wan-neer een per
 -soon een buitenechtelijke
  []
@@ -821,13 +841,13 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 
 [7]
 Chapter 3.
-LaTeX Font Info:    Try loading font information for OMS+cmss on input line 379
+LaTeX Font Info:    Try loading font information for OMS+cmss on input line 388
 .
-LaTeX Font Info:    No file OMScmss.fd. on input line 379.
+LaTeX Font Info:    No file OMScmss.fd. on input line 388.
 
 LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbullet' on input line 379.
+(Font)              for symbol `textbullet' on input line 388.
 
 [8
 
@@ -867,7 +887,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [13]
-Overfull \hbox (74.25381pt too wide) in paragraph at lines 542--569
+Overfull \hbox (74.25381pt too wide) in paragraph at lines 553--580
 [] 
  []
 
@@ -885,7 +905,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [15]
-Overfull \hbox (77.88852pt too wide) in paragraph at lines 570--605
+Overfull \hbox (77.88852pt too wide) in paragraph at lines 581--616
 [][] 
  []
 
@@ -904,36 +924,46 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 
 [17]
 Chapter 4.
+<images/db.png, id=460, 824.07875pt x 1297.84875pt>
+File: images/db.png Graphic file (type png)
+ <use images/db.png>
+Package pdftex.def Info: images/db.png used on input line 644.
+(pdftex.def)             Requested size: 390.0pt x 614.20717pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 644--645
+
+ []
+
 [18
 
 ]
-Chapter 5.
-
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 619.
-
-[19
-
-]
-Chapter 6.
-[20
-
-] <images/logger.png, id=444, 439.6425pt x 92.59593pt>
-File: images/logger.png Graphic file (type png)
-
-<use images/logger.png>
-Package pdftex.def Info: images/logger.png used on input line 651.
-(pdftex.def)             Requested size: 439.64142pt x 92.59569pt.
-
-Overfull \hbox (49.64142pt too wide) in paragraph at lines 651--652
-[][] 
- []
+Overfull \vbox (22.20717pt too high) has occurred while \output is active []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 651--652
 
- []
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
 
+[19 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
+es/db.png>] <images/deploymentdiagram.png, id=469, 219.06844pt x 615.80063pt>
+File: images/deploymentdiagram.png Graphic file (type png)
+
+<use images/deploymentdiagram.png>
+Package pdftex.def Info: images/deploymentdiagram.png used on input line 655.
+(pdftex.def)             Requested size: 210.61751pt x 592.0pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[20]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -941,21 +971,21 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [21 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/logger.png>] <images/netbeansjunit.png, id=451, 438.8897pt x 334.24875pt>
-File: images/netbeansjunit.png Graphic file (type png)
+es/deploymentdiagram.png>]
+<images/DCDService.png, id=479, 454.69875pt x 424.58624pt>
+File: images/DCDService.png Graphic file (type png)
 
-<use images/netbeansjunit.png>
-Package pdftex.def Info: images/netbeansjunit.png used on input line 666.
-(pdftex.def)             Requested size: 438.88863pt x 334.24792pt.
+<use images/DCDService.png>
+Package pdftex.def Info: images/DCDService.png used on input line 688.
+(pdftex.def)             Requested size: 390.0pt x 364.1782pt.
 
-Overfull \hbox (48.88863pt too wide) in paragraph at lines 666--667
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 666--667
+Underfull \hbox (badness 10000) in paragraph at lines 688--689
 
  []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -963,31 +993,14 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[22 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/netbeansjunit.png>]
-<images/netbeansjunit2.png, id=458, 283.81032pt x 417.05812pt>
-File: images/netbeansjunit2.png Graphic file (type png)
+[22] <images/DCDUser.png, id=484, 385.44pt x 675.27281pt>
+File: images/DCDUser.png Graphic file (type png)
 
-<use images/netbeansjunit2.png>
-Package pdftex.def Info: images/netbeansjunit2.png used on input line 670.
-(pdftex.def)             Requested size: 283.80962pt x 417.0571pt.
+<use images/DCDUser.png>
+Package pdftex.def Info: images/DCDUser.png used on input line 692.
+(pdftex.def)             Requested size: 390.0pt x 683.25662pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 670--671
-
- []
-
-<images/junit1.png, id=459, 544.28343pt x 173.89969pt>
-File: images/junit1.png Graphic file (type png)
- <use images/junit1.png>
-Package pdftex.def Info: images/junit1.png used on input line 674.
-(pdftex.def)             Requested size: 544.2821pt x 173.89925pt.
-
-Overfull \hbox (154.2821pt too wide) in paragraph at lines 674--675
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 674--675
+Underfull \hbox (badness 10000) in paragraph at lines 692--693
 
  []
 
@@ -1002,109 +1015,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [23 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/netbeansjunit2.png>]
-<images/beforeafter.png, id=465, 484.05844pt x 219.06844pt>
-File: images/beforeafter.png Graphic file (type png)
-
-<use images/beforeafter.png>
-Package pdftex.def Info: images/beforeafter.png used on input line 683.
-(pdftex.def)             Requested size: 484.05725pt x 219.06789pt.
-
-Overfull \hbox (94.05725pt too wide) in paragraph at lines 683--684
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 683--684
-
- []
-
-<images/beforeafterclass.png, id=466, 656.4525pt x 124.96687pt>
-File: images/beforeafterclass.png Graphic file (type png)
-
-<use images/beforeafterclass.png>
-Package pdftex.def Info: images/beforeafterclass.png used on input line 689.
-(pdftex.def)             Requested size: 656.4509pt x 124.96657pt.
-
-Overfull \hbox (266.4509pt too wide) in paragraph at lines 689--690
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 689--690
-
- []
-
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[24 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/junit1.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/D
-ossier/images/beforeafter.png>]
-<images/junit2.png, id=473, 249.93375pt x 83.5622pt>
-File: images/junit2.png Graphic file (type png)
- <use images/junit2.png>
-Package pdftex.def Info: images/junit2.png used on input line 696.
-(pdftex.def)             Requested size: 249.93314pt x 83.56198pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 694--697
-
- []
-
-<images/junit3.png, id=474, 395.22656pt x 95.6072pt>
-File: images/junit3.png Graphic file (type png)
- <use images/junit3.png>
-Package pdftex.def Info: images/junit3.png used on input line 704.
-(pdftex.def)             Requested size: 395.22559pt x 95.60695pt.
-
-Overfull \hbox (5.22559pt too wide) in paragraph at lines 704--705
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 704--705
-
- []
-
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[25 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/beforeafterclass.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-201
-4-team12/Dossier/images/junit2.png> <C:/Users/Sklipnoty/Documents/NetBeansProje
-cts/vop-2014-team12/Dossier/images/junit3.png>]
-<images/adduserfail.png, id=482, 246.1697pt x 94.10156pt>
-File: images/adduserfail.png Graphic file (type png)
-
-<use images/adduserfail.png>
-Package pdftex.def Info: images/adduserfail.png used on input line 716.
-(pdftex.def)             Requested size: 246.16908pt x 94.10132pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 716--717
-
- []
-
-File: images/junit3.png Graphic file (type png)
-<use images/junit3.png>
-Package pdftex.def Info: images/junit3.png used on input line 730.
-(pdftex.def)             Requested size: 395.22559pt x 95.60695pt.
-
-Overfull \hbox (5.22559pt too wide) in paragraph at lines 730--731
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 730--731
-
- []
-
-
+es/DCDService.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1114,92 +1025,49 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[26 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/adduserfail.png>] <images/gedcom.png, id=488, 462.97969pt x 167.87718pt>
-File: images/gedcom.png Graphic file (type png)
+[24]
+Overfull \vbox (127.52325pt too high) has occurred while \output is active []
 
-<use images/gedcom.png>
-Package pdftex.def Info: images/gedcom.png used on input line 748.
-(pdftex.def)             Requested size: 462.97855pt x 167.87677pt.
 
-Overfull \hbox (72.97855pt too wide) in paragraph at lines 748--749
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[25 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
+es/DCDUser.png>]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[26]
+Chapter 5.
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 697.
+
+[27
+
+]
+Chapter 6.
+[28
+
+] <images/logger.png, id=510, 439.6425pt x 92.59593pt>
+File: images/logger.png Graphic file (type png)
+
+<use images/logger.png>
+Package pdftex.def Info: images/logger.png used on input line 729.
+(pdftex.def)             Requested size: 439.64142pt x 92.59569pt.
+
+Overfull \hbox (49.64142pt too wide) in paragraph at lines 729--730
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--749
-
- []
-
-<images/gedcomheader.png, id=489, 245.41687pt x 165.61874pt>
-File: images/gedcomheader.png Graphic file (type png)
-
-<use images/gedcomheader.png>
-Package pdftex.def Info: images/gedcomheader.png used on input line 753.
-(pdftex.def)             Requested size: 245.41626pt x 165.61833pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 753--754
-
- []
-
-<images/gedcomperson.png, id=490, 182.93344pt x 261.22594pt>
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[27 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/gedcom.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/D
-ossier/images/gedcomheader.png>]
-File: images/gedcomperson.png Graphic file (type png)
- <use images/gedcomperson.png>
-Package pdftex.def Info: images/gedcomperson.png used on input line 757.
-(pdftex.def)             Requested size: 182.93298pt x 261.22528pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 757--758
-
- []
-
-<images/gedcomrelaties.png, id=497, 91.84312pt x 68.50594pt>
-File: images/gedcomrelaties.png Graphic file (type png)
-
-<use images/gedcomrelaties.png>
-Package pdftex.def Info: images/gedcomrelaties.png used on input line 761.
-(pdftex.def)             Requested size: 91.84288pt x 68.50577pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 761--762
-
- []
-
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[28 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/gedcomperson.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-te
-am12/Dossier/images/gedcomrelaties.png>]
-<images/gedcomindividual.png, id=505, 271.0125pt x 41.4047pt>
-File: images/gedcomindividual.png Graphic file (type png)
-
-<use images/gedcomindividual.png>
-Package pdftex.def Info: images/gedcomindividual.png used on input line 779.
-(pdftex.def)             Requested size: 271.01183pt x 41.40457pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 779--780
-
- []
-
-<images/gedcomfamily.png, id=506, 226.59656pt x 108.405pt>
-File: images/gedcomfamily.png Graphic file (type png)
-
-<use images/gedcomfamily.png>
-Package pdftex.def Info: images/gedcomfamily.png used on input line 783.
-(pdftex.def)             Requested size: 226.596pt x 108.40472pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 783--784
+Underfull \hbox (badness 10000) in paragraph at lines 729--730
 
  []
 
@@ -1210,43 +1078,21 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [29 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/gedcomindividual.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-201
-4-team12/Dossier/images/gedcomfamily.png>]
-<images/sardine.png, id=513, 485.56406pt x 231.11343pt>
-File: images/sardine.png Graphic file (type png)
+es/logger.png>] <images/netbeansjunit.png, id=517, 438.8897pt x 334.24875pt>
+File: images/netbeansjunit.png Graphic file (type png)
 
-<use images/sardine.png>
-Package pdftex.def Info: images/sardine.png used on input line 805.
-(pdftex.def)             Requested size: 485.56287pt x 231.11287pt.
+<use images/netbeansjunit.png>
+Package pdftex.def Info: images/netbeansjunit.png used on input line 744.
+(pdftex.def)             Requested size: 438.88863pt x 334.24792pt.
 
-Overfull \hbox (95.56287pt too wide) in paragraph at lines 805--806
+Overfull \hbox (48.88863pt too wide) in paragraph at lines 744--745
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 805--806
+Underfull \hbox (badness 10000) in paragraph at lines 744--745
 
  []
-
-<images/sardineupload.png, id=514, 411.03563pt x 152.06813pt>
-File: images/sardineupload.png Graphic file (type png)
-
-<use images/sardineupload.png>
-Package pdftex.def Info: images/sardineupload.png used on input line 812.
-(pdftex.def)             Requested size: 411.03462pt x 152.06775pt.
-
-Overfull \hbox (21.03462pt too wide) in paragraph at lines 812--813
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 812--813
-
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1255,41 +1101,30 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [30 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/sardine.png>]
-Overfull \hbox (16.98413pt too wide) in paragraph at lines 821--823
-[]\OT1/cmss/m/n/12 Registereren van een de-veloper app : Ga naar ht-tps://devel
-opers.facebook.com/apps
+es/netbeansjunit.png>]
+<images/netbeansjunit2.png, id=523, 283.81032pt x 417.05812pt>
+File: images/netbeansjunit2.png Graphic file (type png)
+
+<use images/netbeansjunit2.png>
+Package pdftex.def Info: images/netbeansjunit2.png used on input line 748.
+(pdftex.def)             Requested size: 283.80962pt x 417.0571pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 748--749
+
  []
 
-<images/facebook4.png, id=520, 696.35156pt x 79.79813pt>
-File: images/facebook4.png Graphic file (type png)
+<images/junit1.png, id=524, 544.28343pt x 173.89969pt>
+File: images/junit1.png Graphic file (type png)
+ <use images/junit1.png>
+Package pdftex.def Info: images/junit1.png used on input line 752.
+(pdftex.def)             Requested size: 544.2821pt x 173.89925pt.
 
-<use images/facebook4.png>
-Package pdftex.def Info: images/facebook4.png used on input line 824.
-(pdftex.def)             Requested size: 696.34985pt x 79.79791pt.
-
-Overfull \hbox (306.34985pt too wide) in paragraph at lines 824--825
+Overfull \hbox (154.2821pt too wide) in paragraph at lines 752--753
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 824--825
-
- []
-
-<images/facebook.png, id=521, 426.09187pt x 249.93375pt>
-File: images/facebook.png Graphic file (type png)
-
-<use images/facebook.png>
-Package pdftex.def Info: images/facebook.png used on input line 828.
-(pdftex.def)             Requested size: 426.09082pt x 249.93314pt.
-
-Overfull \hbox (36.09082pt too wide) in paragraph at lines 828--829
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 828--829
+Underfull \hbox (badness 10000) in paragraph at lines 752--753
 
  []
 
@@ -1304,21 +1139,36 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [31 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/sardineupload.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-t
-eam12/Dossier/images/facebook4.png>]
-<images/facebook2.png, id=528, 542.77782pt x 268.00125pt>
-File: images/facebook2.png Graphic file (type png)
+es/netbeansjunit2.png>]
+<images/beforeafter.png, id=530, 484.05844pt x 219.06844pt>
+File: images/beforeafter.png Graphic file (type png)
 
-<use images/facebook2.png>
-Package pdftex.def Info: images/facebook2.png used on input line 832.
-(pdftex.def)             Requested size: 542.77649pt x 268.00058pt.
+<use images/beforeafter.png>
+Package pdftex.def Info: images/beforeafter.png used on input line 761.
+(pdftex.def)             Requested size: 484.05725pt x 219.06789pt.
 
-Overfull \hbox (152.77649pt too wide) in paragraph at lines 832--833
+Overfull \hbox (94.05725pt too wide) in paragraph at lines 761--762
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 832--833
+Underfull \hbox (badness 10000) in paragraph at lines 761--762
+
+ []
+
+<images/beforeafterclass.png, id=531, 656.4525pt x 124.96687pt>
+File: images/beforeafterclass.png Graphic file (type png)
+
+<use images/beforeafterclass.png>
+Package pdftex.def Info: images/beforeafterclass.png used on input line 767.
+(pdftex.def)             Requested size: 656.4509pt x 124.96657pt.
+
+Overfull \hbox (266.4509pt too wide) in paragraph at lines 767--768
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 767--768
 
  []
 
@@ -1329,35 +1179,30 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [32 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
-es/facebook.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12
-/Dossier/images/facebook2.png>]
-<images/facebook3.png, id=534, 537.50812pt x 135.50626pt>
-File: images/facebook3.png Graphic file (type png)
+es/junit1.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/D
+ossier/images/beforeafter.png>]
+<images/junit2.png, id=538, 249.93375pt x 83.5622pt>
+File: images/junit2.png Graphic file (type png)
+ <use images/junit2.png>
+Package pdftex.def Info: images/junit2.png used on input line 774.
+(pdftex.def)             Requested size: 249.93314pt x 83.56198pt.
 
-<use images/facebook3.png>
-Package pdftex.def Info: images/facebook3.png used on input line 836.
-(pdftex.def)             Requested size: 537.5068pt x 135.5059pt.
+Underfull \hbox (badness 10000) in paragraph at lines 772--775
 
-Overfull \hbox (147.5068pt too wide) in paragraph at lines 836--837
+ []
+
+<images/junit3.png, id=539, 395.22656pt x 95.6072pt>
+File: images/junit3.png Graphic file (type png)
+ <use images/junit3.png>
+Package pdftex.def Info: images/junit3.png used on input line 782.
+(pdftex.def)             Requested size: 395.22559pt x 95.60695pt.
+
+Overfull \hbox (5.22559pt too wide) in paragraph at lines 782--783
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 836--837
-
- []
-
-File: images/facebook4.png Graphic file (type png)
-<use images/facebook4.png>
-Package pdftex.def Info: images/facebook4.png used on input line 839.
-(pdftex.def)             Requested size: 696.34985pt x 79.79791pt.
-
-Overfull \hbox (560.94923pt too wide) in paragraph at lines 838--840
-\OT1/cmss/m/n/12 aan waarin de secret code van de API ver-meld wordt. [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 838--840
+Underfull \hbox (badness 10000) in paragraph at lines 782--783
 
  []
 
@@ -1368,8 +1213,300 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [33 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
+es/beforeafterclass.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-201
+4-team12/Dossier/images/junit2.png> <C:/Users/Sklipnoty/Documents/NetBeansProje
+cts/vop-2014-team12/Dossier/images/junit3.png>]
+<images/adduserfail.png, id=548, 246.1697pt x 94.10156pt>
+File: images/adduserfail.png Graphic file (type png)
+
+<use images/adduserfail.png>
+Package pdftex.def Info: images/adduserfail.png used on input line 794.
+(pdftex.def)             Requested size: 246.16908pt x 94.10132pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 794--795
+
+ []
+
+File: images/junit3.png Graphic file (type png)
+<use images/junit3.png>
+Package pdftex.def Info: images/junit3.png used on input line 808.
+(pdftex.def)             Requested size: 395.22559pt x 95.60695pt.
+
+Overfull \hbox (5.22559pt too wide) in paragraph at lines 808--809
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 808--809
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[34 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
+es/adduserfail.png>] <images/gedcom.png, id=554, 462.97969pt x 167.87718pt>
+File: images/gedcom.png Graphic file (type png)
+
+<use images/gedcom.png>
+Package pdftex.def Info: images/gedcom.png used on input line 826.
+(pdftex.def)             Requested size: 462.97855pt x 167.87677pt.
+
+Overfull \hbox (72.97855pt too wide) in paragraph at lines 826--827
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 826--827
+
+ []
+
+<images/gedcomheader.png, id=555, 245.41687pt x 165.61874pt>
+File: images/gedcomheader.png Graphic file (type png)
+
+<use images/gedcomheader.png>
+Package pdftex.def Info: images/gedcomheader.png used on input line 831.
+(pdftex.def)             Requested size: 245.41626pt x 165.61833pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 831--832
+
+ []
+
+<images/gedcomperson.png, id=556, 182.93344pt x 261.22594pt>
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[35 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
+es/gedcom.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/D
+ossier/images/gedcomheader.png>]
+File: images/gedcomperson.png Graphic file (type png)
+ <use images/gedcomperson.png>
+Package pdftex.def Info: images/gedcomperson.png used on input line 835.
+(pdftex.def)             Requested size: 182.93298pt x 261.22528pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 835--836
+
+ []
+
+<images/gedcomrelaties.png, id=563, 91.84312pt x 68.50594pt>
+File: images/gedcomrelaties.png Graphic file (type png)
+
+<use images/gedcomrelaties.png>
+Package pdftex.def Info: images/gedcomrelaties.png used on input line 839.
+(pdftex.def)             Requested size: 91.84288pt x 68.50577pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 839--840
+
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[36 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
+es/gedcomperson.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-te
+am12/Dossier/images/gedcomrelaties.png>]
+<images/gedcomindividual.png, id=570, 271.0125pt x 41.4047pt>
+File: images/gedcomindividual.png Graphic file (type png)
+
+<use images/gedcomindividual.png>
+Package pdftex.def Info: images/gedcomindividual.png used on input line 857.
+(pdftex.def)             Requested size: 271.01183pt x 41.40457pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 857--858
+
+ []
+
+<images/gedcomfamily.png, id=571, 226.59656pt x 108.405pt>
+File: images/gedcomfamily.png Graphic file (type png)
+
+<use images/gedcomfamily.png>
+Package pdftex.def Info: images/gedcomfamily.png used on input line 861.
+(pdftex.def)             Requested size: 226.596pt x 108.40472pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 861--862
+
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[37 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
+es/gedcomindividual.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-201
+4-team12/Dossier/images/gedcomfamily.png>]
+<images/sardine.png, id=578, 485.56406pt x 231.11343pt>
+File: images/sardine.png Graphic file (type png)
+
+<use images/sardine.png>
+Package pdftex.def Info: images/sardine.png used on input line 883.
+(pdftex.def)             Requested size: 485.56287pt x 231.11287pt.
+
+Overfull \hbox (95.56287pt too wide) in paragraph at lines 883--884
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 883--884
+
+ []
+
+<images/sardineupload.png, id=579, 411.03563pt x 152.06813pt>
+File: images/sardineupload.png Graphic file (type png)
+
+<use images/sardineupload.png>
+Package pdftex.def Info: images/sardineupload.png used on input line 890.
+(pdftex.def)             Requested size: 411.03462pt x 152.06775pt.
+
+Overfull \hbox (21.03462pt too wide) in paragraph at lines 890--891
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 890--891
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[38 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
+es/sardine.png>]
+Overfull \hbox (16.98413pt too wide) in paragraph at lines 899--901
+[]\OT1/cmss/m/n/12 Registereren van een de-veloper app : Ga naar ht-tps://devel
+opers.facebook.com/apps
+ []
+
+<images/facebook4.png, id=585, 696.35156pt x 79.79813pt>
+File: images/facebook4.png Graphic file (type png)
+
+<use images/facebook4.png>
+Package pdftex.def Info: images/facebook4.png used on input line 902.
+(pdftex.def)             Requested size: 696.34985pt x 79.79791pt.
+
+Overfull \hbox (306.34985pt too wide) in paragraph at lines 902--903
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 902--903
+
+ []
+
+<images/facebook.png, id=586, 426.09187pt x 249.93375pt>
+File: images/facebook.png Graphic file (type png)
+
+<use images/facebook.png>
+Package pdftex.def Info: images/facebook.png used on input line 906.
+(pdftex.def)             Requested size: 426.09082pt x 249.93314pt.
+
+Overfull \hbox (36.09082pt too wide) in paragraph at lines 906--907
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 906--907
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[39 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
+es/sardineupload.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-t
+eam12/Dossier/images/facebook4.png>]
+<images/facebook2.png, id=594, 542.77782pt x 268.00125pt>
+File: images/facebook2.png Graphic file (type png)
+
+<use images/facebook2.png>
+Package pdftex.def Info: images/facebook2.png used on input line 910.
+(pdftex.def)             Requested size: 542.77649pt x 268.00058pt.
+
+Overfull \hbox (152.77649pt too wide) in paragraph at lines 910--911
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 910--911
+
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[40 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
+es/facebook.png> <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12
+/Dossier/images/facebook2.png>]
+<images/facebook3.png, id=600, 537.50812pt x 135.50626pt>
+File: images/facebook3.png Graphic file (type png)
+
+<use images/facebook3.png>
+Package pdftex.def Info: images/facebook3.png used on input line 914.
+(pdftex.def)             Requested size: 537.5068pt x 135.5059pt.
+
+Overfull \hbox (147.5068pt too wide) in paragraph at lines 914--915
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 914--915
+
+ []
+
+File: images/facebook4.png Graphic file (type png)
+<use images/facebook4.png>
+Package pdftex.def Info: images/facebook4.png used on input line 917.
+(pdftex.def)             Requested size: 696.34985pt x 79.79791pt.
+
+Overfull \hbox (560.94923pt too wide) in paragraph at lines 916--918
+\OT1/cmss/m/n/12 aan waarin de secret code van de API ver-meld wordt. [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 916--918
+
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[41 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/imag
 es/facebook3.png>]
-Overfull \hbox (44.71713pt too wide) in paragraph at lines 888--889
+Overfull \hbox (44.71713pt too wide) in paragraph at lines 966--967
 []\OT1/cmss/m/n/12 Om gebruik te maken van de Abego TreeLay-out moet je de org.
 abego.treelayout.core.jar(de
  []
@@ -1380,35 +1517,31 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[34]
+[42]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[35]
+[43]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[36]
+[44]
 Chapter 7.
-[37
+[45
 
 ]
 Chapter 8.
-[38
-
-]
-Chapter 9.
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 944.
+(hyperref)                than one, level fixed on input line 1018.
 
-[39
+[46
 
 ]
 
@@ -1417,63 +1550,88 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[40]
-Chapter 10.
-[41
+[47]
+Chapter 9.
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 1036.
+
+[48
 
 ]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[49]
+Chapter 10.
+
+Underfull \vbox (badness 3590) has occurred while \output is active []
+
+ [50
+
+]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[51]
 (C:\Users\Sklipnoty\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.
 lof)
 \tf@lof=\write5
- [42
+ [52
 
 
 ]
 (C:\Users\Sklipnoty\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.
 lot)
 \tf@lot=\write6
- [43
+ [53
 
 
 ]
 Appendix A.
-<Files/stambomen-sprint1.pdf, id=594, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint1.pdf, id=672, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf>
-Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 1030.
+Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 1129.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
  <use Files/stambomen-sprint1.pdf>
-Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 1030.
+Package pdftex.def Info: Files/stambomen-sprint1.pdf used on input line 1129.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
- [44
+ [54
 
 ]
-<Files/stambomen-sprint1.pdf, id=601, page=1, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint1.pdf, id=679, page=1, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-1030.
+1129.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-1030.
+1129.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-1030.
+1129.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-1030.
+1129.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 
 
@@ -1485,22 +1643,22 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 <use Files/stambomen-sprint1.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page1 used on input line 
-1030.
+1129.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
- [45 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/Fil
+ [55 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/Fil
 es/stambomen-sprint1.pdf>]
-<Files/stambomen-sprint1.pdf, id=622, page=2, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint1.pdf, id=700, page=2, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page2 used on input line 
-1030.
+1129.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint1.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page2 used on input line 
-1030.
+1129.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 
 
@@ -1512,45 +1670,45 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: Files/stambomen-sprint1.pdf Graphic file (type pdf)
 <use Files/stambomen-sprint1.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint1.pdf, page2 used on input line 
-1030.
+1129.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
- [46 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/Fil
+ [56 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/Fil
 es/stambomen-sprint1.pdf>]
-<Files/stambomen-sprint2.pdf, id=632, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint2.pdf, id=709, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf>
-Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 1031.
+Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 1130.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
  <use Files/stambomen-sprint2.pdf>
-Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 1031.
+Package pdftex.def Info: Files/stambomen-sprint2.pdf used on input line 1130.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 
-<Files/stambomen-sprint2.pdf, id=635, page=1, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint2.pdf, id=712, page=1, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-1031.
+1130.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-1031.
+1130.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-1031.
+1130.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-1031.
+1130.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 
 
@@ -1562,22 +1720,22 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 <use Files/stambomen-sprint2.pdf, page 1>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page1 used on input line 
-1031.
+1130.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
- [47 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/Fil
+ [57 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/Fil
 es/stambomen-sprint2.pdf>]
-<Files/stambomen-sprint2.pdf, id=653, page=2, 597.55246pt x 845.07718pt>
+<Files/stambomen-sprint2.pdf, id=731, page=2, 597.55246pt x 845.07718pt>
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page2 used on input line 
-1031.
+1130.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 
 <use Files/stambomen-sprint2.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page2 used on input line 
-1031.
+1130.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
 
 
@@ -1589,57 +1747,47 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: Files/stambomen-sprint2.pdf Graphic file (type pdf)
 <use Files/stambomen-sprint2.pdf, page 2>
 Package pdftex.def Info: Files/stambomen-sprint2.pdf, page2 used on input line 
-1031.
+1130.
 (pdftex.def)             Requested size: 478.04262pt x 676.06267pt.
- [48 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/Fil
+ [58 <C:/Users/Sklipnoty/Documents/NetBeansProjects/vop-2014-team12/Dossier/Fil
 es/stambomen-sprint2.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1033.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1033.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1132.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1132.
 
 (C:\Users\Sklipnoty\Documents\NetBeansProjects\vop-2014-team12\Dossier\dossier.
 aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1033.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1033.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1132.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1132.
 
+Package rerunfilecheck Info: File `dossier.out' has not changed.
+(rerunfilecheck)             Checksum: DABFF3ED40B11C7F00EB4416E1C9D64A;4227.
 
-
-Package rerunfilecheck Warning: File `dossier.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `dossier.out':
-(rerunfilecheck)             Before: 02FB3423E9F9ECC147CB2747ABC9A3B6;3911
-(rerunfilecheck)             After:  8CBD2DFF274134016C33BB2AD6315B0E;3854.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1033.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1132.
  ) 
 Here is how much of TeX's memory you used:
- 10595 strings out of 493921
- 156054 string characters out of 3144865
- 279140 words of memory out of 3000000
- 13551 multiletter control sequences out of 15000+200000
+ 10640 strings out of 493921
+ 154478 string characters out of 3150879
+ 279123 words of memory out of 3000000
+ 13572 multiletter control sequences out of 15000+200000
  13650 words of font info for 52 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 40i,19n,46p,722b,479s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{section.2.3} has been referenced but does not exi
-st, replaced by a fixed one
-
-<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:
-/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/P
-rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Pro
-gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss17.pfb><C:/Progr
-am Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Program 
-Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Program 
-Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi12.pfb><C:/Program F
-iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on dossier.pdf (51 pages, 884080 bytes).
+ 40i,19n,46p,1123b,479s stack positions out of 5000i,500n,10000p,200000b,50000s
+<Z:/Programs/MikTex/fonts/type1/public/amsfonts/cm/cmr12.pfb><Z:/Programs/Mik
+Tex/fonts/type1/public/amsfonts/cm/cmss10.pfb><Z:/Programs/MikTex/fonts/type1/p
+ublic/amsfonts/cm/cmss12.pfb><Z:/Programs/MikTex/fonts/type1/public/amsfonts/cm
+/cmss17.pfb><Z:/Programs/MikTex/fonts/type1/public/amsfonts/cm/cmss8.pfb><Z:/Pr
+ograms/MikTex/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><Z:/Programs/MikTex/f
+onts/type1/public/amsfonts/cm/cmssi12.pfb><Z:/Programs/MikTex/fonts/type1/publi
+c/amsfonts/cm/cmsy10.pfb>
+Output written on dossier.pdf (62 pages, 1505908 bytes).
 PDF statistics:
- 720 PDF objects out of 1000 (max. 8388607)
- 147 named destinations out of 1000 (max. 500000)
- 657 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 801 PDF objects out of 1000 (max. 8388607)
+ 166 named destinations out of 1000 (max. 500000)
+ 717 words of extra memory for PDF output out of 10000 (max. 10000000)
 

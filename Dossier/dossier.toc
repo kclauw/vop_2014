@@ -48,37 +48,43 @@
 \contentsline {section}{\numberline {3.5}Overzicht}{15}{section.3.5}
 \contentsline {paragraph}{legende}{16}{section*.22}
 \contentsline {chapter}{\numberline {4}Analyse}{18}{chapter.4}
-\contentsline {chapter}{\numberline {5}Interessante Ontwerpbeslissingen}{19}{chapter.5}
-\contentsline {subsection}{\numberline {5.0.1}Best Practice}{19}{subsection.5.0.1}
-\contentsline {subsection}{\numberline {5.0.2}JSP vs Servlets}{19}{subsection.5.0.2}
-\contentsline {chapter}{\numberline {6}Interessante Implementatiekeuzes}{20}{chapter.6}
-\contentsline {section}{\numberline {6.1}Bibliotheken}{20}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}Jersey}{20}{subsection.6.1.1}
-\contentsline {subsection}{\numberline {6.1.2}Swagger Jersey}{20}{subsection.6.1.2}
-\contentsline {subsection}{\numberline {6.1.3}SLF4J}{21}{subsection.6.1.3}
-\contentsline {subsection}{\numberline {6.1.4}Junit 4.x}{21}{subsection.6.1.4}
-\contentsline {subsection}{\numberline {6.1.5}Gedcom}{27}{subsection.6.1.5}
-\contentsline {subsection}{\numberline {6.1.6}Gedcom4j}{28}{subsection.6.1.6}
-\contentsline {subsection}{\numberline {6.1.7}Sardine}{29}{subsection.6.1.7}
-\contentsline {subsection}{\numberline {6.1.8}RestFB}{31}{subsection.6.1.8}
-\contentsline {subsection}{\numberline {6.1.9}JCalendar}{33}{subsection.6.1.9}
-\contentsline {subsection}{\numberline {6.1.10}Abego TreeLayout}{34}{subsection.6.1.10}
-\contentsline {subsection}{\numberline {6.1.11}Java FX}{35}{subsection.6.1.11}
-\contentsline {subsection}{\numberline {6.1.12}JQuery}{35}{subsection.6.1.12}
-\contentsline {subsection}{\numberline {6.1.13}JQuery UI}{35}{subsection.6.1.13}
-\contentsline {subsection}{\numberline {6.1.14}JSTL}{36}{subsection.6.1.14}
-\contentsline {chapter}{\numberline {7}Kwaliteitscontrole}{37}{chapter.7}
-\contentsline {chapter}{\numberline {8}Gekende problemen}{38}{chapter.8}
-\contentsline {chapter}{\numberline {9}Verbeterpunten en uitbreidingsmogelijkheden}{39}{chapter.9}
-\contentsline {subsection}{\numberline {9.0.15}Gedcom}{39}{subsection.9.0.15}
-\contentsline {subsection}{\numberline {9.0.16}Stambomen}{39}{subsection.9.0.16}
-\contentsline {subsection}{\numberline {9.0.17}Admin}{40}{subsection.9.0.17}
-\contentsline {chapter}{\numberline {10}Nabeschouwing en besluit}{41}{chapter.10}
+\contentsline {section}{\numberline {4.1}DB-structuur}{18}{section.4.1}
+\contentsline {section}{\numberline {4.2}Deployment diagram}{20}{section.4.2}
+\contentsline {section}{\numberline {4.3}DCD Service}{22}{section.4.3}
+\contentsline {section}{\numberline {4.4}DCD User}{25}{section.4.4}
+\contentsline {chapter}{\numberline {5}Interessante Ontwerpbeslissingen}{27}{chapter.5}
+\contentsline {subsection}{\numberline {5.0.1}Best Practice}{27}{subsection.5.0.1}
+\contentsline {subsection}{\numberline {5.0.2}JSP vs Servlets}{27}{subsection.5.0.2}
+\contentsline {chapter}{\numberline {6}Interessante Implementatiekeuzes}{28}{chapter.6}
+\contentsline {section}{\numberline {6.1}Bibliotheken}{28}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Jersey}{28}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Swagger Jersey}{28}{subsection.6.1.2}
+\contentsline {subsection}{\numberline {6.1.3}SLF4J}{29}{subsection.6.1.3}
+\contentsline {subsection}{\numberline {6.1.4}Junit 4.x}{29}{subsection.6.1.4}
+\contentsline {subsection}{\numberline {6.1.5}Gedcom}{35}{subsection.6.1.5}
+\contentsline {subsection}{\numberline {6.1.6}Gedcom4j}{36}{subsection.6.1.6}
+\contentsline {subsection}{\numberline {6.1.7}Sardine}{37}{subsection.6.1.7}
+\contentsline {subsection}{\numberline {6.1.8}RestFB}{39}{subsection.6.1.8}
+\contentsline {subsection}{\numberline {6.1.9}JCalendar}{41}{subsection.6.1.9}
+\contentsline {subsection}{\numberline {6.1.10}Abego TreeLayout}{42}{subsection.6.1.10}
+\contentsline {subsection}{\numberline {6.1.11}Java FX}{43}{subsection.6.1.11}
+\contentsline {subsection}{\numberline {6.1.12}JQuery}{43}{subsection.6.1.12}
+\contentsline {subsection}{\numberline {6.1.13}JQuery UI}{43}{subsection.6.1.13}
+\contentsline {subsection}{\numberline {6.1.14}JSTL}{44}{subsection.6.1.14}
+\contentsline {chapter}{\numberline {7}Kwaliteitscontrole}{45}{chapter.7}
+\contentsline {chapter}{\numberline {8}Gekende problemen}{46}{chapter.8}
+\contentsline {subsection}{\numberline {8.0.15}WebApp}{46}{subsection.8.0.15}
+\contentsline {subsection}{\numberline {8.0.16}DesktopApp}{46}{subsection.8.0.16}
+\contentsline {chapter}{\numberline {9}Verbeterpunten en uitbreidingsmogelijkheden}{48}{chapter.9}
+\contentsline {subsection}{\numberline {9.0.17}Gedcom}{48}{subsection.9.0.17}
+\contentsline {subsection}{\numberline {9.0.18}Stambomen}{48}{subsection.9.0.18}
+\contentsline {subsection}{\numberline {9.0.19}Admin}{49}{subsection.9.0.19}
+\contentsline {chapter}{\numberline {10}Nabeschouwing en besluit}{50}{chapter.10}
 \vspace *{\baselineskip }
-\contentsline {chapter}{List of Figures}{42}{chapter.10}
-\contentsline {chapter}{List of Tables}{43}{chapter*.23}
-\contentsline {chapter}{\numberline {A}Appendix}{44}{appendix.A}
-\contentsline {section}{\numberline {A.1}Opdracht sprint 1}{45}{section.A.1}
-\contentsline {section}{\numberline {A.2}Opdracht sprint 1}{46}{section.A.2}
-\contentsline {section}{\numberline {A.3}Opdracht sprint 2}{47}{section.A.3}
-\contentsline {section}{\numberline {A.4}Opdracht sprint 2}{48}{section.A.4}
+\contentsline {chapter}{List of Figures}{52}{chapter.10}
+\contentsline {chapter}{List of Tables}{53}{chapter*.23}
+\contentsline {chapter}{\numberline {A}Appendix}{54}{appendix.A}
+\contentsline {section}{\numberline {A.1}Opdracht sprint 1}{55}{section.A.1}
+\contentsline {section}{\numberline {A.2}Opdracht sprint 1}{56}{section.A.2}
+\contentsline {section}{\numberline {A.3}Opdracht sprint 2}{57}{section.A.3}
+\contentsline {section}{\numberline {A.4}Opdracht sprint 2}{58}{section.A.4}
