@@ -581,7 +581,8 @@ gelijkenissen aan de betrokken gebruikers.
 \hline 21.& & & \textcolor{cyan}{OP} in S1, \textcolor{green}{S2} &  &  \\
 \hline 22. & \textcolor{red}{S1}  &  &  &  &  \\
 \hline
-\end{tabular}  
+\end{tabular}
+
 \newpage 
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline  & Kenzo Clauw & Axl Francois & Lowie Huyghe & Sander Trypsteen & Jelle Verreth \\ 
@@ -646,7 +647,10 @@ Een plaats heeft een landnaam, zipcode, plaatsnaam, en mogelijks coördinaten.
 
 Naarmate het project evolueerde en er nieuwe features bijkwamen zijn we steeds gestart vanuit de database.
 
+\begin{figure}[!htb]
 \includegraphics[width=\textwidth]{images/db.png}\\
+\caption{Databaseontwerp}
+\end{figure}
 
 \section{Deployment diagram}
 Het deployment diagram bestaat uit de clientPC, de StambomenWebApp, de StambomenWebAPI en de DatabaseServer.
@@ -657,7 +661,10 @@ Op de desktopApp zal de user de gegevens van de bomen ingeven en al de nodige be
 De webAPI bevat de services in de service package die gebruikt worden door de desktopApp en de webApp om bewerkingen van gegevens te kunnen uitvoeren. Via de DAO’s (Data Acces Object) in de persistence package worden de gegevens uitgewisseld met de databank.
 Verder maken we ook gebruik van googleGeoData om coördinaten van een plaats te kunnen opvragen en bijhouden.
 \begin{center}
+\begin{figure}[!htb]
 \includegraphics[height=\textheight]{images/deploymentdiagram.png}\\
+\caption{Deploymentdiagram}
+\end{figure}
 \end{center}
 
 \section{DCD Service}
@@ -690,13 +697,22 @@ Deze service heeft betrekking op het authenticatie gebeuren van de app., zodat n
 BasicAuthentication:\\*
 Hier wordt er data gedecodeerd.
 
+\begin{figure}[!htb]
 \includegraphics[width=\textwidth, height=\textheight]{images/DCDService.png}
+\caption{DCD Service}
+\end{figure}
 
 \section{DCD User}
+\begin{figure}[!htb]
 \includegraphics[width=\textwidth, height=\textheight]{images/DCDUser.png}
+\caption{DCD User}
+\end{figure}
 
 \section{DCD Person}
+\begin{figure}[!htb]
 \includegraphics[width=\textwidth, height=\textheight]{images/DCDpersondomain.png}
+\caption{DCD Person}
+\end{figure}
 
 \section{Aanmaken van gebruiker}
 \subsection{Use case}
@@ -741,7 +757,10 @@ Alternatieve scenario’s\\*
 
 Domeinregels voor gebruikersnaam en wachtwoord? (lengte, tekens, ...?)\\*
 \subsection{Sequence Diagram Aanmaken van gebruiker}
+\begin{figure}[!htb]
 \includegraphics[width=\textwidth]{images/aanmakenuser.png}
+\caption{Sequence Diagram Aanmaken van gebruiker}
+\end{figure}
 
 \newpage
 \section{Inloggen}
@@ -782,7 +801,10 @@ Alternatieve scenario’s\\*
 
 Domeinregels voor gebruikersnaam en wachtwoord? (lengte, tekens, ...?)\\*
 \subsection{Sequence Diagram Inloggen}
+\begin{figure}[!htb]
 \includegraphics[width=\textwidth]{images/inloggenuser.png}
+\caption{Sequence Diagram Inloggen}
+\end{figure}
 
 \newpage
 \section{Aanmaken stamboom}
@@ -822,7 +844,10 @@ Alternatieve scenario’s\\*
 3B2. Terug naar stap 2.\\*
 
 \subsection{Sequence Diagram Aanmaken stamboom}
+\begin{figure}[!htb]
 \includegraphics[width=\textwidth]{images/aanmakentree.png}
+\caption{Sequence Diagram Aanmaken stamboom}
+\end{figure}
 
 \newpage
 \section{Toevoegen persoon}
@@ -864,7 +889,10 @@ Alternatieve scenario’s\\*
 5A2. Terug naar stap 4.\\*
 
 \subsection{Sequence Diagram Toevoegen persoon}
+\begin{figure}[!htb]
 \includegraphics[width=\textwidth]{images/persoontoevoegen.png}
+\caption{Sequence Diagram Toevoegen persoon}
+\end{figure}
 
 \newpage
 \section{Versturen Van Vriendschapsverzoek}
@@ -905,17 +933,24 @@ Alternatieve scenario’s\\*
 
 Statuscode weigering is 2, verzoek 0 en geaccepteerd 1.
 \subsection{Sequence Diagram Versturen Van Vriendschapsverzoek}
+\begin{figure}[!htb]
 \includegraphics[width=\textwidth]{images/sendfriendrequest.png}
+\caption{Sequence Diagram Versturen Van Vriendschapsverzoek}
+\end{figure}
 
 
 \chapter{Ontwerpbeslissingen}
 \section{Design patterns}
+\subsection{Factory pattern}
 Factory pattern wordt gebruikt in de desktopApp om de panels aan te maken die nodig zijn voor de weergave.
 
+\subsection{DAO en DTO pattern}
 In de webApi wordt er gebruik gemaakt van DAO's (Data Acces Object) om gemakkelijk CRUD operaties op de database uit te voeren. En DTO's voor het uitwisselen van de data onderling.
 
+\subsection{Façade pattern}
 Het Façade pattern wordt gebruikt in de webapi.
 
+\subsection{Controller pattern}
 Ook maken we gebruik van het controller pattern, deze wordt overal toegepast.
 
 \subsection{JSP vs Servlets}
@@ -947,7 +982,10 @@ De facade pattern is ideaal bij het werken met een groot aantal onderling afhank
 De onderliggende logging backend van SLFJ4J wordt bepaald op runtime door het toevoegen van de gewenste binding aan het classpath ( java.util.logging).
 Om gebruik te maken van SLF4J moet je de slf4j-api-1.7.7.jar en slf4j-simple-1.7.7.jar plaatsen in de classpath van het project.
 Bij het volgende voorbeeld roepen we de loggerfactory op om dan vervolgens het toevoegen van een persoon te registeren :
+\begin{figure}[!htb]
 \includegraphics{images/logger.png}
+\caption{Logging met de loggerfactory}
+\end{figure}
 
 
 \subsection{Junit 4.x}
@@ -964,16 +1002,22 @@ Om in Netbeans een JUnit test aan te maken voor de UserController navigeer je na
 
 \begin{figure}[!htb]
 \includegraphics{images/netbeansjunit.png}\\
-\caption{SLF4J Logging}
+\caption{Netbeans aanmaken test 1}
 \end{figure}
 
 Er verschijnt een nieuw venster waarin er gevraagd wordt om een naam op te geven voor de JUnit test en welke code gegenereerd moet worden. Belangrijk hierbij is dat de class steeds moet eindigen op Test.
 
+\begin{figure}[!htb]
 \includegraphics{images/netbeansjunit2.png}\\
+\caption{Netbeans aanmaken test 2}
+\end{figure}
 
 Netbeans zal nu een nieuwe class aanmaken die een default constructor bevat die bij de UserControllerTest gebruikt wordt om de usercontroller , theme en user object aan te maken.
 
+\begin{figure}[!htb]
 \includegraphics{images/junit1.png}\\
+\caption{Netbeans aanmaken test 3}
+\end{figure}
 
 JUnit maakt gebruik van annotaties om de methoden die een test uitvoeren te identificeren en worden enkel opgenomen in een Test class. 
 Een overzicht van de annotaties :
@@ -982,20 +1026,30 @@ Een overzicht van de annotaties :
 Before en After zal worden aangeroepen voor en na elke test case.
 Voor de UserControllerTest wordt dit gebruikt om de databank op te kuisen door de aangemaakte test gebruiker te verwijderen.
 
+\begin{figure}[!htb]
 \includegraphics{images/beforeafter.png}\\
+\caption{Netbeans aanmaken test 4}
+\end{figure}
 
 
 @BeforeClass and @AfterClass
 Vergelijkbaar met Before and After maar deze zal pas worden uitgevoerd na de JUnit Test en net voor of na de Class.
 
+\begin{figure}[!htb]
 \includegraphics{images/beforeafterclass.png}\\
+\caption{Netbeans aanmaken test 5}
+\end{figure}
 
 @Test
 Een test annotatie wordt gebruik voor een normale test;
 
 @Ignore
 Wordt gebruikt om een bepaalde test over te slaan indien deze nog niet geïmplementeerd.
+
+\begin{figure}[!htb]
 \includegraphics{images/junit2.png}\\
+\caption{Netbeans aanmaken test 6}
+\end{figure}
 
 @Test(Timeout=500)
 Het is mogelijk om een unit te testen na een bepaalde periode in milliseconden.
@@ -1003,7 +1057,10 @@ Het is mogelijk om een unit te testen na een bepaalde periode in milliseconden.
 @Test (expected=IllegalArgumentException.class)
 Soms is het nodig om te controleren of een bepaalde exceptie gesmeten wordt , in ons voorbeeld met de UsercontrollerTest is dit bij het opvangen van een gebruiker die al bestaat in de databank.
 
+\begin{figure}[!htb]
 \includegraphics{images/junit3.png}\\
+\caption{Netbeans aanmaken test 7}
+\end{figure}
 
 Assert statements
 
@@ -1015,7 +1072,10 @@ Een overzicht van asserts:
 fail(String)
 een fail op het toevoegen van de user forceren.
 
+\begin{figure}[!htb]
 \includegraphics{images/adduserfail.png}\\
+\caption{Netbeans aanmaken test 8}
+\end{figure}
 
 assertTrue(Bericht,boolean voorwaarde)
 Controleert of de boolean voorwaarde waar is.
@@ -1029,7 +1089,10 @@ Controleert of het object null is
 assertNotNull(bericht ,object)
 Controleert of het object niet null is.
 
+\begin{figure}[!htb]
 \includegraphics{images/junit3.png}\\
+\caption{Netbeans aanmaken test 9}
+\end{figure}
 
 AssertEquals(bericht, verwacht ,werkelijk)
 Test of twee waarden gelijk zijn.
@@ -1047,20 +1110,31 @@ Dit formaat heeft zich nu ontwikkeld tot de standaard voor gegevensuitwisseling 
 
 Stel dat we in de applicatie een persoon toevoegen dan zouden deze gegevens in een GEDCOM als volgt voorgesteld worden :
 
+\begin{figure}[!htb]
 \includegraphics{images/gedcom.png}\\
+\caption{Gedcom gegevensoverzicht}
+\end{figure}
 
 Het eerste deel bevat de header met de gebruikte versie,character encoding (ANSEl,UNICODE of ASCII) als de belangrijkste informatie.
 
-
+\begin{figure}[!htb]
 \includegraphics{images/gedcomheader.png}\\
+\caption{Gedcom header}
+\end{figure}
 
 Het tweede deel bevat informatie over de personen.
 
+\begin{figure}[!htb]
 \includegraphics{images/gedcomperson.png}\\
+\caption{Gedcom person}
+\end{figure}
 
 Het laatste deel bevat de relaties tussen personen met TRLR die het bestand afsluit.
 
+\begin{figure}[!htb]
 \includegraphics{images/gedcomrelaties.png}\\
+\caption{Gedcom relaties}
+\end{figure}
 
 
 
@@ -1078,11 +1152,17 @@ gp.load("sample/TGC551.ged");
 
 Om de personen te overlopen  :
 
+\begin{figure}[!htb]
 \includegraphics{images/gedcomindividual.png}\\
+\caption{Gedcom code overlopen}
+\end{figure}
 
 Om de relaties met kinderen te overlopen :
 
+\begin{figure}[!htb]
 \includegraphics{images/gedcomfamily.png}\\
+\caption{Gedcom code relaties}
+\end{figure}
 
 \subsection{Sardine}
 
@@ -1104,14 +1184,20 @@ Voor onze applicatie hebben we gebruik gemaakt van Sardine in de ImageDAO om ima
 SardineFactory
 Om gebruik te maken van Sardine interface maak je instantie van de SardineFactory aan om aan de hand van HTTP Authenticatie te verbinden met de WebDAV server.
 
-\includegraphics{images/sardine.png}\\
+\begin{figure}[!htb]
+\includegraphics{images/Sardine.png}\\
+\caption{SardineFactory}
+\end{figure}
 
 Bij het doorgeven van credentials aan de client wordt de authenticatie scope geconfigureerd voor Basic , Digest en NTML verificatie om te reageren op de server.
 
 put (String url, byte [] gegevens)
 Aan de hand van HTTP put wordt een bestand op de server geplaats.
 
+\begin{figure}[!htb]
 \includegraphics{images/sardineupload.png}\\
+\caption{SardineFactory upload}
+\end{figure}
 
 
 
@@ -1123,22 +1209,38 @@ Het voordeel van RestFB is dat er ook ondersteuning is voor oudere versies van d
 Registereren van een developer app :
 Ga naar https://developers.facebook.com/apps om een nieuwe app te maken.
 
+\begin{figure}[!htb]
  \includegraphics{images/facebook4.png}\\
+\caption{Facebook developer}
+\end{figure}
  
  Een aanvraag bevestigen : 
  
- \includegraphics{images/facebook.png}\\
+ \begin{figure}[!htb]
+  \includegraphics{images/facebook.png}\\
+ \caption{Facebook aanvraag bevestiging}
+ \end{figure}
  
  Geef een naam op voor de nieuwe App Stambomen.
  
- \includegraphics{images/facebook2.png}\\
+  \begin{figure}[!htb]
+   \includegraphics{images/facebook2.png}\\
+  \caption{Facebook applicatie naam}
+  \end{figure}
  
  Op je dashboard verschijnt er een overzicht van je App met App-id en geheime code die gebruikt worden in de applicatie om een verbinding te maken.
  
- \includegraphics{images/facebook3.png}\\
+   \begin{figure}[!htb]
+    \includegraphics{images/facebook3.png}\\
+   \caption{Facebook applicatie}
+   \end{figure}
  
 Om in de applicatie in te loggen met facebook maak je een classFacebookClient aan waarin de secret code van de API vermeld wordt.
-\includegraphics{images/facebook4.png}\\
+
+   \begin{figure}[!htb]
+   \includegraphics{images/facebook4.png}\\
+   \caption{Facebook Secret}
+   \end{figure}
 
 Om een user op te vragen roep je in de FacebookClient de methode fetchObject op.
 
@@ -1337,11 +1439,6 @@ In de huidige staat zou ons project geïmplementeerd en gebruikt kunnen worden o
 \clearpage
 \addcontentsline{toc}{chapter}{List of Figures}
 \listoffigures
-
-%% The List of Tables
-\clearpage
-\addcontentsline{toc}{chapter}{List of Tables}
-\listoftables
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% APPENDICES
