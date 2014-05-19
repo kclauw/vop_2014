@@ -214,13 +214,13 @@
 %\newcommand{\mentor}{Jan Janssen, ACME Inc.}
 
 % De titel van je scriptie/stageverslag
-\newcommand{\titel}{VOP Project Dossier}
+\newcommand{\titel}{Vakoverschrijdend Eindproject Team 12}
 
 % Ondertitel
-\newcommand{\ondertitel}{ Stambomen}
+\newcommand{\ondertitel}{Handleiding Stambomen}
 
 % Datum van indienen
-\newcommand{\datum}{XX XXXX 2014}
+\newcommand{\datum}{19 May 2014}
 
 % Academiejaar
 \newcommand{\academiejaar}{2013-2014}
@@ -236,8 +236,8 @@
 
 \begin{titlepage}
 \begin{center}
-\includegraphics[width=4cm]{images/logo.png}\\[.5cm]
-Master of Science Industrial Science : Informatics\\
+\includegraphics[width=\textwidth]{images/header.jpg}\\[.5cm]
+Bachelor of Science Industrial Science : Informatics\\
 Academic year \academiejaar
 
 \vfill
@@ -275,54 +275,9 @@ Submitted on \datum
 
 \end{titlepage}
 
-% Schutblad
-
 \emptypage
 
-% Herhaling titelblad
-
-\begin{titlepage}
-\begin{center}
-Master of Science Industrial Science : Informatics\\
-Academic year \academiejaar
-
-\vfill
-
-\HRule \\[0.4cm]
-{ \huge \bfseries \titel}\\[0.4cm]
-\HRule \\[0.4cm]
-
-{\Large \ondertitel}\\[0.4cm]
-
-Submitted on \datum
-
-\vfill
-
-% Studenten en begeleiders
-\begin{minipage}{0.49\textwidth}
-\begin{flushleft}
-\emph{Student\ifdefined\ \fi :}\\
-\studenta \\
-\studentb \\
-\studentc \\
-\studentd \\
-\studente
-%\ifdefined\studentb \studentb \fi\par
-\end{flushleft}
-\end{minipage}
-\begin{minipage}{0.49\textwidth}
-\begin{flushright}
-%\emph{Tutor:}\\ \begeleider\\
-%\ifdefined\mentor \emph{Mentor:}\\ \mentor \fi
-\end{flushright}
-\end{minipage}
-
-\end{center}
-
-\end{titlepage}
-
 %% Inhoudstafel
-\abstract
 
 
 \tableofcontents
@@ -331,7 +286,8 @@ Om het gebruik van de applicatie te vereenvoudigen kunt u deze handleiding raadp
 Bij de handleiding worden de verschillende stappen van de applicatie uitgelegd aan de hand van een voorbeeld gebruiker Kenzo en een Admin die uiteraard over administrator mogelijkheden beschikt.
 
 
-\chapter{Toegangsbeheer}\label{ch:preface}
+\chapter{Desktop-applicatie}
+\section{Toegangsbeheer}\label{ch:preface}
 \subsection{Login}
 Bij het opstarten van de applicatie krijgt u toegang tot het login scherm die er als volgt uitziet :
 
@@ -358,7 +314,7 @@ Het passwoord moet minimum 8 characters lang zijn.
 Na het registreren wordt je terug doorverwezen naar het login scherm.
 
 
-\chapter{Overzicht stambomen}\label{ch:preface}
+\section{Overzicht stambomen}\label{ch:preface}
 
 Na het inloggen als een gewone gebruiker krijg je een overzicht van stambomen.
 
@@ -412,7 +368,7 @@ Na het toevoegen van een tree krijg je terug een overzicht van de stambomen.
 
 \includegraphics[width=12cm]{images/user_treeoverview_full.png}\\[.5cm]
 
-\chapter{Settings}
+\section{Settings}
 \subsection{Taal}
 Om de taal van de applicatie te wijzigen :
 
@@ -440,7 +396,7 @@ Selecteren van de privacy voor de tree.
 Invoeren van de naam.
 
 \includegraphics[width=12cm]{images/gedcom_naam.png}\\[.5cm]
-\chapter{Administrator}
+\section{Administrator}
 Indien er als administrator ingelogt wordt verschijnt er een extra menu Admin met de volgende items :
 \subsection{Thema}
 \includegraphics[width=12cm]{images/admin_themeoverview_menu.png}\\[.5cm]
