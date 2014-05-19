@@ -909,7 +909,15 @@ Statuscode weigering is 2, verzoek 0 en geaccepteerd 1.
 
 
 \chapter{Ontwerpbeslissingen}
-\section{Best Practice}
+\section{Design patterns}
+Factory pattern wordt gebruikt in de desktopApp om de panels aan te maken die nodig zijn voor de weergave.
+
+In de webApi wordt er gebruik gemaakt van DAO's (Data Acces Object) om gemakkelijk CRUD operaties op de database uit te voeren. En DTO's voor het uitwisselen van de data onderling.
+
+Het Façade pattern wordt gebruikt in de webapi.
+
+Ook maken we gebruik van het controller pattern, deze wordt overal toegepast.
+
 \subsection{JSP vs Servlets}
 Voor de WebApplicatie kan er zowel in de JSP-pagina's als in de Servlets Java-code worden geschreven. Dit kan er al snel voor zorgen dat de code onoverzichtelijk wordt omdat ze her en der verspreid is.
 
