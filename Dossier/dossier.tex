@@ -698,7 +698,8 @@ Hier wordt er data gedecodeerd.
 \section{DCD Person}
 \includegraphics[width=\textwidth, height=\textheight]{images/DCDpersondomain.png}
 
-\section{Use case Aanmaken van gebruiker}
+\section{Aanmaken van gebruiker}
+\subsection{Use case}
 Een gebruiker wordt geregistreerd in het systeem en kan daarna inloggen.
 
 Prioriteit\\*
@@ -739,10 +740,12 @@ Alternatieve scenario’s\\*
 
 
 Domeinregels voor gebruikersnaam en wachtwoord? (lengte, tekens, ...?)\\*
-\section{Sequence Diagram Aanmaken van gebruiker}
+\subsection{Sequence Diagram Aanmaken van gebruiker}
 \includegraphics[width=\textwidth]{images/aanmakenuser.png}
 
-\section{Use case Inloggen}
+\newpage
+\section{Inloggen}
+\subsection{Use case}
 Een gebruiker logt in op het systeem.
 
 Prioriteit\\*
@@ -778,10 +781,12 @@ Alternatieve scenario’s\\*
 3B2. Terug naar stap 2.\\*
 
 Domeinregels voor gebruikersnaam en wachtwoord? (lengte, tekens, ...?)\\*
-\section{Sequence Diagram Inloggen}
+\subsection{Sequence Diagram Inloggen}
 \includegraphics[width=\textwidth]{images/inloggenuser.png}
 
-\section{Use case Aanmaken stamboom}
+\newpage
+\section{Aanmaken stamboom}
+\subsection{Use case}
 Een gebruiker maakt een stamboom aan.
 
 Prioriteit\\*
@@ -816,10 +821,12 @@ Alternatieve scenario’s\\*
 3B1. Het systeem geeft een melding.\\*
 3B2. Terug naar stap 2.\\*
 
-\section{Sequence Diagram Aanmaken stamboom}
+\subsection{Sequence Diagram Aanmaken stamboom}
 \includegraphics[width=\textwidth]{images/aanmakentree.png}
 
-\section{Use case Toevoegen persoon}
+\newpage
+\section{Toevoegen persoon}
+\subsection{Use case}
 Een gebruiker voegt een persoon toe.
 
 Prioriteit\\*
@@ -856,10 +863,12 @@ Alternatieve scenario’s\\*
 5A1. Het systeem geeft een melding\\*
 5A2. Terug naar stap 4.\\*
 
-\section{Sequence Diagram Toevoegen persoon}
+\subsection{Sequence Diagram Toevoegen persoon}
 \includegraphics[width=\textwidth]{images/persoontoevoegen.png}
 
-\section{Use case Versturen Van Vriendschapsverzoek}
+\newpage
+\section{Versturen Van Vriendschapsverzoek}
+\subsection{Use case Versturen Van Vriendschapsverzoek}
 Een gebruiker verzendt een vriendschapsverzoek.
 
 Prioriteit\\*
@@ -895,18 +904,18 @@ Alternatieve scenario’s\\*
 4A2. Terug naar stap 2.\\*
 
 Statuscode weigering is 2, verzoek 0 en geaccepteerd 1.
-\section{Sequence Diagram Versturen Van Vriendschapsverzoek}
+\subsection{Sequence Diagram Versturen Van Vriendschapsverzoek}
 \includegraphics[width=\textwidth]{images/sendfriendrequest.png}
 
 
-\chapter{Interessante Ontwerpbeslissingen}
-\subsection{Best Practice}
+\chapter{Ontwerpbeslissingen}
+\section{Best Practice}
 \subsection{JSP vs Servlets}
 Voor de WebApplicatie kan er zowel in de JSP-pagina's als in de Servlets Java-code worden geschreven. Dit kan er al snel voor zorgen dat de code onoverzichtelijk wordt omdat ze her en der verspreid is.
 
 Wij hebben er voor gekozen om de Java-code binnen de Servlets te houden. Dit zorgt er voor dat de code gecentraliseerd blijft en gemakkelijker te onderhouden is. In de JSP-pagina's wordt de informatie die verkregen wordt via requests of sessies verwerkt met de JSTL-bibliotheek. Dankzij de eenvoudige html-syntax integreert deze gemakkelijk met de rest van de code.
 
-\chapter{Interessante Implementatiekeuzes}
+\chapter{Implementatiekeuzes}
 \section{Bibliotheken}
 \subsection{Jersey}
 
@@ -930,9 +939,7 @@ De facade pattern is ideaal bij het werken met een groot aantal onderling afhank
 De onderliggende logging backend van SLFJ4J wordt bepaald op runtime door het toevoegen van de gewenste binding aan het classpath ( java.util.logging).
 Om gebruik te maken van SLF4J moet je de slf4j-api-1.7.7.jar en slf4j-simple-1.7.7.jar plaatsen in de classpath van het project.
 Bij het volgende voorbeeld roepen we de loggerfactory op om dan vervolgens het toevoegen van een persoon te registeren :
-
-
-\includegraphics{images/logger.png}\\
+\includegraphics{images/logger.png}
 
 
 \subsection{Junit 4.x}
@@ -947,7 +954,10 @@ Aan de hand van een voorbeeld waarbij we een test unit maken voor de UserControl
 
 Om in Netbeans een JUnit test aan te maken voor de UserController navigeer je naar het tools menu en klik je op Create Tests.
 
+\begin{figure}[!htb]
 \includegraphics{images/netbeansjunit.png}\\
+\caption{SLF4J Logging}
+\end{figure}
 
 Er verschijnt een nieuw venster waarin er gevraagd wordt om een naam op te geven voor de JUnit test en welke code gegenereerd moet worden. Belangrijk hierbij is dat de class steeds moet eindigen op Test.
 
@@ -1221,7 +1231,7 @@ Het is aangeraden om voor de kritische en complexe onderdelen van uw een applica
 
 
 \chapter{Gekende problemen}
-\subsection{WebApp}
+\section{WebApp}
 \begin{enumerate}
 \item \label{it:first}Facebook share button (onderdeel van de facebook social plugins) toevoegen gaat enorm traag wanneer er enorm veel share button elementen geïnjecteerd moeten worden.
 Om deze plug-in te kunnen gebruiken wordt er gebruik gemaakt van facebook hun javascript SDK, deze wordt asynchroon geladen en zal de rendering van de pagina niet in de weg lopen.
@@ -1232,14 +1242,14 @@ Doordat de share button telkens in de page load alle elementen moet overlopen om
 \item \label{it:first}Geen paginering bij trees, vrienden, user profiles, wanneer deze veel elementen bevatten zal de pagina minder overzichtelijk worden.
 \end{enumerate}
 
-\subsection{DesktopApp}
+\section{DesktopApp}
 \begin{enumerate}
 \item \label{it:first}Wanneer een nieuwe tree aangemaakt is met een gebruiker en een image aan deze gebruiker wordt toegevoegd wordt er geen nieuwe map (met de naam van de tree) aangemaakt op de server. Daardoor zal er geen image toegevoegd worden aan de persoon.
 \end{enumerate}
 \chapter{Verbeterpunten en uitbreidingsmogelijkheden}
 
 Er zijn nog verschillende uitbreidingsmogelijkheden voor de applicatie die kunnen onderverdeeld worden volgens :
-\subsection{Gedcom}
+\section{Gedcom}
 \begin{enumerate}
 \item \label{it:first} Exporteren van gedcom bestanden
 	Op de documentatie pagina van Gedcom4j staat er een perfect voorbeeld van hoe een GEDCOM bestand kan opgesteld worden met de nodige controle door een gedcomvalidator vanaf nul.
@@ -1251,7 +1261,7 @@ Er zijn nog verschillende uitbreidingsmogelijkheden voor de applicatie die kunne
 \end{enumerate}
 
  
-\subsection{Stambomen}
+\section{Stambomen}
 \begin{enumerate}
 \item \label{it:first} Printen van een stamboom
 \item \label{it:first} Personen verplaatsen tussen stambomen
@@ -1260,7 +1270,7 @@ Er zijn nog verschillende uitbreidingsmogelijkheden voor de applicatie die kunne
 \item \label{it:first} Exporteren en importeren van stambomen in bepaalde formaten zoals pdf , word , excel ,scv ..
 \end{enumerate}
 
-\subsection{Admin}
+\section{Admin}
 
 In de huidige applicatie bestaat het admin gedeelte enkel uit een Useroverviewpanel die een overzicht bevat van alle gebruikers.
 Deze gebruikers kunnen door de admin geblokkeerd of gewijzigd worden en is er een mogelijkheid om in te loggen als een geselecteerde gebruiker om de gegevens van hun stamboom te wijzigen.

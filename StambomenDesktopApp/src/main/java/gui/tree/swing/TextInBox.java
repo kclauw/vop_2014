@@ -2,11 +2,6 @@ package gui.tree.swing;
 
 import dto.PersonDTO;
 
-/**
- * Represents a text to be displayed in a box of a given size.
- *
- * @author Udo Borkowski (ub@abego.org)
- */
 public class TextInBox
 {
 

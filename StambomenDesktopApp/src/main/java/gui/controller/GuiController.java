@@ -58,7 +58,6 @@ public class GuiController
         treeController = new TreeController(this, clientServiceController);
         addTreeController = new AddTreeController(this, clientServiceController);
         settingsController = new SettingsController(this, clientServiceController);
-
         useroverviewController = new UserOverviewController(this, clientServiceController);
         adminThemeController = new AdminThemeController(this, clientServiceController);
     }
